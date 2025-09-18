@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "subtly-dungeons",
+	"version": "${version}",
+	"name": "Subtly Dungeons",
+	"description": "WIP",
+	"authors": [
+		"Kyrin Betts (Kr1s1s9302)"
+	],
+	"contact": {
+        "issues": "https://github.com/bettskyrin/SubtlyDungeons/issues",
+		"sources": "https://github.com/bettskyrin/SubtlyDungeons"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/subtly-dungeons/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.kr1s1s.subtlyd.SubtlyDungeons"
+		],
+		"fabric-datagen": [
+			"com.kr1s1s.subtlyd.SubtlyDungeonsDataGenerator"
+		]
+	},
+	"mixins": [
+		"subtly-dungeons.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.2",
+		"minecraft": "~1.21.9-",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
