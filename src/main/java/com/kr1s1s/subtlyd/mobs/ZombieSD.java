@@ -27,6 +27,6 @@ public class ZombieSD extends Zombie {
             zombie.setCanBreakDoors(true);
         }
 
-        zombie.setHealth((20 + zombie.getMaxHealth() * f)); // Leader Zombie buff
+        zombie.setHealth(20 + zombie.getMaxHealth() * f); // Leader Zombie buff
     }
 }
