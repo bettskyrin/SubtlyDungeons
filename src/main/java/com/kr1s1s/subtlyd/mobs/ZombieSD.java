@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.mobs;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
