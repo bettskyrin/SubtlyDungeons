@@ -20,7 +20,10 @@
 		],
 		"fabric-datagen": [
 			"com.kr1s1s.subtlyd.SubtlyDungeonsDataGenerator"
-		]
+		],
+      "client": [
+        "com.kr1s1s.subtlyd.SubtlyDungeonsClient"
+      ]
 	},
 	"mixins": [
 		"subtly-dungeons.mixins.json"
