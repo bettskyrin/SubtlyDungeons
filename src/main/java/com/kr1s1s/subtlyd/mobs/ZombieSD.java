@@ -32,8 +32,7 @@ public class ZombieSD extends Zombie {
             zombie.setHealth((int) (20 + zombie.getMaxHealth() * f)); // Increase Zombie Leader health
             zombie.setCanBreakDoors(true);
         }
-
-        SubtlyDungeons.LOGGER.info(String.valueOf(zombie.getHealth())); // TODO Remove
+        SubtlyDungeons.debug(String.valueOf(zombie.getHealth())); // TODO Remove
     }
 
     public static boolean isLeader(Zombie zombie) {

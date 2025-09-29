@@ -15,6 +15,10 @@ public class SubtlyDungeons implements ModInitializer {
 
     public static final EntityDataAccessor<Boolean> DATA_LEADER_ID = SynchedEntityData.defineId(Zombie.class, EntityDataSerializers.BOOLEAN);
 
+    public static void debug (String s) {
+        LOGGER.info("Debug: " + s);
+    }
+
 
     @Override
 	public void onInitialize() {
