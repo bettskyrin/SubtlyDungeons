@@ -12,12 +12,11 @@ import net.minecraft.world.entity.monster.Drowned;
 public class DrownedRendererSD extends AbstractZombieRenderer<Drowned, ZombieRenderStateSD, DrownedModelSD> {
     private static final ResourceLocation DROWNED_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/drowned.png");
     private static final ResourceLocation DROWNED_LEADER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "textures/entity/zombie/drowned_leader.png");
-    private static final ResourceLocation HUSK_LEADER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "textures/entity/zombie/husk_leader.png");
     private final DrownedOuterLayerSD renderLayer;
 
     public DrownedRendererSD(EntityRendererProvider.Context context) {
         super(context, new DrownedModelSD(context.bakeLayer(ModelLayers.DROWNED)), new DrownedModelSD(context.bakeLayer(ModelLayers.DROWNED_BABY)), ArmorModelSet.bake(ModelLayers.DROWNED_ARMOR, context.getModelSet(), DrownedModelSD::new), ArmorModelSet.bake(ModelLayers.DROWNED_BABY_ARMOR, context.getModelSet(), DrownedModelSD::new));
-        renderLayer = new DrownedOuterLayerSD(this, context.getModelSet()); // TODO split layers
+        renderLayer = new DrownedOuterLayerSD(this, context.getModelSet());
         this.addLayer(renderLayer);
     }
 
