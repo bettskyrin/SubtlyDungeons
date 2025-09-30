@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mobs;
+package com.kr1s1s.subtlyd.mobs.zombie;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

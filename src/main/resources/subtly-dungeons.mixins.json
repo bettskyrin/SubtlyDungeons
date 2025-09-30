@@ -3,7 +3,8 @@
 	"package": "com.kr1s1s.subtlyd.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-      "ZombieMixin"
+      "ZombieMixin",
+      "RaiderMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

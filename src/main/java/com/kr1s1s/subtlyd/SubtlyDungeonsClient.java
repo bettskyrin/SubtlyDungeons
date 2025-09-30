@@ -1,8 +1,8 @@
 package com.kr1s1s.subtlyd;
 
-import com.kr1s1s.subtlyd.mobs.DrownedRendererSD;
-import com.kr1s1s.subtlyd.mobs.HuskRendererSD;
-import com.kr1s1s.subtlyd.mobs.ZombieRendererSD;
+import com.kr1s1s.subtlyd.mobs.zombie.DrownedRendererSD;
+import com.kr1s1s.subtlyd.mobs.zombie.HuskRendererSD;
+import com.kr1s1s.subtlyd.mobs.zombie.ZombieRendererSD;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.world.entity.EntityType;

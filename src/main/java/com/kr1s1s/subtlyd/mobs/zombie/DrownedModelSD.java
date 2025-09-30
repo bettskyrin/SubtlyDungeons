@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mobs;
+package com.kr1s1s.subtlyd.mobs.zombie;
 
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.ZombieModel;

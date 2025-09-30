@@ -1,11 +1,8 @@
-package com.kr1s1s.subtlyd.mobs;
+package com.kr1s1s.subtlyd.mobs.zombie;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Drowned;
 
