@@ -23,3 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - "Canon" reason: Wind only blows north to south
     - Meta reason: There's a bug in Mojang's code preventing proper block detection
     - This can help balance out flaming arrows a little
+  - Works with mobGriefing
+- Added "smart detection"
+  - Mobs can now see the player from further away when damaged by the player
+  - Mobs also struggle to see the player when under the blindness effect
+- Added Enderman scary screen effect
