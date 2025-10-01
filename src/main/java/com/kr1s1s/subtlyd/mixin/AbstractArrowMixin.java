@@ -1,12 +1,19 @@
 package com.kr1s1s.subtlyd.mixin;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,8 +35,12 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "tick", at = @At("RETURN"))
     public void tick(CallbackInfo ci) {
         boolean bl = !arrow.isNoPhysics();
-        if ((arrow.isOnFire() && this.isInGround()) && bl) {
-            setFire(arrow.blockPosition());
+        if (level.getServer() != null) {
+            if (!level.getServer().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null)) {
+
+            } else if ((arrow.isOnFire() && this.isInGround()) && bl) {
+                setFire(arrow.blockPosition());
+            }
         }
     }
 
