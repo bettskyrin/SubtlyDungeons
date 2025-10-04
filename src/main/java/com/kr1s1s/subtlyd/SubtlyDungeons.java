@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SubtlyDungeons implements ModInitializer {
-	public static final String MOD_ID = "subtly-dungeons";
-	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+	public static final String MOD_ID = "subtlyd";
+	public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
 
     public static final EntityDataAccessor<Boolean> DATA_LEADER_ID = SynchedEntityData.defineId(Zombie.class, EntityDataSerializers.BOOLEAN);
 

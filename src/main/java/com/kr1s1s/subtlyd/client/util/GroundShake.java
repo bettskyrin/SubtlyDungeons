@@ -51,10 +51,13 @@ public class GroundShake {
         Vec3 movement = entity.getKnownMovement();
 
         if (currentIntensity > 0) {
-            float offset = (random.nextFloat() - 0.5F) * (currentIntensity / 8F);
+            float offsetX = (random.nextFloat() - 0.5F) * (currentIntensity / 10F);
+            float offsetY = (random.nextFloat() - 0.5F) * (currentIntensity / 10F);
+            float offsetZ = (random.nextFloat() - 0.5F) * (currentIntensity / 10F);
 
             if (entity.onGround()) {
-                entity.setDeltaMovement(movement.x() + offset, movement.y() + offset, movement.z() + offset);
+                entity.setDeltaMovement(movement.x() + offsetX, movement.y() + offsetY, movement.z() + offsetZ);
+                entity.setDeltaMovement(movement.x() + (offsetY / 2), movement.y() + offsetZ, movement.z() + (offsetX / 2));
             }
         }
     }

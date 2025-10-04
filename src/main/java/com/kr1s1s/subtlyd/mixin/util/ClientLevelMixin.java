@@ -18,22 +18,21 @@ import java.util.List;
 @Mixin(ClientLevel.class)
 public class ClientLevelMixin {
     List<SoundEvent> powerfulSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.DRAGON_FIREBALL_EXPLODE, SoundEvents.END_PORTAL_SPAWN, SoundEvents.END_GATEWAY_SPAWN);
+    List<SoundEvent> loudSounds = List.of(SoundEvents.END_PORTAL_SPAWN, SoundEvents.END_GATEWAY_SPAWN);
 
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
     private void groundShake(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
             if (powerfulSounds.contains(soundEvent)) {
-                SubtlyDungeons.debug("Growling");
-                int maxDistance = 256;
-                float distance = (float) player.distanceToSqr(x, y, z);
-                GroundShake.shakeByDistance(40, maxDistance, distance, 5);
+                float maxDistance = 256;
+                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
+                GroundShake.shakeByDistance(40, maxDistance, distance, 2);
             }
 
             if (loudSounds.contains(soundEvent)) {
-                int maxDistance = 32;
-                float distance = (float) player.distanceToSqr(x, y, z);
+                float maxDistance = 32;
+                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
                 GroundShake.shakeByDistance(10, maxDistance, distance);
 
             }

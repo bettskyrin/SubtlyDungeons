@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mobs.zombie;
+package com.kr1s1s.subtlyd.client.entity.monster.zombie;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.mojang.blaze3d.vertex.PoseStack;

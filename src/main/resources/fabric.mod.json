@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "subtly-dungeons",
+	"id": "subtlyd",
 	"version": "${version}",
 	"name": "Subtly Dungeons",
 	"description": "WIP",
@@ -12,7 +12,7 @@
 		"sources": "https://github.com/bettskyrin/SubtlyDungeons"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/subtly-dungeons/icon.png",
+	"icon": "assets/subtlyd/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -26,7 +26,7 @@
       ]
 	},
 	"mixins": [
-		"subtly-dungeons.mixins.json"
+		"subtlyd.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.17.2",

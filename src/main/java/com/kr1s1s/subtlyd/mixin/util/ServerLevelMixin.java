@@ -2,14 +2,11 @@ package com.kr1s1s.subtlyd.mixin.util;
 
 import com.kr1s1s.subtlyd.client.util.GroundShake;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ExplosionParticleInfo;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -41,9 +38,9 @@ public class ServerLevelMixin {
             CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
         if (player != null) {
-            int maxDistance = 16;
-            float distance = (float) player.distanceToSqr(x, y, z);
-            GroundShake.shakeByDistance(15, maxDistance, distance, power);
+            float maxDistance = 16 * (float) (power / 3);
+            float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
+            GroundShake.shakeByDistance(15, maxDistance, distance, power / 3);
         }
     }
 }

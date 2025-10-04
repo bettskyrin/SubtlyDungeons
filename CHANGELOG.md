@@ -30,5 +30,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added ground shake events
   - Loud events can now shake the player a bit
   - This applies to: Ravager roars, Ender Dragon growls, Warden roars, sonic shrieks, end portal frame filling, and explosions
-
-- Added Enderman scary screen effect

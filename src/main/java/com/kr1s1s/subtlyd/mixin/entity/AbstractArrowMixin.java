@@ -19,16 +19,15 @@ public abstract class AbstractArrowMixin {
     @Shadow protected abstract boolean isInGround();
     AbstractArrow arrow = (AbstractArrow) (Object) (this);
     Level level = arrow.level();
-    protected  boolean wasInAir = true;
 
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     public void land(CallbackInfo ci) {
         boolean bl = !arrow.isNoPhysics();
         if (level.getServer() != null) {
-            if (!level.getServer().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null)) {
-
-            } else if ((arrow.isOnFire() && this.isInGround()) && bl) {
-                setFire(arrow.blockPosition());
+            if (!(!level.getServer().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
+                if ((arrow.isOnFire() && this.isInGround()) && bl) {
+                    setFire(arrow.blockPosition());
+                }
             }
         }
     }
@@ -65,7 +64,6 @@ public abstract class AbstractArrowMixin {
         } else if (bSAbove.ignitedByLava() && bSArrow.canBeReplaced()) {
             return 1;
         }
-
         return 0;
     }
 }

@@ -21,21 +21,23 @@ public class EntityMixin {
 
     @Inject(method = "playSound", at = @At("RETURN"))
     private void groundShake(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+        int duration = 25;
         Player player = Minecraft.getInstance().player;
         if (player != null) {
             if (powerfulSounds.contains(soundEvent)) {
                 int maxDistance = 128;
-                float distance = (float) player.distanceToSqr(entity);
-                GroundShake.shakeByDistance(20, maxDistance, distance, 8);
+                float distance = (float) player.distanceTo(entity);
+                GroundShake.shakeByDistance(duration, maxDistance, distance, 4);
             }
 
             if (loudSounds.contains(soundEvent)) {
-                int maxDistance = 32;
-                float distance = (float) player.distanceToSqr(entity);
-                GroundShake.shakeByDistance(20, maxDistance, distance, 4);
+                if (soundEvent.equals(SoundEvents.WARDEN_EMERGE)) {
+                    duration = 70;
+                }
+                int maxDistance = 16;
+                float distance = (float) player.distanceTo(entity);
+                GroundShake.shakeByDistance(duration, maxDistance, distance, 4);
             }
         }
     }
-
-
 }
