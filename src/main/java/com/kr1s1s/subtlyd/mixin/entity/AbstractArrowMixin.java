@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin;
+package com.kr1s1s.subtlyd.mixin.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;

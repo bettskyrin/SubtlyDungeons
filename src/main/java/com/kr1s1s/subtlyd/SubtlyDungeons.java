@@ -1,7 +1,9 @@
 package com.kr1s1s.subtlyd;
 
+import com.kr1s1s.subtlyd.client.util.GroundShake;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,5 +25,10 @@ public class SubtlyDungeons implements ModInitializer {
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if (client.level != null) {
+                GroundShake.tick();
+            }
+        });
 	}
 }

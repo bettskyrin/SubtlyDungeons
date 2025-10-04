@@ -3,10 +3,13 @@
 	"package": "com.kr1s1s.subtlyd.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-      "AbstractArrowMixin",
-      "RaiderMixin",
-      "ZombieMixin"
-	],
+      "entity.AbstractArrowMixin",
+      "entity.EntityMixin",
+      "entity.RaiderMixin",
+      "entity.ZombieMixin",
+      "util.ClientLevelMixin",
+      "util.ServerLevelMixin"
+    ],
 	"injectors": {
 		"defaultRequire": 1
 	},

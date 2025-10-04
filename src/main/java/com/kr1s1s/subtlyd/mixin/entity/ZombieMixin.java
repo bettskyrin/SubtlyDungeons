@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin;
+package com.kr1s1s.subtlyd.mixin.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.mobs.zombie.ZombieSD;
