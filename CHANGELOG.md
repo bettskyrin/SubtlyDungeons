@@ -20,12 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       - This is only on Normal difficulty with Level V raids or Hard difficulty with Level IV or V raids
       - The likelihood of pillagers being able to shoot flaming arrows scales with the game difficulty
         - Though for all difficulties there's a 50% chance the enchantment pillagers spawn with, is flame
-    - Raid captains now get a boost of resistance once they become a captain
+    - Raiders now get a boost of resistance once they become a captain
+      - This scales with difficulty
     
   - Flaming arrows can now ignite flammable materials
     - This is to make raids more dangerous and dynamic :)
     - Flaming arrows shot onto the east and west side of flat surfaces don't cause fire
-      - "Canon" reason: Wind only blows north to south
+      - "Lore" reason: Wind only blows north to south
       - Meta reason: There's a bug in Mojang's code preventing proper block detection
       - This can help balance out flaming arrows a little
     - Works with mobGriefing
