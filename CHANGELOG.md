@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
       - The likelihood of pillagers being able to shoot flaming arrows scales with the game difficulty
         - Though for all difficulties there's a 50% chance the enchantment pillagers spawn with, is flame
     - Raiders now get a boost of resistance once they become a captain
-      - This scales with difficulty
+      - This scales with difficulty and raid level
     
   - Flaming arrows can now ignite flammable materials
     - This is to make raids more dangerous and dynamic :)

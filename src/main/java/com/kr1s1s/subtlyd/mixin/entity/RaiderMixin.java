@@ -49,17 +49,15 @@ public class RaiderMixin {
     }
 
     private void setBoost() {
-        if (raider.isCaptain()) {
+        if (raider.isCaptain() && raider.hasActiveRaid()) {
             raider.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 3600, getCaptainBonus()));
         }
     }
 
     private int getCaptainBonus() {
-        switch (level.getDifficulty()) {
-            case HARD:
-                return 1;
-            default:
-                return 0;
+        if (level.getDifficulty() == Difficulty.HARD || raider.getCurrentRaid().getRaidOmenLevel() >= 3) {
+            return 1;
         }
+        return 0;
     }
 }
