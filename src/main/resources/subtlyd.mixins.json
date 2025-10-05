@@ -7,6 +7,7 @@
       "entity.EntityMixin",
       "entity.RaiderMixin",
       "entity.ZombieMixin",
+      "util.CameraMixin",
       "util.ClientLevelMixin",
       "util.ServerLevelMixin"
     ],

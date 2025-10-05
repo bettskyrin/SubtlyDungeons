@@ -17,26 +17,25 @@ import java.util.List;
 public class EntityMixin {
     Entity entity = (Entity) (Object) this;
     List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE);
+    List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.ENDER_DRAGON_AMBIENT);
 
     @Inject(method = "playSound", at = @At("RETURN"))
     private void groundShake(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
         int duration = 25;
+        int maxDistance = 16;
         Player player = Minecraft.getInstance().player;
         if (player != null) {
+            float distance = player.distanceTo(entity);
             if (powerfulSounds.contains(soundEvent)) {
-                int maxDistance = 128;
-                float distance = (float) player.distanceTo(entity);
-                GroundShake.shakeByDistance(duration, maxDistance, distance, 4);
+                maxDistance = 32;
+                GroundShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
                 if (soundEvent.equals(SoundEvents.WARDEN_EMERGE)) {
-                    duration = 70;
+                    duration = 110;
                 }
-                int maxDistance = 16;
-                float distance = (float) player.distanceTo(entity);
-                GroundShake.shakeByDistance(duration, maxDistance, distance, 4);
+                GroundShake.setShakeByDistance(duration, maxDistance, distance);
             }
         }
     }

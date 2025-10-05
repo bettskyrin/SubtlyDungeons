@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.mixin.util;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.util.GroundShake;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -16,25 +15,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(ClientLevel.class)
+@SuppressWarnings("unused")
 public class ClientLevelMixin {
-    List<SoundEvent> powerfulSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.END_PORTAL_SPAWN, SoundEvents.END_GATEWAY_SPAWN);
+    List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
+    List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
 
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
     private void groundShake(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
-        if (player != null) {
+
+        if (player != null){
+            int duration = 20;
+            float maxDistance = 32;
             if (powerfulSounds.contains(soundEvent)) {
-                float maxDistance = 256;
+                maxDistance = 128;
                 float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-                GroundShake.shakeByDistance(40, maxDistance, distance, 2);
+                GroundShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
-                float maxDistance = 32;
                 float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-                GroundShake.shakeByDistance(10, maxDistance, distance);
-
+                if (soundEvent.equals(SoundEvents.ENDER_DRAGON_GROWL)) {
+                    duration = 70;
+                }
+                GroundShake.setShakeByDistance(duration, maxDistance, distance);
             }
         }
     }

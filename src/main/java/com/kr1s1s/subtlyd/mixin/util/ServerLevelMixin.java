@@ -20,27 +20,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerLevel.class)
+@SuppressWarnings("unused")
 public class ServerLevelMixin {
     @Inject(method = "explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/util/random/WeightedList;Lnet/minecraft/core/Holder;)V", at = @At("RETURN"))
-    private void groundShakeExplosion(
-            @Nullable Entity entity,
-            @Nullable DamageSource damageSource,
-            @Nullable ExplosionDamageCalculator explosionDamageCalculator,
-            double x,
-            double y,
-            double z,
-            float power,
-            boolean bl, Level.ExplosionInteraction explosionInteraction,
-            ParticleOptions particleOptions,
-            ParticleOptions particleOptions2,
-            WeightedList<ExplosionParticleInfo> weightedList,
-            Holder<SoundEvent> holder,
+    private void groundShakeExplosion(@Nullable Entity entity, @Nullable DamageSource damageSource, @Nullable ExplosionDamageCalculator explosionDamageCalculator, double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction, ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList, Holder<SoundEvent> holder,
             CallbackInfo ci) {
         Player player = Minecraft.getInstance().player;
+
         if (player != null) {
-            float maxDistance = 16 * (float) (power / 3);
+            float maxDistance = 16 * (power / 3);
             float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-            GroundShake.shakeByDistance(15, maxDistance, distance, power / 3);
+            GroundShake.setShakeByDistance(15, maxDistance, distance, power / 2);
         }
     }
 }
