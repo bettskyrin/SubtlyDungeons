@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.client.entity.monster.zombie;
+package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

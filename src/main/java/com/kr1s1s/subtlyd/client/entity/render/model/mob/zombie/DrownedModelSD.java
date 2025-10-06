@@ -1,5 +1,6 @@
-package com.kr1s1s.subtlyd.client.entity.monster.zombie;
+package com.kr1s1s.subtlyd.client.entity.render.model.mob.zombie;
 
+import com.kr1s1s.subtlyd.client.entity.render.layers.zombie.ZombieRenderStateSD;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;

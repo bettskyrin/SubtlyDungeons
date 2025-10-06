@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.client.entity.monster.zombie;
+package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.minecraft.client.model.ZombieModel;
