@@ -13,7 +13,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Zombie hoard leaders now have increased health
   - This fixes a long-running bug
   - The zombie leader's health scales based on local difficulty (i.e. they get stronger the more you play), ranging from 10 Hearts (20HP) to 50 Hearts (100HP)
-  - Leader zombies, drowned, and husks have a unique texture to help differentiate them from the normal versions
       
 - Raids have been tweaked
   - Pillagers may now shoot flaming arrows
@@ -40,3 +39,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added camera shake events
   - Loud events can now shake the camera
   - This applies to: Ravager roars, Ender Dragon roars and growls, the Warden roar, emergence, and sonic shriek, end gateway creation, lightning strikes, and explosions
+
+- Leader zombies, drowned, and husks have a unique texture to help differentiate them from the normal versions
