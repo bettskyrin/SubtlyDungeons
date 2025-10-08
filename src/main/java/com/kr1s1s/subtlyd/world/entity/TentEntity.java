@@ -1,19 +1,19 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -23,21 +23,24 @@ import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier.Builder;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.scores.PlayerTeam;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 
 
-public class TentEntity extends LivingEntity {
+public class TentEntity extends LivingEntitySD {
     private final Supplier<Item> dropItem;
     public long lastHit;
+    public static Boolean occupied;
 
-    public TentEntity(EntityType<? extends LivingEntity> entityType, Level level, Supplier<Item> supplier) {
+    public TentEntity(EntityType<? extends LivingEntitySD> entityType, Level level, Supplier<Item> supplier) {
         super(entityType, level);
         this.dropItem = supplier;
+        occupied = false;
     }
 
     public static final ResourceKey<EntityType<?>> WHITE_TENT_ENTITY = ResourceKey.create(Registries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.WHITE.getName()));
@@ -149,7 +152,26 @@ public class TentEntity extends LivingEntity {
         }
     }
 
-    // TODO Add sleep logic
+    @Override
+    public InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
+        ItemStack itemStack = player.getItemInHand(interactionHand);
+
+        if (player.level().isClientSide()) {
+            return InteractionResult.SUCCESS_SERVER;
+        } else {
+             if (occupied) {
+                player.displayClientMessage(Component.translatable("entity.subtlyd.tent.occupied"), true);
+                return InteractionResult.SUCCESS_SERVER;
+            } else {
+                if (!BedBlock.canSetSpawn(level())) {
+                    // TODO Random time if others are sleeping
+                }
+                LivingEntitySD.startSleepingTent(this, player);
+                return InteractionResult.SUCCESS_SERVER;
+            }
+        }
+    }
+
 
     public static Builder createAttributes() {
         return createLivingAttributes().add(Attributes.KNOCKBACK_RESISTANCE, 1.0).add(Attributes.MAX_HEALTH, 4);

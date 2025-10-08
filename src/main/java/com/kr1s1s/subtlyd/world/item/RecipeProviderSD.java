@@ -22,6 +22,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
     @Override
     public String getName() {
-        return "";
+        return "Subtly Dungeons Recipe Provider";
     }
 }

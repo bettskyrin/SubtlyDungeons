@@ -1,4 +1,3 @@
-// In: java/com/kr1s1s/subtlyd/client/render/entity/model/TentModel.java
 package com.kr1s1s.subtlyd.client.entity.render.model;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
@@ -15,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TentModel extends EntityModel<TentRenderState> {
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(
-            ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "tent"), "main"
+            ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "white_tent"), "main"
     );
 
     private final ModelPart root;

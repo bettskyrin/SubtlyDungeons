@@ -5,6 +5,7 @@
 	"mixins": [
       "entity.AbstractArrowMixin",
       "entity.EntityMixin",
+      "entity.LivingEntityMixin",
       "entity.RaiderMixin",
       "entity.ZombieMixin",
       "util.CameraMixin",
