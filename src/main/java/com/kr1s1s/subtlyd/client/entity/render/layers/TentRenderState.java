@@ -7,6 +7,7 @@ import net.minecraft.world.item.DyeColor;
 
 public class TentRenderState extends EntityRenderState {
     public float scale;
+    public boolean hasRedOverlay;
     public float yRot;
     public float xRot;
     public DyeColor color;
