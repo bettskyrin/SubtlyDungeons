@@ -2,7 +2,7 @@ package com.kr1s1s.subtlyd.world.item;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.entity.EntitySD;
-import com.kr1s1s.subtlyd.world.entity.TentEntity;
+import com.kr1s1s.subtlyd.world.entity.TentEntitySD;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,7 +25,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Consumer;
 
 public class TentItem extends Item {
-    public TentItem(EntityType<TentEntity> entityType, Properties properties) {
+    public TentItem(EntityType<TentEntitySD> entityType, Properties properties) {
         super(properties);
     }
 
@@ -37,21 +37,20 @@ public class TentItem extends Item {
         BlockPos blockPos = blockPlaceContext.getClickedPos();
         Direction direction = useOnContext.getClickedFace();
         Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
-        AABB aABB = EntitySD.WHITE_TENT.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+        AABB aABB = EntitySD.TENT.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
         if (direction == Direction.DOWN) {
             return InteractionResult.FAIL;
         } else {
             if (level.noCollision(null, aABB) && level.getEntities(null, aABB).isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
-                    Consumer<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, useOnContext.getPlayer());
-                    TentEntity tentEntity = EntitySD.WHITE_TENT.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+                    Consumer<TentEntitySD> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, useOnContext.getPlayer());
+                    TentEntitySD tentEntity = EntitySD.TENT.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
                     if (tentEntity == null) {
                         return InteractionResult.FAIL;
                     }
                     float f = useOnContext.getHorizontalDirection().get2DDataValue() + Mth.floor((Mth.wrapDegrees(useOnContext.getRotation()) / 45.0F) * 45.0F - 90.0F);
-                    SubtlyDungeons.debug("Running");
                     tentEntity.lookAt(EntityAnchorArgument.Anchor.EYES, useOnContext.getPlayer().getEyePosition());
                     tentEntity.setYRot(tentEntity.getYRot() - 135.0F);
                     serverLevel.addFreshEntityWithPassengers(tentEntity);

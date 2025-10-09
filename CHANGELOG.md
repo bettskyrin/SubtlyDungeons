@@ -33,7 +33,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Tent
   - Can be slept in at any time, to skip to either day or nighttime
   - Does not reset your spawn point
-  - Can also lead to deaths by \[INTENTIONAL GAME DESIGN]
 
 #### Visuals
 - Added camera shake events

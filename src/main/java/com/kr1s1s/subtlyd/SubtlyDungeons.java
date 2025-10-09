@@ -38,6 +38,6 @@ public class SubtlyDungeons implements ModInitializer {
         });
 
         ItemsSD.registerItems();
-        EntitySD.registerEntities();
+        //EntitySD.registerEntities();
     }
 }

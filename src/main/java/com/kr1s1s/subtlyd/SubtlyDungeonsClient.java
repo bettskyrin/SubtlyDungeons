@@ -22,7 +22,7 @@ public class SubtlyDungeonsClient implements ClientModInitializer {
         EntityRenderers.register(EntityType.ZOMBIE, ZombieRendererSD::new);
         EntityRenderers.register(EntityType.HUSK, HuskRendererSD::new);
         EntityRenderers.register(EntityType.DROWNED, DrownedRendererSD::new);
-        EntityRenderers.register(EntitySD.WHITE_TENT, TentRenderer::new);
+        EntityRenderers.register(EntitySD.TENT, TentRenderer::new);
     }
 
     public void registerModels() {

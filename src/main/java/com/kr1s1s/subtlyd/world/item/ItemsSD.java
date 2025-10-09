@@ -14,7 +14,7 @@ import static net.minecraft.world.item.Items.registerItem;
 
 public class ItemsSD {
     public static Item WHITE_TENT =
-            WHITE_TENT = registerItem(resourceKey("white_tent"), properties -> new TentItem(EntitySD.WHITE_TENT, properties), new Item.Properties().stacksTo(1));
+            WHITE_TENT = registerItem(resourceKey("white_tent"), properties -> new TentItem(EntitySD.TENT, properties), new Item.Properties().stacksTo(1));
     private static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, name));
     }

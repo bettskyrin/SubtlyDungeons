@@ -19,23 +19,32 @@ import org.apache.commons.lang3.ArrayUtils;
 import java.util.Optional;
 
 public class LivingEntitySD extends LivingEntity {
+    private static Boolean isSleepingInTent;
     public Level level = this.level();
+
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
-    public static void startSleepingTent(TentEntity tent, Player player) {
+    public void startSleepingTent(TentEntitySD tent, Player player) {
         if (player.isPassenger()) {
             player.stopRiding();
         }
 
+        setSleepingInTent(true);
+
         BlockPos blockPos = tent.blockPosition();
-        tent.occupied = true;
+        tent.setOccupied(true);
 
         player.setPose(Pose.SLEEPING);
         player.setSleepingPos(blockPos);
         player.setDeltaMovement(Vec3.ZERO);
         player.hasImpulse = true;
+    }
+
+    public static void setSleepingInTent(Boolean bl) { isSleepingInTent = bl; }
+    public boolean isSleepingInTent() {
+        return isSleepingInTent;
     }
 
     public static Optional<Vec3> findStandUpPosition(EntityType<?> entityType, CollisionGetter collisionGetter, BlockPos blockPos, Direction direction, float f) {
