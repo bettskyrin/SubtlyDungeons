@@ -1,11 +1,14 @@
-package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
+package com.kr1s1s.subtlyd.client.renderer;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Husk;
+import org.jetbrains.annotations.NotNull;
 
 public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
     private static final ResourceLocation HUSK_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/husk.png");
@@ -15,9 +18,8 @@ public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderSta
         super(context, new ZombieModel<>(context.bakeLayer(ModelLayers.HUSK)), new ZombieModel<>(context.bakeLayer(ModelLayers.HUSK_BABY)), ArmorModelSet.bake(ModelLayers.HUSK_ARMOR, context.getModelSet(), ZombieModel::new), ArmorModelSet.bake(ModelLayers.HUSK_BABY_ARMOR, context.getModelSet(), ZombieModel::new));
     }
 
-
     @Override
-    public ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return HUSK_LEADER_LOCATION;
         }
@@ -25,7 +27,7 @@ public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderSta
     }
 
     @Override
-    public ZombieRenderStateSD createRenderState() {
+    public @NotNull ZombieRenderStateSD createRenderState() {
         return new ZombieRenderStateSD();
     }
 

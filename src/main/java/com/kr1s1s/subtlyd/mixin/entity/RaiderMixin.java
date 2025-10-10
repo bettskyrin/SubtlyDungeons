@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Raider.class)
-@SuppressWarnings("unused")
 public class RaiderMixin {
     Raider raider = (Raider) (Object) this;
     Level level = raider.level();

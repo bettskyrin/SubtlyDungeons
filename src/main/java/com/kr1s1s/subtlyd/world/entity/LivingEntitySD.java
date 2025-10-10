@@ -2,7 +2,6 @@ package com.kr1s1s.subtlyd.world.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,8 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.level.CollisionGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -26,7 +23,7 @@ public class LivingEntitySD extends LivingEntity {
         super(entityType, level);
     }
 
-    public void startSleepingTent(TentEntitySD tent, Player player) {
+    public void startSleepingTent(TentEntity tent, Player player) {
         if (player.isPassenger()) {
             player.stopRiding();
         }

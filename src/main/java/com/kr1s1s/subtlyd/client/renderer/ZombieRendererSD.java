@@ -1,6 +1,8 @@
-package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
+package com.kr1s1s.subtlyd.client.renderer;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
@@ -8,6 +10,7 @@ import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Zombie;
+import org.jetbrains.annotations.NotNull;
 
 public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
     private static final ResourceLocation ZOMBIE_LEADER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "textures/entity/zombie/zombie_leader.png");
@@ -22,7 +25,7 @@ public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRende
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return ZOMBIE_LEADER_LOCATION;
         }
@@ -30,7 +33,7 @@ public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRende
     }
 
     @Override
-    public ZombieRenderStateSD createRenderState() {
+    public @NotNull ZombieRenderStateSD createRenderState() {
         return new ZombieRenderStateSD();
     }
 

@@ -24,7 +24,7 @@ public abstract class AbstractArrowMixin {
     public void land(CallbackInfo ci) {
         boolean bl = !arrow.isNoPhysics();
         if (level.getServer() != null) {
-            if (!(!level.getServer().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
+            if (!(!level.getServer().getWorldData().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
                 if ((arrow.isOnFire() && this.isInGround()) && bl) {
                     setFire(arrow.blockPosition());
                 }

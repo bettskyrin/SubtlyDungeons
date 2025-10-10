@@ -1,23 +1,10 @@
 package com.kr1s1s.subtlyd.mixin.entity;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.world.entity.TentEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import static com.kr1s1s.subtlyd.world.entity.LivingEntitySD.findStandUpPosition;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {

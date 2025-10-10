@@ -1,7 +1,8 @@
-package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
+package com.kr1s1s.subtlyd.client.entity.render.layers;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.client.entity.render.model.mob.zombie.DrownedModelSD;
+import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.model.mob.zombie.DrownedModelSD;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.DrownedModel;
 import net.minecraft.client.model.geom.EntityModelSet;

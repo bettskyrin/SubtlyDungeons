@@ -1,5 +1,19 @@
 {
   "item.subtlyd.white_tent": "White Tent",
-  "entity.subtlyd.tent_entity": "Tent",
+  "item.subtlyd.orange_tent": "Orange Tent",
+  "item.subtlyd.magenta_tent": "Magenta Tent",
+  "item.subtlyd.light_blue_tent": "Light Blue Tent",
+  "item.subtlyd.yellow_tent": "Yellow Tent",
+  "item.subtlyd.lime_tent": "Lime Tent",
+  "item.subtlyd.pink_tent": "Pink Tent",
+  "item.subtlyd.gray_tent": "Gray Tent",
+  "item.subtlyd.light_gray_tent": "Light Gray Tent",
+  "item.subtlyd.cyan_tent": "Cyan Tent",
+  "item.subtlyd.purple_tent": "Purple Tent",
+  "item.subtlyd.blue_tent": "Blue Tent",
+  "item.subtlyd.brown_tent": "Brown Tent",
+  "item.subtlyd.green_tent": "Green Tent",
+  "item.subtlyd.red_tent": "Red Tent",
+  "item.subtlyd.black_tent": "Black Tent",
   "entity.subtlyd.tent.occupied": "This tent is occupied"
 }

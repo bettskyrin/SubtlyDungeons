@@ -1,25 +1,27 @@
-package com.kr1s1s.subtlyd.client.entity.render.layers.zombie;
+package com.kr1s1s.subtlyd.client.renderer;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.client.entity.render.model.mob.zombie.DrownedModelSD;
+import com.kr1s1s.subtlyd.client.entity.render.layers.DrownedOuterLayerSD;
+import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
+import com.kr1s1s.subtlyd.client.model.mob.zombie.DrownedModelSD;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Drowned;
+import org.jetbrains.annotations.NotNull;
 
 public class DrownedRendererSD extends AbstractZombieRenderer<Drowned, ZombieRenderStateSD, DrownedModelSD> {
     private static final ResourceLocation DROWNED_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/drowned.png");
     private static final ResourceLocation DROWNED_LEADER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "textures/entity/zombie/drowned_leader.png");
-    private final DrownedOuterLayerSD renderLayer;
 
     public DrownedRendererSD(EntityRendererProvider.Context context) {
         super(context, new DrownedModelSD(context.bakeLayer(ModelLayers.DROWNED)), new DrownedModelSD(context.bakeLayer(ModelLayers.DROWNED_BABY)), ArmorModelSet.bake(ModelLayers.DROWNED_ARMOR, context.getModelSet(), DrownedModelSD::new), ArmorModelSet.bake(ModelLayers.DROWNED_BABY_ARMOR, context.getModelSet(), DrownedModelSD::new));
-        renderLayer = new DrownedOuterLayerSD(this, context.getModelSet());
-        this.addLayer(renderLayer);
+        this.addLayer(new DrownedOuterLayerSD(this, context.getModelSet()));
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return DROWNED_LEADER_LOCATION;
         }
@@ -27,7 +29,7 @@ public class DrownedRendererSD extends AbstractZombieRenderer<Drowned, ZombieRen
     }
 
     @Override
-    public ZombieRenderStateSD createRenderState() {
+    public @NotNull ZombieRenderStateSD createRenderState() {
         return new ZombieRenderStateSD();
     }
 

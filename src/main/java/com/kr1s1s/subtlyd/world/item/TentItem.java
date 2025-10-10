@@ -1,8 +1,6 @@
 package com.kr1s1s.subtlyd.world.item;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.world.entity.EntitySD;
-import com.kr1s1s.subtlyd.world.entity.TentEntitySD;
+import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -25,8 +23,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Consumer;
 
 public class TentItem extends Item {
-    public TentItem(EntityType<TentEntitySD> entityType, Properties properties) {
+    private final EntityType<TentEntity> entityType;
+    public TentItem(EntityType<TentEntity> entityType, Properties properties) {
         super(properties);
+        this.entityType = entityType;
     }
 
     @Override
@@ -37,15 +37,15 @@ public class TentItem extends Item {
         BlockPos blockPos = blockPlaceContext.getClickedPos();
         Direction direction = useOnContext.getClickedFace();
         Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
-        AABB aABB = EntitySD.TENT.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+        AABB aABB = this.entityType.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
         if (direction == Direction.DOWN) {
             return InteractionResult.FAIL;
         } else {
             if (level.noCollision(null, aABB) && level.getEntities(null, aABB).isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
-                    Consumer<TentEntitySD> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, useOnContext.getPlayer());
-                    TentEntitySD tentEntity = EntitySD.TENT.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+                    Consumer<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, useOnContext.getPlayer());
+                    TentEntity tentEntity = this.entityType.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
                     if (tentEntity == null) {
                         return InteractionResult.FAIL;
