@@ -57,7 +57,7 @@ public class TentEntity extends Entity {
     }
 
     public static ResourceLocation getLocation(DyeColor color) {
-        return ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, color.toString() + "_tent_entity");
+        return ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, color.toString() + "_tent");
     }
 
     @Override

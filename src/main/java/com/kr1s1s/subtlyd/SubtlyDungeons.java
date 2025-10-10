@@ -25,12 +25,12 @@ public class SubtlyDungeons implements ModInitializer {
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
+        ItemsSD.registerItems();
+
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.level != null) {
                 GroundShake.tick();
             }
         });
-
-        ItemsSD.registerItems();
     }
 }
