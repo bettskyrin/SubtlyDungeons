@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_minecraft:light_gray_wool": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:light_gray_wool"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "subtlyd:light_gray_tent"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_minecraft:light_gray_wool"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "subtlyd:light_gray_tent"
+    ]
+  }
+}

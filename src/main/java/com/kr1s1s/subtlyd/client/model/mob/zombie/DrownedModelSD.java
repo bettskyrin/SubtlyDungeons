@@ -14,12 +14,12 @@ public class DrownedModelSD extends ZombieModel<ZombieRenderStateSD> {
     @Override
     public void setupAnim(ZombieRenderStateSD zombieRenderState) {
         super.setupAnim(zombieRenderState);
-        if (zombieRenderState.leftArmPose == ArmPose.THROW_SPEAR) {
+        if (zombieRenderState.leftArmPose == ArmPose.THROW_TRIDENT) {
             this.leftArm.xRot = this.leftArm.xRot * 0.5F - (float) Math.PI;
             this.leftArm.yRot = 0.0F;
         }
 
-        if (zombieRenderState.rightArmPose == ArmPose.THROW_SPEAR) {
+        if (zombieRenderState.rightArmPose == ArmPose.THROW_TRIDENT) {
             this.rightArm.xRot = this.rightArm.xRot * 0.5F - (float) Math.PI;
             this.rightArm.yRot = 0.0F;
         }

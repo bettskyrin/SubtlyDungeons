@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "tent_wool",
+  "key": {
+    "#": "minecraft:black_wool",
+    "X": "minecraft:stick"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "#X#"
+  ],
+  "result": {
+    "count": 1,
+    "id": "subtlyd:black_tent"
+  }
+}

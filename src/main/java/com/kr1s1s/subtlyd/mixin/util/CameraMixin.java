@@ -5,6 +5,7 @@ import com.kr1s1s.subtlyd.client.util.GroundShake;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,7 +21,7 @@ public abstract class CameraMixin {
     @Shadow protected abstract void setRotation(float y, float x);
 
     @Inject(method = "setup", at = @At("TAIL"))
-    private void applyCameraShake(BlockGetter blockGetter, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
+    private void applyCameraShake(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
         float intensity = GroundShake.getShake();
 
         if (intensity > 0) {

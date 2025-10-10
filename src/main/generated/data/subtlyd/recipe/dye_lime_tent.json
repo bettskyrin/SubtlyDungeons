@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "tent_dye",
+  "ingredients": [
+    "minecraft:lime_dye",
+    [
+      "subtlyd:white_tent",
+      "subtlyd:light_gray_tent",
+      "subtlyd:gray_tent",
+      "subtlyd:black_tent",
+      "subtlyd:brown_tent",
+      "subtlyd:red_tent",
+      "subtlyd:orange_tent",
+      "subtlyd:yellow_tent",
+      "subtlyd:green_tent",
+      "subtlyd:cyan_tent",
+      "subtlyd:light_blue_tent",
+      "subtlyd:blue_tent",
+      "subtlyd:purple_tent",
+      "subtlyd:magenta_tent",
+      "subtlyd:pink_tent"
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "subtlyd:lime_tent"
+  }
+}

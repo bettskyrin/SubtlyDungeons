@@ -10,7 +10,7 @@ import net.minecraft.world.item.*;
 
 import java.util.List;
 
-import static net.minecraft.world.item.Items.registerItem;
+import static net.minecraft.world.item.Items.*;
 
 public class ItemsSD {
     public static Item WHITE_TENT = registerItem(resourceKey("white_tent"), properties -> new TentItem(EntityTypeSD.WHITE_TENT, properties), new Item.Properties().stacksTo(1));
@@ -30,7 +30,9 @@ public class ItemsSD {
     public static Item MAGENTA_TENT = registerItem(resourceKey("magenta_tent"), properties -> new TentItem(EntityTypeSD.MAGENTA_TENT, properties), new Item.Properties().stacksTo(1));
     public static Item PINK_TENT = registerItem(resourceKey("pink_tent"), properties -> new TentItem(EntityTypeSD.PINK_TENT, properties), new Item.Properties().stacksTo(1));
 
-    public static List<ItemStack> TENT_ITEM_FAMILY = List.of(WHITE_TENT.getDefaultInstance(), LIGHT_GRAY_TENT.getDefaultInstance(), GRAY_TENT.getDefaultInstance(), BLACK_TENT.getDefaultInstance(), BROWN_TENT.getDefaultInstance(), RED_TENT.getDefaultInstance(), ORANGE_TENT.getDefaultInstance(), YELLOW_TENT.getDefaultInstance(), LIME_TENT.getDefaultInstance(), GREEN_TENT.getDefaultInstance(), CYAN_TENT.getDefaultInstance(), LIGHT_BLUE_TENT.getDefaultInstance(), BLUE_TENT.getDefaultInstance(), PURPLE_TENT.getDefaultInstance(), MAGENTA_TENT.getDefaultInstance(), PINK_TENT.getDefaultInstance());
+    public static List<Item> TENT_ITEM_FAMILY = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
+    public static List<Item> WOOL_ITEM_FAMILY = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
+    public static List<Item> DYE_ITEM_FAMILY = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
 
     private static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, name));
@@ -38,11 +40,16 @@ public class ItemsSD {
 
     public static void registerItems() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
-            entries.addAfter(Items.PINK_BED, TENT_ITEM_FAMILY);
+            for (Item item : TENT_ITEM_FAMILY) {
+                entries.addAfter(Items.PINK_BED, item);
+            }
+
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-            entries.addAfter(Items.PINK_BED, TENT_ITEM_FAMILY);
+            for (Item item : TENT_ITEM_FAMILY) {
+                entries.addAfter(Items.PINK_BED, item);
+            }
         });
     }
 }
