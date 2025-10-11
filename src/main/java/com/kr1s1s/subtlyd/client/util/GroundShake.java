@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.client.util;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 
@@ -14,10 +13,10 @@ public class GroundShake {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static void setShakeByDistance(int durationTicks, float maxDistance, float distance) {
-        setShakeByDistance(durationTicks, maxDistance, distance, 4);
+        setShakeByDistanceAndPower(durationTicks, maxDistance, distance, 4);
     }
 
-    public static void setShakeByDistance(int durationTicks, float maxDistance, float distance, float modifier) {
+    public static void setShakeByDistanceAndPower(int durationTicks, float maxDistance, float distance, float modifier) {
         if (distance < Math.pow(maxDistance, 2)) {
             shake(durationTicks, ((maxDistance - distance) / maxDistance) * modifier);
         }

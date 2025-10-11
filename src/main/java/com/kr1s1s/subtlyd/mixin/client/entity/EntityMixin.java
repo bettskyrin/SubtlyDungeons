@@ -36,6 +36,7 @@ public class EntityMixin {
 
             if (loudSounds.contains(soundEvent)) {
                 if (soundEvent.equals(SoundEvents.WARDEN_EMERGE)) {
+                    maxDistance = 32;
                     duration = 110;
                 }
                 GroundShake.setShakeByDistance(duration, maxDistance, distance);
