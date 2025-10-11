@@ -1,6 +1,8 @@
-package com.kr1s1s.subtlyd.mixin.util;
+package com.kr1s1s.subtlyd.mixin.client;
 
 import com.kr1s1s.subtlyd.client.util.GroundShake;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(ClientLevel.class)
+@Environment(EnvType.CLIENT)
 @SuppressWarnings("unused")
 public class ClientLevelMixin {
     List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);

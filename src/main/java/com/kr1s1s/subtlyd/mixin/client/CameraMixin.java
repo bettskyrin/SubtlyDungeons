@@ -1,10 +1,10 @@
-package com.kr1s1s.subtlyd.mixin.util;
+package com.kr1s1s.subtlyd.mixin.client;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.util.GroundShake;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,6 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
+@Environment(EnvType.CLIENT)
 @SuppressWarnings("unused")
 public abstract class CameraMixin {
     @Shadow

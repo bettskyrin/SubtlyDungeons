@@ -3,15 +3,17 @@
 	"package": "com.kr1s1s.subtlyd.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-      "entity.AbstractArrowMixin",
-      "entity.EntityMixin",
-      "entity.LivingEntityMixin",
-      "entity.RaiderMixin",
-      "entity.ZombieMixin",
-      "util.CameraMixin",
-      "util.ClientLevelMixin",
-      "util.ServerLevelMixin"
+      "server.entity.AbstractArrowMixin",
+      "server.entity.ServerPlayerMixin",
+      "server.entity.RaiderMixin",
+      "server.entity.ZombieMixin"
     ],
+  "client": [
+    "client.CameraMixin",
+    "client.ClientLevelMixin",
+    "client.EntityMixin",
+    "client.ServerLevelMixin"
+  ],
 	"injectors": {
 		"defaultRequire": 1
 	},

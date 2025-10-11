@@ -1,15 +1,19 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
@@ -25,22 +29,27 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public class TentEntity extends Entity {
     public long lastHit;
-    private Boolean occupied;
+    private boolean occupied;
+    public boolean active;
     private final Supplier<Item> dropItem;
     public static DyeColor color;
+    protected static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.FLOAT);
 
     public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor dyeColor) {
         super(entityType, level);
@@ -49,20 +58,71 @@ public class TentEntity extends Entity {
         setOccupied(false);
     }
 
-    public Boolean getOccupied() { return occupied; }
-    public void setOccupied(Boolean bl) { occupied = bl; }
-
     public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
         return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
 
     public static ResourceLocation getLocation(DyeColor color) {
         return ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, color.toString() + "_tent");
+
     }
+
+    public Boolean getOccupied() { return occupied; }
+
+    public void setOccupied(Boolean bl) { occupied = bl; }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_ID_HURT, 0);
+        builder.define(DATA_ID_HURTDIR, 1);
+        builder.define(DATA_ID_DAMAGE, 0.0F);
+    }
 
+    @Override
+    public void tick() {
+        if (this.getHurtTime() > 0) {
+            this.setHurtTime(this.getHurtTime() - 1);
+        }
+
+        if (this.getDamage() > 0.0F) {
+            this.setDamage(this.getDamage() - 1.0F);
+        }
+
+        if (!this.isRemoved()) {
+            this.pushEntities();
+        }
+        super.tick();
+    }
+
+    @Override
+    public void animateHurt(float f) {
+        this.setHurtDir(-this.getHurtDir());
+        this.setHurtTime(10);
+        this.setDamage(this.getDamage() * 11.0F);
+    }
+
+    public void setHurtDir(int i) {
+        this.entityData.set(DATA_ID_HURTDIR, i);
+    }
+
+    public void setHurtTime(int i) {
+        this.entityData.set(DATA_ID_HURT, i);
+    }
+
+    public void setDamage(float f) {
+        this.entityData.set(DATA_ID_DAMAGE, f);
+    }
+
+    public float getDamage() {
+        return this.entityData.get(DATA_ID_DAMAGE);
+    }
+
+    public int getHurtDir() {
+        return this.entityData.get(DATA_ID_HURTDIR);
+    }
+
+    public int getHurtTime() {
+        return this.entityData.get(DATA_ID_HURT);
     }
 
     @Override
@@ -75,24 +135,24 @@ public class TentEntity extends Entity {
             this.kill(serverLevel);
             return false;
         } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
-            this.broken(serverLevel, damageSource);
+            this.broken();
+            this.showBreakingParticles();
             this.kill(serverLevel);
             return false;
         } else if (damageSource.is(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
             if (this.isOnFire()) {
-                this.causeDamage(serverLevel, damageSource, 0.15F);
+                this.setDamage(0.15F);
             } else {
                 this.igniteForSeconds(5.0F);
             }
-
             return false;
         } else if (damageSource.is(DamageTypeTags.BURNS_ARMOR_STANDS)) {
-            this.causeDamage(serverLevel, damageSource, 4.0F);
+            this.setDamage(4.0F);
             return false;
         } else {
             boolean bl = damageSource.is(DamageTypeTags.CAN_BREAK_ARMOR_STAND);
             boolean bl2 = damageSource.is(DamageTypeTags.ALWAYS_KILLS_ARMOR_STANDS);
-            if (!bl && !bl2) {
+            if (!(bl || bl2)) {
                 return false;
             } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
                 return false;
@@ -107,12 +167,12 @@ public class TentEntity extends Entity {
                     serverLevel.broadcastEntityEvent(this, (byte)32);
                     this.gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
                     this.lastHit = l;
+                    this.showBreakingParticles();
                 } else {
-                    this.broken(serverLevel, damageSource);
+                    this.broken();
                     this.showBreakingParticles();
                     this.kill(serverLevel);
                 }
-
                 return true;
             }
         }
@@ -128,24 +188,37 @@ public class TentEntity extends Entity {
 
     }
 
-    private void causeDamage(ServerLevel serverLevel, DamageSource damageSource, float f) {
-        if (this.asLivingEntity() == null) {
-            SubtlyDungeons.debug("Null as living entity");
-            return;
-        }
+    protected void pushEntities() {
+        List<Entity> list = this.level().getPushableEntities(this, this.getBoundingBox());
+        if (!list.isEmpty()) {
+            if (this.level() instanceof ServerLevel serverLevel) {
+                int i = serverLevel.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+                if (i > 0 && list.size() > i - 1 && this.random.nextInt(4) == 0) {
+                    int j = 0;
 
-        float g = this.asLivingEntity().getHealth();
-        g -= f;
-        if (g <= 0.5F) {
-            this.broken(serverLevel, damageSource);
-            this.kill(serverLevel);
-        } else {
-            //this.setHealth(g);
-            this.gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
+                    for (Entity entity : list) {
+                        if (!entity.isPassenger()) {
+                            j++;
+                        }
+                    }
+
+                    if (j > i - 1) {
+                        this.hurtServer(serverLevel, this.damageSources().cramming(), 6.0F);
+                    }
+                }
+            }
+
+            for (Entity entity2 : list) {
+                this.doPush(entity2);
+            }
         }
     }
 
-    private void broken(ServerLevel serverLevel, DamageSource damageSource) {
+    protected void doPush(Entity entity) {
+        entity.push(this);
+    }
+
+    private void broken() {
         ItemStack itemStack = new ItemStack(dropItem.get());
         itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         Block.popResource(this.level(), this.blockPosition(), itemStack);
@@ -182,23 +255,39 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) { // TODO Review
+    public @NotNull InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
+        this.active = true;
         if (player.level().isClientSide()) {
             return InteractionResult.SUCCESS_SERVER;
         } else {
-
-            if (getOccupied()) {
-                player.displayClientMessage(Component.translatable("entity.subtlyd.tent.occupied"), true);
-                return InteractionResult.SUCCESS_SERVER;
-            } else {
-                if (!BedBlock.canSetSpawn(level())) {
-                    // TODO Random time if others are sleeping
+            ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
+                if (tentSleepingProblem.getMessage() != null) {
+                    player.displayClientMessage(tentSleepingProblem.getMessage(), true);
                 }
-                // player.startSleepingTent(this, player);
-                SubtlyDungeons.debug("Starting sleep");
-                return InteractionResult.SUCCESS_SERVER;
-            }
+            });
+            return InteractionResult.SUCCESS_SERVER;
         }
+    }
+
+    public static void allowTentSleep() {
+        EntitySleepEvents.ALLOW_BED.register((entity, sleepingPos, state, vanillaResult) -> {
+            if (inTentRange(entity)) {
+                return InteractionResult.SUCCESS;
+            }
+            return InteractionResult.PASS;
+        });
+
+        EntitySleepEvents.ALLOW_RESETTING_TIME.register(TentEntity::inTentRange);
+    }
+
+    public static boolean inTentRange(Entity entity) {
+        AABB box = entity.getBoundingBox().inflate(2.0);
+        return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
+    }
+
+    public static boolean inTent(Entity entity) {
+        AABB box = entity.getBoundingBox().deflate(2.0);
+        return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
     }
 
     @Override
@@ -213,7 +302,6 @@ public class TentEntity extends Entity {
     }
 
     private void playBrokenSound() {
-        SubtlyDungeons.debug(this.getEncodeId());
         this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.WOOL_BREAK, this.getSoundSource(), 1.0F, 1.0F);
     }
 
@@ -223,7 +311,7 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public boolean isPickable() { return true; }
+    public boolean isPickable() { return !this.isRemoved(); }
 
     @Override
     public ItemStack getPickResult() { return new ItemStack(this.dropItem.get()); }

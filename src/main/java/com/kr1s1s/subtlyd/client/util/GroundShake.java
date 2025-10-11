@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.client.util;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 

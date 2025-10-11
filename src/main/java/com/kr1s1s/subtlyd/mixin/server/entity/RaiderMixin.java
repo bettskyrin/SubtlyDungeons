@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.entity;
+package com.kr1s1s.subtlyd.mixin.server.entity;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;

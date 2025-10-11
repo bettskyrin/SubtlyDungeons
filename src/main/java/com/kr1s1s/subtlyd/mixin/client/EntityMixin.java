@@ -1,6 +1,8 @@
-package com.kr1s1s.subtlyd.mixin.entity;
+package com.kr1s1s.subtlyd.mixin.client;
 
 import com.kr1s1s.subtlyd.client.util.GroundShake;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -14,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.List;
 
 @Mixin(Entity.class)
+@Environment(EnvType.CLIENT)
 public class EntityMixin {
     Entity entity = (Entity) (Object) this;
     List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);

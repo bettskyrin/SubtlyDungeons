@@ -5,6 +5,7 @@ import com.kr1s1s.subtlyd.client.renderer.state.TentRenderState;
 import com.kr1s1s.subtlyd.client.model.TentModel;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -16,11 +17,11 @@ import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ARGB;
+import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.UnaryOperator;
 
 public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> implements RenderLayerParent<TentRenderState, TentModel> {
     private final TentModel model;
@@ -31,7 +32,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         super(context);
         this.model = new TentModel(context.bakeLayer(modelLayerLocation));
         this.texture = modelLayerLocation.model().withPath(string -> "textures/entity/" + string + ".png");
-        this.shadowRadius = 1.9F;
+        this.shadowRadius = 1.8F;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public void extractRenderState(TentEntity tent, TentRenderState renderState, float partialTicks) {
         super.extractRenderState(tent, renderState, partialTicks);
         renderState.scale = 1.0f;
-        renderState.yRot = 0;
+        renderState.yRot = Mth.lerp(partialTicks, tent.yRotO, tent.getYRot());
         renderState.xRot = renderState.getXRot(partialTicks);
     }
 
@@ -59,6 +60,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
 
     public void submit(TentRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
+        poseStack.mulPose(Axis.YP.rotationDegrees(270.0F - renderState.yRot));
 
         float g = renderState.scale;
         poseStack.scale(g, g, g);

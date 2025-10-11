@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.entity;
+package com.kr1s1s.subtlyd.mixin.server.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;

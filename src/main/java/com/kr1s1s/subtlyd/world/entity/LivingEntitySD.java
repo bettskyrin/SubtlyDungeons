@@ -1,93 +1,49 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.DismountHelper;
-import net.minecraft.world.level.CollisionGetter;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.ArrayUtils;
-
-import java.util.Optional;
 
 public class LivingEntitySD extends LivingEntity {
-    private static Boolean isSleepingInTent;
     public Level level = this.level();
+    public static TentEntity tentEntity;
 
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
 
-    public void startSleepingTent(TentEntity tent, Player player) {
+    public static void startSleepingSD(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
         if (player.isPassenger()) {
             player.stopRiding();
         }
 
-        setSleepingInTent(true);
-
-        BlockPos blockPos = tent.blockPosition();
-        tent.setOccupied(true);
+        BlockState blockState = player.level().getBlockState(blockPos);
+        if (blockState.getBlock() instanceof BedBlock) {
+            tent.setOccupied(true);
+        }
 
         player.setPose(Pose.SLEEPING);
+        setPosToTent(blockPos, player);
         player.setSleepingPos(blockPos);
         player.setDeltaMovement(Vec3.ZERO);
         player.hasImpulse = true;
+        setTent(tent);
     }
 
-    public static void setSleepingInTent(Boolean bl) { isSleepingInTent = bl; }
-    public boolean isSleepingInTent() {
-        return isSleepingInTent;
+    public static void setTent(TentEntity tent) {
+        tentEntity = tent;
     }
 
-    public static Optional<Vec3> findStandUpPosition(EntityType<?> entityType, CollisionGetter collisionGetter, BlockPos blockPos, Direction direction, float f) {
-        Direction direction2 = direction.getClockWise();
-        Direction direction3 = direction2.isFacingAngle(f) ? direction2.getOpposite() : direction2;
-        int[][] is = tentStandUpOffsets(direction, direction3);
-        Optional<Vec3> optional = findStandUpPositionAtOffset(entityType, collisionGetter, blockPos, is, true);
-
-        return optional.isPresent() ? optional : findStandUpPositionAtOffset(entityType, collisionGetter, blockPos, is, false);
+    public static TentEntity getTent() {
+        return tentEntity;
     }
 
-    private static int[][] tentStandUpOffsets(Direction direction, Direction direction2) {
-        return ArrayUtils.addAll((int[][]) tentSurroundStandUpOffsets(direction, direction2), (int[][]) tentAboveStandUpOffsets(direction));
-    }
-
-    private static int[][] tentSurroundStandUpOffsets(Direction direction, Direction direction2) {
-        return new int[][]{
-                {direction2.getStepX(), direction2.getStepZ()},
-                {direction2.getStepX() - direction.getStepX(), direction2.getStepZ() - direction.getStepZ()},
-                {direction2.getStepX() - direction.getStepX() * 2, direction2.getStepZ() - direction.getStepZ() * 2},
-                {-direction.getStepX() * 2, -direction.getStepZ() * 2},
-                {-direction2.getStepX() - direction.getStepX() * 2, -direction2.getStepZ() - direction.getStepZ() * 2},
-                {-direction2.getStepX() - direction.getStepX(), -direction2.getStepZ() - direction.getStepZ()},
-                {-direction2.getStepX(), -direction2.getStepZ()},
-                {-direction2.getStepX() + direction.getStepX(), -direction2.getStepZ() + direction.getStepZ()},
-                {direction.getStepX(), direction.getStepZ()},
-                {direction2.getStepX() + direction.getStepX(), direction2.getStepZ() + direction.getStepZ()}
-        };
-    }
-
-    private static int[][] tentAboveStandUpOffsets(Direction direction) {
-        return new int[][]{{0, 0}, {-direction.getStepX(), -direction.getStepZ()}};
-    }
-
-    private static Optional<Vec3> findStandUpPositionAtOffset(EntityType<?> entityType, CollisionGetter collisionGetter, BlockPos blockPos, int[][] is, boolean bl) {
-        BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
-
-        for (int[] js : is) {
-            mutableBlockPos.set(blockPos.getX() + js[0], blockPos.getY(), blockPos.getZ() + js[1]);
-            Vec3 vec3 = DismountHelper.findSafeDismountLocation(entityType, collisionGetter, mutableBlockPos, bl);
-            if (vec3 != null) {
-                return Optional.of(vec3);
-            }
-        }
-
-        return Optional.empty();
+    private static void setPosToTent(BlockPos blockPos, ServerPlayer player) {
+        player.setPos(blockPos.getX() + 0.5, blockPos.getY() + 0.6875, blockPos.getZ() + 0.5);
     }
 
     @Override

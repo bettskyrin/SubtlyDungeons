@@ -15,5 +15,6 @@
   "item.subtlyd.green_tent": "Green Tent",
   "item.subtlyd.red_tent": "Red Tent",
   "item.subtlyd.black_tent": "Black Tent",
-  "entity.subtlyd.tent.occupied": "This tent is occupied"
+  "entity.subtlyd.tent.occupied": "This tent is occupied",
+  "entity.subtlyd.tent.too_far_away": "You may not rest now; the tent is too far away"
 }
