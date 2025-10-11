@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
@@ -36,7 +37,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .group("apple_pie")
                         .requires(Items.APPLE)
                         .requires(Items.SUGAR)
-                        .requires(Items.EGG)
+                        .requires(ItemTags.EGGS)
                         .unlockedBy(has(Items.APPLE).toString(), has(Items.APPLE))
                         .unlockedBy(has(Items.GOLDEN_APPLE).toString(), has(Items.GOLDEN_APPLE))
                         .unlockedBy(has(Items.ENCHANTED_GOLDEN_APPLE).toString(), has(Items.ENCHANTED_GOLDEN_APPLE))

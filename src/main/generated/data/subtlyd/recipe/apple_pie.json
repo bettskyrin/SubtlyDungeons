@@ -5,7 +5,7 @@
   "ingredients": [
     "minecraft:apple",
     "minecraft:sugar",
-    "minecraft:egg"
+    "#minecraft:eggs"
   ],
   "result": {
     "count": 1,
