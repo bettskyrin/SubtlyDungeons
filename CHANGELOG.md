@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0-alpha.1] - 10/11/2025
 
 ### Added
 
@@ -30,10 +30,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This can help balance out flaming arrows a little
   - Works with mobGriefing
 
-- Added Tent
+- Tent
   - Can be slept in at any time, to skip to either day or nighttime
   - Does not reset your spawn point
   - Has 16 color variants
+
+#### Food
+- Apple Pie
+  - Can be crafted with an apple, sugar, and egg
+  - Restores 8 hunger points
+  - Restores 4.8 saturation points
+  - There's a chance to find it in plains villager houses
+  - Heroes of the Village have a chance to be thrown one by farmer villagers
+
+- Calamari
+  - Drops from squid, glow squid, or, more rarely, polar bears
+  - Can be fished for
+  - Restores 3 hunger points
+  - Restores 0.6 saturation points
+  - Can be fed to cats and wolves
+  - There's a chance to find it in fisher cottages
+  - Heroes of the Village have a chance to be thrown one by fisherman villagers
+
+- Cooked Calamari
+    - Drops from burning squid, glow squid, or, more rarely, polar bears
+    - Can be cooked from calamari
+    - Restores 5 hunger points
+    - Restores 6 saturation points
+    - Can be fed to wolves
+    - There's a chance to find it in fisher cottages
+    - Heroes of the Village have a chance to be thrown one by fisherman villagers
 
 #### Visuals
 - Added camera shake events
