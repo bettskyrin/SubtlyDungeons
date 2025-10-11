@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.client;
+package com.kr1s1s.subtlyd.mixin.client.multiplayer;
 
 import com.kr1s1s.subtlyd.client.util.GroundShake;
 import net.fabricmc.api.EnvType;

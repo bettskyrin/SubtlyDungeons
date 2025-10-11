@@ -3,10 +3,10 @@ package com.kr1s1s.subtlyd.world.entity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 public class LivingEntitySD extends LivingEntity {
     public Level level = this.level();
@@ -21,9 +21,13 @@ public class LivingEntitySD extends LivingEntity {
             player.stopRiding();
         }
 
-        BlockState blockState = player.level().getBlockState(blockPos);
-        if (blockState.getBlock() instanceof BedBlock) {
-            tent.setOccupied(true);
+        for (Player otherPlayer : player.level().players()) {
+            if (TentEntity.inTent(otherPlayer, tent) && otherPlayer.isSleeping()) {
+                tent.setOccupied(true);
+                break;
+            } else {
+                tent.setOccupied(false);
+            }
         }
 
         player.setPose(Pose.SLEEPING);
@@ -31,6 +35,7 @@ public class LivingEntitySD extends LivingEntity {
         player.setSleepingPos(blockPos);
         player.setDeltaMovement(Vec3.ZERO);
         player.hasImpulse = true;
+
         setTent(tent);
     }
 
@@ -46,8 +51,7 @@ public class LivingEntitySD extends LivingEntity {
         player.setPos(blockPos.getX() + 0.5, blockPos.getY() + 0.6875, blockPos.getZ() + 0.5);
     }
 
-    @Override
-    public HumanoidArm getMainArm() {
+    @Override public @Nullable HumanoidArm getMainArm() {
         return null;
     }
 }

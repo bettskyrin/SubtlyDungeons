@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -44,7 +45,6 @@ import java.util.function.Supplier;
 public class TentEntity extends Entity {
     public long lastHit;
     private boolean occupied;
-    public boolean active;
     private final Supplier<Item> dropItem;
     public static DyeColor color;
     protected static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
@@ -58,13 +58,12 @@ public class TentEntity extends Entity {
         setOccupied(false);
     }
 
-    public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
-    }
-
     public static ResourceLocation getLocation(DyeColor color) {
         return ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, color.toString() + "_tent");
+    }
 
+    public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
 
     public Boolean getOccupied() { return occupied; }
@@ -178,15 +177,9 @@ public class TentEntity extends Entity {
         }
     }
 
-    @Override
-    protected void readAdditionalSaveData(ValueInput valueInput) {
+    @Override protected void readAdditionalSaveData(ValueInput valueInput) { }
 
-    }
-
-    @Override
-    protected void addAdditionalSaveData(ValueOutput valueOutput) {
-
-    }
+    @Override protected void addAdditionalSaveData(ValueOutput valueOutput) { }
 
     protected void pushEntities() {
         List<Entity> list = this.level().getPushableEntities(this, this.getBoundingBox());
@@ -256,7 +249,6 @@ public class TentEntity extends Entity {
 
     @Override
     public @NotNull InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
-        this.active = true;
         if (player.level().isClientSide()) {
             return InteractionResult.SUCCESS_SERVER;
         } else {
@@ -277,7 +269,7 @@ public class TentEntity extends Entity {
             return InteractionResult.PASS;
         });
 
-        EntitySleepEvents.ALLOW_RESETTING_TIME.register(TentEntity::inTentRange);
+        EntitySleepEvents.ALLOW_RESETTING_TIME.register((entity) -> true);
     }
 
     public static boolean inTentRange(Entity entity) {
@@ -286,8 +278,13 @@ public class TentEntity extends Entity {
     }
 
     public static boolean inTent(Entity entity) {
-        AABB box = entity.getBoundingBox().deflate(2.0);
+        AABB box = entity.getBoundingBox().deflate(1.0);
         return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
+    }
+
+    public static boolean inTent(Entity entity, TentEntity tent) {
+        AABB box = entity.getBoundingBox().deflate(1.0);
+        return !(entity.level().getEntities(tent, box).isEmpty());
     }
 
     @Override

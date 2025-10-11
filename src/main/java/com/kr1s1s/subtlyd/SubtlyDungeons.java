@@ -4,7 +4,6 @@ import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;

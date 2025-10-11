@@ -10,9 +10,10 @@
     ],
   "client": [
     "client.CameraMixin",
-    "client.ClientLevelMixin",
-    "client.EntityMixin",
-    "client.ServerLevelMixin"
+    "client.multiplayer.ClientLevelMixin",
+    "client.entity.EntityMixin",
+    "client.entity.player.PlayerMixin",
+    "client.multiplayer.ServerLevelMixin"
   ],
 	"injectors": {
 		"defaultRequire": 1
