@@ -1,0 +1,54 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:apple]=minecraft:apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:enchanted_golden_apple]=minecraft:enchanted_golden_apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:enchanted_golden_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:golden_apple]=minecraft:golden_apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:golden_apple"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "subtlyd:apple_pie"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:apple]=minecraft:apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:golden_apple]=minecraft:golden_apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@790888dc, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:enchanted_golden_apple]=minecraft:enchanted_golden_apple}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "subtlyd:apple_pie"
+    ]
+  }
+}

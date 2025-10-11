@@ -2,6 +2,7 @@ package com.kr1s1s.subtlyd;
 
 import com.kr1s1s.subtlyd.data.ModelProviderSD;
 import com.kr1s1s.subtlyd.data.RecipeProviderSD;
+import com.kr1s1s.subtlyd.tags.ItemTagProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
@@ -12,5 +13,6 @@ public class SubtlyDungeonsDataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(RecipeProviderSD::new);
         pack.addProvider(ModelProviderSD::new);
+        pack.addProvider(ItemTagProvider::new);
 	}
 }

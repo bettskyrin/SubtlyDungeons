@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd;
 
+import com.kr1s1s.subtlyd.data.loot.packs.LootSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.api.ModInitializer;
@@ -25,6 +26,7 @@ public class SubtlyDungeons implements ModInitializer {
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
         ItemsSD.registerItems();
+        LootSD.modify();
         TentEntity.allowTentSleep();
     }
 }

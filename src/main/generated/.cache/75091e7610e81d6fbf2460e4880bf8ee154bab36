@@ -1,7 +1,10 @@
 // 25w41a	-999999999-01-01T00:00:00	Subtly Dungeons/Model Definitions
+2910728cedcefa62534985cade32d90262af79e6 assets/subtlyd/items/apple_pie.json
 fd5cb6c164b6365b89fc09e7b6804843e92ae44f assets/subtlyd/items/black_tent.json
 29d08f1d3df1f4172c1cb357ca2bc846ba69f6f5 assets/subtlyd/items/blue_tent.json
 22c35fa33393a08d86f52ef5dc636e2586554c0d assets/subtlyd/items/brown_tent.json
+f9bb8fcfb8e5b2455b75eab6c24b2dbad874bfec assets/subtlyd/items/calamari.json
+664667b2ef0d2b476594daffe3a34e441f8bc768 assets/subtlyd/items/cooked_calamari.json
 42a49846bb43b77cdd958d91f1dc05348684be16 assets/subtlyd/items/cyan_tent.json
 0e9c0651ff2940bd0277a56f0c1f67d6d96cb19c assets/subtlyd/items/gray_tent.json
 4bf8ec193692d5e677a2823efe58b6bb6846f6f5 assets/subtlyd/items/green_tent.json
@@ -15,9 +18,12 @@ eb79bd421a1997a4f2a19112e753af84004738e0 assets/subtlyd/items/pink_tent.json
 7c447e1264d36b36df8fdfa55fe11e97e49bb480 assets/subtlyd/items/red_tent.json
 5d8135f132372ffbd9642befe2979e0e52dd1ad8 assets/subtlyd/items/white_tent.json
 c5a75a4a0aaec2cb4893dde1ec9158fc43abb89d assets/subtlyd/items/yellow_tent.json
+f4cd7cc206507202066b20ad69cbcc9cdb930d39 assets/subtlyd/models/item/apple_pie.json
 d4c7ca1ccbb7b97290adf7517b012427ab4510cd assets/subtlyd/models/item/black_tent.json
 114b003e40306cbc9e5683a2ce36f12f1aab3774 assets/subtlyd/models/item/blue_tent.json
 e9bb764bb3320332f3065743cd366520ef1cea52 assets/subtlyd/models/item/brown_tent.json
+08da08bc96137b120f79eba8409d23c5344944d9 assets/subtlyd/models/item/calamari.json
+c1909153a7bc6110019eda216ff31f82bb8ff115 assets/subtlyd/models/item/cooked_calamari.json
 5a0b2816f767e854fc9f8de65c71fdf9084f084f assets/subtlyd/models/item/cyan_tent.json
 24379ca59491cfff165efce45c1cb0b5d18c9d8e assets/subtlyd/models/item/gray_tent.json
 5d11dde990893892b6a2353ee4fae6e3f41f01a2 assets/subtlyd/models/item/green_tent.json

@@ -24,5 +24,8 @@ public class ModelProviderSD extends FabricModelProvider {
         for (Item item : ItemsSD.TENT_ITEM_FAMILY) {
             itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
+        itemModelGenerator.generateFlatItem(ItemsSD.APPLE_PIE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.CALAMARI, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.COOKED_CALAMARI, ModelTemplates.FLAT_ITEM);
     }
 }

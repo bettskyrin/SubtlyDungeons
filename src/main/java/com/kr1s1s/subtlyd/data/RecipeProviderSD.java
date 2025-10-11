@@ -8,6 +8,10 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +32,22 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                     tentBuilderFromWool(ItemsSD.TENT_ITEM_FAMILY.get(i), ItemsSD.WOOL_ITEM_FAMILY.get(i));
                 }
                 colorItemWithDye(ItemsSD.DYE_ITEM_FAMILY, ItemsSD.TENT_ITEM_FAMILY, "tent_dye", RecipeCategory.MISC);
+                this.shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
+                        .group("apple_pie")
+                        .requires(Items.APPLE)
+                        .requires(Items.SUGAR)
+                        .requires(Items.EGG)
+                        .unlockedBy(has(Items.APPLE).toString(), has(Items.APPLE))
+                        .unlockedBy(has(Items.GOLDEN_APPLE).toString(), has(Items.GOLDEN_APPLE))
+                        .unlockedBy(has(Items.ENCHANTED_GOLDEN_APPLE).toString(), has(Items.ENCHANTED_GOLDEN_APPLE))
+                        .save(exporter);
+
+                this.cookRecipesSD("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
+                this.cookRecipesSD("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+            }
+
+            public <T extends AbstractCookingRecipe> void cookRecipesSD(String string, RecipeSerializer<T> recipeSerializer, AbstractCookingRecipe.Factory<T> factory, int i) {
+                this.simpleCookingRecipe(string, recipeSerializer, factory, i, ItemsSD.CALAMARI, ItemsSD.COOKED_CALAMARI, 0.35F);
             }
 
             public void tentBuilderFromWool(ItemLike tentOutput, ItemLike wool) {
@@ -38,7 +58,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern(" # ")
                         .pattern("#X#")
                         .pattern("#X#")
-                        .unlockedBy("has_" + wool.toString(), has(wool.asItem()))
+                        .unlockedBy(has(wool.asItem()).toString(), has(wool.asItem()))
                         .save(exporter);
             }
         };

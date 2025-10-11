@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "apple_pie",
+  "ingredients": [
+    "minecraft:apple",
+    "minecraft:sugar",
+    "minecraft:egg"
+  ],
+  "result": {
+    "count": 1,
+    "id": "subtlyd:apple_pie"
+  }
+}
