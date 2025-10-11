@@ -3,6 +3,8 @@ package com.kr1s1s.subtlyd.mixin.server.entity;
 import com.kr1s1s.subtlyd.world.entity.ServerPlayerSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,14 +35,17 @@ public class ServerPlayerMixin {
                     sleepCounter = 0;
                 }
             }
-        } else {
-            player.tick(); // TODO Check
         }
     }
 
     @Inject(method = "setRespawnPosition", at = @At("HEAD"), cancellable = true)
     public void setRespawnPosition(@Nullable ServerPlayer.RespawnConfig respawnConfig, boolean bl, CallbackInfo ci) {
-        if (false) { // TODO fix beds & prevent respawn setting
+        if (respawnConfig != null) {
+            BlockState blockState = player.level().getBlockState(respawnConfig.respawnData().pos());
+            if (!(blockState.getBlock() instanceof BedBlock)) {
+                ci.cancel();
+            }
+        } else {
             ci.cancel();
         }
     }
