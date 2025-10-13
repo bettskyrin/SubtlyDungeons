@@ -5,7 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0-alpha.3] - Unreleased
+### Added
+- Fishing is now biome dependent! There's now strategy involved
+  - If the fish can't be found swimming around in the water, you probably can't fish for it!
+    - e.g. You won't find salmon in mangrove swamps, only tropical fish, so that's what you'll get from fishing
+    - Salmon can be found anywhere above ground, but chances are increased in rivers and some ocean biomes
+    - Cod love cold and/or deep waters
+    - Tropical fish and pufferfish love warm waters
+    - Squid can be found in rivers and oceans
+  - You can not fish in The End dimension anymore
+
 ### Changed
 - Doubled "Warden emerge" camera shake distance
 
@@ -38,7 +48,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Works with mobGriefing
 
 - Tent
-  - Can be slept in at any time, to skip to either day or nighttime
+  - Can be slept in at nighttime
   - Does not reset your spawn point
   - Has 16 color variants
 

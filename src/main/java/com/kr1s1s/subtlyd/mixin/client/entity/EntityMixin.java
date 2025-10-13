@@ -20,7 +20,7 @@ import java.util.List;
 public class EntityMixin {
     Entity entity = (Entity) (Object) this;
     List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.ENDER_DRAGON_AMBIENT);
+    List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
 
     @Inject(method = "playSound", at = @At("RETURN"))
     private void groundShake(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {

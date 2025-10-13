@@ -27,6 +27,7 @@ public class SubtlyDungeons implements ModInitializer {
         LOGGER.info("Initializing Subtly Dungeons");
         ItemsSD.registerItems();
         LootSD.modify();
+        LootSD.replace();
         TentEntity.allowTentSleep();
     }
 }
