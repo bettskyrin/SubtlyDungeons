@@ -14,6 +14,7 @@ c551d699f484f4a549a9566745fabf402d66b86f assets/subtlyd/items/light_blue_tent.js
 a65838c12e0472f11aa7a36730d5873a8ff3b7bc assets/subtlyd/items/magenta_tent.json
 638e38c27a87ac8c105f19b8f92b168edea811a9 assets/subtlyd/items/orange_tent.json
 eb79bd421a1997a4f2a19112e753af84004738e0 assets/subtlyd/items/pink_tent.json
+3d219298691cdc2215fd9646aaec4fa7bc3292d7 assets/subtlyd/items/pottage.json
 8c01f38e236a2f72eb0040896adfb851d9c731b8 assets/subtlyd/items/purple_tent.json
 7c447e1264d36b36df8fdfa55fe11e97e49bb480 assets/subtlyd/items/red_tent.json
 69d01f14e6530025a3a2eb6ebb53b4ab48472722 assets/subtlyd/items/unlit_campfire.json
@@ -34,6 +35,7 @@ a93c404752dd90f7a97346d6a96e399d59292c95 assets/subtlyd/models/item/lime_tent.js
 4329428dbac3513710ef229f4aa78fd0d0c1b379 assets/subtlyd/models/item/magenta_tent.json
 07a2f6942a48d9aa56785a59e04436c0faddb6e7 assets/subtlyd/models/item/orange_tent.json
 791ee825672dfbbf88a4562028c875f1a3ba9aee assets/subtlyd/models/item/pink_tent.json
+14b7808c7f6b0cb0ee49a8ce39693ff357943fbf assets/subtlyd/models/item/pottage.json
 c85ae0f075ea52b695f76d195719da4407541672 assets/subtlyd/models/item/purple_tent.json
 633cd0f0534abb418e9c420d05e081f201d2f130 assets/subtlyd/models/item/red_tent.json
 65e9f0b6587128acfba1fc6f8e1c0ba3fda68bb8 assets/subtlyd/models/item/unlit_campfire.json

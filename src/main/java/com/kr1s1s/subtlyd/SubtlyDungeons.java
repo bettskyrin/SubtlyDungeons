@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd;
 
+import com.kr1s1s.subtlyd.data.UseBlockCallbackEvents;
 import com.kr1s1s.subtlyd.data.loot.packs.LootSD;
 import com.kr1s1s.subtlyd.world.block.UnlitCampfireFunction;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
@@ -31,6 +32,6 @@ public class SubtlyDungeons implements ModInitializer {
         LootSD.modify();
         LootSD.replace();
         TentEntity.allowTentSleep();
-        UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
+        UseBlockCallbackEvents.run();
     }
 }

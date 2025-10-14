@@ -54,6 +54,18 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(has(Items.STICK).toString(), has(Items.STICK))
                         .save(exporter);
 
+                this.shapeless(RecipeCategory.FOOD, ItemsSD.POTTAGE)
+                        .group("pottage")
+                        .requires(Items.BOWL)
+                        .requires(Items.CARROT)
+                        .requires(Items.WHEAT)
+                        .requires(Items.BROWN_MUSHROOM)
+                        .unlockedBy(has(Items.CARROT).toString(), has(Items.CARROT))
+                        .unlockedBy(has(Items.WHEAT).toString(), has(Items.WHEAT))
+                        .unlockedBy(has(Items.BROWN_MUSHROOM).toString(), has(Items.BROWN_MUSHROOM))
+                        .unlockedBy(has(Items.BOWL).toString(), has(Items.BOWL))
+                        .save(exporter);
+
                 this.cookRecipesSD("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
                 this.cookRecipesSD("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
             }

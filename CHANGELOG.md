@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-alpha.3] - Unreleased
 ### Added
+#### Food
+- Added Pottage
+  - Crafted from a wheat sheaf, carrot, brown mushroom, and bowl
+  - Restores 6 hunger points and 7.2 saturation points
 #### Mechanics
 - Unlit Campfire
   - Can be crafted from sticks and logs

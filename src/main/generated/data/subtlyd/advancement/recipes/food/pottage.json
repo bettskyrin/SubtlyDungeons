@@ -1,0 +1,65 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:bowl]=minecraft:bowl}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bowl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:brown_mushroom]=minecraft:brown_mushroom}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brown_mushroom"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:carrot]=minecraft:carrot}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:carrot"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:wheat]=minecraft:wheat}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:wheat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "subtlyd:pottage"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:carrot]=minecraft:carrot}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:wheat]=minecraft:wheat}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:brown_mushroom]=minecraft:brown_mushroom}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]",
+      "Criterion[trigger=net.minecraft.advancements.critereon.InventoryChangeTrigger@1969534c, triggerInstance=TriggerInstance[player=Optional.empty, slots=Slots[occupied=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], full=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], empty=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]]], items=[ItemPredicate[items=Optional[DirectSet[[Reference{ResourceKey[minecraft:item / minecraft:bowl]=minecraft:bowl}]]], count=Ints[bounds=Bounds[min=Optional.empty, max=Optional.empty], boundsSqr=Bounds[min=Optional.empty, max=Optional.empty]], components=DataComponentMatchers[exact=[], partial={}]]]]]"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "subtlyd:pottage"
+    ]
+  }
+}
