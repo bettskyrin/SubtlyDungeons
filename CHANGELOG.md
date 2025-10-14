@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0-alpha.3] - Unreleased
 ### Added
+#### Mechanics
+- Unlit Campfire
+  - Can be crafted from sticks and logs
+  - Can be lit traditionally or with sticks (with a 70% chance to fail)
 - Fishing is now biome dependent! There's now strategy involved
   - If the fish can't be found swimming around in the water, you probably can't fish for it!
     - e.g. You won't find salmon in mangrove swamps, only tropical fish, so that's what you'll get from fishing

@@ -32,6 +32,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 for (int i = 0; i <= 15; i++) {
                     tentBuilderFromWool(ItemsSD.TENT_ITEM_FAMILY.get(i), ItemsSD.WOOL_ITEM_FAMILY.get(i));
                 }
+
                 colorItemWithDye(ItemsSD.DYE_ITEM_FAMILY, ItemsSD.TENT_ITEM_FAMILY, "tent_dye", RecipeCategory.MISC);
                 this.shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
                         .group("apple_pie")
@@ -41,6 +42,16 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(has(Items.APPLE).toString(), has(Items.APPLE))
                         .unlockedBy(has(Items.GOLDEN_APPLE).toString(), has(Items.GOLDEN_APPLE))
                         .unlockedBy(has(Items.ENCHANTED_GOLDEN_APPLE).toString(), has(Items.ENCHANTED_GOLDEN_APPLE))
+                        .save(exporter);
+
+                this.shaped(RecipeCategory.DECORATIONS, ItemsSD.UNLIT_CAMPFIRE)
+                        .group("unlit_campfire")
+                        .define('#', Items.STICK)
+                        .define('X', ItemTags.LOGS)
+                        .pattern(" # ")
+                        .pattern("#X#")
+                        .pattern("XXX")
+                        .unlockedBy(has(Items.STICK).toString(), has(Items.STICK))
                         .save(exporter);
 
                 this.cookRecipesSD("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);

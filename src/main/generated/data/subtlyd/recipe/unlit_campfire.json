@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "unlit_campfire",
+  "key": {
+    "#": "minecraft:stick",
+    "X": "#minecraft:logs"
+  },
+  "pattern": [
+    " # ",
+    "#X#",
+    "XXX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "subtlyd:unlit_campfire"
+  }
+}
