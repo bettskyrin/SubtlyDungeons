@@ -15,7 +15,6 @@ import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 import java.util.List;
 import java.util.function.BiFunction;
@@ -96,7 +95,7 @@ public class ItemsSD {
 
     public static Item registerBlockSD(Block block, BiFunction<Block, Item.Properties, Item> biFunction, Item.Properties properties, String location) {
         return registerItem(
-                blockIdToItemIdSD(location), propertiesx -> (Item)biFunction.apply(block, propertiesx), properties.useBlockDescriptionPrefix()
+                blockIdToItemIdSD(location), propertiesx -> biFunction.apply(block, propertiesx), properties.useBlockDescriptionPrefix()
         );
     }
 }

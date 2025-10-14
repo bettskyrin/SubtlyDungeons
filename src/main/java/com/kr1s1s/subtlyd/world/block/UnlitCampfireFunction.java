@@ -1,9 +1,7 @@
 package com.kr1s1s.subtlyd.world.block;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
