@@ -1,5 +1,6 @@
 {
-  "block.subtlyd.unlit_campfire": "Unlit Campfire",
+  "block.minecraft.campfire": "Lit Campfire",
+  "block.subtlyd.unlit_campfire": "Campfire",
   "item.subtlyd.apple_pie": "Apple Pie",
   "item.subtlyd.calamari": "Calamari",
   "item.subtlyd.pottage": "Pottage",

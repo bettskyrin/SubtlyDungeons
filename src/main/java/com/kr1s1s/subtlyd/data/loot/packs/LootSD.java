@@ -5,22 +5,12 @@ import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.Registry;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.component.predicates.DataComponentPredicate;
-import net.minecraft.core.component.predicates.EnchantmentsPredicate;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -32,8 +22,6 @@ import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-
-import java.util.List;
 
 public class LootSD {
     public static void modify() {
@@ -73,16 +61,6 @@ public class LootSD {
                             .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))).build();
                 });
             }
-//            else if (resourceKey.equals(Blocks.CAMPFIRE.getLootTable().orElseThrow())) { TODO
-//                LootPool.Builder unlitCampfirePool = LootPool.lootPool()
-//                        .setRolls(ConstantValue.exactly(1.0F))
-//                        .add(LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE))
-//                        .when(
-//                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE)
-//                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, false))
-//                        );
-//                unlitCampfirePool.build();
-//            }
         });
     }
 
@@ -187,16 +165,6 @@ public class LootSD {
                                             )))).setWeight(0))
                             );
                     return newFishingTable.build();
-                } else if (original.equals(Blocks.CAMPFIRE.getLootTable().orElseThrow())) {
-                    LootTable.Builder unlitCampfire = LootTable.lootTable()
-                            .withPool(
-                                    LootPool.lootPool()
-
-                                            .add(LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE).when(
-                                                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, false))
-                                            ))
-                            );
-                    return unlitCampfire.build();
                 }
                 return null;
             }));
