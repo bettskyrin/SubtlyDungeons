@@ -1,24 +1,26 @@
 package com.kr1s1s.subtlyd.data.loot.packs;
 
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
-import com.mojang.datafixers.types.templates.Check;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.advancements.critereon.EntityFlagsPredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.component.predicates.DataComponentPredicate;
+import net.minecraft.core.component.predicates.EnchantmentsPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.loot.packs.VanillaFishingLoot;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSourceParameterList;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -27,8 +29,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -72,109 +73,132 @@ public class LootSD {
                             .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))).build();
                 });
             }
+//            else if (resourceKey.equals(Blocks.CAMPFIRE.getLootTable().orElseThrow())) { TODO
+//                LootPool.Builder unlitCampfirePool = LootPool.lootPool()
+//                        .setRolls(ConstantValue.exactly(1.0F))
+//                        .add(LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE))
+//                        .when(
+//                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE)
+//                                        .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, false))
+//                        );
+//                unlitCampfirePool.build();
+//            }
         });
     }
 
     public static void replace() {
-        LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
-            HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
-            LootTable.Builder newFishingTable = LootTable.lootTable()
-                    .withPool(
-                            LootPool.lootPool()
-                                    .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.COLD_OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.FROZEN_OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.SNOWY_BEACH),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN)
-                                            ))))
-                                            .setWeight(50))
-                                    .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_OCEAN)
-                                            ))))
-                                            .setWeight(60))
-                                    .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+            LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
+                if (original.equals(BuiltInLootTables.FISHING)) {
+                    HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
+                    LootTable.Builder newFishingTable = LootTable.lootTable()
+                            .withPool(
+                                    LootPool.lootPool()
+                                            .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.COLD_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.FROZEN_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.SNOWY_BEACH),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN)
+                                                    ))))
+                                                    .setWeight(50))
+                                            .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_OCEAN)
+                                                    ))))
+                                                    .setWeight(60))
+                                            .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.FROZEN_RIVER),
+                                                            registryLookup.getOrThrow(Biomes.BEACH)
+                                                    ))))
+                                                    .setWeight(30))
+                                            .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN)
+                                                    ))))
+                                                    .setWeight(10))
+                                            .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.RIVER),
+                                                            registryLookup.getOrThrow(Biomes.FROZEN_RIVER)
+                                                    ))))
+                                                    .setWeight(60))
+                                            .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.COLD_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.FROZEN_OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.SNOWY_BEACH),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN)
+                                                    ))))
+                                                    .setWeight(40))
+                                            .add(LootItem.lootTableItem(Items.SALMON).setWeight(1))
+                                            .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.RIVER)
+                                                    ))))
+                                                    .setWeight(40))
+                                            .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                                     registryLookup.getOrThrow(Biomes.FROZEN_RIVER),
-                                                    registryLookup.getOrThrow(Biomes.BEACH)
-                                            ))))
-                                            .setWeight(30))
-                                    .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN)
-                                            ))))
-                                            .setWeight(10))
-                                    .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.RIVER),
-                                                    registryLookup.getOrThrow(Biomes.FROZEN_RIVER)
-                                            ))))
-                                            .setWeight(60))
-                                    .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.COLD_OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN),
                                                     registryLookup.getOrThrow(Biomes.FROZEN_OCEAN),
                                                     registryLookup.getOrThrow(Biomes.SNOWY_BEACH),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN)
-                                            ))))
-                                            .setWeight(40))
-                                    .add(LootItem.lootTableItem(Items.SALMON).setWeight(1))
-                                    .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.RIVER)
-                                            ))))
-                                            .setWeight(40))
-                                    .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.FROZEN_RIVER),
-                                            registryLookup.getOrThrow(Biomes.FROZEN_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.SNOWY_BEACH),
-                                            registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.COLD_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN)
-                                    )))).setWeight(10))
-                                    .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.WARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
-                                    )))).setWeight(20))
-                                    .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                                    registryLookup.getOrThrow(Biomes.OCEAN),
-                                                    registryLookup.getOrThrow(Biomes.DEEP_OCEAN)
-                                            ))))
-                                            .setWeight(40))
-                                    .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.WARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
-                                    )))).setWeight(60))
-                                    .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.LUSH_CAVES),
-                                            registryLookup.getOrThrow(Biomes.MANGROVE_SWAMP)
-                                    )))).setWeight(100))
-                                    .add(LootItem.lootTableItem(Items.PUFFERFISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.WARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
-                                            registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
-                                    )))).setWeight(20))
+                                                    registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.COLD_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.DEEP_COLD_OCEAN)
+                                            )))).setWeight(10))
+                                            .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.WARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
+                                            )))).setWeight(20))
+                                            .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                            registryLookup.getOrThrow(Biomes.OCEAN),
+                                                            registryLookup.getOrThrow(Biomes.DEEP_OCEAN)
+                                                    ))))
+                                                    .setWeight(40))
+                                            .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(Biomes.WARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
+                                            )))).setWeight(60))
+                                            .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(Biomes.LUSH_CAVES),
+                                                    registryLookup.getOrThrow(Biomes.MANGROVE_SWAMP)
+                                            )))).setWeight(100))
+                                            .add(LootItem.lootTableItem(Items.PUFFERFISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(Biomes.WARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN),
+                                                    registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
+                                            )))).setWeight(20))
 
-                            // Other Situations
-                                    .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
-                                    )))).setWeight(0))
-                                    .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
-                                    )))).setWeight(0))
-                                    .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
-                                    )))).setWeight(0))
-                                    .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
-                                    )))).setWeight(0))
-                                    .add(LootItem.lootTableItem(Items.PUFFERFISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
-                                    )))).setWeight(0))
-                                    .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
-                                            registryLookup.getOrThrow(Biomes.LUSH_CAVES)
-                                    )))).setWeight(0))
-                    );
-            return newFishingTable.build();
-        }));
+                                    // Other Situations
+                                            .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
+                                            )))).setWeight(0))
+                                            .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
+                                            )))).setWeight(0))
+                                            .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
+                                            )))).setWeight(0))
+                                            .add(LootItem.lootTableItem(Items.TROPICAL_FISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
+                                            )))).setWeight(0))
+                                            .add(LootItem.lootTableItem(Items.PUFFERFISH).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
+                                            )))).setWeight(0))
+                                            .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                                    registryLookup.getOrThrow(Biomes.LUSH_CAVES)
+                                            )))).setWeight(0))
+                            );
+                    return newFishingTable.build();
+                } else if (original.equals(Blocks.CAMPFIRE.getLootTable().orElseThrow())) {
+                    LootTable.Builder unlitCampfire = LootTable.lootTable()
+                            .withPool(
+                                    LootPool.lootPool()
+
+                                            .add(LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE).when(
+                                                    LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, false))
+                                            ))
+                            );
+                    return unlitCampfire.build();
+                }
+                return null;
+            }));
     }
 }
