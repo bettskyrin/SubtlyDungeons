@@ -1,4 +1,21 @@
 {
+  "entity.ravager.roar": {
+    "replace": true,
+    "sounds": [
+      "subtlyd:ravager/ravager_roar1",
+      "subtlyd:ravager/ravager_roar2",
+      "subtlyd:ravager/ravager_roar3",
+      "subtlyd:ravager/ravager_roar4"
+    ]
+  },
+  "entity.ravager.attack": {
+    "replace": true,
+    "sounds": [
+      "subtlyd:ravager/ravager_bite1",
+      "subtlyd:ravager/ravager_bite2",
+      "subtlyd:ravager/ravager_bite3"
+    ]
+  },
   "music.creative": {
     "replace": false,
     "sounds": [

@@ -9,14 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 #### Sounds
 - Added 3 new songs
-    - Droopy Likes Your Face by C418 (Plays in Creative Mode)
-    - Droopy Likes Ricochet by C418 (Plays in Creative Mode)
-- Added 2
+  - Droopy Likes Your Face by C418 (Plays in Creative Mode)
+  - Droopy Likes Ricochet by C418 (Plays in Creative Mode)
   - Dalarna by Peter Hont (Plays in Forest-type biomes)
   - Alone with the Sky by Crispin Hands (Plays in Forest-type and grove biomes)
 - Added cold wind ambience
     - Plays in very cold or mountainous biomes
         - Excludes the End Dimension
+- Added new Ravager roar and bite sounds
 
 ## [1.0.0-alpha.3] - 10/15/25
 #### Food
