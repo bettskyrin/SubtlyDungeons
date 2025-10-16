@@ -1,0 +1,12 @@
+{
+  "block.air.idle": {
+    "subtitle": "subtitles.subtlyd.block.air.idle",
+    "sounds": [
+      "subtlyd:howlingwind1",
+      "subtlyd:lightwind1",
+      "subtlyd:lightwind2",
+      "subtlyd:lightwind3",
+      "subtlyd:lightwind4"
+    ]
+  }
+}

@@ -10,6 +10,7 @@
     ],
   "client": [
     "client.CameraMixin",
+    "client.blocks.BlockMixin",
     "client.multiplayer.ClientLevelMixin",
     "client.entity.EntityMixin",
     "client.entity.player.PlayerMixin",

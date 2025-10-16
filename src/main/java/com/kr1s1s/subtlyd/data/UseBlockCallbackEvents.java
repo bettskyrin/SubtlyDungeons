@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.data;
 
-import com.kr1s1s.subtlyd.world.block.UnlitCampfireFunction;
+import com.kr1s1s.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 
 public class UseBlockCallbackEvents {

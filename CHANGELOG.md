@@ -5,12 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.0-alpha.3] - Unreleased
+## [1.0.0-alpha.4] - 10/17/25
 ### Added
+#### Sounds
+- Added 3 new songs
+    - Droopy Likes Your Face by C418 (Plays in Creative Mode)
+    - Droopy Likes Ricochet by C418 (Plays in Creative Mode)
+- Added 2
+  - Dalarna by Peter Hont (Plays in Forest-type biomes)
+  - Alone with the Sky by Crispin Hands (Plays in Forest-type and grove biomes)
+- Added cold wind ambience
+    - Plays in very cold or mountainous biomes
+        - Excludes the End Dimension
+
+## [1.0.0-alpha.3] - 10/15/25
 #### Food
 - Added Pottage
   - Crafted from a wheat sheaf, carrot, brown mushroom, and bowl
   - Restores 6 hunger points and 7.2 saturation points
+
 #### Mechanics
 - Unlit Campfire
 - Named "Campfire". The original "Campfire" has been renamed to "Lit Campfire"
