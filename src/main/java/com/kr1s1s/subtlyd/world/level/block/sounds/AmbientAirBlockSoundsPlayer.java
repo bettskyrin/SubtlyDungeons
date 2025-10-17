@@ -9,12 +9,13 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 @Environment(EnvType.CLIENT)
-public class AmbientMountainBlockSoundsPlayer {
+public class AmbientAirBlockSoundsPlayer {
     private static final int IDLE_SOUND_CHANCE = 2100;
     private static final int SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD = 3;
     private static final int SURROUNDING_BLOCKS_DISTANCE_HORIZONTAL_CHECK = 4;
@@ -22,13 +23,12 @@ public class AmbientMountainBlockSoundsPlayer {
     private static final int HORIZONTAL_DIRECTIONS = 4;
 
     public static void playAmbientWindSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && (level.getBiome(blockPos).is(BiomeTags.IS_MOUNTAIN)) && level.getBiome(blockPos).is(BiomeTags.SPAWNS_SNOW_FOXES)) { // TODO
+        if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && (level.getBiome(blockPos).is(Biomes.JAGGED_PEAKS) || level.getBiome(blockPos).is(BiomeTags.SPAWNS_SNOW_FOXES))) {
             if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && shouldPlayAmbientWindSound(level, blockPos)) {
                 level.playLocalSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEventsSD.WIND, SoundSource.AMBIENT, 1.0F, 1.0F, false);
             }
         }
     }
-
 
     private static boolean shouldPlayAmbientWindSound(Level level, BlockPos blockPos) {
         int i = 0;
@@ -78,6 +78,6 @@ public class AmbientMountainBlockSoundsPlayer {
     }
 
     private static boolean canTriggerAmbientWindSounds(BlockState blockState) {
-        return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE); // TODO
+        return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE);
     }
 }

@@ -8,5 +8,14 @@
       "subtlyd:wind/lightwind3",
       "subtlyd:wind/lightwind4"
     ]
+  },
+  "block.bush.idle": {
+    "subtitle": "subtitles.subtlyd.block.bush.idle",
+    "sounds": [
+      "subtlyd:wind/lightwind1",
+      "subtlyd:wind/lightwind2",
+      "subtlyd:wind/lightwind3",
+      "subtlyd:wind/lightwind4"
+    ]
   }
 }

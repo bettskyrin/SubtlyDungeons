@@ -19,18 +19,23 @@
   "music.creative": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/drippy_likes_ricochet",
+      "subtlyd:music/droopy_likes_ricochet",
       "subtlyd:music/droopy_likes_your_face"
     ]
   },
   "music.overworld.forest": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/dalarna",
-      "subtlyd:music/alone_with_the_sky"
+      "subtlyd:music/dalarna"
     ]
   },
   "music.overworld.grove": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/alone_with_the_sky"
+    ]
+  },
+  "music.overworld.jagged_peaks": {
     "replace": false,
     "sounds": [
       "subtlyd:music/alone_with_the_sky"

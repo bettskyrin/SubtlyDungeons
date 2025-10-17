@@ -5,14 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0 Simply Survival Update] - 10/17/25
+### Added
+#### Sounds
+- Added bush wind ambience
+- Added cold wind ambience to more cold biomes
+
+### Removed
+- The music track "Alone with the Sky" no longer plays in forest-type biomes
+
 ## [1.0.0-alpha.4] - 10/17/25
 ### Added
 #### Sounds
 - Added 3 new songs
   - Droopy Likes Your Face by C418 (Plays in Creative Mode)
   - Droopy Likes Ricochet by C418 (Plays in Creative Mode)
-  - Dalarna by Peter Hont (Plays in Forest-type biomes)
-  - Alone with the Sky by Crispin Hands (Plays in Forest-type and grove biomes)
+  - Dalarna by Peter Hont (Plays in forest-type biomes)
+  - Alone with the Sky by Crispin Hands (Plays in forest-type and grove biomes)
 - Added cold wind ambience
     - Plays in very cold or mountainous biomes
         - Excludes the End Dimension

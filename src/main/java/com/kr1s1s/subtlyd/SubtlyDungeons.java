@@ -2,6 +2,7 @@ package com.kr1s1s.subtlyd;
 
 import com.kr1s1s.subtlyd.data.UseBlockCallbackEvents;
 import com.kr1s1s.subtlyd.data.loot.packs.LootSD;
+import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.api.ModInitializer;

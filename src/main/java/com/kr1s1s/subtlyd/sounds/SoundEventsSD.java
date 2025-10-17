@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundEvent;
 
 public class SoundEventsSD {
     public static SoundEvent WIND = register("block.air.idle");
+    public static SoundEvent BUSH_IDLE = register("block.bush.idle");
 
     public static void init() { }
 

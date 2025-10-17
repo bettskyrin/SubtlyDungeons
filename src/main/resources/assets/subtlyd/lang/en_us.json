@@ -24,6 +24,7 @@
   "entity.subtlyd.tent.occupied": "This tent is occupied",
   "entity.subtlyd.tent.too_far_away": "You may not rest now; the tent is too far away",
   "subtitles.subtlyd.block.air.idle": "Wind blows",
+  "subtitles.subtlyd.block.bush.idle": "Wind blows gently",
   "subtlyd.music.dalarna": "Peter Hont - Dalarna",
   "subtlyd.music.alone_with_the_sky": "Crispin Hands - Alone With the Sky",
   "subtlyd.music.droopy_likes_ricochet": "C418 - Droopy Likes Ricochet",
