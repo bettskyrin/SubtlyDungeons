@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added new Ravager roar and bite sounds
 
 ## [1.0.0-alpha.3] - 10/15/25
+### Added
 #### Food
 - Added Pottage
   - Crafted from a wheat sheaf, carrot, brown mushroom, and bowl
