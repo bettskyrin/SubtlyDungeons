@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0 Simply Survival Update] - 10/17/25
 ### Added
 #### Sounds
-- Added bush wind ambience
-- Added cold wind ambience to more cold biomes
+- Added bush wind ambiance
+- Added cold wind ambiance to more cold biomes
 
 ### Removed
 - The music track "Alone with the Sky" no longer plays in forest-type biomes
