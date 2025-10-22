@@ -1,14 +1,17 @@
 package com.kr1s1s.subtlyd.data;
 
+import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplates;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.world.item.Item;
 
 public class ModelProviderSD extends FabricModelProvider {
+    //public static final BlockFamily.Builder SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB);
 
     public ModelProviderSD(FabricDataOutput output) {
         super(output);
@@ -16,7 +19,8 @@ public class ModelProviderSD extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-
+        blockStateModelGenerator.createGenericCube(BlocksSD.SNOW_BRICKS);
+        blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB);
     }
 
     @Override
@@ -29,6 +33,7 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.COOKED_CALAMARI, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(BlocksSD.SNOW_BRICKS.asItem(), ModelTemplates.FLAT_ITEM);
 
     }
 }

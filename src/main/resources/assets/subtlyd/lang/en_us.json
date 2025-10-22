@@ -1,5 +1,8 @@
 {
   "block.minecraft.campfire": "Lit Campfire",
+  "block.subtlyd.snow_bricks": "Snow Bricks",
+  "block.subtlyd.snow_brick_slab": "Snow Brick Slab",
+  "block.subtlyd.snow_brick_stairs": "Snow Brick Stairs",
   "block.subtlyd.unlit_campfire": "Campfire",
   "item.subtlyd.apple_pie": "Apple Pie",
   "item.subtlyd.calamari": "Calamari",

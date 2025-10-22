@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.item;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
 import com.kr1s1s.subtlyd.world.food.FoodsSD;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -56,6 +57,10 @@ public class ItemsSD {
     }
 
     public static void registerItems() {
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+            entries.addAfter(MUD_BRICKS, BlocksSD.SNOW_BRICKS.asItem());
+        });
+
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
             for (int i = TENT_ITEM_FAMILY.size() - 1; i >= 0; i--) {
                 entries.addAfter(Items.PINK_BED, TENT_ITEM_FAMILY.get(i));
