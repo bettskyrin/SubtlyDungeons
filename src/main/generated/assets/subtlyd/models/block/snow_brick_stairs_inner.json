@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "subtlyd:block/snow_bricks",
+    "side": "subtlyd:block/snow_bricks",
+    "top": "subtlyd:block/snow_bricks"
+  }
+}

@@ -7,12 +7,13 @@ import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.model.geom.ModelLayerLocation;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
@@ -55,7 +56,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     @Nullable
     protected RenderType getRenderType(boolean bl3) {
         ResourceLocation resourceLocation = this.texture;
-        return bl3 ? RenderType.outline(resourceLocation) : this.model.renderType(resourceLocation);
+        return bl3 ? RenderTypes.outline(resourceLocation) : this.model.renderType(resourceLocation);
     }
 
     public void submit(TentRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {

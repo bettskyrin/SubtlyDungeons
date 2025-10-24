@@ -11,7 +11,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.world.item.Item;
 
 public class ModelProviderSD extends FabricModelProvider {
-    //public static final BlockFamily.Builder SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB);
+    public static final BlockFamily SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily();
 
     public ModelProviderSD(FabricDataOutput output) {
         super(output);
@@ -19,8 +19,7 @@ public class ModelProviderSD extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-        blockStateModelGenerator.createGenericCube(BlocksSD.SNOW_BRICKS);
-        blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB);
+        blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(SNOW_BRICK_FAMILY);
     }
 
     @Override
