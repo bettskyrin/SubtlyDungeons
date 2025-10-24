@@ -11,7 +11,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.world.item.Item;
 
 public class ModelProviderSD extends FabricModelProvider {
-    public static final BlockFamily SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily();
+    private static final BlockFamily SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily();
 
     public ModelProviderSD(FabricDataOutput output) {
         super(output);
@@ -32,7 +32,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.COOKED_CALAMARI, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(BlocksSD.SNOW_BRICKS.asItem(), ModelTemplates.FLAT_ITEM);
 
     }
 }

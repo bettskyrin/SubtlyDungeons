@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "subtlyd:item/snow_bricks"
+    "model": "subtlyd:block/snow_bricks"
   }
 }
