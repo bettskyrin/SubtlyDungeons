@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.client.entity.mosnter;
+package com.kr1s1s.subtlyd.client.entity.monster;
 
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.resources.ResourceLocation;

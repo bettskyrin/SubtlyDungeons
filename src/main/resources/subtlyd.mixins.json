@@ -11,10 +11,11 @@
   "client": [
     "client.CameraMixin",
     "client.blocks.BlockMixin",
-    "client.multiplayer.ClientLevelMixin",
+    "client.level.ClientLevelMixin",
+    "client.level.ServerLevelMixin",
     "client.entity.EntityMixin",
-    "client.entity.player.PlayerMixin",
-    "client.multiplayer.ServerLevelMixin"
+    "client.entity.PlayerMixin",
+    "client.options.AccessibilityOptionsScreenMixin"
   ],
 	"injectors": {
 		"defaultRequire": 1

@@ -1,6 +1,6 @@
-package com.kr1s1s.subtlyd.mixin.client.multiplayer;
+package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.GroundShake;
+import com.kr1s1s.subtlyd.client.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -33,7 +33,7 @@ public class ClientLevelMixin {
             if (powerfulSounds.contains(soundEvent)) {
                 maxDistance = 128;
                 float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-                GroundShake.setShakeByDistance(duration, maxDistance, distance);
+                CameraShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
@@ -41,7 +41,7 @@ public class ClientLevelMixin {
                 if (soundEvent.equals(SoundEvents.ENDER_DRAGON_GROWL)) {
                     duration = 70;
                 }
-                GroundShake.setShakeByDistance(duration, maxDistance, distance);
+                CameraShake.setShakeByDistance(duration, maxDistance, distance);
             }
         }
     }

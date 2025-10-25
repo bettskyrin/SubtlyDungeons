@@ -6,7 +6,7 @@ import net.minecraft.world.entity.Entity;
 import java.util.Objects;
 
 
-public class GroundShake {
+public class CameraShake {
     private static int totalDuration = 0;
     private static int remainingDuration = 0;
     private static float intensity = 0.0F;

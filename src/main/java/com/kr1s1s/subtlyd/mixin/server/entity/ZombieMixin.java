@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.server.entity;
 
-import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
+import com.kr1s1s.subtlyd.client.entity.monster.ZombieSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.monster.Zombie;
@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Zombie.class)
+@SuppressWarnings("unused")
 public class ZombieMixin {
     Zombie zombie = (Zombie) (Object) this;
 

@@ -16,7 +16,6 @@ public class BiomeTagsSD extends BiomeTagsProvider {
         super(packOutput, completableFuture);
     }
 
-
     public static final TagKey<Biome> IS_WINDY = create("is_windy");
 
     @Override

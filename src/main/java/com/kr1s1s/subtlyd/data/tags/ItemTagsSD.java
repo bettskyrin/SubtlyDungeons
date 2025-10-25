@@ -17,6 +17,7 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
     }
 
     public static final TagKey<Item> SNOW_BRICKS = create("snow_bricks");
+    public static final TagKey<Item> TENTS = create("tents");
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
@@ -29,6 +30,8 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
                 .add(ItemsSD.SNOW_BRICKS)
                 .add(ItemsSD.SNOW_BRICK_STAIRS)
                 .add(ItemsSD.SNOW_BRICK_SLAB);
+        valueLookupBuilder(TENTS)
+            .addAll(ItemsSD.TENT_ITEM_FAMILY);
     }
 
     private static TagKey<Item> create(String string) {

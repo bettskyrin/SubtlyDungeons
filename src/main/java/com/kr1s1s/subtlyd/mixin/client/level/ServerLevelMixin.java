@@ -1,6 +1,6 @@
-package com.kr1s1s.subtlyd.mixin.client.multiplayer;
+package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.GroundShake;
+import com.kr1s1s.subtlyd.client.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -33,7 +33,7 @@ public class ServerLevelMixin {
         if (player != null) {
             float maxDistance = 16 * (power / 3);
             float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-            GroundShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
+            CameraShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
         }
     }
 }

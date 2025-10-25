@@ -1,9 +1,11 @@
 package com.kr1s1s.subtlyd.mixin.client;
 
-import com.kr1s1s.subtlyd.client.util.GroundShake;
+import com.kr1s1s.subtlyd.client.OptionsSD;
+import com.kr1s1s.subtlyd.client.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,12 +25,14 @@ public abstract class CameraMixin {
 
     @Inject(method = "setup", at = @At("TAIL"))
     private void applyCameraShake(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
-        float intensity = GroundShake.getShake();
+        if (OptionsSD.doCameraShake.get()) {
+            float intensity = CameraShake.getShake();
 
-        if (intensity > 0) {
-            float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity * 0.5F);
-            float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity * 0.5F);
-            this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
+            if (intensity > 0) {
+                float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity * 0.5F);
+                float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity * 0.5F);
+                this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
+            }
         }
     }
 }

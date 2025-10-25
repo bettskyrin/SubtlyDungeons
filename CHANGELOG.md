@@ -7,20 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0-alpha.1] - UNRELEASED
 ### Added
-- Snow Brick Block Family
-  - Snow Bricks
-    - Crafted from 4 snow blocks
-    - Best mined with a pickaxe
-  - Snow Brick Stairs
-      - Crafted from 6 snow bricks block
-  - Snow Brick Slab
-      - Crafted from 3 snow bricks block
-  - Has unique sounds
-  - Added Snow Brick block and item tags
+#### Blocks
+    - Added Snow Brick block family
+      - Snow Bricks
+        - Crafted from 4 snow blocks
+        - Best mined with a pickaxe
+      - Snow Brick Stairs
+          - Crafted from 6 snow bricks block
+      - Snow Brick Slab
+          - Crafted from 3 snow bricks block
+      - Have unique sounds
+#### Tags
+- Added new tags
+  - Added "Tents" item tag
+  - Added "Snow Bricks" block and item tags
+  - 
+#### Accessibility
+- Added new Accessibility Setting for turning off the camera shake effect
 
 ### Changed
+#### Sounds
 - Changed bush wind ambient noise to play less often
 - Ice can now trigger ambient wind noises
+
+#### Textures
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
 
 ### Fixed

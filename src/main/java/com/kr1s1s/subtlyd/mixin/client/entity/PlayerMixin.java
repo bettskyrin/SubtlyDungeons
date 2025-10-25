@@ -1,6 +1,5 @@
-package com.kr1s1s.subtlyd.mixin.client.entity.player;
+package com.kr1s1s.subtlyd.mixin.client.entity;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.entity.player.PlayerSD;
 import com.kr1s1s.subtlyd.world.entity.ServerPlayerSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
