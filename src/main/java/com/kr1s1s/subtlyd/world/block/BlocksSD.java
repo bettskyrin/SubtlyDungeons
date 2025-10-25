@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
 public class BlocksSD {
-    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
+    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
     public static final Block SNOW_BRICK_STAIRS = registerStair(resourceKey("snow_brick_stairs"), SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(resourceKey("snow_brick_slab"), SNOW_BRICKS);
 

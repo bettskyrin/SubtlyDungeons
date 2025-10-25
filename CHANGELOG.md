@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Snow Brick Block Family
   - Snow Bricks
     - Crafted from 4 snow blocks
-    - Must be mined with a pickaxe
+    - Best mined with a pickaxe
   - Snow Brick Stairs
       - Crafted from 6 snow bricks block
   - Snow Brick Slab
@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed bush wind ambient noise to play less often
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
+- Ice can now trigger ambient wind noises
 
 ## [1.0.0 Simply Survival Update] - 10/17/25
 ### Added

@@ -10,5 +10,6 @@ public class LootSD {
         VillageLootSD.generate();
         VillageHeroLootSD.generate();
         EntityLootSD.generate();
+        FishingLootSD.generate();
     }
 }

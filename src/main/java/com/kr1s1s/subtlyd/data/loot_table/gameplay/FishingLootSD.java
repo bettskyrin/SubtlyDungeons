@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.data.loot_table.gameplay;
 
+import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.advancements.critereon.LocationPredicate;
@@ -19,7 +20,8 @@ import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 public class FishingLootSD {
     public static void generate() {
         LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
-            if (original.equals(BuiltInLootTables.FISHING_FISH)) {
+            if (original.toString().equals(BuiltInLootTables.FISHING_FISH.toString())) { // FIXME
+                SubtlyDungeons.debug("Condition met");
                 HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
                 LootTable.Builder newFishingTable = LootTable.lootTable().withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
