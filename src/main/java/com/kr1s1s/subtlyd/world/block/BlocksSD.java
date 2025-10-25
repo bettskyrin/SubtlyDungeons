@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.block;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -10,13 +11,13 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 
 public class BlocksSD {
-    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.0F, 0.5F).sound(SoundType.SNOW));
+    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
     public static final Block SNOW_BRICK_STAIRS = registerStair(resourceKey("snow_brick_stairs"), SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(resourceKey("snow_brick_slab"), SNOW_BRICKS);
 
-    public static void registerBlocks() {}
+    public static void init() {}
     private static ResourceKey<Block> resourceKey(String name) {
-        return ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, name));
+        return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(name));
     }
 
     private static Block registerStair(ResourceKey<Block> resourceKey, Block block) {

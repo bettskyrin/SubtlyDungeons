@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.client.entity.mosnter;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -21,7 +21,7 @@ public class ZombieSD extends Zombie {
 
     public static void alterAttributes(Zombie zombie, float f) {
         if (zombie.getRandom().nextFloat() < (f * ZOMBIE_LEADER_CHANCE)) {
-            zombie.getEntityData().set(SubtlyDungeons.DATA_LEADER_ID, true);
+            zombie.getEntityData().set(SynchedEntityDataSD.DATA_LEADER_ID, true);
             Objects.requireNonNull(zombie.getAttribute(Attributes.SPAWN_REINFORCEMENTS_CHANCE))
                     .addOrReplacePermanentModifier(new AttributeModifier(LEADER_ZOMBIE_BONUS_ID, zombie.getRandom().nextDouble() * 0.25 + 0.5, AttributeModifier.Operation.ADD_VALUE));
             Objects.requireNonNull(zombie.getAttribute(Attributes.MAX_HEALTH))
@@ -34,6 +34,6 @@ public class ZombieSD extends Zombie {
     }
 
     public static boolean isLeader(Zombie zombie) {
-        return zombie.getEntityData().get(SubtlyDungeons.DATA_LEADER_ID);
+        return zombie.getEntityData().get(SynchedEntityDataSD.DATA_LEADER_ID);
     }
 }

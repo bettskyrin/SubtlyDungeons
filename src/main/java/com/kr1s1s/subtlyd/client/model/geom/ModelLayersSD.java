@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 import java.util.Set;
@@ -27,8 +26,6 @@ public class ModelLayersSD extends ModelLayers {
     public static final ModelLayerLocation GREEN_TENT = register("tent/green_tent");
     public static final ModelLayerLocation RED_TENT = register("tent/red_tent");
     public static final ModelLayerLocation BLACK_TENT = register("tent/black_tent");
-    public static final ModelLayerLocation UNLIT_CAMPFIRE = register("unlit_campfire");
-    public static final ModelLayerLocation POTTAGE = register("pottage");
 
 
     public static List<ModelLayerLocation> TENTS = List.of(WHITE_TENT, ORANGE_TENT, MAGENTA_TENT, LIGHT_BLUE_TENT, YELLOW_TENT, LIME_TENT, PINK_TENT, GRAY_TENT, LIGHT_GRAY_TENT, CYAN_TENT, PURPLE_TENT, BLUE_TENT, BROWN_TENT, GREEN_TENT, RED_TENT, BLACK_TENT);
@@ -43,6 +40,6 @@ public class ModelLayersSD extends ModelLayers {
     }
 
     private static ModelLayerLocation createLocation(String string) {
-        return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, string), "main");
+        return new ModelLayerLocation(SubtlyDungeons.resourceLocation(string), "main");
     }
 }

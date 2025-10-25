@@ -1,15 +1,14 @@
 package com.kr1s1s.subtlyd.world.level.block.sounds;
 
+import com.kr1s1s.subtlyd.data.tags.BiomeTagsSD;
 import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -23,7 +22,7 @@ public class AmbientAirBlockSoundsPlayer {
     private static final int HORIZONTAL_DIRECTIONS = 4;
 
     public static void playAmbientWindSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && (level.getBiome(blockPos).is(Biomes.JAGGED_PEAKS) || level.getBiome(blockPos).is(BiomeTags.SPAWNS_SNOW_FOXES))) {
+        if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && level.getBiome(blockPos).is(BiomeTagsSD.IS_WINDY)) {
             if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && shouldPlayAmbientWindSound(level, blockPos)) {
                 level.playLocalSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEventsSD.WIND, SoundSource.AMBIENT, 1.0F, 1.0F, false);
             }
@@ -78,6 +77,6 @@ public class AmbientAirBlockSoundsPlayer {
     }
 
     private static boolean canTriggerAmbientWindSounds(BlockState blockState) {
-        return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE);
+        return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE) || blockState.is(Blocks.ICE);
     }
 }

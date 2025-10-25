@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.server.entity;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
+import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.storage.ValueInput;
@@ -22,16 +22,16 @@ public class ZombieMixin {
 
     @Inject(method = "defineSynchedData", at = @At("RETURN"))
     protected void defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(SubtlyDungeons.DATA_LEADER_ID, false);
+        builder.define(SynchedEntityDataSD.DATA_LEADER_ID, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     protected void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
-        valueOutput.putBoolean("IsLeader", (zombie.getEntityData().get(SubtlyDungeons.DATA_LEADER_ID)));
+        valueOutput.putBoolean("IsLeader", (zombie.getEntityData().get(SynchedEntityDataSD.DATA_LEADER_ID)));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     protected void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
-        zombie.getEntityData().set(SubtlyDungeons.DATA_LEADER_ID, valueInput.getBooleanOr("IsLeader", false));
+        zombie.getEntityData().set(SynchedEntityDataSD.DATA_LEADER_ID, valueInput.getBooleanOr("IsLeader", false));
     }
 }

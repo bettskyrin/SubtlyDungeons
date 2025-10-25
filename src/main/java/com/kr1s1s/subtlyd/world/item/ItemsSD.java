@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -56,10 +57,10 @@ public class ItemsSD {
     public static List<Item> SNOW_BRICK_FAMILY = List.of(SNOW_BRICKS, SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB);
 
     private static ResourceKey<Item> resourceKey(String name) {
-        return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, name));
+        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(name));
     }
 
-    public static void registerItems() {
+    public static void init() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
             for (Item item : SNOW_BRICK_FAMILY) {
                 entries.addBefore(SANDSTONE, item);
@@ -90,7 +91,7 @@ public class ItemsSD {
     }
 
     private static ResourceKey<Item> blockIdToItemIdSD(String location) {
-        return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, location));
+        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(location));
     }
 
     public static Item registerBlockSD(Block block, UnaryOperator<Item.Properties> unaryOperator, String location) {

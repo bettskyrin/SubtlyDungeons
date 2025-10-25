@@ -17,5 +17,49 @@
       "subtlyd:wind/lightwind3",
       "subtlyd:wind/lightwind4"
     ]
+  },
+  "block.snow_bricks.break": {
+    "subtitle": "subtitles.block.generic.break",
+    "sounds": [
+      "subtlyd:snow_bricks/snow_bricks_dig1",
+      "subtlyd:snow_bricks/snow_bricks_dig2",
+      "subtlyd:snow_bricks/snow_bricks_dig3",
+      "subtlyd:snow_bricks/snow_bricks_dig4"
+    ]
+  },"block.snow_bricks.step": {
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      "subtlyd:snow_bricks/snow_bricks_dig1",
+      "subtlyd:snow_bricks/snow_bricks_dig2",
+      "subtlyd:snow_bricks/snow_bricks_dig3",
+      "subtlyd:snow_bricks/snow_bricks_dig4"
+    ]
+  },
+  "block.snow_bricks.place": {
+    "subtitle": "subtitles.block.generic.place",
+    "sounds": [
+      "subtlyd:snow_bricks/snow_bricks_dig1",
+      "subtlyd:snow_bricks/snow_bricks_dig2",
+      "subtlyd:snow_bricks/snow_bricks_dig3",
+      "subtlyd:snow_bricks/snow_bricks_dig4"
+    ]
+  },
+  "block.snow_bricks.hit": {
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      "subtlyd:snow_bricks/snow_bricks_dig1",
+      "subtlyd:snow_bricks/snow_bricks_dig2",
+      "subtlyd:snow_bricks/snow_bricks_dig3",
+      "subtlyd:snow_bricks/snow_bricks_dig4"
+    ]
+  },
+  "block.snow_bricks.fall": {
+    "subtitle": "subtitles.block.generic.fall",
+    "sounds": [
+      "subtlyd:snow_bricks/snow_bricks_dig1",
+      "subtlyd:snow_bricks/snow_bricks_dig2",
+      "subtlyd:snow_bricks/snow_bricks_dig3",
+      "subtlyd:snow_bricks/snow_bricks_dig4"
+    ]
   }
 }
