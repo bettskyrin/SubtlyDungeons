@@ -2,7 +2,6 @@ package com.kr1s1s.subtlyd;
 
 import com.kr1s1s.subtlyd.data.BlockEvents;
 import com.kr1s1s.subtlyd.data.loot_table.LootSD;
-import com.kr1s1s.subtlyd.data.loot_table.gameplay.FishingLootSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;

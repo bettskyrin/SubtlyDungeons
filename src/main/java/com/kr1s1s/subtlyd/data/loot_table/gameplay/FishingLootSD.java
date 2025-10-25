@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.data.loot_table.gameplay;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.advancements.critereon.LocationPredicate;
@@ -20,8 +19,7 @@ import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 public class FishingLootSD {
     public static void generate() {
         LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
-            if (original.toString().equals(BuiltInLootTables.FISHING_FISH.toString())) { // FIXME
-                SubtlyDungeons.debug("Condition met");
+            if (key.equals(BuiltInLootTables.FISHING_FISH)) {
                 HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
                 LootTable.Builder newFishingTable = LootTable.lootTable().withPool(LootPool.lootPool()
                             .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
@@ -46,6 +44,10 @@ public class FishingLootSD {
                                             registryLookup.getOrThrow(Biomes.LUKEWARM_OCEAN)
                                     ))))
                                     .setWeight(10))
+
+                            .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
+                                    registryLookup.getOrThrow(BiomeTags.IS_OVERWORLD).stream().toList()
+                            )))).setWeight(1))
                             .add(LootItem.lootTableItem(Items.SALMON).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                             registryLookup.getOrThrow(Biomes.RIVER),
                                             registryLookup.getOrThrow(Biomes.FROZEN_RIVER)
@@ -59,7 +61,6 @@ public class FishingLootSD {
                                             registryLookup.getOrThrow(Biomes.DEEP_FROZEN_OCEAN)
                                     ))))
                                     .setWeight(40))
-                            .add(LootItem.lootTableItem(Items.SALMON).setWeight(1))
                             .add(LootItem.lootTableItem(ItemsSD.CALAMARI).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                             registryLookup.getOrThrow(Biomes.RIVER)
                                     ))))

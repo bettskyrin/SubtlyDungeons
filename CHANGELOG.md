@@ -16,11 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Snow Brick Slab
       - Crafted from 3 snow bricks block
   - Has unique sounds
+  - Added Snow Brick block and item tags
 
 ### Changed
 - Changed bush wind ambient noise to play less often
-- Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
 - Ice can now trigger ambient wind noises
+- Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
+
+### Fixed
+- Fixed fishing so that now fishing for fish ACTUALLY doesn't work in the end
 
 ## [1.0.0 Simply Survival Update] - 10/17/25
 ### Added
