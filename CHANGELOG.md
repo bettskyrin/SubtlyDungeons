@@ -16,19 +16,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
           - Crafted from 6 snow bricks block
       - Snow Brick Slab
           - Crafted from 3 snow bricks block
-      - Have unique sounds
+
+#### Gamerules
+- Added doArrowArson
+  - Can prevent flaming arrows from setting fires
+    
 #### Tags
 - Added new tags
   - Added "Tents" item tag
-  - Added "Snow Bricks" block and item tags
-  - 
+  - Added "Snow Bricks" item tag
+  - Added "Snow Bricks" block tag
+  - Added "Skull" block tag
+  - Added skull blocks to "Mineable with axe" tag
+
 #### Accessibility
-- Added new Accessibility Setting for turning off the camera shake effect
+- Added new accessibility setting option for turning off the camera shake effect
 
 ### Changed
 #### Sounds
 - Changed bush wind ambient noise to play less often
 - Ice can now trigger ambient wind noises
+- Added unique sounds for Snow Brick type blocks
 
 #### Textures
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors

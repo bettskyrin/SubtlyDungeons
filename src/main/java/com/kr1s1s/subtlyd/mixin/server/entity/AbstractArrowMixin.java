@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.server.entity;
 
+import com.kr1s1s.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +24,7 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     public void land(CallbackInfo ci) {
         boolean bl = !arrow.isNoPhysics();
-        if (level.getServer() != null) {
+        if (level.getServer() != null && level.getServer().getWorldData().getGameRules().getBoolean(GameRulesSD.RULE_DOARROWARSON)) {
             if (!(!level.getServer().getWorldData().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
                 if ((arrow.isOnFire() && this.isInGround()) && bl) {
                     setFire(arrow.blockPosition());

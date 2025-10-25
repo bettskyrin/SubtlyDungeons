@@ -5,6 +5,7 @@ import com.kr1s1s.subtlyd.data.loot_table.LootSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
+import com.kr1s1s.subtlyd.world.level.GameRulesSD;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.ResourceLocation;
@@ -27,10 +28,11 @@ public class SubtlyDungeons implements ModInitializer {
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
+        SynchedEntityDataSD.init();
+        GameRulesSD.init();
         BlocksSD.init();
         BlockEvents.run();
         ItemsSD.init();
         LootSD.generate();
-        SynchedEntityDataSD.init();
     }
 }
