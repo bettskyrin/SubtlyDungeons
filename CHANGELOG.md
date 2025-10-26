@@ -34,8 +34,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 #### Sounds
-- Changed bush wind ambient noise to play less often
+- Changed bush ambient wind noise to play less often
 - Ice can now trigger ambient wind noises
+- Increased volume of ambient bush and cold wind noises
+- Changed "Wind blows" to "Wind howls"
+- Changed "Wind howls" to "Wind blows"
 - Added unique sounds for Snow Brick type blocks
 
 #### Textures
