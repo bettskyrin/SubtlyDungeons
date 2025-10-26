@@ -43,15 +43,14 @@ import java.util.function.Supplier;
 
 public class TentEntity extends Entity {
     public long lastHit;
-    private boolean occupied;
+    public boolean occupied;
     private final Supplier<Item> dropItem;
-    public static DyeColor color;
+    private static DyeColor color;
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor dyeColor) {
+    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
         super(entityType, level);
         this.dropItem = supplier;
-        color = dyeColor;
-        setOccupied(false);
+        occupied = false;
     }
 
     public static ResourceLocation getLocation(DyeColor color) {
@@ -61,10 +60,6 @@ public class TentEntity extends Entity {
     public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
         return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
-
-    public Boolean getOccupied() { return occupied; }
-
-    public void setOccupied(Boolean bl) { occupied = bl; }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {

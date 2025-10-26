@@ -26,7 +26,7 @@ public class ServerPlayerSD extends ServerPlayer {
                 return Either.left(PlayerSD.TentSleepingProblem.OTHER_PROBLEM);
             } else if (!player.level().dimensionType().natural()) {
                 return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_HERE);
-            } else if (tent.getOccupied()) {
+            } else if (tent.occupied) {
                 return Either.left(PlayerSD.TentSleepingProblem.OCCUPIED);
             } else if (!TentEntity.inTentRange(player)) {
                 return Either.left(PlayerSD.TentSleepingProblem.TOO_FAR_AWAY);
@@ -58,7 +58,7 @@ public class ServerPlayerSD extends ServerPlayer {
     }
 
     public static void stopSleepInTent(boolean bl, ServerPlayer player) {
-        LivingEntitySD.getTent().setOccupied(false);
+        LivingEntitySD.getTent().occupied = false;
         if (bl) {
             player.level().updateSleepingPlayerList();
         }

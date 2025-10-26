@@ -23,10 +23,10 @@ public class LivingEntitySD extends LivingEntity {
 
         for (Player otherPlayer : player.level().players()) {
             if (TentEntity.inTent(otherPlayer, tent) && otherPlayer.isSleeping()) {
-                tent.setOccupied(true);
+                tent.occupied = true;
                 break;
             } else {
-                tent.setOccupied(false);
+                tent.occupied = false;
             }
         }
 
