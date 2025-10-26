@@ -5,6 +5,56 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0-alpha.1] - 10/26/2025
+### Added
+#### Blocks
+    - Added Snow Brick block family
+      - Snow Bricks
+        - Crafted from 4 snow blocks
+        - Best mined with a pickaxe
+      - Snow Brick Stairs
+          - Crafted from 6 snow bricks block
+      - Snow Brick Slab
+          - Crafted from 3 snow bricks block
+
+#### Gamerules
+- Added doArrowArson
+  - Can prevent flaming arrows from setting fires
+    
+#### Tags
+- Added new tags
+  - Added "Tents" item tag
+  - Added "Snow Bricks" item tag
+  - Added "Snow Bricks" block tag
+  - Added "Skull" block tag
+  - Added skull blocks to "Mineable with axe" tag
+
+#### Accessibility
+- Added new accessibility setting option for turning off the camera shake effect
+
+### Changed
+#### Sounds
+- Changed bush ambient wind noise to play less often
+- Ice can now trigger ambient wind noises
+- Increased volume of ambient bush and cold wind noises
+- Changed "Wind blows" to "Wind howls"
+- Changed "Wind howls" to "Wind blows"
+- Added unique sounds for Snow Brick type blocks
+- Added new music
+  - The Green Expanse by Crispin Hands (Game and Menus)
+  - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
+  - Cliffs and Canyons by Crispin Hands (Meadows and Game)
+  - Wanderlust by Peter Hont (Game)
+  - Cellar by John Johnson (Deep Dark)
+  - Windswept Peaks by Peter Hont (Frozen Peaks and Snowy Slopes)
+  - Finnbacka by Peter Hont (Stony Peaks)
+
+#### Textures
+- Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
+
+### Fixed
+- Fixed fishing so that now fishing for fish ACTUALLY doesn't work in the end
+
 ## [1.0.0 Simply Survival Update] - 10/17/25
 ### Added
 #### Sounds

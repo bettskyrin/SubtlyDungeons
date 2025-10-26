@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class DrownedOuterLayerSD extends RenderLayer<ZombieRenderStateSD, DrownedModelSD> {
     private static final ResourceLocation DROWNED_OUTER_LAYER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");
-    private static final ResourceLocation DROWNED_LEADER_OUTER_LAYER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID,"textures/entity/zombie/drowned_leader_outer_layer.png");
+    private static final ResourceLocation DROWNED_LEADER_OUTER_LAYER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader_outer_layer.png");
 
     private final DrownedModel model;
     private final DrownedModel babyModel;

@@ -23,10 +23,31 @@
       "subtlyd:music/droopy_likes_your_face"
     ]
   },
+  "music.overworld.deep_dark": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/cellar"
+    ]
+  },
   "music.overworld.forest": {
     "replace": false,
     "sounds": [
       "subtlyd:music/dalarna"
+    ]
+  },
+  "music.overworld.frozen_peaks": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/top",
+      "subtlyd:music/windswept_peaks"
+    ]
+  },
+  "music.game": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/the_green_expanse",
+      "subtlyd:music/cliffs_and_canyons",
+      "subtlyd:music/wanderlust"
     ]
   },
   "music.overworld.grove": {
@@ -39,6 +60,37 @@
     "replace": false,
     "sounds": [
       "subtlyd:music/alone_with_the_sky"
+    ]
+  },
+  "music.overworld.meadow": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/cliffs_and_canyons"
+    ]
+  },
+  "music.menu": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/the_green_expanse"
+    ]
+  },
+  "music.overworld.snowy_slopes": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/top",
+      "subtlyd:music/windswept_peaks"
+    ]
+  },
+  "music.overworld.stony_peaks": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/finnbacka"
+    ]
+  },
+  "music.overworld.windswept_hills": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/finnbacka"
     ]
   }
 }

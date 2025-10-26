@@ -1,14 +1,13 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -44,37 +43,29 @@ import java.util.function.Supplier;
 
 public class TentEntity extends Entity {
     public long lastHit;
-    private boolean occupied;
+    public boolean occupied;
     private final Supplier<Item> dropItem;
-    public static DyeColor color;
-    protected static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.FLOAT);
+    private static DyeColor color;
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor dyeColor) {
+    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
         super(entityType, level);
         this.dropItem = supplier;
-        color = dyeColor;
-        setOccupied(false);
+        occupied = false;
     }
 
     public static ResourceLocation getLocation(DyeColor color) {
-        return ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, color.toString() + "_tent");
+        return SubtlyDungeons.resourceLocation(color.toString() + "_tent");
     }
 
     public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
         return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
 
-    public Boolean getOccupied() { return occupied; }
-
-    public void setOccupied(Boolean bl) { occupied = bl; }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(DATA_ID_HURT, 0);
-        builder.define(DATA_ID_HURTDIR, 1);
-        builder.define(DATA_ID_DAMAGE, 0.0F);
+        builder.define(SynchedEntityDataSD.DATA_ID_HURT, 0);
+        builder.define(SynchedEntityDataSD.DATA_ID_HURTDIR, 1);
+        builder.define(SynchedEntityDataSD.DATA_ID_DAMAGE, 0.0F);
     }
 
     @Override
@@ -101,27 +92,27 @@ public class TentEntity extends Entity {
     }
 
     public void setHurtDir(int i) {
-        this.entityData.set(DATA_ID_HURTDIR, i);
+        this.entityData.set(SynchedEntityDataSD.DATA_ID_HURTDIR, i);
     }
 
     public void setHurtTime(int i) {
-        this.entityData.set(DATA_ID_HURT, i);
+        this.entityData.set(SynchedEntityDataSD.DATA_ID_HURT, i);
     }
 
     public void setDamage(float f) {
-        this.entityData.set(DATA_ID_DAMAGE, f);
+        this.entityData.set(SynchedEntityDataSD.DATA_ID_DAMAGE, f);
     }
 
     public float getDamage() {
-        return this.entityData.get(DATA_ID_DAMAGE);
+        return this.entityData.get(SynchedEntityDataSD.DATA_ID_DAMAGE);
     }
 
     public int getHurtDir() {
-        return this.entityData.get(DATA_ID_HURTDIR);
+        return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURTDIR);
     }
 
     public int getHurtTime() {
-        return this.entityData.get(DATA_ID_HURT);
+        return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURT);
     }
 
     @Override

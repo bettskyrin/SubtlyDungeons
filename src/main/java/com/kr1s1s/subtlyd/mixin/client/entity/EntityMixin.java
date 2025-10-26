@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.entity;
 
-import com.kr1s1s.subtlyd.client.util.GroundShake;
+import com.kr1s1s.subtlyd.client.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -31,7 +31,7 @@ public class EntityMixin {
             float distance = player.distanceTo(entity);
             if (powerfulSounds.contains(soundEvent)) {
                 maxDistance = 32;
-                GroundShake.setShakeByDistance(duration, maxDistance, distance);
+                CameraShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
@@ -39,7 +39,7 @@ public class EntityMixin {
                     maxDistance = 32;
                     duration = 110;
                 }
-                GroundShake.setShakeByDistance(duration, maxDistance, distance);
+                CameraShake.setShakeByDistance(duration, maxDistance, distance);
             }
         }
     }

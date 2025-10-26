@@ -2,7 +2,7 @@ package com.kr1s1s.subtlyd.client.renderer;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
-import com.kr1s1s.subtlyd.client.entity.mosnter.ZombieSD;
+import com.kr1s1s.subtlyd.client.entity.monster.ZombieSD;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
     private static final ResourceLocation HUSK_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/husk.png");
-    private static final ResourceLocation HUSK_LEADER_LOCATION = ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, "textures/entity/zombie/husk_leader.png");
+    private static final ResourceLocation HUSK_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/husk_leader.png");
 
     public HuskRendererSD(EntityRendererProvider.Context context) {
         super(context, new ZombieModel<>(context.bakeLayer(ModelLayers.HUSK)), new ZombieModel<>(context.bakeLayer(ModelLayers.HUSK_BABY)), ArmorModelSet.bake(ModelLayers.HUSK_ARMOR, context.getModelSet(), ZombieModel::new), ArmorModelSet.bake(ModelLayers.HUSK_BABY_ARMOR, context.getModelSet(), ZombieModel::new));

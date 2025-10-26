@@ -1,20 +1,28 @@
 package com.kr1s1s.subtlyd.sounds;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 public class SoundEventsSD {
-    public static SoundEvent WIND = register("block.air.idle");
-    public static SoundEvent BUSH_IDLE = register("block.bush.idle");
+    public static final SoundEvent WIND = register("block.air.idle");
+    public static final SoundEvent BUSH_IDLE = register("block.bush.idle");
+    public static final SoundEvent SNOW_BRICK_BREAK = register("block.snow_bricks.break");
+    public static final SoundEvent SNOW_BRICK_FALL = register("block.snow_bricks.fall");
+    public static final SoundEvent SNOW_BRICK_HIT = register("block.snow_bricks.hit");
+    public static final SoundEvent SNOW_BRICK_PLACE = register("block.snow_bricks.place");
+    public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
+    public static final SoundEvent MUSIC_BIOME_DEEP_DARK = register(ResourceLocation.withDefaultNamespace("music.overworld.windswept_hills")); // TODO
+
 
     public static void init() { }
 
 
     private static SoundEvent register(String string) {
-        return register(ResourceLocation.fromNamespaceAndPath(SubtlyDungeons.MOD_ID, string));
+        return register(SubtlyDungeons.resourceLocation(string));
     }
 
     private static SoundEvent register(ResourceLocation resourceLocation) {
