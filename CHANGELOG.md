@@ -40,6 +40,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed "Wind blows" to "Wind howls"
 - Changed "Wind howls" to "Wind blows"
 - Added unique sounds for Snow Brick type blocks
+- Added new music
+  - The Green Expanse by Crispin Hands (Game and Menus)
+  - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
+  - Cliffs and Canyons by Crispin Hands (Meadows and Game)
+  - Wanderlust by Peter Hont (Game)
+  - Cellar by John Johnson (Deep Dark)
+  - Windswept Peaks by Peter Hont (Frozen Peaks and Snowy Slopes)
+  - Finnbacka by Peter Hont (Stony Peaks)
 
 #### Textures
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
