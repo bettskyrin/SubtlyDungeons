@@ -1,7 +1,9 @@
 package com.kr1s1s.subtlyd.world.level.block;
 
+import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -21,11 +23,13 @@ public class UnlitCampfireFunction implements UseBlockCallback {
         if (blockState.getBlock() instanceof CampfireBlock && !blockState.getValue(CampfireBlock.LIT) && itemStack.getItem() == Items.STICK) {
             if (level.getRandom().nextFloat() > 0.7F) {
                 level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
-
             }
+
             if (!player.gameMode().isCreative()) {
                 itemStack.shrink(1);
             }
+
+            level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;

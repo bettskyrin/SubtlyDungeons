@@ -32,6 +32,7 @@
   "options.doCameraShake.tooltip": "Enables a subtle camera shake effect in certain situations.",
   "subtitles.subtlyd.block.air.idle": "Wind howls",
   "subtitles.subtlyd.block.bush.idle": "Wind blows",
+  "subtitles.subtlyd.item.stick.light": "Stick rubs against log",
   "subtlyd.music.dalarna": "Peter Hont - Dalarna",
   "subtlyd.music.alone_with_the_sky": "Crispin Hands - Alone With the Sky",
   "subtlyd.music.cellar": "John Johnson - Cellar",

@@ -15,7 +15,8 @@ public class SoundEventsSD {
     public static final SoundEvent SNOW_BRICK_HIT = register("block.snow_bricks.hit");
     public static final SoundEvent SNOW_BRICK_PLACE = register("block.snow_bricks.place");
     public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
-    public static final SoundEvent MUSIC_BIOME_DEEP_DARK = register(ResourceLocation.withDefaultNamespace("music.overworld.windswept_hills")); // TODO
+    public static final SoundEvent STICK_LIGHT = register("item.stick.light");
+    public static final SoundEvent MUSIC_BIOME_WINDSWEPT_HILLS = register(ResourceLocation.withDefaultNamespace("music.overworld.windswept_hills")); // TODO
 
 
     public static void init() { }
