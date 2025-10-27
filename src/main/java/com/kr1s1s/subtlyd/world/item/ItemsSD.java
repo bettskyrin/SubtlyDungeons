@@ -50,8 +50,6 @@ public class ItemsSD {
     public static Item SNOW_BRICKS = registerBlock(BlocksSD.SNOW_BRICKS);
     public static Item SNOW_BRICK_STAIRS = registerBlock(BlocksSD.SNOW_BRICK_STAIRS);
     public static Item SNOW_BRICK_SLAB = registerBlock(BlocksSD.SNOW_BRICK_SLAB);
-    public static Item GRASS_SLAB = registerBlock(BlocksSD.GRASS_SLAB);
-    public static Item DIRT_SLAB = registerBlock(BlocksSD.DIRT_SLAB);
 
     public static List<Item> TENT_ITEM_LIST = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
     public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
@@ -73,10 +71,6 @@ public class ItemsSD {
             for (Item item : TENT_ITEM_LIST.reversed()) {
                 entries.addAfter(PINK_BED, item);
             }
-        });
-
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
-            entries.addAfter(DIRT, DIRT_SLAB);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
