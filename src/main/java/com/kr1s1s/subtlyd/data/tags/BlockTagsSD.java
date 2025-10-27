@@ -46,6 +46,9 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.PIGLIN_WALL_HEAD);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
+                .add(BlocksSD.GRASS_SLAB)
+                .add(BlocksSD.DIRT_SLAB);
     }
 
 

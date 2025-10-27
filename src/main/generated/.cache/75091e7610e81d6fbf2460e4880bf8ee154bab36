@@ -1,4 +1,10 @@
 // 25w43a	-999999999-01-01T00:00:00	Subtly Dungeons/Model Definitions
+231e5d499785932a985ae132a7e6f2e2626b74a5 assets/minecraft/blockstates/dirt.json
+88a310fedcef6ed98b119d1498ca221db5240ae8 assets/minecraft/blockstates/grass_block.json
+64bb558cf01e78e42b28e2ef3c501f71ee830e6a assets/minecraft/models/block/dirt.json
+463e8aad4b3be170099eedde7f7c1f676c6db283 assets/minecraft/models/block/grass_block.json
+454432d1f4bee03c055d42ce7abf1a4383b03e83 assets/subtlyd/blockstates/dirt_slab.json
+00800c1f9069d33a22fd2cbe224c13a30ce94293 assets/subtlyd/blockstates/grass_slab.json
 aab26a2b90bd2c4da1267b93a25078f02d19dc87 assets/subtlyd/blockstates/snow_brick_slab.json
 372f95ea61441682bb9f664f65382771ce806e91 assets/subtlyd/blockstates/snow_brick_stairs.json
 395e4b883c8d52482b1fc274152cdaab5d064ca5 assets/subtlyd/blockstates/snow_bricks.json
@@ -9,6 +15,8 @@ fd5cb6c164b6365b89fc09e7b6804843e92ae44f assets/subtlyd/items/black_tent.json
 f9bb8fcfb8e5b2455b75eab6c24b2dbad874bfec assets/subtlyd/items/calamari.json
 664667b2ef0d2b476594daffe3a34e441f8bc768 assets/subtlyd/items/cooked_calamari.json
 42a49846bb43b77cdd958d91f1dc05348684be16 assets/subtlyd/items/cyan_tent.json
+1f85e1b8c7c9b67b51cef3839827a6954dcb221e assets/subtlyd/items/dirt_slab.json
+16e0ff6baa81751a3f716ffcf4cf3eba251a5a61 assets/subtlyd/items/grass_slab.json
 0e9c0651ff2940bd0277a56f0c1f67d6d96cb19c assets/subtlyd/items/gray_tent.json
 4bf8ec193692d5e677a2823efe58b6bb6846f6f5 assets/subtlyd/items/green_tent.json
 c551d699f484f4a549a9566745fabf402d66b86f assets/subtlyd/items/light_blue_tent.json
@@ -26,6 +34,10 @@ fa8c3bca3f23f7adde8a0570ca3c93be9e657592 assets/subtlyd/items/snow_brick_slab.js
 69d01f14e6530025a3a2eb6ebb53b4ab48472722 assets/subtlyd/items/unlit_campfire.json
 5d8135f132372ffbd9642befe2979e0e52dd1ad8 assets/subtlyd/items/white_tent.json
 c5a75a4a0aaec2cb4893dde1ec9158fc43abb89d assets/subtlyd/items/yellow_tent.json
+611c57a61378fabfcbe00990eb06784882e631a4 assets/subtlyd/models/block/dirt_slab.json
+d65c692b0e0823c0822946b00608951d0fc80826 assets/subtlyd/models/block/dirt_slab_top.json
+b6d739eace9c7a0135c5632733f3eba439d8e73a assets/subtlyd/models/block/grass_slab.json
+291a6aaf5fb1e537dc3c24113ea54d97beaeb8d8 assets/subtlyd/models/block/grass_slab_top.json
 06f2729da60fcc9ff7429508cdc13082dad0dd4b assets/subtlyd/models/block/snow_brick_slab.json
 b074473941d8f1aa87a1c29a41a5659fafda02fd assets/subtlyd/models/block/snow_brick_slab_top.json
 cd26787f844a549364521f8359dbf3fd0bb4691b assets/subtlyd/models/block/snow_brick_stairs.json

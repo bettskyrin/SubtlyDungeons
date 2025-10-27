@@ -41,16 +41,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TentEntity extends Entity {
+public class TentEntity extends Entity { // TODO Abstract?
     public long lastHit;
     public boolean occupied;
     private final Supplier<Item> dropItem;
-    private static DyeColor color;
+    public DyeColor color;
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
+    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor color) {
         super(entityType, level);
         this.dropItem = supplier;
-        occupied = false;
+        this.color = color;
+        this.occupied = false;
     }
 
     public static ResourceLocation getLocation(DyeColor color) {

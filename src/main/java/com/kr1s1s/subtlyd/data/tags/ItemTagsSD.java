@@ -31,7 +31,7 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
                 .add(ItemsSD.SNOW_BRICK_STAIRS)
                 .add(ItemsSD.SNOW_BRICK_SLAB);
         valueLookupBuilder(TENTS)
-            .addAll(ItemsSD.TENT_ITEM_FAMILY);
+            .addAll(ItemsSD.TENT_ITEM_LIST);
     }
 
     private static TagKey<Item> create(String string) {

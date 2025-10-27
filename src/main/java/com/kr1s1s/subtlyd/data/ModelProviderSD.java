@@ -9,9 +9,9 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModelProviderSD extends FabricModelProvider {
-    private static final BlockFamily SNOW_BRICK_FAMILY = new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily();
 
     public ModelProviderSD(FabricDataOutput output) {
         super(output);
@@ -19,12 +19,14 @@ public class ModelProviderSD extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
-        blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(SNOW_BRICK_FAMILY);
+        blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily());
+        blockStateModelGenerator.family(Blocks.DIRT).generateFor(new BlockFamily.Builder(Blocks.DIRT).slab(BlocksSD.DIRT_SLAB).getFamily());
+        blockStateModelGenerator.family(Blocks.GRASS_BLOCK).generateFor(new BlockFamily.Builder(Blocks.GRASS_BLOCK).slab(BlocksSD.GRASS_SLAB).getFamily());
     }
 
     @Override
     public void generateItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Item item : ItemsSD.TENT_ITEM_FAMILY) {
+        for (Item item : ItemsSD.TENT_ITEM_LIST) {
             itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
         }
         itemModelGenerator.generateFlatItem(ItemsSD.APPLE_PIE, ModelTemplates.FLAT_ITEM);

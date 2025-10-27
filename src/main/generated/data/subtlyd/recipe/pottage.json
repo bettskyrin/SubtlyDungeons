@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "group": "pottage",
   "ingredients": [
     "minecraft:bowl",
     "minecraft:carrot",

@@ -3,14 +3,14 @@ package com.kr1s1s.subtlyd.world.item;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
+import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.food.FoodsSD;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
@@ -30,31 +30,33 @@ public class ItemsSD {
     public static Item COOKED_CALAMARI = registerItem(resourceKey("cooked_calamari"), Item::new, new Item.Properties().food(FoodsSD.COOKED_CALAMARI));
     public static Item POTTAGE = registerItem(resourceKey("pottage"), Item::new, new Item.Properties().food(FoodsSD.POTTAGE).stacksTo(1));
 
-    public static Item WHITE_TENT = registerItem(resourceKey("white_tent"), properties -> new TentItem(EntityTypeSD.WHITE_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item LIGHT_GRAY_TENT = registerItem(resourceKey("light_gray_tent"), properties -> new TentItem(EntityTypeSD.LIGHT_GRAY_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item GRAY_TENT = registerItem(resourceKey("gray_tent"), properties -> new TentItem(EntityTypeSD.GRAY_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item BLACK_TENT = registerItem(resourceKey("black_tent"), properties -> new TentItem(EntityTypeSD.BLACK_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item BROWN_TENT = registerItem(resourceKey("brown_tent"), properties -> new TentItem(EntityTypeSD.BROWN_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item RED_TENT = registerItem(resourceKey("red_tent"), properties -> new TentItem(EntityTypeSD.RED_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item ORANGE_TENT = registerItem(resourceKey("orange_tent"), properties -> new TentItem(EntityTypeSD.ORANGE_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item YELLOW_TENT = registerItem(resourceKey("yellow_tent"), properties -> new TentItem(EntityTypeSD.YELLOW_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item LIME_TENT = registerItem(resourceKey("lime_tent"), properties -> new TentItem(EntityTypeSD.LIME_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item GREEN_TENT = registerItem(resourceKey("green_tent"), properties -> new TentItem(EntityTypeSD.GREEN_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item CYAN_TENT = registerItem(resourceKey("cyan_tent"), properties -> new TentItem(EntityTypeSD.CYAN_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item LIGHT_BLUE_TENT = registerItem(resourceKey("light_blue_tent"), properties -> new TentItem(EntityTypeSD.LIGHT_BLUE_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item BLUE_TENT = registerItem(resourceKey("blue_tent"), properties -> new TentItem(EntityTypeSD.BLUE_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item PURPLE_TENT = registerItem(resourceKey("purple_tent"), properties -> new TentItem(EntityTypeSD.PURPLE_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item MAGENTA_TENT = registerItem(resourceKey("magenta_tent"), properties -> new TentItem(EntityTypeSD.MAGENTA_TENT, properties), new Item.Properties().stacksTo(1));
-    public static Item PINK_TENT = registerItem(resourceKey("pink_tent"), properties -> new TentItem(EntityTypeSD.PINK_TENT, properties), new Item.Properties().stacksTo(1));
+    public static Item WHITE_TENT = registerTent("white", EntityTypeSD.WHITE_TENT);
+    public static Item LIGHT_GRAY_TENT = registerTent("light_gray", EntityTypeSD.LIGHT_GRAY_TENT);
+    public static Item GRAY_TENT = registerTent("gray", EntityTypeSD.GRAY_TENT);
+    public static Item BLACK_TENT = registerTent("black", EntityTypeSD.BLACK_TENT);
+    public static Item BROWN_TENT = registerTent("brown", EntityTypeSD.BROWN_TENT);
+    public static Item RED_TENT = registerTent("red", EntityTypeSD.RED_TENT);
+    public static Item ORANGE_TENT = registerTent("orange", EntityTypeSD.ORANGE_TENT);
+    public static Item YELLOW_TENT = registerTent("yellow", EntityTypeSD.YELLOW_TENT);
+    public static Item LIME_TENT = registerTent("lime", EntityTypeSD.LIME_TENT);
+    public static Item GREEN_TENT = registerTent("green", EntityTypeSD.GREEN_TENT);
+    public static Item CYAN_TENT = registerTent("cyan", EntityTypeSD.CYAN_TENT);
+    public static Item LIGHT_BLUE_TENT = registerTent("light_blue", EntityTypeSD.LIGHT_BLUE_TENT);
+    public static Item BLUE_TENT = registerTent("blue", EntityTypeSD.BLUE_TENT);
+    public static Item PURPLE_TENT = registerTent("purple", EntityTypeSD.PURPLE_TENT);
+    public static Item MAGENTA_TENT = registerTent("magenta", EntityTypeSD.MAGENTA_TENT);
+    public static Item PINK_TENT = registerTent("pink", EntityTypeSD.PINK_TENT);
     public static Item UNLIT_CAMPFIRE = registerBlockSD(Blocks.CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))), "unlit_campfire");
     public static Item SNOW_BRICKS = registerBlock(BlocksSD.SNOW_BRICKS);
     public static Item SNOW_BRICK_STAIRS = registerBlock(BlocksSD.SNOW_BRICK_STAIRS);
     public static Item SNOW_BRICK_SLAB = registerBlock(BlocksSD.SNOW_BRICK_SLAB);
+    public static Item GRASS_SLAB = registerBlock(BlocksSD.GRASS_SLAB);
+    public static Item DIRT_SLAB = registerBlock(BlocksSD.DIRT_SLAB);
 
-    public static List<Item> TENT_ITEM_FAMILY = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
-    public static List<Item> WOOL_ITEM_FAMILY = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
-    public static List<Item> DYE_ITEM_FAMILY = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
-    public static List<Item> SNOW_BRICK_FAMILY = List.of(SNOW_BRICKS, SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB);
+    public static List<Item> TENT_ITEM_LIST = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
+    public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
+    public static List<Item> DYE_ITEM_LIST = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
+    public static List<Item> SNOW_BRICK_LIST = List.of(SNOW_BRICKS, SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB);
 
     private static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(name));
@@ -62,19 +64,23 @@ public class ItemsSD {
 
     public static void init() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
-            for (Item item : SNOW_BRICK_FAMILY) {
+            for (Item item : SNOW_BRICK_LIST) {
                 entries.addBefore(SANDSTONE, item);
             }
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
-            for (Item item : TENT_ITEM_FAMILY.reversed()) {
+            for (Item item : TENT_ITEM_LIST.reversed()) {
                 entries.addAfter(PINK_BED, item);
             }
         });
 
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+            entries.addAfter(DIRT, DIRT_SLAB);
+        });
+
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-            for (Item item : TENT_ITEM_FAMILY.reversed()) {
+            for (Item item : TENT_ITEM_LIST.reversed()) {
                 entries.addAfter(PINK_BED, item);
             }
             entries.addAfter(CAMPFIRE, UNLIT_CAMPFIRE);
@@ -94,17 +100,21 @@ public class ItemsSD {
         return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(location));
     }
 
-    public static Item registerBlockSD(Block block, UnaryOperator<Item.Properties> unaryOperator, String location) {
+    private static Item registerTent(String string, EntityType<TentEntity> entityType) {
+        return registerItem(resourceKey(string + "_tent"), properties -> new TentItem(entityType, properties), new Item.Properties().stacksTo(1));
+    }
+
+    private static Item registerBlockSD(Block block, UnaryOperator<Item.Properties> unaryOperator, String location) {
         return registerBlockSD(
                 block, ((blockx, properties) -> new BlockItem(blockx, unaryOperator.apply(properties))), location
         );
     }
 
-    public static Item registerBlockSD(Block block, BiFunction<Block, Item.Properties, Item> biFunction, String location) {
+    private static Item registerBlockSD(Block block, BiFunction<Block, Item.Properties, Item> biFunction, String location) {
         return registerBlockSD(block, biFunction, new Item.Properties(), location);
     }
 
-    public static Item registerBlockSD(Block block, BiFunction<Block, Item.Properties, Item> biFunction, Item.Properties properties, String location) {
+    private static Item registerBlockSD(Block block, BiFunction<Block, Item.Properties, Item> biFunction, Item.Properties properties, String location) {
         return registerItem(
                 blockIdToItemIdSD(location), propertiesx -> biFunction.apply(block, propertiesx), properties.useBlockDescriptionPrefix()
         );

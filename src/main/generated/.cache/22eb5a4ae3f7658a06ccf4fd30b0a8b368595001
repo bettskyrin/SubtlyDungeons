@@ -1,4 +1,6 @@
 // 25w43a	-999999999-01-01T00:00:00	Subtly Dungeons/Block Loot Tables
+9815d79b22dc8b67ccf786bfee0a060fe3b8afef data/subtlyd/loot_table/blocks/dirt_slab.json
+3bd9947addf1ea6347531e447f0f79b3b33ae693 data/subtlyd/loot_table/blocks/grass_slab.json
 7044e9b5e5e51611a709a9fb67f4c3f60ba5c390 data/subtlyd/loot_table/blocks/snow_brick_slab.json
 b9d7d250dff581ad11ca5a07854db5986beccf4b data/subtlyd/loot_table/blocks/snow_brick_stairs.json
 bd200b066fcfec07579233b3c0486486a0681e65 data/subtlyd/loot_table/blocks/snow_bricks.json

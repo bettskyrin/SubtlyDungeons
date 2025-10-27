@@ -27,10 +27,10 @@ public class RecipeProviderSD extends FabricRecipeProvider {
             @Override
             public void buildRecipes() {
                 for (int i = 0; i <= 15; i++) {
-                    tentBuilderFromWool(ItemsSD.TENT_ITEM_FAMILY.get(i), ItemsSD.WOOL_ITEM_FAMILY.get(i));
+                    tentBuilderFromWool(ItemsSD.TENT_ITEM_LIST.get(i), ItemsSD.WOOL_ITEM_LIST.get(i));
                 }
 
-                colorItemWithDye(ItemsSD.DYE_ITEM_FAMILY, ItemsSD.TENT_ITEM_FAMILY, "tent_dye", RecipeCategory.MISC);
+                colorItemWithDye(ItemsSD.DYE_ITEM_LIST, ItemsSD.TENT_ITEM_LIST, "tent_dye", RecipeCategory.MISC);
                 this.shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
                         .group("apple_pie")
                         .requires(Items.APPLE)
@@ -42,7 +42,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .save(exporter);
 
                 this.shaped(RecipeCategory.DECORATIONS, ItemsSD.UNLIT_CAMPFIRE)
-                        .group("unlit_campfire")
                         .define('#', Items.STICK)
                         .define('X', ItemTags.LOGS)
                         .pattern(" # ")
@@ -52,7 +51,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .save(exporter);
 
                 this.shapeless(RecipeCategory.FOOD, ItemsSD.POTTAGE)
-                        .group("pottage")
                         .requires(Items.BOWL)
                         .requires(Items.CARROT)
                         .requires(Items.WHEAT)
@@ -66,6 +64,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
                 this.stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(exporter);
                 this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
+                this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.DIRT_SLAB, Items.DIRT);
+                this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.GRASS_SLAB, Items.DIRT);
 
                 this.cookRecipesSD("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
                 this.cookRecipesSD("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);

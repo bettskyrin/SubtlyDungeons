@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0-alpha.2] - UNRELEASED
 ### Added
+#### Blocks
+- Added Grass Slab
+    - Can be crafted from three grass blocks
+- Added Dirt Slab
+  - Can be crafted from three dirt blocks
+
 
 ## [1.1.0-alpha.1] - 10/26/2025
 ### Added
