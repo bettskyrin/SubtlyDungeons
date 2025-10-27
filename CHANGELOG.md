@@ -8,14 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0-alpha.1] - 10/26/2025
 ### Added
 #### Blocks
-    - Added Snow Brick block family
-      - Snow Bricks
-        - Crafted from 4 snow blocks
-        - Best mined with a pickaxe
-      - Snow Brick Stairs
-          - Crafted from 6 snow bricks block
-      - Snow Brick Slab
-          - Crafted from 3 snow bricks block
+- Added Snow Brick block family
+  - Snow Bricks
+    - Crafted from 4 snow blocks
+    - Best mined with a pickaxe
+  - Snow Brick Stairs
+      - Crafted from 6 snow bricks block
+  - Snow Brick Slab
+      - Crafted from 3 snow bricks block
 
 #### Gamerules
 - Added doArrowArson
