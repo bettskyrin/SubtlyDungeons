@@ -26,7 +26,7 @@
   "item.subtlyd.black_tent": "Black Tent",
   "entity.subtlyd.tent.occupied": "This tent is occupied",
   "entity.subtlyd.tent.too_far_away": "You may not rest now; the tent is too far away",
-  "gamerule.doArrowArson": "Allow flaming arrow griefing",
+  "gamerule.arrow_arson": "Allow flaming arrow griefing",
   "gamerule.doArrowArson.description": "If enabled, flaming arrows can set fire to their environment",
   "options.doCameraShake": "Camera Shake",
   "options.doCameraShake.tooltip": "Enables a subtle camera shake effect in certain situations.",

@@ -2,8 +2,8 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "snowy grass",
-		"particle": "snowy grass"
+		"0": "tall_grass_bottom_snowy",
+		"particle": "tall_grass_bottom_snowy"
 	},
 	"elements": [
 		{

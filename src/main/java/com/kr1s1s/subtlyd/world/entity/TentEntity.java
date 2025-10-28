@@ -9,8 +9,6 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -30,11 +28,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -61,7 +59,7 @@ public class TentEntity extends Entity {
         return SubtlyDungeons.resourceLocation(color.toString() + "_tent");
     }
 
-    public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
+    public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {
         return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
 
@@ -120,10 +118,10 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
         if (this.isRemoved()) {
             return false;
-        } else if (!serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && damageSource.getEntity() instanceof Mob) {
+        } else if (!serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && damageSource.getEntity() instanceof Mob) {
             return false;
         } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             this.kill(serverLevel);
@@ -172,15 +170,15 @@ public class TentEntity extends Entity {
         }
     }
 
-    @Override protected void readAdditionalSaveData(ValueInput valueInput) { }
+    @Override protected void readAdditionalSaveData(@NotNull ValueInput valueInput) { }
 
-    @Override protected void addAdditionalSaveData(ValueOutput valueOutput) { }
+    @Override protected void addAdditionalSaveData(@NotNull ValueOutput valueOutput) { }
 
     protected void pushEntities() {
         List<Entity> list = this.level().getPushableEntities(this, this.getBoundingBox());
         if (!list.isEmpty()) {
             if (this.level() instanceof ServerLevel serverLevel) {
-                int i = serverLevel.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+                int i = serverLevel.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
                 if (i > 0 && list.size() > i - 1 && this.random.nextInt(4) == 0) {
                     int j = 0;
 
@@ -243,7 +241,7 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public @NotNull InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
+    public @NotNull InteractionResult interactAt(Player player, @NotNull Vec3 vec3, @NotNull InteractionHand interactionHand) {
         if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.getMessage() != null) {
@@ -297,7 +295,7 @@ public class TentEntity extends Entity {
 
     @Override
     public boolean ignoreExplosion(Explosion explosion) {
-        return explosion.getIndirectSourceEntity() instanceof Mob && !explosion.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        return explosion.getIndirectSourceEntity() instanceof Mob && !explosion.level().getGameRules().get(GameRules.MOB_GRIEFING);
     }
 
     @Override

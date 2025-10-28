@@ -26,6 +26,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Sounds
 - Howling winds are slightly less common
 
+#### Gamerules
+- Changed "doArrowArson" to "arrow_arson"
+
 ## [1.1.0-alpha.1] - 10/26/2025
 ### Added
 #### Blocks
