@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [1.1.0-alpha.2] - UNRELEASED
+### Added
+##### Sounds
+- Added sound for lighting a campfire with sticks
+
+##### Splash Text
+- Added "Now with Tents!"
+- Added "R.I.P. trout.png"
+- Added "L-l-l-lava!"
+- Added "Music by Peter Hont!"
+- Added "Music by Crispin Hands!"
+- Added "Music by John Johnson!"
+
+### Changed
+#### Textures
+- Changed all tent entity textures
+- Changed all tent item textures
+
+#### Sounds
+- Howling winds are slightly less common
 
 ## [1.1.0-alpha.1] - 10/26/2025
 ### Added
@@ -40,7 +59,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Ice can now trigger ambient wind noises
 - Increased volume of ambient bush and cold wind noises
 - Changed "Wind blows" to "Wind howls"
-- Changed "Wind howls" to "Wind blows"
+- Changed "Wind blows gently" to "Wind blows"
 - Added unique sounds for Snow Brick type blocks
 - Added new music
   - The Green Expanse by Crispin Hands (Game and Menus)

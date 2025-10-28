@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd;
 
-import com.kr1s1s.subtlyd.data.BlockEvents;
+import com.kr1s1s.subtlyd.data.BlockEventsSD;
 import com.kr1s1s.subtlyd.data.loot_table.LootSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
@@ -28,10 +28,10 @@ public class SubtlyDungeons implements ModInitializer {
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
-        SynchedEntityDataSD.init();
         GameRulesSD.init();
+        SynchedEntityDataSD.init();
         BlocksSD.init();
-        BlockEvents.run();
+        BlockEventsSD.run();
         ItemsSD.init();
         LootSD.generate();
     }

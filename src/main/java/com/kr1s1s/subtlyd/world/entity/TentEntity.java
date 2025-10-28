@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.data.tags.DamageTypeTagsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.minecraft.core.component.DataComponents;
@@ -8,6 +9,8 @@ import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -41,7 +44,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class TentEntity extends Entity { // TODO Abstract?
+public class TentEntity extends Entity {
     public long lastHit;
     public boolean occupied;
     private final Supplier<Item> dropItem;
@@ -141,8 +144,8 @@ public class TentEntity extends Entity { // TODO Abstract?
             this.setDamage(4.0F);
             return false;
         } else {
-            boolean bl = damageSource.is(DamageTypeTags.CAN_BREAK_ARMOR_STAND);
-            boolean bl2 = damageSource.is(DamageTypeTags.ALWAYS_KILLS_ARMOR_STANDS);
+            boolean bl = damageSource.is(DamageTypeTagsSD.CAN_BREAK_TENT);
+            boolean bl2 = damageSource.is(DamageTypeTagsSD.ALWAYS_KILLS_TENT);
             if (!(bl || bl2)) {
                 return false;
             } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
@@ -204,7 +207,7 @@ public class TentEntity extends Entity { // TODO Abstract?
     }
 
     private void broken() {
-        ItemStack itemStack = new ItemStack(dropItem.get());
+        ItemStack itemStack = new ItemStack(this.dropItem.get());
         itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         Block.popResource(this.level(), this.blockPosition(), itemStack);
         this.playBrokenSound();
@@ -241,16 +244,14 @@ public class TentEntity extends Entity { // TODO Abstract?
 
     @Override
     public @NotNull InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
-        if (player.level().isClientSide()) {
-            return InteractionResult.SUCCESS_SERVER;
-        } else {
+        if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.getMessage() != null) {
                     player.displayClientMessage(tentSleepingProblem.getMessage(), true);
                 }
             });
-            return InteractionResult.SUCCESS_SERVER;
         }
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     public static void allowTentSleep() {

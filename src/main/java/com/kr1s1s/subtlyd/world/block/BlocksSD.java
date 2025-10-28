@@ -2,6 +2,7 @@ package com.kr1s1s.subtlyd.world.block;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.level.block.sounds.SoundTypeSD;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.*;
@@ -13,8 +14,9 @@ public class BlocksSD {
     public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
     public static final Block SNOW_BRICK_STAIRS = registerStair(resourceKey("snow_brick_stairs"), SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(resourceKey("snow_brick_slab"), SNOW_BRICKS);
+    public static final Block TALL_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("tall_grass_snowy"), TallGrassBlockSnowy::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).randomTicks().strength(0.6F).sound(SoundType.GRASS));
 
-    public static void init() {}
+    public static void init() { }
     private static ResourceKey<Block> resourceKey(String name) {
         return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(name));
     }

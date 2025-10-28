@@ -15,7 +15,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 @Environment(EnvType.CLIENT)
 public class AmbientAirBlockSoundsPlayer {
-    private static final int IDLE_SOUND_CHANCE = 2100;
+    private static final int IDLE_SOUND_CHANCE = 3000;
     private static final int SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD = 3;
     private static final int SURROUNDING_BLOCKS_DISTANCE_HORIZONTAL_CHECK = 4;
     private static final int SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK = 5;

@@ -4,7 +4,7 @@ import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 
-public class BlockEvents {
+public class BlockEventsSD {
     public static void run() {
         UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
         TentEntity.allowTentSleep();

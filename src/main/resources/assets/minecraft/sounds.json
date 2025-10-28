@@ -86,11 +86,5 @@
     "sounds": [
       "subtlyd:music/finnbacka"
     ]
-  },
-  "music.overworld.windswept_hills": {
-    "replace": false,
-    "sounds": [
-      "subtlyd:music/finnbacka"
-    ]
   }
 }
