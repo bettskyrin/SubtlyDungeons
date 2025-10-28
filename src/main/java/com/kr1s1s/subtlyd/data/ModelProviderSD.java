@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.rendertype.RenderType;
@@ -16,6 +17,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public class ModelProviderSD extends FabricModelProvider {
 
@@ -26,7 +28,6 @@ public class ModelProviderSD extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily());
-        BlockRenderLayerMap.putBlock(BlocksSD.TALL_GRASS_BLOCK_SNOWY, ChunkSectionLayer.CUTOUT);
     }
 
     @Override
@@ -42,9 +43,6 @@ public class ModelProviderSD extends FabricModelProvider {
     }
 
     private static void snowyGrass(BlockModelGenerators generators) {
-        ResourceLocation bottomModel = ResourceLocation.withDefaultNamespace("block/tall_grass_bottom");
-        ResourceLocation topModel = ResourceLocation.withDefaultNamespace("block/tall_grass_top");
-        generators.blockStateOutput.accept(
-                BlockModelGenerators.variants());
+
     }
 }
