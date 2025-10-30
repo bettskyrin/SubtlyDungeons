@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.level;
 
 
+import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.serialization.Codec;
@@ -44,7 +45,7 @@ public class GameRulesSD {
     ) {
         return Registry.register(
                 BuiltInRegistries.GAME_RULE,
-                string,
+                SubtlyDungeons.resourceLocation(string),
                 new GameRule<>(gameRuleCategory, gameRuleType, argumentType, visitorCaller, codec, toIntFunction, object, featureFlagSet)
         );
     }

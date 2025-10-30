@@ -28,6 +28,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
                 .add(BlocksSD.SNOW_BRICK_SLAB);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(BlocksSD.CHARCOAL_BLOCK)
                 .addTag(SNOW_BRICKS);
         valueLookupBuilder(SKULL_BLOCK)
                 .add(Blocks.SKELETON_SKULL)

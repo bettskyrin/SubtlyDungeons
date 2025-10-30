@@ -1,0 +1,21 @@
+{
+  "parent": "minecraft:block/tinted_cross",
+  "textures": {
+    "cross": "minecraft:block/tall_grass_bottom",
+    "particle": "minecraft:block/tall_grass_bottom"
+  },
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 2, 16 ],
+      "faces": {
+        "down":  { "texture": "minecraft:block/snow_block", "cullface": "down" },
+        "up":    { "texture": "minecraft:block/snow_block" },
+        "north": { "texture": "minecraft:block/snow_block", "cullface": "north" },
+        "south": { "texture": "minecraft:block/snow_block", "cullface": "south" },
+        "west":  { "texture": "minecraft:block/snow_block", "cullface": "west" },
+        "east":  { "texture": "minecraft:block/snow_block", "cullface": "east" }
+      }
+    }
+  ]
+}

@@ -19,6 +19,8 @@ public class ModelProviderSD extends FabricModelProvider {
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockStateModelGenerator) {
         blockStateModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).getFamily());
+        blockStateModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
+        //blockStateModelGenerator.createTrivialCube(BlocksSD.SHORT_GRASS_BLOCK_SNOWY);
     }
 
     @Override

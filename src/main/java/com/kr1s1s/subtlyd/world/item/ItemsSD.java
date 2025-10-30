@@ -30,7 +30,6 @@ public class ItemsSD {
     public static final Item CALAMARI = registerItem(resourceKey("calamari"), Item::new, new Item.Properties().food(FoodsSD.CALAMARI));
     public static final Item COOKED_CALAMARI = registerItem(resourceKey("cooked_calamari"), Item::new, new Item.Properties().food(FoodsSD.COOKED_CALAMARI));
     public static final Item POTTAGE = registerItem(resourceKey("pottage"), Item::new, new Item.Properties().food(FoodsSD.POTTAGE).stacksTo(1));
-
     public static final Item WHITE_TENT = registerTent("white", EntityTypeSD.WHITE_TENT);
     public static final Item LIGHT_GRAY_TENT = registerTent("light_gray", EntityTypeSD.LIGHT_GRAY_TENT);
     public static final Item GRAY_TENT = registerTent("gray", EntityTypeSD.GRAY_TENT);
@@ -51,6 +50,8 @@ public class ItemsSD {
     public static final Item SNOW_BRICKS = registerBlock(BlocksSD.SNOW_BRICKS);
     public static final Item SNOW_BRICK_STAIRS = registerBlock(BlocksSD.SNOW_BRICK_STAIRS);
     public static final Item SNOW_BRICK_SLAB = registerBlock(BlocksSD.SNOW_BRICK_SLAB);
+    public static final Item CHARCOAL_BLOCK = registerBlock(BlocksSD.CHARCOAL_BLOCK);
+    //public static final Item DEBUG_SNOWY_GRASS = registerBlock(BlocksSD.SHORT_GRASS_BLOCK_SNOWY); // TODO Remove
 
     public static List<Item> TENT_ITEM_LIST = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
     public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
@@ -66,6 +67,7 @@ public class ItemsSD {
             for (Item item : SNOW_BRICK_LIST) {
                 entries.addBefore(SANDSTONE, item);
             }
+            entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
@@ -87,6 +89,17 @@ public class ItemsSD {
             entries.addAfter(CALAMARI, COOKED_CALAMARI);
             entries.addAfter(RABBIT_STEW, POTTAGE);
         });
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+            for (Item item : SNOW_BRICK_LIST) {
+                entries.addBefore(SANDSTONE, item);
+            }
+            entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
+        });
+
+//        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.OP_BLOCKS).register(entries -> { // TODO Remove
+//            entries.addBefore(BARRIER, DEBUG_SNOWY_GRASS);
+//        });
 
         CompostingChanceRegistry.INSTANCE.add(APPLE_PIE, 1.0F);
     }

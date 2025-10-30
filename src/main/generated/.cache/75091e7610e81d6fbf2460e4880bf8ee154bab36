@@ -1,4 +1,5 @@
-// 25w43a	-999999999-01-01T00:00:00	Subtly Dungeons/Model Definitions
+// 25w44a	-999999999-01-01T00:00:00	Subtly Dungeons/Model Definitions
+c41bc3e5acc1204da1ceee3e9e90fc900c2cbe02 assets/subtlyd/blockstates/charcoal_block.json
 aab26a2b90bd2c4da1267b93a25078f02d19dc87 assets/subtlyd/blockstates/snow_brick_slab.json
 372f95ea61441682bb9f664f65382771ce806e91 assets/subtlyd/blockstates/snow_brick_stairs.json
 395e4b883c8d52482b1fc274152cdaab5d064ca5 assets/subtlyd/blockstates/snow_bricks.json
@@ -7,6 +8,7 @@ fd5cb6c164b6365b89fc09e7b6804843e92ae44f assets/subtlyd/items/black_tent.json
 29d08f1d3df1f4172c1cb357ca2bc846ba69f6f5 assets/subtlyd/items/blue_tent.json
 22c35fa33393a08d86f52ef5dc636e2586554c0d assets/subtlyd/items/brown_tent.json
 f9bb8fcfb8e5b2455b75eab6c24b2dbad874bfec assets/subtlyd/items/calamari.json
+30096b9a5fafa0ee2eeac59d40684931553bab11 assets/subtlyd/items/charcoal_block.json
 664667b2ef0d2b476594daffe3a34e441f8bc768 assets/subtlyd/items/cooked_calamari.json
 42a49846bb43b77cdd958d91f1dc05348684be16 assets/subtlyd/items/cyan_tent.json
 0e9c0651ff2940bd0277a56f0c1f67d6d96cb19c assets/subtlyd/items/gray_tent.json
@@ -26,6 +28,7 @@ fa8c3bca3f23f7adde8a0570ca3c93be9e657592 assets/subtlyd/items/snow_brick_slab.js
 69d01f14e6530025a3a2eb6ebb53b4ab48472722 assets/subtlyd/items/unlit_campfire.json
 5d8135f132372ffbd9642befe2979e0e52dd1ad8 assets/subtlyd/items/white_tent.json
 c5a75a4a0aaec2cb4893dde1ec9158fc43abb89d assets/subtlyd/items/yellow_tent.json
+78c256253ef7b2cdb8edcb8dfa31518322dd0d75 assets/subtlyd/models/block/charcoal_block.json
 06f2729da60fcc9ff7429508cdc13082dad0dd4b assets/subtlyd/models/block/snow_brick_slab.json
 b074473941d8f1aa87a1c29a41a5659fafda02fd assets/subtlyd/models/block/snow_brick_slab_top.json
 cd26787f844a549364521f8359dbf3fd0bb4691b assets/subtlyd/models/block/snow_brick_stairs.json

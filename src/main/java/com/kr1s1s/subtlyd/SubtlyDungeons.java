@@ -6,6 +6,7 @@ import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
+import com.kr1s1s.subtlyd.world.level.block.entity.FuelValuesSD;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.ResourceLocation;
@@ -33,6 +34,7 @@ public class SubtlyDungeons implements ModInitializer {
         BlocksSD.init();
         BlockEventsSD.run();
         ItemsSD.init();
+        FuelValuesSD.init();
         LootSD.generate();
     }
 }

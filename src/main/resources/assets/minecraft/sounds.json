@@ -71,7 +71,8 @@
   "music.menu": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/the_green_expanse"
+      "subtlyd:music/the_green_expanse",
+      "subtlyd:music/cliffs_and_canyons"
     ]
   },
   "music.overworld.snowy_slopes": {

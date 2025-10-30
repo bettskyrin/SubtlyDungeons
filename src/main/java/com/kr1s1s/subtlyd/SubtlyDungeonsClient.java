@@ -2,6 +2,7 @@ package com.kr1s1s.subtlyd;
 
 import com.kr1s1s.subtlyd.client.ClientTickEventsSD;
 import com.kr1s1s.subtlyd.client.renderer.*;
+import com.kr1s1s.subtlyd.client.renderer.state.BlockRendering;
 import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.api.ClientModInitializer;
 

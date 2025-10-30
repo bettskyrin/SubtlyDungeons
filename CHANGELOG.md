@@ -7,24 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0-alpha.2] - UNRELEASED
 ### Added
+##### Blocks
+- Added Block of Charcoal
+  - Works the same as a coal block
+
 ##### Sounds
 - Added sound for lighting a campfire with sticks
 
 ##### Splash Text
 - Added "Now with Tents!"
 - Added "R.I.P. trout.png"
+  - A developer inside joke, as it was decided to not add trouts to the mod
 - Added "L-l-l-lava!"
 - Added "Music by Peter Hont!"
 - Added "Music by Crispin Hands!"
 - Added "Music by John Johnson!"
+- Added "Welcome back Dinnerbone!"
+  - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
 
 ### Changed
 #### Textures
 - Changed all tent entity textures
 - Changed all tent item textures
+- Changed default filled map texture
 
 #### Sounds
 - Howling winds are slightly less common
+- Cliffs and Canyons by Crispin Hands now plays in the menu
 
 #### Gamerules
 - Changed "doArrowArson" to "arrow_arson"
