@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=lower": { "model": "subtlyd:block/tall_grass_snowy_bottom" },
+    "half=upper": { "model": "subtlyd:block/tall_grass_snowy_top" }
+  }
+}

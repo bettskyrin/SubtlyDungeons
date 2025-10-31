@@ -22,10 +22,13 @@ public class BlocksSD {
                     .strength(0.6F)
                     .sound(SoundType.GRASS)
                     .replaceable()
-                    .offsetType(BlockBehaviour.OffsetType.XYZ)
+                    .noCollision()
                     .dynamicShape()
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY));
+    public static final Block TALL_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("tall_grass_snowy"),
+            TallGrassBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(SHORT_GRASS_BLOCK_SNOWY));
 
     public static void init() { }
     private static ResourceKey<Block> resourceKey(String name) {

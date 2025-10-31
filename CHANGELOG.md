@@ -10,12 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ##### Blocks
 - Added Block of Charcoal
   - Works the same as a coal block
+- Added short and tall snowy grass
+  - Becomes snowy if touching snow on any side
 
 ##### Sounds
 - Added sound for lighting a campfire with sticks
+- Added new music
+  - Secrets in the Forest by Peter Hont (Menu, Meadow, and Flower Forest)
 
 ##### Splash Text
-- Added "Now with Tents!"
+- Added "Pretty tents!"
 - Added "R.I.P. trout.png"
   - A developer inside joke, as it was decided to not add trouts to the mod
 - Added "L-l-l-lava!"
@@ -24,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added "Music by John Johnson!"
 - Added "Welcome back Dinnerbone!"
   - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
+- Added "Windy!"
 
 ### Changed
 #### Textures
@@ -50,6 +55,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Snow Brick Slab
       - Crafted from 3 snow bricks block
 
+#### Sounds
+- Added new music
+    - The Green Expanse by Crispin Hands (Game and Menus)
+    - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
+    - Cliffs and Canyons by Crispin Hands (Meadows and Game)
+    - Wanderlust by Peter Hont (Game)
+    - Cellar by John Johnson (Deep Dark)
+    - Windswept Peaks by Peter Hont (Frozen Peaks and Snowy Slopes)
+    - Finnbacka by Peter Hont (Stony Peaks)
+- Added unique sounds for Snow Brick type blocks
+
 #### Gamerules
 - Added doArrowArson
   - Can prevent flaming arrows from setting fires
@@ -72,15 +88,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Increased volume of ambient bush and cold wind noises
 - Changed "Wind blows" to "Wind howls"
 - Changed "Wind blows gently" to "Wind blows"
-- Added unique sounds for Snow Brick type blocks
-- Added new music
-  - The Green Expanse by Crispin Hands (Game and Menus)
-  - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
-  - Cliffs and Canyons by Crispin Hands (Meadows and Game)
-  - Wanderlust by Peter Hont (Game)
-  - Cellar by John Johnson (Deep Dark)
-  - Windswept Peaks by Peter Hont (Frozen Peaks and Snowy Slopes)
-  - Finnbacka by Peter Hont (Stony Peaks)
 
 #### Textures
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors

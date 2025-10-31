@@ -66,7 +66,9 @@
     "subtitle": "subtitles.subtlyd.item.stick.light",
     "sounds": [
       "subtlyd:stick/stick_light1",
-      "subtlyd:stick/stick_light2"
+      "subtlyd:stick/stick_light2",
+      "subtlyd:stick/stick_light3",
+      "subtlyd:stick/stick_light4"
     ]
   }
 }

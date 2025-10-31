@@ -12,5 +12,6 @@ public class SubtlyDungeonsClient implements ClientModInitializer {
         EntityRenderersSD.runRegistration();
         SoundEventsSD.init();
         ClientTickEventsSD.init();
+        BlockRendering.init();
     }
 }

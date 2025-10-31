@@ -16,6 +16,22 @@
       "subtlyd:ravager/ravager_bite3"
     ]
   },
+  "music.menu": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/the_green_expanse",
+      "subtlyd:music/cliffs_and_canyons",
+      "subtlyd:music/secrets_in_the_forest"
+    ]
+  },
+  "music.game": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/the_green_expanse",
+      "subtlyd:music/cliffs_and_canyons",
+      "subtlyd:music/wanderlust"
+    ]
+  },
   "music.creative": {
     "replace": false,
     "sounds": [
@@ -29,6 +45,12 @@
       "subtlyd:music/cellar"
     ]
   },
+  "music.overworld.flower_forest": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/secrets_in_the_forest"
+    ]
+  },
   "music.overworld.forest": {
     "replace": false,
     "sounds": [
@@ -40,14 +62,6 @@
     "sounds": [
       "subtlyd:music/top",
       "subtlyd:music/windswept_peaks"
-    ]
-  },
-  "music.game": {
-    "replace": false,
-    "sounds": [
-      "subtlyd:music/the_green_expanse",
-      "subtlyd:music/cliffs_and_canyons",
-      "subtlyd:music/wanderlust"
     ]
   },
   "music.overworld.grove": {
@@ -65,14 +79,8 @@
   "music.overworld.meadow": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/cliffs_and_canyons"
-    ]
-  },
-  "music.menu": {
-    "replace": false,
-    "sounds": [
-      "subtlyd:music/the_green_expanse",
-      "subtlyd:music/cliffs_and_canyons"
+      "subtlyd:music/cliffs_and_canyons",
+      "subtlyd:music/secrets_in_the_forest"
     ]
   },
   "music.overworld.snowy_slopes": {
@@ -86,6 +94,12 @@
     "replace": false,
     "sounds": [
       "subtlyd:music/finnbacka"
+    ]
+  },
+  "music.overworld.stony_shore": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:music/secrets_in_the_forest"
     ]
   }
 }
