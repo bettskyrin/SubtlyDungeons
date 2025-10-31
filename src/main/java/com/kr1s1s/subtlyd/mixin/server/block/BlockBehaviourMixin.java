@@ -16,8 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BlockBehaviour.class)
-public class TallGrassBlockMixin {
-
+public class BlockBehaviourMixin {
     @Inject(method = "updateShape(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/world/level/ScheduledTickAccess;Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/util/RandomSource;)Lnet/minecraft/world/level/block/state/BlockState;", at = @At("TAIL"), cancellable = true)
     public BlockState updateShape(
             BlockState blockState,
@@ -29,10 +28,11 @@ public class TallGrassBlockMixin {
             BlockState blockState2,
             RandomSource randomSource, CallbackInfoReturnable<BlockState> cir
     ) {
-        if (isSnowySetting(blockState2) && blockState.is(Blocks.SHORT_GRASS)) { // Snowy Grass
-            blockState = BlocksSD.CHARCOAL_BLOCK.defaultBlockState(); // TODO
-        } else if (!isSnowySetting(blockState2) && blockState.is(BlocksSD.CHARCOAL_BLOCK)) {
-            blockState = Blocks.TALL_GRASS.defaultBlockState(); // TODO
+        for (Direction direction1 : Direction.Plane.HORIZONTAL) {
+            blockState2 = levelReader.getBlockState(blockPos.relative(direction1));
+            if (isSnowySetting(blockState2) && blockState.is(Blocks.SHORT_GRASS)) { // Snowy Grass
+                return BlocksSD.SHORT_GRASS_BLOCK_SNOWY.defaultBlockState();
+            }
         }
         return blockState;
     }

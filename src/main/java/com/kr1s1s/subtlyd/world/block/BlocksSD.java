@@ -15,7 +15,17 @@ public class BlocksSD {
     public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
     public static final Block SNOW_BRICK_STAIRS = registerStair(resourceKey("snow_brick_stairs"), SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(resourceKey("snow_brick_slab"), SNOW_BRICKS);
-    //public static final Block SHORT_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("short_grass_snowy"), ShortGrassBlockSnowy::new, BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).randomTicks().strength(0.6F).sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XYZ).ignitedByLava().pushReaction(PushReaction.DESTROY));
+    public static final Block SHORT_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("short_grass_snowy"),
+            TallGrassBlock::new,
+            BlockBehaviour.Properties.of().mapColor(MapColor.SNOW)
+                    .randomTicks()
+                    .strength(0.6F)
+                    .sound(SoundType.GRASS)
+                    .replaceable()
+                    .offsetType(BlockBehaviour.OffsetType.XYZ)
+                    .dynamicShape()
+                    .ignitedByLava()
+                    .pushReaction(PushReaction.DESTROY));
 
     public static void init() { }
     private static ResourceKey<Block> resourceKey(String name) {
