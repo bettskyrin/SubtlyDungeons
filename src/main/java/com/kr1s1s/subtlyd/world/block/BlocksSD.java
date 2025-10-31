@@ -26,7 +26,7 @@ public class BlocksSD {
                     .dynamicShape()
                     .ignitedByLava()
                     .pushReaction(PushReaction.DESTROY));
-    public static final Block TALL_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("tall_grass_snowy"),
+    public static final Block TALL_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("tall_grass_snowy"), // TODO make grass blocks snowy
             TallGrassBlock::new,
             BlockBehaviour.Properties.ofFullCopy(SHORT_GRASS_BLOCK_SNOWY));
 
