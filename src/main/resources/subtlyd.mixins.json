@@ -3,7 +3,6 @@
 	"package": "com.kr1s1s.subtlyd.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-      "server.block.BlockBehaviourMixin",
       "server.entity.AbstractArrowMixin",
       "server.entity.ServerPlayerMixin",
       "server.entity.RaiderMixin",

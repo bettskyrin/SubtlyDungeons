@@ -28,8 +28,9 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
                 .add(BlocksSD.SNOW_BRICK_SLAB);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(SNOW_BRICKS)
                 .add(BlocksSD.CHARCOAL_BLOCK)
-                .addTag(SNOW_BRICKS);
+                .add(BlocksSD.IRON_GRATE);
         valueLookupBuilder(SKULL_BLOCK)
                 .add(Blocks.SKELETON_SKULL)
                 .add(Blocks.SKELETON_WALL_SKULL)
@@ -47,6 +48,8 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.PIGLIN_WALL_HEAD);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
+        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
+                .add(BlocksSD.IRON_GRATE);
     }
 
 

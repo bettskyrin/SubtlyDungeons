@@ -10,13 +10,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ##### Blocks
 - Added Block of Charcoal
   - Works the same as a coal block
-- Added short and tall snowy grass
-  - Becomes snowy if touching snow on any side
+- Added Iron Grate
+  - Can be crafted or cut from iron blocks
+  - Is waterloggable
 
 ##### Sounds
 - Added sound for lighting a campfire with sticks
 - Added new music
-  - Secrets in the Forest by Peter Hont (Menu, Meadow, and Flower Forest)
+  - Secrets in the Forest by Crispin Hands (Menu, Meadow, and Flower Forest)
 
 ##### Splash Text
 - Added "Pretty tents!"
@@ -25,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added "L-l-l-lava!"
 - Added "Music by Peter Hont!"
 - Added "Music by Crispin Hands!"
-- Added "Music by John Johnson!"
+- Added "Music by Johan Johnson!"
 - Added "Welcome back Dinnerbone!"
   - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
 - Added "Windy!"
@@ -61,7 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
     - Cliffs and Canyons by Crispin Hands (Meadows and Game)
     - Wanderlust by Peter Hont (Game)
-    - Cellar by John Johnson (Deep Dark)
+    - Cellar by Johan Johnson (Deep Dark)
     - Windswept Peaks by Peter Hont (Frozen Peaks and Snowy Slopes)
     - Finnbacka by Peter Hont (Stony Peaks)
 - Added unique sounds for Snow Brick type blocks

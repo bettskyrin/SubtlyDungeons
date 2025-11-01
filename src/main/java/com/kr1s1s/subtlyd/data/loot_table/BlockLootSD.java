@@ -17,5 +17,7 @@ public class BlockLootSD extends FabricBlockLootTableProvider {
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);
+        dropSelf(BlocksSD.CHARCOAL_BLOCK);
+        dropSelf(BlocksSD.IRON_GRATE);
     }
 }

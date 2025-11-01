@@ -8,27 +8,25 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 
 public class BlocksSD {
-    public static final Block CHARCOAL_BLOCK = Blocks.register(resourceKey("charcoal_block"), BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
-    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).instrument(NoteBlockInstrument.BASEDRUM).strength(1.0F, 0.5F).sound(SoundTypeSD.SNOW_BRICKS));
+    public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of()
+            .mapColor(MapColor.SNOW)
+            .instrument(NoteBlockInstrument.BASEDRUM)
+            .strength(1.0F, 0.5F)
+            .sound(SoundTypeSD.SNOW_BRICKS));
     public static final Block SNOW_BRICK_STAIRS = registerStair(resourceKey("snow_brick_stairs"), SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(resourceKey("snow_brick_slab"), SNOW_BRICKS);
-    public static final Block SHORT_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("short_grass_snowy"),
-            TallGrassBlock::new,
-            BlockBehaviour.Properties.of().mapColor(MapColor.SNOW)
-                    .randomTicks()
-                    .strength(0.6F)
-                    .sound(SoundType.GRASS)
-                    .replaceable()
-                    .noCollision()
-                    .dynamicShape()
-                    .ignitedByLava()
-                    .pushReaction(PushReaction.DESTROY));
-    public static final Block TALL_GRASS_BLOCK_SNOWY = Blocks.register(resourceKey("tall_grass_snowy"), // TODO make grass blocks snowy
-            TallGrassBlock::new,
-            BlockBehaviour.Properties.ofFullCopy(SHORT_GRASS_BLOCK_SNOWY));
+    public static final Block CHARCOAL_BLOCK = Blocks.register(resourceKey("charcoal_block"), BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
+    public static final Block IRON_GRATE = Blocks.register(resourceKey("iron_grate"), IronGrateBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.METAL)
+            .requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .sound(SoundType.IRON)
+            .noOcclusion()
+            .isValidSpawn(Blocks::never)
+            .isRedstoneConductor(Blocks::never)
+            .isSuffocating(Blocks::never)
+            .isViewBlocking(Blocks::never));
 
     public static void init() { }
     private static ResourceKey<Block> resourceKey(String name) {

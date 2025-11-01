@@ -1,4 +1,6 @@
 // 25w44a	-999999999-01-01T00:00:00	Subtly Dungeons/Block Loot Tables
+7674cff6bc87418119ae9afd67c488bd0af3427c data/subtlyd/loot_table/blocks/charcoal_block.json
+08fd4be4eb7ebf913cf1bbccf2301e37e7319a1f data/subtlyd/loot_table/blocks/iron_grate.json
 7044e9b5e5e51611a709a9fb67f4c3f60ba5c390 data/subtlyd/loot_table/blocks/snow_brick_slab.json
 b9d7d250dff581ad11ca5a07854db5986beccf4b data/subtlyd/loot_table/blocks/snow_brick_stairs.json
 bd200b066fcfec07579233b3c0486486a0681e65 data/subtlyd/loot_table/blocks/snow_bricks.json
