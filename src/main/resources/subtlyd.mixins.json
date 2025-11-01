@@ -5,7 +5,6 @@
 	"mixins": [
       "server.entity.AbstractArrowMixin",
       "server.entity.ServerPlayerMixin",
-      "server.entity.TamableAnimalMixin",
       "server.entity.RaiderMixin",
       "server.entity.ZombieMixin"
     ],
