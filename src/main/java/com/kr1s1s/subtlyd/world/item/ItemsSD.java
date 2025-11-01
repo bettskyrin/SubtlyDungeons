@@ -53,16 +53,11 @@ public class ItemsSD {
     public static final Item SNOW_BRICK_WALL = registerBlock(BlocksSD.SNOW_BRICK_WALL);
     public static final Item CHARCOAL_BLOCK = registerBlock(BlocksSD.CHARCOAL_BLOCK);
     public static final Item IRON_GRATE = registerBlock(BlocksSD.IRON_GRATE);
-    public static final Item CHISELED_DRIPSTONE = registerBlock(BlocksSD.CHISELED_DRIPSTONE);
-    public static final Item CHISELED_STONE = registerBlock(BlocksSD.CHISELED_STONE);
+    public static final Item CHISELED_POLISHED_DRIPSTONE = registerBlock(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
     public static final Item POLISHED_DRIPSTONE = registerBlock(BlocksSD.POLISHED_DRIPSTONE);
     public static final Item POLISHED_DRIPSTONE_SLAB = registerBlock(BlocksSD.POLISHED_DRIPSTONE_SLAB);
     public static final Item POLISHED_DRIPSTONE_STAIRS = registerBlock(BlocksSD.POLISHED_DRIPSTONE_STAIRS);
     public static final Item POLISHED_DRIPSTONE_WALL = registerBlock(BlocksSD.POLISHED_DRIPSTONE_WALL);
-    public static final Item POLISHED_STONE = registerBlock(BlocksSD.POLISHED_STONE);
-    public static final Item POLISHED_STONE_SLAB = registerBlock(BlocksSD.POLISHED_STONE_SLAB);
-    public static final Item POLISHED_STONE_STAIRS = registerBlock(BlocksSD.POLISHED_STONE_STAIRS);
-    public static final Item POLISHED_STONE_WALL = registerBlock(BlocksSD.POLISHED_STONE_WALL);
     public static final Item STONE_PILLAR = registerBlock(BlocksSD.STONE_PILLAR);
     public static final Item STONE_TILES = registerBlock(BlocksSD.STONE_TILES);
     public static final Item STONE_TILE_STAIRS = registerBlock(BlocksSD.STONE_TILE_STAIRS);
@@ -73,9 +68,8 @@ public class ItemsSD {
     public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
     public static List<Item> DYE_ITEM_LIST = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
     public static List<Item> SNOW_BRICK_LIST = List.of(SNOW_BRICKS, SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB, SNOW_BRICK_WALL);
-    public static List<Item> POLISHED_STONE_LIST = List.of(POLISHED_STONE, POLISHED_STONE_STAIRS, POLISHED_STONE_SLAB, POLISHED_STONE_WALL);
     public static List<Item> POLISHED_DRIPSTONE_LIST = List.of(POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE_WALL);
-    public static List<Item> STONE_TILE_LIST = List.of(STONE_TILES, STONE_TILE_STAIRS, STONE_TILE_SLAB, STONE_TILE_WALL); // TODO Add item tags
+    public static List<Item> STONE_TILE_LIST = List.of(STONE_TILES, STONE_TILE_STAIRS, STONE_TILE_SLAB, STONE_TILE_WALL);
 
     private static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(name));
@@ -89,10 +83,6 @@ public class ItemsSD {
             entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
             entries.addAfter(IRON_BLOCK, IRON_GRATE);
 
-            for (Item item : POLISHED_STONE_LIST) {
-                entries.addBefore(GRANITE, item);
-            }
-
             for (Item item : STONE_TILE_LIST) {
                 entries.addBefore(GRANITE, item);
             }
@@ -101,9 +91,8 @@ public class ItemsSD {
                 entries.addBefore(GRANITE, item);
             }
 
-            entries.addBefore(POLISHED_STONE, CHISELED_STONE);;
-            entries.addAfter(CHISELED_STONE, STONE_PILLAR);
-            entries.addBefore(POLISHED_DRIPSTONE, CHISELED_DRIPSTONE);
+            entries.addAfter(STONE_SLAB, STONE_PILLAR);
+            entries.addBefore(POLISHED_DRIPSTONE, CHISELED_POLISHED_DRIPSTONE);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {

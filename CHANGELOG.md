@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.1.0-alpha.2] - UNRELEASED
+## [1.1.0-alpha.2] - 11/1/2025
 ### Added
 ##### Blocks
 - Added Block of Charcoal
@@ -13,11 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Iron Grate
   - Can be crafted or cut from iron blocks
   - Is waterloggable
-- Added Chiseled Dripstone
+- Added Chiseled Polished Dripstone
 - Added Chiseled Stone
 - Added Polished Dripstone
-    - Added stair, slab, and wall variants
-- Added Polished Stone
     - Added stair, slab, and wall variants
 - Added Stone Pillar
 - Added Stone Tiles
@@ -28,6 +26,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added sound for lighting a campfire with sticks
 - Added new music
   - Secrets in the Forest by Crispin Hands (Menu, Meadow, and Flower Forest)
+  - Cacti Canyon by Johan Johnson (Badlands)
+  - Creeper Pit by Peter Hont (Jungle)
+  - Desert Temple by Johan Johnson (Desert)
+  - Fizz by Johan Johnson (Dripstone Caves, Badlands, Eroded Badlands, Desert)
+  - Halland by Johan Johnson (Menu, Cherry Grove, Flower Forest, Old Growth, Meadow, Lush Caves)
+  - Haven by Johan Johnson (Deep Dark, Dripstone Caves)
+  - Intertile by Peter Hont (Dripstone Caves)
+  - Pumpkin Pastures by Johan Johnson (Badlands)
+  - Skogsstuga by Peter Hont (Desert and Badlands)
+  - Soggier Cave by Johan Johnson (Badlands)
+  - Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
+  - Squid Coast by Johan Johnson (Jagged Peaks, Stony Peaks, Dripstone Caves)
 
 ##### Splash Text
 - Added "Pretty tents!"
@@ -42,6 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added "Windy!"
 
 ### Changed
+#### Items
+- Tents can now be used as furnace fuel
+  - Can cook up to 3 items per tent
+
 #### Textures
 - Changed all tent entity textures
 - Changed all tent item textures
@@ -50,6 +64,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Sounds
 - Howling winds are slightly less common
 - Cliffs and Canyons by Crispin Hands now plays in the menu
+- Wanderlust by Peter Hont now plays in the menu
+- Adjusted biome specific track weights so that they play more often
 
 #### Gamerules
 - Changed "doArrowArson" to "arrow_arson"

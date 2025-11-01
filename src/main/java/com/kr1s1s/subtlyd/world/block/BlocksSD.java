@@ -28,17 +28,12 @@ public class BlocksSD {
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never));
-    public static final Block CHISELED_STONE = Blocks.register(resourceKey("chiseled_stone"), BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final Block STONE_PILLAR = Blocks.register(resourceKey("stone_pillar"), RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
-    public static final Block POLISHED_STONE = Blocks.register(resourceKey("polished_stone"), BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
-    public static final Block POLISHED_STONE_STAIRS = registerStair("polished_stone_stairs", POLISHED_STONE);
-    public static final Block POLISHED_STONE_SLAB = registerSlab("polished_stone_slab", POLISHED_STONE);
-    public static final Block POLISHED_STONE_WALL = registerWall("polished_stone_wall", POLISHED_STONE);
     public static final Block STONE_TILES = Blocks.register(resourceKey("stone_tiles"), BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final Block STONE_TILE_STAIRS = registerStair("stone_tile_stairs", STONE_TILES);
     public static final Block STONE_TILE_SLAB = registerSlab("stone_tile_slab", STONE_TILES);
     public static final Block STONE_TILE_WALL = registerWall("stone_tile_wall", STONE_TILES);
-    public static final Block CHISELED_DRIPSTONE = Blocks.register(resourceKey("chiseled_dripstone"), BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
+    public static final Block CHISELED_POLISHED_DRIPSTONE = Blocks.register(resourceKey("chiseled_polished_dripstone"), BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
     public static final Block POLISHED_DRIPSTONE = Blocks.register(resourceKey("polished_dripstone"), BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
     public static final Block POLISHED_DRIPSTONE_STAIRS = registerStair("polished_dripstone_stairs", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_SLAB = registerSlab("polished_dripstone_slab", POLISHED_DRIPSTONE);

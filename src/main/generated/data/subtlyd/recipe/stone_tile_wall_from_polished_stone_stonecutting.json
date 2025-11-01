@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "subtlyd:polished_stone",
-  "result": {
-    "count": 1,
-    "id": "subtlyd:stone_tile_wall"
-  }
-}
