@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": "subtlyd:polished_dripstone",
+  "result": {
+    "count": 2,
+    "id": "subtlyd:polished_dripstone_slab"
+  }
+}

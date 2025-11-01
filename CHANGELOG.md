@@ -13,6 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added Iron Grate
   - Can be crafted or cut from iron blocks
   - Is waterloggable
+- Added Chiseled Dripstone
+- Added Chiseled Stone
+- Added Polished Dripstone
+    - Added stair, slab, and wall variants
+- Added Polished Stone
+    - Added stair, slab, and wall variants
+- Added Stone Pillar
+- Added Stone Tiles
+  - Added stair, slab, and wall variants
+- Added snow brick wall and snow brick family stonecutting recipes
 
 ##### Sounds
 - Added sound for lighting a campfire with sticks
