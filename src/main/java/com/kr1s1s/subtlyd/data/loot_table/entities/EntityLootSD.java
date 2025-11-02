@@ -20,19 +20,19 @@ public class EntityLootSD {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
             EntityPredicate onFirePredicate = EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)).build();
 
-            if (resourceKey.equals(EntityType.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityType.GLOW_SQUID.getDefaultLootTable().orElseThrow())) { /* SQUID */
-                LootPool.Builder squidPool = LootPool.lootPool()
+            if (resourceKey.equals(EntityType.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityType.GLOW_SQUID.getDefaultLootTable().orElseThrow())) {
+                LootPool.Builder poolBuilder = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ItemsSD.CALAMARI)
                                 .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, onFirePredicate))));
-                tableBuilder.withPool(squidPool).build();
-            } else if (resourceKey.equals(EntityType.POLAR_BEAR.getDefaultLootTable().orElseThrow())) { /* POLAR BEAR */
-                tableBuilder.modifyPools(poolBuilder -> {
-                    poolBuilder.add(LootItem.lootTableItem(ItemsSD.CALAMARI)
-                            .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, onFirePredicate)))
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
-                            .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F)))).build();
-                });
+                tableBuilder.withPool(poolBuilder).build();
+            } else if (resourceKey.equals(EntityType.POLAR_BEAR.getDefaultLootTable().orElseThrow())) {
+                LootPool.Builder poolBuilder = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(ItemsSD.CALAMARI)
+                                .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, onFirePredicate)))
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 1.0F)))
+                                .apply(EnchantedCountIncreaseFunction.lootingMultiplier(provider, UniformGenerator.between(0.0F, 1.0F))));
+                    tableBuilder.withPool(poolBuilder).build();
             }
         });
     }

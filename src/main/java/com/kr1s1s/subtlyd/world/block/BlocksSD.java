@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.world.block;
 
+import com.google.common.collect.Sets;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.core.registries.Registries;
@@ -8,6 +9,10 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Function;
 
 public class BlocksSD {
     public static final Block SNOW_BRICKS = Blocks.register(resourceKey("snow_bricks"), BlockBehaviour.Properties.of()

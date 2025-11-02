@@ -16,13 +16,17 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
+@SuppressWarnings("unused")
 public abstract class AbstractArrowMixin {
     @Shadow protected abstract boolean isInGround();
     AbstractArrow arrow = (AbstractArrow) (Object) (this);
     Level level = arrow.level();
 
     @Inject(method = "onHitBlock", at = @At("RETURN"))
-    public void land(CallbackInfo ci) {
+    public void onHitBlock(CallbackInfo ci) {
+        fireOnLand();
+    }
+    public void fireOnLand() {
         boolean bl = !arrow.isNoPhysics();
         if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRulesSD.ARROW_ARSON).equals(true)) {
             if (!(!level.getServer().getWorldData().getGameRules().get(GameRules.MOB_GRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {

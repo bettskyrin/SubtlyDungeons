@@ -17,15 +17,16 @@ import java.util.List;
 
 @Mixin(Entity.class)
 @Environment(EnvType.CLIENT)
+@SuppressWarnings("unused")
 public class EntityMixin {
     Entity entity = (Entity) (Object) this;
 
     @Inject(method = "playSound", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
-        groundShake(soundEvent, f, g);
+        shakeCamera(soundEvent, f, g);
     }
 
-    private void groundShake(SoundEvent soundEvent, float f, float g) {
+    private void shakeCamera(SoundEvent soundEvent, float f, float g) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
         List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
 

@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AccessibilityOptionsScreenMixin {
     @Inject(method = "options", at = @At("RETURN"))
     private static OptionInstance<?>[] options(Options options, CallbackInfoReturnable<OptionInstance<?>> cir) {
-        return newOptions(options, new OptionsSD(), cir);
+        return newOptions(options, new OptionsSD());
     }
 
-    private static OptionInstance<?>[] newOptions(Options options, OptionsSD optionsSD, CallbackInfoReturnable<OptionInstance<?>> cir) {
+    private static OptionInstance<?>[] newOptions(Options options, OptionsSD optionsSD) {
         return new OptionInstance[]{
                 options.narrator(),
                 options.showSubtitles(),
@@ -39,7 +39,7 @@ public class AccessibilityOptionsScreenMixin {
                 options.glintSpeed(),
                 options.glintStrength(),
                 options.hideLightningFlash(),
-                optionsSD.doCameraShake(),
+                optionsSD.cameraShake(),
                 options.darkMojangStudiosBackground(),
                 options.panoramaSpeed(),
                 options.hideSplashTexts(),

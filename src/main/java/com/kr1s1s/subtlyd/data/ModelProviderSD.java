@@ -16,34 +16,59 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
-public class ModelProviderSD extends FabricModelProvider {
+import java.util.HashSet;
+import java.util.List;
 
+public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricDataOutput output) {
         super(output);
     }
 
-    @Override
-    public void generateBlockStateModels(BlockModelGenerators blockModelGenerator) {
-        blockModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS).stairs(BlocksSD.SNOW_BRICK_STAIRS).slab(BlocksSD.SNOW_BRICK_SLAB).wall(BlocksSD.SNOW_BRICK_WALL).getFamily());
-        blockModelGenerator.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(new BlockFamily.Builder(BlocksSD.POLISHED_DRIPSTONE).stairs(BlocksSD.POLISHED_DRIPSTONE_STAIRS).slab(BlocksSD.POLISHED_DRIPSTONE_SLAB).wall(BlocksSD.POLISHED_DRIPSTONE_WALL).getFamily());
-        blockModelGenerator.family(BlocksSD.STONE_TILES).generateFor(new BlockFamily.Builder(BlocksSD.STONE_TILES).stairs(BlocksSD.STONE_TILE_STAIRS).slab(BlocksSD.STONE_TILE_SLAB).wall(BlocksSD.STONE_TILE_WALL).getFamily());
-
-        blockModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
-        createCubeFromVanilla(Blocks.IRON_BARS, BlocksSD.IRON_GRATE, blockModelGenerator);
-        blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
-        blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
+    private void init() {
+        ItemsSD.BLOCKS_SET.addAll(List.of(ItemsSD.CUBE_ALL, ItemsSD.COLUMN));
+        ItemsSD.ITEMS_SET.add(ItemsSD.FLAT_ITEMS);
     }
 
-    @Override
-    public void generateItemModels(ItemModelGenerators itemModelGenerator) {
-        for (Item item : ItemsSD.TENT_ITEM_LIST) {
-            itemModelGenerator.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
+    @Override public void generateBlockStateModels(BlockModelGenerators blockModelGenerator) {
+        init();
+        blockModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS)
+                .stairs(BlocksSD.SNOW_BRICK_STAIRS)
+                .slab(BlocksSD.SNOW_BRICK_SLAB)
+                .wall(BlocksSD.SNOW_BRICK_WALL).getFamily());
+        blockModelGenerator.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(new BlockFamily.Builder(BlocksSD.POLISHED_DRIPSTONE)
+                .stairs(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
+                .slab(BlocksSD.POLISHED_DRIPSTONE_SLAB)
+                .wall(BlocksSD.POLISHED_DRIPSTONE_WALL).getFamily());
+        blockModelGenerator.family(BlocksSD.STONE_TILES).generateFor(new BlockFamily.Builder(BlocksSD.STONE_TILES)
+                .stairs(BlocksSD.STONE_TILE_STAIRS)
+                .slab(BlocksSD.STONE_TILE_SLAB)
+                .wall(BlocksSD.STONE_TILE_WALL).getFamily());
+//        blockModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
+        createCubeFromVanilla(Blocks.IRON_BARS, BlocksSD.IRON_GRATE, blockModelGenerator);
+//        blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
+//        blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
+
+        for (HashSet<?> hashSet : ItemsSD.BLOCKS_SET) {
+            if (hashSet.equals(ItemsSD.CUBE_ALL)) {
+                for (Object block : hashSet) {
+                    blockModelGenerator.createTrivialCube((Block) block);
+                }
+            } else if (hashSet.equals(ItemsSD.COLUMN)) {
+                for (Object block : hashSet) {
+                    blockModelGenerator.createAxisAlignedPillarBlock((Block) block, TexturedModel.COLUMN);
+                }
+            }
         }
-        itemModelGenerator.generateFlatItem(ItemsSD.APPLE_PIE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.CALAMARI, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.COOKED_CALAMARI, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
+    }
+
+    @Override public void generateItemModels(ItemModelGenerators itemModelGenerator) {
+        for (HashSet<?> hashSet : ItemsSD.BLOCKS_SET) {
+            if (hashSet.equals(ItemsSD.FLAT_ITEMS)) {
+                for (Object item : hashSet) {
+                    itemModelGenerator.generateFlatItem((Item) item, ModelTemplates.FLAT_ITEM);
+                }
+            }
+        }
     }
 
     public static void createCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {

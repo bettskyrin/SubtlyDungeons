@@ -23,13 +23,17 @@ public abstract class CameraMixin {
     @Shadow protected abstract void setRotation(float y, float x);
 
     @Inject(method = "setup", at = @At("TAIL"))
-    private void applyCameraShake(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
-        if (OptionsSD.doCameraShake.get()) {
-            float intensity = CameraShake.getShake();
+    private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
+        applyCameraShake();
+    }
+
+    private void applyCameraShake() {
+        if (OptionsSD.CAMERA_SHAKE.get()) {
+            float intensity = CameraShake.getShakeIntensity() * 0.5F;
 
             if (intensity > 0) {
-                float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity * 0.5F);
-                float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity * 0.5F);
+                float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity);
+                float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity);
                 this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
             }
         }

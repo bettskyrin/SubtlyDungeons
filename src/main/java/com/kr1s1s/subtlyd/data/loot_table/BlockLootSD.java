@@ -4,6 +4,9 @@ import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -12,8 +15,7 @@ public class BlockLootSD extends FabricBlockLootTableProvider {
         super(dataOutput, registryLookup);
     }
 
-    @Override
-    public void generate() {
+    @Override public void generate() {
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);

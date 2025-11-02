@@ -17,7 +17,8 @@ public class VillageHeroLootSD {
                 });
             } else if (resourceKey.equals(BuiltInLootTables.FISHERMAN_GIFT)) {
                 tableBuilder.modifyPools(poolBuilder -> {
-                    poolBuilder.add(LootItem.lootTableItem(ItemsSD.CALAMARI)).build();
+                    poolBuilder.add(LootItem.lootTableItem(ItemsSD.CALAMARI));
+                    poolBuilder.build();
                 });
             }
         });

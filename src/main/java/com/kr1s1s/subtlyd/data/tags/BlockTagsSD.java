@@ -23,8 +23,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
     public static final TagKey<Block> STONE_TILES = create("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = create("dripstone");
 
-    @Override
-    protected void addTags(HolderLookup.Provider wrapperLookup) {
+    @Override protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
@@ -78,7 +77,6 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .addTag(SKULL_BLOCK);
         valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlocksSD.IRON_GRATE);
-
     }
 
 

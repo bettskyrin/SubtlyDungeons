@@ -11,8 +11,7 @@ public class DrownedModelSD extends ZombieModel<ZombieRenderStateSD> {
         super(modelPart);
     }
 
-    @Override
-    public void setupAnim(ZombieRenderStateSD zombieRenderState) {
+    @Override public void setupAnim(ZombieRenderStateSD zombieRenderState) {
         super.setupAnim(zombieRenderState);
         if (zombieRenderState.leftArmPose == ArmPose.THROW_TRIDENT) {
             this.leftArm.xRot = this.leftArm.xRot * 0.5F - (float) Math.PI;

@@ -98,7 +98,7 @@ public class FishingLootSD {
                                     registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
                             )))).setWeight(20))
 
-                    // Other Situations
+                    /* Other Situations */
                             .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                     registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
                             )))).setWeight(0))

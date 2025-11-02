@@ -28,8 +28,7 @@ public class PlayerSD extends Player {
         return Either.right(Unit.INSTANCE);
     }
 
-    @Override
-    public @Nullable GameType gameMode() {
+    @Override public @Nullable GameType gameMode() {
         return null;
     }
 
@@ -41,8 +40,7 @@ public class PlayerSD extends Player {
         OTHER_PROBLEM,
         NOT_SAFE(Component.translatable("block.minecraft.bed.not_safe"));
 
-        @Nullable
-        private final Component message;
+        @Nullable private final Component message;
 
         TentSleepingProblem() {
             this.message = null;
@@ -52,8 +50,7 @@ public class PlayerSD extends Player {
             this.message = component;
         }
 
-        @Nullable
-        public Component getMessage() {
+        @Nullable public Component getMessage() {
             return this.message;
         }
     }

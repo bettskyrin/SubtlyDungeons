@@ -36,13 +36,11 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         this.shadowRadius = 1.8F;
     }
 
-    @Override
-    public @NotNull TentModel getModel() {
+    @Override public @NotNull TentModel getModel() {
         return this.model;
     }
 
-    @Override
-    public @NotNull TentRenderState createRenderState() {
+    @Override public @NotNull TentRenderState createRenderState() {
         return new TentRenderState();
     }
 
@@ -53,8 +51,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         renderState.xRot = renderState.getXRot(partialTicks);
     }
 
-    @Nullable
-    protected RenderType getRenderType(boolean bl3) {
+    @Nullable protected RenderType getRenderType(boolean bl3) {
         ResourceLocation resourceLocation = this.texture;
         return bl3 ? RenderTypes.outline(resourceLocation) : this.model.renderType(resourceLocation);
     }

@@ -13,7 +13,7 @@ import net.minecraft.world.entity.monster.Zombie;
 import org.jetbrains.annotations.NotNull;
 
 public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
-    private static final ResourceLocation ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
+    private final ResourceLocation ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
 
     public ZombieRendererSD(EntityRendererProvider.Context context) {
         super(context,
@@ -24,21 +24,18 @@ public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRende
         );
     }
 
-    @Override
-    public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    @Override public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return ZOMBIE_LEADER_LOCATION;
         }
         return super.getTextureLocation(zombieRenderState);
     }
 
-    @Override
-    public @NotNull ZombieRenderStateSD createRenderState() {
+    @Override public @NotNull ZombieRenderStateSD createRenderState() {
         return new ZombieRenderStateSD();
     }
 
-    @Override
-    public void extractRenderState(Zombie zombie, ZombieRenderStateSD zombieRenderState, float f) {
+    @Override public void extractRenderState(Zombie zombie, ZombieRenderStateSD zombieRenderState, float f) {
         super.extractRenderState(zombie, zombieRenderState, f);
         zombieRenderState.isLeader = ZombieSD.isLeader(zombie);
     }

@@ -21,12 +21,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Raider.class)
+@SuppressWarnings("unused")
 public class RaiderMixin {
     Raider raider = (Raider) (Object) this;
     Level level = raider.level();
 
     @Inject(method = "finalizeSpawn", at = @At("RETURN"))
     private void finalizeSpawn(CallbackInfoReturnable<Object> cir){
+        allowFlameCrossbows();
+    }
+    private void allowFlameCrossbows(){
         ItemStack mainHandItem = raider.getItemBySlot(EquipmentSlot.MAINHAND);
 
         if (raider.hasActiveRaid()) {
@@ -43,9 +47,7 @@ public class RaiderMixin {
     }
 
     @Inject(method = "pickUpItem", at = @At("RETURN"))
-    private void setBoost(ServerLevel serverLevel, ItemEntity itemEntity, CallbackInfo ci) {
-        setBoost();
-    }
+    private void pickUpItem(ServerLevel serverLevel, ItemEntity itemEntity, CallbackInfo ci) { setBoost(); }
 
     private void setBoost() {
         if (raider.isCaptain() && raider.hasActiveRaid()) {

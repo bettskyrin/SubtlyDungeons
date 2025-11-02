@@ -21,15 +21,15 @@ public class AmbientAirBlockSoundsPlayer {
     private static final int SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK = 5;
     private static final int HORIZONTAL_DIRECTIONS = 4;
 
-    public static void playAmbientWindSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
+    public static void playColdWindSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
         if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && level.getBiome(blockPos).is(BiomeTagsSD.IS_WINDY)) {
-            if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && shouldPlayAmbientWindSound(level, blockPos)) {
+            if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && shouldPlayColdWindSound(level, blockPos)) {
                 level.playLocalSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEventsSD.WIND, SoundSource.AMBIENT, 0.7F, 1.0F, false);
             }
         }
     }
 
-    private static boolean shouldPlayAmbientWindSound(Level level, BlockPos blockPos) {
+    private static boolean shouldPlayColdWindSound(Level level, BlockPos blockPos) {
         int i = 0;
         int j = 0;
         BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
@@ -61,7 +61,7 @@ public class AmbientAirBlockSoundsPlayer {
 
             for (int j = 0; j < 10; j++) {
                 BlockState blockState2 = level.getBlockState(mutableBlockPos);
-                if (blockState.isAir() && canTriggerAmbientWindSounds(blockState2)) {
+                if (blockState.isAir() && canTriggerColdWindSounds(blockState2)) {
                     return true;
                 }
 
@@ -72,11 +72,11 @@ public class AmbientAirBlockSoundsPlayer {
             return false;
         } else {
             boolean bl = level.getBlockState(mutableBlockPos.setY(i + 1)).isAir();
-            return bl && canTriggerAmbientWindSounds(level.getBlockState(mutableBlockPos.setY(i)));
+            return bl && canTriggerColdWindSounds(level.getBlockState(mutableBlockPos.setY(i)));
         }
     }
 
-    private static boolean canTriggerAmbientWindSounds(BlockState blockState) {
+    private static boolean canTriggerColdWindSounds(BlockState blockState) {
         return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE) || blockState.is(Blocks.ICE);
     }
 }

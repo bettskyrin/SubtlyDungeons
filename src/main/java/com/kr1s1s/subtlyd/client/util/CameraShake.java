@@ -31,16 +31,7 @@ public class CameraShake {
         }
     }
 
-    public static void tick() {
-        if (remainingDuration > 0) {
-            remainingDuration--;
-            getShake();
-        } else {
-            intensity = 0.0F;
-        }
-    }
-
-    public static float getShake() {
+    public static float getShakeIntensity() {
         float progress = (remainingDuration) / (float) totalDuration;
         Entity entity = minecraft.getCameraEntity();
 
@@ -49,5 +40,14 @@ public class CameraShake {
         }
 
         return intensity * progress * progress;
+    }
+
+    public static void tick() {
+        if (remainingDuration > 0) {
+            remainingDuration--;
+            getShakeIntensity();
+        } else {
+            intensity = 0.0F;
+        }
     }
 }
