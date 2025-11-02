@@ -2,7 +2,7 @@ package com.kr1s1s.subtlyd.client.renderer;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
-import com.kr1s1s.subtlyd.client.entity.monster.ZombieSD;
+import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;

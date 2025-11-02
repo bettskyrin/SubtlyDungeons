@@ -1,7 +1,6 @@
 package com.kr1s1s.subtlyd.sounds;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -15,19 +14,15 @@ public class SoundEventsSD {
     public static final SoundEvent SNOW_BRICK_HIT = register("block.snow_bricks.hit");
     public static final SoundEvent SNOW_BRICK_PLACE = register("block.snow_bricks.place");
     public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
-    public static final SoundEvent MUSIC_BIOME_DEEP_DARK = register(ResourceLocation.withDefaultNamespace("music.overworld.windswept_hills")); // TODO
-
+    public static final SoundEvent STICK_LIGHT = register("item.stick.light");
 
     public static void init() { }
-
 
     private static SoundEvent register(String string) {
         return register(SubtlyDungeons.resourceLocation(string));
     }
 
-    private static SoundEvent register(ResourceLocation resourceLocation) {
-        return register(resourceLocation, resourceLocation);
-    }
+    private static SoundEvent register(ResourceLocation resourceLocation) { return register(resourceLocation, resourceLocation); }
 
     private static SoundEvent register(ResourceLocation resourceLocation, ResourceLocation resourceLocation2) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));

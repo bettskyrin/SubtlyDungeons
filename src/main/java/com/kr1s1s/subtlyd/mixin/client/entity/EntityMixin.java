@@ -19,11 +19,16 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class EntityMixin {
     Entity entity = (Entity) (Object) this;
-    List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
 
     @Inject(method = "playSound", at = @At("RETURN"))
-    private void groundShake(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+    private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+        groundShake(soundEvent, f, g);
+    }
+
+    private void groundShake(SoundEvent soundEvent, float f, float g) {
+        List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
+        List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
+
         int duration = 25;
         int maxDistance = 16;
         Player player = Minecraft.getInstance().player;

@@ -61,5 +61,14 @@
       "subtlyd:snow_bricks/snow_bricks_dig3",
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
+  },
+  "item.stick.light": {
+    "subtitle": "subtitles.subtlyd.item.stick.light",
+    "sounds": [
+      "subtlyd:stick/stick_light1",
+      "subtlyd:stick/stick_light2",
+      "subtlyd:stick/stick_light3",
+      "subtlyd:stick/stick_light4"
+    ]
   }
 }

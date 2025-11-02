@@ -11,24 +11,28 @@ import net.minecraft.world.item.Item;
 import java.util.function.Supplier;
 
 public class EntityTypeSD {
-    public static final EntityType<TentEntity> WHITE_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.WHITE), EntityType.Builder.of(tentFactory(() -> ItemsSD.WHITE_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.WHITE)));
-    public static final EntityType<TentEntity> LIGHT_GRAY_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.LIGHT_GRAY), EntityType.Builder.of(tentFactory(() -> ItemsSD.LIGHT_GRAY_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.LIGHT_GRAY)));
-    public static final EntityType<TentEntity> GRAY_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.GRAY), EntityType.Builder.of(tentFactory(() -> ItemsSD.GRAY_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.GRAY)));
-    public static final EntityType<TentEntity> BLACK_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.BLACK), EntityType.Builder.of(tentFactory(() -> ItemsSD.BLACK_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.BLACK)));
-    public static final EntityType<TentEntity> BROWN_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.BROWN), EntityType.Builder.of(tentFactory(() -> ItemsSD.BROWN_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.BROWN)));
-    public static final EntityType<TentEntity> RED_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.RED), EntityType.Builder.of(tentFactory(() -> ItemsSD.RED_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.RED)));
-    public static final EntityType<TentEntity> ORANGE_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.ORANGE), EntityType.Builder.of(tentFactory(() -> ItemsSD.ORANGE_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.ORANGE)));
-    public static final EntityType<TentEntity> YELLOW_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.YELLOW), EntityType.Builder.of(tentFactory(() -> ItemsSD.YELLOW_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.YELLOW)));
-    public static final EntityType<TentEntity> LIME_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.LIME), EntityType.Builder.of(tentFactory(() -> ItemsSD.LIME_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.LIME)));
-    public static final EntityType<TentEntity> GREEN_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.GREEN), EntityType.Builder.of(tentFactory(() -> ItemsSD.GREEN_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.GREEN)));
-    public static final EntityType<TentEntity> CYAN_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.CYAN), EntityType.Builder.of(tentFactory(() -> ItemsSD.CYAN_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.CYAN)));
-    public static final EntityType<TentEntity> LIGHT_BLUE_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.LIGHT_BLUE), EntityType.Builder.of(tentFactory(() -> ItemsSD.LIGHT_BLUE_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.LIGHT_BLUE)));
-    public static final EntityType<TentEntity> BLUE_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.BLUE), EntityType.Builder.of(tentFactory(() -> ItemsSD.BLUE_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.BLUE)));
-    public static final EntityType<TentEntity> PURPLE_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.PURPLE), EntityType.Builder.of(tentFactory(() -> ItemsSD.PURPLE_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.PURPLE)));
-    public static final EntityType<TentEntity> MAGENTA_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.MAGENTA), EntityType.Builder.of(tentFactory(() -> ItemsSD.MAGENTA_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.MAGENTA)));
-    public static final EntityType<TentEntity> PINK_TENT = Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(DyeColor.PINK), EntityType.Builder.of(tentFactory(() -> ItemsSD.PINK_TENT), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(DyeColor.PINK)));
+    public static final EntityType<TentEntity> WHITE_TENT = registerTent(DyeColor.WHITE, () -> ItemsSD.WHITE_TENT);
+    public static final EntityType<TentEntity> LIGHT_GRAY_TENT = registerTent(DyeColor.LIGHT_GRAY, () -> ItemsSD.LIGHT_GRAY_TENT);
+    public static final EntityType<TentEntity> GRAY_TENT = registerTent(DyeColor.GRAY, () -> ItemsSD.GRAY_TENT);
+    public static final EntityType<TentEntity> BLACK_TENT = registerTent(DyeColor.BLACK, () -> ItemsSD.BLACK_TENT);
+    public static final EntityType<TentEntity> BROWN_TENT = registerTent(DyeColor.BROWN, () -> ItemsSD.BROWN_TENT);
+    public static final EntityType<TentEntity> RED_TENT = registerTent(DyeColor.RED, () -> ItemsSD.RED_TENT);
+    public static final EntityType<TentEntity> ORANGE_TENT = registerTent(DyeColor.ORANGE, () -> ItemsSD.ORANGE_TENT);
+    public static final EntityType<TentEntity> YELLOW_TENT = registerTent(DyeColor.YELLOW, () -> ItemsSD.YELLOW_TENT);
+    public static final EntityType<TentEntity> LIME_TENT = registerTent(DyeColor.LIME, () -> ItemsSD.LIME_TENT);
+    public static final EntityType<TentEntity> GREEN_TENT = registerTent(DyeColor.GREEN, () -> ItemsSD.GREEN_TENT);
+    public static final EntityType<TentEntity> CYAN_TENT = registerTent(DyeColor.CYAN, () -> ItemsSD.CYAN_TENT);
+    public static final EntityType<TentEntity> LIGHT_BLUE_TENT = registerTent(DyeColor.LIGHT_BLUE, () -> ItemsSD.LIGHT_BLUE_TENT);
+    public static final EntityType<TentEntity> BLUE_TENT = registerTent(DyeColor.BLUE, () -> ItemsSD.BLUE_TENT);
+    public static final EntityType<TentEntity> PURPLE_TENT = registerTent(DyeColor.PURPLE, () -> ItemsSD.PURPLE_TENT);
+    public static final EntityType<TentEntity> MAGENTA_TENT = registerTent(DyeColor.MAGENTA, () -> ItemsSD.MAGENTA_TENT);
+    public static final EntityType<TentEntity> PINK_TENT = registerTent(DyeColor.PINK, () -> ItemsSD.PINK_TENT);
 
-    private static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {
-        return (entityType, level) -> new TentEntity(entityType, level, supplier);
+    private static EntityType<TentEntity> registerTent(DyeColor dyeColor, Supplier<Item> supplier) {
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(dyeColor), EntityType.Builder.of(tentFactory(supplier, dyeColor), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(dyeColor)));
+    }
+
+    private static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier, DyeColor dyeColor) {
+        return (entityType, level) -> new TentEntity(entityType, level, supplier, dyeColor);
     }
 }

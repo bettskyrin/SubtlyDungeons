@@ -26,8 +26,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @SuppressWarnings("unused")
 public class ServerLevelMixin {
     @Inject(method = "explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/util/random/WeightedList;Lnet/minecraft/core/Holder;)V", at = @At("RETURN"))
-    private void groundShakeExplosion(@Nullable Entity entity, @Nullable DamageSource damageSource, @Nullable ExplosionDamageCalculator explosionDamageCalculator, double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction, ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList, Holder<SoundEvent> holder,
-            CallbackInfo ci) {
+    private void explode(@Nullable Entity entity, @Nullable DamageSource damageSource, @Nullable ExplosionDamageCalculator explosionDamageCalculator,
+                         double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction,
+                         ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList,
+                         Holder<SoundEvent> holder, CallbackInfo ci) {
+        groundShakeExplosion(x, y, z, power);
+    }
+    private void groundShakeExplosion(double x, double y, double z, float power) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null) {

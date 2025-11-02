@@ -5,10 +5,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,8 +24,8 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     public void land(CallbackInfo ci) {
         boolean bl = !arrow.isNoPhysics();
-        if (level.getServer() != null && level.getServer().getWorldData().getGameRules().getBoolean(GameRulesSD.RULE_DOARROWARSON)) {
-            if (!(!level.getServer().getWorldData().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
+        if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRulesSD.ARROW_ARSON).equals(true)) {
+            if (!(!level.getServer().getWorldData().getGameRules().get(GameRules.MOB_GRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
                 if ((arrow.isOnFire() && this.isInGround()) && bl) {
                     setFire(arrow.blockPosition());
                 }

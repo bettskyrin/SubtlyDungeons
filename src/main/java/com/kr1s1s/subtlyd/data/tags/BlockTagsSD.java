@@ -20,15 +20,45 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
 
     public static final TagKey<Block> SNOW_BRICKS = create("snow_bricks");
     public static final TagKey<Block> SKULL_BLOCK = create("skull_block");
+    public static final TagKey<Block> STONE_TILES = create("stone_tiles");
+    public static final TagKey<Block> DRIPSTONE = create("dripstone");
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
-                .add(BlocksSD.SNOW_BRICK_SLAB);
+                .add(BlocksSD.SNOW_BRICK_SLAB)
+                .add(BlocksSD.SNOW_BRICK_WALL);
+        valueLookupBuilder(STONE_TILES)
+                .add(BlocksSD.STONE_TILES)
+                .add(BlocksSD.STONE_TILE_STAIRS)
+                .add(BlocksSD.STONE_TILE_SLAB)
+                .add(BlocksSD.STONE_TILE_WALL);
+        valueLookupBuilder(DRIPSTONE)
+                .add(BlocksSD.CHISELED_POLISHED_DRIPSTONE)
+                .add(BlocksSD.POLISHED_DRIPSTONE)
+                .add(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
+                .add(BlocksSD.POLISHED_DRIPSTONE_SLAB)
+                .add(BlocksSD.POLISHED_DRIPSTONE_WALL);
+        valueLookupBuilder(BlockTags.WALLS)
+                .add(BlocksSD.SNOW_BRICK_WALL)
+                .add(BlocksSD.POLISHED_DRIPSTONE_WALL)
+                .add(BlocksSD.STONE_TILE_WALL);
+        valueLookupBuilder(BlockTags.STAIRS)
+                .add(BlocksSD.SNOW_BRICK_STAIRS)
+                .add(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
+                .add(BlocksSD.STONE_TILE_STAIRS);
+        valueLookupBuilder(BlockTags.SLABS)
+                .add(BlocksSD.SNOW_BRICK_SLAB)
+                .add(BlocksSD.POLISHED_DRIPSTONE_SLAB)
+                .add(BlocksSD.STONE_TILE_SLAB);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(SNOW_BRICKS);
+                .addTag(SNOW_BRICKS)
+                .addTag(STONE_TILES)
+                .addTag(DRIPSTONE)
+                .add(BlocksSD.CHARCOAL_BLOCK)
+                .add(BlocksSD.IRON_GRATE);
         valueLookupBuilder(SKULL_BLOCK)
                 .add(Blocks.SKELETON_SKULL)
                 .add(Blocks.SKELETON_WALL_SKULL)
@@ -46,6 +76,9 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.PIGLIN_WALL_HEAD);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
+        valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
+                .add(BlocksSD.IRON_GRATE);
+
     }
 
 

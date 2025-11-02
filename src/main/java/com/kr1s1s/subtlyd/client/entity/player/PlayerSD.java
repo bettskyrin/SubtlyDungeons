@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.client.entity.player;
 
-import com.kr1s1s.subtlyd.world.entity.LivingEntitySD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
+import com.kr1s1s.subtlyd.world.entity.LivingEntitySD;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;

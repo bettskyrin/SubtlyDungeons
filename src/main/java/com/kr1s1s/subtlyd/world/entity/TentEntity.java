@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.data.tags.DamageTypeTagsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.minecraft.core.component.DataComponents;
@@ -27,11 +28,11 @@ import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.AABB;
@@ -45,19 +46,20 @@ public class TentEntity extends Entity {
     public long lastHit;
     public boolean occupied;
     private final Supplier<Item> dropItem;
-    private static DyeColor color;
+    public DyeColor color;
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
+    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor color) {
         super(entityType, level);
         this.dropItem = supplier;
-        occupied = false;
+        this.color = color;
+        this.occupied = false;
     }
 
     public static ResourceLocation getLocation(DyeColor color) {
         return SubtlyDungeons.resourceLocation(color.toString() + "_tent");
     }
 
-    public static ResourceKey<EntityType<?>> getResourceKey(DyeColor color) {
+    public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {
         return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
     }
 
@@ -116,10 +118,10 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
         if (this.isRemoved()) {
             return false;
-        } else if (!serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && damageSource.getEntity() instanceof Mob) {
+        } else if (!serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && damageSource.getEntity() instanceof Mob) {
             return false;
         } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
             this.kill(serverLevel);
@@ -140,8 +142,8 @@ public class TentEntity extends Entity {
             this.setDamage(4.0F);
             return false;
         } else {
-            boolean bl = damageSource.is(DamageTypeTags.CAN_BREAK_ARMOR_STAND);
-            boolean bl2 = damageSource.is(DamageTypeTags.ALWAYS_KILLS_ARMOR_STANDS);
+            boolean bl = damageSource.is(DamageTypeTagsSD.CAN_BREAK_TENT);
+            boolean bl2 = damageSource.is(DamageTypeTagsSD.ALWAYS_KILLS_TENT);
             if (!(bl || bl2)) {
                 return false;
             } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
@@ -168,15 +170,15 @@ public class TentEntity extends Entity {
         }
     }
 
-    @Override protected void readAdditionalSaveData(ValueInput valueInput) { }
+    @Override protected void readAdditionalSaveData(@NotNull ValueInput valueInput) { }
 
-    @Override protected void addAdditionalSaveData(ValueOutput valueOutput) { }
+    @Override protected void addAdditionalSaveData(@NotNull ValueOutput valueOutput) { }
 
     protected void pushEntities() {
         List<Entity> list = this.level().getPushableEntities(this, this.getBoundingBox());
         if (!list.isEmpty()) {
             if (this.level() instanceof ServerLevel serverLevel) {
-                int i = serverLevel.getGameRules().getInt(GameRules.RULE_MAX_ENTITY_CRAMMING);
+                int i = serverLevel.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
                 if (i > 0 && list.size() > i - 1 && this.random.nextInt(4) == 0) {
                     int j = 0;
 
@@ -203,7 +205,7 @@ public class TentEntity extends Entity {
     }
 
     private void broken() {
-        ItemStack itemStack = new ItemStack(dropItem.get());
+        ItemStack itemStack = new ItemStack(this.dropItem.get());
         itemStack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         Block.popResource(this.level(), this.blockPosition(), itemStack);
         this.playBrokenSound();
@@ -239,17 +241,15 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public @NotNull InteractionResult interactAt(Player player, Vec3 vec3, InteractionHand interactionHand) {
-        if (player.level().isClientSide()) {
-            return InteractionResult.SUCCESS_SERVER;
-        } else {
+    public @NotNull InteractionResult interactAt(Player player, @NotNull Vec3 vec3, @NotNull InteractionHand interactionHand) {
+        if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.getMessage() != null) {
                     player.displayClientMessage(tentSleepingProblem.getMessage(), true);
                 }
             });
-            return InteractionResult.SUCCESS_SERVER;
         }
+        return InteractionResult.SUCCESS_SERVER;
     }
 
     public static void allowTentSleep() {
@@ -295,7 +295,7 @@ public class TentEntity extends Entity {
 
     @Override
     public boolean ignoreExplosion(Explosion explosion) {
-        return explosion.getIndirectSourceEntity() instanceof Mob && !explosion.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING);
+        return explosion.getIndirectSourceEntity() instanceof Mob && !explosion.level().getGameRules().get(GameRules.MOB_GRIEFING);
     }
 
     @Override

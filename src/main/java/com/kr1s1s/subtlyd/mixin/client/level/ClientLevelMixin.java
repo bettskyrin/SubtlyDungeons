@@ -20,11 +20,15 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @SuppressWarnings("unused")
 public class ClientLevelMixin {
-    List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
-    List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
+
 
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
-    private void groundShake(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
+    private void playLocalSound(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
+        groundShake(x, y, z, soundEvent, soundSource, g, h, bl);
+    }
+    private void groundShake(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl) {
+        List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
+        List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
         Player player = Minecraft.getInstance().player;
 
         if (player != null){

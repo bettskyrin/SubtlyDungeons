@@ -1,7 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "unlit_campfire",
   "key": {
     "#": "minecraft:stick",
     "X": "#minecraft:logs"

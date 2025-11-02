@@ -1,14 +1,52 @@
 package com.kr1s1s.subtlyd.world.level;
 
-import com.google.common.collect.Maps;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
-import net.minecraft.world.level.GameRules;
 
-import java.util.Comparator;
-import java.util.Map;
+import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.mojang.brigadier.arguments.ArgumentType;
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.serialization.Codec;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.level.gamerules.*;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.ToIntFunction;
 
 public class GameRulesSD {
-    public static final GameRules.Key<GameRules.BooleanValue> RULE_DOARROWARSON = GameRuleRegistry.register("doArrowArson", GameRules.Category.UPDATES, GameRuleFactory.createBooleanRule(true));
+    public static final GameRule<@NotNull Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
+
     public static void init() {}
+
+    private static GameRule<@NotNull Boolean> registerBoolean(String string, GameRuleCategory gameRuleCategory, boolean bl) {
+        return register(
+                string,
+                gameRuleCategory,
+                GameRuleType.BOOL,
+                BoolArgumentType.bool(),
+                Codec.BOOL,
+                bl,
+                FeatureFlagSet.of(),
+                GameRuleTypeVisitor::visitBoolean,
+                boolean_ -> boolean_ ? 1 : 0
+        );
+    }
+
+    private static <T> GameRule<T> register(
+            String string,
+            GameRuleCategory gameRuleCategory,
+            GameRuleType gameRuleType,
+            ArgumentType<T> argumentType,
+            Codec<T> codec,
+            T object,
+            FeatureFlagSet featureFlagSet,
+            GameRules.VisitorCaller<@NotNull T> visitorCaller,
+            ToIntFunction<T> toIntFunction
+    ) {
+        return Registry.register(
+                BuiltInRegistries.GAME_RULE,
+                SubtlyDungeons.resourceLocation(string),
+                new GameRule<>(gameRuleCategory, gameRuleType, argumentType, visitorCaller, codec, toIntFunction, object, featureFlagSet)
+        );
+    }
 }

@@ -1,4 +1,17 @@
-// 25w43a	-999999999-01-01T00:00:00	Subtly Dungeons/Block Loot Tables
+// 25w44a	-999999999-01-01T00:00:00	Subtly Dungeons/Block Loot Tables
+7674cff6bc87418119ae9afd67c488bd0af3427c data/subtlyd/loot_table/blocks/charcoal_block.json
+c01ffae0c4fabb12e1495518c4692c07d497fa79 data/subtlyd/loot_table/blocks/chiseled_polished_dripstone.json
+08fd4be4eb7ebf913cf1bbccf2301e37e7319a1f data/subtlyd/loot_table/blocks/iron_grate.json
+78cc7adbd97481e0626fabe49276815db01b1a23 data/subtlyd/loot_table/blocks/polished_dripstone.json
+0c3e3a80795ee881f6ed6a1ec9371501e2afb520 data/subtlyd/loot_table/blocks/polished_dripstone_slab.json
+d77bb655eb357359c4708b46fa2dad574cdef915 data/subtlyd/loot_table/blocks/polished_dripstone_stairs.json
+f1a892f4f24ae08387e4a33a438cf5fd80670a8a data/subtlyd/loot_table/blocks/polished_dripstone_wall.json
 7044e9b5e5e51611a709a9fb67f4c3f60ba5c390 data/subtlyd/loot_table/blocks/snow_brick_slab.json
 b9d7d250dff581ad11ca5a07854db5986beccf4b data/subtlyd/loot_table/blocks/snow_brick_stairs.json
+55eb1a4607d4c71d7b2d87a19e111fee311a6fea data/subtlyd/loot_table/blocks/snow_brick_wall.json
 bd200b066fcfec07579233b3c0486486a0681e65 data/subtlyd/loot_table/blocks/snow_bricks.json
+200ffa1889d0b92ad7edd1e71cd54fa832e758b1 data/subtlyd/loot_table/blocks/stone_pillar.json
+4b429ac01d325b3358b5c843454e4e60fe1860bb data/subtlyd/loot_table/blocks/stone_tile_slab.json
+db1fbd75f310de2129a9caeecf04d32746bb49b4 data/subtlyd/loot_table/blocks/stone_tile_stairs.json
+967ba5f0e5b40cdd2c8ec1eb57318c2fd894530b data/subtlyd/loot_table/blocks/stone_tile_wall.json
+864e3f679102453db98ef6a85ee189470e8cf701 data/subtlyd/loot_table/blocks/stone_tiles.json

@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.server.entity;
 
-import com.kr1s1s.subtlyd.client.entity.monster.ZombieSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
+import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.storage.ValueInput;
