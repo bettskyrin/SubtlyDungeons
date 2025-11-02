@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0-alpha.2] - 11/1/2025
 ### Added
-##### Blocks
+#### Blocks
 - Added Block of Charcoal
   - Works the same as a coal block
 - Added Iron Grate
@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added stair, slab, and wall variants
 - Added snow brick wall and snow brick family stonecutting recipes
 
-##### Sounds
+#### Sounds
 - Added sound for lighting a campfire with sticks
 - Added new music
   - Secrets in the Forest by Crispin Hands (Menu, Meadow, and Flower Forest)
@@ -39,7 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Squid Coast by Johan Johnson (Jagged Peaks, Stony Peaks, Dripstone Caves)
 
-##### Splash Text
+#### Splash Text
 - Added "Pretty tents!"
 - Added "R.I.P. trout.png"
   - A developer inside joke, as it was decided to not add trouts to the mod
