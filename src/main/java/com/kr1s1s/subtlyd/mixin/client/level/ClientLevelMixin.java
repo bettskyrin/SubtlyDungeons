@@ -16,15 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(ClientLevel.class)
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("unused")
+@Mixin(ClientLevel.class)
 public class ClientLevelMixin {
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
     private void playLocalSound(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
-        shakeCamera(x, y, z, soundEvent, soundSource, g, h, bl);
+        shakeCameraByEvent(x, y, z, soundEvent);
     }
-    private void shakeCamera(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl) {
+    private void shakeCameraByEvent(double x, double y, double z, SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
         List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
         Player player = Minecraft.getInstance().player;

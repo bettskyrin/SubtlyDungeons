@@ -15,18 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(Entity.class)
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("unused")
+@Mixin(Entity.class)
 public class EntityMixin {
-    Entity entity = (Entity) (Object) this;
+    @SuppressWarnings("DataFlowIssue")
+    private final Entity entity = (Entity) (Object) this;
 
     @Inject(method = "playSound", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
-        shakeCamera(soundEvent, f, g);
+        shakeCameraByEvent(soundEvent);
     }
 
-    private void shakeCamera(SoundEvent soundEvent, float f, float g) {
+    private void shakeCameraByEvent(SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
         List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
 

@@ -24,6 +24,6 @@ public class SubtlyDungeonsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(RecipeProviderSD::new);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
-        LootSD.generate();
+        LootSD.registration();
 	}
 }

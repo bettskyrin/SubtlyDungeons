@@ -9,8 +9,8 @@
       "server.entity.ZombieMixin"
     ],
   "client": [
-    "client.CameraMixin",
     "client.blocks.BlockMixin",
+    "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.ServerLevelMixin",
     "client.entity.EntityMixin",

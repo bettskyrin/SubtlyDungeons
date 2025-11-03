@@ -9,9 +9,9 @@ import net.fabricmc.api.ClientModInitializer;
 public class SubtlyDungeonsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        EntityRenderersSD.runRegistration();
-        SoundEventsSD.init();
-        ClientTickEventsSD.init();
+        EntityRenderersSD.registration();
+        SoundEventsSD.registration();
+        ClientTickEventsSD.registration();
         BlockRendering.init();
     }
 }

@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 
 public class FishingLootSD {
-    public static void generate() {
+    public static void register() {
         LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
             if (key.equals(BuiltInLootTables.FISHING_FISH)) {
                 HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);

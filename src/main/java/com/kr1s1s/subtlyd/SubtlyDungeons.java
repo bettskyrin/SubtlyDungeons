@@ -1,11 +1,10 @@
 package com.kr1s1s.subtlyd;
 
-import com.kr1s1s.subtlyd.data.BlockEventsSD;
+import com.kr1s1s.subtlyd.data.GameplayEventsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
-import com.kr1s1s.subtlyd.world.level.block.entity.FuelValuesSD;
 import net.fabricmc.api.ModInitializer;
 
 import net.minecraft.resources.ResourceLocation;
@@ -28,11 +27,10 @@ public class SubtlyDungeons implements ModInitializer {
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
-        GameRulesSD.init();
-        SynchedEntityDataSD.init();
-        BlocksSD.init();
-        BlockEventsSD.init();
-        ItemsSD.init();
-        FuelValuesSD.init();
+        GameRulesSD.registration();
+        SynchedEntityDataSD.createEntityData();
+        BlocksSD.registration();
+        ItemsSD.registration();
+        GameplayEventsSD.registration();
     }
 }

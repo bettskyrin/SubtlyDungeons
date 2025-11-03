@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 
 public class EntityRenderersSD extends EntityRenderers {
-    public static void runRegistration() {
+    public static void registration() {
         register(EntityType.ZOMBIE, ZombieRendererSD::new);
         register(EntityType.HUSK, HuskRendererSD::new);
         register(EntityType.DROWNED, DrownedRendererSD::new);

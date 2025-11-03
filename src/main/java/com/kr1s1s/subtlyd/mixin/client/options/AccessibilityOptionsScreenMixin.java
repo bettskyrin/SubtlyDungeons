@@ -16,10 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AccessibilityOptionsScreenMixin {
     @Inject(method = "options", at = @At("RETURN"))
     private static OptionInstance<?>[] options(Options options, CallbackInfoReturnable<OptionInstance<?>> cir) {
-        return newOptions(options, new OptionsSD());
+        return replacedOptions(options, new OptionsSD());
     }
 
-    private static OptionInstance<?>[] newOptions(Options options, OptionsSD optionsSD) {
+    private static OptionInstance<?>[] replacedOptions(Options options, OptionsSD optionsSD) {
         return new OptionInstance[]{
                 options.narrator(),
                 options.showSubtitles(),

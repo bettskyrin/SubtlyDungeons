@@ -11,9 +11,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
-@SuppressWarnings("unused")
 public class PlayerMixin {
-    Player player = (Player) (Object) this;
+    @SuppressWarnings("DataFlowIssue")
+    private final Player player = (Player) (Object) this;
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {

@@ -7,7 +7,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public class VillageHeroLootSD {
-    public static void generate() {
+    public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
             if (BuiltInLootTables.FARMER_GIFT.equals(resourceKey)) {
                 tableBuilder.modifyPools(poolBuilder -> {

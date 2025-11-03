@@ -11,5 +11,6 @@ public class SynchedEntityDataSD {
     public static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);
     public static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.FLOAT);
-    public static void init() {}
+
+    public static void createEntityData() {}
 }

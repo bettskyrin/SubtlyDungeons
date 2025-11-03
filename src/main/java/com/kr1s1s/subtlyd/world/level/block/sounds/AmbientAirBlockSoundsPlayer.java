@@ -44,11 +44,11 @@ public class AmbientAirBlockSoundsPlayer {
             int k = HORIZONTAL_DIRECTIONS - j;
             int l = k + i;
             boolean bl = l >= SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD;
+
             if (!bl) {
                 return false;
             }
         }
-
         return false;
     }
 

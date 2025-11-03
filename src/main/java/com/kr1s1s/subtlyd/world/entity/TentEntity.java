@@ -3,7 +3,6 @@ package com.kr1s1s.subtlyd.world.entity;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.data.tags.DamageTypeTagsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
-import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -46,12 +45,10 @@ public class TentEntity extends Entity {
     public long lastHit;
     public boolean occupied;
     private final Supplier<Item> dropItem;
-    public DyeColor color;
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier, DyeColor color) {
+    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
         super(entityType, level);
         this.dropItem = supplier;
-        this.color = color;
         this.occupied = false;
     }
 
@@ -93,27 +90,27 @@ public class TentEntity extends Entity {
         this.setDamage(this.getDamage() * 11.0F);
     }
 
-    public void setHurtDir(int i) {
+    private void setHurtDir(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURTDIR, i);
     }
 
-    public void setHurtTime(int i) {
+    private void setHurtTime(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURT, i);
     }
 
-    public void setDamage(float f) {
+    private void setDamage(float f) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_DAMAGE, f);
     }
 
-    public float getDamage() {
+    private float getDamage() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_DAMAGE);
     }
 
-    public int getHurtDir() {
+    private int getHurtDir() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURTDIR);
     }
 
-    public int getHurtTime() {
+    private int getHurtTime() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURT);
     }
 
@@ -250,17 +247,6 @@ public class TentEntity extends Entity {
             });
         }
         return InteractionResult.SUCCESS_SERVER;
-    }
-
-    public static void allowTentSleep() {
-        EntitySleepEvents.ALLOW_BED.register((entity, sleepingPos, state, vanillaResult) -> {
-            if (inTentRange(entity)) {
-                return InteractionResult.SUCCESS;
-            }
-            return InteractionResult.PASS;
-        });
-
-        EntitySleepEvents.ALLOW_RESETTING_TIME.register((entity) -> true);
     }
 
     public static boolean inTentRange(Entity entity) {

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "minecraft:block/campfire"
+    "all": "subtlyd:block/chiseled_polished_dripstone"
   }
 }

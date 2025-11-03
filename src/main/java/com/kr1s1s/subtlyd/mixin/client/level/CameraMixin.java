@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.client;
+package com.kr1s1s.subtlyd.mixin.client.level;
 
 import com.kr1s1s.subtlyd.client.OptionsSD;
 import com.kr1s1s.subtlyd.client.util.CameraShake;
@@ -13,12 +13,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(Camera.class)
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("unused")
+@Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Shadow
-    private float yRot;
+    @Shadow private float yRot;
     @Shadow private float xRot;
     @Shadow protected abstract void setRotation(float y, float x);
 

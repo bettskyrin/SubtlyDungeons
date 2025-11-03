@@ -25,10 +25,10 @@ public class UnlitCampfireFunction implements UseBlockCallback {
                 level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
             }
 
+            //noinspection DataFlowIssue
             if (!player.gameMode().isCreative()) {
                 itemStack.shrink(1);
             }
-
             level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }

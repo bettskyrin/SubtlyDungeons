@@ -17,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("unused")
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "animateTick", at = @At("HEAD"))
@@ -25,7 +24,7 @@ public class BlockMixin {
         playAmbientSounds(blockState, level, blockPos, randomSource);
     }
 
-    public void playAmbientSounds(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+    private void playAmbientSounds(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         Block block = blockState.getBlock();
         if (block instanceof AirBlock) {
             AmbientAirBlockSoundsPlayer.playColdWindSounds(level, blockPos, randomSource);

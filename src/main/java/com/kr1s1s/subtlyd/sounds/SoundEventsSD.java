@@ -16,7 +16,7 @@ public class SoundEventsSD {
     public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
     public static final SoundEvent STICK_LIGHT = register("item.stick.light");
 
-    public static void init() { }
+    public static void registration() { }
 
     private static SoundEvent register(String string) {
         return register(SubtlyDungeons.resourceLocation(string));

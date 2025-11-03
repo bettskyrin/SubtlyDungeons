@@ -8,8 +8,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class AmbientBushBlockSoundsPlayer {
+    private static final int IDLE_SOUND_CHANCE = 70;
     public static void playAmbientBushSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (randomSource.nextInt(70) == 0 && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {
+        if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {
             level.playLocalSound(blockPos, SoundEventsSD.BUSH_IDLE, SoundSource.AMBIENT, 0.4F, 1.0F, false);
         }
     }

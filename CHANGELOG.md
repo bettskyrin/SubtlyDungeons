@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.3] - UNRELEASED
 ### Changed
+#### Audio
+- Lowered the volume of Wanderlust
+
+#### Events
+- Raid difficulty logic has changed
+  - "Raid difficulty" is a new value that is calculated as follows: `Raid Omen Level + Difficulty Level ID (0-3) + Raid Wave = Raid Difficulty`
+    - For example, if you trigger a Level III Raid on Easy Mode, your Raid Difficulty on the second wave is `3 + 0 + 2 = 5`
+  - Raid difficulty must reach level 10 before pillagers are able to spawn with Flame enchanted crossbows
+    - i.e. Normal Difficulty with a raid omen of at least 5, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
+  - Raid difficulty must reach level 7 for raid captains to spawn with Resistance II
+    - Captains may still spawn in with Resistance I if the raid difficulty is at least level 4
+
 #### Data
 - `options.doCameraShake` has been renamed to `options.camera_shake`
 - `options.doCameraShake.tooltip` has been renamed to `options.camera_shake.tooltip`

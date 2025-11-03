@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class EntityLootSD {
-    public static void generate() {
+    public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
             EntityPredicate onFirePredicate = EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)).build();
 
