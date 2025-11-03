@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.level.block.sounds;
 
 import com.kr1s1s.subtlyd.data.tags.BiomeTagsSD;
+import com.kr1s1s.subtlyd.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 @Environment(EnvType.CLIENT)
 public class AmbientAirBlockSoundsPlayer {
-    private static final int IDLE_SOUND_CHANCE = 3000;
+    private static final int IDLE_SOUND_CHANCE = 4000;
     private static final int SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD = 3;
     private static final int SURROUNDING_BLOCKS_DISTANCE_HORIZONTAL_CHECK = 4;
     private static final int SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK = 5;
@@ -77,6 +78,6 @@ public class AmbientAirBlockSoundsPlayer {
     }
 
     private static boolean canTriggerColdWindSounds(BlockState blockState) {
-        return blockState.is(Blocks.SNOW) || blockState.is(Blocks.STONE) || blockState.is(Blocks.CALCITE) || blockState.is(Blocks.PACKED_ICE) || blockState.is(Blocks.ICE);
+        return blockState.is(BlockTagsSD.TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS);
     }
 }

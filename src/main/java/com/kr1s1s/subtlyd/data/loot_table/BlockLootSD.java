@@ -4,9 +4,6 @@ import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -32,5 +29,6 @@ public class BlockLootSD extends FabricBlockLootTableProvider {
         dropSelf(BlocksSD.STONE_TILE_SLAB);
         dropSelf(BlocksSD.STONE_TILE_WALL);
         dropSelf(BlocksSD.STONE_PILLAR);
+        createDoublePlantShearsDrop(BlocksSD.REEDS);
     }
 }

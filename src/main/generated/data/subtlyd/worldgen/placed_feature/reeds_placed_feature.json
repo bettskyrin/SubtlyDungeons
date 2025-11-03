@@ -1,0 +1,24 @@
+{
+  "feature": {
+    "type": "minecraft:reeds",
+    "config": {
+      "probability": 1.0
+    }
+  },
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 5
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:surface_water_depth_filter",
+      "max_water_depth": 1
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

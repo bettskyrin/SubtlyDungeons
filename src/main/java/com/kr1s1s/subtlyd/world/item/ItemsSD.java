@@ -63,6 +63,7 @@ public class ItemsSD {
     public static final Item STONE_TILE_STAIRS = registerBlock(BlocksSD.STONE_TILE_STAIRS);
     public static final Item STONE_TILE_SLAB = registerBlock(BlocksSD.STONE_TILE_SLAB);
     public static final Item STONE_TILE_WALL = registerBlock(BlocksSD.STONE_TILE_WALL);
+    public static final Item REEDS = registerBlock(BlocksSD.REEDS);
 
     public static List<Item> TENT_ITEM_LIST = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
     public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
@@ -89,6 +90,10 @@ public class ItemsSD {
 
             entries.addAfter(STONE_SLAB, STONE_PILLAR);
             entries.addBefore(POLISHED_DRIPSTONE, CHISELED_POLISHED_DRIPSTONE);
+        });
+
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+            entries.addAfter(BUSH, REEDS);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {

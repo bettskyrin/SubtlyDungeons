@@ -5,22 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.3] - UNRELEASED
+### Added
+- Added reeds!
+  - They can be found in shallow swamp biome waters
+
 ### Changed
 #### Audio
 - Lowered the volume of Wanderlust, Windswept Peaks, Cliffs and Canyons, Cellar, Finnbacka, Top, and Halland
+- Slightly lowered the weight of Soggy Swamp playing in swamp biomes
+- Altered how often cold wind ambient noises play
 
 #### Events
 - Raid difficulty logic has changed
   - "Raid difficulty" is a new value that is calculated as follows: `Raid Omen Level + Difficulty Level ID (0-3) + Raid Wave = Raid Difficulty`
     - For example, if you trigger a Level III Raid on Easy Mode, your Raid Difficulty on the second wave is `3 + 0 + 2 = 5`
   - Raid difficulty must reach level 10 before pillagers are able to spawn with Flame enchanted crossbows
-    - i.e. Normal Difficulty with a raid omen of at least 5, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
+    - i.e. Normal Difficulty with a raid omen of at least V, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
   - Raid difficulty must reach level 7 for raid captains to spawn with Resistance II
     - Captains may still spawn in with Resistance I if the raid difficulty is at least level 4
 
 #### Data
 - `options.doCameraShake` has been renamed to `options.camera_shake`
 - `options.doCameraShake.tooltip` has been renamed to `options.camera_shake.tooltip`
+
+#### Tags
+- Created "triggers_ambient_wind_block_sounds" block tag
+- Removed "tents" block tag
 
 ## [1.1.0-alpha.2] - 11/1/2025
 ### Added
@@ -117,10 +127,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Tags
 - Added new tags
   - Added "Tents" item tag
-  - Added "Snow Bricks" item tag
-  - Added "Snow Bricks" block tag
-  - Added "Skull" block tag
-  - Added skull blocks to "Mineable with axe" tag
+  - Added "snow_bricks" item tag
+  - Added "snow_bricks" block tag
+  - Added "skull_block" block tag
+  - Added skull blocks to "mineable/axe" tag
 
 #### Accessibility
 - Added new accessibility setting option for turning off the camera shake effect

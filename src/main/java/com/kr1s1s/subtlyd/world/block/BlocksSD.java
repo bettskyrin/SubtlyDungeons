@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Function;
 
@@ -40,7 +41,14 @@ public class BlocksSD {
     public static final Block POLISHED_DRIPSTONE_STAIRS = registerStair("polished_dripstone_stairs", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_SLAB = registerSlab("polished_dripstone_slab", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_WALL = registerWall("polished_dripstone_wall", POLISHED_DRIPSTONE);
-
+    public static final Block REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.of() // TODO Add new tags and drops
+            .mapColor(MapColor.WATER)
+            .replaceable()
+            .noCollision()
+            .instabreak()
+            .sound(SoundType.WET_GRASS)
+            .offsetType(BlockBehaviour.OffsetType.XZ)
+            .pushReaction(PushReaction.DESTROY));
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {
         return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(name));

@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd;
 
+import com.kr1s1s.subtlyd.world.level.levelgen.BiomeProviderSD;
 import com.kr1s1s.subtlyd.data.ModelProviderSD;
 import com.kr1s1s.subtlyd.data.RecipeProviderSD;
 import com.kr1s1s.subtlyd.data.loot_table.BlockLootSD;
@@ -24,6 +25,7 @@ public class SubtlyDungeonsDataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(RecipeProviderSD::new);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
+        pack.addProvider(BiomeProviderSD::new);
         LootSD.registration();
 	}
 }

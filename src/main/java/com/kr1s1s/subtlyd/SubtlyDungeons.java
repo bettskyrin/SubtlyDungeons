@@ -4,6 +4,7 @@ import com.kr1s1s.subtlyd.data.GameplayEventsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
+import com.kr1s1s.subtlyd.world.level.levelgen.BiomesSD;
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
 import net.fabricmc.api.ModInitializer;
 
@@ -32,5 +33,6 @@ public class SubtlyDungeons implements ModInitializer {
         BlocksSD.registration();
         ItemsSD.registration();
         GameplayEventsSD.registration();
+        BiomesSD.init();
     }
 }

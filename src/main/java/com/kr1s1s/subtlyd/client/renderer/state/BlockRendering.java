@@ -7,5 +7,6 @@ import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 public class BlockRendering {
     public static void init() {
         BlockRenderLayerMap.putBlock(BlocksSD.IRON_GRATE, ChunkSectionLayer.CUTOUT);
+        BlockRenderLayerMap.putBlock(BlocksSD.REEDS, ChunkSectionLayer.CUTOUT);
     }
 }
