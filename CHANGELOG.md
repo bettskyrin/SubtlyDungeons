@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.1.0-alpha.3] - UNRELEASED
 ### Changed
 #### Audio
-- Lowered the volume of Wanderlust, Windswept Peaks, Cliffs and Canyons, Cellar, Finnbacka, and Top
+- Lowered the volume of Wanderlust, Windswept Peaks, Cliffs and Canyons, Cellar, Finnbacka, Top, and Halland
 
 #### Events
 - Raid difficulty logic has changed
