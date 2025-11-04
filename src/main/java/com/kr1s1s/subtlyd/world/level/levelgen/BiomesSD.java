@@ -29,7 +29,7 @@ public class BiomesSD {
                     List.of(
                             CountPlacement.of(5),
                             InSquarePlacement.spread(),
-                            SurfaceWaterDepthFilter.forMaxDepth(1),
+                            SurfaceWaterDepthFilter.forMaxDepth(-1),
                             BiomeFilter.biome()
                     )
             );

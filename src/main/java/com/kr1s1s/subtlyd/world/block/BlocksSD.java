@@ -41,7 +41,7 @@ public class BlocksSD {
     public static final Block POLISHED_DRIPSTONE_STAIRS = registerStair("polished_dripstone_stairs", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_SLAB = registerSlab("polished_dripstone_slab", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_WALL = registerWall("polished_dripstone_wall", POLISHED_DRIPSTONE);
-    public static final Block REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.of() // TODO Add new tags and drops
+    public static final Block REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.WATER)
             .replaceable()
             .noCollision()

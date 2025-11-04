@@ -44,7 +44,8 @@ public class ReedsBlock extends DoublePlantBlock implements LiquidBlockContainer
         BlockState blockState = super.getStateForPlacement(blockPlaceContext);
         if (blockState != null) {
             FluidState fluidState = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos());
-            if (fluidState.is(FluidTags.WATER) && fluidState.getAmount() == 8) {
+            FluidState fluidState2 = blockPlaceContext.getLevel().getFluidState(blockPlaceContext.getClickedPos().above());
+            if (fluidState.is(FluidTags.WATER) && fluidState2.is(Fluids.EMPTY) && fluidState.getAmount() == 8) {
                 return blockState;
             }
         }
@@ -65,17 +66,19 @@ public class ReedsBlock extends DoublePlantBlock implements LiquidBlockContainer
 
     @Override
     protected FluidState getFluidState(BlockState blockState) {
+        if (blockState.getValue(HALF) == DoubleBlockHalf.UPPER) {
+            return Fluids.EMPTY.defaultFluidState();
+        }
         return Fluids.WATER.getSource(false);
     }
 
     @Override
     public boolean canPlaceLiquid(@Nullable LivingEntity livingEntity, BlockGetter blockGetter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        return true;
+        return false;
     }
 
     @Override
     public boolean placeLiquid(LevelAccessor levelAccessor, BlockPos blockPos, BlockState blockState, FluidState fluidState) {
-        return true;
+        return false;
     }
-
 }

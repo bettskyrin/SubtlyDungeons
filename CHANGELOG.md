@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Tags
 - Created "triggers_ambient_wind_block_sounds" block tag
 - Removed "tents" block tag
+- Added "tents" item tag
 
 ## [1.1.0-alpha.2] - 11/1/2025
 ### Added
