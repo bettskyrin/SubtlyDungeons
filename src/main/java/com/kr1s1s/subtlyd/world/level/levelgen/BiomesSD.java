@@ -3,6 +3,7 @@ package com.kr1s1s.subtlyd.world.level.levelgen;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -10,7 +11,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
@@ -28,9 +31,13 @@ public class BiomesSD {
             new PlacedFeature(
                     Holder.direct(REEDS_CONFIGURED),
                     List.of(
-                            CountPlacement.of(10),
+                            CountPlacement.of(30),
                             InSquarePlacement.spread(),
                             PlacementUtils.HEIGHTMAP_TOP_SOLID,
+                            BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
+                                    BlockPredicate.matchesBlocks(Blocks.WATER),
+                                    BlockPredicate.matchesBlocks(Direction.UP.getUnitVec3i(), Blocks.AIR),
+                                    BlockPredicate.solid(Direction.DOWN.getUnitVec3i()))),
                             BiomeFilter.biome()
                     )
             );

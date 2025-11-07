@@ -28,7 +28,7 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
         ProbabilityFeatureConfiguration probabilityFeatureConfiguration = featurePlaceContext.config();
         int i = randomSource.nextInt(8) - randomSource.nextInt(8);
         int j = randomSource.nextInt(8) - randomSource.nextInt(8);
-        int k = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR, blockPos.getX() + i, blockPos.getZ() + j);
+        int k = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, blockPos.getX() + i, blockPos.getZ() + j);
         BlockPos blockPos2 = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
         if (worldGenLevel.getBlockState(blockPos2).is(Blocks.WATER)) {
             boolean bl2 = randomSource.nextDouble() < probabilityFeatureConfiguration.probability;

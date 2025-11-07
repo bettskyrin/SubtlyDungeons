@@ -8,7 +8,7 @@
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 10
+      "count": 30
     },
     {
       "type": "minecraft:in_square"
@@ -16,6 +16,35 @@
     {
       "type": "minecraft:heightmap",
       "heightmap": "OCEAN_FLOOR_WG"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:all_of",
+        "predicates": [
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:water"
+          },
+          {
+            "type": "minecraft:matching_blocks",
+            "blocks": "minecraft:air",
+            "offset": [
+              0,
+              1,
+              0
+            ]
+          },
+          {
+            "type": "minecraft:solid",
+            "offset": [
+              0,
+              -1,
+              0
+            ]
+          }
+        ]
+      }
     },
     {
       "type": "minecraft:biome"

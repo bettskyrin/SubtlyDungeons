@@ -41,7 +41,7 @@ d2713811c81820492e3216fc337a31211a17cd97 assets/subtlyd/items/polished_dripstone
 3d219298691cdc2215fd9646aaec4fa7bc3292d7 assets/subtlyd/items/pottage.json
 8c01f38e236a2f72eb0040896adfb851d9c731b8 assets/subtlyd/items/purple_tent.json
 7c447e1264d36b36df8fdfa55fe11e97e49bb480 assets/subtlyd/items/red_tent.json
-0fbcc0f832392b4ca0de85e4497fde7124fe38e2 assets/subtlyd/items/reeds.json
+3ebe5153ac6b8319795b42ce5ac2c2056815f1cd assets/subtlyd/items/reeds.json
 fa8c3bca3f23f7adde8a0570ca3c93be9e657592 assets/subtlyd/items/snow_brick_slab.json
 3b0ad54694e66ca8189bf7cc39ad015db1a2e3fe assets/subtlyd/items/snow_brick_stairs.json
 c85e84af6d7c1a6ebd3c014464f9f42ca6429b43 assets/subtlyd/items/snow_brick_wall.json
@@ -108,6 +108,7 @@ a93c404752dd90f7a97346d6a96e399d59292c95 assets/subtlyd/models/item/lime_tent.js
 14b7808c7f6b0cb0ee49a8ce39693ff357943fbf assets/subtlyd/models/item/pottage.json
 c85ae0f075ea52b695f76d195719da4407541672 assets/subtlyd/models/item/purple_tent.json
 633cd0f0534abb418e9c420d05e081f201d2f130 assets/subtlyd/models/item/red_tent.json
+31177e36e05ea73db7e7f066de10ca3c9785fe08 assets/subtlyd/models/item/reeds.json
 65e9f0b6587128acfba1fc6f8e1c0ba3fda68bb8 assets/subtlyd/models/item/unlit_campfire.json
 6ff5433a75e8f3ff46da740bfe04c1ecc92b9380 assets/subtlyd/models/item/white_tent.json
 1cee24bccb33a5b1e9b4fe045486ba71beaffc4f assets/subtlyd/models/item/yellow_tent.json
