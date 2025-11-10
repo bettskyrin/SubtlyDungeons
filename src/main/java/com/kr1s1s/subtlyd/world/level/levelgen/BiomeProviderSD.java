@@ -14,8 +14,8 @@ public class BiomeProviderSD extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.@NotNull Provider registries, Entries entries) {
-        entries.add(BiomesSD.REEDS_CONFIGURED_FEATURE, BiomesSD.REEDS_CONFIGURED);
-        entries.add(BiomesSD.REEDS_PLACED_FEATURE, BiomesSD.REEDS_PLACED);
+        entries.add(ReedsFeature.REEDS_CONFIGURED_FEATURE, ReedsFeature.REEDS_CONFIGURED);
+        entries.add(ReedsFeature.REEDS_PLACED_FEATURE, ReedsFeature.REEDS_PLACED);
     }
 
     @Override
