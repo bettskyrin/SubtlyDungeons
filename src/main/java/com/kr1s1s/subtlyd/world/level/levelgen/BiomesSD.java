@@ -42,7 +42,7 @@ public class BiomesSD {
                     )
             );
     public static void init() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, REEDS_PLACED_FEATURE);
+        //BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, REEDS_PLACED_FEATURE);
     }
 
     private static <C extends FeatureConfiguration, F extends Feature<C>> F register(String string, F feature) {
