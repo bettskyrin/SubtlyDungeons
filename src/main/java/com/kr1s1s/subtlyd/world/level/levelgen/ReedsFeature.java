@@ -38,7 +38,7 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
             new PlacedFeature(
                     Holder.direct(REEDS_CONFIGURED),
                     List.of(
-                            CountPlacement.of(8),
+                            CountPlacement.of(15),
                             InSquarePlacement.spread(),
                             PlacementUtils.HEIGHTMAP_TOP_SOLID,
                             BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
@@ -67,7 +67,7 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
                 if (bl2) {
                     BlockState blockState2 = blockState.setValue(ReedsBlock.HALF, DoubleBlockHalf.UPPER);
                     BlockPos blockPos3 = blockPos2.above();
-                    if (worldGenLevel.getBlockState(blockPos3).is(Blocks.WATER)) {
+                    if (worldGenLevel.getBlockState(blockPos3).is(Blocks.AIR)) {
                         worldGenLevel.setBlock(blockPos2, blockState, 2);
                         worldGenLevel.setBlock(blockPos3, blockState2, 2);
                     }
