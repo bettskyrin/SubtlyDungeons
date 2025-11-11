@@ -33,13 +33,12 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
     public static final ResourceKey<ConfiguredFeature<?, ?>> REEDS_CONFIGURED_FEATURE = ResourceKey.create(Registries.CONFIGURED_FEATURE, SubtlyDungeons.resourceLocation("reeds_configured_feature"));
     public static final ResourceKey<PlacedFeature> REEDS_PLACED_FEATURE = ResourceKey.create(Registries.PLACED_FEATURE, SubtlyDungeons.resourceLocation("reeds_placed_feature"));
     public static final ReedsFeature REEDS = BiomesSD.register("reeds", new ReedsFeature(ProbabilityFeatureConfiguration.CODEC));
-    public static final ConfiguredFeature<?, ?> REEDS_CONFIGURED = new ConfiguredFeature<>(REEDS, new ProbabilityFeatureConfiguration(1F));
+    public static final ConfiguredFeature<?, ?> REEDS_CONFIGURED = new ConfiguredFeature<>(REEDS, new ProbabilityFeatureConfiguration(0.8F));
     public static final PlacedFeature REEDS_PLACED =
             new PlacedFeature(
                     Holder.direct(REEDS_CONFIGURED),
                     List.of(
-                            CountPlacement.of(15),
-                            InSquarePlacement.spread(),
+                            CountPlacement.of(20),
                             PlacementUtils.HEIGHTMAP_TOP_SOLID,
                             BlockPredicateFilter.forPredicate(BlockPredicate.allOf(
                                     BlockPredicate.matchesBlocks(Direction.UP.getUnitVec3i(), Blocks.WATER),

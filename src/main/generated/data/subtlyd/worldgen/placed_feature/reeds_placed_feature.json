@@ -2,16 +2,13 @@
   "feature": {
     "type": "minecraft:reeds",
     "config": {
-      "probability": 1.0
+      "probability": 0.8
     }
   },
   "placement": [
     {
       "type": "minecraft:count",
-      "count": 15
-    },
-    {
-      "type": "minecraft:in_square"
+      "count": 20
     },
     {
       "type": "minecraft:heightmap",
