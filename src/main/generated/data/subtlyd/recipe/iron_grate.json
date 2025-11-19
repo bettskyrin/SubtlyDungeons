@@ -1,6 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "building",
+  "group": "iron_grate",
   "key": {
     "M": "minecraft:iron_block"
   },

@@ -7,11 +7,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -57,7 +55,7 @@ public class ModelProviderSD extends FabricModelProvider {
 
     public static void createCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
         TextureMapping mapping = TextureMapping.cube(vanillaBlock);
-        ResourceLocation model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
+        Identifier model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
         MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
     }

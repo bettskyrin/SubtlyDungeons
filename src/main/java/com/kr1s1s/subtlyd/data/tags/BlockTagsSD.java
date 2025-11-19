@@ -74,10 +74,6 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.PLAYER_WALL_HEAD)
                 .add(Blocks.PIGLIN_HEAD)
                 .add(Blocks.PIGLIN_WALL_HEAD);
-        valueLookupBuilder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
-                .add(BlocksSD.REEDS);
-        valueLookupBuilder(BlockTags.UNDERWATER_BONEMEALS)
-                .add(BlocksSD.REEDS);
         valueLookupBuilder(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
         valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
@@ -87,6 +83,10 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE, Blocks.FROSTED_ICE)
                 .add(Blocks.STONE)
                 .add(Blocks.CALCITE);
+        valueLookupBuilder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
+                .add(BlocksSD.REEDS);
+        valueLookupBuilder(BlockTags.UNDERWATER_BONEMEALS)
+                .add(BlocksSD.REEDS);
     }
 
 

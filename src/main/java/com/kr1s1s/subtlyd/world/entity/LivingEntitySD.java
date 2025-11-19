@@ -33,7 +33,7 @@ public class LivingEntitySD extends LivingEntity {
         setPosToTent(blockPos, player);
         player.setSleepingPos(blockPos);
         player.setDeltaMovement(Vec3.ZERO);
-        player.hasImpulse = true;
+        player.setIgnoreFallDamageFromCurrentImpulse(true);
 
         setTent(tent);
     }

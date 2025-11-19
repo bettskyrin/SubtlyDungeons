@@ -9,6 +9,7 @@ import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
@@ -24,7 +25,7 @@ public class ServerPlayerSD extends ServerPlayer {
     public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
             if (player.isSleeping() || !player.isAlive()) {
                 return Either.left(PlayerSD.TentSleepingProblem.OTHER_PROBLEM);
-            } else if (!player.level().dimensionType().natural()) {
+            } else if (!player.level().environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, blockPos).canSetSpawn(player.level())) {
                 return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_HERE);
             } else if (tent.occupied) {
                 return Either.left(PlayerSD.TentSleepingProblem.OCCUPIED);

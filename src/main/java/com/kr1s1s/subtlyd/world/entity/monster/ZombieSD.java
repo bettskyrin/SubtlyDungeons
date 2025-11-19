@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity.monster;
 
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level;
 import java.util.Objects;
 
 public class ZombieSD extends Zombie {
-    private static final ResourceLocation LEADER_ZOMBIE_BONUS_ID = ResourceLocation.withDefaultNamespace("leader_zombie_bonus");
+    private static final Identifier LEADER_ZOMBIE_BONUS_ID = Identifier.withDefaultNamespace("leader_zombie_bonus");
 
     public ZombieSD(EntityType<? extends Zombie> entityType, Level level) {
         super(entityType, level);

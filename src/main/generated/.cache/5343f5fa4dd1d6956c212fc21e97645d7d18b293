@@ -1,4 +1,4 @@
-// 25w44a	-999999999-01-01T00:00:00	Subtly Dungeons/Tags for minecraft:block
+// 25w46a_unobfuscated	-999999999-01-01T00:00:00	Subtly Dungeons/Tags for minecraft:block
 a8d3347b9eca957293992fd203f2f34ad432da48 data/minecraft/tags/block/mineable/axe.json
 987f309138c2eac70fb02abc17c12e3007ea0dbe data/minecraft/tags/block/mineable/pickaxe.json
 61d0678ca7af394a841af528a5394f5445ffbd94 data/minecraft/tags/block/needs_stone_tool.json

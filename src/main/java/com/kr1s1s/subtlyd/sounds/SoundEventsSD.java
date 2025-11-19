@@ -3,7 +3,7 @@ package com.kr1s1s.subtlyd.sounds;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
 public class SoundEventsSD {
@@ -22,9 +22,9 @@ public class SoundEventsSD {
         return register(SubtlyDungeons.resourceLocation(string));
     }
 
-    private static SoundEvent register(ResourceLocation resourceLocation) { return register(resourceLocation, resourceLocation); }
+    private static SoundEvent register(Identifier resourceLocation) { return register(resourceLocation, resourceLocation); }
 
-    private static SoundEvent register(ResourceLocation resourceLocation, ResourceLocation resourceLocation2) {
+    private static SoundEvent register(Identifier resourceLocation, Identifier resourceLocation2) {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));
     }
 

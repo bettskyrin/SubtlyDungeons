@@ -1,9 +1,10 @@
 {
   "block.minecraft.campfire": "Lit Campfire",
   "block.subtlyd.charcoal_block": "Block of Charcoal",
-  "block.subtlyd.iron_grate": "Iron Grate",
   "block.subtlyd.chiseled_polished_dripstone": "Chiseled Polished Dripstone",
   "block.subtlyd.chiseled_stone": "Chiseled Stone",
+  "block.subtlyd.iron_grate": "Iron Grate",
+  "block.subtlyd.big_lily_pad": "Big Lily Pad",
   "block.subtlyd.polished_dripstone": "Polished Dripstone",
   "block.subtlyd.polished_dripstone_slab": "Polished Dripstone Slab",
   "block.subtlyd.polished_dripstone_stairs": "Polished Dripstone Stairs",

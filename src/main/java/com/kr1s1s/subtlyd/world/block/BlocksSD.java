@@ -49,6 +49,7 @@ public class BlocksSD {
             .sound(SoundType.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY));
+
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {
         return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(name));

@@ -67,17 +67,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Squid Coast by Johan Johnson (Jagged Peaks, Stony Peaks, Dripstone Caves)
 
-#### Splash Text
-- Added "Pretty tents!"
-- Added "R.I.P. trout.png"
-  - A developer inside joke, as it was decided to not add trouts to the mod
-- Added "L-l-l-lava!"
-- Added "Music by Peter Hont!"
-- Added "Music by Crispin Hands!"
-- Added "Music by Johan Johnson!"
-- Added "Welcome back Dinnerbone!"
-  - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
-- Added "Windy!"
+#### UI
+- Added new splash texts
+  - Added "Pretty tents!"
+  - Added "R.I.P. trout.png"
+    - A developer inside joke, as it was decided to not add trouts to the mod
+  - Added "L-l-l-lava!"
+  - Added "Music by Peter Hont!"
+  - Added "Music by Crispin Hands!"
+  - Added "Music by Johan Johnson!"
+  - Added "Welcome back Dinnerbone!"
+    - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
+  - Added "Windy!"
 
 ### Changed
 #### Items

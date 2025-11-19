@@ -10,11 +10,11 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class DrownedOuterLayerSD extends RenderLayer<ZombieRenderStateSD, DrownedModelSD> {
-    private static final ResourceLocation DROWNED_OUTER_LAYER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");
-    private static final ResourceLocation DROWNED_LEADER_OUTER_LAYER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader_outer_layer.png");
+    private static final Identifier DROWNED_OUTER_LAYER_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");
+    private static final Identifier DROWNED_LEADER_OUTER_LAYER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader_outer_layer.png");
     private final DrownedModel model;
     private final DrownedModel babyModel;
 
@@ -25,7 +25,7 @@ public class DrownedOuterLayerSD extends RenderLayer<ZombieRenderStateSD, Drowne
     }
 
     @Override public void submit(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int i, ZombieRenderStateSD zombieRenderState, float f, float g) {
-        ResourceLocation layerLocation = zombieRenderState.isLeader ? DROWNED_LEADER_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION;
+        Identifier layerLocation = zombieRenderState.isLeader ? DROWNED_LEADER_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION;
         DrownedModel drownedModel = zombieRenderState.isBaby ? this.babyModel : this.model;
         coloredCutoutModelCopyLayerRender(drownedModel, layerLocation, poseStack, submitNodeCollector, i, zombieRenderState, -1, 1);
     }

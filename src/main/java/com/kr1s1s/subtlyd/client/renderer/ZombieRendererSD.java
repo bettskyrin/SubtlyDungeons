@@ -8,12 +8,12 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.Zombie;
 import org.jetbrains.annotations.NotNull;
 
 public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
-    private final ResourceLocation ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
+    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
 
     public ZombieRendererSD(EntityRendererProvider.Context context) {
         super(context,
@@ -24,7 +24,7 @@ public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRende
         );
     }
 
-    @Override public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    @Override public @NotNull Identifier getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return ZOMBIE_LEADER_LOCATION;
         }

@@ -6,12 +6,12 @@ import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
 import net.minecraft.client.model.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.Husk;
 import org.jetbrains.annotations.NotNull;
 
 public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
-    private final ResourceLocation HUSK_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/husk_leader.png");
+    private final Identifier HUSK_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/husk_leader.png");
     private final HuskRenderer huskRenderer;
 
     public HuskRendererSD(EntityRendererProvider.Context context) {
@@ -19,7 +19,7 @@ public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderSta
         huskRenderer = new HuskRenderer(context);
     }
 
-    @Override public @NotNull ResourceLocation getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+    @Override public @NotNull Identifier getTextureLocation(ZombieRenderStateSD zombieRenderState) {
         if (zombieRenderState.isLeader) {
             return HUSK_LEADER_LOCATION;
         }
