@@ -3,13 +3,13 @@ package com.kr1s1s.subtlyd.client.renderer;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
 import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import org.jetbrains.annotations.NotNull;
 
 public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {

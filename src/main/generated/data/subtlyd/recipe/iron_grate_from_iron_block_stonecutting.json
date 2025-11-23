@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:iron_block",
-  "result": {
-    "count": 4,
-    "id": "subtlyd:iron_grate"
-  }
-}

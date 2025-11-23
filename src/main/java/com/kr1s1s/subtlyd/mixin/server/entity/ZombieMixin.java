@@ -3,7 +3,7 @@ package com.kr1s1s.subtlyd.mixin.server.entity;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;

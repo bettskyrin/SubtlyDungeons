@@ -3,11 +3,11 @@ package com.kr1s1s.subtlyd.client.renderer;
 import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
 import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.monster.zombie.Husk;
 import org.jetbrains.annotations.NotNull;
 
 public class HuskRendererSD extends AbstractZombieRenderer<Husk, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {

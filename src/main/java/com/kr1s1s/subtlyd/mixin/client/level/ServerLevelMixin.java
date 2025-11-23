@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.CameraShake;
+import com.kr1s1s.subtlyd.client.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -29,15 +29,15 @@ public class ServerLevelMixin {
                          double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction,
                          ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList,
                          Holder<SoundEvent> holder, CallbackInfo ci) {
-        shakeCameraByExplosion(x, y, z, power);
+        shakeScreenByExplosion(x, y, z, power);
     }
-    private void shakeCameraByExplosion(double x, double y, double z, float power) {
+    private void shakeScreenByExplosion(double x, double y, double z, float power) {
         Player player = Minecraft.getInstance().player;
 
         if (player != null) {
             float maxDistance = 16 * (power / 3);
             float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-            CameraShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
+            ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
         }
     }
 }

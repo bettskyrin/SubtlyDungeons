@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
 import com.kr1s1s.subtlyd.client.OptionsSD;
-import com.kr1s1s.subtlyd.client.util.CameraShake;
+import com.kr1s1s.subtlyd.client.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
@@ -22,12 +22,12 @@ public abstract class CameraMixin {
 
     @Inject(method = "setup", at = @At("TAIL"))
     private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
-        applyCameraShake();
+        applyScreenShake();
     }
 
-    private void applyCameraShake() {
-        if (OptionsSD.CAMERA_SHAKE.get()) {
-            float intensity = CameraShake.getShakeIntensity() * 0.5F;
+    private void applyScreenShake() {
+        if (OptionsSD.SCREEN_SHAKE.get()) {
+            float intensity = ScreenShake.getShakeIntensity() * 0.5F;
 
             if (intensity > 0) {
                 float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity);

@@ -8,7 +8,7 @@ import com.kr1s1s.subtlyd.client.model.mob.zombie.DrownedModelSD;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.Identifier;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import org.jetbrains.annotations.NotNull;
 
 public class DrownedRendererSD extends AbstractZombieRenderer<Drowned, ZombieRenderStateSD, DrownedModelSD> {

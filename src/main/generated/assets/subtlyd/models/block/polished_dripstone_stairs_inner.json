@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/inner_stairs",
-  "textures": {
-    "bottom": "subtlyd:block/polished_dripstone",
-    "side": "subtlyd:block/polished_dripstone",
-    "top": "subtlyd:block/polished_dripstone"
-  }
-}

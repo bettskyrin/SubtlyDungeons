@@ -6,8 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.3] - UNRELEASED
 ### Added
-- Added reeds!
-  - They can be found in shallow swamp biome waters
+#### Blocks
+- Added Reeds
+  - Reeds are a common plant that can be found in shallow swamp biome waters
+
+#### Tags
+- Added "triggers_ambient_wind_block_sounds" block tag
+- Added "tents" item tag
 
 ### Changed
 #### Audio
@@ -25,13 +30,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Captains may still spawn in with Resistance I if the raid difficulty is at least level 4
 
 #### Data
-- `options.doCameraShake` has been renamed to `options.camera_shake`
+- `options.doCameraShake` has been renamed to `options.screen_shake`
+  - Camera Shake has been renamed "Screen Shake" to match Minecraft Dungeons
 - `options.doCameraShake.tooltip` has been renamed to `options.camera_shake.tooltip`
+    - Its value has been changed to "Toggles the screen shake effect." to match Minecraft Dungeons
 
 #### Tags
-- Created "triggers_ambient_wind_block_sounds" block tag
 - Removed "tents" block tag
-- Added "tents" item tag
 
 ## [1.1.0-alpha.2] - 11/1/2025
 ### Added
