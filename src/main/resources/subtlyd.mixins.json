@@ -16,7 +16,8 @@
     "client.entity.EntityMixin",
     "client.entity.PlayerMixin",
     "client.options.AccessibilityOptionsScreenMixin",
-    "client.options.SplashManagerMixin"
+    "client.options.SplashManagerMixin",
+    "client.gui.screens.TitleScreenMixin"
   ],
 	"injectors": {
 		"defaultRequire": 1
