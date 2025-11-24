@@ -3,6 +3,8 @@ package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
+import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.client.gui.components.GameTabButton;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.DataResult;
@@ -307,8 +309,7 @@ public class CreateWorldScreenSD extends Screen {
             SystemToast.onPackCopyFailure(this.minecraft, string);
             return false;
         } else {
-            this.minecraft
-                    .createWorldOpenFlows()
+            new WorldOpenFlowsSD(this.minecraft, this.minecraft.getLevelSource())
                     .createLevelFromExistingSettings(
                             (LevelStorageSource.LevelStorageAccess)optional.get(), worldCreationContext.dataPackResources(), layeredRegistryAccess, worldData
                     );
@@ -439,7 +440,7 @@ public class CreateWorldScreenSD extends Screen {
     private void applyNewPackConfig(PackRepository packRepository, WorldDataConfiguration worldDataConfiguration, Consumer<WorldDataConfiguration> consumer) {
         this.minecraft.setScreenAndShow(new GenericMessageScreen(Component.translatable("dataPack.validation.working")));
         WorldLoader.InitConfig initConfig = createDefaultLoadConfig(packRepository, worldDataConfiguration);
-        WorldLoader.<DataPackReloadCookie, WorldCreationContextSD>load(
+        WorldLoader.load(
                         initConfig,
                         dataLoadContext -> {
                             if (dataLoadContext.datapackWorldgen().lookupOrThrow(Registries.WORLD_PRESET).listElements().findAny().isEmpty()) {
@@ -452,7 +453,7 @@ public class CreateWorldScreenSD extends Screen {
                                 DataResult<JsonElement> dataResult = WorldGenSettings.encode(dynamicOps, worldCreationContext.options(), worldCreationContext.selectedDimensions())
                                         .setLifecycle(Lifecycle.stable());
                                 DynamicOps<JsonElement> dynamicOps2 = dataLoadContext.datapackWorldgen().createSerializationContext(JsonOps.INSTANCE);
-                                WorldGenSettings worldGenSettings = dataResult.<WorldGenSettings>flatMap(jsonElement -> WorldGenSettings.CODEC.parse(dynamicOps2, jsonElement))
+                                WorldGenSettings worldGenSettings = dataResult.flatMap(jsonElement -> WorldGenSettings.CODEC.parse(dynamicOps2, jsonElement))
                                         .getOrThrow(string -> new IllegalStateException("Error parsing worldgen settings after loading data packs: " + string));
                                 return new WorldLoader.DataLoadOutput<>(
                                         new DataPackReloadCookie(worldGenSettings, dataLoadContext.dataConfiguration()), dataLoadContext.datapackDimensions()
@@ -660,6 +661,10 @@ public class CreateWorldScreenSD extends Screen {
     }
 
     @Environment(EnvType.CLIENT)
+    /**
+     * @param linearLayout The entire content layout, excluding the header and footer
+     * @param linearLayout2 The first row, containing the Game Mode and World name settings
+     */
     class GameTab extends GridLayoutTab {
         private static final Component TITLE = Component.translatable("createWorld.tab.game.title");
         private static final Component ALLOW_COMMANDS = Component.translatable("selectWorld.allowCommands");
@@ -667,9 +672,12 @@ public class CreateWorldScreenSD extends Screen {
 
         GameTab() {
             super(TITLE);
-            GridLayout.RowHelper rowHelper = this.layout.rowSpacing(8).createRowHelper(1);
-            LayoutSettings layoutSettings = rowHelper.newCellSettings();
-            this.nameEdit = new EditBox(CreateWorldScreenSD.this.font, 208, 20, Component.translatable("selectWorld.enterName"));
+            LinearLayout linearLayout2 = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(4);
+            linearLayout2.defaultCellSetting();
+            LinearLayout linearLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(4);
+            linearLayout.defaultCellSetting().alignVerticallyMiddle();
+
+            this.nameEdit = new EditBox(CreateWorldScreenSD.this.font, (int) (CreateWorldScreenSD.this.width / 2.5), 20, Component.translatable("selectWorld.enterName"));
             this.nameEdit.setValue(CreateWorldScreenSD.this.uiState.getName());
             this.nameEdit.setResponder(CreateWorldScreenSD.this.uiState::setName);
             CreateWorldScreenSD.this.uiState
@@ -682,55 +690,99 @@ public class CreateWorldScreenSD extends Screen {
                                     )
                     );
             CreateWorldScreenSD.this.setInitialFocus(this.nameEdit);
-            rowHelper.addChild(
+            linearLayout2.addChild(
                     CommonLayouts.labeledElement(CreateWorldScreenSD.this.font, this.nameEdit, CreateWorldScreenSD.NAME_LABEL),
-                    rowHelper.newCellSettings().alignHorizontallyCenter()
+                    linearLayout2.newCellSettings().alignHorizontallyCenter()
             );
-            CycleButton<WorldCreationUiStateSD.SelectedGameMode> cycleButton = rowHelper.addChild(
-                    CycleButton.<WorldCreationUiStateSD.SelectedGameMode>builder(selectedGameMode -> selectedGameMode.displayName, CreateWorldScreenSD.this.uiState.getGameMode())
-                            .withValues(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL, WorldCreationUiStateSD.SelectedGameMode.HARDCORE, WorldCreationUiStateSD.SelectedGameMode.CREATIVE)
-                            .create(
-                                    0, 0, 210, 20, CreateWorldScreenSD.GAME_MODEL_LABEL, (cycleButtonx, selectedGameMode) -> CreateWorldScreenSD.this.uiState.setGameMode(selectedGameMode)
-                            ),
-                    layoutSettings
+
+            GameTabButton survivalButton = linearLayout2.addChild(
+                    GameTabButton.builder(
+                            Component.translatable("selectWorld.gameMode.survival"),
+                            button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL),
+                            SubtlyDungeons.resourceLocation("textures/gui/sprites/widget/survival.png"),
+                            200, 140
+                    ).build()
             );
-            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
-                cycleButton.setValue(worldCreationUiState.getGameMode());
-                cycleButton.active = !worldCreationUiState.isDebug();
-                cycleButton.setTooltip(Tooltip.create(worldCreationUiState.getGameMode().getInfo()));
-            });
-            CycleButton<Difficulty> cycleButton2 = rowHelper.addChild(
-                    CycleButton.builder(Difficulty::getDisplayName, CreateWorldScreenSD.this.uiState.getDifficulty())
-                            .withValues(Difficulty.values())
-                            .create(
-                                    0, 0, 210, 20, Component.translatable("options.difficulty"), (cycleButtonx, difficulty) -> CreateWorldScreenSD.this.uiState.setDifficulty(difficulty)
-                            ),
-                    layoutSettings
+            survivalButton.setSize(100, 70);
+            survivalButton.setTooltip(Tooltip.create(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL.getInfo()));
+
+            GameTabButton creativeButton = linearLayout2.addChild(
+                    GameTabButton.builder(
+                            Component.translatable("selectWorld.gameMode.creative"),
+                            button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.CREATIVE),
+                            SubtlyDungeons.resourceLocation("textures/gui/sprites/widget/creative.png"),
+                            200, 140
+                    ).build()
             );
-            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
-                cycleButton2.setValue(CreateWorldScreenSD.this.uiState.getDifficulty());
-                cycleButton2.active = !CreateWorldScreenSD.this.uiState.isHardcore();
-                cycleButton2.setTooltip(Tooltip.create(CreateWorldScreenSD.this.uiState.getDifficulty().getInfo()));
-            });
-            CycleButton<Boolean> cycleButton3 = rowHelper.addChild(
-                    CycleButton.onOffBuilder(CreateWorldScreenSD.this.uiState.isAllowCommands())
-                            .withTooltip(boolean_ -> Tooltip.create(CreateWorldScreenSD.ALLOW_COMMANDS_INFO))
-                            .create(0, 0, 210, 20, ALLOW_COMMANDS, (cycleButtonx, boolean_) -> CreateWorldScreenSD.this.uiState.setAllowCommands(boolean_))
-            );
-            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
-                cycleButton3.setValue(CreateWorldScreenSD.this.uiState.isAllowCommands());
-                cycleButton3.active = !CreateWorldScreenSD.this.uiState.isDebug() && !CreateWorldScreenSD.this.uiState.isHardcore();
-            });
-            if (!SharedConstants.getCurrentVersion().stable()) {
-                rowHelper.addChild(
-                        Button.builder(
-                                        CreateWorldScreenSD.EXPERIMENTS_LABEL,
-                                        button -> CreateWorldScreenSD.this.openExperimentsScreen(CreateWorldScreenSD.this.uiState.getSettings().dataConfiguration())
-                                )
-                                .width(210)
-                                .build()
-                );
-            }
+            creativeButton.setSize(100, 70);
+            creativeButton.setTooltip(Tooltip.create(WorldCreationUiStateSD.SelectedGameMode.CREATIVE.getInfo()));
+
+            this.layout.addChild(linearLayout2, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
+
+//            GridLayout.RowHelper rowHelper = this.layout.rowSpacing(8).createRowHelper(1);
+//            LayoutSettings layoutSettings = rowHelper.newCellSettings();
+//            this.nameEdit = new EditBox(CreateWorldScreenSD.this.font, (int) (CreateWorldScreenSD.this.width / 2.5), 20, Component.translatable("selectWorld.enterName"));
+//            this.nameEdit.setValue(CreateWorldScreenSD.this.uiState.getName());
+//            this.nameEdit.setResponder(CreateWorldScreenSD.this.uiState::setName);
+//            CreateWorldScreenSD.this.uiState
+//                    .addListener(
+//                            worldCreationUiState -> this.nameEdit
+//                                    .setTooltip(
+//                                            Tooltip.create(
+//                                                    Component.translatable("selectWorld.targetFolder", Component.literal(worldCreationUiState.getTargetFolder()).withStyle(ChatFormatting.ITALIC))
+//                                            )
+//                                    )
+//                    );
+//            CreateWorldScreenSD.this.setInitialFocus(this.nameEdit);
+//            rowHelper.addChild(
+//                    CommonLayouts.labeledElement(CreateWorldScreenSD.this.font, this.nameEdit, CreateWorldScreenSD.NAME_LABEL),
+//                    rowHelper.newCellSettings().alignHorizontallyRight()
+//            );
+//            CycleButton<WorldCreationUiStateSD.SelectedGameMode> cycleButton = rowHelper.addChild(
+//                    CycleButton.<WorldCreationUiStateSD.SelectedGameMode>builder(selectedGameMode -> selectedGameMode.displayName, CreateWorldScreenSD.this.uiState.getGameMode())
+//                            .withValues(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL, WorldCreationUiStateSD.SelectedGameMode.HARDCORE, WorldCreationUiStateSD.SelectedGameMode.CREATIVE)
+//                            .create(
+//                                    0, 0, 210, 20, CreateWorldScreenSD.GAME_MODEL_LABEL, (cycleButtonx, selectedGameMode) -> CreateWorldScreenSD.this.uiState.setGameMode(selectedGameMode)
+//                            ),
+//                    layoutSettings
+//            );
+//            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
+//                cycleButton.setValue(worldCreationUiState.getGameMode());
+//                cycleButton.active = !worldCreationUiState.isDebug();
+//                cycleButton.setTooltip(Tooltip.create(worldCreationUiState.getGameMode().getInfo()));
+//            });
+//            CycleButton<Difficulty> cycleButton2 = rowHelper.addChild(
+//                    CycleButton.builder(Difficulty::getDisplayName, CreateWorldScreenSD.this.uiState.getDifficulty())
+//                            .withValues(Difficulty.values())
+//                            .create(
+//                                    0, 0, 210, 20, Component.translatable("options.difficulty"), (cycleButtonx, difficulty) -> CreateWorldScreenSD.this.uiState.setDifficulty(difficulty)
+//                            ),
+//                    layoutSettings
+//            );
+//            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
+//                cycleButton2.setValue(CreateWorldScreenSD.this.uiState.getDifficulty());
+//                cycleButton2.active = !CreateWorldScreenSD.this.uiState.isHardcore();
+//                cycleButton2.setTooltip(Tooltip.create(CreateWorldScreenSD.this.uiState.getDifficulty().getInfo()));
+//            });
+//            CycleButton<Boolean> cycleButton3 = rowHelper.addChild(
+//                    CycleButton.onOffBuilder(CreateWorldScreenSD.this.uiState.isAllowCommands())
+//                            .withTooltip(boolean_ -> Tooltip.create(CreateWorldScreenSD.ALLOW_COMMANDS_INFO))
+//                            .create(0, 0, 210, 20, ALLOW_COMMANDS, (cycleButtonx, boolean_) -> CreateWorldScreenSD.this.uiState.setAllowCommands(boolean_))
+//            );
+//            CreateWorldScreenSD.this.uiState.addListener(worldCreationUiState -> {
+//                cycleButton3.setValue(CreateWorldScreenSD.this.uiState.isAllowCommands());
+//                cycleButton3.active = !CreateWorldScreenSD.this.uiState.isDebug() && !CreateWorldScreenSD.this.uiState.isHardcore();
+//            });
+//            if (!SharedConstants.getCurrentVersion().stable()) {
+//                rowHelper.addChild(
+//                        Button.builder(
+//                                        CreateWorldScreenSD.EXPERIMENTS_LABEL,
+//                                        button -> CreateWorldScreenSD.this.openExperimentsScreen(CreateWorldScreenSD.this.uiState.getSettings().dataConfiguration())
+//                                )
+//                                .width(210)
+//                                .build()
+//                );
+//            }
         }
     }
 
@@ -743,20 +795,20 @@ public class CreateWorldScreenSD extends Screen {
         MoreTab() {
             super(TITLE);
             GridLayout.RowHelper rowHelper = this.layout.rowSpacing(8).createRowHelper(1);
-            rowHelper.addChild(Button.builder(GAME_RULES_LABEL, button -> this.openGameRulesScreen()).width(210).build());
+            rowHelper.addChild(Button.builder(GAME_RULES_LABEL, button -> this.openGameRulesScreen()).width(TAB_COLUMN_WIDTH).build());
             rowHelper.addChild(
                     Button.builder(
                                     CreateWorldScreenSD.EXPERIMENTS_LABEL,
                                     button -> CreateWorldScreenSD.this.openExperimentsScreen(CreateWorldScreenSD.this.uiState.getSettings().dataConfiguration())
                             )
-                            .width(210)
+                            .width(TAB_COLUMN_WIDTH)
                             .build()
             );
             rowHelper.addChild(
                     Button.builder(
                                     DATA_PACKS_LABEL, button -> CreateWorldScreenSD.this.openDataPackSelectionScreen(CreateWorldScreenSD.this.uiState.getSettings().dataConfiguration())
                             )
-                            .width(210)
+                            .width(TAB_COLUMN_WIDTH)
                             .build()
             );
         }

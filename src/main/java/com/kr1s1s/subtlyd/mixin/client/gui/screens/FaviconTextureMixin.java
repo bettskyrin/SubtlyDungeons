@@ -25,7 +25,7 @@ public class FaviconTextureMixin {
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
     public void upload(NativeImage nativeImage, CallbackInfo ci) {
         ci.cancel();
-        if (nativeImage.getWidth() == 114 && nativeImage.getHeight() == 64) {
+        if (nativeImage.getWidth() == 455 && nativeImage.getHeight() == 256) {
             try {
                 this.checkOpen();
                 if (this.texture == null) {
@@ -43,7 +43,7 @@ public class FaviconTextureMixin {
             }
         } else {
             nativeImage.close();
-            throw new IllegalArgumentException("Icon must be 114x64, but was " + nativeImage.getWidth() + "x" + nativeImage.getHeight());
+            throw new IllegalArgumentException("Icon must be 455x256, but was " + nativeImage.getWidth() + "x" + nativeImage.getHeight());
         }
     }
 }

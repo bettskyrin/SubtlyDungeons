@@ -35,7 +35,7 @@ public class GameRendererMixin {
                     j = i;
                 }
 
-                try (NativeImage nativeImage2 = new NativeImage(114, 64, false)) {
+                try (NativeImage nativeImage2 = new NativeImage(455, 256, false)) {
                     nativeImage.resizeSubRectTo(k, l, i, j, nativeImage2);
                     nativeImage2.writeToFile(path);
                 } catch (IOException var16) {

@@ -69,6 +69,10 @@ jar {
     }
 }
 
+tasks.withType(Copy).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 // configure the maven publication
 publishing {
     publications {

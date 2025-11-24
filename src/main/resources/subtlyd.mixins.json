@@ -8,6 +8,9 @@
       "server.entity.RaiderMixin",
       "server.entity.ZombieMixin"
     ],
+  "server": [
+    "server.MinecraftServerMixin"
+  ],
   "client": [
     "client.blocks.BlockMixin",
     "client.level.CameraMixin",
