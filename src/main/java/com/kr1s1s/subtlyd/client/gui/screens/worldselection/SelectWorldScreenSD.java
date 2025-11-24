@@ -113,7 +113,7 @@ public class SelectWorldScreenSD extends Screen {
                         .build()
         );
 
-        linearLayout2.addChild(new SpacerElement(this.width - (searchBox.getWidth() + bigButtonWidth + (buttonWidth * 3) + (rowSpacing * 6)), 0));
+        linearLayout2.addChild(new SpacerElement(this.width - (searchBox.getWidth() + bigButtonWidth + (buttonWidth * 3) + (rowSpacing * 7)), 0));
 
         this.deleteButton = linearLayout2.addChild(
                 Button.builder(

@@ -589,7 +589,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
         @Override
         public boolean mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl) {
             if (this.canInteract()) {
-                int i = (int)mouseButtonEvent.x() - this.getContentX() + ICON_WIDTH / 4;
+                int i = (int)mouseButtonEvent.x() - (this.getContentX() + (ICON_WIDTH / 4));
                 int j = (int)mouseButtonEvent.y() - this.getContentY();
                 if (bl || this.mouseOverIcon(i, j, ICON_HEIGHT) && this.list.entryType == WorldSelectionListSD.EntryType.SINGLEPLAYER) {
                     this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));

@@ -5,7 +5,6 @@ import com.mojang.authlib.minecraft.BanDetails;
 import com.mojang.logging.LogUtils;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.toasts.SystemToast;
@@ -22,7 +21,6 @@ import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
@@ -107,7 +105,8 @@ public class TitleScreenSD extends Screen {
         int mediumButtonWidth = 98;
         int buttonHeight = 20;
         int largeButtonXPos = this.width / 2 - 100;
-        int spriteIconButtonsXPos = this.width / 2 - 124;
+        int spriteIconButtonsXPos = 4;
+        int spriteIconButtonsYPos = this.height - (4 + buttonHeight);
 
         if (this.minecraft.isDemo()) {
             bottomYPos = this.createDemoMenuOptions(largeButtonXPos, bottomYPos, buttonSpacing, largeButtonWidth, buttonHeight);
@@ -122,7 +121,7 @@ public class TitleScreenSD extends Screen {
                 )
         );
         bottomYPos += 36;
-        spriteIconButton.setPosition(spriteIconButtonsXPos, bottomYPos);
+        spriteIconButton.setPosition(spriteIconButtonsXPos, spriteIconButtonsYPos);
         this.addRenderableWidget(
                 Button.builder(Component.translatable("menu.options"), button -> this.minecraft.setScreen(new OptionsScreen(this, this.minecraft.options)))
                         .bounds(largeButtonXPos, bottomYPos, mediumButtonWidth, buttonHeight)
@@ -132,7 +131,7 @@ public class TitleScreenSD extends Screen {
         SpriteIconButton spriteIconButton2 = this.addRenderableWidget(
                 CommonButtons.accessibility(buttonHeight, button -> this.minecraft.setScreen(new AccessibilityOptionsScreen(this, this.minecraft.options)), true)
         );
-        spriteIconButton2.setPosition(spriteIconButtonsXPos + 228, bottomYPos);
+        spriteIconButton2.setPosition(spriteIconButtonsXPos + buttonHeight + 4, spriteIconButtonsYPos);
         this.addRenderableWidget(
                 new PlainTextButton(copyrightXPos, this.height - copyrightHeight, copyrightSpacing, copyrightHeight, COPYRIGHT_TEXT, button -> this.minecraft.setScreen(new CreditsAndAttributionScreen(this)), this.font)
         );
@@ -295,18 +294,12 @@ public class TitleScreenSD extends Screen {
             this.splash.render(guiGraphics, this.width, this.font, g);
         }
 
-        String string = "Minecraft " + SharedConstants.getCurrentVersion().name(); // TODO Remove
+        String string = "Minecraft " + SharedConstants.getCurrentVersion().name();
         if (this.minecraft.isDemo()) {
             string = string + " Demo";
-        } else {
-            string = string + ("release".equalsIgnoreCase(this.minecraft.getVersionType()) ? "" : "/" + this.minecraft.getVersionType());
+            guiGraphics.drawString(this.font, string, 2, this.height - 10, ARGB.white(g));
         }
 
-        if (Minecraft.checkModStatus().shouldReportAsModified()) {
-            string = string + I18n.get("menu.modded");
-        }
-
-        guiGraphics.drawString(this.font, string, 2, this.height - 10, ARGB.white(g));
         if (this.realmsNotificationsEnabled() && g >= 1.0F) {
             this.realmsNotificationsScreen.render(guiGraphics, i, j, f);
         }
