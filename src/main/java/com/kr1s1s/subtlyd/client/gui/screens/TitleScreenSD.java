@@ -295,7 +295,7 @@ public class TitleScreenSD extends Screen {
             this.splash.render(guiGraphics, this.width, this.font, g);
         }
 
-        String string = "Minecraft " + SharedConstants.getCurrentVersion().name();
+        String string = "Minecraft " + SharedConstants.getCurrentVersion().name(); // TODO Remove
         if (this.minecraft.isDemo()) {
             string = string + " Demo";
         } else {

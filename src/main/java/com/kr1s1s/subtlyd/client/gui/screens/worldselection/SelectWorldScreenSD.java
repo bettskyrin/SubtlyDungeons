@@ -49,7 +49,7 @@ public class SelectWorldScreenSD extends Screen {
     @Nullable
     protected EditBox searchBox;
     @Nullable
-    private WorldSelectionList list;
+    private WorldSelectionListSD list;
 
     public SelectWorldScreenSD(Screen screen) {
         super(Component.translatable("selectWorld.title"));
@@ -80,10 +80,10 @@ public class SelectWorldScreenSD extends Screen {
         });
         this.searchBox.setHint(Component.translatable("gui.selectWorld.search").setStyle(EditBox.SEARCH_HINT_STYLE));
 
-        Consumer<WorldSelectionList.WorldListEntry> consumer = WorldSelectionList.WorldListEntry::joinWorld;
+        Consumer<WorldSelectionListSD.WorldListEntry> consumer = WorldSelectionListSD.WorldListEntry::joinWorld;
         this.list = this.layout
                 .addToContents(
-                        new WorldSelectionList.Builder(this.minecraft, this)
+                        new WorldSelectionListSD.Builder(this.minecraft, this)
                                 .width(this.width)
                                 .height(this.layout.getContentHeight())
                                 .filter(this.searchBox.getValue())
@@ -100,14 +100,14 @@ public class SelectWorldScreenSD extends Screen {
                         .build());
         this.renameButton = linearLayout2.addChild(
                 Button.builder(
-                        Component.translatable("selectWorld.edit"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld)
+                        Component.translatable("selectWorld.edit"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionListSD.WorldListEntry::editWorld)
                         )
                         .width(buttonWidth)
                         .build()
         );
         this.copyButton = linearLayout2.addChild(
                 Button.builder(
-                        Component.translatable("selectWorld.recreate"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld)
+                        Component.translatable("selectWorld.recreate"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionListSD.WorldListEntry::recreateWorld)
                         )
                         .width(bigButtonWidth)
                         .build()
@@ -117,7 +117,7 @@ public class SelectWorldScreenSD extends Screen {
 
         this.deleteButton = linearLayout2.addChild(
                 Button.builder(
-                        Component.translatable("selectWorld.delete"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld)
+                        Component.translatable("selectWorld.delete"), button -> this.list.getSelectedOpt().ifPresent(WorldSelectionListSD.WorldListEntry::deleteWorld)
                         )
                         .width(buttonWidth)
                         .build()
@@ -130,7 +130,7 @@ public class SelectWorldScreenSD extends Screen {
         this.updateButtonStatus(null);
     }
 
-    private void createFooterButtons(WorldSelectionList worldSelectionList) {
+    private void createFooterButtons(WorldSelectionListSD worldSelectionList) {
         int rowSpacing = 4;
         int halfButtonWidth = 100;
         int backButtonWidth = 60;
@@ -160,8 +160,8 @@ public class SelectWorldScreenSD extends Screen {
                             try {
                                 String string = "DEBUG world";
                                 if (this.list != null && !this.list.children().isEmpty()) {
-                                    WorldSelectionList.Entry entry = this.list.children().getFirst();
-                                    if (entry instanceof WorldSelectionList.WorldListEntry worldListEntry && worldListEntry.getLevelName().equals(string)) {
+                                    WorldSelectionListSD.Entry entry = this.list.children().getFirst();
+                                    if (entry instanceof WorldSelectionListSD.WorldListEntry worldListEntry && worldListEntry.getLevelName().equals(string)) {
                                         worldListEntry.doDeleteWorld();
                                     }
                                 }
@@ -228,7 +228,7 @@ public class SelectWorldScreenSD extends Screen {
     @Override
     public void removed() {
         if (this.list != null) {
-            this.list.children().forEach(WorldSelectionList.Entry::close);
+            this.list.children().forEach(WorldSelectionListSD.Entry::close);
         }
     }
 }
