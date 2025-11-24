@@ -28,6 +28,7 @@
 	"mixins": [
 		"subtlyd.mixins.json"
 	],
+    "accessWidener": "subtlyd.classtweaker",
 	"depends": {
 		"fabricloader": ">=0.17.2",
 		"minecraft": "~1.21.9-",

@@ -13,8 +13,6 @@ import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.layouts.SpacerElement;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
-import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FileUtil;
@@ -138,13 +136,13 @@ public class SelectWorldScreenSD extends Screen {
         GridLayout gridLayout = this.layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(rowSpacing));
         gridLayout.defaultCellSetting().alignHorizontallyCenter();
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(this.width);
-        rowHelper.addChild(new SpacerElement(this.width / 2 - halfButtonWidth, 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (halfButtonWidth - (rowSpacing * 3)), 0));
         rowHelper.addChild(
-                Button.builder(Component.translatable("selectWorld.create"), button -> CreateWorldScreen.openFresh(this.minecraft, worldSelectionList::returnToScreen))
+                Button.builder(Component.translatable("selectWorld.create"), button -> CreateWorldScreenSD.openFresh(this.minecraft, worldSelectionList::returnToScreen))
                         .build()
         );
 
-        rowHelper.addChild(new SpacerElement(this.width / 2 - (halfButtonWidth + (backButtonWidth / 2) + (2 * rowSpacing)), 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (halfButtonWidth + (backButtonWidth / 2) + (7 * rowSpacing)), 0));
 
         rowHelper.addChild(
                 Button.builder(

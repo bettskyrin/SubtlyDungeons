@@ -6,9 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.4]
 ### CHANGED
+#### Textures
+- New tooltip frame and background design
+- New experience bar texture
+- New ping textures
+
 #### Menus
 - Changed the Title Screen
-- Changed the World Selection Screen layout
+- Changed the World Selection Screen button layout
+- World selection list items now take up most of the screen
+  - World icons are now 16:9 thumbnails
 
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added

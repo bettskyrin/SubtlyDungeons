@@ -35,6 +35,10 @@ dependencies {
 
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/subtlyd.classtweaker")
+}
+
 processResources {
     inputs.property "version", project.version
 
