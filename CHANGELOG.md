@@ -15,7 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the Title Screen
 - Changed the World Selection Screen button layout
 - World selection list items now take up most of the screen
-  - World icons are now 16:9 thumbnails
+  - World icons are now 16:9 (455px x 256px) thumbnails
+- Changed the World Creation Screen layout
 
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added
