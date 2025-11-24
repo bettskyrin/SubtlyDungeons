@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.client.gui.screens;
 
+import com.kr1s1s.subtlyd.client.gui.screens.worldselection.SelectWorldScreenSD;
 import com.mojang.authlib.minecraft.BanDetails;
 import com.mojang.logging.LogUtils;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
@@ -158,7 +159,7 @@ public class TitleScreenSD extends Screen {
 
     private int createNormalMenuOptions(int buttonXPos, int buttonYPos, int spacing, int width, int height) {
         this.addRenderableWidget(
-                Button.builder(Component.translatable("menu.singleplayer"), button -> this.minecraft.setScreen(new SelectWorldScreen(this)))
+                Button.builder(Component.translatable("menu.singleplayer"), button -> this.minecraft.setScreen(new SelectWorldScreenSD(this)))
                         .bounds(buttonXPos, buttonYPos, width, height)
                         .build()
         );
