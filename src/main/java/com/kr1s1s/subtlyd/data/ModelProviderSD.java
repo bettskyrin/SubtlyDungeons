@@ -37,7 +37,7 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         createCubeFromVanilla(Blocks.IRON_BARS, BlocksSD.IRON_GRATE, blockModelGenerator);
-        blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.TINTED);
+        blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
     @Override

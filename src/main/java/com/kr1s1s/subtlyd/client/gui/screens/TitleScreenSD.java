@@ -3,6 +3,7 @@ package com.kr1s1s.subtlyd.client.gui.screens;
 import com.kr1s1s.subtlyd.client.gui.screens.worldselection.SelectWorldScreenSD;
 import com.mojang.authlib.minecraft.BanDetails;
 import com.mojang.logging.LogUtils;
+import com.mojang.realmsclient.RealmsMainScreen;
 import com.mojang.realmsclient.gui.screens.RealmsNotificationsScreen;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,7 +18,6 @@ import net.minecraft.client.gui.screens.options.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
 import net.minecraft.client.gui.screens.options.OptionsScreen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
-import net.minecraft.client.gui.screens.worldselection.SelectWorldScreen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.PanoramaRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -170,18 +170,18 @@ public class TitleScreenSD extends Screen {
             this.minecraft.setScreen(screen);
         }).bounds(buttonXPos, buttonYPos += spacing, width, height).tooltip(tooltip).build()).active = bl;
 
-        this.addRenderableWidget(
-                Button.builder(Component.translatable("menu.hub"), button -> this.minecraft.setScreen(new SelectWorldScreen(this)))
-                        .bounds(buttonXPos, buttonYPos += spacing, width, height)
-                        .build()
-        );
 //        this.addRenderableWidget(
-//                Button.builder(Component.translatable("menu.online"), button -> this.minecraft.setScreen(new RealmsMainScreen(this)))
-//                        .bounds(this.width / 2 - 100, i = var6 + spacing, 200, 20)
-//                        .tooltip(tooltip)
+//                Button.builder(Component.translatable("menu.hub"), button -> this.minecraft.setScreen(new SelectWorldScreen(this)))
+//                        .bounds(buttonXPos, buttonYPos += spacing, width, height)
 //                        .build()
-//        )
-//                .active = bl;
+//        );
+        this.addRenderableWidget(
+                Button.builder(Component.translatable("menu.online"), button -> this.minecraft.setScreen(new RealmsMainScreen(this)))
+                        .bounds(this.width / 2 - 100, buttonYPos += spacing, width, height)
+                        .tooltip(tooltip)
+                        .build()
+        )
+                .active = bl;
         return buttonYPos;
     }
 

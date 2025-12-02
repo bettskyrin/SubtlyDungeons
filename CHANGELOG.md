@@ -6,17 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.4]
 ### CHANGED
+#### Rarity
+- Changed Netherite Tools and Armor to have "Uncommon" rarity level
+  - This is because Netherite Upgrade Templates are Uncommon
+- Changed Lingering Potions to have "Uncommon" rarity level
+  - This is because Dragon's Breath is Uncommon
+- Changed Tipped Arrows to have "Uncommon" rarity level
+    - This is because Lingering Potions are now Uncommon
+- Changed Ominous Trial Keys to have "Uncommon" rarity level
+    - This is because Ominous Bottles are Uncommon
+- Changed Wither Rose to have "Rare" rarity level
+  - This is because Wither Skeleton Skulls are Rare
+
 #### Textures
 - New tooltip frame and background design
 - New experience bar texture
 - New ping textures
+- Changed reeds texture to no longer be tinted by the average biome vegetation color
 
 #### Menus
 - Changed the Title Screen
 - Changed the World Selection Screen button layout
 - World selection list items now take up most of the screen
   - World icons are now 16:9 (455px x 256px) thumbnails
-- Changed the World Creation Screen layout
 
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added
