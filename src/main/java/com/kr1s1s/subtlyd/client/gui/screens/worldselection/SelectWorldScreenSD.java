@@ -31,6 +31,12 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.util.function.Consumer;
 
+/**
+ Yes, it's unconventional to replace so many of the vanilla files with files that are almost the exact same.
+ However, a lot of the world selection process is going to be getting completely overhauled.
+ The code will be cleaned up when everything that will be changed is finalized.
+
+ */
 @Environment(EnvType.CLIENT)
 public class SelectWorldScreenSD extends Screen {
     private static final Logger LOGGER = LogUtils.getLogger();

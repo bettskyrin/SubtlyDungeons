@@ -21,7 +21,7 @@ public class EntityMixin {
     @SuppressWarnings("DataFlowIssue")
     private final Entity entity = (Entity) (Object) this;
 
-    @Inject(method = "playSound", at = @At("RETURN"))
+    @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
         shakeScreenByEvent(soundEvent);
     }

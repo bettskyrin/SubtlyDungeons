@@ -15,11 +15,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FaviconTexture.class)
 public class FaviconTextureMixin {
-    @Shadow @Final Identifier textureLocation;
-    @Shadow @Nullable DynamicTexture texture;
-    @Shadow @Final TextureManager textureManager;
+    @Shadow @Final private Identifier textureLocation;
+    @Shadow @Nullable private DynamicTexture texture;
+    @Shadow @Final private TextureManager textureManager;
     @Shadow private void checkOpen() {}
-    @Shadow private void clear() {}
+    @Shadow public void clear() {}
 
 
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)

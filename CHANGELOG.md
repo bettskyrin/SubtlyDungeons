@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [1.1.0-alpha.4]
 ### CHANGED
+#### Blocks
+- Reeds now generate more often
+
+#### Textures
+- Changed reeds texture to no longer be tinted by the average biome vegetation color
+- New tooltip frame and background design
+- New experience bar texture
+- New ping textures
+
 #### Rarity
 - Changed Netherite Tools and Armor to have "Uncommon" rarity level
   - This is because Netherite Upgrade Templates are Uncommon
@@ -17,12 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This is because Ominous Bottles are Uncommon
 - Changed Wither Rose to have "Rare" rarity level
   - This is because Wither Skeleton Skulls are Rare
-
-#### Textures
-- New tooltip frame and background design
-- New experience bar texture
-- New ping textures
-- Changed reeds texture to no longer be tinted by the average biome vegetation color
 
 #### Menus
 - Changed the Title Screen

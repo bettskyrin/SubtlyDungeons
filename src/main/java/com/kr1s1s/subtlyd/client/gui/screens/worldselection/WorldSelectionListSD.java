@@ -125,10 +125,8 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
         this.onEntrySelect = consumer;
         this.onEntryInteract = consumer2;
         this.entryType = entryType;
-        if (worldSelectionList != null) {
-            this.pendingLevels = WorldSelectionListSD.pendingLevels;
-        } else {
-            this.pendingLevels = this.loadLevels();
+        if (worldSelectionList == null) {
+            pendingLevels = this.loadLevels();
         }
 
         this.addEntry(this.loadingHeader);
@@ -144,7 +142,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
     @Nullable
     private List<LevelSummary> pollLevelsIgnoreErrors() {
         try {
-            List<LevelSummary> list = (List<LevelSummary>)this.pendingLevels.getNow(null);
+            List<LevelSummary> list = pendingLevels.getNow(null);
             if (this.entryType == WorldSelectionListSD.EntryType.UPLOAD_WORLD) {
                 if (list == null || this.hasPolled) {
                     return null;
@@ -161,7 +159,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
     }
 
     public void reloadWorldList() {
-        this.pendingLevels = this.loadLevels();
+        pendingLevels = this.loadLevels();
     }
 
     @Override
@@ -205,7 +203,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
         try {
             levelCandidates = this.minecraft.getLevelSource().findLevelCandidates();
         } catch (LevelStorageException var3) {
-            LOGGER.error("Couldn't load level list", (Throwable)var3);
+            LOGGER.error("Couldn't load level list", var3);
             this.handleLevelLoadFailure(var3.getMessageComponent());
             return CompletableFuture.completedFuture(List.of());
         }
@@ -217,14 +215,14 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
     }
 
     private void fillLevels(String string, List<LevelSummary> list) {
-        List<WorldSelectionListSD.Entry> list2 = new ArrayList();
+        List<WorldSelectionListSD.Entry> list2 = new ArrayList<>();
         Optional<WorldSelectionListSD.WorldListEntry> optional = this.getSelectedOpt();
         WorldSelectionListSD.WorldListEntry worldListEntry = null;
 
         for (LevelSummary levelSummary : list.stream().filter(levelSummaryx -> this.filterAccepts(string.toLowerCase(Locale.ROOT), levelSummaryx)).toList()) {
             WorldSelectionListSD.WorldListEntry worldListEntry2 = new WorldSelectionListSD.WorldListEntry(this, levelSummary);
             if (optional.isPresent()
-                    && ((WorldSelectionListSD.WorldListEntry)optional.get()).getLevelSummary().getLevelId().equals(worldListEntry2.getLevelSummary().getLevelId())) {
+                    && optional.get().getLevelSummary().getLevelId().equals(worldListEntry2.getLevelSummary().getLevelId())) {
                 worldListEntry = worldListEntry2;
             }
 
@@ -363,9 +361,9 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
     }
 
     @Environment(EnvType.CLIENT)
-    public static enum EntryType {
+    public enum EntryType {
         SINGLEPLAYER,
-        UPLOAD_WORLD;
+        UPLOAD_WORLD
     }
 
     @Environment(EnvType.CLIENT)
@@ -489,7 +487,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
                 } catch (NoSuchFileException var3) {
                     this.iconFile = null;
                 } catch (IOException var4) {
-                    WorldSelectionListSD.LOGGER.error("could not validate symlink", (Throwable)var4);
+                    WorldSelectionListSD.LOGGER.error("could not validate symlink", var4);
                     this.iconFile = null;
                 }
             }
@@ -524,9 +522,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
             guiGraphics.blit(RenderPipelines.GUI_TEXTURED, this.icon.textureLocation(), this.getContentX(), this.getContentY(), 0.0F, 0.0F, ICON_WIDTH, ICON_HEIGHT, ICON_WIDTH, ICON_HEIGHT);
             if (this.list.entryType == WorldSelectionListSD.EntryType.SINGLEPLAYER && (this.minecraft.options.touchscreen().get() || bl)) {
                 guiGraphics.fill(this.getContentX(), this.getContentY(), this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT, -1601138544);
-                int l = i - midIcon;
-                int m = j - this.getContentY();
-                boolean bl2 = this.mouseOverIcon(l, m, ICON_HEIGHT);
+                boolean bl2 = isMouseWithin(i, j, this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT);
                 Identifier identifier = bl2 ? WorldSelectionListSD.JOIN_HIGHLIGHTED_SPRITE : WorldSelectionListSD.JOIN_SPRITE;
                 Identifier identifier2 = bl2 ? WorldSelectionListSD.WARNING_HIGHLIGHTED_SPRITE : WorldSelectionListSD.WARNING_SPRITE;
                 Identifier identifier3 = bl2 ? WorldSelectionListSD.ERROR_HIGHLIGHTED_SPRITE : WorldSelectionListSD.ERROR_SPRITE;
@@ -586,12 +582,17 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
             return this.getContentX() + ICON_WIDTH + 3;
         }
 
+        public boolean isMouseWithin(int i, int j, int right, int top) {
+            return i >= this.getContentX()
+                    && i < right
+                    && j >= this.getContentY()
+                    && j < top;
+        }
+
         @Override
         public boolean mouseClicked(MouseButtonEvent mouseButtonEvent, boolean bl) {
             if (this.canInteract()) {
-                int i = (int)mouseButtonEvent.x() - (this.getContentX() + (ICON_WIDTH / 4));
-                int j = (int)mouseButtonEvent.y() - this.getContentY();
-                if (bl || this.mouseOverIcon(i, j, ICON_HEIGHT) && this.list.entryType == WorldSelectionListSD.EntryType.SINGLEPLAYER) {
+                if (bl || isMouseWithin((int) mouseButtonEvent.x(), (int) mouseButtonEvent.x(), this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT) && this.list.entryType == WorldSelectionListSD.EntryType.SINGLEPLAYER) {
                     this.minecraft.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
                     Consumer<WorldSelectionListSD.WorldListEntry> consumer = this.list.onEntryInteract;
                     if (consumer != null) {
@@ -600,7 +601,6 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
                     }
                 }
             }
-
             return super.mouseClicked(mouseButtonEvent, bl);
         }
 
@@ -714,9 +714,9 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
                                     new ConfirmScreen(
                                             bl -> this.minecraft
                                                     .setScreen(
-                                                            (Screen)(bl
+                                                            bl
                                                                     ? CreateWorldScreen.createFromExisting(this.minecraft, this.list::returnToScreen, levelSettings, worldCreationContext, path)
-                                                                    : this.screen)
+                                                                    : this.screen
                                                     ),
                                             Component.translatable("selectWorld.recreate.customized.title"),
                                             Component.translatable("selectWorld.recreate.customized.text"),
@@ -731,7 +731,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
                 WorldSelectionListSD.LOGGER.warn("{}", var8.getMessage());
                 this.minecraft.setScreen(NoticeWithLinkScreen.createWorldSymlinkWarningScreen(() -> this.minecraft.setScreen(this.screen)));
             } catch (Exception var9) {
-                WorldSelectionListSD.LOGGER.error("Unable to recreate world", (Throwable)var9);
+                WorldSelectionListSD.LOGGER.error("Unable to recreate world", var9);
                 this.minecraft
                         .setScreen(
                                 new AlertScreen(
@@ -748,7 +748,7 @@ public class WorldSelectionListSD extends ObjectSelectionList<WorldSelectionList
         }
 
         private void loadIcon() {
-            boolean bl = this.iconFile != null && Files.isRegularFile(this.iconFile, new LinkOption[0]);
+            boolean bl = this.iconFile != null && Files.isRegularFile(this.iconFile);
             if (bl) {
                 try {
                     InputStream inputStream = Files.newInputStream(this.iconFile);

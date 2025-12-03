@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Environment(EnvType.CLIENT)
 @Mixin(AccessibilityOptionsScreen.class)
 public class AccessibilityOptionsScreenMixin {
-    @Inject(method = "options", at = @At("RETURN"))
-    private static OptionInstance<?>[] options(Options options, CallbackInfoReturnable<OptionInstance<?>> cir) {
-        return replacedOptions(options, new OptionsSD());
+    @Inject(method = "options", at = @At("RETURN"), cancellable = true)
+    private static void options(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
+        cir.setReturnValue(replacedOptions(options, new OptionsSD()));
     }
 
     private static OptionInstance<?>[] replacedOptions(Options options, OptionsSD optionsSD) {
