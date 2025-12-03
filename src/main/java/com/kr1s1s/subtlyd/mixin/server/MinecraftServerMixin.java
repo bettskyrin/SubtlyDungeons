@@ -1,9 +1,9 @@
 package com.kr1s1s.subtlyd.mixin.server;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.PngInfo;
-import net.minecraft.world.level.storage.LevelStorageSource;
 import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,20 +19,13 @@ import java.util.Optional;
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin {
     @Shadow @Final private static Logger LOGGER;
-    @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
-    MinecraftServer minecraftServer = (MinecraftServer) (Object) this;
 
-    @Inject(method = "loadStatusIcon", at = @At("HEAD"), cancellable = true)
-    private void loadStatusIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci) {
-        ci.cancel();
-        ci.setReturnValue(newLoadStatusIcon());
+    @Inject(method = "loadStatusIcon", at = @At("RETURN"), cancellable = true)
+    private void changeIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci, @Local Optional<Path> optional) {
+        ci.setReturnValue(newLoadStatusIcon(optional));
     }
 
-
-    private Optional<ServerStatus.Favicon> newLoadStatusIcon() {
-        Optional<Path> optional = Optional.of(minecraftServer.getFile("server-icon.png"))
-                .filter(Files::isRegularFile)
-                .or(() -> this.storageSource.getIconFile().filter(Files::isRegularFile));
+    private Optional<ServerStatus.Favicon> newLoadStatusIcon(Optional<Path> optional) {
         return optional.flatMap(path -> {
             try {
                 byte[] bs = Files.readAllBytes(path);
@@ -48,4 +41,5 @@ public class MinecraftServerMixin {
             }
         });
     }
+
 }

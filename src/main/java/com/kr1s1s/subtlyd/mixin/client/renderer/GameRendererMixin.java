@@ -27,18 +27,18 @@ public class GameRendererMixin {
     }
 
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel(Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER))
-    private void captureScreenshot(DeltaTracker deltaTracker, boolean bl, CallbackInfo ci) { // TODO Fix Serverside error
-        if (WorldIconState.pendingPath != null) {
-            Path path = WorldIconState.pendingPath;
-            WorldIconState.pendingPath = null;
+    private void captureScreenshot(DeltaTracker deltaTracker, boolean bl, CallbackInfo ci) {
+        if (WorldIconState.pathHolder != null) {
+            Path path = WorldIconState.pathHolder;
+            WorldIconState.pathHolder = null;
 
             if (gameRenderer.getMinecraft().levelRenderer.countRenderedSections() > 10 && gameRenderer.getMinecraft().levelRenderer.hasRenderedAllSections()) {
-                Screenshot.takeScreenshot(gameRenderer.getMinecraft().getMainRenderTarget(), nativeImage -> Util.ioPool().execute(() -> {
+                Screenshot.takeScreenshot(gameRenderer.getMinecraft().getMainRenderTarget(), sourceImage -> Util.ioPool().execute(() -> {
                     int targetWidth = 455;
                     int targetHeight = 256;
 
-                    int sourceWidth = nativeImage.getWidth();
-                    int sourceHeight = nativeImage.getHeight();
+                    int sourceWidth = sourceImage.getWidth();
+                    int sourceHeight = sourceImage.getHeight();
 
                     int cropX = 0;
                     int cropY = 0;
@@ -62,12 +62,12 @@ public class GameRendererMixin {
                         } catch (IOException e) {
                             LogUtils.getLogger().warn("Could not delete old world icon", e);
                         }
-                        nativeImage.resizeSubRectTo(cropX, cropY, cropWidth, cropHeight, scaledImage);
+                        sourceImage.resizeSubRectTo(cropX, cropY, cropWidth, cropHeight, scaledImage);
                         scaledImage.writeToFile(path);
                     } catch (IOException var16) {
                         LogUtils.getLogger().warn("Couldn't save auto screenshot", var16);
                     } finally {
-                        nativeImage.close();
+                        sourceImage.close();
                     }
                 }));
             }

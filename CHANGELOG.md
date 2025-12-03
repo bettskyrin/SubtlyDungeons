@@ -2,9 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## [1.1.0-alpha.4]
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+## [1.1.0-alpha.4] - UNRELEASED
+### Developer Notes & Technical Stuff
+I plan to phase out using SemVer, for various reasons. Semantic Versioning is for public APIs (which this is not) and I would like for my mod to follow a system like Mojangs, so that its versioning is familiar.
+This will take effect in 2026. A new system will be announced on my Twitter or Reddit page, so keep an eye out.
+
+I also want to say that a lot of code has been getting cleaned up to be more efficient and compatable with other mods, so a lot of the content has slowed down.
+
 ### CHANGED
 #### Blocks
 - Reeds now generate more often
@@ -15,7 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - New experience bar texture
 - New ping textures
 
-#### Rarity
+#### Menus
+- Changed the Title Screen layout
+    - Accessibility and language buttons are now in the bottom left, replacing the game version (which can be checked via the Debug Menu)
+- Changed the World Selection Screen button layout
+- World selection list items now take up most of the screen
+- World icons are now 16:9 (455px x 256px) thumbnails
+    - They also update every time the game saves, similar to Bedrock Edition
+
+#### Gameplay
 - Changed Netherite Tools and Armor to have "Uncommon" rarity level
   - This is because Netherite Upgrade Templates are Uncommon
 - Changed Lingering Potions to have "Uncommon" rarity level
@@ -26,12 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - This is because Ominous Bottles are Uncommon
 - Changed Wither Rose to have "Rare" rarity level
   - This is because Wither Skeleton Skulls are Rare
-
-#### Menus
-- Changed the Title Screen
-- Changed the World Selection Screen button layout
-- World selection list items now take up most of the screen
-  - World icons are now 16:9 (455px x 256px) thumbnails
 
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added

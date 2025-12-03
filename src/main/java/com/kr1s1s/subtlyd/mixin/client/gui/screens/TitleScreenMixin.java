@@ -14,8 +14,8 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
-    int buttonHeight = 20;
-    int spriteIconButtonsXPos = 4;
+    int BUTTON_HEIGHT = 20;
+    int SPRITE_XPOS = 4;
 
     protected TitleScreenMixin(Component component) {
         super(component);
@@ -57,7 +57,7 @@ public class TitleScreenMixin extends Screen {
                         20, button -> this.minecraft.setScreen(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())), true
                 )
         );
-        spriteIconButton.setPosition(spriteIconButtonsXPos, height - (4 + buttonHeight));
+        spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
     }
 
     @ModifyArg(
@@ -67,7 +67,7 @@ public class TitleScreenMixin extends Screen {
             index = 0
     )
     private int languageButton(int i) {
-        return buttonHeight;
+        return BUTTON_HEIGHT;
     }
 
     @ModifyArg(
@@ -77,22 +77,8 @@ public class TitleScreenMixin extends Screen {
             index = 0
     )
     private int accessibilityButton(int i) {
-        return buttonHeight;
+        return BUTTON_HEIGHT;
     }
-
-    @Deprecated
-//    @ModifyArgs(
-//            method = "init",
-//            at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V",
-//                    ordinal = 0
-//            )
-//    )
-//    private void setLangPos(Args args) {
-//        args.set(0, spriteIconButtonsXPos);
-//        args.set(1, height - (4 + buttonHeight));
-//    }
 
     @ModifyArgs(
             method = "init",
@@ -103,8 +89,8 @@ public class TitleScreenMixin extends Screen {
             )
     )
     private void setAccPos(Args args) {
-        args.set(0, spriteIconButtonsXPos + buttonHeight + 4);
-        args.set(1, height - (4 + buttonHeight));
+        args.set(0, SPRITE_XPOS + BUTTON_HEIGHT + 4);
+        args.set(1, height - (4 + BUTTON_HEIGHT));
     }
 
     @ModifyArg(
@@ -122,7 +108,7 @@ public class TitleScreenMixin extends Screen {
 
         return Button.builder(Component.translatable("menu.singleplayer"),
                 (button -> minecraft.setScreen(new SelectWorldScreenSD(this)))
-        ).bounds(largeButtonXPos, bottomYPos, largeButtonWidth, buttonHeight).build();
+        ).bounds(largeButtonXPos, bottomYPos, largeButtonWidth, BUTTON_HEIGHT).build();
     }
 
     @Inject(

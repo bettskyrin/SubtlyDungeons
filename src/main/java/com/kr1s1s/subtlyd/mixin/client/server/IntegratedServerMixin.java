@@ -30,7 +30,7 @@ public abstract class IntegratedServerMixin extends MinecraftServer {
     @Inject(method = "saveEverything", at = @At("RETURN"))
     private void saveWorldScreenshot(boolean bl, boolean bl2, boolean bl3, CallbackInfoReturnable<Boolean> cir) {
         this.storageSource.getIconFile().ifPresent(path -> {
-            WorldIconState.pendingPath = path;
+            WorldIconState.pathHolder = path;
         });
     }
 }

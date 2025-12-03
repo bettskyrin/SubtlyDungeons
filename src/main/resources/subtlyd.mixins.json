@@ -6,9 +6,7 @@
     "server.entity.AbstractArrowMixin",
     "server.entity.RaiderMixin",
     "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin"
-  ],
-  "server": [
+    "server.entity.ZombieMixin",
     "server.MinecraftServerMixin"
   ],
   "client": [
@@ -21,6 +19,7 @@
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.ServerLevelMixin",
+    "client.options.AccessibilityOnboardingScreenMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
     "client.renderer.GameRendererAccessor",
