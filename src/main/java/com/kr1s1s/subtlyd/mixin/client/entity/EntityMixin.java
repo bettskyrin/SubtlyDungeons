@@ -33,6 +33,7 @@ public class EntityMixin {
         int duration = 25;
         int maxDistance = 16;
         Player player = Minecraft.getInstance().player;
+
         if (player != null) {
             float distance = player.distanceTo(entity);
             if (powerfulSounds.contains(soundEvent)) {
