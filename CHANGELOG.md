@@ -17,7 +17,6 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
 #### Textures
 - Changed reeds texture to no longer be tinted by the average biome vegetation color
 - New tooltip frame and background design
-- New experience bar texture
 - New ping textures
 
 #### Menus
