@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.util.Objects;
 
+@Deprecated
 public class TitleScreenSD extends Screen {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Component TITLE = Component.translatable("narrator.screen.title");

@@ -38,7 +38,7 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
             new PlacedFeature(
                     Holder.direct(REEDS_CONFIGURED),
                     List.of(
-                            CountPlacement.of(50),
+                            CountPlacement.of(65),
                             RarityFilter.onAverageOnceEvery(1),
                             InSquarePlacement.spread(),
                             PlacementUtils.HEIGHTMAP_TOP_SOLID,

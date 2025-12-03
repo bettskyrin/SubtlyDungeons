@@ -84,9 +84,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-@Deprecated
 @Environment(EnvType.CLIENT)
-public class CreateWorldScreenSD extends Screen { // TODO Mixin fix
+public class CreateWorldScreenSD extends Screen { // TODO
     private static final int GROUP_BOTTOM = 1;
     private static final int TAB_COLUMN_WIDTH = 210;
     private static final Logger LOGGER = LogUtils.getLogger();
