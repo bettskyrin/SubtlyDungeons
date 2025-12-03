@@ -12,7 +12,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
 
 ### Added
 ### Visuals
-- Added dragon fireball screen shake effect
+- Added dragon fireball explode screen shake effect
 
 ### Changed
 #### Blocks

@@ -26,23 +26,30 @@ public class ClientLevelMixin {
     private void shakeScreenByEvent(double x, double y, double z, SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
         List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
+        List<SoundEvent> explosions = List.of(SoundEvents.DRAGON_FIREBALL_EXPLODE);
         Player player = Minecraft.getInstance().player;
 
-        if (player != null){
+        if (player != null) {
             int duration = 20;
             float maxDistance = 32;
+            float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
+
             if (powerfulSounds.contains(soundEvent)) {
                 maxDistance = 128;
-                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
                 ScreenShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
-                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
                 if (soundEvent.equals(SoundEvents.ENDER_DRAGON_GROWL)) {
                     duration = 70;
                 }
                 ScreenShake.setShakeByDistance(duration, maxDistance, distance);
+            }
+
+            if (explosions.contains(soundEvent)) {
+                if (soundEvent.equals(SoundEvents.DRAGON_FIREBALL_EXPLODE)) {
+                    ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, 3);
+                }
             }
         }
     }
