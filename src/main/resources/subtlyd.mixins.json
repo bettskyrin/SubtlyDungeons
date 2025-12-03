@@ -14,16 +14,18 @@
   "client": [
     "client.blocks.BlockMixin",
     "client.entity.EntityMixin",
-    "client.item.ItemStackMixin",
     "client.entity.PlayerMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
+    "client.item.ItemStackMixin",
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.ServerLevelMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
-    "client.renderer.GameRendererMixin"
+    "client.renderer.GameRendererAccessor",
+    "client.renderer.GameRendererMixin",
+    "client.server.IntegratedServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
