@@ -29,6 +29,7 @@ public class EntityMixin {
     private void shakeScreenByEvent(SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
         List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
+        List<SoundEvent> explosions = List.of(SoundEvents.DRAGON_FIREBALL_EXPLODE);
 
         int duration = 25;
         int maxDistance = 16;
@@ -46,6 +47,12 @@ public class EntityMixin {
                     duration = 110;
                 }
                 ScreenShake.setShakeByDistance(duration, maxDistance, distance);
+            }
+
+            if (explosions.contains(soundEvent)) {
+                if (soundEvent.equals(SoundEvents.DRAGON_FIREBALL_EXPLODE)) {
+                    ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, 1.5F / 2);
+                }
             }
         }
     }
