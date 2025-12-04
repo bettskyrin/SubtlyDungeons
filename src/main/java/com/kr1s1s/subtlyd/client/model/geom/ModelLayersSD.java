@@ -5,11 +5,10 @@ import com.kr1s1s.subtlyd.SubtlyDungeons;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 
-import java.util.List;
 import java.util.Set;
 
 public class ModelLayersSD extends ModelLayers {
-    private static final Set<ModelLayerLocation> ALL_MODELS = Sets.newHashSet();
+    public static final Set<ModelLayerLocation> ALL_MODELS = Sets.newHashSet();
     public static final ModelLayerLocation WHITE_TENT = register("tent/white_tent");
     public static final ModelLayerLocation ORANGE_TENT = register("tent/orange_tent");
     public static final ModelLayerLocation MAGENTA_TENT = register("tent/magenta_tent");
@@ -26,9 +25,6 @@ public class ModelLayersSD extends ModelLayers {
     public static final ModelLayerLocation GREEN_TENT = register("tent/green_tent");
     public static final ModelLayerLocation RED_TENT = register("tent/red_tent");
     public static final ModelLayerLocation BLACK_TENT = register("tent/black_tent");
-
-
-    public static List<ModelLayerLocation> TENTS = List.of(WHITE_TENT, ORANGE_TENT, MAGENTA_TENT, LIGHT_BLUE_TENT, YELLOW_TENT, LIME_TENT, PINK_TENT, GRAY_TENT, LIGHT_GRAY_TENT, CYAN_TENT, PURPLE_TENT, BLUE_TENT, BROWN_TENT, GREEN_TENT, RED_TENT, BLACK_TENT);
 
     private static ModelLayerLocation register(String string) {
         ModelLayerLocation modelLayerLocation = createLocation(string);

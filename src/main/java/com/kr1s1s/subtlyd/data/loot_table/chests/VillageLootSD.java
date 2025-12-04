@@ -11,7 +11,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class VillageLootSD {
-    public static void generate() {
+    public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
             if (BuiltInLootTables.VILLAGE_PLAINS_HOUSE.equals(resourceKey)) {
                 LootPool.Builder chestPool = LootPool.lootPool()

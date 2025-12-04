@@ -1,15 +1,14 @@
 package com.kr1s1s.subtlyd;
 
-import com.kr1s1s.subtlyd.data.BlockEventsSD;
-import com.kr1s1s.subtlyd.data.loot_table.LootSD;
+import com.kr1s1s.subtlyd.data.GameplayEventsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
+import com.kr1s1s.subtlyd.world.level.levelgen.BiomesSD;
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
-import com.kr1s1s.subtlyd.world.level.block.entity.FuelValuesSD;
 import net.fabricmc.api.ModInitializer;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,19 +21,18 @@ public class SubtlyDungeons implements ModInitializer {
         LOGGER.info("Debug: {}", s);
     }
 
-    public static ResourceLocation resourceLocation(String string) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, string);
+    public static Identifier resourceLocation(String string) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, string);
     }
 
     @Override
 	public void onInitialize() {
         LOGGER.info("Initializing Subtly Dungeons");
-        GameRulesSD.init();
-        SynchedEntityDataSD.init();
-        BlocksSD.init();
-        BlockEventsSD.run();
-        ItemsSD.init();
-        FuelValuesSD.init();
-        LootSD.generate();
+        GameRulesSD.registration();
+        SynchedEntityDataSD.createEntityData();
+        BlocksSD.registration();
+        ItemsSD.registration();
+        GameplayEventsSD.registration();
+        BiomesSD.init();
     }
 }

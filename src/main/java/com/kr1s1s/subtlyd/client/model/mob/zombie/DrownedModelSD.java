@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.client.model.mob.zombie;
 
 import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
-import net.minecraft.client.model.ZombieModel;
+import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
@@ -11,8 +11,7 @@ public class DrownedModelSD extends ZombieModel<ZombieRenderStateSD> {
         super(modelPart);
     }
 
-    @Override
-    public void setupAnim(ZombieRenderStateSD zombieRenderState) {
+    @Override public void setupAnim(ZombieRenderStateSD zombieRenderState) {
         super.setupAnim(zombieRenderState);
         if (zombieRenderState.leftArmPose == ArmPose.THROW_TRIDENT) {
             this.leftArm.xRot = this.leftArm.xRot * 0.5F - (float) Math.PI;

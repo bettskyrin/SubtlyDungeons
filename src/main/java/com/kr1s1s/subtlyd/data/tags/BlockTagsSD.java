@@ -22,9 +22,9 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
     public static final TagKey<Block> SKULL_BLOCK = create("skull_block");
     public static final TagKey<Block> STONE_TILES = create("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = create("dripstone");
+    public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");
 
-    @Override
-    protected void addTags(HolderLookup.Provider wrapperLookup) {
+    @Override protected void addTags(HolderLookup.Provider wrapperLookup) {
         valueLookupBuilder(SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
@@ -78,7 +78,15 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .addTag(SKULL_BLOCK);
         valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlocksSD.IRON_GRATE);
-
+        valueLookupBuilder(TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)
+                .add(Blocks.SNOW, Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)
+                .add(Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE, Blocks.FROSTED_ICE)
+                .add(Blocks.STONE)
+                .add(Blocks.CALCITE);
+        valueLookupBuilder(BlockTags.REPLACEABLE_BY_MUSHROOMS)
+                .add(BlocksSD.REEDS);
+        valueLookupBuilder(BlockTags.UNDERWATER_BONEMEALS)
+                .add(BlocksSD.REEDS);
     }
 
 

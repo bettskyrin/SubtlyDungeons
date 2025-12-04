@@ -19,13 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Block.class)
 public class BlockMixin {
-    Block block = (Block) (Object) this;
     @Inject(method = "animateTick", at = @At("HEAD"))
     public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
+        playAmbientSounds(blockState, level, blockPos, randomSource);
+    }
+
+    private void playAmbientSounds(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
+        Block block = blockState.getBlock();
         if (block instanceof AirBlock) {
-            AmbientAirBlockSoundsPlayer.playAmbientWindSounds(level, blockPos, randomSource);
+            AmbientAirBlockSoundsPlayer.playColdWindSounds(level, blockPos, randomSource);
         } else if (block instanceof BushBlock) {
-            AmbientBushBlockSoundsPlayer.doBushSounds(blockState, level, blockPos, randomSource);
+            AmbientBushBlockSoundsPlayer.playAmbientBushSounds(level, blockPos, randomSource);
         }
     }
 }

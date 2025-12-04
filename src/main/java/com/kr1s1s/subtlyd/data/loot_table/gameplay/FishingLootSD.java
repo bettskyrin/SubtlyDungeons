@@ -2,7 +2,7 @@ package com.kr1s1s.subtlyd.data.loot_table.gameplay;
 
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.advancements.critereon.LocationPredicate;
+import net.minecraft.advancements.criterion.LocationPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 
 public class FishingLootSD {
-    public static void generate() {
+    public static void register() {
         LootTableEvents.REPLACE.register(((key, original, source, registries) -> {
             if (key.equals(BuiltInLootTables.FISHING_FISH)) {
                 HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
@@ -98,7 +98,7 @@ public class FishingLootSD {
                                     registryLookup.getOrThrow(Biomes.DEEP_LUKEWARM_OCEAN)
                             )))).setWeight(20))
 
-                    // Other Situations
+                    /* Other Situations */
                             .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                     registryLookup.getOrThrow(BiomeTags.IS_END).stream().toList()
                             )))).setWeight(0))

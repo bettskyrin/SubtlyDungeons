@@ -9,8 +9,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 public class LivingEntitySD extends LivingEntity {
-    public Level level = this.level();
-    public static TentEntity tentEntity;
+    private static TentEntity tentEntity;
 
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
@@ -34,7 +33,7 @@ public class LivingEntitySD extends LivingEntity {
         setPosToTent(blockPos, player);
         player.setSleepingPos(blockPos);
         player.setDeltaMovement(Vec3.ZERO);
-        player.hasImpulse = true;
+        player.setIgnoreFallDamageFromCurrentImpulse(true);
 
         setTent(tent);
     }

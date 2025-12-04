@@ -4,7 +4,7 @@ import com.kr1s1s.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,14 +17,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
+    @SuppressWarnings("DataFlowIssue") AbstractArrow arrow = (AbstractArrow) (Object) (this);
+    private final Level level = arrow.level();
     @Shadow protected abstract boolean isInGround();
-    AbstractArrow arrow = (AbstractArrow) (Object) (this);
-    Level level = arrow.level();
 
     @Inject(method = "onHitBlock", at = @At("RETURN"))
-    public void land(CallbackInfo ci) {
+    public void onHitBlock(CallbackInfo ci) {
+        trySetFire();
+    }
+
+    private void trySetFire() {
         boolean bl = !arrow.isNoPhysics();
-        if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRulesSD.ARROW_ARSON).equals(true)) {
+        if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRulesSD.ARROW_ARSON)) {
             if (!(!level.getServer().getWorldData().getGameRules().get(GameRules.MOB_GRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
                 if ((arrow.isOnFire() && this.isInGround()) && bl) {
                     setFire(arrow.blockPosition());
@@ -33,10 +37,10 @@ public abstract class AbstractArrowMixin {
         }
     }
 
-    public void setFire(BlockPos blockPos) {
+    private void setFire(BlockPos blockPos) {
         BlockPos arrowForward = blockPos.relative(arrow.getDirection());
 
-        switch (isFlammable(blockPos)) {
+        switch (findFlammableBlock(blockPos)) {
             case 1:
                 level.setBlock(blockPos, BaseFireBlock.getState(level, blockPos), 0);
                 break;
@@ -49,7 +53,7 @@ public abstract class AbstractArrowMixin {
         }
     }
 
-    public int isFlammable(BlockPos blockPos) {
+    private int findFlammableBlock(BlockPos blockPos) {
         BlockState bSArrow = level.getBlockState(blockPos);
         BlockState bSAbove = level.getBlockState(blockPos.above());
         BlockState bSBelow = level.getBlockState(blockPos.below());

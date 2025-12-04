@@ -16,7 +16,7 @@ import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.ARGB;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
@@ -26,7 +26,7 @@ import java.util.List;
 
 public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> implements RenderLayerParent<TentRenderState, TentModel> {
     private final TentModel model;
-    private final ResourceLocation texture;
+    private final Identifier texture;
     protected final List<RenderLayer<TentRenderState, TentModel>> layers = Lists.newArrayList();
 
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
@@ -36,13 +36,11 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         this.shadowRadius = 1.8F;
     }
 
-    @Override
-    public @NotNull TentModel getModel() {
+    @Override public @NotNull TentModel getModel() {
         return this.model;
     }
 
-    @Override
-    public @NotNull TentRenderState createRenderState() {
+    @Override public @NotNull TentRenderState createRenderState() {
         return new TentRenderState();
     }
 
@@ -53,9 +51,8 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         renderState.xRot = renderState.getXRot(partialTicks);
     }
 
-    @Nullable
-    protected RenderType getRenderType(boolean bl3) {
-        ResourceLocation resourceLocation = this.texture;
+    @Nullable protected RenderType getRenderType(boolean bl3) {
+        Identifier resourceLocation = this.texture;
         return bl3 ? RenderTypes.outline(resourceLocation) : this.model.renderType(resourceLocation);
     }
 

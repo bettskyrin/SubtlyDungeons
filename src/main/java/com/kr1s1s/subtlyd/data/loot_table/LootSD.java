@@ -6,10 +6,10 @@ import com.kr1s1s.subtlyd.data.loot_table.gameplay.FishingLootSD;
 import com.kr1s1s.subtlyd.data.loot_table.gameplay.VillageHeroLootSD;
 
 public class LootSD {
-    public static void generate() {
-        VillageLootSD.generate();
-        VillageHeroLootSD.generate();
-        EntityLootSD.generate();
-        FishingLootSD.generate();
+    public static void registration() {
+        VillageLootSD.register();
+        VillageHeroLootSD.register();
+        EntityLootSD.register();
+        FishingLootSD.register();
     }
 }

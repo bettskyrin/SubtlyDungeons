@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "subtlyd:block/stone_tiles",
-    "side": "subtlyd:block/stone_tiles",
-    "top": "subtlyd:block/stone_tiles"
-  }
-}

@@ -1,26 +1,35 @@
 {
-	"required": true,
-	"package": "com.kr1s1s.subtlyd.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-      "server.entity.AbstractArrowMixin",
-      "server.entity.ServerPlayerMixin",
-      "server.entity.RaiderMixin",
-      "server.entity.ZombieMixin"
-    ],
+  "required": true,
+  "package": "com.kr1s1s.subtlyd.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "server.entity.AbstractArrowMixin",
+    "server.entity.RaiderMixin",
+    "server.entity.ServerPlayerMixin",
+    "server.entity.ZombieMixin",
+    "server.MinecraftServerMixin"
+  ],
   "client": [
-    "client.CameraMixin",
     "client.blocks.BlockMixin",
-    "client.level.ClientLevelMixin",
-    "client.level.ServerLevelMixin",
     "client.entity.EntityMixin",
     "client.entity.PlayerMixin",
-    "client.options.AccessibilityOptionsScreenMixin"
+    "client.gui.screens.FaviconTextureMixin",
+    "client.gui.screens.TitleScreenMixin",
+    "client.item.ItemStackMixin",
+    "client.level.CameraMixin",
+    "client.level.ClientLevelMixin",
+    "client.level.ServerLevelMixin",
+    "client.options.AccessibilityOnboardingScreenMixin",
+    "client.options.AccessibilityOptionsScreenMixin",
+    "client.options.SplashManagerMixin",
+    "client.renderer.GameRendererAccessor",
+    "client.renderer.GameRendererMixin",
+    "client.server.IntegratedServerMixin"
   ],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

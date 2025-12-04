@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.entity;
 
-import com.kr1s1s.subtlyd.client.util.CameraShake;
+import com.kr1s1s.subtlyd.client.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -15,28 +15,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(Entity.class)
 @Environment(EnvType.CLIENT)
+@Mixin(Entity.class)
 public class EntityMixin {
-    Entity entity = (Entity) (Object) this;
+    @SuppressWarnings("DataFlowIssue")
+    private final Entity entity = (Entity) (Object) this;
 
-    @Inject(method = "playSound", at = @At("RETURN"))
+    @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
-        groundShake(soundEvent, f, g);
+        shakeScreenByEvent(soundEvent);
     }
 
-    private void groundShake(SoundEvent soundEvent, float f, float g) {
+    private void shakeScreenByEvent(SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
         List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
 
         int duration = 25;
         int maxDistance = 16;
         Player player = Minecraft.getInstance().player;
+
         if (player != null) {
             float distance = player.distanceTo(entity);
             if (powerfulSounds.contains(soundEvent)) {
                 maxDistance = 32;
-                CameraShake.setShakeByDistance(duration, maxDistance, distance);
+                ScreenShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
@@ -44,7 +46,7 @@ public class EntityMixin {
                     maxDistance = 32;
                     duration = 110;
                 }
-                CameraShake.setShakeByDistance(duration, maxDistance, distance);
+                ScreenShake.setShakeByDistance(duration, maxDistance, distance);
             }
         }
     }

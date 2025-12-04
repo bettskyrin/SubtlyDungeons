@@ -2,12 +2,85 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+## [1.1.0-alpha.4] - 12/3/2025
+### Developer Notes & Technical Stuff
+I plan to phase out using SemVer, for various reasons. Semantic Versioning is for public APIs (which this is not) and I would like for my mod to follow a system like Mojangs, so that its versioning is familiar.
+This will take effect in 2026. A new system will be announced on my Twitter or Reddit page, so keep an eye out.
+
+I also want to say that a lot of code has been getting cleaned up to be more efficient and compatable with other mods, so a lot of the content has slowed down.
+
+### Added
+### Visuals
+- Added dragon fireball explode screen shake effect
+
+### Changed
+#### Blocks
+- Reeds now generate more often
+
+#### Textures
+- Changed reeds texture to no longer be tinted by the average biome vegetation color
+- New tooltip frame and background design
+- New experience bar texture
+- New ping textures
+
+#### Menus
+- Changed the Title Screen layout
+    - Accessibility and language buttons are now in the bottom left, replacing the game version (which can be checked via the Debug Menu)
+- Changed the World Selection Screen button layout
+- World selection list items now take up most of the screen
+- World icons are now 16:9 (455px x 256px) thumbnails
+    - They also update every time the game saves, similar to Bedrock Edition
+
+#### Mechanics
+- Changed Netherite Tools and Armor to have "Uncommon" rarity level
+  - This is because Netherite Upgrade Templates are Uncommon
+- Changed Lingering Potions to have "Uncommon" rarity level
+  - This is because Dragon's Breath is Uncommon
+- Changed Tipped Arrows to have "Uncommon" rarity level
+    - This is because Lingering Potions are now Uncommon
+- Changed Ominous Trial Keys to have "Uncommon" rarity level
+    - This is because Ominous Bottles are Uncommon
+- Changed Wither Rose to have "Rare" rarity level
+  - This is because Wither Skeleton Skulls are Rare
+
+## [1.1.0-alpha.3] - 11/23/2025
+### Added
+#### Blocks
+- Added Reeds
+  - Reeds are a common plant that can be found in shallow swamp biome waters
+
+#### Tags
+- Added "triggers_ambient_wind_block_sounds" block tag
+- Added "tents" item tag
+
+### Changed
+#### Audio
+- Lowered the volume of Wanderlust, Windswept Peaks, Cliffs and Canyons, Cellar, Finnbacka, Top, and Halland
+- Slightly lowered the weight of Soggy Swamp playing in swamp biomes
+- Altered how often cold wind ambient noises play
+
+#### Events
+- Raid difficulty logic has changed
+  - "Raid difficulty" is a new value that is calculated as follows: `Raid Omen Level + Difficulty Level ID (0-3) + Raid Wave = Raid Difficulty`
+    - For example, if you trigger a Level III Raid on Easy Mode, your Raid Difficulty on the second wave is `3 + 0 + 2 = 5`
+  - Raid difficulty must reach level 10 before pillagers are able to spawn with Flame enchanted crossbows
+    - i.e. Normal Difficulty with a raid omen of at least V, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
+  - Raid difficulty must reach level 7 for raid captains to spawn with Resistance II
+    - Captains may still spawn in with Resistance I if the raid difficulty is at least level 4
+
+#### Data
+- `options.doCameraShake` has been renamed to `options.screen_shake`
+  - Camera Shake has been renamed "Screen Shake" to match Minecraft Dungeons
+- `options.doCameraShake.tooltip` has been renamed to `options.camera_shake.tooltip`
+    - Its value has been changed to "Toggles the screen shake effect." to match Minecraft Dungeons
+
+#### Tags
+- Removed "tents" block tag
 
 ## [1.1.0-alpha.2] - 11/1/2025
 ### Added
-##### Blocks
+#### Blocks
 - Added Block of Charcoal
   - Works the same as a coal block
 - Added Iron Grate
@@ -22,7 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added stair, slab, and wall variants
 - Added snow brick wall and snow brick family stonecutting recipes
 
-##### Sounds
+#### Sounds
 - Added sound for lighting a campfire with sticks
 - Added new music
   - Secrets in the Forest by Crispin Hands (Menu, Meadow, and Flower Forest)
@@ -39,17 +112,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Squid Coast by Johan Johnson (Jagged Peaks, Stony Peaks, Dripstone Caves)
 
-##### Splash Text
-- Added "Pretty tents!"
-- Added "R.I.P. trout.png"
-  - A developer inside joke, as it was decided to not add trouts to the mod
-- Added "L-l-l-lava!"
-- Added "Music by Peter Hont!"
-- Added "Music by Crispin Hands!"
-- Added "Music by Johan Johnson!"
-- Added "Welcome back Dinnerbone!"
-  - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
-- Added "Windy!"
+#### UI
+- Added new splash texts
+  - Added "Pretty tents!"
+  - Added "R.I.P. trout.png"
+    - A developer inside joke, as it was decided to not add trouts to the mod
+  - Added "L-l-l-lava!"
+  - Added "Music by Peter Hont!"
+  - Added "Music by Crispin Hands!"
+  - Added "Music by Johan Johnson!"
+  - Added "Welcome back Dinnerbone!"
+    - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
+  - Added "Windy!"
 
 ### Changed
 #### Items
@@ -100,10 +174,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Tags
 - Added new tags
   - Added "Tents" item tag
-  - Added "Snow Bricks" item tag
-  - Added "Snow Bricks" block tag
-  - Added "Skull" block tag
-  - Added skull blocks to "Mineable with axe" tag
+  - Added "snow_bricks" item tag
+  - Added "snow_bricks" block tag
+  - Added "skull_block" block tag
+  - Added skull blocks to "mineable/axe" tag
 
 #### Accessibility
 - Added new accessibility setting option for turning off the camera shake effect

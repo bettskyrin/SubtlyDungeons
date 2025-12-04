@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.CameraShake;
+import com.kr1s1s.subtlyd.client.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -16,36 +16,40 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
-@Mixin(ClientLevel.class)
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("unused")
+@Mixin(ClientLevel.class)
 public class ClientLevelMixin {
-
-
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
     private void playLocalSound(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
-        groundShake(x, y, z, soundEvent, soundSource, g, h, bl);
+        shakeScreenByEvent(x, y, z, soundEvent);
     }
-    private void groundShake(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl) {
+    private void shakeScreenByEvent(double x, double y, double z, SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
         List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);
+        List<SoundEvent> explosions = List.of(SoundEvents.DRAGON_FIREBALL_EXPLODE);
         Player player = Minecraft.getInstance().player;
 
-        if (player != null){
+        if (player != null) {
             int duration = 20;
             float maxDistance = 32;
+            float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
+
             if (powerfulSounds.contains(soundEvent)) {
                 maxDistance = 128;
-                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-                CameraShake.setShakeByDistance(duration, maxDistance, distance);
+                ScreenShake.setShakeByDistance(duration, maxDistance, distance);
             }
 
             if (loudSounds.contains(soundEvent)) {
-                float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
                 if (soundEvent.equals(SoundEvents.ENDER_DRAGON_GROWL)) {
                     duration = 70;
                 }
-                CameraShake.setShakeByDistance(duration, maxDistance, distance);
+                ScreenShake.setShakeByDistance(duration, maxDistance, distance);
+            }
+
+            if (explosions.contains(soundEvent)) {
+                if (soundEvent.equals(SoundEvents.DRAGON_FIREBALL_EXPLODE)) {
+                    ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, 3);
+                }
             }
         }
     }

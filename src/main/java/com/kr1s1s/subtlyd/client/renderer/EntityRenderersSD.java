@@ -9,11 +9,10 @@ import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.entity.EntityType;
 
 public class EntityRenderersSD extends EntityRenderers {
-    public static void runRegistration() {
+    public static void registration() {
         register(EntityType.ZOMBIE, ZombieRendererSD::new);
         register(EntityType.HUSK, HuskRendererSD::new);
         register(EntityType.DROWNED, DrownedRendererSD::new);
-
         register(EntityTypeSD.WHITE_TENT, context -> new TentRenderer(context, ModelLayersSD.WHITE_TENT));
         register(EntityTypeSD.ORANGE_TENT, context -> new TentRenderer(context, ModelLayersSD.ORANGE_TENT));
         register(EntityTypeSD.MAGENTA_TENT, context -> new TentRenderer(context, ModelLayersSD.MAGENTA_TENT));
@@ -31,7 +30,7 @@ public class EntityRenderersSD extends EntityRenderers {
         register(EntityTypeSD.RED_TENT, context -> new TentRenderer(context, ModelLayersSD.RED_TENT));
         register(EntityTypeSD.BLACK_TENT, context -> new TentRenderer(context, ModelLayersSD.BLACK_TENT));
 
-        for (ModelLayerLocation modelLayerLocation : ModelLayersSD.TENTS) {
+        for (ModelLayerLocation modelLayerLocation : ModelLayersSD.ALL_MODELS) {
             EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, TentModel::createBodyLayer);
         }
     }

@@ -12,8 +12,7 @@ public class BlockLootSD extends FabricBlockLootTableProvider {
         super(dataOutput, registryLookup);
     }
 
-    @Override
-    public void generate() {
+    @Override public void generate() {
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);
@@ -30,5 +29,6 @@ public class BlockLootSD extends FabricBlockLootTableProvider {
         dropSelf(BlocksSD.STONE_TILE_SLAB);
         dropSelf(BlocksSD.STONE_TILE_WALL);
         dropSelf(BlocksSD.STONE_PILLAR);
+        createDoublePlantShearsDrop(BlocksSD.REEDS);
     }
 }
