@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.options;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -18,14 +19,19 @@ public class SplashManagerMixin {
     private void appendCustomSplash(ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();
         List<Component> newSplashes = new ArrayList<>(originalSplashes);
+        List<String> literals = List.of(
+                "Pretty tents!",
+                "R.I.P. trout.png",
+                "L-l-l-lava!",
+                "Music by Peter Hont!",
+                "Music by Crispin Hands!!",
+                "Music by John Johnson!",
+                "Windy!"
+        );
 
-        newSplashes.add(Component.literal("Pretty tents!"));
-        newSplashes.add(Component.literal("R.I.P. trout.png"));
-        newSplashes.add(Component.literal("L-l-l-lava!"));
-        newSplashes.add(Component.literal("Music by Peter Hont!"));
-        newSplashes.add(Component.literal("Music by Crispin Hands!!"));
-        newSplashes.add(Component.literal("Music by John Johnson!"));
-        newSplashes.add(Component.literal("Windy!"));
+        for (String string : literals) {
+            newSplashes.add(Component.literal(string).withStyle(ChatFormatting.YELLOW));
+        }
 
         cir.setReturnValue(newSplashes);
     }

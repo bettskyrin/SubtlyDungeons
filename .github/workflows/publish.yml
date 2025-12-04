@@ -1,0 +1,33 @@
+name: Publish Subtly Dungeons
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: setup gradlew
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: build
+        run: ./gradlew build
+
+      - name: publish mod
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: subtly-dungeons
+          curseforge-id: 1363308
+
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
