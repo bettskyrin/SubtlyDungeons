@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+
+## [26.1]
+### Fixed
+- Fixed bug where custom splashes were colored white
+
 ## [1.1.0-alpha.4] - 12/3/2025
 ### Developer Notes & Technical Stuff
 I plan to phase out using SemVer, for various reasons. Semantic Versioning is for public APIs (which this is not) and I would like for my mod to follow a system like Mojangs, so that its versioning is familiar.

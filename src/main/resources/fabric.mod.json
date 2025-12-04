@@ -3,7 +3,7 @@
 	"id": "subtlyd",
 	"version": "${version}",
 	"name": "Subtly Dungeons",
-	"description": "Subtly Dungeons is a Minecraft mod that aims to add features that truly fit within the world of Minecraft by drawing from \"canon\" features from Minecraft Dungeons, abandoned base-game update plans, and other Minecraft media (and maybe the occasional original idea). The aim of this mod is not only to enhance the game for experienced players, but also to remain beginner-friendly for those who prefer a \"less intense\" and/or a \"mostly vanilla\" experience.",
+	"description": "Subtly Dungeons is an attempt to create an unofficial \"sequel\" to Minecraft by strictly adhering to Mojang's own design principles. With each update, features from Minecraft Dungeons, Minecraft Legends, and abandoned vanilla concepts are added to help create a cohesive feeling within the Minecraft Universe.\n\nThe goal isn't just to provide a \"Vanilla+\" experience; it's what we call \"Vanilla Parity\". Every block, mob, and mechanic is designed to feel like it has always belonged in the game, enhancing the adventure for all of those bored Minecraft veterans out there, while remaining accessible for players who prefer a classic experience (and even remaining friendly to complete beginners!). Certain features may be undesired, and many can be disabled via gamerules or through the native game options.",
 	"authors": [
 		"Developers: Kyrin Betts\nVisual Artists: Kyrin Betts, Aldin Besic"
 	],
