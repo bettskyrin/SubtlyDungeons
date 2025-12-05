@@ -16,7 +16,7 @@ This will take effect in 2026. A new system will be announced on my Twitter or R
 I also want to say that a lot of code has been getting cleaned up to be more efficient and compatable with other mods, so a lot of the content has slowed down.
 
 ### Added
-### Visuals
+#### Visuals
 - Added dragon fireball explode screen shake effect
 
 ### Changed
