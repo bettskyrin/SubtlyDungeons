@@ -10,10 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [1.1.0-alpha.4] - 12/3/2025
 ### Developer Notes & Technical Stuff
-I plan to phase out using SemVer, for various reasons. Semantic Versioning is for public APIs (which this is not) and I would like for my mod to follow a system like Mojangs, so that its versioning is familiar.
+I plan to phase out using SemVer for various reasons. Semantic Versioning is for public APIs (which this is not), and I would like for my mod to follow a system like Mojang's, so that its versioning is familiar.
 This will take effect in 2026. A new system will be announced on my Twitter or Reddit page, so keep an eye out.
 
-I also want to say that a lot of code has been getting cleaned up to be more efficient and compatable with other mods, so a lot of the content has slowed down.
+I also want to say that a lot of code has been getting cleaned up to be more efficient and compatible with other mods, so a lot of the content has slowed down.
 
 ### Added
 #### Visuals
