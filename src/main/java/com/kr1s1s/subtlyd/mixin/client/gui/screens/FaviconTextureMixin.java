@@ -22,6 +22,10 @@ public class FaviconTextureMixin {
     @Shadow public void clear() {}
 
 
+    /**
+     * Saves a thumbnail of size 455x256 pixels
+     * @param nativeImage The saved thumbnail
+     */
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
     public void upload(NativeImage nativeImage, CallbackInfo ci) {
         ci.cancel();
