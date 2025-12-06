@@ -19,6 +19,9 @@ public class ServerPlayerMixin {
         preventTentRespawnSetting(respawnConfig, ci);
     }
 
+    /**
+     * Prevents setting respawn position if it's not a bed (i.e., a tent).
+     */
     public void preventTentRespawnSetting(@Nullable ServerPlayer.RespawnConfig respawnConfig, CallbackInfo ci) {
         if (respawnConfig != null) {
             BlockState blockState = player.level().getBlockState(respawnConfig.respawnData().pos());
