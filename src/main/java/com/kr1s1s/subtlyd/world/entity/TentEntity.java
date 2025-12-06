@@ -286,7 +286,8 @@ public class TentEntity extends Entity {
     }
 
     /**
-     * Increases the render distance of tents to be higher than other entities by a factor of 4
+     * Determines if the tent should be rendered at the given squared distance.
+     * The render distance is based on the tent's bounding box size multiplied by 64.0 and the view scale.
      * @param d Squared distance
      * @return True if squared distance is within render distance
      */
