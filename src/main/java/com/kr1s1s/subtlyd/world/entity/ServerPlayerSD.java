@@ -22,6 +22,13 @@ public class ServerPlayerSD extends ServerPlayer {
         super(minecraftServer, serverLevel, gameProfile, clientInformation);
     }
 
+    /**
+     *
+     * @param blockPos Tent position
+     * @param tent Tent entity
+     * @param player Player trying to sleep
+     * @return Either a TentSleepingProblem or Unit if successful
+     */
     public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
             if (player.isSleeping() || !player.isAlive()) {
                 return Either.left(PlayerSD.TentSleepingProblem.OTHER_PROBLEM);
