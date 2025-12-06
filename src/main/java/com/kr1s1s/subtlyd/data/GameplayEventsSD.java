@@ -24,7 +24,9 @@ public class GameplayEventsSD {
             return InteractionResult.PASS;
         });
 
-        EntitySleepEvents.ALLOW_RESETTING_TIME.register((entity) -> true);
+        EntitySleepEvents.ALLOW_RESETTING_TIME.register((entity) ->
+            TentEntity.inTent(entity) && entity.isSleeping()
+        );
     }
 
     private static void registerFuelValues() {
