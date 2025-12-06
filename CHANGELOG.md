@@ -61,6 +61,10 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
 - Changed Wither Rose to have "Rare" rarity level
   - This is because Wither Skeleton Skulls are Rare
 
+### Fixed
+#### Blocks
+- Reeds can now be properly bone mealed
+
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added
 #### Blocks
