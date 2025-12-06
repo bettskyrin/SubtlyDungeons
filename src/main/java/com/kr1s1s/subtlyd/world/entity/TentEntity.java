@@ -128,14 +128,14 @@ public class TentEntity extends Entity {
             this.showBreakingParticles();
             this.kill(serverLevel);
             return false;
-        } else if (damageSource.is(DamageTypeTags.IGNITES_ARMOR_STANDS)) {
+        } else if (damageSource.is(DamageTypeTagsSD.IGNITES_TENTS)) {
             if (this.isOnFire()) {
                 this.setDamage(0.15F);
             } else {
                 this.igniteForSeconds(5.0F);
             }
             return false;
-        } else if (damageSource.is(DamageTypeTags.BURNS_ARMOR_STANDS)) {
+        } else if (damageSource.is(DamageTypeTagsSD.BURNS_TENTS)) {
             this.setDamage(4.0F);
             return false;
         } else {
@@ -237,6 +237,11 @@ public class TentEntity extends Entity {
         }
     }
 
+    /**
+     * Called when a player interacts with the tent
+     * @param vec3 Tent location
+     * @return Server success
+     */
     @Override
     public @NotNull InteractionResult interactAt(Player player, @NotNull Vec3 vec3, @NotNull InteractionHand interactionHand) {
         if (!player.level().isClientSide()) {
@@ -249,29 +254,49 @@ public class TentEntity extends Entity {
         return InteractionResult.SUCCESS_SERVER;
     }
 
+    /**
+     * Checks if an entity is within tent range (2 blocks)
+     * @param entity Entity to check
+     * @return True if in range
+     */
     public static boolean inTentRange(Entity entity) {
         AABB box = entity.getBoundingBox().inflate(2.0);
         return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
     }
 
+    /**
+     * Checks if an entity is inside a tent
+     * @param entity Entity to check
+     * @return True if inside a tent
+     */
     public static boolean inTent(Entity entity) {
         AABB box = entity.getBoundingBox().deflate(1.0);
         return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
     }
 
+    /**
+     * Checks if an entity is inside a specific tent
+     * @param entity Entity to check
+     * @param tent Tent to check
+     * @return True if inside the specified tent
+     */
     public static boolean inTent(Entity entity, TentEntity tent) {
         AABB box = entity.getBoundingBox().deflate(1.0);
         return !(entity.level().getEntities(tent, box).isEmpty());
     }
 
+    /**
+     * Increases the render distance of tents to be higher than other entities by a factor of 4
+     * @param d Squared distance
+     * @return True if squared distance is within render distance
+     */
     @Override
     public boolean shouldRenderAtSqrDistance(double d) {
-        double e = this.getBoundingBox().getSize() * 4.0;
+        double e = this.getBoundingBox().getSize();
         if (Double.isNaN(e) || e == 0.0) {
             e = 4.0;
         }
-
-        e *= 64.0;
+        e *= 64.0 * getViewScale();
         return d < e * e;
     }
 
