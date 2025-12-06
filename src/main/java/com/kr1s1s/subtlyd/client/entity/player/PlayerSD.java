@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class PlayerSD extends Player {
-    public static int sleepCounter = 0;
 
     public PlayerSD(Level level, GameProfile gameProfile) {
         super(level, gameProfile);
@@ -24,7 +23,6 @@ public class PlayerSD extends Player {
         player.setRespawnPosition(null, false);
         LivingEntitySD.startSleepingSD(blockPos, tent, player);
         player.level().updateSleepingPlayerList();
-        sleepCounter = 0;
         return Either.right(Unit.INSTANCE);
     }
 

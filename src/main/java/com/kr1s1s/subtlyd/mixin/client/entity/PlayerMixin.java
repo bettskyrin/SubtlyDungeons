@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.mixin.client.entity;
 
-import com.kr1s1s.subtlyd.client.entity.player.PlayerSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.entity.ServerPlayerSD;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,22 +19,13 @@ public class PlayerMixin {
         tickTentSleep();
     }
 
+    /**
+     * Wakes up the player once it's daytime
+     */
     private void tickTentSleep() {
-        if (TentEntity.inTent(player)) {
-            if (player.isSleeping()) {
-                PlayerSD.sleepCounter++;
-                if (PlayerSD.sleepCounter > 100) {
-                    PlayerSD.sleepCounter = 100;
-                }
-
-                if (!player.level().isClientSide() && player.level().isBrightOutside()) {
-                    ServerPlayerSD.stopSleepInTent(true, (ServerPlayer) player);
-                }
-            } else if (PlayerSD.sleepCounter > 0) {
-                PlayerSD.sleepCounter++;
-                if (PlayerSD.sleepCounter >= 110) {
-                    PlayerSD.sleepCounter = 0;
-                }
+        if (TentEntity.inTent(player) && player.isSleeping()) {
+            if (!player.level().isClientSide() && player.level().isBrightOutside()) {
+                ServerPlayerSD.stopSleepInTent(true, (ServerPlayer) player);
             }
         }
     }
