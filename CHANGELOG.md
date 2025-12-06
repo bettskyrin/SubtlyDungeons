@@ -21,6 +21,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Deprecated
 - Removed unused "is_windy" biome tag translation
 
+### Deprecated
+- Removed unused "is_windy" biome tag translation
+
 ## [1.1.0-alpha.4] - 12/3/2025
 ### Developer Notes & Technical Stuff
 I plan to phase out using SemVer for various reasons. Semantic Versioning is for public APIs (which this is not), and I would like for my mod to follow a system like Mojang's, so that its versioning is familiar.
