@@ -3,11 +3,12 @@
   "package": "com.kr1s1s.subtlyd.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "server.MinecraftServerMixin",
     "server.entity.AbstractArrowMixin",
+    "server.entity.PlayerAccessor",
     "server.entity.RaiderMixin",
     "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin",
-    "server.MinecraftServerMixin"
+    "server.entity.ZombieMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
@@ -25,6 +26,9 @@
     "client.renderer.GameRendererAccessor",
     "client.renderer.GameRendererMixin",
     "client.server.IntegratedServerMixin"
+  ],
+  "server": [
+    "server.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.client.entity.player.PlayerSD;
+import com.kr1s1s.subtlyd.mixin.server.entity.PlayerAccessor;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
@@ -23,9 +24,9 @@ public class ServerPlayerSD extends ServerPlayer {
     }
 
     /**
-     *
+     * Server handling for player tent sleep
      * @param blockPos Tent position
-     * @param tent Tent entity
+     * @param tent Tent the player is attempting to sleep in
      * @param player Player trying to sleep
      * @return Either a TentSleepingProblem or Unit if successful
      */
@@ -57,7 +58,7 @@ public class ServerPlayerSD extends ServerPlayer {
                             return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                         }
                     }
-
+                    ((PlayerAccessor) player).setSleepCounter(0);
                     Either<PlayerSD.TentSleepingProblem, Unit> either = PlayerSD.startSleepInTent(blockPos, tent, player);
                     player.level().updateSleepingPlayerList();
                     return either;
@@ -66,10 +67,10 @@ public class ServerPlayerSD extends ServerPlayer {
     }
 
     public static void stopSleepInTent(boolean bl, ServerPlayer player) {
-        LivingEntitySD.getTent().occupied = false;
         if (bl) {
             player.level().updateSleepingPlayerList();
         }
-        player.stopSleeping();
+        LivingEntitySD.stopSleepingSD(player);
+        ((PlayerAccessor) player).setSleepCounter(0);
     }
 }

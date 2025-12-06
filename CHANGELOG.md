@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ### Fixed
 - Fixed bug where custom splashes were colored white
+- Fixed bug where repeatedly stopping and starting tent sleep would skip to daytime
 
 ### Deprecated
 - Removed unused "is_windy" biome tag translation
