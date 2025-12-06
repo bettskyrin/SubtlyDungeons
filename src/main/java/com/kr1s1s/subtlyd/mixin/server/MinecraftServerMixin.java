@@ -25,6 +25,9 @@ public class MinecraftServerMixin {
         ci.setReturnValue(newLoadStatusIcon(optional));
     }
 
+    /**
+     * Prevents server check for favicon size of 64x64 pixels (in favor of the new 455x256 16:9 ratio).
+     */
     private Optional<ServerStatus.Favicon> newLoadStatusIcon(Optional<Path> optional) {
         return optional.flatMap(path -> {
             try {
