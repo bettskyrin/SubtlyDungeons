@@ -5,8 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [1.1.0-alpha.5]
+### Added
+#### Data
+- Added "burns_tents" damage tag
+- Added "ignites_tents" damage tag
+
+### Changed
+- Changed tent entity rendering code
+- Updated tent sleep timing method to sync with the vanilla game properly
+
 ### Fixed
 - Fixed bug where custom splashes were colored white
+
+### Deprecated
+- Removed unused "is_windy" biome tag translation
 
 ## [1.1.0-alpha.4] - 12/3/2025
 ### Developer Notes & Technical Stuff
