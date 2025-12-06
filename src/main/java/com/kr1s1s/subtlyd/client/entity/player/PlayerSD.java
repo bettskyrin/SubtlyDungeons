@@ -19,9 +19,15 @@ public class PlayerSD extends Player {
         super(level, gameProfile);
     }
 
+    /**
+     * Client handling for player tent sleep.
+     * @param blockPos Tent position
+     * @param tent Tent the player is attempting to sleep in
+     * @param player Sleeping player
+     */
     public static Either<TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
         player.setRespawnPosition(null, false);
-        LivingEntitySD.startSleepingSD(blockPos, tent, player);
+        LivingEntitySD.startSleepingInTent(blockPos, tent, player);
         player.level().updateSleepingPlayerList();
         return Either.right(Unit.INSTANCE);
     }
