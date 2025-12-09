@@ -48,6 +48,8 @@ jobs:
           version-type: release
           loaders: fabric
           game-version: ${{ steps.get-game-version.outputs.versions }}
+          game-versions: |
+            - ${{ steps.get-game-version.outputs.versions }}
           java: 21
 
       - name: publish mod
