@@ -41,30 +41,31 @@ jobs:
           tag="${{ github.event.release.tag_name }}"
           tag="${tag#v}"
           
-          # extract the `## [<version` section from CHANGELOG.md
-          awk -v ver="$tag" '
-            BEGIN { found=0 }
+          cat > /tmp/changelog_awk <<'AWK'
+          BEGIN { found = 0 }
             /^## \[/ {
-              if (found) exit
-            }
-            $0 ~ ("^## \\[" ver) {
-              found=1
-              print
-              next
-            }
-            if (found) print
-                    ' CHANGELOG.md > /tmp/changelog_section
-
+            if (found) exit
+          }
+          $0 ~ ("^## \\[" ver) {
+          found = 1
+          print
+          next
+          }
+          if (found) print
+          AWK
+          
+          # run awk with the tag variable
+          awk -v ver="$tag" -f /tmp/changelog_awk CHANGELOG.md > /tmp/changelog_section || true
+          
           if [ ! -s /tmp/changelog_section ]; then
-            echo "No changelog found for $tag" >&2
-            exit 1
+          echo "No changelog found for $tag" >&2
+          exit 1
           fi
-
+          
           # set multiline output
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
           cat /tmp/changelog_section >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
-
       - name: publish mod
         uses: Kir-Antipov/mc-publish@v3.3
         with:
