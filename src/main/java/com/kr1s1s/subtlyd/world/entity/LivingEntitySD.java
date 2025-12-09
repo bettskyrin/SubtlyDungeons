@@ -20,8 +20,8 @@ public class LivingEntitySD extends LivingEntity {
     /**
      * Handles a tent sleep attempt.
      * @param blockPos Tent location
-     * @param tent - Tent player is sleeping in
-     * @param player - Sleeping player
+     * @param tent Tent player is sleeping in
+     * @param player Sleeping player
      */
     public static void startSleepingInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
         if (player.isPassenger()) {
