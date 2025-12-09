@@ -38,7 +38,6 @@ jobs:
         id: changelog
         run: |
           # get tag and strip leading "v"
-          # replace the `run:` body of the `extract changelog` step with this
           tag="${{ github.event.release.tag_name }}"
           tag="${tag#v}"
           
