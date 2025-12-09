@@ -24,7 +24,7 @@ public class SplashManagerMixin {
                 "R.I.P. trout.png",
                 "L-l-l-lava!",
                 "Music by Peter Hont!",
-                "Music by Crispin Hands!!",
+                "Music by Crispin Hands!",
                 "Music by John Johnson!",
                 "Windy!"
         );
