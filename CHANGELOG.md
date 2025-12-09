@@ -3,15 +3,38 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+
+## [1.1.0 Winds and Wetlands Update]
+### Changed
+#### Textures
+- Updated reeds texture
+
+## [1.1.0-alpha.5]
+### Added
+#### Data
+- Added "burns_tents" damage tag
+- Added "ignites_tents" damage tag
+
+### Changed
+- Changed tent entity rendering code
+- Updated tent sleep timing method to sync with the vanilla game properly
+
+### Fixed
+- Fixed bug where custom splashes were colored white
+- Fixed bug where repeatedly stopping and starting tent sleep would skip to daytime
+
+### Deprecated
+- Removed unused "is_windy" biome tag translation
+
 ## [1.1.0-alpha.4] - 12/3/2025
 ### Developer Notes & Technical Stuff
-I plan to phase out using SemVer, for various reasons. Semantic Versioning is for public APIs (which this is not) and I would like for my mod to follow a system like Mojangs, so that its versioning is familiar.
+I plan to phase out using SemVer for various reasons. Semantic Versioning is for public APIs (which this is not), and I would like for my mod to follow a system like Mojang's, so that its versioning is familiar.
 This will take effect in 2026. A new system will be announced on my Twitter or Reddit page, so keep an eye out.
 
-I also want to say that a lot of code has been getting cleaned up to be more efficient and compatable with other mods, so a lot of the content has slowed down.
+I also want to say that a lot of code has been getting cleaned up to be more efficient and compatible with other mods, so a lot of the content has slowed down.
 
 ### Added
-### Visuals
+#### Visuals
 - Added dragon fireball explode screen shake effect
 
 ### Changed
@@ -43,6 +66,10 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
     - This is because Ominous Bottles are Uncommon
 - Changed Wither Rose to have "Rare" rarity level
   - This is because Wither Skeleton Skulls are Rare
+
+### Fixed
+#### Blocks
+- Reeds can now be properly bone mealed
 
 ## [1.1.0-alpha.3] - 11/23/2025
 ### Added

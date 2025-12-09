@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 
 public class GameplayEventsSD {
     public static void registration() {
@@ -24,7 +25,7 @@ public class GameplayEventsSD {
             return InteractionResult.PASS;
         });
 
-        EntitySleepEvents.ALLOW_RESETTING_TIME.register((entity) -> true);
+        EntitySleepEvents.ALLOW_RESETTING_TIME.register(LivingEntity::isSleeping);
     }
 
     private static void registerFuelValues() {

@@ -14,17 +14,21 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public class PlayerSD extends Player {
-    public static int sleepCounter = 0;
 
     public PlayerSD(Level level, GameProfile gameProfile) {
         super(level, gameProfile);
     }
 
+    /**
+     * Client handling for player tent sleep.
+     * @param blockPos Tent position
+     * @param tent Tent the player is attempting to sleep in
+     * @param player Sleeping player
+     */
     public static Either<TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
         player.setRespawnPosition(null, false);
-        LivingEntitySD.startSleepingSD(blockPos, tent, player);
+        LivingEntitySD.startSleepingInTent(blockPos, tent, player);
         player.level().updateSleepingPlayerList();
-        sleepCounter = 0;
         return Either.right(Unit.INSTANCE);
     }
 

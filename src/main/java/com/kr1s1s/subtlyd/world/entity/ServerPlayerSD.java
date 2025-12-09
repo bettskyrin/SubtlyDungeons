@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.client.entity.player.PlayerSD;
+import com.kr1s1s.subtlyd.mixin.server.entity.PlayerAccessor;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
@@ -10,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
@@ -22,6 +24,13 @@ public class ServerPlayerSD extends ServerPlayer {
         super(minecraftServer, serverLevel, gameProfile, clientInformation);
     }
 
+    /**
+     * Server handling for player tent sleep
+     * @param blockPos Tent position
+     * @param tent Tent the player is attempting to sleep in
+     * @param player Player trying to sleep
+     * @return Either a TentSleepingProblem or Unit if successful
+     */
     public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
             if (player.isSleeping() || !player.isAlive()) {
                 return Either.left(PlayerSD.TentSleepingProblem.OTHER_PROBLEM);
@@ -50,7 +59,7 @@ public class ServerPlayerSD extends ServerPlayer {
                             return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                         }
                     }
-
+                    ((PlayerAccessor) player).setSleepCounter(0);
                     Either<PlayerSD.TentSleepingProblem, Unit> either = PlayerSD.startSleepInTent(blockPos, tent, player);
                     player.level().updateSleepingPlayerList();
                     return either;
@@ -59,10 +68,10 @@ public class ServerPlayerSD extends ServerPlayer {
     }
 
     public static void stopSleepInTent(boolean bl, ServerPlayer player) {
-        LivingEntitySD.getTent().occupied = false;
         if (bl) {
             player.level().updateSleepingPlayerList();
         }
-        player.stopSleeping();
+        ((LivingEntitySD) (LivingEntity) player).stopSleepingSD();
+        ((PlayerAccessor) player).setSleepCounter(0);
     }
 }

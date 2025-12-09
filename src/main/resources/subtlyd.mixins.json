@@ -4,10 +4,10 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "server.entity.AbstractArrowMixin",
+    "server.entity.PlayerAccessor",
     "server.entity.RaiderMixin",
     "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin",
-    "server.MinecraftServerMixin"
+    "server.entity.ZombieMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
@@ -26,10 +26,13 @@
     "client.renderer.GameRendererMixin",
     "client.server.IntegratedServerMixin"
   ],
+  "server": [
+    "server.MinecraftServerMixin"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-	}
+	  }
 }
