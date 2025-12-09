@@ -50,9 +50,6 @@ jobs:
           game-version: ${{ steps.get-game-version.outputs.versions }}
           java: 21
 
-      - name: clean
-        run: ./gradlew clean
-
       - name: publish mod
         uses: Kir-Antipov/mc-publish@v3.3
         with:
@@ -68,3 +65,6 @@ jobs:
           game-versions: |
             - ${{ steps.get-game-version.outputs.versions }}
           java: 21
+
+      - name: clean
+        run: ./gradlew clean
