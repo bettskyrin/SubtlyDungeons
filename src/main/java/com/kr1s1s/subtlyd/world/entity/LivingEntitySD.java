@@ -28,14 +28,14 @@ public class LivingEntitySD extends LivingEntity {
             player.stopRiding();
         }
 
+        boolean foundSleepingPlayer = false;
         for (Player anyPlayer : player.level().players()) {
             if (TentEntity.inTent(anyPlayer, tent) && anyPlayer.isSleeping()) {
-                tent.occupied = true;
+                foundSleepingPlayer = true;
                 break;
-            } else {
-                tent.occupied = false;
             }
         }
+        tent.occupied = foundSleepingPlayer;
         player.setPose(Pose.SLEEPING);
         player.setYRot(tent.getYRot());
         player.setXRot(0.0F);
