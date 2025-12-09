@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.registry.FuelRegistryEvents;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 
 public class GameplayEventsSD {
     public static void registration() {

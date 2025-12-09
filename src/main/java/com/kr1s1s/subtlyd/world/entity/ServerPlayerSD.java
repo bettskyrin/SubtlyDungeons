@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.attribute.EnvironmentAttributes;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
@@ -70,7 +71,7 @@ public class ServerPlayerSD extends ServerPlayer {
         if (bl) {
             player.level().updateSleepingPlayerList();
         }
-        LivingEntitySD.stopSleepingSD(player);
+        ((LivingEntitySD) (LivingEntity) player).stopSleepingSD();
         ((PlayerAccessor) player).setSleepCounter(0);
     }
 }

@@ -3,7 +3,6 @@
   "package": "com.kr1s1s.subtlyd.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "server.MinecraftServerMixin",
     "server.entity.AbstractArrowMixin",
     "server.entity.PlayerAccessor",
     "server.entity.RaiderMixin",
@@ -35,5 +34,5 @@
   },
   "overwrites": {
     "requireAnnotations": true
-	}
+	  }
 }

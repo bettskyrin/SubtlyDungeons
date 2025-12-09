@@ -45,15 +45,15 @@ public class LivingEntitySD extends LivingEntity {
         player.setIgnoreFallDamageFromCurrentImpulse(true);
     }
 
-    public static void stopSleepingSD(ServerPlayer player) {
-        player.getSleepingPos().filter(player.level()::isLoaded).ifPresent(blockPos -> {
-            List<TentEntity> tents = player.level().getEntitiesOfClass(TentEntity.class, new AABB(blockPos).inflate(1.0));
+    public void stopSleepingSD() {
+        this.getSleepingPos().filter(this.level()::isLoaded).ifPresent(blockPos -> {
+            List<TentEntity> tents = this.level().getEntitiesOfClass(TentEntity.class, new AABB(blockPos).inflate(1.0));
             for (TentEntity tent : tents) {
                 tent.occupied = false;
             }
 
-            if (TentEntity.inTentRange(player)) {
-                player.stopSleeping();
+            if (TentEntity.inTentRange(this)) {
+                super.stopSleeping();
             }
         });
     }
