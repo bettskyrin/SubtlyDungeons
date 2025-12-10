@@ -51,7 +51,7 @@ jobs:
           print
           next
           }
-          if (found) print
+          if (found) { print }
           AWK
           
           # run awk with the tag variable
