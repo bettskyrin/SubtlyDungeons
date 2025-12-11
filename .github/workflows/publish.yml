@@ -23,48 +23,34 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      - name: detect game version from fabric.mod.json
+      - name: detect game version
         id: get-game-version
         run: |
-          if [ -f fabric.mod.json ]; then FILE=fabric.mod.json
-          elif [ -f src/main/resources/fabric.mod.json ]; then FILE=src/main/resources/fabric.mod.json
-          else echo "No fabric.mod.json found" >&2; exit 1
+          if [ ! -f gradle.properties ]; then
+            echo "Error: gradle.properties not found!" >&2
+            exit 1
           fi
-          ver=$(jq -r '(.depends.minecraft // .minecraft) // empty' "$FILE")
-          if [ -z "$ver" ]; then echo "No minecraft version found in $FILE" >&2; exit 1; fi
-          echo "version=$ver" >> $GITHUB_OUTPUT
+          
+          VER=$(grep "^minecraft_version=" gradle.properties | cut -d'=' -f2 | tr -d '[:space:]')
+          
+          if [ -z "$VER" ]; then
+            echo "Error: minecraft_version key not found in gradle.properties!" >&2
+            exit 1
+          fi
+          
+          echo "Detected Game Version: $VER"
+          echo "version=$VER" >> $GITHUB_OUTPUT
 
-      - name: extract changelog for release
+      - name: read release notes file
         id: changelog
         run: |
-          # get tag and strip leading "v"
-          tag="${{ github.event.release.tag_name }}"
-          tag="${tag#v}"
-          
-          cat > /tmp/changelog_awk <<'AWK'
-          BEGIN { found = 0 }
-            /^## \[/ {
-            if (found) exit
-          }
-          $0 ~ ("^## \\[" ver) {
-          found = 1
-          print
-          next
-          }
-          if (found) { print }
-          AWK
-          
-          # run awk with the tag variable
-          awk -v ver="$tag" -f /tmp/changelog_awk CHANGELOG.md > /tmp/changelog_section || true
-          
-          if [ ! -s /tmp/changelog_section ]; then
-          echo "No changelog found for $tag" >&2
-          exit 1
+          if [ ! -f RELEASE_NOTES.md ]; then
+                        echo "Error: RELEASE_NOTES.md not found!" >&2
+            exit 1
           fi
           
-          # set multiline output
           echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          cat /tmp/changelog_section >> $GITHUB_OUTPUT
+          cat RELEASE_NOTES.md >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: publish mod
@@ -76,7 +62,7 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
-          files: build/libs/*.jar
+          files: build/libs/!(*-sources).jar
           version-type: release
           changelog: ${{ steps.changelog.outputs.changelog }}
           loaders: fabric
