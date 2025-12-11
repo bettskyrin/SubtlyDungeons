@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
+## [1.1.1] - 12/11/2025
+### Fixed
+#### Textures
+- Fixed item texture bug
+
 ## [1.1.0 Winds and Wetlands Update] - 12/9/2025
 ### Changed
 #### Textures
