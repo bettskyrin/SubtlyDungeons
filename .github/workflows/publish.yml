@@ -45,13 +45,15 @@ jobs:
         id: changelog
         run: |
           if [ ! -f RELEASE_NOTES.md ]; then
-                        echo "Error: RELEASE_NOTES.md not found!" >&2
+            echo "Error: RELEASE_NOTES.md not found!" >&2
             exit 1
           fi
           
-          echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          cat RELEASE_NOTES.md >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo 'changelog<<EOF'
+            cat RELEASE_NOTES.md
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: publish mod
         uses: Kir-Antipov/mc-publish@v3.3
