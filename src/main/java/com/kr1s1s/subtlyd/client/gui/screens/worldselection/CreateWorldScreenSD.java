@@ -264,7 +264,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
     @Override
     public void repositionElements() {
         if (this.tabNavigationBar != null) {
-            this.tabNavigationBar.setWidth(this.width);
+            this.tabNavigationBar.updateWidth(this.width);
             this.tabNavigationBar.arrangeElements();
             int i = this.tabNavigationBar.getRectangle().bottom();
             ScreenRectangle screenRectangle = new ScreenRectangle(0, i, this.width, this.height - this.layout.getFooterHeight() - i);
