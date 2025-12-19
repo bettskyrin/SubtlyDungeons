@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [26.1] - 12/11/2025
 ### Changed
+### Mechanics
+- The custom zombie leader health boost mechanics have been removed in favor of the vanilla implementation
+
 #### Data
 - Changed Screen Shake translation keys
   - `options.screen_shake` is now `options.accessibility.screen_shake`
