@@ -24,7 +24,9 @@
     "client.options.SplashManagerMixin",
     "client.renderer.GameRendererAccessor",
     "client.renderer.GameRendererMixin",
-    "client.server.IntegratedServerMixin"
+    "client.renderer.entity.AbstractZombieRendererMixin",
+    "client.renderer.entity.DrownedOuterLayerMixin",
+    "client.renderer.entity.state.ZombieRenderStateMixin"
   ],
   "server": [
     "server.MinecraftServerMixin"
@@ -34,5 +36,5 @@
   },
   "overwrites": {
     "requireAnnotations": true
-	  }
+  }
 }

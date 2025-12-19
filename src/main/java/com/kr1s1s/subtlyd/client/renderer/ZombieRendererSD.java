@@ -11,32 +11,32 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import org.jetbrains.annotations.NotNull;
-
-public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
-    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
-
-    public ZombieRendererSD(EntityRendererProvider.Context context) {
-        super(context,
-                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE)),
-                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE_BABY)),
-                ArmorModelSet.bake(ModelLayers.ZOMBIE_ARMOR, context.getModelSet(), ZombieModel::new),
-                ArmorModelSet.bake(ModelLayers.ZOMBIE_BABY_ARMOR, context.getModelSet(), ZombieModel::new)
-        );
-    }
-
-    @Override public @NotNull Identifier getTextureLocation(ZombieRenderStateSD zombieRenderState) {
-        if (zombieRenderState.isLeader) {
-            return ZOMBIE_LEADER_LOCATION;
-        }
-        return super.getTextureLocation(zombieRenderState);
-    }
-
-    @Override public @NotNull ZombieRenderStateSD createRenderState() {
-        return new ZombieRenderStateSD();
-    }
-
-    @Override public void extractRenderState(Zombie zombie, ZombieRenderStateSD zombieRenderState, float f) {
-        super.extractRenderState(zombie, zombieRenderState, f);
-        zombieRenderState.isLeader = ZombieSD.isLeader(zombie);
-    }
-}
+// TODO
+//public class ZombieRendererSD extends AbstractZombieRenderer<Zombie, ZombieRenderStateSD, ZombieModel<ZombieRenderStateSD>> {
+//    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
+//
+//    public ZombieRendererSD(EntityRendererProvider.Context context) {
+//        super(context,
+//                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE)),
+//                new ZombieModel<>(context.bakeLayer(ModelLayers.ZOMBIE_BABY)),
+//                ArmorModelSet.bake(ModelLayers.ZOMBIE_ARMOR, context.getModelSet(), ZombieModel::new),
+//                ArmorModelSet.bake(ModelLayers.ZOMBIE_BABY_ARMOR, context.getModelSet(), ZombieModel::new)
+//        );
+//    }
+//
+//    @Override public @NotNull Identifier getTextureLocation(ZombieRenderStateSD zombieRenderState) {
+//        if (zombieRenderState.isLeader) {
+//            return ZOMBIE_LEADER_LOCATION;
+//        }
+//        return super.getTextureLocation(zombieRenderState);
+//    }
+//
+//    @Override public @NotNull ZombieRenderStateSD createRenderState() {
+//        return new ZombieRenderStateSD();
+//    }
+//
+//    @Override public void extractRenderState(Zombie zombie, ZombieRenderStateSD zombieRenderState, float f) {
+//        super.extractRenderState(zombie, zombieRenderState, f);
+//        zombieRenderState.isLeader = ZombieSD.isLeader(zombie);
+//    }
+//}

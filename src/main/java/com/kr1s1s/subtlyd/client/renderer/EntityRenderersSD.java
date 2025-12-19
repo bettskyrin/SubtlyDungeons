@@ -10,9 +10,9 @@ import net.minecraft.world.entity.EntityType;
 
 public class EntityRenderersSD extends EntityRenderers {
     public static void registration() {
-        register(EntityType.ZOMBIE, ZombieRendererSD::new);
-        register(EntityType.HUSK, HuskRendererSD::new);
-        register(EntityType.DROWNED, DrownedRendererSD::new);
+//        register(EntityType.ZOMBIE, ZombieRendererSD::new);
+//        register(EntityType.HUSK, HuskRendererSD::new);
+//        register(EntityType.DROWNED, DrownedRendererSD::new); // TODO Remove
         register(EntityTypeSD.WHITE_TENT, context -> new TentRenderer(context, ModelLayersSD.WHITE_TENT));
         register(EntityTypeSD.ORANGE_TENT, context -> new TentRenderer(context, ModelLayersSD.ORANGE_TENT));
         register(EntityTypeSD.MAGENTA_TENT, context -> new TentRenderer(context, ModelLayersSD.MAGENTA_TENT));
