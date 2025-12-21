@@ -6,7 +6,7 @@ import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
-public class OptionsSD {
+public class OptionInstanceSD {
     private static final Component ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE = Component.translatable("options.accessibility.screen_shake.tooltip");
 
     public static final OptionInstance<Boolean> SCREEN_SHAKE = OptionInstance.createBoolean(

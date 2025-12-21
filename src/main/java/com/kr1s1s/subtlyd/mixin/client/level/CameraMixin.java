@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.OptionsSD;
+import com.kr1s1s.subtlyd.client.OptionInstanceSD;
 import com.kr1s1s.subtlyd.client.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -26,7 +26,7 @@ public abstract class CameraMixin {
     }
 
     private void applyScreenShake() {
-        if (OptionsSD.SCREEN_SHAKE.get()) {
+        if (OptionInstanceSD.SCREEN_SHAKE.get()) {
             float intensity = ScreenShake.getShakeIntensity() * 0.5F;
 
             if (intensity > 0) {

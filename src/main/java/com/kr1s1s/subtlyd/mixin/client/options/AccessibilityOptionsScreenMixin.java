@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.options;
 
-import com.kr1s1s.subtlyd.client.OptionsSD;
+import com.kr1s1s.subtlyd.client.OptionInstanceSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.OptionInstance;
@@ -23,7 +23,7 @@ public class AccessibilityOptionsScreenMixin {
     @Inject(method = "options", at = @At("RETURN"), cancellable = true)
     private static void options(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-        optionInstanceList.add(18, new OptionsSD().screenShake());
+        optionInstanceList.add(18, new OptionInstanceSD().screenShake());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }
