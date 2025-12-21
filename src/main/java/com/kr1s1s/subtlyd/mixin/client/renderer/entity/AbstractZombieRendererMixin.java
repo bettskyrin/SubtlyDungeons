@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.renderer.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.renderer.ZombieRenderStateAccessor;
 import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
 import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.entity.*;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractZombieRenderer.class)
 public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>>{
-    @SuppressWarnings("DataFlowIssue")
+    @SuppressWarnings("unchecked")
     AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
 
     private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
@@ -29,7 +29,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     public void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((ZombieRenderStateSD) state).isLeader) { // FIXME
+        if (((ZombieRenderStateAccessor) state).subtlyDungeons$isLeader()) {
             if (renderer instanceof DrownedRenderer) {
                 leaderLocation = DROWNED_LEADER_LOCATION;
             } else if (renderer instanceof HuskRenderer) {
@@ -44,7 +44,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
     public void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        ((ZombieRenderStateSD) state).isLeader = ZombieSD.isLeader(entity); // FIXME
+        ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader(ZombieSD.isLeader(entity));
     }
 
 

@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.renderer.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.client.renderer.state.ZombieRenderStateSD;
+import com.kr1s1s.subtlyd.client.renderer.ZombieRenderStateAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -25,7 +25,7 @@ public class DrownedOuterLayerMixin {
     @Inject(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/ZombieRenderState;FF)V",
             at = @At("HEAD"))
     private void declareLayerLocation(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, ZombieRenderState state, float yRot, float xRot, CallbackInfo ci) {
-        layerLocation = ((ZombieRenderStateSD) state).isLeader ? DROWNED_LEADER_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION; // FIXME
+        layerLocation = ((ZombieRenderStateAccessor) state).subtlyDungeons$isLeader() ? DROWNED_LEADER_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION;
     }
 
     @ModifyArg(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/ZombieRenderState;FF)V",

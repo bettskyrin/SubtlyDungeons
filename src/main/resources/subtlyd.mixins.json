@@ -25,7 +25,8 @@
     "client.renderer.GameRendererAccessor",
     "client.renderer.GameRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
-    "client.renderer.entity.DrownedOuterLayerMixin"
+    "client.renderer.entity.DrownedOuterLayerMixin",
+    "client.renderer.entity.state.ZombieRenderStateMixin"
   ],
   "server": [
     "server.MinecraftServerMixin"
