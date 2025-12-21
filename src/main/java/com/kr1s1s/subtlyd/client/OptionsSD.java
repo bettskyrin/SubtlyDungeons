@@ -13,7 +13,7 @@ public class OptionsSD {
             "options.accessibility.screen_shake", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE), true
     );
 
-    public OptionInstance<Boolean> cameraShake() {
+    public OptionInstance<Boolean> screenShake() {
         return SCREEN_SHAKE;
     }
 }

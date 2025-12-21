@@ -11,41 +11,19 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Environment(EnvType.CLIENT)
 @Mixin(AccessibilityOptionsScreen.class)
 public class AccessibilityOptionsScreenMixin {
+    /**
+     * Adds Screen Shake accessibility option.
+     */
     @Inject(method = "options", at = @At("RETURN"), cancellable = true)
     private static void options(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
-        cir.setReturnValue(replacedOptions(options, new OptionsSD()));
-    }
-
-    private static OptionInstance<?>[] replacedOptions(Options options, OptionsSD optionsSD) {
-        return new OptionInstance[]{
-                options.narrator(),
-                options.showSubtitles(),
-                options.highContrast(),
-                options.menuBackgroundBlurriness(),
-                options.textBackgroundOpacity(),
-                options.backgroundForChatOnly(),
-                options.chatOpacity(),
-                options.chatLineSpacing(),
-                options.chatDelay(),
-                options.notificationDisplayTime(),
-                options.bobView(),
-                options.screenEffectScale(),
-                options.fovEffectScale(),
-                options.darknessEffectScale(),
-                options.damageTiltStrength(),
-                options.glintSpeed(),
-                options.glintStrength(),
-                options.hideLightningFlash(),
-                optionsSD.cameraShake(),
-                options.darkMojangStudiosBackground(),
-                options.panoramaSpeed(),
-                options.hideSplashTexts(),
-                options.narratorHotkey(),
-                options.rotateWithMinecart(),
-                options.highContrastBlockOutline()
-        };
+        List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
+        optionInstanceList.add(18, new OptionsSD().screenShake());
+        cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }

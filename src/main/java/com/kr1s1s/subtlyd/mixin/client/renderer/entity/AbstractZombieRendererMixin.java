@@ -23,6 +23,9 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     private final Identifier DROWNED_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader.png");
     private final Identifier HUSK_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/husk_leader.png");
 
+    /**
+     * Changes the zombie leader texture to their unique design.
+     */
     @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;)Lnet/minecraft/resources/Identifier;",
             at = @At("RETURN"),
             cancellable = true)
