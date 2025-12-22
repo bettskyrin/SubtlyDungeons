@@ -57,6 +57,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .addTag(SNOW_BRICKS)
                 .addTag(STONE_TILES)
                 .addTag(DRIPSTONE)
+                .add(BlocksSD.STONE_PILLAR)
                 .add(BlocksSD.CHARCOAL_BLOCK)
                 .add(BlocksSD.IRON_GRATE);
         valueLookupBuilder(SKULL_BLOCK)
