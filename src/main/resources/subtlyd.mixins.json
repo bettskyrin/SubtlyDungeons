@@ -7,7 +7,8 @@
     "server.entity.PlayerAccessor",
     "server.entity.RaiderMixin",
     "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin"
+    "server.entity.ZombieMixin",
+    "server.MinecraftServerMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
@@ -21,14 +22,10 @@
     "client.level.ServerLevelMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
-    "client.renderer.GameRendererAccessor",
     "client.renderer.GameRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
     "client.renderer.entity.state.ZombieRenderStateMixin"
-  ],
-  "server": [
-    "server.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

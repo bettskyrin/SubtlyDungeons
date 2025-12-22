@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DrownedOuterLayer.class)
 public class DrownedOuterLayerMixin {
     private static final Identifier DROWNED_OUTER_LAYER_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");
-    private static final Identifier DROWNED_LEADER_OUTER_LAYER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader_outer_layer.png");
+    private static final Identifier DROWNED_LEADER_OUTER_LAYER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/drowned_leader_outer_layer.png");
     private Identifier layerLocation;
 
     @Inject(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/ZombieRenderState;FF)V",

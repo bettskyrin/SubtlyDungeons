@@ -31,6 +31,6 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
     }
 
     private static TagKey<Item> create(String string) {
-        return TagKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(string));
+        return TagKey.create(Registries.ITEM, SubtlyDungeons.identifier(string));
     }
 }

@@ -36,6 +36,6 @@ public class ModelLayersSD extends ModelLayers {
     }
 
     private static ModelLayerLocation createLocation(String string) {
-        return new ModelLayerLocation(SubtlyDungeons.resourceLocation(string), "main");
+        return new ModelLayerLocation(SubtlyDungeons.identifier(string), "main");
     }
 }

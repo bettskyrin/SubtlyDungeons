@@ -53,7 +53,7 @@ public class TentEntity extends Entity {
     }
 
     public static Identifier getLocation(DyeColor color) {
-        return SubtlyDungeons.resourceLocation(color.toString() + "_tent");
+        return SubtlyDungeons.identifier(color.toString() + "_tent");
     }
 
     public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {

@@ -19,9 +19,9 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @SuppressWarnings("unchecked")
     AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
 
-    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/zombie_leader.png");
-    private final Identifier DROWNED_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/drowned_leader.png");
-    private final Identifier HUSK_LEADER_LOCATION = SubtlyDungeons.resourceLocation("textures/entity/zombie/husk_leader.png");
+    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/zombie_leader.png");
+    private final Identifier DROWNED_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/drowned_leader.png");
+    private final Identifier HUSK_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/husk_leader.png");
 
     /**
      * Changes the zombie leader texture to their unique design.

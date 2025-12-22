@@ -91,6 +91,6 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
 
 
     private static TagKey<Block> create(String string) {
-        return TagKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(string));
+        return TagKey.create(Registries.BLOCK, SubtlyDungeons.identifier(string));
     }
 }

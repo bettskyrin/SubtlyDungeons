@@ -29,6 +29,6 @@ public class DamageTypeTagsSD extends KeyTagProvider<DamageType> {
     }
 
     private static TagKey<DamageType> create(String string) {
-        return TagKey.create(Registries.DAMAGE_TYPE, SubtlyDungeons.resourceLocation(string));
+        return TagKey.create(Registries.DAMAGE_TYPE, SubtlyDungeons.identifier(string));
     }
 }

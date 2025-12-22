@@ -18,7 +18,6 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(Entity.class)
 public class EntityMixin {
-    @SuppressWarnings("DataFlowIssue")
     private final Entity entity = (Entity) (Object) this;
 
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))

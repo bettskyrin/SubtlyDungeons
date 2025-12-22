@@ -21,7 +21,7 @@ public class SubtlyDungeons implements ModInitializer {
         LOGGER.info("Debug: {}", s);
     }
 
-    public static Identifier resourceLocation(String string) {
+    public static Identifier identifier(String string) {
         return Identifier.fromNamespaceAndPath(MOD_ID, string);
     }
 

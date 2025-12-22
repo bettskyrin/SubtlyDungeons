@@ -147,11 +147,11 @@ public class ItemsSD {
     }
 
     private static ResourceKey<Item> blockIdToItemIdSD(String location) {
-        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(location));
+        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.identifier(location));
     }
 
     private static ResourceKey<Item> resourceKey(String name) {
-        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.resourceLocation(name));
+        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.identifier(name));
     }
 
 }

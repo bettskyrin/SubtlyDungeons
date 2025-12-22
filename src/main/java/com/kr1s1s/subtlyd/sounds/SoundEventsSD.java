@@ -19,7 +19,7 @@ public class SoundEventsSD {
     public static void registration() { }
 
     private static SoundEvent register(String string) {
-        return register(SubtlyDungeons.resourceLocation(string));
+        return register(SubtlyDungeons.identifier(string));
     }
 
     private static SoundEvent register(Identifier resourceLocation) { return register(resourceLocation, resourceLocation); }

@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.ToIntFunction;
 
 public class GameRulesSD {
-    public static final GameRule<@NotNull Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
+    public static final GameRule<Boolean> ARROW_ARSON = GameRules.registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
 
     public static void registration() {}
 
-    private static GameRule<@NotNull Boolean> registerBoolean(String string, GameRuleCategory gameRuleCategory, boolean bl) {
+    private static GameRule<Boolean> registerBoolean(String string, GameRuleCategory gameRuleCategory, boolean bl) {
         return register(
                 string,
                 gameRuleCategory,
@@ -45,7 +45,7 @@ public class GameRulesSD {
     ) {
         return Registry.register(
                 BuiltInRegistries.GAME_RULE,
-                SubtlyDungeons.resourceLocation(string),
+                SubtlyDungeons.identifier(string),
                 new GameRule<>(gameRuleCategory, gameRuleType, argumentType, visitorCaller, codec, toIntFunction, object, featureFlagSet)
         );
     }
