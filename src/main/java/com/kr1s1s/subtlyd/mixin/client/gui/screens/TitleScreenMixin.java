@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -142,9 +143,7 @@ public class TitleScreenMixin extends Screen {
             at = @At("TAIL")
     )
     private void renderPlayer(GuiGraphics graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-        if (this.minecraft.player != null) {
-            InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, width / 2 + 116, 199, width / 2 + 166, 199 + 200, 10, 0, mouseX, mouseY, this.minecraft.player);
-        }
+        ProfileScreen.renderPlayer();
     }
 
     /**
