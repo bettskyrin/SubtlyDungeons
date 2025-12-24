@@ -143,7 +143,7 @@ public class TitleScreenMixin extends Screen {
             at = @At("TAIL")
     )
     private void renderPlayer(GuiGraphics graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-        ProfileScreen.renderPlayer();
+        //ProfileScreen.renderPlayer();
     }
 
     /**
