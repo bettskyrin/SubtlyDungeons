@@ -1,19 +1,51 @@
 package com.kr1s1s.subtlyd.client.renderer;
 
-import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.player.AvatarRenderer;
+import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.entity.player.PlayerSkin;
 
 public class GuiPlayerRenderer {
     public static void renderPlayer(GuiGraphics guiGraphics, int x, int y, int scale, float mouseX, float mouseY) {
         Minecraft minecraft = Minecraft.getInstance();
-        GameProfile profile = minecraft.getGameProfile();
-        PlayerSkin skin = minecraft.getSkinManager().createLookup(profile, false).get();
-
+        Options options = minecraft.options;
+        PlayerSkin skin = minecraft.getSkinManager().createLookup(minecraft.getGameProfile(), false).get();
         EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();
+        AvatarRenderer<AbstractClientPlayer> renderer = dispatcher.playerRenderers.get(skin.model());
+        PlayerModel model = renderer.getModel();
+
+        AvatarRenderState state = new AvatarRenderState();
+        state.skin = skin;
+        state.isCrouching = false;
+        state.showHat = options.isModelPartEnabled(PlayerModelPart.HAT);
+        state.showJacket = options.isModelPartEnabled(PlayerModelPart.JACKET);
+        state.showLeftSleeve = options.isModelPartEnabled(PlayerModelPart.LEFT_SLEEVE);
+        state.showRightSleeve = options.isModelPartEnabled(PlayerModelPart.RIGHT_SLEEVE);
+        state.showLeftPants = options.isModelPartEnabled(PlayerModelPart.LEFT_PANTS_LEG);
+        state.showRightPants = options.isModelPartEnabled(PlayerModelPart.RIGHT_PANTS_LEG);
+        state.showCape = options.isModelPartEnabled(PlayerModelPart.CAPE);
+
+        float xAngle = (float) Math.atan((x - mouseX) / 40.0F);
+        float yAngle = (float) Math.atan((y - 35 - mouseY) / 40.0F);
+
+        state.yRot = xAngle * 20F;
+        state.xRot = -yAngle * 5F;
+        state.bodyRot = -state.yRot * 0.5F;
+
+        model.setupAnim(state);
+
+        int scaleModifier = scale * 2;
+        int x0 = x - scaleModifier / 3;
+        int y0 = y - scaleModifier;
+        int x1 = x + scaleModifier / 3;
+        int y1 = y + (scaleModifier / 10);
+
+        guiGraphics.submitSkinRenderState(model, skin.body().texturePath(), (float) scale, 0, state.bodyRot, 0.0F, x0, y0, x1, y1);
     }
 }

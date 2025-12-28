@@ -6,3 +6,4 @@ accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry
 accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
 accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
 accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
+accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;

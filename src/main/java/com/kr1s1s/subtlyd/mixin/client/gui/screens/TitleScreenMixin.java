@@ -1,17 +1,14 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens;
 
-import com.kr1s1s.subtlyd.client.gui.screens.ProfileScreen;
 import com.kr1s1s.subtlyd.client.gui.screens.worldselection.SelectWorldScreenSD;
-import com.llamalad7.mixinextras.sugar.Local;
+import com.kr1s1s.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
@@ -138,30 +135,13 @@ public class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"))
     private void cancelVersion(GuiGraphics instance, Font font, String str, int x, int y, int color) {}
 
-    // TODO Docs
+    /**
+     * Renders the player in the bottom right corner of the screen.
+     */
     @Inject(method = "render",
             at = @At("TAIL")
     )
-    private void renderPlayer(GuiGraphics graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-        //ProfileScreen.renderPlayer();
-    }
-
-    /**
-     * Creates the profile button before the credits.
-     * @param topPos The position of the "Options" and "Quit Game" buttons. Equal to 199.
-     */
-    @Inject(method = "init",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-                    ordinal = 4,
-                    shift = At.Shift.BEFORE))
-    private void addProfileButton(CallbackInfo ci, @Local(name = "topPos") int topPos) {
-        this.addRenderableWidget(
-                Button.builder(Component.translatable("menu.profile"), _ ->
-                    this.minecraft.setScreen(new ProfileScreen(titleScreen)))
-                        .bounds(width / 2 + 116, topPos, 98, BUTTON_HEIGHT)
-                        .build()
-        );
+    private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+        GuiPlayerRenderer.renderPlayer(guiGraphics, width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);
     }
 }

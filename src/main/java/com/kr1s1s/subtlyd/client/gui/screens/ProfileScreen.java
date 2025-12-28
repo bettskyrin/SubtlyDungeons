@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.client.gui.screens;
 
+import com.kr1s1s.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.render.pip.GuiEntityRenderer;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -15,14 +15,12 @@ public class ProfileScreen extends Screen {
 
     @Override
     protected void init() {
-        
+        // TODO
     }
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks);
-        //GuiEntityRenderer.
-        //guiGraphics.submitSkinRenderState(); //  TODO Try?
+        GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2, this.height / 2 + 50, 80, mouseX, mouseY);
     }
-
 }
