@@ -31,11 +31,11 @@ public class GuiPlayerRenderer {
         state.showRightPants = options.isModelPartEnabled(PlayerModelPart.RIGHT_PANTS_LEG);
         state.showCape = options.isModelPartEnabled(PlayerModelPart.CAPE);
 
-        float xAngle = (float) Math.atan((x - mouseX) / 40.0F);
-        float yAngle = (float) Math.atan((y - 35 - mouseY) / 40.0F);
+        float yaw = (float) Math.atan((x - mouseX) / 40.0F);
+        float pitch = (float) Math.atan((y - 35 - mouseY) / 40.0F);
 
-        state.yRot = xAngle * 20F;
-        state.xRot = -yAngle * 5F;
+        state.yRot = yaw * 20F;
+        state.xRot = -pitch * 5F;
         state.bodyRot = -state.yRot * 0.5F;
 
         model.setupAnim(state);
