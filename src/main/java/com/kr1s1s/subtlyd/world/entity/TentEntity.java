@@ -317,7 +317,4 @@ public class TentEntity extends Entity {
 
     @Override
     public boolean isPushedByFluid() { return false; }
-
-    @Override
-    public @NotNull Component getDisplayName() { return Component.empty(); }
 }

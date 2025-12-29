@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - `options.screen_shake`.tooltip is now `options.accessibility.screen_shake.tooltip`
 ### Fixed
 - Fixed bug where Stone Pillar blocks could not be broken by a pickaxe
+- Fixed bug where tent entities lacked display names
 
 ## [1.1.1] - 12/11/2025
 ### Fixed
