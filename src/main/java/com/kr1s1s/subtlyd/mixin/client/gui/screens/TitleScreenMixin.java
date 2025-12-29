@@ -12,12 +12,15 @@ import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
+    @Shadow
+    private boolean fading;
     TitleScreen titleScreen = (TitleScreen) (Object) this;
     int BUTTON_HEIGHT = 20;
     int SPRITE_XPOS = 4;
@@ -136,12 +139,14 @@ public class TitleScreenMixin extends Screen {
     private void cancelVersion(GuiGraphics instance, Font font, String str, int x, int y, int color) {}
 
     /**
-     * Renders the player in the bottom right corner of the screen.
+     * Renders the player in the bottom right corner of the screen after the fade animation is complete, as player shaders do not support transparency.
      */
     @Inject(method = "render",
             at = @At("TAIL")
     )
     private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-        GuiPlayerRenderer.renderPlayer(guiGraphics, width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);
+        if (!this.fading) {
+            GuiPlayerRenderer.renderPlayer(guiGraphics, width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);
+        }
     }
 }

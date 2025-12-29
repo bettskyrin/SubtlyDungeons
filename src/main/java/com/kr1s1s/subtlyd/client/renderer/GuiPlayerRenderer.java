@@ -3,6 +3,8 @@ package com.kr1s1s.subtlyd.client.renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.model.geom.ModelLayers;
+import net.minecraft.client.model.player.PlayerCapeModel;
 import net.minecraft.client.model.player.PlayerModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
@@ -17,11 +19,14 @@ public class GuiPlayerRenderer {
         Options options = minecraft.options;
         PlayerSkin skin = minecraft.getSkinManager().createLookup(minecraft.getGameProfile(), false).get();
         EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();
-        AvatarRenderer<AbstractClientPlayer> renderer = dispatcher.playerRenderers.get(skin.model());
-        PlayerModel model = renderer.getModel();
+        AvatarRenderer<AbstractClientPlayer> playerRenderer = dispatcher.playerRenderers.get(skin.model());
+        PlayerModel model = playerRenderer.getModel();
 
         AvatarRenderState state = new AvatarRenderState();
         state.skin = skin;
+        state.capeFlap = 1F;
+        state.capeLean = 0.5F;
+        state.capeLean2 = 0.5F;
         state.isCrouching = false;
         state.showHat = options.isModelPartEnabled(PlayerModelPart.HAT);
         state.showJacket = options.isModelPartEnabled(PlayerModelPart.JACKET);
@@ -45,6 +50,13 @@ public class GuiPlayerRenderer {
         int y0 = y - scaleModifier;
         int x1 = x + scaleModifier / 3;
         int y1 = y + (scaleModifier / 10);
+
+        if (state.showCape && skin.cape() != null) {
+            PlayerCapeModel capeModel = new PlayerCapeModel(minecraft.getEntityModels().bakeLayer(ModelLayers.PLAYER_CAPE));
+            capeModel.setupAnim(state);
+
+            guiGraphics.submitSkinRenderState(capeModel, skin.cape().texturePath(), (float) scale, 0, state.bodyRot, 0, x0, y0, x1, y1);
+        }
 
         guiGraphics.submitSkinRenderState(model, skin.body().texturePath(), (float) scale, 0, state.bodyRot, 0.0F, x0, y0, x1, y1);
     }

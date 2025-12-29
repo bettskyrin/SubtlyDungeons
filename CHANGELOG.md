@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ## [26.1] - UNRELEASED
 ### Added
 #### Mechanics
-- Added the player profile!
+- Added a render of the player on the Title Screen!
 
 #### Data
 - Added tent entity translations
