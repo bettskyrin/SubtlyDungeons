@@ -87,30 +87,30 @@ public class TentEntity extends Entity {
     public void animateHurt(float f) {
         this.setHurtDir(-this.getHurtDir());
         this.setHurtTime(10);
-        this.setDamage(this.getDamage() * 11.0F);
+        this.setDamage(this.getDamage());
     }
 
-    private void setHurtDir(int i) {
+    public void setHurtDir(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURTDIR, i);
     }
 
-    private void setHurtTime(int i) {
+    public void setHurtTime(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURT, i);
     }
 
-    private void setDamage(float f) {
+    public void setDamage(float f) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_DAMAGE, f);
     }
 
-    private float getDamage() {
+    public float getDamage() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_DAMAGE);
     }
 
-    private int getHurtDir() {
+    public int getHurtDir() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURTDIR);
     }
 
-    private int getHurtTime() {
+    public int getHurtTime() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURT);
     }
 
@@ -153,7 +153,14 @@ public class TentEntity extends Entity {
             } else {
                 long l = serverLevel.getGameTime();
                 if (l - this.lastHit > 5L && !bl2) {
-                    serverLevel.broadcastEntityEvent(this, (byte)32);
+                    if (damageSource.getEntity() != null) {
+                        this.setHurtDir(1);
+                    }
+                    this.setHurtTime(10);
+                    this.setDamage(10);
+                    this.markHurt();
+
+                    serverLevel.broadcastEntityEvent(this, (byte) 32);
                     this.gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
                     this.lastHit = l;
                     this.showBreakingParticles();

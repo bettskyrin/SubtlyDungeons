@@ -46,9 +46,13 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
 
     public void extractRenderState(TentEntity tent, TentRenderState renderState, float partialTicks) {
         super.extractRenderState(tent, renderState, partialTicks);
-        renderState.scale = 1.0f;
+        renderState.scale = 1.0F;
         renderState.yRot = Mth.lerp(partialTicks, tent.yRotO, tent.getYRot());
         renderState.xRot = renderState.getXRot(partialTicks);
+
+        renderState.hurtTime = (float) tent.getHurtTime() - partialTicks;
+        renderState.damage = tent.getDamage() - partialTicks;
+        renderState.hurtDir = tent.getHurtDir();
     }
 
     @Nullable protected RenderType getRenderType(boolean bl3) {
@@ -59,6 +63,15 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public void submit(TentRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(270.0F - renderState.yRot));
+
+        float damage = renderState.damage;
+        if (damage < 0) {
+            damage = 0;
+        }
+
+        if (renderState.hurtTime > 0F) {
+            poseStack.mulPose(Axis.XP.rotationDegrees((float) (((Math.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir)));
+        }
 
         float g = renderState.scale;
         poseStack.scale(g, g, g);

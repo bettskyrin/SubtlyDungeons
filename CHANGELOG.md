@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Mechanics
 - Added a render of the player on the Title Screen!
 
+#### Visuals
+- Added breaking animation for tents
+
 #### Data
 - Added tent entity translations
 
