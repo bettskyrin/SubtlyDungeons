@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.function.ToIntFunction;
 
 public class GameRulesSD {
-    public static final GameRule<Boolean> ARROW_ARSON = GameRules.registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
+    public static final GameRule<Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
 
     public static void registration() {}
 
