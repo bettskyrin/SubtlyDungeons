@@ -3,15 +3,15 @@
 	"id": "subtlyd",
 	"version": "${version}",
 	"name": "Subtly Dungeons",
-	"description": "Subtly Dungeons is an attempt to create an unofficial \"sequel\" to Minecraft by strictly adhering to Mojang's own design principles. With each update, features from Minecraft Dungeons, Minecraft Legends, and abandoned vanilla concepts are added to help create a cohesive feeling within the Minecraft Universe.\n\nThe goal isn't just to provide a \"Vanilla+\" experience; it's what we call \"Vanilla Parity\". Every block, mob, and mechanic is designed to feel like it has always belonged in the game, enhancing the adventure for all of those bored Minecraft veterans out there, while remaining accessible for players who prefer a classic experience (and even remaining friendly to complete beginners!). Certain features may be undesired, and many can be disabled via gamerules or through the native game options.",
+	"description": "Adds \"canon\" features from Dungeons and Legends. Focuses on vanilla parity, exploration, and making the game feel like a cohesive sequel",
 	"authors": [
-		"Developers: Kyrin Betts\nVisual Artists: Kyrin Betts, Aldin Besic"
+		"Kyrin Betts, Aldin Besic"
 	],
 	"contact": {
         "issues": "https://github.com/bettskyrin/SubtlyDungeons/issues",
 		"sources": "https://github.com/bettskyrin/SubtlyDungeons"
 	},
-	"license": "CC0-1.0",
+	"license": " LGPL-3.0-only",
 	"icon": "assets/subtlyd/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -30,9 +30,9 @@
 	],
     "accessWidener": "subtlyd.classtweaker",
 	"depends": {
-		"fabricloader": ">=0.17.2",
-		"minecraft": "~1.21.9-",
-		"java": ">=21",
+		"fabricloader": ">=0.18.3",
+		"minecraft": "~26.1-",
+		"java": ">=25",
 		"fabric-api": "*"
 	},
 	"suggests": {

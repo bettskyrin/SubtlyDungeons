@@ -52,7 +52,7 @@ public class BlocksSD {
 
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {
-        return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(name));
+        return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.identifier(name));
     }
 
     private static Block register(String string, BlockBehaviour.Properties properties) {

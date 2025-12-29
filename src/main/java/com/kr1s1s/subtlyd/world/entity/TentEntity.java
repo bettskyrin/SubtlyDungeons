@@ -7,7 +7,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
@@ -53,7 +52,7 @@ public class TentEntity extends Entity {
     }
 
     public static Identifier getLocation(DyeColor color) {
-        return SubtlyDungeons.resourceLocation(color.toString() + "_tent");
+        return SubtlyDungeons.identifier(color.toString() + "_tent");
     }
 
     public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {
@@ -87,30 +86,30 @@ public class TentEntity extends Entity {
     public void animateHurt(float f) {
         this.setHurtDir(-this.getHurtDir());
         this.setHurtTime(10);
-        this.setDamage(this.getDamage() * 11.0F);
+        this.setDamage(this.getDamage());
     }
 
-    private void setHurtDir(int i) {
+    public void setHurtDir(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURTDIR, i);
     }
 
-    private void setHurtTime(int i) {
+    public void setHurtTime(int i) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_HURT, i);
     }
 
-    private void setDamage(float f) {
+    public void setDamage(float f) {
         this.entityData.set(SynchedEntityDataSD.DATA_ID_DAMAGE, f);
     }
 
-    private float getDamage() {
+    public float getDamage() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_DAMAGE);
     }
 
-    private int getHurtDir() {
+    public int getHurtDir() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURTDIR);
     }
 
-    private int getHurtTime() {
+    public int getHurtTime() {
         return this.entityData.get(SynchedEntityDataSD.DATA_ID_HURT);
     }
 
@@ -153,7 +152,14 @@ public class TentEntity extends Entity {
             } else {
                 long l = serverLevel.getGameTime();
                 if (l - this.lastHit > 5L && !bl2) {
-                    serverLevel.broadcastEntityEvent(this, (byte)32);
+                    if (damageSource.getEntity() != null) {
+                        this.setHurtDir(1);
+                    }
+                    this.setHurtTime(10);
+                    this.setDamage(10);
+                    this.markHurt();
+
+                    serverLevel.broadcastEntityEvent(this, (byte) 32);
                     this.gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
                     this.lastHit = l;
                     this.showBreakingParticles();
@@ -317,7 +323,4 @@ public class TentEntity extends Entity {
 
     @Override
     public boolean isPushedByFluid() { return false; }
-
-    @Override
-    public @NotNull Component getDisplayName() { return Component.empty(); }
 }

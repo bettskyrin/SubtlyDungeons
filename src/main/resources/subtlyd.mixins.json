@@ -1,13 +1,14 @@
 {
   "required": true,
   "package": "com.kr1s1s.subtlyd.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
   "mixins": [
     "server.entity.AbstractArrowMixin",
     "server.entity.PlayerAccessor",
     "server.entity.RaiderMixin",
     "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin"
+    "server.entity.ZombieMixin",
+    "server.MinecraftServerMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
@@ -19,20 +20,17 @@
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.ServerLevelMixin",
-    "client.options.AccessibilityOnboardingScreenMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
-    "client.renderer.GameRendererAccessor",
     "client.renderer.GameRendererMixin",
-    "client.server.IntegratedServerMixin"
-  ],
-  "server": [
-    "server.MinecraftServerMixin"
+    "client.renderer.entity.AbstractZombieRendererMixin",
+    "client.renderer.entity.DrownedOuterLayerMixin",
+    "client.renderer.entity.state.ZombieRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-	  }
+  }
 }

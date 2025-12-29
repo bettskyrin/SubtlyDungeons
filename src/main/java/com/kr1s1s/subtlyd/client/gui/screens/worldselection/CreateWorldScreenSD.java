@@ -264,7 +264,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
     @Override
     public void repositionElements() {
         if (this.tabNavigationBar != null) {
-            this.tabNavigationBar.setWidth(this.width);
+            this.tabNavigationBar.updateWidth(this.width);
             this.tabNavigationBar.arrangeElements();
             int i = this.tabNavigationBar.getRectangle().bottom();
             ScreenRectangle screenRectangle = new ScreenRectangle(0, i, this.width, this.height - this.layout.getFooterHeight() - i);
@@ -699,7 +699,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.survival"),
                             button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL),
-                            SubtlyDungeons.resourceLocation("textures/gui/sprites/widget/survival.png"),
+                            SubtlyDungeons.identifier("textures/gui/sprites/widget/survival.png"),
                             200, 140
                     ).build()
             );
@@ -710,7 +710,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.creative"),
                             button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.CREATIVE),
-                            SubtlyDungeons.resourceLocation("textures/gui/sprites/widget/creative.png"),
+                            SubtlyDungeons.identifier("textures/gui/sprites/widget/creative.png"),
                             200, 140
                     ).build()
             );

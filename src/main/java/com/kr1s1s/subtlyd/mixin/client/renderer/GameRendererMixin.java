@@ -18,7 +18,6 @@ import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    @SuppressWarnings("DataFlowIssue")
     GameRenderer gameRenderer = (GameRenderer) (Object) this;
 
     @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
@@ -26,8 +25,11 @@ public class GameRendererMixin {
         ci.cancel();
     }
 
+    /**
+     * Replaces the logic to crop and/or set the ratio for  world thumbnails to 16:9.
+     */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel(Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER))
-    private void captureScreenshot(DeltaTracker deltaTracker, boolean bl, CallbackInfo ci) {
+    private void captureScreenshot(final DeltaTracker deltaTracker, final boolean renderLevel, CallbackInfo ci) {
         if (WorldIconState.pathHolder != null) {
             Path path = WorldIconState.pathHolder;
             WorldIconState.pathHolder = null;

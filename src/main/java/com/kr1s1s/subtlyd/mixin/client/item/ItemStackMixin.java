@@ -15,6 +15,9 @@ import java.util.List;
 public class ItemStackMixin {
     @SuppressWarnings("DataFlowIssue") ItemStack itemStack = (ItemStack) (Object) this;
 
+    /**
+     * Modifies the rarity level of items
+     */
     @Inject(method = "getRarity", at = @At("HEAD"), cancellable = true)
     public void getRarity(CallbackInfoReturnable<Rarity> cir) {
         List<Item> uncommon = List.of(Items.NETHERITE_AXE,
@@ -38,7 +41,5 @@ public class ItemStackMixin {
         } else if (rare.contains(itemStack.getItem())) {
             cir.setReturnValue(Rarity.RARE);
         }
-
     }
-
 }

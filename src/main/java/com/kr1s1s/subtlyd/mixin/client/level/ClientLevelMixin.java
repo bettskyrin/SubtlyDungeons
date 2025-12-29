@@ -23,6 +23,14 @@ public class ClientLevelMixin {
     private void playLocalSound(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
         shakeScreenByEvent(x, y, z, soundEvent);
     }
+
+    /**
+     * Determines the duration and intensity of a screen shake event
+     * @param x Sound source x-coordinate
+     * @param y Sound source y-coordinate
+     * @param z Sound source z-coordinate
+     * @param soundEvent Triggering sound event
+     */
     private void shakeScreenByEvent(double x, double y, double z, SoundEvent soundEvent) {
         List<SoundEvent> powerfulSounds = List.of(SoundEvents.END_GATEWAY_SPAWN);
         List<SoundEvent> loudSounds = List.of(SoundEvents.ENDER_DRAGON_GROWL, SoundEvents.LIGHTNING_BOLT_IMPACT);

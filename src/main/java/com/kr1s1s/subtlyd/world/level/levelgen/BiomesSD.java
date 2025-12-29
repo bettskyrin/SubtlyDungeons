@@ -16,6 +16,6 @@ public class BiomesSD {
     }
 
     public static <C extends FeatureConfiguration, F extends Feature<C>> F register(String string, F feature) {
-        return Registry.register(BuiltInRegistries.FEATURE, SubtlyDungeons.resourceLocation(string), feature);
+        return Registry.register(BuiltInRegistries.FEATURE, SubtlyDungeons.identifier(string), feature);
     }
 }

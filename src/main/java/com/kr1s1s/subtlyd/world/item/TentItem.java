@@ -17,7 +17,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -29,7 +28,7 @@ public class TentItem extends Item {
     }
 
     @Override
-    public @NotNull InteractionResult useOn(UseOnContext useOnContext) {
+    public InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
         ItemStack itemStack = useOnContext.getItemInHand();
         BlockPlaceContext blockPlaceContext = new BlockPlaceContext(useOnContext);

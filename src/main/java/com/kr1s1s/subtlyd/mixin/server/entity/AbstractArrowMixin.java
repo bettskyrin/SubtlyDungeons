@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
-    @SuppressWarnings("DataFlowIssue") AbstractArrow arrow = (AbstractArrow) (Object) (this);
+    AbstractArrow arrow = (AbstractArrow) (Object) (this);
     private final Level level = arrow.level();
     @Shadow protected abstract boolean isInGround();
 
@@ -26,6 +26,9 @@ public abstract class AbstractArrowMixin {
         trySetFire();
     }
 
+    /**
+     * Attempt to set a fire if a flaming arrow has landed and if gamerules allow it to.
+     */
     private void trySetFire() {
         boolean bl = !arrow.isNoPhysics();
         if (level.getServer() != null && level.getServer().getWorldData().getGameRules().get(GameRulesSD.ARROW_ARSON)) {
@@ -37,6 +40,10 @@ public abstract class AbstractArrowMixin {
         }
     }
 
+    /**
+     * Determines where a fire block should be placed based on the arrows direction.
+     * @param blockPos The block the arrow landed in
+     */
     private void setFire(BlockPos blockPos) {
         BlockPos arrowForward = blockPos.relative(arrow.getDirection());
 
@@ -53,6 +60,11 @@ public abstract class AbstractArrowMixin {
         }
     }
 
+    /**
+     * Finds a flammable block that can be lit on fire by a flaming arrow.
+     * @param blockPos The location of the block the arrow has landed in.
+     * @return An integer value corresponding to the block above, in front of, or equal to the arrow's target block.
+     */
     private int findFlammableBlock(BlockPos blockPos) {
         BlockState bSArrow = level.getBlockState(blockPos);
         BlockState bSAbove = level.getBlockState(blockPos.above());

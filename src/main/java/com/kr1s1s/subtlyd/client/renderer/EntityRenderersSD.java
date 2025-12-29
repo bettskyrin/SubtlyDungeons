@@ -6,13 +6,9 @@ import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.world.entity.EntityType;
 
 public class EntityRenderersSD extends EntityRenderers {
     public static void registration() {
-        register(EntityType.ZOMBIE, ZombieRendererSD::new);
-        register(EntityType.HUSK, HuskRendererSD::new);
-        register(EntityType.DROWNED, DrownedRendererSD::new);
         register(EntityTypeSD.WHITE_TENT, context -> new TentRenderer(context, ModelLayersSD.WHITE_TENT));
         register(EntityTypeSD.ORANGE_TENT, context -> new TentRenderer(context, ModelLayersSD.ORANGE_TENT));
         register(EntityTypeSD.MAGENTA_TENT, context -> new TentRenderer(context, ModelLayersSD.MAGENTA_TENT));

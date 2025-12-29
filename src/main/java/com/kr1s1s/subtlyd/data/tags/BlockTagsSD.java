@@ -57,6 +57,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .addTag(SNOW_BRICKS)
                 .addTag(STONE_TILES)
                 .addTag(DRIPSTONE)
+                .add(BlocksSD.STONE_PILLAR)
                 .add(BlocksSD.CHARCOAL_BLOCK)
                 .add(BlocksSD.IRON_GRATE);
         valueLookupBuilder(SKULL_BLOCK)
@@ -91,6 +92,6 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
 
 
     private static TagKey<Block> create(String string) {
-        return TagKey.create(Registries.BLOCK, SubtlyDungeons.resourceLocation(string));
+        return TagKey.create(Registries.BLOCK, SubtlyDungeons.identifier(string));
     }
 }

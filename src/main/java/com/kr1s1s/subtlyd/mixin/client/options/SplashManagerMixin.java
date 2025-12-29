@@ -15,6 +15,9 @@ import java.util.List;
 
 @Mixin(SplashManager.class)
 public class SplashManagerMixin {
+    /**
+     * Appends string literals to the list of splash text.
+     */
     @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     private void appendCustomSplash(ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();

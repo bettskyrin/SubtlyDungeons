@@ -31,6 +31,14 @@ public class ServerLevelMixin {
                          Holder<SoundEvent> holder, CallbackInfo ci) {
         shakeScreenByExplosion(x, y, z, power);
     }
+
+    /**
+     * Determines the intensity of a screen shake event created by an explosion
+     * @param x Explosion source x-coordinate
+     * @param y Explosion source y-coordinate
+     * @param z Explosion source z-coordinate
+     * @param power Explosion strength level
+     */
     private void shakeScreenByExplosion(double x, double y, double z, float power) {
         Player player = Minecraft.getInstance().player;
 

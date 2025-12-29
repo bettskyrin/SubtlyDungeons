@@ -34,6 +34,6 @@ public class BiomeTagsSD extends BiomeTagsProvider {
     }
 
     private static TagKey<Biome> create(String string) {
-        return TagKey.create(Registries.BIOME, SubtlyDungeons.resourceLocation(string));
+        return TagKey.create(Registries.BIOME, SubtlyDungeons.identifier(string));
     }
 }
