@@ -3,6 +3,7 @@ name: Publish Subtly Dungeons
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -52,6 +53,7 @@ jobs:
           {
             echo 'changelog<<EOF'
             cat RELEASE_NOTES.md
+            echo ""
             echo EOF
           } >> "$GITHUB_OUTPUT"
 
