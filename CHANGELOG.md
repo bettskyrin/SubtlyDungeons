@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
+## [3.0] - UNRELEASED
+### New Features
+#### Consumable Mushrooms
+- Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
+  - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
+
+### Technical Changes
+#### Data Tags
+- The "dripstone" block tag is now "polished_dripstone"
+
 ## [2.0] - 12/29/2025
 #### Developer Notes:
 Oh boy. Mojang changed the Minecraft version system... which made me reconsider our current versioning system (SemVar). Semantic Versioning is specifically for APIs (A.K.A. not a mod), so I think it would make sense to change up the versioning system for the mod as well. `MAJOR.MINOR.PATCH` isn't bad, though part of what this mod aims to do, is to re-capture the spirit of old Mojang (which includes having more "random" updates, that don't necessarily add groundbreaking changes (i.e. I would never want to bump the `MAJOR` number).

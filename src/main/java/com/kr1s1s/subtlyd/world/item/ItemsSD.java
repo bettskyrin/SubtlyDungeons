@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.world.item;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -68,28 +70,24 @@ public class ItemsSD {
     public static List<Item> TENT_ITEM_LIST = List.of(WHITE_TENT, LIGHT_GRAY_TENT, GRAY_TENT, BLACK_TENT, BROWN_TENT, RED_TENT, ORANGE_TENT, YELLOW_TENT, LIME_TENT, GREEN_TENT, CYAN_TENT, LIGHT_BLUE_TENT, BLUE_TENT, PURPLE_TENT, MAGENTA_TENT, PINK_TENT);
     public static List<Item> WOOL_ITEM_LIST = List.of(WHITE_WOOL, LIGHT_GRAY_WOOL, GRAY_WOOL, BLACK_WOOL, BROWN_WOOL, RED_WOOL, ORANGE_WOOL, YELLOW_WOOL, LIME_WOOL, GREEN_WOOL, CYAN_WOOL, LIGHT_BLUE_WOOL, BLUE_WOOL, PURPLE_WOOL, MAGENTA_WOOL, PINK_WOOL);
     public static List<Item> DYE_ITEM_LIST = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
-    public static List<Item> SNOW_BRICK_LIST = List.of(SNOW_BRICKS, SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB, SNOW_BRICK_WALL);
-    public static List<Item> POLISHED_DRIPSTONE_LIST = List.of(POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE_WALL);
-    public static List<Item> STONE_TILE_LIST = List.of(STONE_TILES, STONE_TILE_STAIRS, STONE_TILE_SLAB, STONE_TILE_WALL);
 
     public static void registration() {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
-            for (Item item : SNOW_BRICK_LIST) {
-                entries.addBefore(SANDSTONE, item);
+            for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.SNOW_BRICKS)) {
+                entries.addBefore(SANDSTONE, itemLike);
             }
             entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
             entries.addAfter(IRON_BLOCK, IRON_GRATE);
 
-            for (Item item : STONE_TILE_LIST) {
-                entries.addBefore(GRANITE, item);
+            for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.STONE_TILES)) {
+                entries.addBefore(GRANITE, itemLike);
             }
 
-            for (Item item : POLISHED_DRIPSTONE_LIST) {
-                entries.addBefore(GRANITE, item);
+            for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.POLISHED_DRIPSTONE)) {
+                entries.addBefore(GRANITE, itemLike);
             }
 
             entries.addAfter(STONE_SLAB, STONE_PILLAR);
-            entries.addBefore(POLISHED_DRIPSTONE, CHISELED_POLISHED_DRIPSTONE);
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
@@ -97,14 +95,14 @@ public class ItemsSD {
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
-            for (Item item : TENT_ITEM_LIST.reversed()) {
-                entries.addAfter(PINK_BED, item);
+            for (ItemLike itemLike : TENT_ITEM_LIST.reversed()) {
+                entries.addAfter(PINK_BED, itemLike);
             }
         });
 
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
-            for (Item item : TENT_ITEM_LIST.reversed()) {
-                entries.addAfter(PINK_BED, item);
+            for (ItemLike itemLike : TENT_ITEM_LIST.reversed()) {
+                entries.addAfter(PINK_BED, itemLike);
             }
             entries.addAfter(CAMPFIRE, UNLIT_CAMPFIRE);
         });
@@ -114,13 +112,8 @@ public class ItemsSD {
             entries.addBefore(COD, CALAMARI);
             entries.addAfter(CALAMARI, COOKED_CALAMARI);
             entries.addAfter(RABBIT_STEW, POTTAGE);
-        });
-
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
-            for (Item item : SNOW_BRICK_LIST) {
-                entries.addBefore(SANDSTONE, item);
-            }
-            entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
+            entries.addAfter(DRIED_KELP, BROWN_MUSHROOM);
+            entries.addAfter(BROWN_MUSHROOM, RED_MUSHROOM);
         });
 
         CompostingChanceRegistry.INSTANCE.add(APPLE_PIE, 1.0F);

@@ -4,13 +4,16 @@ import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
@@ -21,7 +24,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
     public static final TagKey<Block> SNOW_BRICKS = create("snow_bricks");
     public static final TagKey<Block> SKULL_BLOCK = create("skull_block");
     public static final TagKey<Block> STONE_TILES = create("stone_tiles");
-    public static final TagKey<Block> DRIPSTONE = create("dripstone");
+    public static final TagKey<Block> POLISHED_DRIPSTONE = create("polished_dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");
 
     @Override protected void addTags(HolderLookup.Provider wrapperLookup) {
@@ -35,7 +38,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(BlocksSD.STONE_TILE_STAIRS)
                 .add(BlocksSD.STONE_TILE_SLAB)
                 .add(BlocksSD.STONE_TILE_WALL);
-        valueLookupBuilder(DRIPSTONE)
+        valueLookupBuilder(POLISHED_DRIPSTONE)
                 .add(BlocksSD.CHISELED_POLISHED_DRIPSTONE)
                 .add(BlocksSD.POLISHED_DRIPSTONE)
                 .add(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
@@ -56,7 +59,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
         valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(SNOW_BRICKS)
                 .addTag(STONE_TILES)
-                .addTag(DRIPSTONE)
+                .addTag(POLISHED_DRIPSTONE)
                 .add(BlocksSD.STONE_PILLAR)
                 .add(BlocksSD.CHARCOAL_BLOCK)
                 .add(BlocksSD.IRON_GRATE);
@@ -90,8 +93,21 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
                 .add(BlocksSD.REEDS);
     }
 
-
     private static TagKey<Block> create(String string) {
         return TagKey.create(Registries.BLOCK, SubtlyDungeons.identifier(string));
+    }
+
+    /**
+     * Can be used to get a list of blocks by their block tag. Cannot be used within data generator classes.
+     * @param tag The specified tag to search.
+     * @return A list of blocks with the specified block tag.
+     */
+    public static List<Block> getBlocks(TagKey<Block> tag) {
+        Iterable<Holder<Block>> holders = BuiltInRegistries.BLOCK.getTagOrEmpty(tag);
+        List<Block> blocks = new java.util.ArrayList<>(List.of());
+        for  (Holder<Block> holder : holders) {
+            blocks.add(holder.value());
+        }
+        return blocks;
     }
 }
