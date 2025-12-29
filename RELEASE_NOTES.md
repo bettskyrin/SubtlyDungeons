@@ -19,7 +19,7 @@ An example using this current update is: `2.0`. If a snapshot or beta is openly 
 
 ### Changes
 #### Visuals
-- The method for rendering zombie leaders has changed to increase vanilla and mod compatability
+- The method for rendering zombie leaders has changed to increase vanilla and mod compatibility
 - Changed the camera angle for sleeping in a tent to look straight up
 
 #### Mechanics
