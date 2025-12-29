@@ -33,7 +33,7 @@ public class RaiderMixin {
     }
 
     /**
-     * Determines if the raid diffiuclty is high enough to allow pillagers with flame enchanted crossbows to spawn in a raid.
+     * Determines if the raid difficulty is high enough to allow pillagers with flame enchanted crossbows to spawn in a raid.
      * The raid difficulty must reach level 10 before this can happen.
      * i.e. Normal Difficulty with a raid omen of at least V, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
      */

@@ -6,7 +6,7 @@ Because of this, I think it's most fitting that going forward we will adopt a `U
 
 1) Fabric will warn you if you install on the wrong version
 2) The websites that this mod is currently available on (Modrinth and Curseforge) have filtering systems for the correct Minecraft version
-3) The mod intends to have a "foward looking" development cycle, so you can expect updates to focus on whatever the newest update is.
+3) The mod intends to have a "forward-looking" development cycle, so you can expect updates to focus on whatever the newest update is.
 
 An example using this current update is: `2.0`. If a snapshot or beta is openly released, you can expect a suffix (e.g. `2.0-snapshot` or `2.0-beta`)
 
