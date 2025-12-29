@@ -5,17 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [26.1] - UNRELEASED
-### Added
-#### Mechanics
-- Added a render of the player on the Title Screen!
+### New Features
+#### UI
+- Added a render of the player on the Title Screen
 
 #### Visuals
-- Added breaking animation for tents
+- Added a breaking animation for tents
 
-#### Data
-- Added tent entity translations
-
-### Changed
+### Changes
 #### Visuals
 - The method for rendering zombie leaders has changed to increase vanilla and mod compatability
 - Changed the camera angle for sleeping in a tent to look straight up
@@ -28,9 +25,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Screen Shake translation keys
   - `options.screen_shake` is now `options.accessibility.screen_shake`
   - `options.screen_shake`.tooltip is now `options.accessibility.screen_shake.tooltip`
-### Fixed
-- Fixed bug where Stone Pillar blocks could not be broken by a pickaxe
-- Fixed bug where tent entities lacked display names
+- Added tent entity translations
+
+### Bug Fixes
+- Fixed a bug where Stone Pillar blocks could not be broken by a pickaxe
+- Fixed a bug where tent entities lacked display names
 
 ## [1.1.1] - 12/11/2025
 ### Fixed
