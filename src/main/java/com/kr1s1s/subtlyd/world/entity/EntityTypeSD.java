@@ -29,7 +29,7 @@ public class EntityTypeSD {
     public static final EntityType<TentEntity> PINK_TENT = registerTent(DyeColor.PINK, () -> ItemsSD.PINK_TENT);
 
     private static EntityType<TentEntity> registerTent(DyeColor dyeColor, Supplier<Item> supplier) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(dyeColor), EntityType.Builder.of(tentFactory(supplier), MobCategory.MISC).sized(3.5F, 2.0F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(dyeColor)));
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(dyeColor), EntityType.Builder.of(tentFactory(supplier), MobCategory.MISC).sized(3.5F, 1.8F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(dyeColor)));
     }
 
     private static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {

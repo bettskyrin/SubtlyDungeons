@@ -7,7 +7,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;

@@ -16,11 +16,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added tent entity translations
 
 ### Changed
-#### Textures
+#### Visuals
 - The method for rendering zombie leaders has changed to increase vanilla and mod compatability
+- Changed the camera angle for sleeping in a tent to look straight up
 
 #### Mechanics
 - The custom zombie leader health boost mechanics have been removed in favor of the vanilla implementation
+- Changed the hitbox of tent entities to be more precise
 
 #### Data
 - Changed Screen Shake translation keys

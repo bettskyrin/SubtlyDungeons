@@ -2,10 +2,12 @@ package com.kr1s1s.subtlyd.mixin.client.level;
 
 import com.kr1s1s.subtlyd.client.OptionInstanceSD;
 import com.kr1s1s.subtlyd.client.util.ScreenShake;
+import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -20,9 +22,13 @@ public abstract class CameraMixin {
     @Shadow private float xRot;
     @Shadow protected abstract void setRotation(float y, float x);
 
+    @Shadow
+    protected abstract void setPosition(double x, double y, double z);
+
     @Inject(method = "setup", at = @At("TAIL"))
     private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
         applyScreenShake();
+        setCampingPlayerCamera(entity, f);
     }
 
     /**
@@ -35,6 +41,21 @@ public abstract class CameraMixin {
                 float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity);
                 float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity);
                 this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
+            }
+        }
+    }
+
+    /**
+     * Locks the camera to the player's head while sleeping in a tent
+     * @param entity The sleeping entity.
+     * @param f The entity head rotation angle
+     */
+    private void setCampingPlayerCamera(Entity entity, float f) {
+        if (entity instanceof LivingEntity livingEntity && livingEntity.isSleeping()) {
+            if (TentEntity.inTent(entity)) {
+
+                this.setRotation(livingEntity.getViewYRot(f), -90F);
+                this.setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
             }
         }
     }
