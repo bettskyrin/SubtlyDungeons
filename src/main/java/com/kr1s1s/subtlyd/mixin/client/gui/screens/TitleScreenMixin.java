@@ -146,7 +146,7 @@ public class TitleScreenMixin extends Screen {
     )
     private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         if (!this.fading) {
-            GuiPlayerRenderer.renderPlayer(guiGraphics, width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);
+            GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);
         }
     }
 }

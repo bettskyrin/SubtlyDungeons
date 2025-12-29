@@ -35,6 +35,10 @@ dependencies {
 
 loom {
     accessWidenerPath = file("src/main/resources/subtlyd.classtweaker")
+
+    runConfigs.configureEach {
+        vmArg "--enable-native-access=ALL-UNNAMED"
+    }
 }
 
 processResources {
