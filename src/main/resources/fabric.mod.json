@@ -5,13 +5,13 @@
 	"name": "Subtly Dungeons",
 	"description": "Adds \"canon\" features from Dungeons and Legends. Focuses on vanilla parity, exploration, and making the game feel like a cohesive sequel",
 	"authors": [
-		"Developers: Kyrin Betts\nVisual Artists: Kyrin Betts, Aldin Besic"
+		"Kyrin Betts, Aldin Besic"
 	],
 	"contact": {
         "issues": "https://github.com/bettskyrin/SubtlyDungeons/issues",
 		"sources": "https://github.com/bettskyrin/SubtlyDungeons"
 	},
-	"license": "CC0-1.0",
+	"license": " LGPL-3.0-only",
 	"icon": "assets/subtlyd/icon.png",
 	"environment": "*",
 	"entrypoints": {
