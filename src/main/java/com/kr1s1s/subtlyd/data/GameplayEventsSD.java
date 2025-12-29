@@ -18,7 +18,7 @@ public class GameplayEventsSD {
     }
 
     private static void allowTentSleep() {
-        EntitySleepEvents.ALLOW_BED.register((entity, sleepingPos, state, vanillaResult) -> {
+        EntitySleepEvents.ALLOW_BED.register((entity, _, _, _) -> {
             if (TentEntity.inTentRange(entity)) {
                 return InteractionResult.SUCCESS;
             }
@@ -29,7 +29,7 @@ public class GameplayEventsSD {
     }
 
     private static void registerFuelValues() {
-        FuelRegistryEvents.BUILD.register(((builder, context) -> {
+        FuelRegistryEvents.BUILD.register(((builder, _) -> {
             builder.add(ItemsSD.CHARCOAL_BLOCK, 200 * 8 * 10);
             builder.add(ItemTagsSD.TENTS, 200 * 3);
         }));
