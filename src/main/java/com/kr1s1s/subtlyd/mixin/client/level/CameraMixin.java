@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
 import com.kr1s1s.subtlyd.client.OptionInstanceSD;
-import com.kr1s1s.subtlyd.client.util.ScreenShake;
+import com.kr1s1s.subtlyd.util.ScreenShake;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -51,9 +51,8 @@ public abstract class CameraMixin {
      * @param f The entity head rotation angle
      */
     private void setCampingPlayerCamera(Entity entity, float f) {
-        if (entity instanceof LivingEntity livingEntity && livingEntity.isSleeping()) {
-            if (TentEntity.inTent(entity)) {
-
+        if (entity instanceof LivingEntity livingEntity) {
+            if (TentEntity.getTent(livingEntity, true) != null) {
                 this.setRotation(livingEntity.getViewYRot(f), -90F);
                 this.setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
             }

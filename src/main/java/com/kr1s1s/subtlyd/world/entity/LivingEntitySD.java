@@ -1,15 +1,13 @@
 package com.kr1s1s.subtlyd.world.entity;
 
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class LivingEntitySD extends LivingEntity {
 
@@ -18,23 +16,25 @@ public class LivingEntitySD extends LivingEntity {
     }
 
     /**
-     * Handles a tent sleep attempt.
+     * Handles a tent sleep attempt. Searches for players that are sleeping within the specified tent.
      * @param blockPos Tent location
-     * @param tent Tent player is sleeping in
+     * @param tent Tent to test
      * @param player Sleeping player
      */
     public static void startSleepingInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
+        boolean foundSleepingPlayer = false;
+
         if (player.isPassenger()) {
             player.stopRiding();
         }
 
-        boolean foundSleepingPlayer = false;
-        for (Player anyPlayer : player.level().players()) {
-            if (TentEntity.inTent(anyPlayer, tent) && anyPlayer.isSleeping()) {
+        for (Player anyplayer : PlayerLookup.tracking(tent)) {
+            if (TentEntity.getTent(anyplayer, true) != null) {
                 foundSleepingPlayer = true;
                 break;
             }
         }
+
         tent.occupied = foundSleepingPlayer;
         player.setPose(Pose.SLEEPING);
         player.setYRot(tent.getYRot());
@@ -45,19 +45,11 @@ public class LivingEntitySD extends LivingEntity {
         player.setIgnoreFallDamageFromCurrentImpulse(true);
     }
 
-    public void stopSleepingSD() {
-        this.getSleepingPos().filter(this.level()::isLoaded).ifPresent(blockPos -> {
-            List<TentEntity> tents = this.level().getEntitiesOfClass(TentEntity.class, new AABB(blockPos).inflate(1.0));
-            for (TentEntity tent : tents) {
-                tent.occupied = false;
-            }
-
-            if (TentEntity.inTentRange(this)) {
-                super.stopSleeping();
-            }
-        });
-    }
-
+    /**
+     * Sets the sleeping position of a camping player.
+     * @param blockPos The position of the tent.
+     * @param player The player to move.
+     */
     private static void setPosToTent(BlockPos blockPos, ServerPlayer player) {
         player.setPos(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
     }

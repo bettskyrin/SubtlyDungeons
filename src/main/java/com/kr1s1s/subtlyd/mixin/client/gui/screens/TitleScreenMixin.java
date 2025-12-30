@@ -130,7 +130,7 @@ public class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Prevents the game version from being rendered at the bottom of the screen. The game version may still be found via the Debug menu.
+     * Prevents the protocol version from being rendered at the bottom of the screen. The protocol version may still be found via the Debug menu.
      */
     @Redirect(method = "render",
             at = @At(

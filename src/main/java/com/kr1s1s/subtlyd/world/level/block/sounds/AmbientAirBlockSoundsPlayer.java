@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.world.level.block.sounds;
 
-import com.kr1s1s.subtlyd.data.tags.BiomeTagsSD;
-import com.kr1s1s.subtlyd.data.tags.BlockTagsSD;
+import com.kr1s1s.subtlyd.util.data.tags.BiomeTagsSD;
+import com.kr1s1s.subtlyd.util.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

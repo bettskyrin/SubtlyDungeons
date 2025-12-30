@@ -22,9 +22,9 @@ public class PlayerMixin {
      * Wakes up the player once it's daytime
      */
     private void tickTentSleep() {
-        if (TentEntity.inTent(player) && player.isSleeping()) {
+        if (TentEntity.getTent(player, true) != null) {
             if (!player.level().isClientSide() && player.level().isBrightOutside()) {
-                ServerPlayerSD.stopSleepInTent(true, (ServerPlayer) player);
+                player.stopSleepInBed(false, true);
             }
         }
     }

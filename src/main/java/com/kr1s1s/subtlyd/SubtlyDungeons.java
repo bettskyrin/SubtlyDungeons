@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd;
 
-import com.kr1s1s.subtlyd.data.GameplayEventsSD;
+import com.kr1s1s.subtlyd.util.GameplayEventsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;

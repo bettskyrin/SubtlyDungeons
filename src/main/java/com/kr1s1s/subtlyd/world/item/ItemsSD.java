@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.world.item;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.data.tags.BlockTagsSD;
+import com.kr1s1s.subtlyd.util.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;

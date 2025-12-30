@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.SubtlyDungeons;
-import com.kr1s1s.subtlyd.data.tags.DamageTypeTagsSD;
+import com.kr1s1s.subtlyd.util.data.tags.DamageTypeTagsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -20,6 +20,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
@@ -265,9 +266,11 @@ public class TentEntity extends Entity {
      * @param entity Entity to check
      * @return True if in range
      */
-    public static boolean inTentRange(Entity entity) {
+    @Deprecated
+    public boolean inTentRange(Entity entity) {
         AABB box = entity.getBoundingBox().inflate(2.0);
-        return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
+        return !(entity.level().getEntities(this, box).isEmpty());
+        //return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
     }
 
     /**
@@ -275,6 +278,7 @@ public class TentEntity extends Entity {
      * @param entity Entity to check
      * @return True if inside a tent
      */
+    @Deprecated
     public static boolean inTent(Entity entity) {
         AABB box = entity.getBoundingBox().deflate(1.0);
         return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
@@ -286,9 +290,25 @@ public class TentEntity extends Entity {
      * @param tent Tent to check
      * @return True if inside the specified tent
      */
+    @Deprecated
     public static boolean inTent(Entity entity, TentEntity tent) {
         AABB box = entity.getBoundingBox().deflate(1.0);
         return !(entity.level().getEntities(tent, box).isEmpty());
+    }
+
+    /***
+     * Used for testing for or getting the tent an entity (player) is using.
+     * @param livingEntity The entity to check.
+     * @return The tent the entity is actively using.
+     */
+    public static TentEntity getTent(LivingEntity livingEntity, boolean isSleeping) {
+        int bB = isSleeping ? -1 : 2;
+        TentEntity tent = livingEntity.level().getEntitiesOfClass(TentEntity.class, livingEntity.getBoundingBox().inflate(bB)).stream().findFirst().orElse(null);
+
+        if (isSleeping && !livingEntity.isSleeping()) {
+            return null;
+        }
+        return tent;
     }
 
     /**

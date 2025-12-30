@@ -87,7 +87,7 @@ public class WorldOpenFlowsSD {
                 );
                 this.minecraft.doWorldLoad(levelStorageAccess, packRepository, worldStem, true);
             } catch (Exception var11) {
-                LOGGER.warn("Failed to load datapacks, can't proceed with server load", (Throwable)var11);
+                LOGGER.warn("Failed to load datapacks, can't proceed with common load", (Throwable)var11);
                 levelStorageAccess.safeClose();
                 this.minecraft.setScreen(screen);
             }
@@ -330,7 +330,7 @@ public class WorldOpenFlowsSD {
                 levelStem.generator().validate();
             }
         } catch (Exception var9) {
-            LOGGER.warn("Failed to load level data or datapacks, can't proceed with server load", (Throwable)var9);
+            LOGGER.warn("Failed to load level data or datapacks, can't proceed with common load", (Throwable)var9);
             if (!bl) {
                 this.minecraft.setScreen(new DatapackLoadFailureScreen(() -> {
                     levelStorageAccess.safeClose();

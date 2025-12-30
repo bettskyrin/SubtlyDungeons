@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.ScreenShake;
+import com.kr1s1s.subtlyd.util.ScreenShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

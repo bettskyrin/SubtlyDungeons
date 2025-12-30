@@ -23,8 +23,8 @@ jobs:
       - name: build
         run: ./gradlew build
 
-      - name: detect game version
-        id: get-game-version
+      - name: detect protocol version
+        id: get-protocol-version
         run: |
           if [ ! -f gradle.properties ]; then
             echo "Error: gradle.properties not found!" >&2
@@ -69,7 +69,7 @@ jobs:
           version-type: release
           changelog: ${{ steps.changelog.outputs.changelog }}
           loaders: fabric
-          game-version: ${{ steps.get-game-version.outputs.version }}
+          game-version: ${{ steps.get-protocol-version.outputs.version }}
           game-versions: |
             - ${{ steps.get-game-version.outputs.version }}
           java: 25
