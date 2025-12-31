@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 @Mixin(MinecraftServer.class)
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class MinecraftServerMixin {
     @Shadow @Final private static Logger LOGGER;
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;

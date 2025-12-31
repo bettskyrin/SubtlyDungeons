@@ -32,6 +32,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void extractClimberJockeyState(T entity, SpiderAnimationAccessor spider, S state, SpiderRenderStateAccessor stateAccessor, float partialTicks) {
         float transition = spider.getClimbTransition(partialTicks);
 
