@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
+#### Splash Text
+- Added "We <3 spiders!" splash text
+
 ### Technical Changes
 #### Data Tags
 - The "dripstone" block tag is now "polished_dripstone"
