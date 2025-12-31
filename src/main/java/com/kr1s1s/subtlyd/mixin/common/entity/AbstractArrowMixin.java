@@ -1,6 +1,8 @@
 package com.kr1s1s.subtlyd.mixin.common.entity;
 
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.SERVER)
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
     AbstractArrow arrow = (AbstractArrow) (Object) (this);

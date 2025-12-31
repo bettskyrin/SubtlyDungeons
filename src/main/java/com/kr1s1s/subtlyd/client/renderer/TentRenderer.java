@@ -32,7 +32,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
         this.model = new TentModel(context.bakeLayer(modelLayerLocation));
-        this.texture = modelLayerLocation.model().withPath(string -> "textures/entity/" + string + ".png");
+        this.texture = modelLayerLocation.model().withPath(color -> "textures/entity/" + color + ".png");
         this.shadowRadius = 1.8F;
     }
 
@@ -44,6 +44,10 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         return new TentRenderState();
     }
 
+    /**
+     * Assists in tent rendering. Allows for the tent model to shake when damaged.
+     * @param tent The rendering tent entity
+     */
     public void extractRenderState(TentEntity tent, TentRenderState renderState, float partialTicks) {
         super.extractRenderState(tent, renderState, partialTicks);
         renderState.scale = 1.0F;

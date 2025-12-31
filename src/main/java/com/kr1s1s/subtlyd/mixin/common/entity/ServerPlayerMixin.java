@@ -20,7 +20,7 @@ public class ServerPlayerMixin {
     }
 
     /**
-     * Prevents setting respawn position if it's not a bed (i.e., a tent).
+     * Prevents setting respawn position if it's not a bed (i.e. a tent).
      */
     public void preventTentRespawnSetting(@Nullable ServerPlayer.RespawnConfig respawnConfig, CallbackInfo ci) {
         if (respawnConfig != null) {

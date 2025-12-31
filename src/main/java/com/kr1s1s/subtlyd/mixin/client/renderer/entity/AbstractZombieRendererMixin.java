@@ -49,6 +49,4 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     public void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader(ZombieSD.isLeader(entity));
     }
-
-
 }

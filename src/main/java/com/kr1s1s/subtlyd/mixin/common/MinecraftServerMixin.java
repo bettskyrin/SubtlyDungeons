@@ -24,7 +24,7 @@ public class MinecraftServerMixin {
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
 
     @Inject(method = "loadStatusIcon", at = @At("RETURN"), cancellable = true)
-    private void changeIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci, @Local Optional<Path> optional) {
+    private void changeIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci, @Local(name = "iconPath") Optional<Path> optional) {
         ci.setReturnValue(newLoadStatusIcon(optional));
     }
 
