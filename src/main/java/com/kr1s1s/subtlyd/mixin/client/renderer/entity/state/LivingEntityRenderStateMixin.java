@@ -52,7 +52,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
 
     /**
      * Sets the "isJockey" status of the render state.
-     * @param isJockey The isJockey status.
+     * @param bl The isJockey status.
      */
     @Override public void subtlyDungeons$setJockey(boolean bl) {
         this.isJockey = bl;
