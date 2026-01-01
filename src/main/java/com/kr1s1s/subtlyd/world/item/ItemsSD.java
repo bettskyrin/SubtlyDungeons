@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.world.item;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.util.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
@@ -140,11 +140,11 @@ public class ItemsSD {
     }
 
     private static ResourceKey<Item> blockIdToItemIdSD(String location) {
-        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.identifier(location));
+        return ResourceKey.create(Registries.ITEM, Util.identifier(location));
     }
 
     private static ResourceKey<Item> resourceKey(String name) {
-        return ResourceKey.create(Registries.ITEM, SubtlyDungeons.identifier(name));
+        return ResourceKey.create(Registries.ITEM, Util.identifier(name));
     }
 
 }

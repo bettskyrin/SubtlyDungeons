@@ -1,8 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.renderer.entity;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.renderer.ZombieRenderStateAccessor;
-import com.kr1s1s.subtlyd.world.entity.monster.ZombieSD;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
@@ -17,11 +16,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractZombieRenderer.class)
 public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>>{
     @SuppressWarnings("unchecked")
-    AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
-
-    private final Identifier ZOMBIE_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/zombie_leader.png");
-    private final Identifier DROWNED_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/drowned_leader.png");
-    private final Identifier HUSK_LEADER_LOCATION = SubtlyDungeons.identifier("textures/entity/zombie/husk_leader.png");
+    final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
+    final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
+    final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
+    final Identifier HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader.png");
+    final double ZOMBIE_BASE_HEALTH_POINTS = 20D;
 
     /**
      * Changes the zombie leader texture to their unique design.
@@ -47,6 +46,6 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
     public void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader(ZombieSD.isLeader(entity));
+        ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader((entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS && entity.canBreakDoors()));
     }
 }

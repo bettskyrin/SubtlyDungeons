@@ -3,21 +3,19 @@
   "package": "com.kr1s1s.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "client.entity.monster.SpiderMixin",
-    "common.MinecraftServerMixin",
+    "common.entity.AbstractArrowMixin",
     "common.entity.EntityMixin",
-    "common.entity.PlayerAccessor",
+    "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
     "common.entity.monster.RaiderMixin",
-    "common.entity.monster.ZombieMixin",
     "common.world.item.ItemAccessor",
     "common.world.item.ItemsMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
     "client.entity.EntityMixin",
-    "client.entity.PlayerMixin",
     "client.entity.monster.LivingEntityRendererMixin",
+    "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
     "client.item.ItemStackMixin",
@@ -30,15 +28,13 @@
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
     "client.renderer.entity.state.LivingEntityRenderStateMixin",
-    "client.renderer.entity.state.ZombieRenderStateMixin"
+    "client.renderer.entity.state.ZombieRenderStateMixin",
+    "common.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "overwrites": {
     "requireAnnotations": true
-  },
-  "server": [
-    "common.entity.AbstractArrowMixin"
-  ]
+  }
 }

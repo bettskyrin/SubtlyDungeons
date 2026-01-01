@@ -1,8 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.common.entity;
 
 import com.kr1s1s.subtlyd.world.level.GameRulesSD;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
@@ -17,15 +15,14 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.SERVER)
 @Mixin(AbstractArrow.class)
 public abstract class AbstractArrowMixin {
-    AbstractArrow arrow = (AbstractArrow) (Object) (this);
+    private final AbstractArrow arrow = (AbstractArrow) (Object) (this);
     private final Level level = arrow.level();
     @Shadow protected abstract boolean isInGround();
 
     @Inject(method = "onHitBlock", at = @At("RETURN"))
-    public void onHitBlock(CallbackInfo ci) {
+    private void onHitBlock(CallbackInfo ci) {
         trySetFire();
     }
 
@@ -44,7 +41,7 @@ public abstract class AbstractArrowMixin {
     }
 
     /**
-     * Determines where a fire block should be placed based on the arrows direction.
+     * Determines where a fire block should be placed based on the arrow's direction.
      * @param blockPos The block the arrow landed in
      */
     private void setFire(BlockPos blockPos) {

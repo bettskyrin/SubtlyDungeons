@@ -11,18 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin {
-    @SuppressWarnings("DataFlowIssue")
     private final ServerPlayer player = (ServerPlayer) (Object) this;
-
-    @Inject(method = "setRespawnPosition", at = @At("HEAD"), cancellable = true)
-    public void setRespawnPosition(@Nullable ServerPlayer.RespawnConfig respawnConfig, boolean bl, CallbackInfo ci) {
-        preventTentRespawnSetting(respawnConfig, ci);
-    }
 
     /**
      * Prevents setting respawn position if it's not a bed (i.e. a tent).
      */
-    public void preventTentRespawnSetting(@Nullable ServerPlayer.RespawnConfig respawnConfig, CallbackInfo ci) {
+    @Inject(method = "setRespawnPosition", at = @At("HEAD"), cancellable = true)
+    private void preventTentRespawnSetting(@Nullable ServerPlayer.RespawnConfig respawnConfig, boolean showMessage, CallbackInfo ci) {
         if (respawnConfig != null) {
             BlockState blockState = player.level().getBlockState(respawnConfig.respawnData().pos());
             if (!(blockState.getBlock() instanceof BedBlock)) {

@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.util.data.tags;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -94,7 +94,7 @@ public class BlockTagsSD extends FabricTagProvider.BlockTagProvider {
     }
 
     private static TagKey<Block> create(String string) {
-        return TagKey.create(Registries.BLOCK, SubtlyDungeons.identifier(string));
+        return TagKey.create(Registries.BLOCK, Util.identifier(string));
     }
 
     /**

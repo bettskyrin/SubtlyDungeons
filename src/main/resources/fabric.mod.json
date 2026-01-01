@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.kr1s1s.subtlyd.SubtlyDungeons"
+			"com.kr1s1s.subtlyd.util.InitializerSD"
 		],
 		"fabric-datagen": [
-			"com.kr1s1s.subtlyd.SubtlyDungeonsDataGenerator"
+			"com.kr1s1s.subtlyd.util.DataGeneratorSD"
 		],
       "client": [
-        "com.kr1s1s.subtlyd.SubtlyDungeonsClient"
+		  "com.kr1s1s.subtlyd.util.ClientInitializerSD"
       ]
 	},
 	"mixins": [

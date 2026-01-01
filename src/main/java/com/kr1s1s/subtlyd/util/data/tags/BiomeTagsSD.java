@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.util.data.tags;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -34,6 +34,6 @@ public class BiomeTagsSD extends BiomeTagsProvider {
     }
 
     private static TagKey<Biome> create(String string) {
-        return TagKey.create(Registries.BIOME, SubtlyDungeons.identifier(string));
+        return TagKey.create(Registries.BIOME, Util.identifier(string));
     }
 }

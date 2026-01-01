@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.world.block;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -52,7 +52,7 @@ public class BlocksSD {
 
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {
-        return ResourceKey.create(Registries.BLOCK, SubtlyDungeons.identifier(name));
+        return ResourceKey.create(Registries.BLOCK, Util.identifier(name));
     }
 
     private static Block register(String string, BlockBehaviour.Properties properties) {

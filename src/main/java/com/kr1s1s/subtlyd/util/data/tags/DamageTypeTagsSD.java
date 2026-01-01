@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.util.data.tags;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -29,6 +29,6 @@ public class DamageTypeTagsSD extends KeyTagProvider<DamageType> {
     }
 
     private static TagKey<DamageType> create(String string) {
-        return TagKey.create(Registries.DAMAGE_TYPE, SubtlyDungeons.identifier(string));
+        return TagKey.create(Registries.DAMAGE_TYPE, Util.identifier(string));
     }
 }

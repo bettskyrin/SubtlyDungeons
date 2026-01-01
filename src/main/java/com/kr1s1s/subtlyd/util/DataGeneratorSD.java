@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd;
+package com.kr1s1s.subtlyd.util;
 
 import com.kr1s1s.subtlyd.world.level.levelgen.BiomeProviderSD;
 import com.kr1s1s.subtlyd.util.data.ModelProviderSD;
@@ -12,8 +12,7 @@ import com.kr1s1s.subtlyd.util.data.tags.ItemTagsSD;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
-@SuppressWarnings("unused")
-public class SubtlyDungeonsDataGenerator implements DataGeneratorEntrypoint {
+public class DataGeneratorSD implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();

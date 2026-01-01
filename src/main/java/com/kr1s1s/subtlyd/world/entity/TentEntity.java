@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.world.entity;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.util.data.tags.DamageTypeTagsSD;
 import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.core.component.DataComponents;
@@ -53,7 +53,7 @@ public class TentEntity extends Entity {
     }
 
     public static Identifier getLocation(DyeColor color) {
-        return SubtlyDungeons.identifier(color.toString() + "_tent");
+        return Util.identifier(color.toString() + "_tent");
     }
 
     public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {

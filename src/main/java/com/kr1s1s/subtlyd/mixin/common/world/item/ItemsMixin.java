@@ -29,13 +29,13 @@ public class ItemsMixin {
                 .set(DataComponents.FOOD, FoodsSD.BROWN_MUSHROOM)
                 .set(DataComponents.CONSUMABLE, Consumables.DEFAULT_FOOD)
                 .build();
-        ((ItemAccessor) BROWN_MUSHROOM).setComponents(brownMushroom);
-
         DataComponentMap redMushroom = DataComponentMap.builder()
                 .addAll(RED_MUSHROOM.components())
                 .set(DataComponents.FOOD, FoodsSD.RED_MUSHROOM)
                 .set(DataComponents.CONSUMABLE, ConsumablesSD.RED_MUSHROOM)
                 .build();
+
+        ((ItemAccessor) BROWN_MUSHROOM).setComponents(brownMushroom);
         ((ItemAccessor) RED_MUSHROOM).setComponents(redMushroom);
     }
 }

@@ -13,39 +13,43 @@ public class ClimberUtil {
      * @return The direction of the nearest wall to a climbing entity.
      */
     public static Direction getNearestWall(Entity entity) {
-        Direction facing = entity.getDirection();
-        BlockPos blockPos = entity.blockPosition();
-        if (!entity.level().getBlockState(blockPos.relative(facing)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
-            return facing;
-        }
+        if (entity != null) {
+            Direction facing = entity.getDirection();
+            BlockPos blockPos = entity.blockPosition();
+            if (!entity.level().getBlockState(blockPos.relative(facing)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
+                return facing;
+            }
 
-        for (Direction dir : Direction.Plane.HORIZONTAL) {
-            if (!entity.level().getBlockState(blockPos.relative(dir)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
-                return dir;
+            for (Direction dir : Direction.Plane.HORIZONTAL) {
+                if (!entity.level().getBlockState(blockPos.relative(dir)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
+                    return dir;
+                }
             }
         }
         return null;
     }
 
     /**
-     * Used for finding the yaw value of a climbing entity.
+     * Used for finding the rotation angle of a climbing entity.
      * @param climber The climbing entity.
      * @param nearestWall The nearest climbable wall.
      * @return The angle of the climbing entity relative to the wall (yaw) in degrees.
      */
     @SuppressWarnings("SuspiciousNameCombination")
-    public static float getClimberYaw(Entity climber, Direction nearestWall) {
+    public static float getClimberRotation(Entity climber, Direction nearestWall) {
         float yaw = 0.0F;
-        Vec3 vel = climber.getDeltaMovement();
+        if (climber != null && nearestWall != null) {
+            Vec3 vel = climber.getDeltaMovement();
 
-        if (vel.lengthSqr() > 0) {
-            switch (nearestWall) {
-                case NORTH -> yaw = (float) Mth.atan2(vel.x, vel.y);
-                case EAST ->  yaw = (float) Mth.atan2(vel.z, vel.y);
-                case SOUTH ->  yaw = (float) Mth.atan2(-vel.x, vel.y);
-                case WEST ->  yaw = (float) Mth.atan2(-vel.z, vel.y);
+            if (vel.lengthSqr() > 0) {
+                switch (nearestWall) {
+                    case NORTH -> yaw = (float) Mth.atan2(vel.x, vel.y);
+                    case EAST ->  yaw = (float) Mth.atan2(vel.z, vel.y);
+                    case SOUTH ->  yaw = (float) Mth.atan2(-vel.x, vel.y);
+                    case WEST ->  yaw = (float) Mth.atan2(-vel.z, vel.y);
+                }
+                yaw = (float) Math.toDegrees(yaw);
             }
-            yaw = (float) Math.toDegrees(yaw);
         }
         return yaw;
     }

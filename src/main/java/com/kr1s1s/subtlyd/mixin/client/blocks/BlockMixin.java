@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.blocks;
 
-import com.kr1s1s.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
 import com.kr1s1s.subtlyd.world.level.block.sounds.AmbientAirBlockSoundsPlayer;
+import com.kr1s1s.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -20,12 +20,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "animateTick", at = @At("HEAD"))
-    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
-        playAmbientSounds(blockState, level, blockPos, randomSource);
+    private void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
+        playAmbientSounds(blockState.getBlock(), level, blockPos, randomSource);
     }
 
-    private void playAmbientSounds(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
-        Block block = blockState.getBlock();
+    /**
+     * Plays block based ambient sounds.
+     * @param block The sound playing block.
+     * @param level The world/level.
+     * @param blockPos The block position to play the sound at.
+     * @param randomSource A randomSource type to determine the likelihood of sounds playing.
+     */
+    private void playAmbientSounds(Block block, Level level, BlockPos blockPos, RandomSource randomSource) {
         if (block instanceof AirBlock) {
             AmbientAirBlockSoundsPlayer.playColdWindSounds(level, blockPos, randomSource);
         } else if (block instanceof BushBlock) {

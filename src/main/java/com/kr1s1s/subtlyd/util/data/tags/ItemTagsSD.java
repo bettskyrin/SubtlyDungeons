@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.util.data.tags;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -34,7 +34,7 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
     }
 
     private static TagKey<Item> create(String string) {
-        return TagKey.create(Registries.ITEM, SubtlyDungeons.identifier(string));
+        return TagKey.create(Registries.ITEM, Util.identifier(string));
     }
 
     /**

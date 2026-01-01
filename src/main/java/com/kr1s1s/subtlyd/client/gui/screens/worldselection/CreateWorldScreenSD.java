@@ -3,7 +3,6 @@ package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
-import com.kr1s1s.subtlyd.SubtlyDungeons;
 import com.kr1s1s.subtlyd.client.gui.components.GameTabButton;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
@@ -699,7 +698,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.survival"),
                             button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL),
-                            SubtlyDungeons.identifier("textures/gui/sprites/widget/survival.png"),
+                            com.kr1s1s.subtlyd.util.Util.identifier("textures/gui/sprites/widget/survival.png"),
                             200, 140
                     ).build()
             );
@@ -710,7 +709,7 @@ public class CreateWorldScreenSD extends Screen { // TODO
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.creative"),
                             button-> CreateWorldScreenSD.this.uiState.setGameMode(WorldCreationUiStateSD.SelectedGameMode.CREATIVE),
-                            SubtlyDungeons.identifier("textures/gui/sprites/widget/creative.png"),
+                            com.kr1s1s.subtlyd.util.Util.identifier("textures/gui/sprites/widget/creative.png"),
                             200, 140
                     ).build()
             );

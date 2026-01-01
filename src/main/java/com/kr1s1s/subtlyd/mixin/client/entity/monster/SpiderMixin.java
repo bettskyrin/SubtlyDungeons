@@ -1,7 +1,9 @@
 package com.kr1s1s.subtlyd.mixin.client.entity.monster;
 
 import com.kr1s1s.subtlyd.util.ClimberUtil;
-import com.kr1s1s.subtlyd.client.entity.monster.SpiderAnimationAccessor;
+import com.kr1s1s.subtlyd.client.entity.monster.ClimberAccessor;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -14,14 +16,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Environment(EnvType.CLIENT)
 @Mixin(Spider.class)
-public abstract class SpiderMixin implements SpiderAnimationAccessor {
-    LivingEntity livingEntity = ((LivingEntity) (Object) this);
-
-    private float climbProgress0;
-    private float climbProgress1;
-    private float climbRot0;
-    private float climbRot1;
+public abstract class SpiderMixin implements ClimberAccessor {
+    private final LivingEntity livingEntity = ((LivingEntity) (Object) this);
+    private float progOld; // Animation progress
+    private float progNew;
+    private float rotOld; // Rotation progress
+    private float rotNew;
+    
     @Shadow public abstract boolean isClimbing();
 
     /**
@@ -30,47 +33,55 @@ public abstract class SpiderMixin implements SpiderAnimationAccessor {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnim(CallbackInfo ci) {
-        Vec3 velocity = livingEntity.getDeltaMovement();
-        float transitionRate = 0.2F;
+        final float ANIM_RATE = 0.2F;
+        float SPEED_MULTIPLIER = 8.0F;
+        Vec3 vel = livingEntity.getDeltaMovement();
         Direction nearestWall = ClimberUtil.getNearestWall(livingEntity);
+        float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
+        progOld = progNew;
 
-        float pitch = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
-        this.climbProgress0 = this.climbProgress1;
-
-        if (this.isClimbing()) {
-            float speedMultiplier = 8.0F;
-            float animationSpeed = (float) Math.min(velocity.length() * speedMultiplier, 1.0F);
+        if (isClimbing()) {
+            float animationSpeed = (float) Math.min(vel.length() * SPEED_MULTIPLIER, 1.0F);
             float legPosition0 = livingEntity.walkAnimation.position();
+            progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
-            this.climbProgress1 = Math.min(1.0F, this.climbProgress1 + transitionRate);
             livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-
             if (Mth.floor(livingEntity.walkAnimation.position()) < Mth.ceil(legPosition0 + 0.1F)) {
                 livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
             }
         } else {
-            this.climbProgress1 = Math.max(0.0F, this.climbProgress1 - transitionRate);
+            progNew = Math.max(0.0F, progNew - ANIM_RATE);
         }
-
-        this.tickRotation(pitch);
+        subtlyDungeons$tickRotation(targetRot);
+    }
+    
+     /**
+     * Used for getting smoothed climber animations.
+     * @param partialTicks The partial ticks.
+     * @return Value from 0.0 to 1.0 Representing the animation's completion.
+     */
+    @Override
+    public float subtlyDungeons$getClimbTransition(float partialTicks) {
+        return Mth.lerp(partialTicks, progOld, progNew);
     }
 
     /**
-     * @see SpiderAnimationAccessor
+     * Used for getting smoothed climber rotation animations.
+     * @param partialTicks The partial ticks.
+     * @return Value from 0.0 to 1.0 Representing the animation's completion.
      */
     @Override
-    public float getClimbTransition(float partialTicks) {
-        return Mth.lerp(partialTicks, this.climbProgress0, this.climbProgress1);
+    public float subtlyDungeons$getRotation(float partialTicks) {
+        return Mth.rotLerp(partialTicks, rotOld, rotNew);
     }
 
+    /**
+     * Used to move the targeted climber angle based on the targeted angle.
+     * @param targetRot The target rotation.
+     */
     @Override
-    public float getRotation(float partialTicks) {
-        return Mth.rotLerp(partialTicks, this.climbRot0, this.climbRot1);
-    }
-
-    @Override
-    public void tickRotation(float rotation) {
-        this.climbRot0 = this.climbRot1;
-        this.climbRot1 = Mth.rotLerp(0.2F, this.climbRot0, rotation);
+    public void subtlyDungeons$tickRotation(float targetRot) {
+        rotOld = rotNew;
+        rotNew = Mth.rotLerp(0.2F, rotOld, targetRot);
     }
 }

@@ -2,6 +2,8 @@ package com.kr1s1s.subtlyd.mixin.common;
 
 import com.kr1s1s.subtlyd.util.WorldIconState;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.PngInfo;
@@ -60,5 +62,4 @@ public class MinecraftServerMixin {
             }
         });
     }
-
 }

@@ -19,11 +19,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
-    @Shadow
-    private boolean fading;
-    TitleScreen titleScreen = (TitleScreen) (Object) this;
-    int BUTTON_HEIGHT = 20;
-    int SPRITE_XPOS = 4;
+    @Shadow private boolean fading;
+    private final int BUTTON_HEIGHT = 20;
+    private final int SPRITE_XPOS = 4;
 
     protected TitleScreenMixin(Component component) {
         super(component);
@@ -34,10 +32,8 @@ public class TitleScreenMixin extends Screen {
      * @return Null
      */
     @Nullable
-    @Redirect(
-            method = "init",
-            at = @At(
-                    value = "INVOKE",
+    @Redirect(method = "init",
+            at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     ordinal = 0))
     private GuiEventListener cancelDeclaration(TitleScreen instance, GuiEventListener guiEventListener) {
@@ -47,12 +43,7 @@ public class TitleScreenMixin extends Screen {
     /**
      * Prevents the language button position from being set.
      */
-    @Redirect(
-            method = "init",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V",
-                    ordinal = 0))
+    @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V", ordinal = 0))
     private void cancelPosition(SpriteIconButton instance, int i, int j) {}
 
     /**
@@ -64,10 +55,10 @@ public class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     ordinal = 3))
     private void moveLang(CallbackInfo ci) {
-        SpriteIconButton spriteIconButton = this.addRenderableWidget(
-                CommonButtons.language(
-                        20, _ -> this.minecraft.setScreen(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())), true
-                )
+        SpriteIconButton spriteIconButton = this.addRenderableWidget(CommonButtons.language(
+                20,
+                _ -> this.minecraft.setScreen(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
+                true)
         );
         spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
     }
@@ -130,7 +121,7 @@ public class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Prevents the protocol version from being rendered at the bottom of the screen. The protocol version may still be found via the Debug menu.
+     * Prevents the update version from being rendered at the bottom of the screen. The update version may still be found via the Debug menu.
      */
     @Redirect(method = "render",
             at = @At(
@@ -141,9 +132,7 @@ public class TitleScreenMixin extends Screen {
     /**
      * Renders the player in the bottom right corner of the screen after the fade animation is complete, as player shaders do not support transparency.
      */
-    @Inject(method = "render",
-            at = @At("TAIL")
-    )
+    @Inject(method = "render", at = @At("TAIL"))
     private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         if (!this.fading) {
             GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2 + 170, this.height / 4 + 132, 40, mouseX, mouseY);

@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.sounds;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -19,7 +19,7 @@ public class SoundEventsSD {
     public static void registration() { }
 
     private static SoundEvent register(String string) {
-        return register(SubtlyDungeons.identifier(string));
+        return register(Util.identifier(string));
     }
 
     private static SoundEvent register(Identifier resourceLocation) { return register(resourceLocation, resourceLocation); }

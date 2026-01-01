@@ -45,7 +45,7 @@ public class ServerLevelMixin {
         if (player != null) {
             float maxDistance = 16 * (power / 3);
             float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-            ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
+            ScreenShake.setShake(15, maxDistance, distance, power / 2);
         }
     }
 }

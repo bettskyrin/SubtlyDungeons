@@ -1,20 +1,16 @@
 package com.kr1s1s.subtlyd.world.entity;
 
 import com.kr1s1s.subtlyd.client.entity.player.PlayerSD;
-import com.kr1s1s.subtlyd.mixin.common.entity.PlayerAccessor;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.attribute.EnvironmentAttributes;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.storage.LevelData;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -61,7 +57,6 @@ public class ServerPlayerSD extends ServerPlayer {
                         return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                     }
                 }
-                ((PlayerAccessor) player).setSleepCounter(0);
                 Either<PlayerSD.TentSleepingProblem, Unit> either = PlayerSD.startSleepInTent(blockPos, tent, player);
                 player.level().updateSleepingPlayerList();
                 return either;

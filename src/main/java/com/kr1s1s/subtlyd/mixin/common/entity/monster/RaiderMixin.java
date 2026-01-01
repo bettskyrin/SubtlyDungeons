@@ -22,6 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
+@SuppressWarnings("DataFlowIssue")
 @Mixin(Raider.class)
 public class RaiderMixin {
     private final Raider raider = (Raider) (Object) this;

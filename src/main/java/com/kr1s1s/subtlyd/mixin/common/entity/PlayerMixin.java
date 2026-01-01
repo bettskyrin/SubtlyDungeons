@@ -1,8 +1,7 @@
-package com.kr1s1s.subtlyd.mixin.client.entity;
+package com.kr1s1s.subtlyd.mixin.common.entity;
 
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
-import com.kr1s1s.subtlyd.world.entity.ServerPlayerSD;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,8 +21,8 @@ public class PlayerMixin {
      * Wakes up the player once it's daytime
      */
     private void tickTentSleep() {
-        if (TentEntity.getTent(player, true) != null) {
-            if (!player.level().isClientSide() && player.level().isBrightOutside()) {
+        if (player.level() instanceof ServerLevel && player.level().isBrightOutside()) {
+            if (TentEntity.getTent(player, true) != null) {
                 player.stopSleepInBed(false, true);
             }
         }
