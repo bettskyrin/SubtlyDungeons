@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.entity.monster;
 
-import com.kr1s1s.subtlyd.util.ClimberUtil;
 import com.kr1s1s.subtlyd.client.entity.monster.ClimberAccessor;
+import com.kr1s1s.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.Direction;
@@ -32,11 +32,11 @@ public abstract class SpiderMixin implements ClimberAccessor {
      * The step sound's frequency is determined by determining if the original position value rounded up is greater than the current position value rounded down.
      */
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tickClimbingAnim(CallbackInfo ci) {
+    private void tickClimbingAnim(CallbackInfo ci) {  // TODO Upside down
         final float ANIM_RATE = 0.2F;
         float SPEED_MULTIPLIER = 8.0F;
         Vec3 vel = livingEntity.getDeltaMovement();
-        Direction nearestWall = ClimberUtil.getNearestWall(livingEntity);
+        Direction nearestWall = Util.Logic.getNearestWall(livingEntity);
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
 

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.Mixin;
 public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAccessor {
     private float climbProgress;
     private float climbRotation;
-    private boolean jockey;
+    private boolean isJockey;
 
     /**
      * @return The progress of the climb animation.
@@ -28,10 +28,10 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     }
 
     /**
-     * @return Whether the render state is for a jockey or not.
+     * @return Whether the render state is for a isJockey or not.
      */
     @Override public boolean subtlyDungeons$isJockey() {
-        return jockey;
+        return isJockey;
     }
 
     /**
@@ -51,10 +51,10 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     }
 
     /**
-     * Sets the "jockey" status of the render state.
-     * @param isJockey The jockey status.
+     * Sets the "isJockey" status of the render state.
+     * @param isJockey The isJockey status.
      */
-    @Override public void subtlyDungeons$setJockey(boolean isJockey) {
-        this.jockey = isJockey;
+    @Override public void subtlyDungeons$setJockey(boolean bl) {
+        this.isJockey = bl;
     }
 }

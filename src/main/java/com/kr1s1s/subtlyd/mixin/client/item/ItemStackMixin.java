@@ -13,29 +13,29 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    private final ItemStack itemStack = (ItemStack) (Object) this;
-    private final List<Item> uncommonItems = List.of(Items.NETHERITE_AXE,
-            Items.NETHERITE_HOE,
-            Items.NETHERITE_PICKAXE,
-            Items.NETHERITE_SHOVEL,
-            Items.NETHERITE_SPEAR,
-            Items.NETHERITE_SWORD,
-            Items.NETHERITE_HELMET,
-            Items.NETHERITE_CHESTPLATE,
-            Items.NETHERITE_LEGGINGS,
-            Items.NETHERITE_BOOTS,
-            Items.NETHERITE_HORSE_ARMOR,
-            Items.NETHERITE_NAUTILUS_ARMOR,
-            Items.OMINOUS_TRIAL_KEY,
-            Items.LINGERING_POTION,
-            Items.TIPPED_ARROW);
-    private final List<Item> rareItems = List.of(Items.WITHER_ROSE);
-
+    final ItemStack itemStack = (ItemStack) (Object) this;
     /**
      * Modifies the rarity level of items
      */
     @Inject(method = "getRarity", at = @At("HEAD"), cancellable = true)
     private void getRarity(CallbackInfoReturnable<Rarity> cir) {
+        List<Item> uncommonItems = List.of(Items.NETHERITE_AXE,
+                Items.NETHERITE_HOE,
+                Items.NETHERITE_PICKAXE,
+                Items.NETHERITE_SHOVEL,
+                Items.NETHERITE_SPEAR,
+                Items.NETHERITE_SWORD,
+                Items.NETHERITE_HELMET,
+                Items.NETHERITE_CHESTPLATE,
+                Items.NETHERITE_LEGGINGS,
+                Items.NETHERITE_BOOTS,
+                Items.NETHERITE_HORSE_ARMOR,
+                Items.NETHERITE_NAUTILUS_ARMOR,
+                Items.OMINOUS_TRIAL_KEY,
+                Items.LINGERING_POTION,
+                Items.TIPPED_ARROW);
+        List<Item> rareItems = List.of(Items.WITHER_ROSE);
+
         if (uncommonItems.contains(itemStack.getItem())) {
             cir.setReturnValue(Rarity.UNCOMMON);
         } else if (rareItems.contains(itemStack.getItem())) {

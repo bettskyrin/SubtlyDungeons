@@ -1,5 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.options;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.network.chat.Component;
@@ -13,12 +15,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Environment(EnvType.CLIENT)
 @Mixin(SplashManager.class)
 public class SplashManagerMixin {
     /**
      * Appends string literals to the list of splash text.
      */
-    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;",
+            at = @At("RETURN"),
+            cancellable = true)
     private void appendCustomSplash(ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();
         List<Component> newSplashes = new ArrayList<>(originalSplashes);
@@ -36,7 +41,6 @@ public class SplashManagerMixin {
         for (String string : literals) {
             newSplashes.add(Component.literal(string).withStyle(ChatFormatting.YELLOW));
         }
-
         cir.setReturnValue(newSplashes);
     }
 }

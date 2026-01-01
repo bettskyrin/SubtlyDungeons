@@ -18,7 +18,7 @@ import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    GameRenderer gameRenderer = (GameRenderer) (Object) this;
+    private final GameRenderer gameRenderer = (GameRenderer) (Object) this;
 
     @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
     private void cancelVanillaScreenshot(Path path, CallbackInfo ci) {

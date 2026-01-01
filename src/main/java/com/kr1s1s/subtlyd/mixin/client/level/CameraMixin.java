@@ -20,10 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class CameraMixin {
     @Shadow private float yRot;
     @Shadow private float xRot;
-    @Shadow protected abstract void setRotation(float y, float x);
 
-    @Shadow
-    protected abstract void setPosition(double x, double y, double z);
+    @Shadow protected abstract void setRotation(float y, float x);
+    @Shadow protected abstract void setPosition(double x, double y, double z);
 
     @Inject(method = "setup", at = @At("TAIL"))
     private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {

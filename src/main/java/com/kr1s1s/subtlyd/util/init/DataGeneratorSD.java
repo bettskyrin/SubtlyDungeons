@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.util;
+package com.kr1s1s.subtlyd.util.init;
 
 import com.kr1s1s.subtlyd.world.level.levelgen.BiomeProviderSD;
 import com.kr1s1s.subtlyd.util.data.ModelProviderSD;

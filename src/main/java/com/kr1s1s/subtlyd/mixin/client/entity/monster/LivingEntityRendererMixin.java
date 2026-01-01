@@ -2,7 +2,7 @@ package com.kr1s1s.subtlyd.mixin.client.entity.monster;
 
 import com.kr1s1s.subtlyd.client.entity.monster.ClimberAccessor;
 import com.kr1s1s.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
-import com.kr1s1s.subtlyd.util.ClimberUtil;
+import com.kr1s1s.subtlyd.util.Util;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
@@ -64,10 +64,10 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > 0) {
-            Direction nearestWall = ClimberUtil.getNearestWall(entity);
+            Direction nearestWall = Util.Logic.getNearestWall(entity);
 
             if (nearestWall != null) {
-                float yaw = ClimberUtil.getClimberRotation(entity, nearestWall);
+                float yaw = Util.Logic.getClimberRotation(entity, nearestWall);
 
                 state.bodyRot = Mth.rotLerp(progress, entity.getYRot(), climberAccessor.subtlyDungeons$getRotation(partialTicks));
                 state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
@@ -88,13 +88,13 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     private void extractClimberJockeyState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
         float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
-        Direction nearestWall = ClimberUtil.getNearestWall(entity);
+        Direction nearestWall = Util.Logic.getNearestWall(entity);
 
         stateAccessor.subtlyDungeons$setJockey(true);
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > 0 && nearestWall != null) {
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
-            state.xRot = Mth.rotLerp(progress, state.xRot, ClimberUtil.getClimberRotation(entity, nearestWall));
+            state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall));
         }
     }
 

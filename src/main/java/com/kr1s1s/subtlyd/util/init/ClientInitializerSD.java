@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.util;
+package com.kr1s1s.subtlyd.util.init;
 
 import com.kr1s1s.subtlyd.client.ClientTickEventsSD;
 import com.kr1s1s.subtlyd.client.renderer.EntityRenderersSD;

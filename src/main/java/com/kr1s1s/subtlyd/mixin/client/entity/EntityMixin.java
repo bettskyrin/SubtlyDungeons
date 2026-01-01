@@ -17,31 +17,6 @@ public class EntityMixin {
 
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
-        ScreenShake.shakeScreenFromEntity(soundEvent, entity);
+        ScreenShake.shakeScreenFromSource(soundEvent, entity.blockPosition().getCenter(), 0);
     }
-
-//    private void shakeScreenByEvent(SoundEvent soundEvent) {
-//        List<SoundEvent> powerfulSounds = List.of(SoundEvents.WARDEN_ROAR, SoundEvents.WARDEN_SONIC_BOOM);
-//        List<SoundEvent> loudSounds = List.of(SoundEvents.RAVAGER_ROAR, SoundEvents.WARDEN_EMERGE, SoundEvents.WARDEN_DIG, SoundEvents.ENDER_DRAGON_AMBIENT);
-//
-//        int duration = 25;
-//        int maxDistance = 16;
-//        Player player = Minecraft.getInstance().player;
-//
-//        if (player != null) {
-//            float distance = player.distanceTo(entity);
-//            if (powerfulSounds.contains(soundEvent)) {
-//                maxDistance = 32;
-//                ScreenShake.setShake(duration, maxDistance, distance);
-//            }
-//
-//            if (loudSounds.contains(soundEvent)) {
-//                if (soundEvent.equals(SoundEvents.WARDEN_EMERGE)) {
-//                    maxDistance = 32;
-//                    duration = 110;
-//                }
-//                ScreenShake.setShake(duration, maxDistance, distance);
-//            }
-//        }
-//    }
 }

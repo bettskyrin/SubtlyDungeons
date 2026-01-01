@@ -11,13 +11,18 @@ import org.spongepowered.asm.mixin.Mixin;
 public class ZombieRenderStateMixin implements ZombieRenderStateAccessor {
     private boolean isLeader;
 
-    @Override
-    public boolean subtlyDungeons$isLeader() {
+    /**
+     * @return Whether a zombie is a leader zombie or not.
+     */
+    @Override public boolean subtlyDungeons$isLeader() {
         return isLeader;
     }
 
-    @Override
-    public void subtlyDungeons$setLeader(boolean bl) {
+    /**
+     * Sets a zombie entity's leader status.
+     * @param bl The leader status.
+     */
+    @Override public void subtlyDungeons$setLeader(boolean bl) {
         isLeader = bl;
     }
 }

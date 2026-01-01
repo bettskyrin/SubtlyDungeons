@@ -3,6 +3,9 @@
   "package": "com.kr1s1s.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "client.item.ItemStackMixin",
+    "client.level.LevelMixin",
+    "common.MinecraftServerMixin",
     "common.entity.AbstractArrowMixin",
     "common.entity.EntityMixin",
     "common.entity.PlayerMixin",
@@ -18,7 +21,6 @@
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
-    "client.item.ItemStackMixin",
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.ServerLevelMixin",
@@ -28,8 +30,7 @@
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
     "client.renderer.entity.state.LivingEntityRenderStateMixin",
-    "client.renderer.entity.state.ZombieRenderStateMixin",
-    "common.MinecraftServerMixin"
+    "client.renderer.entity.state.ZombieRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

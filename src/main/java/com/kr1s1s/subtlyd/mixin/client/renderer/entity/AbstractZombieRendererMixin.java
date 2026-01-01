@@ -16,11 +16,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(AbstractZombieRenderer.class)
 public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>>{
     @SuppressWarnings("unchecked")
-    final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
-    final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
-    final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
-    final Identifier HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader.png");
-    final double ZOMBIE_BASE_HEALTH_POINTS = 20D;
+    private final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
+    private final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
+    private final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
+    private final Identifier HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader.png");
 
     /**
      * Changes the zombie leader texture to their unique design.
@@ -28,7 +27,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;)Lnet/minecraft/resources/Identifier;",
             at = @At("RETURN"),
             cancellable = true)
-    public void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
+    private void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
         if (((ZombieRenderStateAccessor) state).subtlyDungeons$isLeader()) {
@@ -45,7 +44,8 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
 
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
-    public void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
+    private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
+        double ZOMBIE_BASE_HEALTH_POINTS = 20D;
         ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader((entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS && entity.canBreakDoors()));
     }
 }

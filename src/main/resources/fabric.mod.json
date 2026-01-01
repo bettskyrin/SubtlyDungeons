@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.kr1s1s.subtlyd.util.InitializerSD"
+			"com.kr1s1s.subtlyd.util.init.InitializerSD"
 		],
 		"fabric-datagen": [
-			"com.kr1s1s.subtlyd.util.DataGeneratorSD"
+			"com.kr1s1s.subtlyd.util.init.DataGeneratorSD"
 		],
       "client": [
-		  "com.kr1s1s.subtlyd.util.ClientInitializerSD"
+		  "com.kr1s1s.subtlyd.util.init.ClientInitializerSD"
       ]
 	},
 	"mixins": [
