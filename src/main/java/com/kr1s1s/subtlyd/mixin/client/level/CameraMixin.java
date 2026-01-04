@@ -37,8 +37,8 @@ public abstract class CameraMixin {
         if (OptionInstanceSD.SCREEN_SHAKE.get()) {
             float intensity = ScreenShake.getShakeIntensity() * 0.5F;
             if (intensity > 0.0F) {
-                float yaw = (float) (Math.sin(System.currentTimeMillis()/ 30.0) * intensity);
-                float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity);
+                float yaw = (float) (Math.sin(Util.getMillis() / 30.0) * intensity);
+                float pitch = (float) (Math.cos(Util.getMillis() / 60.0) * intensity);
                 this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
             }
         }
