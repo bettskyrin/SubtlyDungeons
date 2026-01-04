@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Mace Smash Air, Mace Smash Ground, Mace Smash Ground Heavy, and End Flash screen shake event
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered serverside (i.e. independent of what the player's actually hearing)
+- Updated leader zombie texture
 
 #### Splash Text
 - Added "We <3 spiders!" splash text
