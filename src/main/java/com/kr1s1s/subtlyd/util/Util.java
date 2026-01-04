@@ -39,6 +39,11 @@ public class Util {
             if (entity != null) {
                 Direction facing = entity.getDirection();
                 BlockPos blockPos = entity.blockPosition();
+
+                if (!entity.level().getBlockState(blockPos.relative(Direction.UP)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
+                    return Direction.UP;
+                }
+
                 if (!entity.level().getBlockState(blockPos.relative(facing)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
                     return facing;
                 }

@@ -17,6 +17,11 @@ public interface LivingEntityRenderStateAccessor {
     boolean subtlyDungeons$isJockey();
 
     /**
+     * @return Whether the climbing entity is upside down or not.
+     */
+    boolean subtlyDungeons$isUpsideDown();
+
+    /**
      * Sets the climb animation progress value.
      * @param progress The desired progress value.
      */
@@ -33,4 +38,10 @@ public interface LivingEntityRenderStateAccessor {
      * @param isJockey The jockey status.
      */
     void subtlyDungeons$setJockey(boolean isJockey);
+
+    /**
+     * Sets whether a climber entity is upside down or not.
+     * @param bl The upside down status.
+     */
+    void subtlyDungeons$setUpsideDown(boolean bl);
 }
