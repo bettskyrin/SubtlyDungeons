@@ -24,7 +24,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> SNOW_BRICKS = create("snow_bricks");
     public static final TagKey<Block> SKULL_BLOCK = create("skull_block");
     public static final TagKey<Block> STONE_TILES = create("stone_tiles");
-    public static final TagKey<Block> POLISHED_DRIPSTONE = create("polished_dripstone");
+    public static final TagKey<Block> DRIPSTONE = create("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");
 
     @Override protected void addTags(HolderLookup.Provider wrapperLookup) {
@@ -38,7 +38,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlocksSD.STONE_TILE_STAIRS)
                 .add(BlocksSD.STONE_TILE_SLAB)
                 .add(BlocksSD.STONE_TILE_WALL);
-        valueLookupBuilder(POLISHED_DRIPSTONE)
+        valueLookupBuilder(DRIPSTONE)
                 .add(BlocksSD.CHISELED_POLISHED_DRIPSTONE)
                 .add(BlocksSD.POLISHED_DRIPSTONE)
                 .add(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
@@ -59,7 +59,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
         valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .addTag(SNOW_BRICKS)
                 .addTag(STONE_TILES)
-                .addTag(POLISHED_DRIPSTONE)
+                .addTag(DRIPSTONE)
                 .add(BlocksSD.STONE_PILLAR)
                 .add(BlocksSD.CHARCOAL_BLOCK)
                 .add(BlocksSD.IRON_GRATE);

@@ -29,7 +29,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemsSD.COOKED_CALAMARI);
         valueLookupBuilder(ItemTags.CAT_FOOD)
                 .add(ItemsSD.CALAMARI);
-        valueLookupBuilder(TENTS) // TODO Translate
+        valueLookupBuilder(TENTS)
             .addAll(ItemsSD.TENT_ITEM_LIST);
     }
 

@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### Technical Changes
 #### Data Tags
 - The "dripstone" block tag is now "polished_dripstone"
+- The `tag.item.subtlyd.tent` tag is now `tag.item.subtlyd.tent`
+- Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day

@@ -91,6 +91,10 @@
   "subtlyd.music.top": "Peter Hont - Top",
   "subtlyd.music.wanderlust": "Peter Hont - Wanderlust",
   "subtlyd.music.windswept_peaks": "Peter Hont - Windswept Peaks",
+  "tag.block.subtlyd.dripstone": "Dripstone",
+  "tag.block.subtlyd.skull_blocks": "Skulls",
   "tag.block.subtlyd.snow_bricks": "Snow Bricks",
-  "tag.item.subtlyd.tent": "Tents"
+  "tag.block.subtlyd.stone_tiles": "Stone Tiles",
+  "tag.item.subtlyd.tents": "Tents",
+  "tag.block.subtlyd.triggers_ambient_wind_block_sounds": "Triggers Ambient Wind Block Sounds"
 }

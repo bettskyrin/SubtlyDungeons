@@ -85,7 +85,7 @@ public class ItemsSD {
                 entries.insertBefore(GRANITE, itemLike);
             }
 
-            for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.POLISHED_DRIPSTONE)) {
+            for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.DRIPSTONE)) {
                 entries.insertBefore(GRANITE, itemLike);
             }
 
