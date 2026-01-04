@@ -95,7 +95,7 @@ public class ScreenShake {
         float maxDistance;
         int duration;
         Vec3 sourcePos = new Vec3(source.x, source.y, source.z);
-        Player player = (Player) minecraft.getCameraEntity();
+        Entity player = minecraft.getCameraEntity();
 
         if (player != null && !player.isSpectator() && player.level().isClientSide()) {
             float distance = (float) Math.sqrt(player.distanceToSqr(sourcePos));
