@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.client.item;
+package com.kr1s1s.subtlyd.mixin.common.world.item;
 
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

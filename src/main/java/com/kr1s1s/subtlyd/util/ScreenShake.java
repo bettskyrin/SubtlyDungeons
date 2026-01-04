@@ -31,9 +31,9 @@ public class ScreenShake {
             Triple.of(SoundEvents.LIGHTNING_BOLT_IMPACT, 32, 20),
             Triple.of(SoundEvents.DRAGON_FIREBALL_EXPLODE, 32, 25),
             Triple.of(SoundEvents.GENERIC_EXPLODE.value(), 16, 20),
-            Triple.of(SoundEvents.MACE_SMASH_AIR, 8, 20),
-            Triple.of(SoundEvents.MACE_SMASH_GROUND, 8, 20),
-            Triple.of(SoundEvents.MACE_SMASH_GROUND_HEAVY, 10, 20)
+            Triple.of(SoundEvents.MACE_SMASH_AIR, 8, 10),
+            Triple.of(SoundEvents.MACE_SMASH_GROUND, 8, 10),
+            Triple.of(SoundEvents.MACE_SMASH_GROUND_HEAVY, 10, 15)
     );
 
     /**
