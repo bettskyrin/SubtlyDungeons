@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class ClientTickEventsSD {
     public static void registration() {
-        ClientTickEvents.START_WORLD_TICK.register(client -> {
+        ClientTickEvents.START_LEVEL_TICK.register(_ -> {
             ScreenShake.tick();
         });
     }

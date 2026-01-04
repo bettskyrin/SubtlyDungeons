@@ -6,13 +6,15 @@ import com.kr1s1s.subtlyd.world.block.BlocksSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import com.kr1s1s.subtlyd.world.food.FoodsSD;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.ItemLike;
@@ -72,51 +74,51 @@ public class ItemsSD {
     public static List<Item> DYE_ITEM_LIST = List.of(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, BROWN_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, CYAN_DYE, LIGHT_BLUE_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE);
 
     public static void registration() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
             for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.SNOW_BRICKS)) {
-                entries.addBefore(SANDSTONE, itemLike);
+                entries.insertBefore(SANDSTONE, itemLike);
             }
-            entries.addBefore(COAL_BLOCK, CHARCOAL_BLOCK);
-            entries.addAfter(IRON_BLOCK, IRON_GRATE);
+            entries.insertBefore(COAL_BLOCK, CHARCOAL_BLOCK);
+            entries.insertAfter(IRON_BLOCK, IRON_GRATE);
 
             for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.STONE_TILES)) {
-                entries.addBefore(GRANITE, itemLike);
+                entries.insertBefore(GRANITE, itemLike);
             }
 
             for (ItemLike itemLike : BlockTagsSD.getBlocks(BlockTagsSD.POLISHED_DRIPSTONE)) {
-                entries.addBefore(GRANITE, itemLike);
+                entries.insertBefore(GRANITE, itemLike);
             }
 
-            entries.addAfter(STONE_SLAB, STONE_PILLAR);
+            entries.insertAfter(STONE_SLAB, STONE_PILLAR);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
-            entries.addAfter(BUSH, REEDS);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
+            entries.insertAfter(BUSH, REEDS);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
             for (ItemLike itemLike : TENT_ITEM_LIST.reversed()) {
-                entries.addAfter(PINK_BED, itemLike);
+                entries.insertAfter(PINK_BED, itemLike);
             }
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
             for (ItemLike itemLike : TENT_ITEM_LIST.reversed()) {
-                entries.addAfter(PINK_BED, itemLike);
+                entries.insertAfter(PINK_BED, itemLike);
             }
-            entries.addAfter(CAMPFIRE, UNLIT_CAMPFIRE);
+            entries.insertAfter(CAMPFIRE, UNLIT_CAMPFIRE);
         });
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
-            entries.addAfter(PUMPKIN_PIE, APPLE_PIE);
-            entries.addBefore(COD, CALAMARI);
-            entries.addAfter(CALAMARI, COOKED_CALAMARI);
-            entries.addAfter(RABBIT_STEW, POTTAGE);
-            entries.addAfter(DRIED_KELP, BROWN_MUSHROOM);
-            entries.addAfter(BROWN_MUSHROOM, RED_MUSHROOM);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
+            entries.insertAfter(PUMPKIN_PIE, APPLE_PIE);
+            entries.insertBefore(COD, CALAMARI);
+            entries.insertAfter(CALAMARI, COOKED_CALAMARI);
+            entries.insertAfter(RABBIT_STEW, POTTAGE);
+            entries.insertAfter(DRIED_KELP, BROWN_MUSHROOM);
+            entries.insertAfter(BROWN_MUSHROOM, RED_MUSHROOM);
         });
 
-        CompostingChanceRegistry.INSTANCE.add(APPLE_PIE, 1.0F);
+        CompostableRegistry.INSTANCE.add(APPLE_PIE, 1.0F);
     }
 
     @NotNull private static Item registerTentItem(String string, EntityType<TentEntity> entityType) {

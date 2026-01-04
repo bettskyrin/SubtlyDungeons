@@ -2,8 +2,8 @@ package com.kr1s1s.subtlyd.util.data.tags;
 
 import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.world.item.ItemsSD;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,8 +15,8 @@ import net.minecraft.world.item.Item;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
-    public ItemTagsSD(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
+public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
+    public ItemTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
     }
 
@@ -29,7 +29,7 @@ public class ItemTagsSD extends FabricTagProvider.ItemTagProvider {
                 .add(ItemsSD.COOKED_CALAMARI);
         valueLookupBuilder(ItemTags.CAT_FOOD)
                 .add(ItemsSD.CALAMARI);
-        valueLookupBuilder(TENTS)
+        valueLookupBuilder(TENTS) // TODO Translate
             .addAll(ItemsSD.TENT_ITEM_LIST);
     }
 
