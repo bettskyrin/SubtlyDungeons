@@ -12,12 +12,15 @@ import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
 import net.minecraft.network.chat.Component;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(TitleScreen.class)
 public class TitleScreenMixin extends Screen {
+    @Shadow
+    private boolean fading;
     private final int BUTTON_HEIGHT = 20;
     private final int SPRITE_XPOS = 4;
 
@@ -133,6 +136,8 @@ public class TitleScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         int CHARACTER_SCALE = 40;
-        GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2 + 170, this.height / 4 + 132, CHARACTER_SCALE, mouseX, mouseY);
+        if (!this.fading) {
+            GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2 + 170, this.height / 4 + 132, CHARACTER_SCALE, mouseX, mouseY);
+        }
     }
 }
