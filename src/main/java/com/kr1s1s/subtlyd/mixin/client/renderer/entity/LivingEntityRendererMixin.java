@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.client.entity.monster;
+package com.kr1s1s.subtlyd.mixin.client.renderer.entity;
 
 import com.kr1s1s.subtlyd.client.entity.monster.ClimberAccessor;
 import com.kr1s1s.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
@@ -32,6 +32,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             at = @At("TAIL"))
     private void determineRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
+
             if (entity instanceof ClimberAccessor climberAccessor) {
                 extractClimberState(entity, climberAccessor, state, stateAccessor, partialTicks);
             } else if (entity.getVehicle() instanceof ClimberAccessor spider) {
@@ -62,20 +63,15 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
 
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
-        if (progress > 0) {
+        if (progress > 0.0F) {
             Direction nearestWall = Util.Logic.getNearestWall(entity);
 
             if (nearestWall != null) {
                 float yaw = Util.Logic.getClimberRotation(entity, nearestWall);
 
-                if (nearestWall == Direction.UP) {
-                    yaw = state.bodyRot;
-                    stateAccessor.subtlyDungeons$setUpsideDown(true);
-                } else {
-                    state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
-                    state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
-                    state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
-                }
+                state.bodyRot = Mth.rotLerp(progress, entity.getYRot(), climberAccessor.subtlyDungeons$getRotation(partialTicks));
+                state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
+                state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
                 stateAccessor.subtlyDungeons$setClimbRotation(yaw);
                 climberAccessor.subtlyDungeons$tickRotation(climberAccessor.subtlyDungeons$getRotation(partialTicks));
             }
@@ -96,7 +92,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
         stateAccessor.subtlyDungeons$setJockey(true);
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
-        if (progress > 0 && nearestWall != null) {
+        if (progress > 0.0F && nearestWall != null) {
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
             state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall));
         }
@@ -110,21 +106,19 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float entityScale) {
         float progress = accessor.subtlyDungeons$getClimbProgress();
-        float entityZOffset = -0.5F * Mth.cube(entityScale) * progress;
-        float rotation = 90.0F;
+        float yOffset;
+        float zOffset;
 
         if (progress > 0.0F) {
-            if (!accessor.subtlyDungeons$isUpsideDown()) {
-                if (!accessor.subtlyDungeons$isJockey()) {
-                    poseStack.translate(0, -0.6F * progress, entityZOffset);
-                } else {
-                    poseStack.translate(0, -1.5F * progress, -0.75F * progress);
-                }
+            if (!accessor.subtlyDungeons$isJockey()) {
+                yOffset = 0.2F * progress;
+                zOffset = -0.5F * Mth.cube(entityScale) * progress;
             } else {
-                rotation = 180.0F;
+                yOffset = -1.5F * progress;
+                zOffset = -0.75F * progress;
             }
-
-            poseStack.mulPose(Axis.XP.rotationDegrees(rotation * progress));
+            poseStack.translate(0, yOffset, zOffset);
+            poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
             poseStack.mulPose(Axis.YP.rotationDegrees(accessor.subtlyDungeons$getClimbRotation() * progress));
         }
     }

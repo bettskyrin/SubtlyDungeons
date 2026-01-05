@@ -12,7 +12,6 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     private float climbProgress;
     private float climbRotation;
     private boolean isJockey;
-    private boolean isUpsideDown;
 
     /**
      * @return The progress of the climb animation.
@@ -33,14 +32,6 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      */
     @Override public boolean subtlyDungeons$isJockey() {
         return isJockey;
-    }
-
-    /**
-     * @return Whether the climbing entity is upside down or not.
-     */
-    @Override
-    public boolean subtlyDungeons$isUpsideDown() {
-        return isUpsideDown;
     }
 
     /**
@@ -65,14 +56,5 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      */
     @Override public void subtlyDungeons$setJockey(boolean bl) {
         this.isJockey = bl;
-    }
-
-    /**
-     * Sets whether a climber entity is upside down or not.
-     * @param bl The upside down status.
-     */
-    @Override
-    public void subtlyDungeons$setUpsideDown(boolean bl) {
-        isUpsideDown = bl;
     }
 }

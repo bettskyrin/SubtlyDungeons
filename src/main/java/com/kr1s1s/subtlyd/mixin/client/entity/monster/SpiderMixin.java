@@ -7,9 +7,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.spider.Spider;
-import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,6 +24,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
     private float progNew;
     private float rotOld; // Rotation progress
     private float rotNew;
+    private double yOld;
     
     @Shadow public abstract boolean isClimbing();
 
@@ -32,30 +33,35 @@ public abstract class SpiderMixin implements ClimberAccessor {
      * The step sound's frequency is determined by determining if the original position value rounded up is greater than the current position value rounded down.
      */
     @Inject(method = "tick", at = @At("TAIL"))
-    private void tickClimbingAnim(CallbackInfo ci) {  // TODO Upside down
+    private void tickClimbingAnim(CallbackInfo ci) {
         final float ANIM_RATE = 0.2F;
-        float SPEED_MULTIPLIER = 8.0F;
-        Vec3 vel = livingEntity.getDeltaMovement();
+        final float SPEED_MULTIPLIER = 8.0F;
+        double ySpeed = Math.abs(livingEntity.getDeltaMovement().y());
         Direction nearestWall = Util.Logic.getNearestWall(livingEntity);
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
 
-        if (isClimbing()) {
-            float animationSpeed = (float) Math.min(vel.length() * SPEED_MULTIPLIER, 1.0F);
-            float legPosition0 = livingEntity.walkAnimation.position();
+        if (isClimbing() && isChangingHeight()) {
+            float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
+            RandomSource randomSource = RandomSource.create();
             progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
             livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-            if (Mth.floor(livingEntity.walkAnimation.position()) < Mth.ceil(legPosition0 + 0.1F)) {
+            if (randomSource.nextFloat() < 0.5F) {
                 livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
             }
         } else {
             progNew = Math.max(0.0F, progNew - ANIM_RATE);
         }
+        yOld = livingEntity.getY();
         subtlyDungeons$tickRotation(targetRot);
     }
-    
-     /**
+
+    public boolean isChangingHeight() {
+        return livingEntity.getY() != yOld;
+    }
+
+    /**
      * Used for getting smoothed climber animations.
      * @param partialTicks The partial ticks.
      * @return Value from 0.0 to 1.0 Representing the animation's completion.

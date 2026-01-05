@@ -37,15 +37,10 @@ public class Util {
          */
         public static Direction getNearestWall(Entity entity) {
             if (entity != null) {
-                Direction facing = entity.getDirection();
+                Direction movementDir = entity.getMotionDirection();
                 BlockPos blockPos = entity.blockPosition();
-
-                if (!entity.level().getBlockState(blockPos.relative(Direction.UP)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
-                    return Direction.UP;
-                }
-
-                if (!entity.level().getBlockState(blockPos.relative(facing)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
-                    return facing;
+                if (!entity.level().getBlockState(blockPos.relative(movementDir)).getCollisionShape(entity.level(), blockPos).isEmpty()) {
+                    return movementDir;
                 }
 
                 for (Direction dir : Direction.Plane.HORIZONTAL) {
@@ -69,7 +64,7 @@ public class Util {
             if (climber != null && nearestWall != null) {
                 Vec3 vel = climber.getDeltaMovement();
 
-                if (vel.lengthSqr() > 0) {
+                if (vel.lengthSqr() > 0.0F) {
                     switch (nearestWall) {
                         case NORTH -> yaw = (float) Mth.atan2(vel.x, vel.y);
                         case EAST ->  yaw = (float) Mth.atan2(vel.z, vel.y);

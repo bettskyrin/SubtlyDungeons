@@ -16,7 +16,7 @@
   "client": [
     "client.blocks.BlockMixin",
     "client.entity.EntityMixin",
-    "client.entity.monster.LivingEntityRendererMixin",
+    "client.renderer.entity.LivingEntityRendererMixin",
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
