@@ -3,13 +3,13 @@ package com.kr1s1s.subtlyd.world.entity;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
-public class LivingEntitySD extends LivingEntity {
+public abstract class LivingEntitySD extends LivingEntity {
 
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
@@ -41,8 +41,6 @@ public class LivingEntitySD extends LivingEntity {
         player.setXRot(0.0F);
         setPosToTent(blockPos, player);
         player.setSleepingPos(blockPos);
-        player.setDeltaMovement(Vec3.ZERO);
-        player.setIgnoreFallDamageFromCurrentImpulse(true);
     }
 
     /**
@@ -52,9 +50,5 @@ public class LivingEntitySD extends LivingEntity {
      */
     private static void setPosToTent(BlockPos blockPos, ServerPlayer player) {
         player.setPos(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
-    }
-
-    @Override public @Nullable HumanoidArm getMainArm() {
-        return null;
     }
 }
