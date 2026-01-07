@@ -48,7 +48,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
     @Inject(method = "setupRotations", at = @At("TAIL"))
     private  void determineRotations(S state, PoseStack poseStack, float bodyRot, float entityScale, CallbackInfo ci) {
         if (state instanceof LivingEntityRenderStateAccessor accessor) {
-            setupClimberRotations(accessor, poseStack, entityScale);
+            setupClimberRotations(accessor, poseStack, state.boundingBoxHeight);
         }
     }
 
@@ -100,11 +100,12 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
     /**
      * Sets up visual rotations and offsets for climbing entities.
+     *
      * @param accessor Interface for spider render state information.
      * @param poseStack The pose stack of the climbing entity.
-     * @param entityScale The scale of the entity.
+     * @param bBH The bounding box height of the entity. Used for relative translations.
      */
-    private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float entityScale) {
+    private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float bBH) {
         float progress = accessor.subtlyDungeons$getClimbProgress();
         float yOffset;
         float zOffset;
@@ -112,10 +113,10 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         if (progress > 0.0F) {
             if (!accessor.subtlyDungeons$isJockey()) {
                 yOffset = 0.2F * progress;
-                zOffset = -0.5F * Mth.cube(entityScale) * progress;
+                zOffset = (-1.06F * bBH + 0.2F) * progress; // Linear function to prevent cave spiders from clipping into walls.
             } else {
-                yOffset = -1.5F * progress;
-                zOffset = -0.75F * progress;
+                yOffset = 0.5F * progress;
+                zOffset = -1.6F * progress;
             }
             poseStack.translate(0, yOffset, zOffset);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
