@@ -16,7 +16,6 @@
   "client": [
     "client.blocks.BlockMixin",
     "client.entity.EntityMixin",
-    "client.renderer.entity.LivingEntityRendererMixin",
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
@@ -29,8 +28,11 @@
     "client.renderer.GameRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
+    "client.renderer.entity.HuskRendererMixin",
+    "client.renderer.entity.LivingEntityRendererMixin",
+    "client.renderer.entity.ZombifiedPiglinRendererMixin",
     "client.renderer.state.LivingEntityRenderStateMixin",
-    "client.renderer.state.ZombieRenderStateMixin"
+    "client.renderer.state.UndeadRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

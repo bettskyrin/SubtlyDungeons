@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.client.renderer;
 
-public interface ZombieRenderStateAccessor {
+public interface UndeadRenderStateAccessor {
     /**
      * @return Whether a zombie is a leader zombie or not.
      */

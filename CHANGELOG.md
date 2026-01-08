@@ -13,11 +13,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
+#### Zombie Leaders
+- Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
+- Updated zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
+
 ### Visuals
 - Added Mace Smash Air, Mace Smash Ground, Mace Smash Ground Heavy, and End Flash screen shake event
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered serverside (i.e. independent of what the player's actually hearing)
-- Updated leader zombie texture
 
 #### Splash Text
 - Added "We <3 spiders!" splash text

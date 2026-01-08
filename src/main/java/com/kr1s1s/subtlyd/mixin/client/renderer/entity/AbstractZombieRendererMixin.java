@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.renderer.entity;
 
-import com.kr1s1s.subtlyd.client.renderer.ZombieRenderStateAccessor;
+import com.kr1s1s.subtlyd.client.renderer.UndeadRenderStateAccessor;
 import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.entity.*;
@@ -14,12 +14,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractZombieRenderer.class)
-public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>>{
+public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>> {
     @SuppressWarnings("unchecked")
     private final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
     private final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
     private final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
-    private final Identifier HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader.png");
 
     /**
      * Changes the zombie leader texture to their unique design.
@@ -30,11 +29,9 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     private void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((ZombieRenderStateAccessor) state).subtlyDungeons$isLeader()) {
+        if (((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader()) {
             if (renderer instanceof DrownedRenderer) {
                 leaderLocation = DROWNED_LEADER_LOCATION;
-            } else if (renderer instanceof HuskRenderer) {
-                leaderLocation = HUSK_LEADER_LOCATION;
             } else {
                 leaderLocation = ZOMBIE_LEADER_LOCATION;
             }
@@ -46,6 +43,6 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
             at = @At("TAIL"))
     private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         double ZOMBIE_BASE_HEALTH_POINTS = 20D;
-        ((ZombieRenderStateAccessor) state).subtlyDungeons$setLeader(entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS);
+        ((UndeadRenderStateAccessor) state).subtlyDungeons$setLeader(entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS);
     }
 }
