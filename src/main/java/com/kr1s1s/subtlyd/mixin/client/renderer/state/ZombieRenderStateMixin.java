@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.client.renderer.entity.state;
+package com.kr1s1s.subtlyd.mixin.client.renderer.state;
 
 import com.kr1s1s.subtlyd.client.renderer.ZombieRenderStateAccessor;
 import net.fabricmc.api.EnvType;

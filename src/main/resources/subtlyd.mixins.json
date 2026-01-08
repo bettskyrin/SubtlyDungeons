@@ -29,8 +29,8 @@
     "client.renderer.GameRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
-    "client.renderer.entity.state.LivingEntityRenderStateMixin",
-    "client.renderer.entity.state.ZombieRenderStateMixin"
+    "client.renderer.state.LivingEntityRenderStateMixin",
+    "client.renderer.state.ZombieRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
