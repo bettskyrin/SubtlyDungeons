@@ -262,29 +262,6 @@ public class TentEntity extends Entity {
     }
 
     /**
-     * Checks if an entity is within tent range (2 blocks)
-     * @param entity Entity to check
-     * @return True if in range
-     */
-    @Deprecated
-    public boolean inTentRange(Entity entity) {
-        AABB box = entity.getBoundingBox().inflate(2.0);
-        return !(entity.level().getEntities(this, box).isEmpty());
-        //return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
-    }
-
-    /**
-     * Checks if an entity is inside a tent
-     * @param entity Entity to check
-     * @return True if inside a tent
-     */
-    @Deprecated
-    public static boolean inTent(Entity entity) {
-        AABB box = entity.getBoundingBox().deflate(1.0);
-        return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
-    }
-
-    /**
      * Checks if an entity is inside a specific tent
      * @param entity Entity to check
      * @param tent Tent to check

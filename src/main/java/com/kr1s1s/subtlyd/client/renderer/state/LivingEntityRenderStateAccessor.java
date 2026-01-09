@@ -30,7 +30,7 @@ public interface LivingEntityRenderStateAccessor {
 
     /**
      * Sets the "jockey" status of the render state.
-     * @param isJockey The jockey status.
+     * @param bl The jockey status.
      */
-    void subtlyDungeons$setJockey(boolean isJockey);
+    void subtlyDungeons$setJockey(boolean bl);
 }

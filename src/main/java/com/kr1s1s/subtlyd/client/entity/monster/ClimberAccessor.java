@@ -15,7 +15,7 @@ public interface ClimberAccessor {
 
     /**
      * Used to move the targeted climber angle based on the targeted angle.
-     * @param targetRot The target targetRot.
+     * @param targetRot The target rotation.
      */
     void subtlyDungeons$tickRotation(float targetRot);
 }
