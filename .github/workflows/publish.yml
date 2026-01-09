@@ -35,7 +35,7 @@ jobs:
           changelog: ${{ github.event.release.body }}
           loaders: '["fabric"]'
           game-versions: '["26.1-snapshot-2"]'
-          files: '["${{ github.event.release.tag_name }}.jar"]'
+          files: '["build/libs/${{ github.event.release.tag_name }}.jar"]'
           dependencies: |-
             [{
               "project_id": "fabric-api",
@@ -52,6 +52,6 @@ jobs:
           release_type: beta
           changelog: ${{ github.event.release.body }}
           game_versions: "Minecraft 26.1-snapshot,Java 25,Fabric"
-          file_path: '["${{ github.event.release.tag_name }}.jar"]'
+          file_path: '["build/libs/${{ github.event.release.tag_name }}.jar"]'
           relations: "fabric-api:requiredDependency"
           game_endpoint: minecraft

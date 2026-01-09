@@ -2,7 +2,7 @@ name: Scheduler
 
 on:
   schedule:
-    - cron: "0 14 9 1 *" # The planned date on Friday [MIN HOUR DAY MONTH WEEKDAY] at 2:00PM UTC
+    - cron: "0 14 * * 5" # Fridays at 2:00PM UTC
 
 jobs:
   check-and-publish:

@@ -36,7 +36,7 @@
 ### Technical Changes
 #### Data Tags
 - The "dripstone" block tag is now "polished_dripstone"
-- The `tag.item.subtlyd.tent` tag is now `tag.item.subtlyd.tent`
+- The `tag.item.subtlyd.tent` tag is now `tag.item.subtlyd.tents`
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 
 ### Bug Fixes
