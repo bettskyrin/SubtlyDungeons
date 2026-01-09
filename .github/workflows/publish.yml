@@ -37,9 +37,10 @@ jobs:
           loaders: '["fabric"]'
           game-versions: '["26.1-snapshot-2"]'
           files: '["build/libs/subtlyd-${{ github.event.release.tag_name }}.jar"]'
+          # Fabric API
           dependencies: |-
             [{
-              "project_id": "P7dR8mSH", # Fabric API
+              "project_id": "P7dR8mSH",
               "dependency_type": "required"
             }]
           status: listed
