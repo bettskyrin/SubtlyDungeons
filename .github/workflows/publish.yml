@@ -1,8 +1,8 @@
 name: Publish Mod
 
 on:
-  schedule:
-    - cron: "0 14 9 1 5" # The planned date on Friday [MIN HOUR DAY MONTH WEEKDAY]
+  release:
+    types: [ published ]
 
 jobs:
   publish:
