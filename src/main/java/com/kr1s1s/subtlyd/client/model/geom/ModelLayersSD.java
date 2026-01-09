@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.client.model.geom;
 
 import com.google.common.collect.Sets;
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelLayers;
 
@@ -36,6 +36,6 @@ public class ModelLayersSD extends ModelLayers {
     }
 
     private static ModelLayerLocation createLocation(String string) {
-        return new ModelLayerLocation(SubtlyDungeons.identifier(string), "main");
+        return new ModelLayerLocation(Util.identifier(string), "main");
     }
 }

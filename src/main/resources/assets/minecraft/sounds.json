@@ -280,5 +280,46 @@
         "weight": 1
       }
     ]
+  },
+  "music.under_water": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/rest_in_reefs",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/coral_rise",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/the_bilge",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/hydrothermal_vent",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/twilight_cavern",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/the_abyssal_monument",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/molten_monument",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/tropical_slime_scramble",
+        "weight": 1
+      },
+      {
+        "name": "subtlyd:music/primal_oil_sect",
+        "weight": 1
+      }
+    ]
   }
 }

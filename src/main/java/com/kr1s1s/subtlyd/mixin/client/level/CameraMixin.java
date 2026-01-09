@@ -1,11 +1,12 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
 import com.kr1s1s.subtlyd.client.OptionInstanceSD;
-import com.kr1s1s.subtlyd.client.util.ScreenShake;
+import com.kr1s1s.subtlyd.util.ScreenShake;
 import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
+import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -20,10 +21,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class CameraMixin {
     @Shadow private float yRot;
     @Shadow private float xRot;
-    @Shadow protected abstract void setRotation(float y, float x);
 
-    @Shadow
-    protected abstract void setPosition(double x, double y, double z);
+    @Shadow protected abstract void setRotation(float y, float x);
+    @Shadow protected abstract void setPosition(double x, double y, double z);
 
     @Inject(method = "setup", at = @At("TAIL"))
     private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
@@ -37,9 +37,9 @@ public abstract class CameraMixin {
     private void applyScreenShake() {
         if (OptionInstanceSD.SCREEN_SHAKE.get()) {
             float intensity = ScreenShake.getShakeIntensity() * 0.5F;
-            if (intensity > 0) {
-                float yaw = (float) (Math.sin(System.currentTimeMillis() / 30.0) * intensity);
-                float pitch = (float) (Math.cos(System.currentTimeMillis() / 60.0) * intensity);
+            if (intensity > 0.0F) {
+                float yaw = (float) (Math.sin(Util.getMillis() / 30.0) * intensity);
+                float pitch = (float) (Math.cos(Util.getMillis() / 60.0) * intensity);
                 this.setRotation((float) (this.yRot - pitch * Math.sqrt(2)), this.xRot + (yaw));
             }
         }
@@ -51,9 +51,8 @@ public abstract class CameraMixin {
      * @param f The entity head rotation angle
      */
     private void setCampingPlayerCamera(Entity entity, float f) {
-        if (entity instanceof LivingEntity livingEntity && livingEntity.isSleeping()) {
-            if (TentEntity.inTent(entity)) {
-
+        if (entity instanceof LivingEntity livingEntity) {
+            if (TentEntity.getTent(livingEntity, true) != null) {
                 this.setRotation(livingEntity.getViewYRot(f), -90F);
                 this.setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
             }

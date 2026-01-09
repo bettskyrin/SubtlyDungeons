@@ -3,7 +3,7 @@ package com.kr1s1s.subtlyd.client.renderer;
 import com.kr1s1s.subtlyd.client.model.TentModel;
 import com.kr1s1s.subtlyd.client.model.geom.ModelLayersSD;
 import com.kr1s1s.subtlyd.world.entity.EntityTypeSD;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 
@@ -27,7 +27,7 @@ public class EntityRenderersSD extends EntityRenderers {
         register(EntityTypeSD.BLACK_TENT, context -> new TentRenderer(context, ModelLayersSD.BLACK_TENT));
 
         for (ModelLayerLocation modelLayerLocation : ModelLayersSD.ALL_MODELS) {
-            EntityModelLayerRegistry.registerModelLayer(modelLayerLocation, TentModel::createBodyLayer);
+            ModelLayerRegistry.registerModelLayer(modelLayerLocation, TentModel::createBodyLayer);
         }
     }
 }

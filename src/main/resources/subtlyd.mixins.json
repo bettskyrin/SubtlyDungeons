@@ -3,29 +3,36 @@
   "package": "com.kr1s1s.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "server.entity.AbstractArrowMixin",
-    "server.entity.PlayerAccessor",
-    "server.entity.RaiderMixin",
-    "server.entity.ServerPlayerMixin",
-    "server.entity.ZombieMixin",
-    "server.MinecraftServerMixin"
+    "common.MinecraftServerMixin",
+    "common.entity.AbstractArrowMixin",
+    "common.entity.EntityMixin",
+    "common.entity.PlayerMixin",
+    "common.entity.ServerPlayerMixin",
+    "common.entity.monster.RaiderMixin",
+    "common.world.item.ItemAccessor",
+    "common.world.item.ItemsMixin",
+    "common.world.item.ItemStackMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
     "client.entity.EntityMixin",
-    "client.entity.PlayerMixin",
+    "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
-    "client.item.ItemStackMixin",
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
+    "client.level.LevelMixin",
     "client.level.ServerLevelMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
     "client.renderer.GameRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
-    "client.renderer.entity.state.ZombieRenderStateMixin"
+    "client.renderer.entity.HuskRendererMixin",
+    "client.renderer.entity.LivingEntityRendererMixin",
+    "client.renderer.entity.ZombifiedPiglinRendererMixin",
+    "client.renderer.state.LivingEntityRenderStateMixin",
+    "client.renderer.state.UndeadRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1

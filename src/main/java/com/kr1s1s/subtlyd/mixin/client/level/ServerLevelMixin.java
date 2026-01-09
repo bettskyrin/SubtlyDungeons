@@ -1,9 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.level;
 
-import com.kr1s1s.subtlyd.client.util.ScreenShake;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
+import com.kr1s1s.subtlyd.util.ScreenShake;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ExplosionParticleInfo;
 import net.minecraft.core.particles.ParticleOptions;
@@ -12,40 +9,23 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
-    @Inject(method = "explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/util/random/WeightedList;Lnet/minecraft/core/Holder;)V", at = @At("RETURN"))
+    @Inject(method = "explode(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/damagesource/DamageSource;Lnet/minecraft/world/level/ExplosionDamageCalculator;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/core/particles/ParticleOptions;Lnet/minecraft/util/random/WeightedList;Lnet/minecraft/core/Holder;)V",
+            at = @At("RETURN"))
     private void explode(@Nullable Entity entity, @Nullable DamageSource damageSource, @Nullable ExplosionDamageCalculator explosionDamageCalculator,
                          double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction,
                          ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList,
-                         Holder<SoundEvent> holder, CallbackInfo ci) {
-        shakeScreenByExplosion(x, y, z, power);
-    }
-
-    /**
-     * Determines the intensity of a screen shake event created by an explosion
-     * @param x Explosion source x-coordinate
-     * @param y Explosion source y-coordinate
-     * @param z Explosion source z-coordinate
-     * @param power Explosion strength level
-     */
-    private void shakeScreenByExplosion(double x, double y, double z, float power) {
-        Player player = Minecraft.getInstance().player;
-
-        if (player != null) {
-            float maxDistance = 16 * (power / 3);
-            float distance = (float) Math.sqrt(player.distanceToSqr(x, y, z));
-            ScreenShake.setShakeByDistanceAndPower(15, maxDistance, distance, power / 2);
-        }
+                         Holder<SoundEvent> soundEventHolder, CallbackInfo ci) {
+        ScreenShake.shakeScreenFromSource(soundEventHolder.value(), new Vec3(x, y, z), power);
     }
 }

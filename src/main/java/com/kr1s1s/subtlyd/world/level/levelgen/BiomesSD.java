@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.world.level.levelgen;
 
-import com.kr1s1s.subtlyd.SubtlyDungeons;
+import com.kr1s1s.subtlyd.util.Util;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.core.Registry;
@@ -16,6 +16,6 @@ public class BiomesSD {
     }
 
     public static <C extends FeatureConfiguration, F extends Feature<C>> F register(String string, F feature) {
-        return Registry.register(BuiltInRegistries.FEATURE, SubtlyDungeons.identifier(string), feature);
+        return Registry.register(BuiltInRegistries.FEATURE, Util.identifier(string), feature);
     }
 }

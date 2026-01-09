@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.renderer;
 
-import com.kr1s1s.subtlyd.client.util.WorldIconState;
+import com.kr1s1s.subtlyd.util.WorldIconState;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.DeltaTracker;
@@ -18,7 +18,7 @@ import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    GameRenderer gameRenderer = (GameRenderer) (Object) this;
+    private final GameRenderer gameRenderer = (GameRenderer) (Object) this;
 
     @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
     private void cancelVanillaScreenshot(Path path, CallbackInfo ci) {
