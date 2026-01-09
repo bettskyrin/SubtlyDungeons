@@ -28,7 +28,7 @@ jobs:
         uses: cloudnode-pro/modrinth-publish@v2
         with:
           token: ${{ secrets.MODRINTH_TOKEN }}
-          project: subtly-dungeons
+          project: c65QHwL5
           name: ${{ github.event.release.name }}
           version: ${{ github.event.release.tag_name }}
           channel: beta
@@ -39,7 +39,7 @@ jobs:
           files: '["build/libs/subtlyd-${{ github.event.release.tag_name }}.jar"]'
           dependencies: |-
             [{
-              "project_id": "fabric-api",
+              "project_id": "P7dR8mSH", # Fabric API
               "dependency_type": "required"
             }]
           status: listed
