@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.client.gui.screens;
 
-import com.kr1s1s.subtlyd.client.gui.screens.worldselection.CreateWorldScreenSD;
+import com.kr1s1s.subtlyd.client.gui.screens.worldselectionold.CreateWorldScreenSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.ChatFormatting;
@@ -11,7 +11,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
-import net.minecraft.client.gui.screens.PresetFlatWorldScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.renderer.RenderPipelines;

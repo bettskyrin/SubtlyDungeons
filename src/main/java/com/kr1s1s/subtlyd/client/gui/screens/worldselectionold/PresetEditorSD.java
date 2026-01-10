@@ -1,11 +1,9 @@
-package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
+package com.kr1s1s.subtlyd.client.gui.screens.worldselectionold;
 
 import com.kr1s1s.subtlyd.client.gui.screens.CreateBuffetWorldScreenSD;
 import com.kr1s1s.subtlyd.client.gui.screens.CreateFlatWorldScreenSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screens.CreateBuffetWorldScreen;
-import net.minecraft.client.gui.screens.CreateFlatWorldScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;

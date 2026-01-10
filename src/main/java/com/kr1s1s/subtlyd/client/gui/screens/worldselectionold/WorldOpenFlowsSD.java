@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
+package com.kr1s1s.subtlyd.client.gui.screens.worldselectionold;
 
 import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;

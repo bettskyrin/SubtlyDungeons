@@ -1,6 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens;
 
-import com.kr1s1s.subtlyd.client.gui.screens.worldselection.SelectWorldScreenSD;
+import com.kr1s1s.subtlyd.client.gui.screens.worldselectionold.SelectWorldScreenSD;
 import com.kr1s1s.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;

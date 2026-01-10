@@ -1,8 +1,7 @@
-package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
+package com.kr1s1s.subtlyd.client.gui.screens.worldselectionold;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.server.RegistryLayer;
 import net.minecraft.world.level.storage.PrimaryLevelData;

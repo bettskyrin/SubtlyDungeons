@@ -1,9 +1,8 @@
-package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
+package com.kr1s1s.subtlyd.client.gui.screens.worldselectionold;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screens.worldselection.PresetEditor;
-import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;

@@ -19,6 +19,8 @@
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
+    "client.gui.screens.worldselection.CreateWorldScreenMixin",
+    "client.gui.screens.worldselection.CreateWorldScreenMixin$GameTabMixin",
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.LevelMixin",

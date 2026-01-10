@@ -1,7 +1,7 @@
 package com.kr1s1s.subtlyd.client.gui.screens;
 
 import com.ibm.icu.text.Collator;
-import com.kr1s1s.subtlyd.client.gui.screens.worldselection.WorldCreationContextSD;
+import com.kr1s1s.subtlyd.client.gui.screens.worldselectionold.WorldCreationContextSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.GuiGraphics;
@@ -12,7 +12,6 @@ import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;

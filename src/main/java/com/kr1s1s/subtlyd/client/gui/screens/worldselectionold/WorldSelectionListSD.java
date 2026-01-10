@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.client.gui.screens.worldselection;
+package com.kr1s1s.subtlyd.client.gui.screens.worldselectionold;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.platform.NativeImage;
