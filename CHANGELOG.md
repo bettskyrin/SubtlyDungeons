@@ -15,7 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 #### Zombie Leaders
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
-- Updated zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
+- Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
+- Updated Husk leader texture 
 
 ### Music
 - New Underwater Music!
