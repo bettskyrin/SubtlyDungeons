@@ -70,7 +70,7 @@ public class CreateWorldScreenMixin {
                     ).build()
             );
             survivalButton.setSize(100, 70);
-            survivalButton.setTooltip(Tooltip.create(WorldCreationUiStateSD.SelectedGameMode.SURVIVAL.getInfo()));
+            survivalButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.SURVIVAL.getInfo()));
 
             GameTabButton creativeButton = linearLayout2.addChild(
                     GameTabButton.builder(
@@ -81,7 +81,7 @@ public class CreateWorldScreenMixin {
                     ).build()
             );
             creativeButton.setSize(100, 70);
-            creativeButton.setTooltip(Tooltip.create(WorldCreationUiStateSD.SelectedGameMode.CREATIVE.getInfo()));
+            creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
 
             this.layout.addChild(linearLayout2, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
         }
