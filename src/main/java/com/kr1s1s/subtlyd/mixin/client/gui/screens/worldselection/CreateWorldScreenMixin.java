@@ -1,13 +1,11 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.kr1s1s.subtlyd.client.gui.components.GameTabButton;
-import com.kr1s1s.subtlyd.client.gui.screens.worldselectionold.WorldCreationUiStateSD;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.tabs.GridLayoutTab;
-import net.minecraft.client.gui.layouts.CommonLayouts;
-import net.minecraft.client.gui.layouts.LinearLayout;
+import net.minecraft.client.gui.layouts.*;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.network.chat.Component;
@@ -17,7 +15,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CreateWorldScreen.class)
@@ -25,19 +23,17 @@ public class CreateWorldScreenMixin {
 
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
-        private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");
-        @Mutable @Final @Shadow private EditBox nameEdit;
+        @Shadow
+        @Final
+        @Mutable
+        private EditBox nameEdit;
         private static final Component TITLE = Component.translatable("createWorld.tab.game.title");
         private static final Component ALLOW_COMMANDS = Component.translatable("selectWorld.allowCommands");
+        private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");
 
         public GameTabMixin(EditBox nameEdit) {
             super(TITLE);
             this.nameEdit = nameEdit;
-        }
-
-        @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout;createRowHelper(I)Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;"))
-        private int setZero(int columns) {
-            return 0;
         }
 
         @Inject(method = "<init>", at = @At("RETURN"))
@@ -88,6 +84,27 @@ public class CreateWorldScreenMixin {
             creativeButton.setTooltip(Tooltip.create(WorldCreationUiStateSD.SelectedGameMode.CREATIVE.getInfo()));
 
             this.layout.addChild(linearLayout2, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
+        }
+
+        /**
+         * Prevents the original widgets from drawing
+         */
+        @Redirect(
+                method = "<init>",
+                at = @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;Lnet/minecraft/client/gui/layouts/LayoutSettings;)Lnet/minecraft/client/gui/layouts/LayoutElement;"))
+        private LayoutElement overrideVanilla(GridLayout.RowHelper instance, LayoutElement widget, LayoutSettings settings) {
+            return widget;
+        }
+
+        @Redirect(method = "<init>",
+                at = @At(
+                        value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;"),
+                require = 0)
+        private LayoutElement overrideVanilla(GridLayout.RowHelper instance, LayoutElement widget) {
+            return widget;
         }
     }
 }
