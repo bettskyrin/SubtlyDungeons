@@ -2,3 +2,6 @@
 ### New Features
 #### Zombie Leaders
 - Updated Husk leader texture 
+
+### UI
+- Redesigned the world creation screen

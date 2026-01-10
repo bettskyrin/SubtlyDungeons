@@ -36,6 +36,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
 
+### UI
+- Redesigned the world creation screen
+
 #### Splash Text
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
