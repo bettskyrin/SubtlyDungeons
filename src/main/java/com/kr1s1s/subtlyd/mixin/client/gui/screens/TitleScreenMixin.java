@@ -1,10 +1,10 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens;
 
-import com.kr1s1s.subtlyd.client.gui.screens.worldselectionold.SelectWorldScreenSD;
 import com.kr1s1s.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.*;
+import net.minecraft.client.gui.components.CommonButtons;
+import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
@@ -106,20 +106,21 @@ public class TitleScreenMixin extends Screen {
      * Makes the singleplayer button set the screen to the custom Select World Screen.
      * @return The replaced singleplayer button.
      */
-    @ModifyArg(method = "createNormalMenuOptions",
-                at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-                    ordinal = 0))
-    private GuiEventListener changeScreen(GuiEventListener par1) {
-        int largeButtonWidth = 200;
-        int largeButtonXPos = width / 2 - 100;
-        int bottomYPos = height / 4 + 48;
-
-        return Button.builder(Component.translatable("menu.singleplayer"),
-                (_ -> minecraft.setScreen(new SelectWorldScreenSD(this)))
-        ).bounds(largeButtonXPos, bottomYPos, largeButtonWidth, BUTTON_HEIGHT).build();
-    }
+//    @Deprecated
+//    @ModifyArg(method = "createNormalMenuOptions",
+//                at = @At(
+//                    value = "INVOKE",
+//                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
+//                    ordinal = 0))
+//    private GuiEventListener changeScreen(GuiEventListener par1) {
+//        int largeButtonWidth = 200;
+//        int largeButtonXPos = width / 2 - 100;
+//        int bottomYPos = height / 4 + 48;
+//
+//        return Button.builder(Component.translatable("menu.singleplayer"),
+//                (_ -> minecraft.setScreen(new SelectWorldScreen(this)))
+//        ).bounds(largeButtonXPos, bottomYPos, largeButtonWidth, BUTTON_HEIGHT).build();
+//    }
 
     /**
      * Prevents the update version from being rendered at the bottom of the screen. The update version may still be found via the Debug menu.

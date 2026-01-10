@@ -21,12 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(CreateWorldScreen.class)
 public class CreateWorldScreenMixin {
 
+    /**
+     * Changes the Game Tab Layout
+     */
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
-        @Shadow
-        @Final
-        @Mutable
-        private EditBox nameEdit;
+        @Shadow @Final @Mutable private EditBox nameEdit;
         private static final Component TITLE = Component.translatable("createWorld.tab.game.title");
         private static final Component ALLOW_COMMANDS = Component.translatable("selectWorld.allowCommands");
         private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");

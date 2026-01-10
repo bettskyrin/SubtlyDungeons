@@ -9,8 +9,12 @@ accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/w
 accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;
 
+# World Selection
 accessible method net/minecraft/client/gui/screens/Screen setInitialFocus (Lnet/minecraft/client/gui/components/events/GuiEventListener;)V
+accessible method net/minecraft/client/gui/screens/worldselection/SelectWorldScreen createDebugWorldRecreateButton ()Lnet/minecraft/client/gui/components/Button;
+accessible method net/minecraft/client/gui/screens/worldselection/SelectWorldScreen createFooterButtons (Ljava/util/function/Consumer;Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList;)V
 
+# Server
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible field net/minecraft/server/level/ChunkMap entityMap Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
 accessible method net/minecraft/world/level/pathfinder/Path setDebug ([Lnet/minecraft/world/level/pathfinder/Node;[Lnet/minecraft/world/level/pathfinder/Node;Ljava/util/Set;)V
