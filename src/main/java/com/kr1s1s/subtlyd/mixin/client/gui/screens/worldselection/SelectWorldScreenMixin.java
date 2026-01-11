@@ -1,9 +1,9 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
+import com.kr1s1s.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
-import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.StringWidget;
@@ -35,13 +35,12 @@ public abstract class SelectWorldScreenMixin extends Screen {
     private final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
     @Shadow @Final @Mutable protected final Screen lastScreen;
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout;
-    @Shadow private @Nullable Button deleteButton;
-    @Shadow private @Nullable Button selectButton;
-    @Shadow private @Nullable Button renameButton;
-    @Shadow private @Nullable Button copyButton;
+    @Shadow @Nullable private Button deleteButton;
+    @Shadow @Nullable private Button selectButton;
+    @Shadow @Nullable private Button renameButton;
+    @Shadow @Nullable private Button copyButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
-
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);
@@ -49,6 +48,14 @@ public abstract class SelectWorldScreenMixin extends Screen {
         this.lastScreen = lastScreen;
     }
 
+    @Shadow private void createFooterButtons(final Consumer<WorldSelectionList.WorldListEntry> joinWorld, final WorldSelectionList list) {}
+    @Shadow private Button createDebugWorldRecreateButton() {
+        throw new AssertionError();
+    }
+
+    /**
+     * Changes the location of the world option buttons.
+     */
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private void init(CallbackInfo ci) {
         ci.cancel();
@@ -56,12 +63,14 @@ public abstract class SelectWorldScreenMixin extends Screen {
         int bigButtonWidth = 64;
         int buttonWidth = 48;
 
+        this.layout.setFooterHeight(30);
         LinearLayout linearLayout = this.layout.addToHeader(LinearLayout.vertical().spacing(rowSpacing));
+        Util.debug(this.layout.getFooterHeight());
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
         linearLayout.addChild(new StringWidget(this.title, this.font));
         LinearLayout linearLayout2 = linearLayout.addChild(LinearLayout.horizontal().spacing(rowSpacing));
         if (SharedConstants.DEBUG_WORLD_RECREATE) {
-            linearLayout2.addChild(selectWorldScreen.createDebugWorldRecreateButton());
+            linearLayout2.addChild(this.createDebugWorldRecreateButton());
         }
 
         this.searchBox = linearLayout2.addChild(
@@ -103,10 +112,8 @@ public abstract class SelectWorldScreenMixin extends Screen {
                         .build());
         Consumer<WorldSelectionList.WorldListEntry> joinWorld = WorldSelectionList.WorldListEntry::joinWorld;
 
-        selectWorldScreen.createFooterButtons(joinWorld, this.list);
-        this.layout.visitWidgets(guiEventListener -> {
-            AbstractWidget var10000 = this.addRenderableWidget(guiEventListener); // TODO Remove?
-        });
+        this.createFooterButtons(joinWorld, this.list);
+        this.layout.visitWidgets(this::addRenderableWidget);
         this.repositionElements();
         selectWorldScreen.updateButtonStatus(null);
     }
