@@ -1,6 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.kr1s1s.subtlyd.client.gui.components.GameTabButton;
+import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.Tooltip;
@@ -25,10 +26,11 @@ public class CreateWorldScreenMixin {
      */
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
-        @Shadow @Final @Mutable private EditBox nameEdit;
         private static final Component TITLE = Component.translatable("createWorld.tab.game.title");
         private static final Component ALLOW_COMMANDS = Component.translatable("selectWorld.allowCommands");
         private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");
+        private static final Component GAME_MODE_LABEL = Component.translatable("selectWorld.gameMode");
+        @Shadow @Final @Mutable private EditBox nameEdit;
 
         public GameTabMixin(EditBox nameEdit) {
             super(TITLE);
@@ -37,11 +39,14 @@ public class CreateWorldScreenMixin {
 
         @Inject(method = "<init>", at = @At("RETURN"))
         private void init(CreateWorldScreen helper, CallbackInfo ci) {
-            LinearLayout linearLayout2 = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(4);
-            linearLayout2.defaultCellSetting();
-            LinearLayout linearLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(4);
-            linearLayout.defaultCellSetting().alignVerticallyMiddle();
+            int SPACING = 4;
+            LinearLayout linearLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
+            LinearLayout topRow = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
+            LinearLayout rightColumn = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
 
+            linearLayout.defaultCellSetting().alignVerticallyMiddle();
+            topRow.defaultCellSetting().paddingHorizontal(4);
+            rightColumn.defaultCellSetting().alignHorizontallyLeft();
             this.nameEdit = new EditBox(helper.getFont(), (int) (helper.width / 2.5), 20, Component.translatable("selectWorld.enterName"));
             this.nameEdit.setValue(helper.getUiState().getName());
             this.nameEdit.setResponder(helper.getUiState()::setName);
@@ -55,34 +60,37 @@ public class CreateWorldScreenMixin {
                                     )
                     );
             helper.setInitialFocus(this.nameEdit);
-            linearLayout2.addChild(
+            topRow.addChild(
                     CommonLayouts.labeledElement(helper.getFont(), this.nameEdit, NAME_LABEL),
-                    linearLayout2.newCellSettings().alignHorizontallyCenter()
+                    topRow.newCellSettings().alignHorizontallyCenter()
             );
 
-            GameTabButton survivalButton = linearLayout2.addChild(
+            GameTabButton survivalButton = rightColumn.addChild(
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.survival"),
                             _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL),
-                            com.kr1s1s.subtlyd.util.Util.identifier("textures/gui/sprites/widget/survival.png"),
+                            Util.identifier("textures/gui/sprites/widget/survival.png"),
+                            Util.identifier("textures/gui/sprites/widget/survival_highlighted.png"),
                             200, 140
                     ).build()
             );
             survivalButton.setSize(100, 70);
             survivalButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.SURVIVAL.getInfo()));
 
-            GameTabButton creativeButton = linearLayout2.addChild(
+            GameTabButton creativeButton = rightColumn.addChild(
                     GameTabButton.builder(
                             Component.translatable("selectWorld.gameMode.creative"),
                             _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE),
-                            com.kr1s1s.subtlyd.util.Util.identifier("textures/gui/sprites/widget/creative.png"),
+                            Util.identifier("textures/gui/sprites/widget/creative.png"),
+                            Util.identifier("textures/gui/sprites/widget/creative_highlighted.png"),
                             200, 140
                     ).build()
             );
             creativeButton.setSize(100, 70);
             creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
 
-            this.layout.addChild(linearLayout2, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
+            topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), rightColumn, GAME_MODE_LABEL));
+            this.layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
         }
 
         /**
