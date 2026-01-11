@@ -41,6 +41,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Nullable private Button copyButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
+    private final int ROW_SPACING = 4;
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);
@@ -59,16 +60,15 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private void init(CallbackInfo ci) {
         ci.cancel();
-        int rowSpacing = 4;
         int bigButtonWidth = 64;
         int buttonWidth = 48;
 
         this.layout.setFooterHeight(30);
-        LinearLayout linearLayout = this.layout.addToHeader(LinearLayout.vertical().spacing(rowSpacing));
+        LinearLayout linearLayout = this.layout.addToHeader(LinearLayout.vertical().spacing(ROW_SPACING));
         Util.debug(this.layout.getFooterHeight());
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
         linearLayout.addChild(new StringWidget(this.title, this.font));
-        LinearLayout linearLayout2 = linearLayout.addChild(LinearLayout.horizontal().spacing(rowSpacing));
+        LinearLayout linearLayout2 = linearLayout.addChild(LinearLayout.horizontal().spacing(ROW_SPACING));
         if (SharedConstants.DEBUG_WORLD_RECREATE) {
             linearLayout2.addChild(this.createDebugWorldRecreateButton());
         }
@@ -104,7 +104,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
                         .width(bigButtonWidth)
                         .build());
 
-        linearLayout2.addChild(new SpacerElement(this.width - (searchBox.getWidth() + bigButtonWidth + (buttonWidth * 3) + (rowSpacing * 7)), 0));
+        linearLayout2.addChild(new SpacerElement(this.width - (searchBox.getWidth() + bigButtonWidth + (buttonWidth * 3) + (ROW_SPACING * 7)), 0));
 
         this.deleteButton = linearLayout2.addChild(
                 Button.builder(Component.translatable("selectWorld.delete"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld))
@@ -118,28 +118,31 @@ public abstract class SelectWorldScreenMixin extends Screen {
         selectWorldScreen.updateButtonStatus(null);
     }
 
+
+    /**
+     * Alter footer button design
+     */
     @Inject(method = "createFooterButtons", at = @At("HEAD"), cancellable = true)
     private void createFooterButtons(Consumer<WorldSelectionList.WorldListEntry> joinWorld, WorldSelectionList list, CallbackInfo ci) {
         ci.cancel();
-        int rowSpacing = 4;
-        int halfButtonWidth = 100;
-        int backButtonWidth = 60;
+        int BUTTON_MIDDLE_X = 100;
+        int BACK_BUTTON_WIDTH = 60;
 
-        GridLayout gridLayout = this.layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(rowSpacing));
+        GridLayout gridLayout = this.layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
         gridLayout.defaultCellSetting().alignHorizontallyCenter();
         GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(this.width);
-        rowHelper.addChild(new SpacerElement(this.width / 2 - (halfButtonWidth - (rowSpacing * 3)), 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X - (ROW_SPACING * 3)), 0));
         rowHelper.addChild(
                 Button.builder(Component.translatable("selectWorld.create"), _ -> CreateWorldScreen.openFresh(this.minecraft, list::returnToScreen))
                         .build()
         );
 
-        rowHelper.addChild(new SpacerElement(this.width / 2 - (halfButtonWidth + (backButtonWidth / 2) + (7 * rowSpacing)), 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X + (BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
 
         rowHelper.addChild(
                 Button.builder(
                                 CommonComponents.GUI_BACK, _ -> this.minecraft.setScreen(this.lastScreen))
-                        .width(backButtonWidth)
+                        .width(BACK_BUTTON_WIDTH)
                         .build());
     }
 }
