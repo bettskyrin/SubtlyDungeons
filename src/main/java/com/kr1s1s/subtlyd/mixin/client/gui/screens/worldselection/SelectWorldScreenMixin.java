@@ -65,8 +65,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
         }
 
         this.searchBox = linearLayout2.addChild(
-                new EditBox(this.font, this.width, 22, (int) (this.width / 2.5), 20, this.searchBox, Component.translatable("selectWorld.search"))
-        );
+                new EditBox(this.font, this.width, 22, (int) (this.width / 2.5), 20, this.searchBox, Component.translatable("selectWorld.search")));
         this.searchBox.setResponder(string -> {
             if (this.list != null) {
                 this.list.updateFilter(string);
@@ -75,48 +74,36 @@ public abstract class SelectWorldScreenMixin extends Screen {
         this.searchBox.setHint(Component.translatable("gui.selectWorld.search").setStyle(EditBox.SEARCH_HINT_STYLE));
 
         Consumer<WorldSelectionList.WorldListEntry> consumer = WorldSelectionList.WorldListEntry::joinWorld;
-        this.list = this.layout
-                .addToContents(
-                        new WorldSelectionList.Builder(this.minecraft, this)
+        this.list = this.layout.addToContents(new WorldSelectionList.Builder(this.minecraft, selectWorldScreen)
                                 .width(this.width)
                                 .height(this.layout.getContentHeight())
                                 .filter(this.searchBox.getValue())
                                 .oldList(this.list)
                                 .onEntrySelect(selectWorldScreen::updateButtonStatus)
                                 .onEntryInteract(consumer)
-                                .build()
-                );
+                                .build());
         this.selectButton = linearLayout2.addChild(
-                Button.builder(
-                                LevelSummary.PLAY_WORLD, _ -> this.list.getSelectedOpt().ifPresent(consumer)
-                        )
+                Button.builder(LevelSummary.PLAY_WORLD, _ -> this.list.getSelectedOpt().ifPresent(consumer))
                         .width(buttonWidth)
                         .build());
         this.renameButton = linearLayout2.addChild(
-                Button.builder(
-                                Component.translatable("selectWorld.edit"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld)
-                        )
+                Button.builder(Component.translatable("selectWorld.edit"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld))
                         .width(buttonWidth)
-                        .build()
-        );
+                        .build());
         this.copyButton = linearLayout2.addChild(
-                Button.builder(
-                                Component.translatable("selectWorld.recreate"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld)
-                        )
+                Button.builder(Component.translatable("selectWorld.recreate"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld))
                         .width(bigButtonWidth)
-                        .build()
-        );
+                        .build());
 
         linearLayout2.addChild(new SpacerElement(this.width - (searchBox.getWidth() + bigButtonWidth + (buttonWidth * 3) + (rowSpacing * 7)), 0));
 
         this.deleteButton = linearLayout2.addChild(
-                Button.builder(
-                                Component.translatable("selectWorld.delete"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld)
-                        )
+                Button.builder(Component.translatable("selectWorld.delete"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld))
                         .width(buttonWidth)
-                        .build()
-        );
-        selectWorldScreen.createFooterButtons(this.list);
+                        .build());
+        Consumer<WorldSelectionList.WorldListEntry> joinWorld = WorldSelectionList.WorldListEntry::joinWorld;
+
+        selectWorldScreen.createFooterButtons(joinWorld, this.list);
         this.layout.visitWidgets(guiEventListener -> {
             AbstractWidget var10000 = this.addRenderableWidget(guiEventListener); // TODO Remove?
         });

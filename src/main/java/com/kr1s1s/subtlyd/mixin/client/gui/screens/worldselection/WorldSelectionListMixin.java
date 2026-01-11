@@ -1,15 +1,17 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
-import com.llamalad7.mixinextras.sugar.Local;
+import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
@@ -23,20 +25,82 @@ public class WorldSelectionListMixin {
 
     @Environment(EnvType.CLIENT)
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
-    private static final class WorldListEntryMixin {
+    private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 
-        @ModifyArg(method = "renderContent",
-                    at = @At(value = "INVOKE",
-                            target = "Lnet/minecraft/client/gui/components/StringWidget;setPosition(II)V"), index = 1)
-        private int changeYPos(int arg, @Local(ordinal = 1, argsOnly = true) int contentY) {
-            return contentY + 9 + 9 + 3;
+
+        /**
+         * Changes the width of the world icon.
+         */
+        @ModifyArgs(method = "renderContent",
+                    at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+        private void blit(Args args) {
+            args.set(6, ICON_WIDTH);
+            args.set(8, ICON_WIDTH);
         }
 
-        @ModifyVariable(method = "renderContent", at = @At("STORE"), ordinal = 5)
-        private int modifyIsOverIcon(int value) {
-            return isMouseWithin(i, j, this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT);
+        /**
+         * Changes the world icon fill width.
+         */
+        @ModifyArg(method = "renderContent",
+                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V"), index = 2)
+        private int fill(int x0) {
+            return this.getContentX() + ICON_WIDTH;
+        }
+
+        /**
+         * Replaces the isMouseOver with isMouseWithin
+         */
+        @Redirect(method = "renderContent",
+                    at = @At(value = "INVOKE",
+                            target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
+        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphics graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
+            return isMouseWithin(mouseX, mouseY, this.getContentX() + ICON_WIDTH, this.getContentY() + size);
+        }
+
+        /**
+         * Modifies the "play button" icon sprites.
+         */
+        @Redirect(method = "renderContent",
+                at = @At(value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+        private void modifyBlitSprite(GuiGraphics instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
+            int MID_ICON = this.getContentX() + ICON_WIDTH / 4;
+            instance.blitSprite(renderPipeline, location, MID_ICON, this.getContentY(), width, height);
+        }
+
+        /**
+         * Extends the width of the text.
+         */
+        @Inject(method = "getTextX", at = @At("RETURN"), cancellable = true)
+        private void getTextX(CallbackInfoReturnable<Integer> cir) {
+            cir.setReturnValue(this.getContentX() + ICON_WIDTH + 3);
+        }
+
+        /**
+         * Replaces isMouseOver with isMouseWithin based on a mouseButtonEvent.
+         */
+        @Redirect(method = "mouseClicked",
+                at = @At(value = "INVOKE",
+                        target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
+        private boolean modifyIsClickedIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final MouseButtonEvent event, final boolean doubleClick) {
+            return isMouseWithin((int) event.x(), (int) event.y(), this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT);
+        }
+
+        /**
+         * Tests if the mouse is within a specified rectangle.
+         * @param mouseX The mouse's x-position.
+         * @param mouseY THe mouse's y-position.
+         * @param right The right edge of the rectangle.
+         * @param top The top edge of the rectangle.
+         * @return Whether the mouse is within this rectangle or not.
+         */
+        private boolean isMouseWithin(int mouseX, int mouseY, int right, int top) {
+            return mouseX >= this.getContentX()
+                    && mouseX < right
+                    && mouseY >= this.getContentY()
+                    && mouseY < top;
         }
     }
 }
