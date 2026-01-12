@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
-import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.client.renderer.RenderPipelines;
@@ -13,6 +12,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import org.joml.Matrix3x2fStack;
+import org.jspecify.annotations.NonNull;
 
 import java.util.function.Supplier;
 
@@ -41,12 +41,12 @@ public abstract class GameTabButton extends AbstractButton {
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput output) {
+    protected void updateWidgetNarration(@NonNull NarrationElementOutput output) {
         this.defaultButtonNarrationText(output);
     }
 
     @Override
-    public void onPress(InputWithModifiers inputWithModifiers) {
+    public void onPress(@NonNull InputWithModifiers inputWithModifiers) {
         this.onPress.onPress(this);
     }
 
@@ -54,12 +54,11 @@ public abstract class GameTabButton extends AbstractButton {
     public static class Builder {
         private final Component message;
         private final GameTabButton.OnPress onPress;
-        private Tooltip tooltip;
         private int x;
         private int y;
         private int width;
         private int height;
-        private GameTabButton.CreateNarration createNarration = GameTabButton.DEFAULT_NARRATION;
+        private final GameTabButton.CreateNarration createNarration = GameTabButton.DEFAULT_NARRATION;
         private final Identifier textureLocation;
         private final Identifier hoverTextureLocation;
         private int textureWidth = 0;
@@ -80,20 +79,9 @@ public abstract class GameTabButton extends AbstractButton {
             return this;
         }
 
-        public GameTabButton.Builder width(int i) {
-            this.width = i;
-            return this;
-        }
-
         public GameTabButton.Builder size(int i, int j) {
             this.width = i;
             this.height = j;
-            return this;
-        }
-
-        public GameTabButton.Builder textureSize(int i, int j) {
-            this.textureWidth = i;
-            this.textureHeight = j;
             return this;
         }
 
@@ -101,22 +89,11 @@ public abstract class GameTabButton extends AbstractButton {
             return this.pos(i, j).size(k, l);
         }
 
-        public GameTabButton.Builder tooltip(Tooltip tooltip) {
-            this.tooltip = tooltip;
-            return this;
-        }
-
-        public GameTabButton.Builder createNarration(GameTabButton.CreateNarration createNarration) {
-            this.createNarration = createNarration;
-            return this;
-        }
 
         public GameTabButton build() {
             this.textureWidth = (this.textureWidth == 0) ? this.width : this.textureWidth;
             this.textureHeight = (this.textureHeight == 0) ? this.height : this.textureHeight;
-            GameTabButton button = new GameTabButton.Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.textureLocation, this.hoverTextureLocation, this.textureWidth, this.textureHeight);
-            button.setTooltip(this.tooltip);
-            return button;
+            return new Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.textureLocation, this.hoverTextureLocation, this.textureWidth, this.textureHeight);
         }
     }
 
@@ -137,10 +114,11 @@ public abstract class GameTabButton extends AbstractButton {
         }
 
         @Override
-        protected void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
+        protected void renderContents(@NonNull GuiGraphics guiGraphics, int i, int j, float f) {
+            Identifier renderedImage = getTextureLocation();
             this.renderDefaultSprite(guiGraphics);
 
-            if (this.textureLocation != null) {
+            if (renderedImage != null) {
                 Matrix3x2fStack pose = guiGraphics.pose();
                 pose.pushMatrix();
 
@@ -152,7 +130,7 @@ public abstract class GameTabButton extends AbstractButton {
 
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
-                        this.textureLocation,
+                        renderedImage,
                         0, 0, 0.0F, 0.0F,
                         this.textureWidth, this.textureHeight,
                         this.textureWidth, this.textureHeight,
@@ -164,16 +142,23 @@ public abstract class GameTabButton extends AbstractButton {
 
             int textColor = this.active ? 0xFFFFFF : 0xA0A0A0;
 
-            guiGraphics.drawCenteredString(Minecraft.getInstance().font,
+            guiGraphics.drawCenteredString(Minecraft.getInstance().font, // FIXME or swap with following method
                     this.getMessage(),
-                    this.getX() + this.width / 2,
-                    this.getY() - (this.height),
+                    this.getX() + this.width,
+                    this.getY(),
                     textColor
             );
 
-            this.renderDefaultLabel(guiGraphics.textRendererForWidget(this, GuiGraphics.HoveredTextEffects.NONE));
+            //this.renderDefaultLabel(guiGraphics.textRendererForWidget(this, GuiGraphics.HoveredTextEffects.NONE)); TODO Remove
         }
     }
 
-
+    public Identifier getTextureLocation() {
+        if (!this.isActive()) {
+            return null; // TODO Add disabled view
+        } else if (this.isHoveredOrFocused()) { // or IsSelected
+            return this.hoverTextureLocation;
+        }
+        return this.textureLocation;
+    }
 }

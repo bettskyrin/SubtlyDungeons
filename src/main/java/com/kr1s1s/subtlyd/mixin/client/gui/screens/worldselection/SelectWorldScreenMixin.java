@@ -1,6 +1,5 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
-import com.kr1s1s.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
@@ -65,7 +64,6 @@ public abstract class SelectWorldScreenMixin extends Screen {
 
         this.layout.setFooterHeight(30);
         LinearLayout linearLayout = this.layout.addToHeader(LinearLayout.vertical().spacing(ROW_SPACING));
-        Util.debug(this.layout.getFooterHeight());
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
         linearLayout.addChild(new StringWidget(this.title, this.font));
         LinearLayout linearLayout2 = linearLayout.addChild(LinearLayout.horizontal().spacing(ROW_SPACING));

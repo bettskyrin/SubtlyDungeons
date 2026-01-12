@@ -40,13 +40,45 @@ public class CreateWorldScreenMixin {
         @Inject(method = "<init>", at = @At("RETURN"))
         private void init(CreateWorldScreen helper, CallbackInfo ci) {
             int SPACING = 4;
+            int GAME_MODE_BUTTON_WIDTH = 114;
+            int GAME_MODE_BUTTON_HEIGHT = 80;
+            int GAME_MODE_BUTTON_TEXTURE_WIDTH = 200;
+            int GAME_MODE_BUTTON_TEXTURE_HEIGHT = 140;
             LinearLayout linearLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
             LinearLayout topRow = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
-            LinearLayout rightColumn = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
+            LinearLayout leftColumn = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
 
             linearLayout.defaultCellSetting().alignVerticallyMiddle();
             topRow.defaultCellSetting().paddingHorizontal(4);
-            rightColumn.defaultCellSetting().alignHorizontallyLeft();
+            leftColumn.defaultCellSetting().alignHorizontallyLeft();
+
+            GameTabButton survivalButton = leftColumn.addChild(
+                    GameTabButton.builder(
+                            Component.translatable("selectWorld.gameMode.survival"),
+                            _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL),
+                            Util.identifier("textures/gui/sprites/widget/survival.png"),
+                            Util.identifier("textures/gui/sprites/widget/survival_highlighted.png"),
+                            GAME_MODE_BUTTON_TEXTURE_WIDTH, GAME_MODE_BUTTON_TEXTURE_HEIGHT
+                    ).build()
+            );
+            survivalButton.setSize(GAME_MODE_BUTTON_WIDTH, GAME_MODE_BUTTON_HEIGHT);
+            survivalButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.SURVIVAL.getInfo()));
+
+            GameTabButton creativeButton = leftColumn.addChild(
+                    GameTabButton.builder(
+                            Component.translatable("selectWorld.gameMode.creative"),
+                            _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE),
+                            Util.identifier("textures/gui/sprites/widget/creative.png"),
+                            Util.identifier("textures/gui/sprites/widget/creative_highlighted.png"),
+                            GAME_MODE_BUTTON_TEXTURE_WIDTH, GAME_MODE_BUTTON_TEXTURE_HEIGHT
+                    ).build()
+            );
+            creativeButton.setSize(GAME_MODE_BUTTON_WIDTH, GAME_MODE_BUTTON_HEIGHT);
+            creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
+
+            topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), leftColumn, GAME_MODE_LABEL));
+            this.layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
+
             this.nameEdit = new EditBox(helper.getFont(), (int) (helper.width / 2.5), 20, Component.translatable("selectWorld.enterName"));
             this.nameEdit.setValue(helper.getUiState().getName());
             this.nameEdit.setResponder(helper.getUiState()::setName);
@@ -64,33 +96,6 @@ public class CreateWorldScreenMixin {
                     CommonLayouts.labeledElement(helper.getFont(), this.nameEdit, NAME_LABEL),
                     topRow.newCellSettings().alignHorizontallyCenter()
             );
-
-            GameTabButton survivalButton = rightColumn.addChild(
-                    GameTabButton.builder(
-                            Component.translatable("selectWorld.gameMode.survival"),
-                            _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL),
-                            Util.identifier("textures/gui/sprites/widget/survival.png"),
-                            Util.identifier("textures/gui/sprites/widget/survival_highlighted.png"),
-                            200, 140
-                    ).build()
-            );
-            survivalButton.setSize(100, 70);
-            survivalButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.SURVIVAL.getInfo()));
-
-            GameTabButton creativeButton = rightColumn.addChild(
-                    GameTabButton.builder(
-                            Component.translatable("selectWorld.gameMode.creative"),
-                            _ -> helper.getUiState().setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE),
-                            Util.identifier("textures/gui/sprites/widget/creative.png"),
-                            Util.identifier("textures/gui/sprites/widget/creative_highlighted.png"),
-                            200, 140
-                    ).build()
-            );
-            creativeButton.setSize(100, 70);
-            creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
-
-            topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), rightColumn, GAME_MODE_LABEL));
-            this.layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyCenter());
         }
 
         /**
