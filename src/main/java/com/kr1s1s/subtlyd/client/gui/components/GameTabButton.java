@@ -17,41 +17,37 @@ import org.joml.Matrix3x2fStack;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
-public class GameTabButton extends AbstractButton {
-    protected static final GameTabButton.CreateNarration DEFAULT_NARRATION = supplier -> (MutableComponent)supplier.get();
+public abstract class GameTabButton extends AbstractButton {
+    protected static final GameTabButton.CreateNarration DEFAULT_NARRATION = Supplier::get;
     protected final GameTabButton.OnPress onPress;
     protected final GameTabButton.CreateNarration createNarration;
-    protected final Identifier resourceLocation;
+    protected final Identifier textureLocation;
+    protected final Identifier hoverTextureLocation;
     protected final int textureWidth;
     protected final int textureHeight;
 
-    public static GameTabButton.Builder builder(Component component, GameTabButton.OnPress onPress, Identifier resourceLocation, int textureWidth, int textureHeight) {
-        return new GameTabButton.Builder(component, onPress, resourceLocation, textureWidth, textureHeight);
+    public static GameTabButton.Builder builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
+        return new GameTabButton.Builder(component, onPress, texture, hoverTexture, textureWidth, textureHeight);
     }
 
-    public GameTabButton(int x, int y, int width, int height, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier resourceLocation, int textureWidth, int textureHeight) {
+    public GameTabButton(int x, int y, int width, int height, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
         super(x, y, width, height, component);
         this.onPress = onPress;
         this.createNarration = createNarration;
-        this.resourceLocation = resourceLocation;
+        this.textureLocation = texture;
+        this.hoverTextureLocation = hoverTexture;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
     }
 
     @Override
-    protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
-
+    protected void updateWidgetNarration(NarrationElementOutput output) {
+        this.defaultButtonNarrationText(output);
     }
-
 
     @Override
     public void onPress(InputWithModifiers inputWithModifiers) {
-
-    }
-
-    @Override
-    protected void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
-
+        this.onPress.onPress(this);
     }
 
     @Environment(EnvType.CLIENT)
@@ -64,14 +60,16 @@ public class GameTabButton extends AbstractButton {
         private int width;
         private int height;
         private GameTabButton.CreateNarration createNarration = GameTabButton.DEFAULT_NARRATION;
-        private Identifier resourceLocation;
+        private final Identifier textureLocation;
+        private final Identifier hoverTextureLocation;
         private int textureWidth = 0;
         private int textureHeight = 0;
 
-        public Builder(Component component, GameTabButton.OnPress onPress, Identifier resourceLocation, int width, int height) {
+        public Builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, int width, int height) {
             this.message = component;
             this.onPress = onPress;
-            this.resourceLocation = resourceLocation;
+            this.textureLocation = texture;
+            this.hoverTextureLocation = hoverTexture; // TODO Add disabled
             this.width = width;
             this.height = height;
         }
@@ -103,11 +101,6 @@ public class GameTabButton extends AbstractButton {
             return this.pos(i, j).size(k, l);
         }
 
-        public GameTabButton.Builder texture(Identifier resourceLocation) {
-            this.resourceLocation = resourceLocation;
-            return this;
-        }
-
         public GameTabButton.Builder tooltip(Tooltip tooltip) {
             this.tooltip = tooltip;
             return this;
@@ -121,7 +114,7 @@ public class GameTabButton extends AbstractButton {
         public GameTabButton build() {
             this.textureWidth = (this.textureWidth == 0) ? this.width : this.textureWidth;
             this.textureHeight = (this.textureHeight == 0) ? this.height : this.textureHeight;
-            GameTabButton button = new GameTabButton.Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.resourceLocation, this.textureWidth, this.textureHeight);
+            GameTabButton button = new GameTabButton.Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.textureLocation, this.hoverTextureLocation, this.textureWidth, this.textureHeight);
             button.setTooltip(this.tooltip);
             return button;
         }
@@ -136,17 +129,18 @@ public class GameTabButton extends AbstractButton {
     public interface OnPress {
         void onPress(GameTabButton button);
     }
+
     @Environment(EnvType.CLIENT)
     public static class Plain extends GameTabButton {
-        protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier resourceLocation, int textureWidth, int textureHeight) {
-            super(i, j, k, l, component, onPress, createNarration, resourceLocation, textureWidth, textureHeight);
+        protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
+            super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, textureWidth, textureHeight);
         }
 
         @Override
         protected void renderContents(GuiGraphics guiGraphics, int i, int j, float f) {
             this.renderDefaultSprite(guiGraphics);
 
-            if (this.resourceLocation != null) {
+            if (this.textureLocation != null) {
                 Matrix3x2fStack pose = guiGraphics.pose();
                 pose.pushMatrix();
 
@@ -158,7 +152,7 @@ public class GameTabButton extends AbstractButton {
 
                 guiGraphics.blit(
                         RenderPipelines.GUI_TEXTURED,
-                        this.resourceLocation,
+                        this.textureLocation,
                         0, 0, 0.0F, 0.0F,
                         this.textureWidth, this.textureHeight,
                         this.textureWidth, this.textureHeight,
