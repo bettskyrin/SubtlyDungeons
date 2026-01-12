@@ -3,6 +3,7 @@ package com.kr1s1s.subtlyd.client.gui.components;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -14,6 +15,7 @@ import net.minecraft.resources.Identifier;
 import org.joml.Matrix3x2fStack;
 import org.jspecify.annotations.NonNull;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
@@ -23,19 +25,23 @@ public abstract class GameTabButton extends AbstractButton {
     protected final GameTabButton.CreateNarration createNarration;
     protected final Identifier textureLocation;
     protected final Identifier hoverTextureLocation;
+    protected final Identifier lockedTextureLocation;
     protected final int textureWidth;
     protected final int textureHeight;
+    protected BooleanSupplier isSelected = () -> false;
+    protected boolean isLocked = false;
 
-    public static GameTabButton.Builder builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
-        return new GameTabButton.Builder(component, onPress, texture, hoverTexture, textureWidth, textureHeight);
+    public static GameTabButton.Builder builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
+        return new GameTabButton.Builder(component, onPress, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
     }
 
-    public GameTabButton(int x, int y, int width, int height, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
+    public GameTabButton(int x, int y, int width, int height, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier lockedTextureLocation, int textureWidth, int textureHeight) {
         super(x, y, width, height, component);
         this.onPress = onPress;
         this.createNarration = createNarration;
         this.textureLocation = texture;
         this.hoverTextureLocation = hoverTexture;
+        this.lockedTextureLocation = lockedTextureLocation;
         this.textureWidth = textureWidth;
         this.textureHeight = textureHeight;
     }
@@ -61,14 +67,16 @@ public abstract class GameTabButton extends AbstractButton {
         private final GameTabButton.CreateNarration createNarration = GameTabButton.DEFAULT_NARRATION;
         private final Identifier textureLocation;
         private final Identifier hoverTextureLocation;
+        private final Identifier lockedTextureLocation;
         private int textureWidth = 0;
         private int textureHeight = 0;
 
-        public Builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, int width, int height) {
+        public Builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier lockedTextureLocation, int width, int height) {
             this.message = component;
             this.onPress = onPress;
             this.textureLocation = texture;
-            this.hoverTextureLocation = hoverTexture; // TODO Add disabled
+            this.hoverTextureLocation = hoverTexture;
+            this.lockedTextureLocation = lockedTextureLocation;
             this.width = width;
             this.height = height;
         }
@@ -93,7 +101,7 @@ public abstract class GameTabButton extends AbstractButton {
         public GameTabButton build() {
             this.textureWidth = (this.textureWidth == 0) ? this.width : this.textureWidth;
             this.textureHeight = (this.textureHeight == 0) ? this.height : this.textureHeight;
-            return new Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.textureLocation, this.hoverTextureLocation, this.textureWidth, this.textureHeight);
+            return new Plain(this.x, this.y, this.width, this.height, this.message, this.onPress, this.createNarration, this.textureLocation, this.hoverTextureLocation, this.lockedTextureLocation, this.textureWidth, this.textureHeight);
         }
     }
 
@@ -109,17 +117,43 @@ public abstract class GameTabButton extends AbstractButton {
 
     @Environment(EnvType.CLIENT)
     public static class Plain extends GameTabButton {
-        protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, int textureWidth, int textureHeight) {
-            super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, textureWidth, textureHeight);
+        private final Font font = Minecraft.getInstance().font;
+
+        protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
+            super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
+        }
+
+        public Identifier getTextureLocation() {
+            if (!this.isActive() || this.isLocked()) {
+                return this.lockedTextureLocation;
+            } else if (this.isHoveredOrFocused() || isSelected()) {
+                return this.hoverTextureLocation;
+            }
+            return this.textureLocation;
+        }
+
+        public boolean isSelected() {
+            return this.isSelected.getAsBoolean();
+        }
+
+        public boolean isLocked() {
+            return this.isLocked;
         }
 
         @Override
-        protected void renderContents(@NonNull GuiGraphics guiGraphics, int i, int j, float f) {
+        protected void renderContents(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float a) {
+            boolean wasHovered = this.isHovered;
+            int textColor = this.active ? 0xFFFFFFFF : 0xA0A0A0A0;
             Identifier renderedImage = getTextureLocation();
-            this.renderDefaultSprite(guiGraphics);
 
+            if (this.isSelected()) { // Makes the vanilla button texture portion render as highlighted when selected
+                this.isHovered = true;
+            }
+
+            this.renderDefaultSprite(graphics);
+            this.isHovered = wasHovered;
             if (renderedImage != null) {
-                Matrix3x2fStack pose = guiGraphics.pose();
+                Matrix3x2fStack pose = graphics.pose();
                 pose.pushMatrix();
 
                 pose.translate(this.getX(), this.getY());
@@ -128,7 +162,7 @@ public abstract class GameTabButton extends AbstractButton {
                 float scaleY = (float) this.getHeight() / this.textureHeight;
                 pose.scale(scaleX, scaleY);
 
-                guiGraphics.blit(
+                graphics.blit(
                         RenderPipelines.GUI_TEXTURED,
                         renderedImage,
                         0, 0, 0.0F, 0.0F,
@@ -136,29 +170,27 @@ public abstract class GameTabButton extends AbstractButton {
                         this.textureWidth, this.textureHeight,
                         -1
                 );
-
                 pose.popMatrix();
             }
 
-            int textColor = this.active ? 0xFFFFFF : 0xA0A0A0;
-
-            guiGraphics.drawCenteredString(Minecraft.getInstance().font, // FIXME or swap with following method
+            graphics.drawCenteredString(this.font,
                     this.getMessage(),
-                    this.getX() + this.width,
-                    this.getY(),
+                    this.getX() + (this.width / 2),
+                    this.getY() + this.getHeight() - 13,
                     textColor
             );
-
-            //this.renderDefaultLabel(guiGraphics.textRendererForWidget(this, GuiGraphics.HoveredTextEffects.NONE)); TODO Remove
         }
     }
 
-    public Identifier getTextureLocation() {
-        if (!this.isActive()) {
-            return null; // TODO Add disabled view
-        } else if (this.isHoveredOrFocused()) { // or IsSelected
-            return this.hoverTextureLocation;
-        }
-        return this.textureLocation;
+    public void setIsSelected(BooleanSupplier bl) {
+        this.isSelected = bl;
+    }
+
+    public void setIsLocked(Boolean bl) {
+        this.isLocked = bl;
+    }
+
+    public void setIsActive(Boolean bl) {
+        this.active = bl;
     }
 }
