@@ -1,5 +1,6 @@
 package com.kr1s1s.subtlyd.mixin.client.gui.screens.worldselection;
 
+import com.kr1s1s.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
@@ -62,7 +63,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
         int bigButtonWidth = 64;
         int buttonWidth = 48;
 
-        this.layout.setFooterHeight(30);
+        this.layout.setFooterHeight(35);
         LinearLayout linearLayout = this.layout.addToHeader(LinearLayout.vertical().spacing(ROW_SPACING));
         linearLayout.defaultCellSetting().alignHorizontallyCenter();
         linearLayout.addChild(new StringWidget(this.title, this.font));
@@ -124,7 +125,6 @@ public abstract class SelectWorldScreenMixin extends Screen {
     private void createFooterButtons(Consumer<WorldSelectionList.WorldListEntry> joinWorld, WorldSelectionList list, CallbackInfo ci) {
         ci.cancel();
         int BUTTON_MIDDLE_X = 100;
-        int BACK_BUTTON_WIDTH = 60;
 
         GridLayout gridLayout = this.layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
         gridLayout.defaultCellSetting().alignHorizontallyCenter();
@@ -135,12 +135,12 @@ public abstract class SelectWorldScreenMixin extends Screen {
                         .build()
         );
 
-        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X + (BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X + (Util.Globals.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
 
         rowHelper.addChild(
                 Button.builder(
                                 CommonComponents.GUI_BACK, _ -> this.minecraft.setScreen(this.lastScreen))
-                        .width(BACK_BUTTON_WIDTH)
+                        .width(Util.Globals.BACK_BUTTON_WIDTH)
                         .build());
     }
 }

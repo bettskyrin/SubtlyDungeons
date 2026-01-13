@@ -46,6 +46,35 @@ public abstract class GameTabButton extends AbstractButton {
         this.textureHeight = textureHeight;
     }
 
+    public Identifier getTextureLocation() {
+        if (!this.isActive() || this.isLocked()) {
+            return this.lockedTextureLocation;
+        } else if (this.isHoveredOrFocused() || isSelected()) {
+            return this.hoverTextureLocation;
+        }
+        return this.textureLocation;
+    }
+
+    public boolean isSelected() {
+        return this.isSelected.getAsBoolean();
+    }
+
+    public boolean isLocked() {
+        return this.isLocked;
+    }
+
+    public void setSelected(BooleanSupplier bl) {
+        this.isSelected = bl;
+    }
+
+    public void setLocked(Boolean bl) {
+        this.isLocked = bl;
+    }
+
+    public void setActive(Boolean bl) {
+        this.active = bl;
+    }
+
     @Override
     protected void updateWidgetNarration(@NonNull NarrationElementOutput output) {
         this.defaultButtonNarrationText(output);
@@ -106,6 +135,7 @@ public abstract class GameTabButton extends AbstractButton {
     }
 
     @Environment(EnvType.CLIENT)
+    @SuppressWarnings("unused")
     public interface CreateNarration {
         MutableComponent createNarrationMessage(Supplier<MutableComponent> supplier);
     }
@@ -121,23 +151,6 @@ public abstract class GameTabButton extends AbstractButton {
 
         protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
             super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
-        }
-
-        public Identifier getTextureLocation() {
-            if (!this.isActive() || this.isLocked()) {
-                return this.lockedTextureLocation;
-            } else if (this.isHoveredOrFocused() || isSelected()) {
-                return this.hoverTextureLocation;
-            }
-            return this.textureLocation;
-        }
-
-        public boolean isSelected() {
-            return this.isSelected.getAsBoolean();
-        }
-
-        public boolean isLocked() {
-            return this.isLocked;
         }
 
         @Override
@@ -180,17 +193,5 @@ public abstract class GameTabButton extends AbstractButton {
                     textColor
             );
         }
-    }
-
-    public void setIsSelected(BooleanSupplier bl) {
-        this.isSelected = bl;
-    }
-
-    public void setIsLocked(Boolean bl) {
-        this.isLocked = bl;
-    }
-
-    public void setIsActive(Boolean bl) {
-        this.active = bl;
     }
 }

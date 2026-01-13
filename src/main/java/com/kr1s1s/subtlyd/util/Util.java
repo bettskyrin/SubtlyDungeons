@@ -77,4 +77,8 @@ public class Util {
             return yaw;
         }
     }
+
+    public static class Globals {
+        public static int BACK_BUTTON_WIDTH = 60;
+    }
 }

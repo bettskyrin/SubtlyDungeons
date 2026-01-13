@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
-#### Zombie Leaders
+#### Zombie-Type Leaders
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture 
@@ -37,7 +37,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
 
 ### UI
-- Redesigned the world creation screen
+- Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
 
 #### Splash Text
 - Added "We <3 spiders!" splash text
@@ -47,7 +47,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Data Tags
 - The "dripstone" block tag is now "polished_dripstone"
 - The `tag.item.subtlyd.tent` tag is now `tag.item.subtlyd.tents`
+
+#### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
+- Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
 
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day
