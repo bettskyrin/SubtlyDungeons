@@ -4,9 +4,7 @@ import com.kr1s1s.subtlyd.client.gui.components.GameTabButton;
 import com.kr1s1s.subtlyd.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.EditBox;
-import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.*;
 import net.minecraft.client.gui.components.tabs.GridLayoutTab;
 import net.minecraft.client.gui.components.tabs.TabNavigationBar;
 import net.minecraft.client.gui.layouts.*;
@@ -27,6 +25,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin extends Screen {
@@ -93,18 +94,17 @@ public abstract class CreateWorldScreenMixin extends Screen {
             this.nameEdit = nameEdit;
         }
 
-        /**
-         * Sets the new layout
-         */
+
+        @SuppressWarnings("unchecked")
         @Inject(method = "<init>", at = @At("RETURN"))
         private void init(CreateWorldScreen helper, CallbackInfo ci) {
             final int SPACING = 4;
-            final int GAME_MODE_BUTTON_WIDTH = 114;
-            final int GAME_MODE_BUTTON_HEIGHT = 84;
+            final int GAME_MODE_BUTTON_WIDTH = 117;
+            final int GAME_MODE_BUTTON_HEIGHT = 86;
             final int GAME_MODE_BUTTON_TEXTURE_WIDTH = 192;
             final int GAME_MODE_BUTTON_TEXTURE_HEIGHT = 141;
-            final int DIFFICULTY_BUTTON_WIDTH = 83;
-            final int DIFFICULTY_BUTTON_HEIGHT = 67;
+            final int DIFFICULTY_BUTTON_WIDTH = 85;
+            final int DIFFICULTY_BUTTON_HEIGHT = 69;
             final int DIFFICULTY_BUTTON_TEXTURE_WIDTH = 200;
             final int DIFFICULTY_BUTTON_TEXTURE_HEIGHT = 159;
             final int WORLD_SETTINGS_WIDTH = (int) (helper.width / 2.5);
@@ -163,7 +163,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
             this.nameEdit.setResponder(uiState::setName);
             helper.setInitialFocus(this.nameEdit);
 
-            switchGridBuilder.addSwitch(HARDCORE, uiState::isHardcore, (isHardcore) -> {
+             switchGridBuilder.addSwitch(HARDCORE, uiState::isHardcore, (isHardcore) -> {
                 uiState.setGameMode(isHardcore ? WorldCreationUiState.SelectedGameMode.HARDCORE : WorldCreationUiState.SelectedGameMode.SURVIVAL);
                 uiState.setDifficulty(Difficulty.HARD);
                 if (isHardcore) {
@@ -172,11 +172,13 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIRE_AMBIENT, 0.5F));
                 }
             }).withInfo(HARDCORE_INFO);
+
             switchGridBuilder.addSwitch(ALLOW_COMMANDS, uiState::isAllowCommands, uiState::setAllowCommands).withInfo(ALLOW_COMMANDS_INFO);
             worldSettingsSection.addChild(
                     CommonLayouts.labeledElement(helper.getFont(), this.nameEdit, NAME_LABEL),
                     topRow.newCellSettings().alignHorizontallyCenter());
-            worldSettingsSection.addChild(switchGridBuilder.build().layout());
+            SwitchGrid switchGrid = switchGridBuilder.build();
+            worldSettingsSection.addChild(switchGrid.layout());
             topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), gameModeSection, GAME_MODE_LABEL));
             topRow.addChild(worldSettingsSection);
             this.layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyLeft());
@@ -247,6 +249,19 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 easyButton.setActive(!uiState.isHardcore());
                 normalButton.setActive(!uiState.isHardcore());
                 hardButton.setLocked(uiState.isHardcore());
+
+                List<AbstractWidget> worldButtons = new ArrayList<>();
+                switchGrid.layout().visitWidgets(worldButtons::add);
+                int i = 0;
+                for (AbstractWidget widget : worldButtons) {
+                    if (widget instanceof CycleButton<?> button) {
+                        if (i == 1) {
+                            ((CycleButton<Boolean>) button).setValue(uiState.isAllowCommands());
+                            break;
+                        }
+                        i++;
+                    }
+                }
             });
             LayoutElement bottomRow = CommonLayouts.labeledElement(helper.getFont(), difficultySection, DIFFICULTY_LABEL);
             this.layout.addChild(bottomRow, 1, 0, linearLayout.newCellSettings().alignHorizontallyLeft().paddingHorizontal(SPACING));
