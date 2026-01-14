@@ -300,11 +300,17 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public boolean isPickable() { return !this.isRemoved(); }
+    public boolean isPickable() {
+        return !this.isRemoved();
+    }
 
     @Override
-    public ItemStack getPickResult() { return new ItemStack(this.dropItem.get()); }
+    public ItemStack getPickResult() {
+        return new ItemStack(this.dropItem.get());
+    }
 
     @Override
-    public boolean isPushedByFluid() { return false; }
+    public boolean isPushedByFluid() {
+        return false;
+    }
 }
