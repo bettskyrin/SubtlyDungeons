@@ -41,14 +41,17 @@ public abstract class SpiderMixin implements ClimberAccessor {
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
 
-        if (isClimbing() && isChangingHeight()) {
-            float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
-            RandomSource randomSource = RandomSource.create();
+        if (isClimbing()) {
             progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
-            livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-            if (randomSource.nextFloat() < 0.5F) {
-                livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+            if (isChangingHeight()) {
+                float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
+                RandomSource randomSource = RandomSource.create();
+
+                livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
+                if (randomSource.nextFloat() < 0.5F) {
+                    livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+                }
             }
         } else {
             progNew = Math.max(0.0F, progNew - ANIM_RATE);

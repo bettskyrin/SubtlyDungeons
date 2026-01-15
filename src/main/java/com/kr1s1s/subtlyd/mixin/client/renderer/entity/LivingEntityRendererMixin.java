@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingEntityRenderState> {
+    private final float climbProgressThreshold = 0.0F; // Minimum amount of progress that must occur before the animation may begin
 
     /**
      * Determines the render state to extract.
@@ -32,7 +33,6 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             at = @At("TAIL"))
     private void determineRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
-
             if (entity instanceof ClimberAccessor climberAccessor) {
                 extractClimberState(entity, climberAccessor, state, stateAccessor, partialTicks);
             } else if (entity.getVehicle() instanceof ClimberAccessor spider) {
@@ -61,20 +61,17 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     private void extractClimberState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
         float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
+        Direction nearestWall = Util.Logic.getNearestWall(entity);
 
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
-        if (progress > 0.0F) {
-            Direction nearestWall = Util.Logic.getNearestWall(entity);
+        if (progress > climbProgressThreshold && nearestWall != null) {
+            float yaw = Util.Logic.getClimberRotation(entity, nearestWall);
 
-            if (nearestWall != null) {
-                float yaw = Util.Logic.getClimberRotation(entity, nearestWall);
-
-                state.bodyRot = Mth.rotLerp(progress, entity.getYRot(), climberAccessor.subtlyDungeons$getRotation(partialTicks));
-                state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
-                state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
-                stateAccessor.subtlyDungeons$setClimbRotation(yaw);
-                climberAccessor.subtlyDungeons$tickRotation(climberAccessor.subtlyDungeons$getRotation(partialTicks));
-            }
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
+            state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
+            state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
+            stateAccessor.subtlyDungeons$setClimbRotation(yaw);
+            climberAccessor.subtlyDungeons$tickRotation(climberAccessor.subtlyDungeons$getRotation(partialTicks));
         }
     }
 
@@ -92,7 +89,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
         stateAccessor.subtlyDungeons$setJockey(true);
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
-        if (progress > 0.0F && nearestWall != null) {
+        if (progress > climbProgressThreshold && nearestWall != null) {
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
             state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall));
         }
@@ -110,7 +107,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         float yOffset;
         float zOffset;
 
-        if (progress > 0.0F) {
+        if (progress > climbProgressThreshold) {
             if (!accessor.subtlyDungeons$isJockey()) {
                 yOffset = 0.2F * progress;
                 zOffset = (-1.06F * bBH + 0.2F) * progress; // Linear function to prevent cave spiders from clipping into walls.
