@@ -4,7 +4,6 @@ import com.kr1s1s.subtlyd.world.entity.TentEntity;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.entity.monster.zombie.Zombie;
 
 public class SynchedEntityDataSD {
     public static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(TentEntity.class, EntityDataSerializers.INT);

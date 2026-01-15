@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class EntityLootSD {
     public static void register() {
-        LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
+        LootTableEvents.MODIFY.register((resourceKey, tableBuilder, _, provider) -> {
             EntityPredicate onFirePredicate = EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)).build();
 
             if (resourceKey.equals(EntityType.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityType.GLOW_SQUID.getDefaultLootTable().orElseThrow())) {

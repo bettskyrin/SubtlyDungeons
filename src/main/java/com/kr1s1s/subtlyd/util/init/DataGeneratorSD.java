@@ -4,7 +4,6 @@ import com.kr1s1s.subtlyd.world.level.levelgen.BiomeProviderSD;
 import com.kr1s1s.subtlyd.util.data.ModelProviderSD;
 import com.kr1s1s.subtlyd.util.data.RecipeProviderSD;
 import com.kr1s1s.subtlyd.util.data.loot_table.BlockLootSD;
-import com.kr1s1s.subtlyd.util.data.loot_table.LootSD;
 import com.kr1s1s.subtlyd.util.data.tags.BiomeTagsSD;
 import com.kr1s1s.subtlyd.util.data.tags.BlockTagsSD;
 import com.kr1s1s.subtlyd.util.data.tags.DamageTypeTagsSD;
@@ -25,6 +24,5 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
         pack.addProvider(BiomeProviderSD::new);
-        LootSD.registration();
 	}
 }

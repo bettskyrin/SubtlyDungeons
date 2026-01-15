@@ -9,8 +9,7 @@
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
     "common.entity.monster.RaiderMixin",
-    "common.world.item.ItemAccessor",
-    "common.world.item.ItemsMixin",
+    "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin"
   ],
   "client": [
@@ -19,6 +18,11 @@
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
+    "client.gui.screens.worldselection.CreateWorldScreenMixin",
+    "client.gui.screens.worldselection.CreateWorldScreenMixin$GameTabMixin",
+    "client.gui.screens.worldselection.SelectWorldScreenMixin",
+    "client.gui.screens.worldselection.WorldSelectionListMixin",
+    "client.gui.screens.worldselection.WorldSelectionListMixin$WorldListEntryMixin",
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.LevelMixin",

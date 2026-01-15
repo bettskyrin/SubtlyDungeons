@@ -1,16 +1,15 @@
 package com.kr1s1s.subtlyd.world.entity;
 
+import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import com.kr1s1s.subtlyd.util.Util;
 import com.kr1s1s.subtlyd.util.data.tags.DamageTypeTagsSD;
-import com.kr1s1s.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.Identifier;
-
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -34,9 +33,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -246,11 +245,11 @@ public class TentEntity extends Entity {
 
     /**
      * Called when a player interacts with the tent
-     * @param vec3 Tent location
+     * @param location Tent location
      * @return Server success
      */
     @Override
-    public @NotNull InteractionResult interactAt(Player player, @NotNull Vec3 vec3, @NotNull InteractionHand interactionHand) {
+    public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
         if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.getMessage() != null) {
@@ -261,42 +260,8 @@ public class TentEntity extends Entity {
         return InteractionResult.SUCCESS_SERVER;
     }
 
-    /**
-     * Checks if an entity is within tent range (2 blocks)
-     * @param entity Entity to check
-     * @return True if in range
-     */
-    @Deprecated
-    public boolean inTentRange(Entity entity) {
-        AABB box = entity.getBoundingBox().inflate(2.0);
-        return !(entity.level().getEntities(this, box).isEmpty());
-        //return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
-    }
 
     /**
-     * Checks if an entity is inside a tent
-     * @param entity Entity to check
-     * @return True if inside a tent
-     */
-    @Deprecated
-    public static boolean inTent(Entity entity) {
-        AABB box = entity.getBoundingBox().deflate(1.0);
-        return !(entity.level().getEntitiesOfClass(TentEntity.class, box).isEmpty());
-    }
-
-    /**
-     * Checks if an entity is inside a specific tent
-     * @param entity Entity to check
-     * @param tent Tent to check
-     * @return True if inside the specified tent
-     */
-    @Deprecated
-    public static boolean inTent(Entity entity, TentEntity tent) {
-        AABB box = entity.getBoundingBox().deflate(1.0);
-        return !(entity.level().getEntities(tent, box).isEmpty());
-    }
-
-    /***
      * Used for testing for or getting the tent an entity (player) is using.
      * @param livingEntity The entity to check.
      * @return The tent the entity is actively using.
@@ -336,11 +301,17 @@ public class TentEntity extends Entity {
     }
 
     @Override
-    public boolean isPickable() { return !this.isRemoved(); }
+    public boolean isPickable() {
+        return !this.isRemoved();
+    }
 
     @Override
-    public ItemStack getPickResult() { return new ItemStack(this.dropItem.get()); }
+    public ItemStack getPickResult() {
+        return new ItemStack(this.dropItem.get());
+    }
 
     @Override
-    public boolean isPushedByFluid() { return false; }
+    public boolean isPushedByFluid() {
+        return false;
+    }
 }
