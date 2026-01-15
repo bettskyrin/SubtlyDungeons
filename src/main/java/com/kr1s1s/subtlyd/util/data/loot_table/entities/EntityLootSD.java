@@ -22,7 +22,7 @@ public class EntityLootSD {
 
             if (resourceKey.equals(EntityType.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityType.GLOW_SQUID.getDefaultLootTable().orElseThrow())) {
                 LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F)) // FIXME
+                        .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ItemsSD.CALAMARI)
                                 .apply(SmeltItemFunction.smelted().when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, onFirePredicate))));
                 tableBuilder.withPool(poolBuilder).build();
