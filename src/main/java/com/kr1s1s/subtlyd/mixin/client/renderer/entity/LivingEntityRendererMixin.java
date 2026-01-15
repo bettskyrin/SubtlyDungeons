@@ -21,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingEntityRenderState> {
-    private final float climbProgressThreshold = 0.0F; // Minimum amount of progress that must occur before the animation may begin
+    private static final float climbProgressThreshold = 0.0F; // Minimum amount of progress that must occur before the animation may begin
 
     /**
      * Determines the render state to extract.
