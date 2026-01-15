@@ -56,6 +56,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed a bug causing players that "spam" slept in beds to skip to day
 - Improved server performance for using tents
 - Sleeping in tents will no longer negate fall damage
+- Squids once again drop calamari
 
 ## [2.0] - 12/29/2025
 #### Developer Notes:

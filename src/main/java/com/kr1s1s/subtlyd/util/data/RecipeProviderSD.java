@@ -9,11 +9,16 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
+import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -23,8 +28,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
         super(output, registriesFuture);
     }
 
-    @Override protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
-        return new RecipeProvider(registryLookup, exporter) {
+    @Override protected @NonNull RecipeProvider createRecipeProvider(HolderLookup.@NonNull Provider registries, @NonNull RecipeOutput output) {
+        return new RecipeProvider(registries, output) {
             @Override public void buildRecipes() {
                 /* BUILDING BLOCKS */
                 this.shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_PILLAR, 2)
@@ -33,29 +38,29 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern("#")
                         .unlockedBy(getHasName(Blocks.STONE), has(Blocks.STONE))
                         .unlockedBy(getHasName(BlocksSD.STONE_PILLAR), has(BlocksSD.STONE_PILLAR))
-                        .save(exporter);
+                        .save(output);
 
                 this.shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, 4)
                         .define('S', Blocks.STONE_BRICKS)
                         .pattern("SS")
                         .pattern("SS")
                         .unlockedBy(getHasName(Blocks.STONE_BRICKS), has(Blocks.STONE_BRICKS))
-                        .save(exporter);
+                        .save(output);
 
                 this.nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
                 this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
 
-                this.stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(exporter);
+                this.stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(output);
                 this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
                 this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_WALL, ItemsSD.SNOW_BRICKS);
 
                 this.chiseled(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHISELED_POLISHED_DRIPSTONE, ItemsSD.POLISHED_DRIPSTONE_SLAB);
                 this.polished(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE, Items.DRIPSTONE_BLOCK);
-                this.stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE)).unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), this.has(ItemsSD.POLISHED_DRIPSTONE)).save(exporter);
+                this.stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE)).unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), this.has(ItemsSD.POLISHED_DRIPSTONE)).save(output);
                 this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_SLAB, ItemsSD.POLISHED_DRIPSTONE);
                 this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_WALL, ItemsSD.POLISHED_DRIPSTONE);
 
-                this.stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES)).unlockedBy(getHasName(ItemsSD.STONE_TILES), this.has(ItemsSD.STONE_TILES)).save(exporter);
+                this.stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES)).unlockedBy(getHasName(ItemsSD.STONE_TILES), this.has(ItemsSD.STONE_TILES)).save(output);
                 this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_SLAB, ItemsSD.STONE_TILES);
                 this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_WALL, ItemsSD.STONE_TILES);
 
@@ -89,7 +94,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern("#X#")
                         .pattern("XXX")
                         .unlockedBy(getHasName(Items.STICK), has(Items.STICK))
-                        .save(exporter);
+                        .save(output);
 
                 /* FOOD */
                 this.shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
@@ -100,7 +105,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.APPLE), has(Items.APPLE))
                         .unlockedBy(getHasName(Items.GOLDEN_APPLE), has(Items.GOLDEN_APPLE))
                         .unlockedBy(getHasName(Items.ENCHANTED_GOLDEN_APPLE), has(Items.ENCHANTED_GOLDEN_APPLE))
-                        .save(exporter);
+                        .save(output);
 
                 this.shapeless(RecipeCategory.FOOD, ItemsSD.POTTAGE)
                         .requires(Items.BOWL)
@@ -111,10 +116,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.WHEAT), has(Items.WHEAT))
                         .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
                         .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
-                        .save(exporter);
-
-                this.cookRecipesSD("smoking", RecipeSerializer.SMOKING_RECIPE, SmokingRecipe::new, 100);
-                this.cookRecipesSD("campfire_cooking", RecipeSerializer.CAMPFIRE_COOKING_RECIPE, CampfireCookingRecipe::new, 600);
+                        .save(output);
+                cookRecipesSD(ItemsSD.CALAMARI, 0.35F, ItemsSD.COOKED_CALAMARI);
 
                 /* MISC */
                 for (int i = 0; i <= 15; i++) {
@@ -124,8 +127,10 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 colorItemWithDye(ItemsSD.DYE_ITEM_LIST, ItemsSD.TENT_ITEM_LIST, "tent_dye", RecipeCategory.MISC);
             }
 
-            public <T extends AbstractCookingRecipe> void cookRecipesSD(String string, RecipeSerializer<T> recipeSerializer, AbstractCookingRecipe.Factory<T> factory, int i) {
-                this.simpleCookingRecipe(string, recipeSerializer, factory, i, ItemsSD.CALAMARI, ItemsSD.COOKED_CALAMARI, 0.35F);
+            private void cookRecipesSD(Item ingredient, float experience, Item result) {
+                this.simpleCookingRecipe("smelting", SmeltingRecipe::new, 200, ingredient, result, experience);
+                this.simpleCookingRecipe("smoking", SmokingRecipe::new, 100, ingredient, result, experience);
+                this.simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
             }
 
             public void tentBuilderFromWool(ItemLike tentOutput, ItemLike wool) {
@@ -137,7 +142,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern("#X#")
                         .pattern("#X#")
                         .unlockedBy(has(wool.asItem()).toString(), has(wool.asItem()))
-                        .save(exporter);
+                        .save(output);
             }
         };
     }

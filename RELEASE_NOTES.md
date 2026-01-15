@@ -9,3 +9,7 @@
 ### Technical Changes
 #### Translations
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
+
+### Bug Fixes
+- Squids once again drop calamari
+- Spiders no longer struggle to determine their orientation if they're pushed onto a wall

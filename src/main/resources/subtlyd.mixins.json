@@ -9,8 +9,7 @@
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
     "common.entity.monster.RaiderMixin",
-    "common.world.item.ItemAccessor",
-    "common.world.item.ItemsMixin",
+    "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin"
   ],
   "client": [

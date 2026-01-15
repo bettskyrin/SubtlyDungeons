@@ -35,6 +35,7 @@ import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -244,11 +245,11 @@ public class TentEntity extends Entity {
 
     /**
      * Called when a player interacts with the tent
-     * @param vec3 Tent location
+     * @param location Tent location
      * @return Server success
      */
     @Override
-    public @NotNull InteractionResult interactAt(Player player, @NotNull Vec3 vec3, @NotNull InteractionHand interactionHand) {
+    public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
         if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.getMessage() != null) {
