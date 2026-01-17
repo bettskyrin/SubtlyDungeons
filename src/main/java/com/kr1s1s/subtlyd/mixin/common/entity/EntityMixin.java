@@ -1,5 +1,7 @@
 package com.kr1s1s.subtlyd.mixin.common.entity;
 
+import com.kr1s1s.subtlyd.util.Util;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.spider.Spider;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,11 +28,14 @@ public class EntityMixin {
      */
     private void positionClimbingRider(Spider spider, Entity passenger, Entity.MoveFunction moveFunction, CallbackInfo ci) {
         if (spider.isClimbing()) {
-            float yaw = (float) Math.toRadians(spider.yBodyRot);
+            Direction wallDir = Util.Logic.getNearestWall(spider);
+            float yaw = (float) Math.toRadians(wallDir != null ? wallDir.toYRot() : spider.getYRot());
             double distanceFromMount = 1D;
+
             double offsetX = Math.sin(yaw) * distanceFromMount;
-            double offsetY = 0.05D;
             double offsetZ = -Math.cos(yaw) * distanceFromMount;
+            double offsetY = 0.05D;
+
             double x = spider.getX() + offsetX;
             double y = spider.getY() + offsetY;
             double z = spider.getZ() + offsetZ;
