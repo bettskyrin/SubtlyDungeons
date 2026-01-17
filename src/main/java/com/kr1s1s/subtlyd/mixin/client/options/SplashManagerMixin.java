@@ -36,7 +36,9 @@ public class SplashManagerMixin {
                 "Music by John Johnson!",
                 "Windy!",
                 "We <3 spiders!",
-                "Music by Grant Kirkhope!"
+                "Music by Grant Kirkhope!",
+                "Also try Minecraft Legends!",
+                "Also try Hytale!"
         );
 
         for (String string : literals) {
