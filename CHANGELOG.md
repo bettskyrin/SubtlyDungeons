@@ -18,6 +18,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture 
 
+#### Herds Dispurse
+- Some animals now run from attackers targeting their herd!
+  - These "herds" have a radius of 16 meters
+  - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
+    - Well... except for Amadillos, which roll up
+  - Animals that are unaffected by this include:
+    - All neutral mobs
+    - All hostile mobs
+    - Zombie Horses
+    - Camel Husks
+    - Animals controlled by leads
+    - Animals being ridden
+
 ### Music
 - New Underwater Music!
   - Rest in Reefs by Peter Hont
@@ -39,7 +52,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
 
-#### Splash Text
+### Splash Text
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
 - Added "Also try Hytale!"

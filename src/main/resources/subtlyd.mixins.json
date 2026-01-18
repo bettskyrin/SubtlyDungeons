@@ -6,6 +6,7 @@
     "common.MinecraftServerMixin",
     "common.entity.AbstractArrowMixin",
     "common.entity.EntityMixin",
+    "common.entity.LivingEntityMixin",
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
     "common.entity.monster.RaiderMixin",
