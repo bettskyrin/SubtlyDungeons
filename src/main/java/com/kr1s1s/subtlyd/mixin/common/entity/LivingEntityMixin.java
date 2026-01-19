@@ -32,10 +32,34 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     /**
+     * @param mob The pathfinding mob to test.
+     * @return The speed multiplier for that animal type when it panics.
+     */
+    private double getPanicSpeed(PathfinderMob mob) {
+        for (WrappedGoal wrappedGoal : mob.goalSelector.getAvailableGoals()) {
+            if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
+                return panicGoal.speedModifier;
+            }
+        }
+        return 1.25D;
+    }
+
+    /**
+     * @param animal The animal to test.
+     * @return Whether an animal should be considered a herd-type animal.
+     */
+    private boolean isHerdAnimal(Object animal) {
+        return !(animal instanceof NeutralMob)
+                && !(animal instanceof Enemy)
+                && !(animal instanceof ZombieHorse)
+                && !(animal instanceof CamelHusk);
+    }
+
+    /**
      * Runs when an entity takes damage.
      */
     @Inject(method = "hurtServer", at = @At("RETURN"))
-    private void startPanic(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+    private void startHerdPanic(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         if (!livingEntity.level().isClientSide() && cir.getReturnValue() && isHerdAnimal(livingEntity)) {
             if (source.getEntity() instanceof LivingEntity attacker) {
                 shareHerdPanic(livingEntity, attacker);
@@ -67,38 +91,11 @@ public abstract class LivingEntityMixin extends Entity {
                     } else {
                         Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
                         if (pos != null) {
-                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, getSpeed(mob));
+                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, getPanicSpeed(mob));
                         }
                     }
                 }
             }
         }
-    }
-
-    /**
-     * @param animal The animal to test.
-     * @return Whether an animal should be considered a herd-type animal.
-     */
-    private boolean isHerdAnimal(Object animal) {
-        if (animal instanceof Animal) {
-            return !(animal instanceof NeutralMob)
-                    && !(animal instanceof Enemy)
-                    && !(animal instanceof ZombieHorse)
-                    && !(animal instanceof CamelHusk);
-        }
-        return false;
-    }
-
-    /**
-     * @param mob The pathfinding mob to test.
-     * @return The speed multiplier for that animal type when it panics.
-     */
-    private double getSpeed(PathfinderMob mob) {
-        for (WrappedGoal wrappedGoal : mob.goalSelector.getAvailableGoals()) {
-            if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
-                return panicGoal.speedModifier;
-            }
-        }
-        return 1.25D;
     }
 }
