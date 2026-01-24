@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public class VillageHeroLootSD {
     public static void register() {
-        LootTableEvents.MODIFY.register((resourceKey, tableBuilder, lootTableSource, provider) -> {
+        LootTableEvents.MODIFY.register((resourceKey, tableBuilder, _, _) -> {
             if (BuiltInLootTables.FARMER_GIFT.equals(resourceKey)) {
                 tableBuilder.modifyPools(poolBuilder -> {
                     poolBuilder.setRolls(ConstantValue.exactly(1.0F))
