@@ -103,26 +103,6 @@ public class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Makes the singleplayer button set the screen to the custom Select World Screen.
-     * @return The replaced singleplayer button.
-     */
-//    @Deprecated
-//    @ModifyArg(method = "createNormalMenuOptions",
-//                at = @At(
-//                    value = "INVOKE",
-//                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-//                    ordinal = 0))
-//    private GuiEventListener changeScreen(GuiEventListener par1) {
-//        int largeButtonWidth = 200;
-//        int largeButtonXPos = width / 2 - 100;
-//        int bottomYPos = height / 4 + 48;
-//
-//        return Button.builder(Component.translatable("menu.singleplayer"),
-//                (_ -> minecraft.setScreen(new SelectWorldScreen(this)))
-//        ).bounds(largeButtonXPos, bottomYPos, largeButtonWidth, BUTTON_HEIGHT).build();
-//    }
-
-    /**
      * Prevents the update version from being rendered at the bottom of the screen. The update version may still be found via the Debug menu.
      */
     @Redirect(method = "render",
