@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.mixin.common.entity;
+package com.meander.subtlyd.mixin.common.entity;
 
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -49,17 +49,18 @@ public abstract class LivingEntityMixin extends Entity {
      * @return Whether an animal should be considered a herd-type animal.
      */
     private boolean isHerdAnimal(Object animal) {
-        return !(animal instanceof NeutralMob)
-                && !(animal instanceof Enemy)
-                && !(animal instanceof ZombieHorse)
-                && !(animal instanceof CamelHusk);
+        return !((animal instanceof NeutralMob)
+                || (animal instanceof Enemy)
+                || (animal instanceof ZombieHorse)
+                || (animal instanceof CamelHusk))
+                && animal instanceof Animal;
     }
 
     /**
      * Runs when an entity takes damage.
      */
     @Inject(method = "hurtServer", at = @At("RETURN"))
-    private void startHerdPanic(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+    private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         if (!livingEntity.level().isClientSide() && cir.getReturnValue() && isHerdAnimal(livingEntity)) {
             if (source.getEntity() instanceof LivingEntity attacker) {
                 shareHerdPanic(livingEntity, attacker);
@@ -89,7 +90,11 @@ public abstract class LivingEntityMixin extends Entity {
                         armadillo.rollUp();
                         armadillo.getBrain().setMemory(MemoryModuleType.DANGER_DETECTED_RECENTLY, true);
                     } else {
-                        Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                        Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
+
+                        while (pos != null && (pos.x == mob.getX() && pos.z == mob.getZ())) {
+                            pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                        }
                         if (pos != null) {
                             mob.getNavigation().moveTo(pos.x, pos.y, pos.z, getPanicSpeed(mob));
                         }
