@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.meander.subtlyd.mixin",
+  "package": "net.meander.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "common.MinecraftServerMixin",
