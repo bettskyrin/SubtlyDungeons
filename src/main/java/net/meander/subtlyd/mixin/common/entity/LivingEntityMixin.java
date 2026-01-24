@@ -1,6 +1,7 @@
 package net.meander.subtlyd.mixin.common.entity;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
@@ -9,8 +10,6 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
-import net.minecraft.world.entity.animal.camel.CamelHusk;
-import net.minecraft.world.entity.animal.equine.ZombieHorse;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
@@ -45,15 +44,14 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     /**
-     * @param animal The animal to test.
+     * @param object The animal to test.
      * @return Whether an animal should be considered a herd-type animal.
      */
-    private boolean isHerdAnimal(Object animal) {
-        return !((animal instanceof NeutralMob)
+    private boolean isHerdAnimal(Object object) {
+        return (object instanceof Animal animal)
+                && !((animal instanceof NeutralMob)
                 || (animal instanceof Enemy)
-                || (animal instanceof ZombieHorse)
-                || (animal instanceof CamelHusk))
-                && animal instanceof Animal;
+                || (animal.is(EntityTypeTags.BURN_IN_DAYLIGHT)));
     }
 
     /**
