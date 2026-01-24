@@ -1,0 +1,52 @@
+package com.meander.subtlyd.mixin.client.gui.screens;
+
+import com.mojang.blaze3d.platform.NativeImage;
+import net.minecraft.client.gui.screens.FaviconTexture;
+import net.minecraft.client.renderer.texture.DynamicTexture;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.resources.Identifier;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(FaviconTexture.class)
+public class FaviconTextureMixin {
+    @Shadow @Final private Identifier textureLocation;
+    @Shadow @Nullable private DynamicTexture texture;
+    @Shadow @Final private TextureManager textureManager;
+    @Shadow private void checkOpen() {}
+    @Shadow public void clear() {}
+
+    /**
+     * Saves a thumbnail of size 455x256 pixels
+     * @param nativeImage The saved thumbnail
+     */
+    @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
+    private void upload(NativeImage nativeImage, CallbackInfo ci) {
+        ci.cancel();
+        if (nativeImage.getWidth() == 455 && nativeImage.getHeight() == 256) {
+            try {
+                this.checkOpen();
+                if (this.texture == null) {
+                    this.texture = new DynamicTexture(() -> "Favicon " + this.textureLocation, nativeImage);
+                } else {
+                    this.texture.setPixels(nativeImage);
+                    this.texture.upload();
+                }
+
+                this.textureManager.register(this.textureLocation, this.texture);
+            } catch (Throwable var3) {
+                nativeImage.close();
+                this.clear();
+                throw var3;
+            }
+        } else {
+            nativeImage.close();
+            throw new IllegalArgumentException("Icon must be 455x256, but was " + nativeImage.getWidth() + "x" + nativeImage.getHeight());
+        }
+    }
+}

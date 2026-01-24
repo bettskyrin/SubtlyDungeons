@@ -1,7 +1,0 @@
-package com.kr1s1s.subtlyd.util;
-
-import java.nio.file.Path;
-
-public class WorldIconState {
-    public static Path pathHolder = null;
-}
