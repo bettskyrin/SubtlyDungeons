@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [3.0] - UNRELEASED
+## [3.0 Living World Update] - UNRELEASED
 ### New Features
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
@@ -30,6 +30,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - Camel Husks
     - Animals controlled by leads
     - Animals being ridden
+
+#### A New Predator
+- Dolphins now occasionally hunt for squid and cod!
+  - Dolphins can also now be fed calamari
+  - Squids now avoid dolphins!
 
 ### Music
 - New Underwater Music!

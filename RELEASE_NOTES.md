@@ -1,4 +1,4 @@
-## [3.0 Snapshot 4] - 1/23/2026
+## [3.0 Snapshot 4] - 1/24/2026
 ### New Features
 #### Herds Dispurse
 - Some animals now run from attackers targeting their herd!
@@ -12,10 +12,19 @@
         - Camel Husks
         - Animals controlled by leads
         - Animals being ridden
+        - 
+#### A New Predator
+- Dolphins now occasionally hunt for squid and cod!
+    - Dolphins can also now be fed calamari
+    - Squids now avoid dolphins!
 
 #### Splash Text
 - Added "Also try Hytale!"
 - Added "Also try Minecraft Legends!"
+
+#### Commands
+- Added `/camerashake` command
+    - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
 
 ### Bug Fixes
 - Fixed spider jockey placement being too far left or right of the spider
