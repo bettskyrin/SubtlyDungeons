@@ -1,4 +1,4 @@
-package com.kr1s1s.subtlyd.util;
+package com.meander.subtlyd.util;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvent;
@@ -64,7 +64,7 @@ public class ScreenShake {
      * @param durationTicks The duration of the screen shake in ticks.
      * @param magnitude The intensity of the screen shake.
      */
-    private static void setShake(int durationTicks, float magnitude) {
+    public static void setShake(int durationTicks, float magnitude) {
         durationTicks += 10;
         if (remainingDuration <= 0 || magnitude > intensity) {
             totalDuration = durationTicks;
@@ -114,5 +114,13 @@ public class ScreenShake {
                 }
             }
         }
+    }
+
+    /**
+     * Stops the screen shake effect
+     */
+    public static void stop() {
+        remainingDuration = 0;
+        intensity = 0.0F;
     }
 }

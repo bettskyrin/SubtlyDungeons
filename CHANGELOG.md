@@ -67,6 +67,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
 
+#### Commands
+- Added `/camerashake` command
+  - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
+
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day
 - Improved server performance for using tents
