@@ -53,7 +53,7 @@ public class CommandsSD {
         for (ServerPlayer player : target) {
             PacketNetworking.setScreenShakePackets(player, ticks, intensity);
         }
-        source.sendSuccess(() -> Component.literal("Applying screen shake to " + target.size() + " players."), true);
+        source.sendSuccess(() -> Component.translatable("commands.camerashake.success.add", target.size()), true);
         return target.size();
     }
 
@@ -67,7 +67,7 @@ public class CommandsSD {
         for (ServerPlayer player : target) {
             PacketNetworking.setScreenShakePackets(player, 0, 0);
         }
-        source.sendSuccess(() -> Component.literal("Stopping screen shake for " + target.size() + " players."), true);
+        source.sendSuccess(() -> Component.translatable("commands.camerashake.success.stop", target.size()), true);
         return target.size();
     }
 }

@@ -20,6 +20,8 @@
   "block.subtlyd.snow_brick_stairs": "Snow Brick Stairs",
   "block.subtlyd.snow_brick_wall": "Snow Brick Wall",
   "block.subtlyd.unlit_campfire": "Campfire",
+  "commands.camerashake.success.add": "Applying screen shake to %s players",
+  "commands.camerashake.success.stop": "Stopping screen shake for %s players",
   "entity.subtlyd.white_tent": "White Tent",
   "entity.subtlyd.orange_tent": "Orange Tent",
   "entity.subtlyd.magenta_tent": "Magenta Tent",
