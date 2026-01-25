@@ -18,11 +18,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture 
 
-#### Herds Dispurse
+#### Herds Disperse
 - Some animals now run from attackers targeting their herd!
   - These "herds" have a radius of 16 meters
   - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
-    - Well... except for Amadillos, which roll up
+    - Well... except for Armadillos, which roll up
   - Animals that are unaffected by this include:
     - Neutral animals
     - Hostile animals
@@ -58,7 +58,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
 - Added "Also try Hytale!"
-- Added "Also try Minecraft Legends!",
+- Added "Also try Minecraft Legends!"
 
 ### Technical Changes
 #### Data Tags

@@ -44,10 +44,10 @@ public class CommandsSD {
     /**
      * Begins the screen shake.
      * @param source The command source stack.
-     * @param target All target that will experience the screen shake.
+     * @param target All targets that will experience the screen shake.
      * @param intensity The intensity of the screen shake.
      * @param seconds The length of time (in seconds) that the screen shake should last.
-     * @return The amount of target affected.
+     * @return The amount of targets affected.
      */
     private static int addShake(CommandSourceStack source, Collection<ServerPlayer> target, float intensity, int seconds) {
         int durationTicks = seconds * 20;
@@ -65,8 +65,8 @@ public class CommandsSD {
     /**
      * Stops the screen shake.
      * @param source The command source stack.
-     * @param target All target that will experience the stopping of the screen shake.
-     * @return The amount of target affected.
+     * @param target All targets that will experience the stopping of the screen shake.
+     * @return The amount of targets affected.
      */
     private static int stopShake(CommandSourceStack source, Collection<ServerPlayer> target) {
         for (ServerPlayer player : target) {

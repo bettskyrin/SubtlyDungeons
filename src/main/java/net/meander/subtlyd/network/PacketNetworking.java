@@ -36,7 +36,7 @@ public class PacketNetworking {
     }
 
     /**
-     * Registers client recievers.
+     * Registers client receivers.
      */
     public static void registerClient() {
         ClientPlayNetworking.registerGlobalReceiver(ScreenShakePacketPayload.ID, ((payload, context) -> context.client().execute(
@@ -60,7 +60,7 @@ public class PacketNetworking {
     }
 
     /**
-     * Allows for the creatopm of screen shake packets.
+     * Allows for the creation of screen shake packets.
      * @param player The server player.
      * @param durationTicks The time (in ticks) that the screen shake should last.
      * @param intensity The intensity of the screen shake effect.
