@@ -58,7 +58,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
 - Added "Also try Hytale!"
-- Added "Also try Minecraft Legends!",
+- Added "Also try Minecraft Legends!"
 
 ### Technical Changes
 #### Data Tags
