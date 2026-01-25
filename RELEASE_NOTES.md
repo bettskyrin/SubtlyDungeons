@@ -1,6 +1,6 @@
 ## [3.0 Snapshot 4] - 1/24/2026
 ### New Features
-#### Herds Dispurse
+#### Herds Disperse
 - Some animals now run from attackers targeting their herd!
     - These "herds" have a radius of 16 meters
     - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
