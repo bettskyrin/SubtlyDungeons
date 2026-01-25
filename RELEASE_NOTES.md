@@ -1,15 +1,26 @@
-## [3.0-snapshot-3] - UNRELEASED
+## [3.0 Snapshot 4] - 1/24/2026
 ### New Features
-#### Zombie Leaders
-- Updated Husk leader texture
+#### Herds Disperse
+- Some animals now run from attackers targeting their herd!
+    - These "herds" have a radius of 16 meters
+    - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
+        - Well... except for Armadillos, which roll up
+    - Animals that are unaffected by this include:
+        - Neutral mobs
+        - Hostile mobs
+        - Undead mobs
+#### A New Predator
+- Dolphins now occasionally hunt for squid and cod!
+    - Dolphins can also now be fed calamari
+    - Squids now avoid dolphins!
 
-### UI
-- Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
+#### Splash Text
+- Added "Also try Hytale!"
+- Added "Also try Minecraft Legends!"
 
-### Technical Changes
-#### Translations
-- Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
+#### Commands
+- Added `/camerashake` command
+    - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
 
 ### Bug Fixes
-- Squids once again drop calamari
-- Spiders no longer struggle to determine their orientation if they're pushed onto a wall
+- Fixed spider jockey placement being too far left or right of the spider

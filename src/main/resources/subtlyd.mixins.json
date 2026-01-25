@@ -1,13 +1,16 @@
 {
   "required": true,
-  "package": "com.kr1s1s.subtlyd.mixin",
+  "package": "net.meander.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "common.MinecraftServerMixin",
     "common.entity.AbstractArrowMixin",
     "common.entity.EntityMixin",
+    "common.entity.LivingEntityMixin",
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
+    "common.entity.animal.DolphinMixin",
+    "common.entity.animal.SquidMixin",
     "common.entity.monster.RaiderMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin"

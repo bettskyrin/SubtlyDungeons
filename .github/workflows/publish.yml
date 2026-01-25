@@ -38,7 +38,7 @@ jobs:
           featured: true
           changelog: ${{ github.event.release.body }}
           loaders: '["fabric"]'
-          game-versions: '["26.1-snapshot-3"]'
+          game-versions: '["26.1-snapshot-4"]'
           files: '["build/libs/subtlyd-${{ github.event.release.tag_name }}.jar"]'
           # Fabric API
           dependencies: |-

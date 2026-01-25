@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [3.0] - UNRELEASED
+## [3.0 Living World Update] - UNRELEASED
 ### New Features
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
@@ -17,6 +17,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture 
+
+#### Herds Disperse
+- Some animals now run from attackers targeting their herd!
+  - These "herds" have a radius of 16 meters
+  - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
+    - Well... except for Armadillos, which roll up
+  - Animals that are unaffected by this include:
+    - Neutral animals
+    - Hostile animals
+    - Undead animals
+
+#### A New Predator
+- Dolphins now occasionally hunt for squid and cod!
+  - Dolphins can also now be fed calamari
+  - Squids now avoid dolphins!
 
 ### Music
 - New Underwater Music!
@@ -39,9 +54,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
 
-#### Splash Text
+### Splash Text
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
+- Added "Also try Hytale!"
+- Added "Also try Minecraft Legends!"
 
 ### Technical Changes
 #### Data Tags
@@ -51,6 +68,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
+
+#### Commands
+- Added `/camerashake` command
+  - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
 
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day

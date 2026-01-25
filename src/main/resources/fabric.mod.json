@@ -5,7 +5,7 @@
 	"name": "Subtly Dungeons",
 	"description": "Adds \"canon\" features from Dungeons and Legends. Focuses on vanilla parity, exploration, and making the game feel like a cohesive sequel",
 	"authors": [
-		"Kyrin Betts, Aldin Besic"
+		"Meander Studios"
 	],
 	"contact": {
         "issues": "https://github.com/bettskyrin/SubtlyDungeons/issues",
@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.kr1s1s.subtlyd.util.init.InitializerSD"
+          "net.meander.subtlyd.util.init.InitializerSD"
 		],
 		"fabric-datagen": [
-			"com.kr1s1s.subtlyd.util.init.DataGeneratorSD"
+          "net.meander.subtlyd.util.init.DataGeneratorSD"
 		],
       "client": [
-		  "com.kr1s1s.subtlyd.util.init.ClientInitializerSD"
+        "net.meander.subtlyd.util.init.ClientInitializerSD"
       ]
 	},
 	"mixins": [
