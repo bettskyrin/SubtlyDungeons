@@ -51,7 +51,7 @@ public abstract class LivingEntityMixin extends Entity {
         return (object instanceof Animal animal)
                 && !((animal instanceof NeutralMob)
                 || (animal instanceof Enemy)
-                || (animal.is(EntityTypeTags.BURN_IN_DAYLIGHT)));
+                || (animal.typeHolder().is(EntityTypeTags.UNDEAD)));
     }
 
     /**
