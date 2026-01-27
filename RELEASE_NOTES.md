@@ -1,5 +1,8 @@
 ## [3.0 Snapshot 5] - UNRELEASED
 ### New Features
+#### Zombie-Type Leaders
+- Updated Husk leader texture
+
 ### UI
 - Redesigned hud textures
     - New heart textures
@@ -10,6 +13,7 @@
     - New hunger bar textures
     - New hotbar textures
     - New crosshair texture
+
 ### Music
 - Changed underwater tracks to be quieter
 
