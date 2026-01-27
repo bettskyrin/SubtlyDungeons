@@ -7,3 +7,5 @@
     - New armor bar textures
     - New experience bar texture
     - New jump bar textures
+      - New hunger bar textures
+      - New hotbar textures

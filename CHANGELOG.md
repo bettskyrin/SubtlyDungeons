@@ -59,6 +59,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - New armor bar textures
   - New experience bar texture
   - New jump bar textures
+  - New hunger bar textures
+  - New hotbar textures
 
 ### Splash Text
 - Added "We <3 spiders!" splash text
