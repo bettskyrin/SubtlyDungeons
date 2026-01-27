@@ -61,6 +61,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - New jump bar textures
   - New hunger bar textures
   - New hotbar textures
+  - New crosshair texture
 
 ### Splash Text
 - Added "We <3 spiders!" splash text
@@ -76,6 +77,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
+- Changed `multiplayer.stopSleeping` translation from "Leave Bed" to "Stop Sleeping"
 
 #### Commands
 - Added `/camerashake` command

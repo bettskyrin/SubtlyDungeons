@@ -64,6 +64,7 @@
   "item.subtlyd.green_tent": "Green Tent",
   "item.subtlyd.red_tent": "Red Tent",
   "item.subtlyd.black_tent": "Black Tent",
+  "multiplayer.stopSleeping": "Stop Sleeping",
   "options.accessibility.screen_shake": "Screen Shake",
   "options.accessibility.screen_shake.tooltip": "Toggles the screen shake effect.",
   "options.difficulty.easy.info": "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.",
@@ -108,10 +109,10 @@
   "subtlyd.music.twilight_cavern": "Peter Hont - Twilight Cavern",
   "subtlyd.music.wanderlust": "Peter Hont - Wanderlust",
   "subtlyd.music.windswept_peaks": "Peter Hont - Windswept Peaks",
-  "tag.block.subtlyd.dripstone": "Dripstone",
+  "tag.block.subtlyd.polished_dripstone": "Dripstone",
   "tag.block.subtlyd.skull_blocks": "Skulls",
   "tag.block.subtlyd.snow_bricks": "Snow Bricks",
   "tag.block.subtlyd.stone_tiles": "Stone Tiles",
-  "tag.item.subtlyd.tents": "Tents",
-  "tag.block.subtlyd.triggers_ambient_wind_block_sounds": "Triggers Ambient Wind Block Sounds"
+  "tag.block.subtlyd.triggers_ambient_wind_block_sounds": "Triggers Ambient Wind Block Sounds",
+  "tag.item.subtlyd.tents": "Tents"
 }
