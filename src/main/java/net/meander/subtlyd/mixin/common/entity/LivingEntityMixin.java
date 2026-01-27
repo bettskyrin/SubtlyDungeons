@@ -82,7 +82,6 @@ public abstract class LivingEntityMixin extends Entity {
                 animal.hurtTime = animal.hurtDuration;
 
                 animal.getBrain().setActiveActivityIfPossible(Activity.PANIC);
-
                 if (animal instanceof PathfinderMob mob) {
                     if (animal instanceof Armadillo armadillo) {
                         armadillo.rollUp();
