@@ -1,4 +1,4 @@
-## [3.0 Snapshot 5] - UNRELEASED
+## [3.0 Snapshot 5] - 1/30/2026
 ### New Features
 #### Zombie-Type Leaders
 - Updated Husk leader texture
