@@ -53,7 +53,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
-- Redesigned hud textures
+- Redesigned HUD textures
   - New heart textures
     - Including absorbing, poisoned, and withered
   - New armor bar textures
