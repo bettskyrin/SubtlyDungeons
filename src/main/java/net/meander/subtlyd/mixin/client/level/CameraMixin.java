@@ -1,15 +1,16 @@
 package net.meander.subtlyd.mixin.client.level;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionInstanceSD;
 import net.meander.subtlyd.util.ScreenShake;
 import net.meander.subtlyd.world.entity.TentEntity;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Camera;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,10 +26,16 @@ public abstract class CameraMixin {
     @Shadow protected abstract void setRotation(float y, float x);
     @Shadow protected abstract void setPosition(double x, double y, double z);
 
-    @Inject(method = "setup", at = @At("TAIL"))
-    private void setup(Level level, Entity entity, boolean bl, boolean bl2, float f, CallbackInfo ci) {
+    @Shadow
+    public abstract @Nullable Entity entity();
+
+    @Shadow
+    public abstract float xRot();
+
+    @Inject(method = "setPosition(Lnet/minecraft/world/phys/Vec3;)V", at = @At("TAIL"))
+    private void setup(Vec3 position, CallbackInfo ci) {
         applyScreenShake();
-        setCampingPlayerCamera(entity, f);
+        setCampingPlayerCamera(this.entity(), this.xRot());
     }
 
     /**

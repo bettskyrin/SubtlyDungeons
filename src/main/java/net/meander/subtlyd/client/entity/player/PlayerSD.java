@@ -54,7 +54,7 @@ public class PlayerSD extends Player {
             this.message = component;
         }
 
-        @Nullable public Component getMessage() {
+        @Nullable public Component message() {
             return this.message;
         }
     }

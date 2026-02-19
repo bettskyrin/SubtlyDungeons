@@ -2,7 +2,6 @@ package net.meander.subtlyd.util.init;
 
 import net.meander.subtlyd.client.ClientTickEventsSD;
 import net.meander.subtlyd.client.renderer.EntityRenderersSD;
-import net.meander.subtlyd.client.renderer.state.BlockRendering;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.api.ClientModInitializer;
@@ -13,7 +12,6 @@ public class ClientInitializerSD implements ClientModInitializer {
         EntityRenderersSD.registration();
         SoundEventsSD.registration();
         ClientTickEventsSD.registration();
-        BlockRendering.init();
         PacketNetworking.registerClient();
     }
 }

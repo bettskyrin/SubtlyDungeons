@@ -36,9 +36,9 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable protected final Screen lastScreen;
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout;
     @Shadow @Nullable private Button deleteButton;
-    @Shadow @Nullable private Button selectButton;
-    @Shadow @Nullable private Button renameButton;
-    @Shadow @Nullable private Button copyButton;
+    @Shadow @Nullable private Button playWorldButton;
+    @Shadow @Nullable private Button editButton;
+    @Shadow @Nullable private Button recreateButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
     private final int ROW_SPACING = 4;
@@ -90,15 +90,15 @@ public abstract class SelectWorldScreenMixin extends Screen {
                                 .onEntrySelect(selectWorldScreen::updateButtonStatus)
                                 .onEntryInteract(consumer)
                                 .build());
-        this.selectButton = linearLayout2.addChild(
+        this.playWorldButton = linearLayout2.addChild(
                 Button.builder(LevelSummary.PLAY_WORLD, _ -> this.list.getSelectedOpt().ifPresent(consumer))
                         .width(buttonWidth)
                         .build());
-        this.renameButton = linearLayout2.addChild(
+        this.editButton = linearLayout2.addChild(
                 Button.builder(Component.translatable("selectWorld.edit"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld))
                         .width(buttonWidth)
                         .build());
-        this.copyButton = linearLayout2.addChild(
+        this.recreateButton = linearLayout2.addChild(
                 Button.builder(Component.translatable("selectWorld.recreate"), _ -> this.list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld))
                         .width(bigButtonWidth)
                         .build());
