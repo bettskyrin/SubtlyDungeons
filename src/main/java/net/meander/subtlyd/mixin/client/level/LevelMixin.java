@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.level;
 
-import net.meander.subtlyd.util.ScreenShake;
+import net.meander.subtlyd.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.sounds.SoundEvent;
@@ -20,6 +20,6 @@ public class LevelMixin {
     at = @At("RETURN"))
     private void playSound(Entity except, double x, double y, double z,
                                  SoundEvent sound, SoundSource source, float volume, float pitch, CallbackInfo ci) {
-        ScreenShake.shakeScreenFromSource(sound, new Vec3(x, y, z), 0);
+        CameraShake.shakeScreenFromSource(sound, new Vec3(x, y, z), 0);
     }
 }

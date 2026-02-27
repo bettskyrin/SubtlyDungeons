@@ -1,6 +1,6 @@
 package net.meander.subtlyd.network;
 
-import net.meander.subtlyd.util.ScreenShake;
+import net.meander.subtlyd.util.CameraShake;
 import net.meander.subtlyd.util.Util;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -42,9 +42,9 @@ public class PacketNetworking {
         ClientPlayNetworking.registerGlobalReceiver(ScreenShakePacketPayload.ID, ((payload, context) -> context.client().execute(
             () -> {
                 if (payload.durationTicks <= 0) {
-                    ScreenShake.stop();
+                    CameraShake.stop();
                 } else {
-                    ScreenShake.setShake(payload.durationTicks(), payload.intensity());
+                    CameraShake.setShake(payload.durationTicks(), payload.intensity());
                 }
             }
         )));

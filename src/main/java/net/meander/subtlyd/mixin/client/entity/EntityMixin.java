@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.entity;
 
-import net.meander.subtlyd.util.ScreenShake;
+import net.meander.subtlyd.util.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.sounds.SoundEvent;
@@ -17,6 +17,6 @@ public class EntityMixin {
 
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
-        ScreenShake.shakeScreenFromSource(soundEvent, entity.blockPosition().getCenter(), 0);
+        CameraShake.shakeScreenFromSource(soundEvent, entity.blockPosition().getCenter(), 0);
     }
 }

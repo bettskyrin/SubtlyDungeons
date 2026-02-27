@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.level;
 
-import net.meander.subtlyd.util.ScreenShake;
+import net.meander.subtlyd.util.CameraShake;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ExplosionParticleInfo;
 import net.minecraft.core.particles.ParticleOptions;
@@ -26,6 +26,6 @@ public class ServerLevelMixin {
                          double x, double y, double z, float power, boolean bl, Level.ExplosionInteraction explosionInteraction,
                          ParticleOptions particleOptions, ParticleOptions particleOptions2, WeightedList<ExplosionParticleInfo> weightedList,
                          Holder<SoundEvent> soundEventHolder, CallbackInfo ci) {
-        ScreenShake.shakeScreenFromSource(soundEventHolder.value(), new Vec3(x, y, z), power);
+        CameraShake.shakeScreenFromSource(soundEventHolder.value(), new Vec3(x, y, z), power);
     }
 }

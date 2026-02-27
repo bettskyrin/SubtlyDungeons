@@ -7,10 +7,10 @@ import net.minecraft.network.chat.Component;
 
 @Environment(EnvType.CLIENT)
 public class OptionInstanceSD {
-    private static final Component ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE = Component.translatable("options.accessibility.screen_shake.tooltip");
+    private static final Component ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE = Component.translatable("options.accessibility.camera_shake.tooltip");
 
     public static final OptionInstance<Boolean> SCREEN_SHAKE = OptionInstance.createBoolean(
-            "options.accessibility.screen_shake", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE), true
+            "options.accessibility.camera_shake", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_SCREEN_SHAKE), true
     );
 
     public OptionInstance<Boolean> screenShake() {

@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.level;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionInstanceSD;
-import net.meander.subtlyd.util.ScreenShake;
+import net.meander.subtlyd.util.CameraShake;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.util.Util;
@@ -43,7 +43,7 @@ public abstract class CameraMixin {
      */
     private void applyScreenShake() {
         if (OptionInstanceSD.SCREEN_SHAKE.get()) {
-            float intensity = ScreenShake.getShakeIntensity() * 0.5F;
+            float intensity = CameraShake.getShakeIntensity() * 0.5F;
             if (intensity > 0.0F) {
                 float yaw = (float) (Math.sin(Util.getMillis() / 30.0) * intensity);
                 float pitch = (float) (Math.cos(Util.getMillis() / 60.0) * intensity);
