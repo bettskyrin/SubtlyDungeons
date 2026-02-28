@@ -21,7 +21,7 @@ public class DamageTypeTagsSD extends KeyTagProvider<DamageType> {
     public static final TagKey<DamageType> BURNS_TENTS = create("burns_tents");
     public static final TagKey<DamageType> IGNITES_TENTS = create("ignites_tents");
 
-    @SuppressWarnings("unchecked") @Override protected void addTags(HolderLookup.Provider provider) {
+    @SuppressWarnings("unchecked") @Override protected void addTags(HolderLookup.Provider registries) {
         this.tag(CAN_BREAK_TENT).add(DamageTypes.PLAYER_EXPLOSION).add(DamageTypes.PLAYER_ATTACK, DamageTypes.SPEAR, DamageTypes.MACE_SMASH);
         this.tag(ALWAYS_KILLS_TENT).add(DamageTypes.ARROW, DamageTypes.TRIDENT, DamageTypes.FIREBALL, DamageTypes.WITHER_SKULL, DamageTypes.WIND_CHARGE);
         this.tag(BURNS_TENTS).add(DamageTypes.ON_FIRE);

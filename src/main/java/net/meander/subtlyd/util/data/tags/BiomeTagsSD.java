@@ -19,7 +19,7 @@ public class BiomeTagsSD extends BiomeTagsProvider {
     public static final TagKey<Biome> IS_WINDY = create("is_windy");
 
     @Override
-    protected void addTags(HolderLookup.Provider wrapperLookup) {
+    protected void addTags(HolderLookup.Provider registries) {
         this.tag(IS_WINDY)
                 .add(Biomes.SNOWY_PLAINS)
                 .add(Biomes.ICE_SPIKES)

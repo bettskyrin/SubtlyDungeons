@@ -23,7 +23,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> TENTS = create("tents");
 
     @Override
-    protected void addTags(HolderLookup.Provider provider) {
+    protected void addTags(HolderLookup.Provider registries) {
         valueLookupBuilder(ItemTags.WOLF_FOOD)
                 .add(ItemsSD.CALAMARI)
                 .add(ItemsSD.COOKED_CALAMARI);

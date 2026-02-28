@@ -27,7 +27,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> DRIPSTONE = create("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");
 
-    @Override protected void addTags(HolderLookup.Provider wrapperLookup) {
+    @Override protected void addTags(HolderLookup.Provider registries) {
         valueLookupBuilder(SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICKS)
                 .add(BlocksSD.SNOW_BRICK_STAIRS)
