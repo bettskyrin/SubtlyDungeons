@@ -5,7 +5,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Pose;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
@@ -50,5 +53,18 @@ public abstract class LivingEntitySD extends LivingEntity {
      */
     private static void setPosToTent(BlockPos blockPos, ServerPlayer player) {
         player.setPos(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5);
+    }
+
+    /**
+     * @param mob The pathfinding mob to test.
+     * @return The speed multiplier for that animal type when it panics.
+     */
+    public static double getPanicSpeed(PathfinderMob mob) {
+        for (WrappedGoal wrappedGoal : mob.goalSelector.getAvailableGoals()) {
+            if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
+                return panicGoal.speedModifier;
+            }
+        }
+        return 1.25D;
     }
 }

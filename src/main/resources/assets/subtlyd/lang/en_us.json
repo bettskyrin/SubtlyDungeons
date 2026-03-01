@@ -109,10 +109,11 @@
   "subtlyd.music.twilight_cavern": "Peter Hont - Twilight Cavern",
   "subtlyd.music.wanderlust": "Peter Hont - Wanderlust",
   "subtlyd.music.windswept_peaks": "Peter Hont - Windswept Peaks",
-  "tag.block.subtlyd.polished_dripstone": "Dripstone",
+  "tag.block.subtlyd.polished_dripstone": "Polished Dripstone",
   "tag.block.subtlyd.skull_blocks": "Skulls",
   "tag.block.subtlyd.snow_bricks": "Snow Bricks",
   "tag.block.subtlyd.stone_tiles": "Stone Tiles",
   "tag.block.subtlyd.triggers_ambient_wind_block_sounds": "Triggers Ambient Wind Block Sounds",
+  "tag.entity_type.subtlyd.can_be_scared": "Can Be Scared",
   "tag.item.subtlyd.tents": "Tents"
 }

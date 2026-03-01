@@ -1,16 +1,17 @@
 package net.meander.subtlyd.mixin.common.entity;
 
+import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.PanicGoal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.armadillo.Armadillo;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -31,35 +32,11 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     /**
-     * @param mob The pathfinding mob to test.
-     * @return The speed multiplier for that animal type when it panics.
-     */
-    private double getPanicSpeed(PathfinderMob mob) {
-        for (WrappedGoal wrappedGoal : mob.goalSelector.getAvailableGoals()) {
-            if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
-                return panicGoal.speedModifier;
-            }
-        }
-        return 1.25D;
-    }
-
-    /**
-     * @param object The animal to test.
-     * @return Whether an animal should be considered a herd-type animal.
-     */
-    private boolean isHerdAnimal(Object object) {
-        return (object instanceof Animal animal)
-                && !((animal instanceof NeutralMob)
-                || (animal instanceof Enemy)
-                || (animal.typeHolder().is(EntityTypeTags.UNDEAD)));
-    }
-
-    /**
      * Runs when an entity takes damage.
      */
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        if (!livingEntity.level().isClientSide() && cir.getReturnValue() && isHerdAnimal(livingEntity)) {
+        if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
             if (source.getEntity() instanceof LivingEntity attacker) {
                 shareHerdPanic(livingEntity, attacker);
             }
@@ -77,7 +54,7 @@ public abstract class LivingEntityMixin extends Entity {
         List<? extends LivingEntity> herd = victim.level().getEntitiesOfClass(Animal.class, searchAabb);
 
         for (LivingEntity animal : herd) {
-            if (isHerdAnimal(animal) && animal != victim && !animal.isAlliedTo(attacker)) {
+            if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
                 animal.hurtDuration = 50;
                 animal.hurtTime = animal.hurtDuration;
 
@@ -93,7 +70,7 @@ public abstract class LivingEntityMixin extends Entity {
                             pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
                         }
                         if (pos != null) {
-                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, getPanicSpeed(mob));
+                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
                         }
                     }
                 }

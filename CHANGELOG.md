@@ -71,8 +71,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ### Technical Changes
 #### Data Tags
-- The "dripstone" block tag is now "polished_dripstone"
-- The `tag.item.subtlyd.tent` tag is now `tag.item.subtlyd.tents`
+- The `dripstone` block tag is now `polished_dripstone`
+- The `tent` item tag is now `tents`
+- Created `can_be_scared` entity type tag.
+  - This tag determines whether an animal species will panic if a nearby animal takes damage.
 
 #### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
