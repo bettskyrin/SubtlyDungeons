@@ -33,6 +33,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Dolphins can also now be fed calamari
   - Squids now avoid dolphins!
 
+#### Increased Pet Follow Range
+- Pets will now follow their owners for 20 meters before attempting to teleport!
+  - This was increased from the default 12 meters
+
 ### Music
 - New Underwater Music!
   - Rest in Reefs by Peter Hont

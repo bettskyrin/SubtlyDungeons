@@ -9,6 +9,7 @@
     "common.entity.LivingEntityMixin",
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
+    "common.entity.TamableAnimalMixin",
     "common.entity.animal.DolphinMixin",
     "common.entity.animal.SquidMixin",
     "common.entity.monster.RaiderMixin",
