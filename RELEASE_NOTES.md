@@ -1,4 +1,4 @@
-## [3.0 Snapshot 6] - 3/2/2026
+## [3.0 Snapshot 6] - 3/6/2026
 ### New Features
 #### Zombie-Type Leaders
 - Removed baby zombie type leader textures
