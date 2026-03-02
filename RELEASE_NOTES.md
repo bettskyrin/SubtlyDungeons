@@ -1,7 +1,7 @@
 ## [3.0 Snapshot 6] - 3/2/2026
 ### New Features
 #### Zombie-Type Leaders
-- Updated baby zombie leader texture
+- Removed baby zombie type leader textures
 
 #### Increased Pet Follow Range
 - Pets will now follow their owners for 20 meters before attempting to teleport!
