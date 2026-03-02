@@ -12,6 +12,9 @@
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
 
+### UI
+- Tweaked the Poison-affected heart icon
+
 ### Technical Changes
 #### Data Tags
 - Created `can_be_scared` entity type tag.
