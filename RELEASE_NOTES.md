@@ -9,11 +9,11 @@
 
 ### Visuals
 ### UI
-- Tweaked the Poison-affected heart icon
+- Changed the Poison-affected heart icon
 
 ### Technical Changes
 #### Data Tags
-- Created `can_be_scared` entity type tag.
+- Added `can_be_scared` entity type tag.
     - This tag determines whether an animal species will panic if a nearby animal takes damage.
 
 #### Translations
