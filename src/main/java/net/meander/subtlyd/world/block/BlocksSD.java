@@ -36,11 +36,11 @@ public class BlocksSD {
     public static final Block STONE_TILE_STAIRS = registerStair("stone_tile_stairs", STONE_TILES);
     public static final Block STONE_TILE_SLAB = registerSlab("stone_tile_slab", STONE_TILES);
     public static final Block STONE_TILE_WALL = registerWall("stone_tile_wall", STONE_TILES);
-    public static final Block CHISELED_POLISHED_DRIPSTONE = register("chiseled_polished_dripstone", BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
     public static final Block POLISHED_DRIPSTONE = register("polished_dripstone", BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
     public static final Block POLISHED_DRIPSTONE_STAIRS = registerStair("polished_dripstone_stairs", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_SLAB = registerSlab("polished_dripstone_slab", POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_WALL = registerWall("polished_dripstone_wall", POLISHED_DRIPSTONE);
+    public static final Block CHISELED_POLISHED_DRIPSTONE = register("chiseled_polished_dripstone", BlockBehaviour.Properties.ofFullCopy(POLISHED_DRIPSTONE));
     public static final Block REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.WATER)
             .replaceable()

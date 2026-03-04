@@ -1,26 +1,34 @@
-## [3.0 Snapshot 4] - 1/24/2026
+## [3.0 Snapshot 6] - 3/6/2026
 ### New Features
-#### Herds Disperse
-- Some animals now run from attackers targeting their herd!
-    - These "herds" have a radius of 16 meters
-    - When attacked, an animal within a herd, will run away from the attack to a random location within 16 meters of its current location
-        - Well... except for Armadillos, which roll up
-    - Animals that are unaffected by this include:
-        - Neutral mobs
-        - Hostile mobs
-        - Undead mobs
-#### A New Predator
-- Dolphins now occasionally hunt for squid and cod!
-    - Dolphins can also now be fed calamari
-    - Squids now avoid dolphins!
+#### Zombie-Type Leaders
+- Removed baby zombie type leader textures
 
-#### Splash Text
-- Added "Also try Hytale!"
-- Added "Also try Minecraft Legends!"
+#### Comfy Animals
+- Animals will now seek out more comfortable environments!
+  - Animals caught out in the rain will look for shelter
+  - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
 
-#### Commands
-- Added `/camerashake` command
-    - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
+#### Increased Pet Follow Range
+- Pets will now follow their owners for 20 meters before attempting to teleport!
+  - This was increased from the default 12 meters
 
-### Bug Fixes
-- Fixed spider jockey placement being too far left or right of the spider
+#### Fleeing Fauna
+- Armadillos no longer curl up based on roll danger.
+  - Fun fact, a group of armadillos is called a "roll"
+
+### Visuals
+### UI
+- Changed the Poison-affected heart icon
+
+### Technical Changes
+#### Data Tags
+- Added `can_be_scared` entity type tag.
+    - This tag determines whether an animal species will panic if a nearby animal takes damage.
+- Added `seeks_shelter` entity type tag.
+  - This tag determines whether an animal species will seek shelter from rain.
+- Added `can_seek_warmth` entity type tag.
+  - This tag determines whether an animal species can seek warmth from cold environments.
+    - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories.
+
+#### Translations
+- Changed all references to "screen shake" to "camera shake"

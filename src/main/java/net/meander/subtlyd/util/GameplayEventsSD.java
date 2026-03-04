@@ -1,15 +1,15 @@
 package net.meander.subtlyd.util;
 
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
+import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.registry.FuelValueEvents;
+import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.util.data.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
-import net.fabricmc.fabric.api.event.player.UseBlockCallback;
-import net.fabricmc.fabric.api.registry.FuelValueEvents;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 
 public class GameplayEventsSD {
@@ -28,9 +28,9 @@ public class GameplayEventsSD {
             TentEntity tent = TentEntity.getTent(livingEntity, false);
 
             if (tent != null) {
-                return InteractionResult.SUCCESS;
+                return EventResult.ALLOW;
             }
-            return InteractionResult.PASS;
+            return EventResult.PASS;
         });
         EntitySleepEvents.ALLOW_RESETTING_TIME.register(LivingEntity::isSleeping);
     }

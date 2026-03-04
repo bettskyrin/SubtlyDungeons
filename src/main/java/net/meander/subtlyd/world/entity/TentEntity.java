@@ -252,8 +252,8 @@ public class TentEntity extends Entity {
     public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
         if (!player.level().isClientSide()) {
             ServerPlayerSD.startSleepInTent(this.blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
-                if (tentSleepingProblem.getMessage() != null) {
-                    player.displayClientMessage(tentSleepingProblem.getMessage(), true);
+                if (tentSleepingProblem.message() != null) {
+                    player.sendOverlayMessage(tentSleepingProblem.message());
                 }
             });
         }

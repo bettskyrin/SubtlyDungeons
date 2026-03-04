@@ -11,7 +11,7 @@ import org.apache.commons.lang3.tuple.Triple;
 import java.util.List;
 
 
-public class ScreenShake {
+public class CameraShake {
     private static int totalDuration = 0;
     private static int remainingDuration = 0;
     private static float intensity = 0.0F;
@@ -37,7 +37,7 @@ public class ScreenShake {
     );
 
     /**
-     * Ticks the screen shake event and decreases the remaining duration.
+     * Ticks the camera shake event and decreases the remaining duration.
      */
     public static void tick() {
         if (remainingDuration > 0.0F) {
@@ -48,7 +48,7 @@ public class ScreenShake {
     }
 
     /**
-     * @return The intensity value of the screen shake.
+     * @return The intensity value of the camera shake.
      */
     public static float getShakeIntensity() {
         float progress = remainingDuration / (float) totalDuration;
@@ -60,9 +60,9 @@ public class ScreenShake {
     }
 
     /**
-     * Determines the remaining duration and intensity of the screen shake.
-     * @param durationTicks The duration of the screen shake in ticks.
-     * @param magnitude The intensity of the screen shake.
+     * Determines the remaining duration and intensity of the camera shake.
+     * @param durationTicks The duration of the camera shake in ticks.
+     * @param magnitude The intensity of the camera shake.
      */
     public static void setShake(int durationTicks, float magnitude) {
         durationTicks += 10;
@@ -74,10 +74,10 @@ public class ScreenShake {
     }
 
     /**
-     * Sets a screen shake with intensity that varies by distance and magnitude.
-     * @param durationTicks The duration of the screen shake in ticks.
-     * @param maxDistance The maximum distance from the source of the screen shake that the shake can go in effect.
-     * @param distance The distance of the player from the screen shake source.
+     * Sets a camera shake with intensity that varies by distance and magnitude.
+     * @param durationTicks The duration of the camera shake in ticks.
+     * @param maxDistance The maximum distance from the source of the camera shake that the shake can go in effect.
+     * @param distance The distance of the player from the camera shake source.
      * @param modifier The magnitude modifier.
      */
     public static void setShake(int durationTicks, float maxDistance, float distance, float modifier) {
@@ -88,8 +88,8 @@ public class ScreenShake {
 
     /**
      * Shakes the screen based on the distance from a source.
-     * @param soundEvent The sound event causing the screen shake.
-     * @param source The source of the screen shake event.
+     * @param soundEvent The sound event causing the camera shake.
+     * @param source The source of the camera shake event.
      */
     public static void shakeScreenFromSource(SoundEvent soundEvent, Vec3 source, float modifier) {
         float maxDistance;
@@ -117,7 +117,7 @@ public class ScreenShake {
     }
 
     /**
-     * Stops the screen shake effect
+     * Stops the camera shake effect
      */
     public static void stop() {
         remainingDuration = 0;

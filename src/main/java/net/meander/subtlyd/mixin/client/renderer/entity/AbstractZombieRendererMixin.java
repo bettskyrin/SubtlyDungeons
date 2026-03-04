@@ -43,6 +43,8 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
             at = @At("TAIL"))
     private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         double ZOMBIE_BASE_HEALTH_POINTS = 20D;
-        ((UndeadRenderStateAccessor) state).subtlyDungeons$setLeader(entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS);
+        if (!entity.isBaby()) {
+            ((UndeadRenderStateAccessor) state).subtlyDungeons$setLeader(entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS);
+        }
     }
 }
