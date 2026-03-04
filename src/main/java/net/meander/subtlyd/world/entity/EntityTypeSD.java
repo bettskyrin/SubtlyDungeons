@@ -59,35 +59,35 @@ public class EntityTypeSD {
      */
     public static Identifier getTemperatureVariantType(Mob mob) {
         if (mob instanceof Pig variableMob) {
-            if (variableMob.getVariant() == PigVariants.WARM) {
+            if (variableMob.getVariant().is(PigVariants.WARM)) {
                 return TemperatureVariants.WARM;
-            } else if (variableMob.getVariant() == PigVariants.TEMPERATE) {
+            } else if (variableMob.getVariant().is(PigVariants.TEMPERATE)) {
                 return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.getVariant() == PigVariants.COLD) {
+            } else if (variableMob.getVariant().is(PigVariants.COLD)) {
                 return TemperatureVariants.COLD;
             }
         } else if (mob instanceof Cow variableMob) {
-            if (variableMob.getVariant() == CowVariants.WARM) {
+            if (variableMob.getVariant().is(CowVariants.WARM)) {
                 return TemperatureVariants.WARM;
-            } else if (variableMob.getVariant() == CowVariants.TEMPERATE) {
+            } else if (variableMob.getVariant().is(CowVariants.TEMPERATE)) {
                 return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.getVariant() == CowVariants.COLD) {
+            } else if (variableMob.getVariant().is(CowVariants.COLD)) {
                 return TemperatureVariants.COLD;
             }
         } else if (mob instanceof Chicken variableMob) {
-            if (variableMob.getVariant() == ChickenVariants.WARM) {
+            if (variableMob.getVariant().is(ChickenVariants.WARM)) {
                 return TemperatureVariants.WARM;
-            } else if (variableMob.getVariant() == ChickenVariants.TEMPERATE) {
+            } else if (variableMob.getVariant().is(ChickenVariants.TEMPERATE)) {
                 return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.getVariant() == ChickenVariants.COLD) {
+            } else if (variableMob.getVariant().is(ChickenVariants.COLD)) {
                 return TemperatureVariants.COLD;
             }
         } else if (mob instanceof Frog variableMob) {
-            if (variableMob.getVariant() == FrogVariants.WARM) {
+            if (variableMob.getVariant().is(FrogVariants.WARM)) {
                 return TemperatureVariants.WARM;
-            } else if (variableMob.getVariant() == FrogVariants.TEMPERATE) {
+            } else if (variableMob.getVariant().is(FrogVariants.TEMPERATE)) {
                 return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.getVariant() == FrogVariants.COLD) {
+            } else if (variableMob.getVariant().is(FrogVariants.COLD)) {
                 variableMob.getVariant().is(TemperatureVariants.WARM);
                 return TemperatureVariants.COLD;
             }
@@ -96,7 +96,7 @@ public class EntityTypeSD {
                 return TemperatureVariants.WARM;
             } else if (variableMob.getVariant() == Rabbit.Variant.BROWN || variableMob.getVariant() == Rabbit.Variant.SALT ||  variableMob.getVariant() == Rabbit.Variant.BLACK) {
                 return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.getVariant() == Rabbit.Variant.WHITE_SPLOTCHED ||  variableMob.getVariant() == Rabbit.Variant.WHITE) {
+            } else if (variableMob.getVariant() == Rabbit.Variant.WHITE_SPLOTCHED ||  variableMob.getVariant() == Rabbit.Variant.WHITE ||  variableMob.getVariant() == Rabbit.Variant.EVIL) {
                 return TemperatureVariants.COLD;
             }
         } else if (mob instanceof Wolf variableMob) {

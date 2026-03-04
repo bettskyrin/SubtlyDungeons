@@ -27,12 +27,12 @@ public class SeekShelterGoal extends Goal {
      * @return True if a shelter position has been set.
      */
     protected boolean setShelterPos() {
-        Vec3 foundShelterPos = this.findShelter();
+        Vec3 foundShelterPos = findShelter();
 
         if (foundShelterPos != null) {
-            this.shelterX = foundShelterPos.x;
-            this.shelterY = foundShelterPos.y;
-            this.shelterZ = foundShelterPos.z;
+            shelterX = foundShelterPos.x;
+            shelterY = foundShelterPos.y;
+            shelterZ = foundShelterPos.z;
             return true;
         }
         return false;
@@ -43,13 +43,13 @@ public class SeekShelterGoal extends Goal {
      * @return A Vec3 shelter position or null, if valid shelter is not found.
      */
     private Vec3 findShelter() {
-        BlockPos mobPos = this.mob.blockPosition();
-        RandomSource random = this.mob.getRandom();
+        BlockPos mobPos = mob.blockPosition();
+        RandomSource random = mob.getRandom();
 
         for (int i = 0; i < 100; i++) {
             BlockPos randPos = mobPos.offset(random.nextInt(20) - 10,  random.nextInt(6) - 3, random.nextInt(20) - 10);
 
-            if (!this.mob.level().isRainingAt(randPos) && this.mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
+            if (!mob.level().isRainingAt(randPos) && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
                 return Vec3.atBottomCenterOf(randPos);
             }
         }
@@ -58,7 +58,7 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!this.mob.level().isRainingAt(this.mob.blockPosition())) {
+        if (!mob.level().isRainingAt(mob.blockPosition())) {
             return false;
         }
         return setShelterPos();
@@ -66,19 +66,19 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return this.mob.level().isRaining();
+        return mob.level().isRaining();
     }
 
     @Override
     public void start() {
-        this.mob.getNavigation().moveTo(this.shelterX,  this.shelterY, this.shelterZ, this.speedModifier);
+        mob.getNavigation().moveTo(shelterX,  shelterY, shelterZ, speedModifier);
     }
 
     @Override
     public void tick() {
-        if (this.mob.getNavigation().isDone()) {
-            if (this.mob.level().isRainingAt(this.mob.blockPosition())) {
-                if (this.setShelterPos()) {
+        if (mob.getNavigation().isDone()) {
+            if (mob.level().isRainingAt(mob.blockPosition())) {
+                if (setShelterPos()) {
                     start();
                 }
             }
