@@ -2,9 +2,25 @@ package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.animal.TemperatureVariants;
+import net.minecraft.world.entity.animal.chicken.Chicken;
+import net.minecraft.world.entity.animal.chicken.ChickenVariants;
+import net.minecraft.world.entity.animal.cow.Cow;
+import net.minecraft.world.entity.animal.cow.CowVariants;
+import net.minecraft.world.entity.animal.fox.Fox;
+import net.minecraft.world.entity.animal.frog.Frog;
+import net.minecraft.world.entity.animal.frog.FrogVariants;
+import net.minecraft.world.entity.animal.pig.Pig;
+import net.minecraft.world.entity.animal.pig.PigVariants;
+import net.minecraft.world.entity.animal.rabbit.Rabbit;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.animal.wolf.WolfVariants;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 
@@ -34,5 +50,68 @@ public class EntityTypeSD {
 
     private static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {
         return (entityType, level) -> new TentEntity(entityType, level, supplier);
+    }
+
+    /**
+     * This monstrosity determines whether a mob variant is considered "warm", "temperate", or "cold"
+     * @param mob The mob to test
+     * @return What temperature variant a mob is.
+     */
+    public static Identifier getTemperatureVariantType(Mob mob) {
+        if (mob instanceof Pig variableMob) {
+            if (variableMob.getVariant() == PigVariants.WARM) {
+                return TemperatureVariants.WARM;
+            } else if (variableMob.getVariant() == PigVariants.TEMPERATE) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.getVariant() == PigVariants.COLD) {
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Cow variableMob) {
+            if (variableMob.getVariant() == CowVariants.WARM) {
+                return TemperatureVariants.WARM;
+            } else if (variableMob.getVariant() == CowVariants.TEMPERATE) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.getVariant() == CowVariants.COLD) {
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Chicken variableMob) {
+            if (variableMob.getVariant() == ChickenVariants.WARM) {
+                return TemperatureVariants.WARM;
+            } else if (variableMob.getVariant() == ChickenVariants.TEMPERATE) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.getVariant() == ChickenVariants.COLD) {
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Frog variableMob) {
+            if (variableMob.getVariant() == FrogVariants.WARM) {
+                return TemperatureVariants.WARM;
+            } else if (variableMob.getVariant() == FrogVariants.TEMPERATE) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.getVariant() == FrogVariants.COLD) {
+                variableMob.getVariant().is(TemperatureVariants.WARM);
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Rabbit variableMob) {
+            if (variableMob.getVariant() == Rabbit.Variant.GOLD) {
+                return TemperatureVariants.WARM;
+            } else if (variableMob.getVariant() == Rabbit.Variant.BROWN || variableMob.getVariant() == Rabbit.Variant.SALT ||  variableMob.getVariant() == Rabbit.Variant.BLACK) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.getVariant() == Rabbit.Variant.WHITE_SPLOTCHED ||  variableMob.getVariant() == Rabbit.Variant.WHITE) {
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Wolf variableMob) {
+            if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.STRIPED || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.SPOTTED || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.RUSTY) {
+                return TemperatureVariants.WARM;
+            }else if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.WOODS) {
+                return TemperatureVariants.TEMPERATE;
+            } else if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.BLACK || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.CHESTNUT || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.PALE || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.ASHEN || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.SNOWY) {
+                return TemperatureVariants.COLD;
+            }
+        } else if (mob instanceof Fox variableMob) {
+            if (variableMob.getVariant() == Fox.Variant.SNOW || variableMob.getVariant() == Fox.Variant.RED) {
+                return TemperatureVariants.COLD;
+            }
+        }
+        return null;
     }
 }

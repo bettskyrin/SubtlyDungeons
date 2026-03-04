@@ -4,29 +4,20 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [3.0 Living World Update] - UNRELEASED
+## [3.0 Wild Instincts Update] - UNRELEASED
 ### New Features
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
 
-#### Consumable Mushrooms
-- Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
-  - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
+#### Fleeing Fauna
+- Some animals now run from attackers targeting their flock!
+  - These flocks have a radius of 16 meters
+  - When attacked, an animal within a flock will run away from the attack to a random location within 16 meters of its current location
 
-#### Zombie-Type Leaders
-- Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
-- Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
-- Updated Husk leader texture 
-
-#### Herds Disperse
-- Some animals now run from attackers targeting their herd!
-  - These "herds" have a radius of 16 meters
-  - When attacked, an animal within a herd will run away from the attack to a random location within 16 meters of its current location
-    - Well... except for Armadillos, which roll up
-  - Animals that are unaffected by this include:
-    - Neutral animals
-    - Hostile animals
-    - Undead animals
+#### Comfy Animals
+- Animals will now seek out more comfortable environments!
+  - Animals caught out in the rain will look for shelter
+  - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
 
 #### A New Predator
 - Dolphins now occasionally hunt for squid and cod!
@@ -36,6 +27,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Increased Pet Follow Range
 - Pets will now follow their owners for 20 meters before attempting to teleport!
   - This was increased from the default 12 meters
+
+#### Consumable Mushrooms
+- Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
+  - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
+
+#### Zombie-Type Leaders
+- Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
+- Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
+- Updated Husk leader texture
 
 ### Music
 - New Underwater Music!
@@ -79,6 +79,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - The `tent` item tag is now `tents`
 - Added `can_be_scared` entity type tag.
   - This tag determines whether an animal species will panic if a nearby animal takes damage.
+- Added `seeks_shelter` entity type tag.
+  - This tag determines whether an animal species will seek shelter from rain.
+- Added `can_seek_warmth` entity type tag.
+  - This tag determines whether an animal species can seek warmth from cold environments.
+    - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories.
 
 #### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
