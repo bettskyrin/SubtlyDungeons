@@ -1,8 +1,8 @@
-## [3.0 Snapshot 6] - 3/6/2026
+## [3.0 Snapshot 7] - 3/11/2026
 ### New Features
-#### Comfy Animals
+#### Cozy Creatures
 - Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
-- Decreased the priority of seeking shelter for all shelter seeking mobs
+- Improved animal "cozy spot" prioritization
 
 #### Closer Pets
 - Pets now sprint with their owners!

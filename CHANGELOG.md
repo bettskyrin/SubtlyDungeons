@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [3.0 Wild Instincts Update] - UNRELEASED
+Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
+
 ### New Features
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
@@ -14,11 +16,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - These flocks have a radius of 16 meters
   - When attacked, an animal within a flock will run away from the attack to a random location within 16 meters of its current location
 
-#### Comfy Animals
+#### Cozy Creatures
 - Animals will now seek out more comfortable environments!
   - Animals caught out in the rain will look for shelter
   - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
-- Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
+  - Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
 
 #### A New Predator
 - Dolphins now occasionally hunt for squid and cod!
