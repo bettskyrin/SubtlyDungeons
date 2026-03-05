@@ -14,7 +14,7 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
     private final PathfinderMob mob;
 
     public SeekWarmthGoal(PathfinderMob mob, double speedModifier, int searchRange) {
-        super(mob, speedModifier, searchRange, 4);
+        super(mob, speedModifier, searchRange, searchRange / 4);
         this.mob = mob;
     }
 

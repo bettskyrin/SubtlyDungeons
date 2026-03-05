@@ -61,7 +61,7 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!mob.level().isRainingAt(mob.blockPosition()) && !TamableAnimalSD.shouldFollowOwner(mob)) {
+        if (!mob.level().isRainingAt(mob.blockPosition()) || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
         }
         return setShelterPos();
@@ -69,7 +69,10 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return mob.level().isRaining() && !TamableAnimalSD.shouldFollowOwner(mob);
+        if (!mob.level().isRaining() || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
+            return false;
+        }
+        return !mob.getNavigation().isDone();
     }
 
     @Override

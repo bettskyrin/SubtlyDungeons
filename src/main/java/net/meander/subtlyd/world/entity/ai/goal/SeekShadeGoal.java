@@ -1,6 +1,7 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.EntityTypeSD;
+import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.meander.subtlyd.world.level.biome.BiomeSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
@@ -8,12 +9,13 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.TemperatureVariants;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
-public class SeekShadeGoal extends Goal { // FIXME
+public class SeekShadeGoal extends Goal {
     protected final PathfinderMob mob;
     protected final double speedModifier;
     protected double shadeX;
@@ -54,7 +56,7 @@ public class SeekShadeGoal extends Goal { // FIXME
             for (int j = 0; j < searchRadius * 6; j++) {
                 BlockPos randPos = mob.blockPosition().offset(random.nextInt((searchRadius * 2) + 1) - searchRadius, random.nextInt((YRADIUS * 2) + 1) - YRADIUS, random.nextInt((searchRadius * 2) + 1) - searchRadius);
 
-                if (BiomeSD.getTemperatureAsVariantType(mob.level(), randPos) != TemperatureVariants.WARM && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND) && !mob.level().canSeeSky(randPos)) {
+                if (mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND) && !mob.level().canSeeSky(randPos)) {
                     return Vec3.atBottomCenterOf(randPos);
                 }
             }
@@ -66,8 +68,10 @@ public class SeekShadeGoal extends Goal { // FIXME
     @Override
     public boolean canUse() {
         Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
+        Identifier biomeTemp = BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition());
 
-        if (variant == TemperatureVariants.WARM || !mob.level().canSeeSky(mob.blockPosition())) {
+        if (biomeTemp != TemperatureVariants.WARM || variant == TemperatureVariants.WARM || !mob.level().canSeeSky(mob.blockPosition()) ||
+                mob.level().dimension() == Level.NETHER || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
         }
         return setShadePos();
@@ -75,7 +79,11 @@ public class SeekShadeGoal extends Goal { // FIXME
 
     @Override
     public boolean canContinueToUse() {
-        return BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.WARM;
+        Identifier biomeTemp = BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition());
+        if (biomeTemp != TemperatureVariants.WARM || !mob.level().canSeeSky(mob.blockPosition()) || mob.level().dimension() == Level.NETHER || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
+            return false;
+        }
+        return !mob.getNavigation().isDone();
     }
 
     @Override
