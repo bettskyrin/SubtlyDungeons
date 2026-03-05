@@ -18,15 +18,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Animals will now seek out more comfortable environments!
   - Animals caught out in the rain will look for shelter
   - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
+- Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
 
 #### A New Predator
 - Dolphins now occasionally hunt for squid and cod!
   - Dolphins can also now be fed calamari
   - Squids now avoid dolphins!
 
-#### Increased Pet Follow Range
+#### Closer Pets
 - Pets will now follow their owners for 20 meters before attempting to teleport!
   - This was increased from the default 12 meters
+- Pets now sprint with their owners!
 
 #### Consumable Mushrooms
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!

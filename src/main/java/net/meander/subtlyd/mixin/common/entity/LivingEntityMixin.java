@@ -8,10 +8,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.armadillo.Armadillo;
 import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -60,18 +58,13 @@ public abstract class LivingEntityMixin extends Entity {
 
                 animal.getBrain().setActiveActivityIfPossible(Activity.PANIC);
                 if (animal instanceof PathfinderMob mob) {
-                    if (animal instanceof Armadillo armadillo) {
-                        armadillo.rollUp();
-                        armadillo.getBrain().setMemory(MemoryModuleType.DANGER_DETECTED_RECENTLY, true);
-                    } else {
-                        Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
+                    Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
 
-                        while (pos != null && (pos.x == mob.getX() && pos.z == mob.getZ())) {
-                            pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
-                        }
-                        if (pos != null) {
-                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
-                        }
+                    while (pos != null && (pos.x == mob.getX() && pos.z == mob.getZ())) {
+                        pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                    }
+                    if (pos != null) {
+                        mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
                     }
                 }
             }

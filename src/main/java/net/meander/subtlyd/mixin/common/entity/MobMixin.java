@@ -1,11 +1,10 @@
 package net.meander.subtlyd.mixin.common.entity;
 
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,7 +24,29 @@ public class MobMixin {
             }
 
             if (mob.is(EntityTypeTagsSD.SEEKS_SHELTER)) {
-                mob.goalSelector.addGoal(3, new SeekShelterGoal(mob, 1.25D));
+                mob.goalSelector.addGoal(6, new SeekShelterGoal(mob, 1.0D));
+            }
+
+            if (mob.is(EntityTypeTagsSD.CAN_SEEK_SHADE)) {
+                mob.goalSelector.addGoal(4, new SeekShadeGoal(mob, 1.0D));
+            }
+        }
+    }
+
+    /**
+     * Allows pets to spring with their owner.
+     */
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void allowPetSprinting(CallbackInfo ci) {
+        if (((Object) this) instanceof TamableAnimal pet) {
+            if (!pet.level().isClientSide() && pet.isTame() && !pet.isInSittingPose()) {
+                LivingEntity owner = pet.getOwner();
+
+                if (owner != null && owner.isSprinting() && pet.getNavigation().isInProgress()) {
+                    pet.setSprinting(true);
+                } else if (pet.isSprinting()) {
+                    pet.setSprinting(false);
+                }
             }
         }
     }

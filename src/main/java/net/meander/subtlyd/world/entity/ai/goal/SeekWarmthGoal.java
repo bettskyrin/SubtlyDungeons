@@ -1,6 +1,7 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.EntityTypeSD;
+import net.meander.subtlyd.world.level.biome.BiomeSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
@@ -8,7 +9,6 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.biome.Biome;
 
 public class SeekWarmthGoal extends MoveToBlockGoal {
     private final PathfinderMob mob;
@@ -21,10 +21,8 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
     @Override
     public boolean canUse() {
         Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
-        BlockPos mobPos = this.mob.blockPosition();
 
-        if (!isValidTarget(mob.level(), mobPos) && variant != TemperatureVariants.COLD &&
-                (mob.level().getBiome(mobPos).value().coldEnoughToSnow(mobPos, mob.level().getSeaLevel()) || mob.level().precipitationAt(mobPos) == Biome.Precipitation.RAIN)) {
+        if (!isValidTarget(mob.level(), mob.blockPosition()) && variant != TemperatureVariants.COLD && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
             return super.canUse();
         }
         return false;
@@ -32,9 +30,7 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
-
-        if (variant != TemperatureVariants.COLD || isValidTarget(mob.level(), mob.blockPosition())) {
+        if (isValidTarget(mob.level(), mob.blockPosition()) && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
             return false;
         }
         return super.canContinueToUse();

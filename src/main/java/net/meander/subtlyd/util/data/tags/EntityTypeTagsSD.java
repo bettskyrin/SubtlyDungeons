@@ -18,6 +18,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
     public static final TagKey<EntityType<?>> CAN_BE_SCARED = create("can_be_scared");
     public static final TagKey<EntityType<?>> SEEKS_SHELTER = create("seeks_shelter");
     public static final TagKey<EntityType<?>> CAN_SEEK_WARMTH = create("can_seek_warmth");
+    public static final TagKey<EntityType<?>> CAN_SEEK_SHADE = create("can_seek_shade");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -81,6 +82,18 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.ARMADILLO)
                 .add(EntityType.SNIFFER)
                 .add(EntityType.STRIDER);
+        valueLookupBuilder(CAN_SEEK_SHADE)
+                .add(EntityType.COW)
+                .add(EntityType.PIG)
+                .add(EntityType.SHEEP)
+                .add(EntityType.CHICKEN)
+                .add(EntityType.RABBIT)
+                .add(EntityType.FOX)
+                .add(EntityType.WOLF)
+                .add(EntityType.CAT)
+                .add(EntityType.FROG)
+                .add(EntityType.GOAT)
+                .add(EntityType.SNIFFER);
     }
 
     private static TagKey<EntityType<?>> create(String string) {
