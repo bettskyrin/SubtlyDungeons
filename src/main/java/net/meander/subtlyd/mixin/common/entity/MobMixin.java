@@ -17,7 +17,7 @@ public class MobMixin {
      * Adds the goal of finding shelther from the rain and cold. Only warm and temperate animals seek warmth.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void addEnvironmentGoals(EntityType<?> type, Level level, CallbackInfo ci) { // TODO Test farms
+    private void addEnvironmentGoals(EntityType<?> type, Level level, CallbackInfo ci) {
         if (((Object) this) instanceof PathfinderMob mob) {
             if (mob.is(EntityTypeTagsSD.CAN_SEEK_WARMTH)) {
                 mob.goalSelector.addGoal(4, new SeekWarmthGoal(mob, 1.0D, 16));
