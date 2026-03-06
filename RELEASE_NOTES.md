@@ -1,4 +1,4 @@
-## [3.0 Snapshot 7] - 3/11/2026
+## [3.0 Snapshot 7] - 3/6/2026
 ### New Features
 #### Cozy Creatures
 - Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
