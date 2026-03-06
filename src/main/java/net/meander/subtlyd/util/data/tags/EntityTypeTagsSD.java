@@ -93,6 +93,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.CAT)
                 .add(EntityType.FROG)
                 .add(EntityType.GOAT)
+                .add(EntityType.POLAR_BEAR)
                 .add(EntityType.SNIFFER);
     }
 
