@@ -12,3 +12,6 @@
     - This tag determines whether an animal species can seek cooler spots in hot environments.
 #### Performance
 - Optimized pathfinding logic for animals seeking shelter
+
+### Bug Fixes
+- Fixed a bug that made spiders clawling upwards at an angle face the opposite direction

@@ -65,7 +65,8 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
-            float yaw = Util.Logic.getClimberRotation(entity, nearestWall);
+            float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
+            float yaw = Util.Logic.getClimberRotation(entity, nearestWall, oldYaw);
 
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
@@ -90,8 +91,9 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         stateAccessor.subtlyDungeons$setJockey(true);
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
+            float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
-            state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall));
+            state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall, oldYaw));
         }
     }
 
