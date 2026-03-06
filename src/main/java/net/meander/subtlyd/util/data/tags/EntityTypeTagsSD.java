@@ -80,6 +80,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.CAMEL)
                 .add(EntityType.PANDA)
                 .add(EntityType.ARMADILLO)
+                .add(EntityType.TURTLE)
                 .add(EntityType.SNIFFER)
                 .add(EntityType.STRIDER);
         valueLookupBuilder(CAN_SEEK_SHADE)
