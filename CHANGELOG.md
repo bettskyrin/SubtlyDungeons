@@ -71,6 +71,9 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - New hotbar textures
   - New crosshair texture
 
+### Advancements
+- The advancement "Balanced Diet" now includes the new consumables
+
 ### Splash Text
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text

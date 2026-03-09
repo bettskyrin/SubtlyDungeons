@@ -60,6 +60,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.CAMEL)
                 .add(EntityType.PANDA)
                 .add(EntityType.ARMADILLO)
+                .add(EntityType.POLAR_BEAR)
                 .add(EntityType.SNIFFER)
                 .add(EntityType.STRIDER);
         valueLookupBuilder(CAN_SEEK_WARMTH)
