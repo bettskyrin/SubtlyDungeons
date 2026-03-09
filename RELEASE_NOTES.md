@@ -2,3 +2,6 @@
 ### New Features
 #### Cozy Creatures
 - Added polar bears to creatures that look for shelter in the rain
+
+### Bug Fixes
+- Decreased Spider step sound effect frequency when climbing

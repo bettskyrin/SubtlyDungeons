@@ -1,13 +1,12 @@
 package net.meander.subtlyd.mixin.client.entity.monster;
 
-import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
-import net.meander.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.spider.Spider;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,10 +45,9 @@ public abstract class SpiderMixin implements ClimberAccessor {
 
             if (isChangingHeight()) {
                 float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
-                RandomSource randomSource = RandomSource.create();
 
                 livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-                if (randomSource.nextFloat() < 0.5F) {
+                if (livingEntity.tickCount % 8 == 0) {
                     livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
                 }
             }
