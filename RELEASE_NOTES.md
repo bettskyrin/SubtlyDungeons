@@ -1,4 +1,4 @@
-## [3.0 Pre-Release 1] - 3/6/2026
+## [3.0 Snapshot 7] - 3/11/2026
 ### New Features
 #### Smart Hunting
 - Predators now have a cooldown for hunting
