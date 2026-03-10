@@ -1,9 +1,11 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
+import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.model.monster.zombie.ZombieModel;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
+import net.minecraft.client.renderer.entity.DrownedRenderer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.monster.zombie.Zombie;
@@ -18,7 +20,9 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @SuppressWarnings("unchecked")
     private final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
     private final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
+    private final Identifier BABY_ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/baby_zombie_leader.png");
     private final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
+    private final Identifier GURGLE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/gurgle_leader.png");
 
     /**
      * Changes the zombie leader texture to their unique design.
@@ -31,9 +35,9 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
 
         if (((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader()) {
             if (renderer instanceof DrownedRenderer) {
-                leaderLocation = DROWNED_LEADER_LOCATION;
+                leaderLocation = state.isBaby ? GURGLE_LEADER_LOCATION : DROWNED_LEADER_LOCATION;
             } else {
-                leaderLocation = ZOMBIE_LEADER_LOCATION;
+                leaderLocation = state.isBaby ? BABY_ZOMBIE_LEADER_LOCATION : ZOMBIE_LEADER_LOCATION;
             }
         }
         cir.setReturnValue(leaderLocation);
@@ -42,9 +46,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
     private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        double ZOMBIE_BASE_HEALTH_POINTS = 20D;
-        if (!entity.isBaby()) {
-            ((UndeadRenderStateAccessor) state).subtlyDungeons$setLeader(entity.getMaxHealth() > ZOMBIE_BASE_HEALTH_POINTS);
-        }
+        boolean isLeader = entity.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER);
+            ((UndeadRenderStateAccessor) state).subtlyDungeons$setLeader(isLeader);
     }
 }

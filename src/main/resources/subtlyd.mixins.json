@@ -14,6 +14,7 @@
     "common.entity.ai.goal.NearestAttackableTargetGoalMixin",
     "common.entity.ai.goal.TargetGoalAccessor",
     "common.entity.animal.DolphinMixin",
+    "common.entity.animal.PolarBearMixin",
     "common.entity.animal.SquidMixin",
     "common.entity.monster.RaiderMixin",
     "common.entity.monster.ZombieMixin",

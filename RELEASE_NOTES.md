@@ -10,7 +10,7 @@
 - Added pandas to the list of creatures that try to cool down
 - Removed polar bears, llamas, trader llamas, and pandas from the list of creatures that look for warmth
 
-#### A New Predator
+#### New Predators
 - Made squids more likely to avoid Dolphins
 
 ### Visuals
@@ -24,3 +24,4 @@
 ### Bug Fixes
 - Decreased Spider step sound effect frequency when climbing
 - Fixed bug preventing camera shake from re-applying to shake events of the same intensity
+- Rollbacked Zombie leader method to prevent Zombies with the Health Boost effect from being included

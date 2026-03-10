@@ -27,10 +27,11 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
   - Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
 
-#### A New Predator
+#### New Predators
 - Dolphins now occasionally hunt for squid and cod!
   - Dolphins can also now be fed calamari
   - Squids now avoid dolphins!
+- Polar Bears will now hunt for salmon and cod!
 
 #### Closer Pets
 - Pets will now follow their owners for 20 meters before attempting to teleport!
@@ -45,6 +46,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture
+- Added baby zombie, husk, zombie piglin, and drowned leader textures
 
 ### Music
 - New Underwater Music!
