@@ -94,6 +94,9 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - This tag determines whether an animal species can seek warmth from cold environments.
     - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories.
 
+#### Loot
+- Removed Calamari from Polar Bear loot table
+
 #### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."

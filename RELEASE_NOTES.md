@@ -9,6 +9,10 @@
 - Updated Stone Pillar texture
 - Updated Stone Tiles texture
 
+### Technical Changes
+#### Loot
+- Removed Calamari from Polar Bear loot table
+
 ### Bug Fixes
 - Decreased Spider step sound effect frequency when climbing
 - Fixed bug preventing camera shake from re-applying to shake events of the same intensity
