@@ -5,6 +5,9 @@
 - Added pandas to the list of creatures that try to cool down
 - Removed polar bears, llamas, trader llamas, and pandas from the list of creatures that look for warmth
 
+#### A New Predator
+- Made squids more likely to avoid Dolphins
+
 ### Visuals
 - Updated Stone Pillar texture
 - Updated Stone Tiles texture
