@@ -14,7 +14,7 @@ public class BiomeSD {
         if (level.getBiome(blockPos).value().coldEnoughToSnow(blockPos, level.getSeaLevel()) || level.precipitationAt(blockPos) == Biome.Precipitation.SNOW) {
             return TemperatureVariants.COLD;
         } else if (level.getBiome(blockPos).value().getBaseTemperature() >= 2.0) {
-            if (level.dimension().equals(Level.OVERWORLD) && (level.isDarkOutside() || level.isWaterAt(blockPos))) {
+            if (level.isDarkOutside() || level.isWaterAt(blockPos)) {
                 return TemperatureVariants.TEMPERATE;
             }
             return TemperatureVariants.WARM;

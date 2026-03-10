@@ -19,6 +19,9 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
     public static final TagKey<EntityType<?>> SEEKS_SHELTER = create("seeks_shelter");
     public static final TagKey<EntityType<?>> CAN_SEEK_WARMTH = create("can_seek_warmth");
     public static final TagKey<EntityType<?>> CAN_SEEK_SHADE = create("can_seek_shade");
+    public static final TagKey<EntityType<?>> CAN_BE_FULL = create("can_be_full");
+    public static final TagKey<EntityType<?>> NOCTURNAL_HUNTER = create("nocturnal_hunter");
+    public static final TagKey<EntityType<?>> FEAST_OR_FAMINE_HUNTER = create("feast_or_famine_hunter");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -95,6 +98,20 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.POLAR_BEAR)
                 .add(EntityType.AXOLOTL)
                 .add(EntityType.SNIFFER);
+        valueLookupBuilder(CAN_BE_FULL)
+                .add(EntityType.WOLF)
+                .add(EntityType.CAT)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.DOLPHIN)
+                .add(EntityType.POLAR_BEAR);
+        valueLookupBuilder(NOCTURNAL_HUNTER)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX);
+        valueLookupBuilder(FEAST_OR_FAMINE_HUNTER)
+                .add(EntityType.WOLF)
+                .add(EntityType.POLAR_BEAR);
     }
 
     private static TagKey<EntityType<?>> create(String string) {

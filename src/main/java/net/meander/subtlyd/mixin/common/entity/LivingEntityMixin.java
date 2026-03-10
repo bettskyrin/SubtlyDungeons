@@ -1,13 +1,11 @@
 package net.meander.subtlyd.mixin.common.entity;
 
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.schedule.Activity;
@@ -17,6 +15,7 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
@@ -67,6 +66,16 @@ public abstract class LivingEntityMixin extends Entity {
                         mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
                     }
                 }
+            }
+        }
+    }
+
+    @Inject(method = "die", at = @At("HEAD"))
+    private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
+        if (source.getEntity() instanceof Mob attacker && attacker.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+            if (((Object) this) instanceof Animal) {
+                long cooldownTicks = attacker.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
+                Util.Logic.HUNT_COOLDOWNS.put(attacker, attacker.level().getGameTime() + cooldownTicks);
             }
         }
     }

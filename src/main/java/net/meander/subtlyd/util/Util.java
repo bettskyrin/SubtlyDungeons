@@ -5,9 +5,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class Util {
     public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
@@ -30,6 +34,7 @@ public class Util {
     }
 
     public static class Logic {
+        public static final Map<Mob, Long> HUNT_COOLDOWNS = new WeakHashMap<>();
         /**
          * Finds the nearest climbable wall for an entity.
          * @param entity The entity to use as a basis for the test.

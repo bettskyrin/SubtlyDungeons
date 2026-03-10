@@ -8,6 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
 
 ### New Features
+#### Smart Hunting
+- Predators now have a cooldown for hunting
+  - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
+  - Nocturnal predators will only hunt at night
+
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
 
@@ -86,13 +91,19 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 #### Data Tags
 - The `dripstone` block tag is now `polished_dripstone`
 - The `tent` item tag is now `tents`
-- Added `can_be_scared` entity type tag.
-  - This tag determines whether an animal species will panic if a nearby animal takes damage.
-- Added `seeks_shelter` entity type tag.
-  - This tag determines whether an animal species will seek shelter from rain.
+- Added `can_be_scared` entity type tag
+  - This tag determines whether an animal species will panic if a nearby animal takes damage
+- Added `seeks_shelter` entity type tag
+  - This tag determines whether an animal species will seek shelter from rain
 - Added `can_seek_warmth` entity type tag.
-  - This tag determines whether an animal species can seek warmth from cold environments.
-    - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories.
+  - This tag determines whether an animal species can seek warmth from cold environments
+    - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories
+- Added `can_be_full` entity type tag
+  - This tag determines whether an animal species will have a cooldown for hunting
+- Added `nocturnal_hunter` entity type tag
+  - This tag determines whether an animal species will hunt at night
+- Added `feast_or_famine_hunter` entity type tag
+  - This tag determines whether an animal species will have a 3-day-long hunting cooldown
 
 #### Loot
 - Removed Calamari from Polar Bear loot table

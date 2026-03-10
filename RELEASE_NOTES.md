@@ -1,5 +1,10 @@
 ## [3.0 Pre-Release 1] - 3/6/2026
 ### New Features
+#### Smart Hunting
+- Predators now have a cooldown for hunting
+    - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
+    - Nocturnal predators will only hunt at night
+
 #### Cozy Creatures
 - Added polar bears to the list of creatures that look for shelter in the rain
 - Added pandas to the list of creatures that try to cool down

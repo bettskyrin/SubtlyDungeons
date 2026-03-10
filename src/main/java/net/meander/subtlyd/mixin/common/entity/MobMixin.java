@@ -1,11 +1,14 @@
 package net.meander.subtlyd.mixin.common.entity;
 
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -48,6 +51,26 @@ public class MobMixin {
                     pet.setSprinting(false);
                 }
             }
+        }
+    }
+
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    private void saveHuntingCooldown(ValueOutput output, CallbackInfo ci) {
+        Mob mob = (Mob) (Object) this;
+        Long cooldownTime = Util.Logic.HUNT_COOLDOWNS.get(mob);
+
+        if (cooldownTime != null) {
+            output.putLong("huntingCooldown", cooldownTime);
+        }
+    }
+
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    private void loadHuntingCooldown(ValueInput input, CallbackInfo ci) {
+        Mob mob = (Mob) (Object) this;
+
+        if (input.contains("huntingCooldown")) {
+            long cooldownTime = input.getLong("huntingCooldown").get();
+            Util.Logic.HUNT_COOLDOWNS.put(mob, cooldownTime);
         }
     }
 }
