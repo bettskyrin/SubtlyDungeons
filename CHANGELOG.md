@@ -36,7 +36,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
-#### Zombie-Type Leaders
+#### Zombie Leaders
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture
@@ -58,6 +58,8 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Added Mace Smash Air, Mace Smash Ground, Mace Smash Ground Heavy, and End Flash screen shake event
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
+- Updated Stone Pillar texture
+- Updated Stone Tiles texture
 
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
@@ -106,6 +108,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Improved server performance for using tents
 - Sleeping in tents will no longer negate fall damage
 - Squids once again drop calamari
+- Fixed bug preventing camera shake from re-applying to shake events of the same intensity
 
 ## [2.0] - 12/29/2025
 #### Developer Notes:
