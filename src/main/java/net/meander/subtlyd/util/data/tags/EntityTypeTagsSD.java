@@ -107,6 +107,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.DOLPHIN)
                 .add(EntityType.POLAR_BEAR);
         valueLookupBuilder(NOCTURNAL_HUNTER)
+                .add(EntityType.WOLF)
                 .add(EntityType.OCELOT)
                 .add(EntityType.FOX);
         valueLookupBuilder(FEAST_OR_FAMINE_HUNTER)
