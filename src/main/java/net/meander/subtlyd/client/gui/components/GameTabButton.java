@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.input.InputWithModifiers;
@@ -153,8 +153,7 @@ public abstract class GameTabButton extends AbstractButton {
             super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
         }
 
-        @Override
-        protected void renderContents(@NonNull GuiGraphics graphics, int mouseX, int mouseY, float a) {
+        protected void extractContents(@NonNull GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a) {
             boolean wasHovered = this.isHovered;
             int textColor = this.active ? 0xFFFFFFFF : 0xA0A0A0A0;
             Identifier renderedImage = getTextureLocation();
@@ -163,7 +162,7 @@ public abstract class GameTabButton extends AbstractButton {
                 this.isHovered = true;
             }
 
-            this.renderDefaultSprite(graphics);
+            this.extractDefaultSprite(graphics);
             this.isHovered = wasHovered;
             if (renderedImage != null) {
                 Matrix3x2fStack pose = graphics.pose();
@@ -186,7 +185,7 @@ public abstract class GameTabButton extends AbstractButton {
                 pose.popMatrix();
             }
 
-            graphics.drawCenteredString(this.font,
+            graphics.centeredText(this.font,
                     this.getMessage(),
                     this.getX() + (this.width / 2),
                     this.getY() + this.getHeight() - 13,

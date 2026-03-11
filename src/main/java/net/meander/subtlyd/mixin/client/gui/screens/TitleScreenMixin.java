@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.gui.screens;
 
 import net.meander.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.CommonButtons;
 import net.minecraft.client.gui.components.SpriteIconButton;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -105,17 +105,17 @@ public class TitleScreenMixin extends Screen {
     /**
      * Prevents the update version from being rendered at the bottom of the screen. The update version may still be found via the Debug menu.
      */
-    @Redirect(method = "render",
+    @Redirect(method = "extractRenderState",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"))
-    private void cancelVersion(GuiGraphics instance, Font font, String str, int x, int y, int color) {}
+                    target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"))
+    private void cancelVersion(GuiGraphicsExtractor instance, Font font, String str, int x, int y, int color) {}
 
     /**
      * Renders the player in the bottom right corner of the screen after the fade animation is complete, as player shaders do not support transparency.
      */
-    @Inject(method = "render", at = @At("TAIL"))
-    private void renderPlayer(GuiGraphics guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+    @Inject(method = "extractRenderState", at = @At("TAIL"))
+    private void renderPlayer(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         int CHARACTER_SCALE = 40;
         if (!this.fading) {
             GuiPlayerRenderer.renderPlayer(guiGraphics, this.width / 2 + 170, this.height / 4 + 132, CHARACTER_SCALE, mouseX, mouseY);

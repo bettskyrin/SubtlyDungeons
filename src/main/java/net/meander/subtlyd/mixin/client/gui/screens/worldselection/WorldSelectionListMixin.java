@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -33,8 +33,8 @@ public class WorldSelectionListMixin {
         /**
          * Changes the width of the world icon.
          */
-        @ModifyArgs(method = "renderContent",
-                    at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+        @ModifyArgs(method = "extractContent",
+                    at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void blit(Args args) {
             args.set(6, ICON_WIDTH);
             args.set(8, ICON_WIDTH);
@@ -43,8 +43,8 @@ public class WorldSelectionListMixin {
         /**
          * Changes the world icon fill width.
          */
-        @ModifyArg(method = "renderContent",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V"), index = 2)
+        @ModifyArg(method = "extractContent",
+                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
         private int fill(int x0) {
             return this.getContentX() + ICON_WIDTH;
         }
@@ -52,20 +52,20 @@ public class WorldSelectionListMixin {
         /**
          * Replaces the isMouseOver with isMouseWithin
          */
-        @Redirect(method = "renderContent",
+        @Redirect(method = "extractContent",
                     at = @At(value = "INVOKE",
                             target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
-        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphics graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
+        private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
             return isMouseWithin(mouseX, mouseY, this.getContentX() + ICON_WIDTH, this.getContentY() + size);
         }
 
         /**
          * Modifies the "play button" icon sprites.
          */
-        @Redirect(method = "renderContent",
+        @Redirect(method = "extractContent",
                 at = @At(value = "INVOKE",
-                        target = "Lnet/minecraft/client/gui/GuiGraphics;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
-        private void modifyBlitSprite(GuiGraphics instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
+                        target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+        private void modifyBlitSprite(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
             int MID_ICON = this.getContentX() + ICON_WIDTH / 4;
             instance.blitSprite(renderPipeline, location, MID_ICON, this.getContentY(), width, height);
         }
