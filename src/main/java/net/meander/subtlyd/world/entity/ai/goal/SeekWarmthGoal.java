@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.biome.Biome;
 
 public class SeekWarmthGoal extends MoveToBlockGoal {
     private final PathfinderMob mob;
@@ -23,7 +24,10 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
         Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
 
         if (!isValidTarget(mob.level(), mob.blockPosition()) && variant != TemperatureVariants.COLD && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
-            return super.canUse();
+            if (variant != TemperatureVariants.TEMPERATE || mob.level().precipitationAt(mob.blockPosition()) == Biome.Precipitation.SNOW) { // Warm, No Variant, or snowing
+                return super.canUse();
+            }
+
         }
         return false;
     }

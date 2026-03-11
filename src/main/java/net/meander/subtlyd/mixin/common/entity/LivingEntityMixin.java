@@ -98,7 +98,7 @@ public abstract class LivingEntityMixin extends Entity {
                 for (ItemEntity droppedItem : drops) {
                     ItemStack stack = droppedItem.getItem();
 
-                    if (stack.has(DataComponents.FOOD) && stack.is(ItemTags.MEAT)) {
+                    if (stack.has(DataComponents.FOOD) && (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES))) {
                         FoodProperties food = stack.get(DataComponents.FOOD);
 
                         if (food != null) {

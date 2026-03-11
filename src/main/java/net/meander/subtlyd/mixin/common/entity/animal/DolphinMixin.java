@@ -26,8 +26,8 @@ public abstract class DolphinMixin extends AgeableWaterCreature {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void addHuntingGoal(CallbackInfo ci) {
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Squid.class, false));
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Cod.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Squid.class, false));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Cod.class, false));
     }
 
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/tags/TagKey;)Z"))
