@@ -1,4 +1,4 @@
-## [3.0 Snapshot 7] - 3/11/2026
+## [3.0 Snapshot 8] - 3/11/2026
 You guys asked for a few new things so we went ahead and added them! This should be the final snapshot before a pre-release (or full release, if we don't find any bugs). See you all at Minecraft LIVE!
 
 ### New Features
