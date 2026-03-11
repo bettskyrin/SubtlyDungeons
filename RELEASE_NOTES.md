@@ -12,6 +12,7 @@
 
 #### New Predators
 - Made squids more likely to avoid Dolphins
+- Polar Bears will now hunt for salmon and cod!
 
 ### Visuals
 - Updated Stone Pillar texture
