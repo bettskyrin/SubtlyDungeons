@@ -66,7 +66,7 @@ public class CameraShake {
      */
     public static void setShake(int durationTicks, float magnitude) {
         durationTicks += 10;
-        if (remainingDuration <= 0 || magnitude > intensity) {
+        if (remainingDuration <= 0 || magnitude > intensity || durationTicks > remainingDuration) {
             totalDuration = durationTicks;
             remainingDuration = durationTicks;
             intensity = magnitude;

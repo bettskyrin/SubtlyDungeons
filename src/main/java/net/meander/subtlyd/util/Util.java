@@ -5,9 +5,13 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.Vec3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Map;
+import java.util.WeakHashMap;
 
 public class Util {
     public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
@@ -30,6 +34,7 @@ public class Util {
     }
 
     public static class Logic {
+        public static final Map<Mob, Long> HUNT_COOLDOWNS = new WeakHashMap<>();
         /**
          * Finds the nearest climbable wall for an entity.
          * @param entity The entity to use as a basis for the test.
@@ -59,17 +64,17 @@ public class Util {
          * @return The angle of the climbing entity relative to the wall (yaw) in degrees.
          */
         @SuppressWarnings("SuspiciousNameCombination")
-        public static float getClimberRotation(Entity climber, Direction nearestWall) {
-            float yaw = 0.0F;
+        public static float getClimberRotation(Entity climber, Direction nearestWall, float oldYaw) {
+            float yaw = oldYaw;
             if (climber != null && nearestWall != null) {
                 Vec3 vel = climber.getDeltaMovement();
 
                 if (vel.lengthSqr() > 0.0F) {
                     switch (nearestWall) {
-                        case NORTH -> yaw = (float) Mth.atan2(vel.x, vel.y);
-                        case EAST ->  yaw = (float) Mth.atan2(vel.z, vel.y);
-                        case SOUTH ->  yaw = (float) Mth.atan2(-vel.x, vel.y);
-                        case WEST ->  yaw = (float) Mth.atan2(-vel.z, vel.y);
+                        case NORTH -> yaw = (float) Mth.atan2(-vel.x, vel.y);
+                        case EAST ->  yaw = (float) Mth.atan2(-vel.z, vel.y);
+                        case SOUTH ->  yaw = (float) Mth.atan2(vel.x, vel.y);
+                        case WEST ->  yaw = (float) Mth.atan2(vel.z, vel.y);
                     }
                     yaw = (float) Math.toDegrees(yaw);
                 }

@@ -1,5 +1,6 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
+import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
@@ -39,18 +40,20 @@ public class SeekShelterGoal extends Goal {
     }
 
     /**
-     * Searches within a 20 x 6 x 20 area for valid shelter.
+     * Searches for valid shelter.
      * @return A Vec3 shelter position or null, if valid shelter is not found.
      */
     private Vec3 findShelter() {
-        BlockPos mobPos = mob.blockPosition();
         RandomSource random = mob.getRandom();
+        int YRADIUS = 4;
 
-        for (int i = 0; i < 100; i++) {
-            BlockPos randPos = mobPos.offset(random.nextInt(20) - 10,  random.nextInt(6) - 3, random.nextInt(20) - 10);
+        for (int searchRadius = 4; searchRadius <= 16; searchRadius += 4) {
+            for (int j = 0; j < searchRadius * 6; j++) {
+                BlockPos randPos = mob.blockPosition().offset(random.nextInt((searchRadius * 2) + 1) - searchRadius, random.nextInt((YRADIUS * 2) + 1) - YRADIUS, random.nextInt((searchRadius * 2) + 1) - searchRadius);
 
-            if (!mob.level().isRainingAt(randPos) && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
-                return Vec3.atBottomCenterOf(randPos);
+                if (!mob.level().isRainingAt(randPos) && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
+                    return Vec3.atBottomCenterOf(randPos);
+                }
             }
         }
         return null;
@@ -58,7 +61,7 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!mob.level().isRainingAt(mob.blockPosition())) {
+        if (!mob.level().isRainingAt(mob.blockPosition()) || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
         }
         return setShelterPos();
@@ -66,7 +69,10 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        return mob.level().isRaining();
+        if (!mob.level().isRaining() || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
+            return false;
+        }
+        return !mob.getNavigation().isDone();
     }
 
     @Override
@@ -76,12 +82,8 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public void tick() {
-        if (mob.getNavigation().isDone()) {
-            if (mob.level().isRainingAt(mob.blockPosition())) {
-                if (setShelterPos()) {
-                    start();
-                }
-            }
+        if (mob.getNavigation().isDone() && mob.level().isRainingAt(mob.blockPosition()) && setShelterPos()) {
+            start();
         }
     }
 }

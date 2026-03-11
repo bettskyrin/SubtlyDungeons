@@ -19,13 +19,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(DrownedOuterLayer.class)
 public class DrownedOuterLayerMixin {
     private static final Identifier DROWNED_OUTER_LAYER_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");
+    private static final Identifier GURGLE_OUTER_LAYER_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/gurgle_outer_layer_baby.png");
     private static final Identifier DROWNED_LEADER_OUTER_LAYER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader_outer_layer.png");
+    private static final Identifier GURGLE_LEADER_OUTER_LAYER_LOCATION = Util.identifier("textures/entity/zombie/gurgle_leader_outer_layer.png");
     private Identifier layerLocation;
 
     @Inject(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/ZombieRenderState;FF)V",
             at = @At("HEAD"))
     private void declareLayerLocation(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, ZombieRenderState state, float yRot, float xRot, CallbackInfo ci) {
-        layerLocation = ((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader() ? DROWNED_LEADER_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION;
+        layerLocation = ((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader() ? (state.isBaby ? GURGLE_LEADER_OUTER_LAYER_LOCATION : DROWNED_LEADER_OUTER_LAYER_LOCATION) : (state.isBaby ? GURGLE_OUTER_LAYER_LOCATION : DROWNED_OUTER_LAYER_LOCATION);
     }
 
     @ModifyArg(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/ZombieRenderState;FF)V",

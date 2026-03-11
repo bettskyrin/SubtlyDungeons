@@ -1,34 +1,42 @@
-## [3.0 Snapshot 6] - 3/6/2026
+## [3.0 Snapshot 8] - 3/11/2026
+You guys asked for a few new things so we went ahead and added them! This should be the final snapshot before a pre-release (or full release, if we don't find any bugs). See you all at Minecraft LIVE!
+
 ### New Features
-#### Zombie-Type Leaders
-- Removed baby zombie type leader textures
+#### Predators & Prey
+- Predators now have a cooldown for hunting
+    - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
+- Nocturnal predators will now only hunt at night
+- Predators now consume the meat from animals they hunt
+- Predators now heal when consuming meat
+- Herbavores now heal when grazing
+- Changed squids to be more likely to avoid Dolphins
+- Changed dolphins to be more likely to hunt squid
+- Polar Bears will now hunt for salmon and cod
 
-#### Comfy Animals
-- Animals will now seek out more comfortable environments!
-  - Animals caught out in the rain will look for shelter
-  - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
-
-#### Increased Pet Follow Range
-- Pets will now follow their owners for 20 meters before attempting to teleport!
-  - This was increased from the default 12 meters
-
-#### Fleeing Fauna
-- Armadillos no longer curl up based on roll danger.
-  - Fun fact, a group of armadillos is called a "roll"
+#### Cozy Creatures
+- Added polar bears to the list of creatures that look for shelter in the rain
+- Added pandas to the list of creatures that try to cool down
+- Removed polar bears, llamas, trader llamas, and pandas from the list of creatures that look for warmth
+- Temperate variant animals no longer seek warmth in cold biomes unless it is actively snowing
 
 ### Visuals
-### UI
-- Changed the Poison-affected heart icon
+- Updated Stone Pillar texture
+- Updated Stone Tiles texture
 
 ### Technical Changes
-#### Data Tags
-- Added `can_be_scared` entity type tag.
-    - This tag determines whether an animal species will panic if a nearby animal takes damage.
-- Added `seeks_shelter` entity type tag.
-  - This tag determines whether an animal species will seek shelter from rain.
-- Added `can_seek_warmth` entity type tag.
-  - This tag determines whether an animal species can seek warmth from cold environments.
-    - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories.
+#### Loot
+- Removed Calamari from Polar Bear loot table
 
-#### Translations
-- Changed all references to "screen shake" to "camera shake"
+#### Data Tags
+- Added `can_be_full` entity type tag
+  - This tag determines whether an animal species will have a cooldown for hunting
+- Added `nocturnal` entity type tag
+  - This tag determines whether an animal species is nocturnal
+    - This affects things like hunting times
+- Added `feast_or_famine_hunter` entity type tag
+  - This tag determines whether an animal species will have a 3-day-long hunting cooldown
+
+### Bug Fixes
+- Decreased Spider step sound effect frequency when climbing
+- Fixed bug preventing camera shake from re-applying to shake events of the same intensity
+- Rollbacked Zombie leader method to prevent Zombies with the Health Boost effect from being included

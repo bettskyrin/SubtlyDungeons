@@ -11,9 +11,13 @@
     "common.entity.PlayerMixin",
     "common.entity.ServerPlayerMixin",
     "common.entity.TamableAnimalMixin",
+    "common.entity.ai.goal.NearestAttackableTargetGoalMixin",
+    "common.entity.ai.goal.TargetGoalAccessor",
     "common.entity.animal.DolphinMixin",
+    "common.entity.animal.PolarBearMixin",
     "common.entity.animal.SquidMixin",
     "common.entity.monster.RaiderMixin",
+    "common.entity.monster.ZombieMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin"
   ],

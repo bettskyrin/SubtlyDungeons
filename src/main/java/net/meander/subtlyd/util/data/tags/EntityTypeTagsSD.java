@@ -18,6 +18,10 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
     public static final TagKey<EntityType<?>> CAN_BE_SCARED = create("can_be_scared");
     public static final TagKey<EntityType<?>> SEEKS_SHELTER = create("seeks_shelter");
     public static final TagKey<EntityType<?>> CAN_SEEK_WARMTH = create("can_seek_warmth");
+    public static final TagKey<EntityType<?>> CAN_SEEK_SHADE = create("can_seek_shade");
+    public static final TagKey<EntityType<?>> CAN_BE_FULL = create("can_be_full");
+    public static final TagKey<EntityType<?>> NOCTURNAL = create("nocturnal");
+    public static final TagKey<EntityType<?>> FEAST_OR_FAMINE_HUNTER = create("feast_or_famine_hunter");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -59,6 +63,7 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.CAMEL)
                 .add(EntityType.PANDA)
                 .add(EntityType.ARMADILLO)
+                .add(EntityType.POLAR_BEAR)
                 .add(EntityType.SNIFFER)
                 .add(EntityType.STRIDER);
         valueLookupBuilder(CAN_SEEK_WARMTH)
@@ -69,18 +74,46 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
                 .add(EntityType.HORSE)
                 .add(EntityType.DONKEY)
                 .add(EntityType.MULE)
-                .add(EntityType.LLAMA)
-                .add(EntityType.TRADER_LLAMA)
                 .add(EntityType.RABBIT)
                 .add(EntityType.FOX)
                 .add(EntityType.WOLF)
                 .add(EntityType.CAT)
                 .add(EntityType.FROG)
-                .add(EntityType.CAMEL)
-                .add(EntityType.PANDA)
                 .add(EntityType.ARMADILLO)
+                .add(EntityType.TURTLE)
                 .add(EntityType.SNIFFER)
                 .add(EntityType.STRIDER);
+        valueLookupBuilder(CAN_SEEK_SHADE)
+                .add(EntityType.COW)
+                .add(EntityType.PIG)
+                .add(EntityType.SHEEP)
+                .add(EntityType.CHICKEN)
+                .add(EntityType.RABBIT)
+                .add(EntityType.FOX)
+                .add(EntityType.WOLF)
+                .add(EntityType.CAT)
+                .add(EntityType.FROG)
+                .add(EntityType.PANDA)
+                .add(EntityType.GOAT)
+                .add(EntityType.POLAR_BEAR)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.SNIFFER);
+        valueLookupBuilder(CAN_BE_FULL)
+                .add(EntityType.WOLF)
+                .add(EntityType.CAT)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX)
+                .add(EntityType.AXOLOTL)
+                .add(EntityType.DOLPHIN)
+                .add(EntityType.POLAR_BEAR);
+        valueLookupBuilder(NOCTURNAL)
+                .add(EntityType.WOLF)
+                .add(EntityType.OCELOT)
+                .add(EntityType.FOX)
+                .add(EntityType.BAT);
+        valueLookupBuilder(FEAST_OR_FAMINE_HUNTER)
+                .add(EntityType.WOLF)
+                .add(EntityType.POLAR_BEAR);
     }
 
     private static TagKey<EntityType<?>> create(String string) {

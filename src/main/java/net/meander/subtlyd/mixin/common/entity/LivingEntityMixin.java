@@ -1,24 +1,26 @@
 package net.meander.subtlyd.mixin.common.entity;
 
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.armadillo.Armadillo;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
@@ -60,18 +62,49 @@ public abstract class LivingEntityMixin extends Entity {
 
                 animal.getBrain().setActiveActivityIfPossible(Activity.PANIC);
                 if (animal instanceof PathfinderMob mob) {
-                    if (animal instanceof Armadillo armadillo) {
-                        armadillo.rollUp();
-                        armadillo.getBrain().setMemory(MemoryModuleType.DANGER_DETECTED_RECENTLY, true);
-                    } else {
-                        Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
+                    Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
 
-                        while (pos != null && (pos.x == mob.getX() && pos.z == mob.getZ())) {
-                            pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                    while (pos != null && (pos.x == mob.getX() && pos.z == mob.getZ())) {
+                        pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                    }
+                    if (pos != null) {
+                        mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
+                    }
+                }
+            }
+        }
+    }
+
+    @Inject(method = "die", at = @At("HEAD"))
+    private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
+        if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+            if (((Object) this) instanceof Animal) {
+                long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
+                Util.Logic.HUNT_COOLDOWNS.put(predator, predator.level().getGameTime() + cooldownTicks);
+            }
+        }
+    }
+
+
+    /**
+     * Makes predators consume meat from their prey.
+     */
+    @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
+    private void consumePrey(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
+        if (damageSource.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+            if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
+                List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));
+
+                for (ItemEntity droppedItem : drops) {
+                    ItemStack stack = droppedItem.getItem();
+
+                    if (stack.has(DataComponents.FOOD) && (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES))) {
+                        FoodProperties food = stack.get(DataComponents.FOOD);
+
+                        if (food != null) {
+                            predator.heal(food.nutrition() * stack.getCount());
                         }
-                        if (pos != null) {
-                            mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
-                        }
+                        droppedItem.discard();
                     }
                 }
             }

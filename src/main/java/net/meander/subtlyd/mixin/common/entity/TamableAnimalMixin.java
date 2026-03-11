@@ -1,22 +1,18 @@
 package net.meander.subtlyd.mixin.common.entity;
 
-import net.minecraft.world.entity.LivingEntity;
+import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.minecraft.world.entity.TamableAnimal;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(TamableAnimal.class)
 public class TamableAnimalMixin {
-    TamableAnimal tamableAnimal = (TamableAnimal) (Object) this;
-
     /**
      * Increases pet follow radius to 20 blocks.
      */
-    @Inject(method = "shouldTryTeleportToOwner", at = @At("RETURN"), cancellable = true)
-    private void shouldTryTeleportToOwner(CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity owner = tamableAnimal.getOwner();
-        cir.setReturnValue(owner != null && tamableAnimal.distanceToSqr(tamableAnimal.getOwner()) >= 400.0);
+    @ModifyConstant(method = "shouldTryTeleportToOwner", constant = @Constant(doubleValue = 144.0))
+    private double increaseFollowRange(double originalDistance) {
+        return TamableAnimalSD.MAX_FOLLOW_DISTANCE_SQR;
     }
 }

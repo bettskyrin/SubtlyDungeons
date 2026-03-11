@@ -18,7 +18,7 @@ public abstract class SquidMixin extends AgeableWaterCreature {
     }
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
-    private void addHuntingGoal(CallbackInfo ci) {
-        this.goalSelector.addGoal(9, new AvoidEntityGoal<>(this, Dolphin.class, 8.0F, 1.0, 1.0));
+    private void addPredatorGoal(CallbackInfo ci) {
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Dolphin.class, 8.0F, 1.0, 1.0));
     }
 }
