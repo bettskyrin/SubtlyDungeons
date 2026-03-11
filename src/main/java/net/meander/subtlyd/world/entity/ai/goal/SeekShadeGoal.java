@@ -29,11 +29,11 @@ public class SeekShadeGoal extends Goal {
     }
 
     /**
-     * Sets the target shade position.
-     * @return True if a shade position has been set.
+     * Sets the target "cool spot" position.
+     * @return True if a cool position has been set.
      */
-    protected boolean setShadePos() {
-        Vec3 foundShadePos = findShadePos();
+    protected boolean setCoolPos() {
+        Vec3 foundShadePos = findCoolPos();
 
         if (foundShadePos != null) {
             shadeX = foundShadePos.x;
@@ -46,9 +46,9 @@ public class SeekShadeGoal extends Goal {
 
     /**
      * Searches for valid shade.
-     * @return A Vec3 shelter position or null, if valid shade is not found.
+     * @return A Vec3 cool position or null, if valid shade is not found.
      */
-    private Vec3 findShadePos() {
+    private Vec3 findCoolPos() {
         RandomSource random = mob.getRandom();
         int YRADIUS = 4;
 
@@ -74,7 +74,7 @@ public class SeekShadeGoal extends Goal {
                 mob.level().dimension() == Level.NETHER || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
         }
-        return setShadePos();
+        return setCoolPos();
     }
 
     @Override
@@ -93,7 +93,7 @@ public class SeekShadeGoal extends Goal {
 
     @Override
     public void tick() {
-        if (mob.getNavigation().isDone() && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.WARM && setShadePos()) {
+        if (mob.getNavigation().isDone() && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.WARM && setCoolPos()) {
             start();
         }
     }

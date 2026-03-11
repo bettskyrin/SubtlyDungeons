@@ -38,7 +38,7 @@ public class MobMixin {
     }
 
     /**
-     * Allows pets to spring with their owner.
+     * Allows pets to sprint with their owner.
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void allowPetSprinting(CallbackInfo ci) {

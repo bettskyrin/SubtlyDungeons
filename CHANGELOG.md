@@ -12,6 +12,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Predators now have a cooldown for hunting
   - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
 - Nocturnal predators will now only hunt at night
+  - This includes the Wolf, Fox, and Ocelot
 - Predators now consume the meat from animals they hunt
 - Predators now heal when consuming meat
 - Herbivores now heal when grazing
