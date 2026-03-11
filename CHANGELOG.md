@@ -14,7 +14,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Nocturnal predators will now only hunt at night
 - Predators now consume the meat from animals they hunt
 - Predators now heal when consuming meat
-- Herbavores now heal when grazing
+- Herbivores now heal when grazing
 
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
