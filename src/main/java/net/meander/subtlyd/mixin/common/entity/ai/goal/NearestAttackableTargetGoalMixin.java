@@ -34,7 +34,7 @@ public class NearestAttackableTargetGoalMixin {
             }
         }
 
-        if (mob.is(EntityTypeTagsSD.NOCTURNAL_HUNTER) && mob.level().isBrightOutside()) {
+        if (mob.is(EntityTypeTagsSD.NOCTURNAL) && mob.level().isBrightOutside()) {
             cir.setReturnValue(false);
         }
     }

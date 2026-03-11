@@ -8,10 +8,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
 
 ### New Features
-#### Smart Hunting
+#### The Food Chain
 - Predators now have a cooldown for hunting
   - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
-  - Nocturnal predators will only hunt at night
+- Nocturnal predators will now only hunt at night
+- Predators now consume the meat from animals they hunt
+- Predators now heal when consuming meat
+- Herbavores now heal when grazing
 
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
@@ -30,7 +33,6 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 #### New Predators
 - Dolphins now occasionally hunt for squid and cod!
   - Dolphins can also now be fed calamari
-  - Squids now avoid dolphins!
 - Polar Bears will now hunt for salmon and cod!
 
 #### Closer Pets
@@ -88,6 +90,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Added "Music by Grant Kirkhope!" splash text
 - Added "Also try Hytale!"
 - Added "Also try Minecraft Legends!"
+- Added "Wild!"
 
 ### Technical Changes
 #### Data Tags
@@ -102,8 +105,9 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
     - Note: Internal code determines if a specific animal variant should be considered "warm", "temperate", or "cold". There is not currently a data-driven method for making a custom mob variant fall into one of these categories
 - Added `can_be_full` entity type tag
   - This tag determines whether an animal species will have a cooldown for hunting
-- Added `nocturnal_hunter` entity type tag
-  - This tag determines whether an animal species will hunt at night
+- Added `nocturnal` entity type tag
+  - This tag determines whether an animal species is nocturnal
+    - This affects things like hunting times
 - Added `feast_or_famine_hunter` entity type tag
   - This tag determines whether an animal species will have a 3-day-long hunting cooldown
 

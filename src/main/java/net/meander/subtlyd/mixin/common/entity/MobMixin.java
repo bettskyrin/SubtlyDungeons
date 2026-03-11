@@ -6,6 +6,7 @@ import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -50,6 +51,15 @@ public class MobMixin {
                 } else if (pet.isSprinting()) {
                     pet.setSprinting(false);
                 }
+            }
+        }
+    }
+
+    @Inject(method = "ate", at = @At("TAIL"))
+    private void healFromGrazing(CallbackInfo ci) {
+        if (((Object) this) instanceof Animal animal) {
+            if (animal.getHealth() < animal.getMaxHealth()) {
+                animal.heal(2.0F);
             }
         }
     }
