@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.common.entity;
 
-import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
+import net.meander.subtlyd.world.entity.MobSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
@@ -11,7 +11,6 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.schedule.Activity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -57,10 +56,6 @@ public abstract class LivingEntityMixin extends Entity {
 
         for (LivingEntity animal : herd) {
             if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
-                animal.hurtDuration = 50;
-                animal.hurtTime = animal.hurtDuration;
-
-                animal.getBrain().setActiveActivityIfPossible(Activity.PANIC);
                 if (animal instanceof PathfinderMob mob) {
                     Vec3 pos = new Vec3(animal.getX(), animal.getY(), animal.getZ());
 
@@ -78,10 +73,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "die", at = @At("HEAD"))
     private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
         if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
-            if (((Object) this) instanceof Animal) {
-                long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
-                Util.Logic.HUNT_COOLDOWNS.put(predator, predator.level().getGameTime() + cooldownTicks);
-            }
+            long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
+            ((MobSD) predator).subtlyDungeons$setHuntingCooldown(predator.level().getGameTime() + cooldownTicks);
         }
     }
 
