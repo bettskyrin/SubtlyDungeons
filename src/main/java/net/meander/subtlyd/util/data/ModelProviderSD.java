@@ -1,9 +1,9 @@
 package net.meander.subtlyd.util.data;
 
-import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -14,11 +14,22 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricPackOutput output) {
         super(output);
+    }
+
+    /**
+     * Builds a cube model from a vanilla texture.
+     * @param vanillaBlock The original block to obtain a texture from.
+     * @param newBlock The custom block that the texture will be mapped to.
+     */
+    public static void createCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
+        TextureMapping mapping = TextureMapping.cube(vanillaBlock);
+        Identifier model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
+        MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
     }
 
     @Override
@@ -38,7 +49,7 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
-        createCubeFromVanilla(Blocks.IRON_BARS, BlocksSD.IRON_GRATE, blockModelGenerator);
+        blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
@@ -53,12 +64,5 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.REEDS, ModelTemplates.FLAT_ITEM);
-    }
-
-    public static void createCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
-        TextureMapping mapping = TextureMapping.cube(vanillaBlock);
-        Identifier model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
-        MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
-        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
     }
 }
