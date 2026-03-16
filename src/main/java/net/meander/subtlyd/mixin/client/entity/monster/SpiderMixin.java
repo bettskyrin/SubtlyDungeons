@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.entity.monster;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -36,7 +36,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
         final float ANIM_RATE = 0.2F;
         final float SPEED_MULTIPLIER = 8.0F;
         double ySpeed = Math.abs(livingEntity.getDeltaMovement().y());
-        Direction nearestWall = Util.Logic.getNearestWall(livingEntity);
+        Direction nearestWall = EntitySD.getNearestWall(livingEntity);
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
 
