@@ -19,7 +19,8 @@
     "common.entity.monster.RaiderMixin",
     "common.entity.monster.ZombieMixin",
     "common.world.item.BlockItemMixin",
-    "common.world.item.ItemStackMixin"
+    "common.world.item.ItemStackMixin",
+    "common.server.ServerAdvancementManagerMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",
