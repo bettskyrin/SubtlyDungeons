@@ -45,6 +45,9 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
+#### Better Together
+- Subtly Dungeons can now connect to servers without the mod installed, without risk of crashing or disconnecting
+
 #### Zombie Leaders
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
@@ -70,6 +73,8 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
 - Updated Stone Pillar texture
 - Updated Stone Tiles texture
+- Updated the Iron Grate texture
+- Updated the Reeds texture
 
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
