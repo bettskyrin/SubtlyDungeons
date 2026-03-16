@@ -1,4 +1,6 @@
 {
+  "argument.resource.splash.loading": "Loaded custom splash text",
+  "argument.resource.splash.not_found": "Failed to load custom splash text: %s",
   "block.minecraft.campfire": "Lit Campfire",
   "block.subtlyd.charcoal_block": "Block of Charcoal",
   "block.subtlyd.chiseled_polished_dripstone": "Chiseled Polished Dripstone",
