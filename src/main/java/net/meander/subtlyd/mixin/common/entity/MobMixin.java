@@ -31,7 +31,7 @@ public class MobMixin implements MobSD {
     }
 
     /**
-     * Adds the goal of finding shelther from the rain and cold. Only warm and temperate animals seek warmth.
+     * Adds the goal of finding shelter from the rain and cold. Only warm and temperate animals seek warmth.
      */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addEnvironmentGoals(EntityType<?> type, Level level, CallbackInfo ci) {

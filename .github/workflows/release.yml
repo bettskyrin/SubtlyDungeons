@@ -16,7 +16,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          LATEST_DRAFT=$(gh release list --repo ${{ github.repository }} --json isDraft, tagName --jq 'map(select(.isDraft)) | .[0].tagName
+          LATEST_DRAFT=$(gh release list --repo ${{ github.repository }} --json isDraft, tagName --jq 'map(select(.isDraft)) | .[0].tagName')
           if [ -n "$LATEST_DRAFT" ]; then
             echo "Publishing $LATEST_DRAFT"
             gh release edit "$LATEST_DRAFT" -- repo ${{ github.repository }} --draft=false
@@ -29,4 +29,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           echo "Disabling scheduler"
-          gh workflow disable "Scheduler" --repo ${{ github.repository }}
+          gh workflow disable "GitHub Release" -- repo ${{ github.repository }}
