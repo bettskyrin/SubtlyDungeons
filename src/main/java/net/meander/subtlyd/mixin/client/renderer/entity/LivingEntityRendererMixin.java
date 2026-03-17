@@ -1,12 +1,12 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
-import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
-import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
-import net.meander.subtlyd.util.Util;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
+import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
+import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.core.Direction;
@@ -61,12 +61,12 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     private void extractClimberState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
         float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
-        Direction nearestWall = Util.Logic.getNearestWall(entity);
+        Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
             float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
-            float yaw = Util.Logic.getClimberRotation(entity, nearestWall, oldYaw);
+            float yaw = EntitySD.getClimberRotation(entity, nearestWall, oldYaw);
 
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
@@ -86,14 +86,14 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     private void extractClimberJockeyState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
         float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
-        Direction nearestWall = Util.Logic.getNearestWall(entity);
+        Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.subtlyDungeons$setJockey(true);
         stateAccessor.subtlyDungeons$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
             float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
-            state.xRot = Mth.rotLerp(progress, state.xRot, Util.Logic.getClimberRotation(entity, nearestWall, oldYaw));
+            state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getClimberRotation(entity, nearestWall, oldYaw));
         }
     }
 

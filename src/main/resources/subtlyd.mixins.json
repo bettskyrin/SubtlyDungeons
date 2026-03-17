@@ -18,6 +18,8 @@
     "common.entity.animal.SquidMixin",
     "common.entity.monster.RaiderMixin",
     "common.entity.monster.ZombieMixin",
+    "common.server.PlayerListMixin",
+    "common.server.ServerAdvancementManagerMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin"
   ],
@@ -35,7 +37,7 @@
     "client.level.CameraMixin",
     "client.level.ClientLevelMixin",
     "client.level.LevelMixin",
-    "client.level.ServerLevelMixin",
+    "client.multiplayer.ClientPacketListenerMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
     "client.renderer.GameRendererMixin",

@@ -12,9 +12,10 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Predators now have a cooldown for hunting
   - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
 - Nocturnal predators will now only hunt at night
+  - This includes the Wolf, Fox, and Ocelot
 - Predators now consume the meat from animals they hunt
 - Predators now heal when consuming meat
-- Herbavores now heal when grazing
+- Herbivores now heal when grazing
 
 #### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
@@ -69,6 +70,8 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
 - Updated Stone Pillar texture
 - Updated Stone Tiles texture
+- Updated the Iron Grate texture
+- Updated the Reeds texture
 
 ### UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
@@ -122,6 +125,10 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 #### Commands
 - Added `/camerashake` command
   - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
+
+
+#### Multiplayer
+- Subtly Dungeons can now connect to servers without the mod installed, without risk of crashing or disconnecting
 
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day

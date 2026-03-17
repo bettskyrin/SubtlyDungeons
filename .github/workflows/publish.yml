@@ -27,6 +27,34 @@ jobs:
       - name: Build Jar
         run: ./gradlew build
 
+      - name: Get Versions
+        id: get_versions
+        run: |
+          MC_VER=$(grep "minecraft_version" gradle.properties | cut -d'=' -f2)
+          MOD_VER=$(grep "mod_version" gradle.properties | cut -d'=' -f2)
+          echo "mc=$MC_VER" >> $GITHUB_OUTPUT
+          echo "mod=$MOD_VER" >> $GITHUB_OUTPUT
+
+      - name: Determine Release Type
+        id: release_type
+        run: |
+          MC_VER="${{ steps.get_versions.outputs.mc }}"
+          MOD_VER="${{ steps.get_versions.outputs.mod }}"
+          if [[ "$MOD_VER" == *"snapshot"* ]]; then
+            echo "type=alpha" >> $GITHUB_OUTPUT
+          elif [[ "$MOD_VER" == *"pre"* ]]; then
+          echo "type=beta" >> $GITHUB_OUTPUT
+          else
+            echo "type=release" >> $GITHUB_OUTPUT
+          fi
+          
+          MC_UPDATE=$(echo "$MC_VER" | cut -d '-' -f1)
+          if [[ "$MC_VER" == *"snapshot"* ]] || [[ "$MC_VER" == *"pre"* ]]; then
+            echo "cf_ver=${MC_UPDATE}-snapshot" >> $GITHUB_OUTPUT
+          else
+            echo "cf_ver=${MC_UPDATE}" >> $GITHUB_OUTPUT
+          fi
+
       - name: Publish to Modrinth
         uses: cloudnode-pro/modrinth-publish@v2
         with:
@@ -34,12 +62,12 @@ jobs:
           project: c65QHwL5
           name: ${{ github.event.release.name }}
           version: ${{ github.event.release.tag_name }}
-          channel: beta
+          channel: ${{steps.release_type.outputs.type}}
           featured: true
           changelog: ${{ github.event.release.body }}
           loaders: '["fabric"]'
-          game-versions: '["26.1-snapshot-5"]'
-          files: '["build/libs/subtlyd-${{ github.event.release.tag_name }}.jar"]'
+          game-versions: '["${{ steps.get_versions.outputs.mc }}"]'
+          files: '["build/libs/subtlyd-${{ steps.get_versions.outputs.mod }}.jar"]'
           # Fabric API
           dependencies: |-
             [{
@@ -48,15 +76,15 @@ jobs:
             }]
           status: listed
 
-      - name: Publish to Curseforge
+      - name: Publish to CurseForge
         uses: itsmeow/curseforge-upload@v3
         with:
           token: ${{ secrets.CURSEFORGE_TOKEN }}
           project_id: 1363308
           display_name: ${{ github.event.release.name }}
-          release_type: beta
+          release_type: ${{steps.release_type.outputs.type}}
           changelog: ${{ github.event.release.body }}
-          game_versions: "Minecraft 26.1-snapshot,Java 25,Fabric"
-          file_path: "build/libs/subtlyd-${{ github.event.release.tag_name }}.jar"
+          game_versions: "Minecraft ${{ steps.release_type.outputs.cf_ver }},Java 25,Fabric"
+          file_path: "build/libs/subtlyd-${{ steps.get_versions.outputs.mod }}.jar"
           relations: "fabric-api:requiredDependency"
           game_endpoint: minecraft

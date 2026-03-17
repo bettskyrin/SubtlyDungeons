@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.entity;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.spider.Spider;
@@ -28,7 +28,7 @@ public class EntityMixin {
      */
     private void positionClimbingRider(Spider spider, Entity passenger, Entity.MoveFunction moveFunction, CallbackInfo ci) {
         if (spider.isClimbing()) {
-            Direction wallDir = Util.Logic.getNearestWall(spider);
+            Direction wallDir = EntitySD.getNearestWall(spider);
             float yaw = (float) Math.toRadians(wallDir != null ? wallDir.toYRot() : spider.getYRot());
             double distanceFromMount = 1D;
 

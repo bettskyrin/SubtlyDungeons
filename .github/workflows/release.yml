@@ -1,0 +1,32 @@
+name: GitHub Release
+
+on:
+  schedule:
+    - cron: "0 16 * * 3" # Wednesday at 4:00PM UTC | 10:00AM CST
+  workflow_dispatch:
+
+jobs:
+  publish-to-gh:
+    permissions:
+      contents: write
+      actions: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish Draft
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          LATEST_DRAFT=$(gh release list --repo ${{ github.repository }} --json isDraft, tagName --jq 'map(select(.isDraft)) | .[0].tagName
+          if [ -n "$LATEST_DRAFT" ]; then
+            echo "Publishing $LATEST_DRAFT"
+            gh release edit "$LATEST_DRAFT" -- repo ${{ github.repository }} --draft=false
+          else
+            echo "No draft found."
+          fi
+
+      - name: Deactivate Scheduler
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Disabling scheduler"
+          gh workflow disable "Scheduler" --repo ${{ github.repository }}

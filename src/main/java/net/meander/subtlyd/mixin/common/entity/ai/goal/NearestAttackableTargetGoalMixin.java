@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.common.entity.ai.goal;
 
-import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.world.entity.MobSD;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -27,9 +27,9 @@ public class NearestAttackableTargetGoalMixin {
         Mob mob = ((TargetGoalAccessor) this).subtlyDungeons$getMob();
 
         if (mob.is(EntityTypeTagsSD.CAN_BE_FULL) && Animal.class.isAssignableFrom(targetType)) {
-            Long nextAllowedHuntTime = Util.Logic.HUNT_COOLDOWNS.get(mob);
+            long nextAllowedHuntTime = ((MobSD) mob).subtlyDungeons$getHuntingCooldownTicks();
 
-            if (nextAllowedHuntTime != null && mob.level().getGameTime() < nextAllowedHuntTime) {
+            if (mob.level().getGameTime() < nextAllowedHuntTime) {
                 cir.setReturnValue(false);
             }
         }
