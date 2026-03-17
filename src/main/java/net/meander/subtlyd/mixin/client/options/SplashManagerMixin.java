@@ -51,10 +51,10 @@ public class SplashManagerMixin {
                         }
                     }
                 }
-                Util.log(Component.translatable("argument.resource.splash.loading"));
+                Util.LOGGER.info("Successfully loaded custom splash text");
             }
         } catch (Exception e) {
-            Util.log(Component.translatable("argument.resource.splash.not_found", e.getMessage()));
+            Util.LOGGER.error("Failed to load custom splash text: {}", e.getMessage());
         }
 
         cir.setReturnValue(newSplashes);

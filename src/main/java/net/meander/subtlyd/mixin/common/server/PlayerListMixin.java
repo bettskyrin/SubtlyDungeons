@@ -3,7 +3,6 @@ package net.meander.subtlyd.mixin.common.server;
 import net.meander.subtlyd.network.HandshakePayload;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.network.Connection;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
@@ -20,6 +19,6 @@ public class PlayerListMixin {
         ClientboundCustomPayloadPacket packet = new ClientboundCustomPayloadPacket(new HandshakePayload());
 
         player.connection.send(packet);
-        Util.log(Component.translatable("multiplayer.startHandshake", player.getName().getString()));
+        Util.LOGGER.info("Sent handshake packet to {}", player.getName().getString());
     }
 }

@@ -1,6 +1,5 @@
 package net.meander.subtlyd.util;
 
-import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,22 +7,6 @@ import org.slf4j.LoggerFactory;
 public class Util {
     public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
     public static final String NAMESPACE = "subtlyd";
-
-    /**
-     * A quick log output method.
-     */
-    @SuppressWarnings("unused")
-    public static void debug(Object logValue) {
-        LOGGER.info("Debug: {}", logValue);
-    }
-
-    /**
-     * A non-debug logging method.
-     * @param component The message to log.
-     */
-    public static void log(MutableComponent component) {
-        LOGGER.info(component.getString());
-    }
 
     /**
      * @param string The path.

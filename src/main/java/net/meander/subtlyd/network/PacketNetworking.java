@@ -1,13 +1,12 @@
 package net.meander.subtlyd.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.meander.subtlyd.util.CameraShake;
-import net.meander.subtlyd.util.Util;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.meander.subtlyd.util.CameraShake;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -55,14 +54,14 @@ public class PacketNetworking {
         ClientPlayNetworking.registerGlobalReceiver(HandshakePayload.TYPE, (_, context) -> context.client().execute(
             () -> {
                 Util.Server.isModded = true;
-                Util.log(Component.translatable("multiplayer.gate.unlock"));
+                Util.LOGGER.info("Modded server detected. Enabled server-side custom behavior");
             }
         ));
 
         ClientPlayConnectionEvents.DISCONNECT.register((_, client) -> client.execute(
             () -> {
                 Util.Server.isModded = false;
-                Util.log(Component.translatable("multiplayer.gate.lock"));
+                Util.LOGGER.info("Modded server not detected. Disabled server-side custom behaviors");
             }
         ));
     }

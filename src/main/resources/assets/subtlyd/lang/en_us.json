@@ -1,6 +1,4 @@
 {
-  "argument.resource.splash.loading": "Loaded custom splash text",
-  "argument.resource.splash.not_found": "Failed to load custom splash text: %s",
   "block.minecraft.campfire": "Lit Campfire",
   "block.subtlyd.charcoal_block": "Block of Charcoal",
   "block.subtlyd.chiseled_polished_dripstone": "Chiseled Polished Dripstone",
@@ -66,10 +64,7 @@
   "item.subtlyd.green_tent": "Green Tent",
   "item.subtlyd.red_tent": "Red Tent",
   "item.subtlyd.black_tent": "Black Tent",
-  "multiplayer.startHandshake": "Sent handshake packet to %s",
   "multiplayer.stopSleeping": "Stop Sleeping",
-  "multiplayer.gate.lock": "Modded server not detected. Disabled server-side custom behaviors.",
-  "multiplayer.gate.unlock": "Modded server detected. Enabled server-side custom behavior.",
   "options.accessibility.camera_shake": "Camera Shake",
   "options.accessibility.camera_shake.tooltip": "Toggles the camera shake effect.",
   "options.difficulty.easy.info": "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.",
