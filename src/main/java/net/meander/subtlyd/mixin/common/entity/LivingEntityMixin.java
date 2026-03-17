@@ -58,11 +58,16 @@ public abstract class LivingEntityMixin extends Entity {
             if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
                 if (animal instanceof PathfinderMob mob) {
                     Vec3 pos = new Vec3(mob.getX(), mob.getY(), mob.getZ());
+                    int tries = 0;
 
-                    while (pos == null || (pos.x == mob.getX() && pos.z == mob.getZ())) {
+                    while (tries < 256 && (pos == null || (pos.x == mob.getX() && pos.z == mob.getZ()))) {
                         pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                        tries++;
                     }
-                    mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
+
+                    if (pos != null) {
+                        mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
+                    }
                 }
             }
         }

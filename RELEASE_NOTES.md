@@ -13,3 +13,4 @@
 
 #### Bug Fixes
 - Fixed bug causing some animals to not flee from danger
+- Fixed bug that could cause scared mobs to infinitely search for a place to pathfind to, if no such place is found soon.

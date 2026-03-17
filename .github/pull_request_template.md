@@ -3,10 +3,10 @@
 ## Pre-Release Checklist
 *Must be completed before merging into Main*
 
-- [ ] **Version Bump:** Updated `gradle.properties` AND `publish.yml` to the new version number?
+- [ ] **Version Bump:** Updated `gradle.properties` to the new version number?
 - [ ] **Dependencies:** Checked `fabric.mod.json` for correct Minecraft/Loader versions?
-- [ ] **Lang Files:** Did you add translation keys for new blocks/items?
-- [ ] **Server Test:** Did you run this on a dedicated server to check for Client-side only crashes?
+- [ ] **Lang Files:** Did you add translation keys for new blocks/items/tags?
+- [ ] **Server Test:** Did you run this on a dedicated server to check for Server-side crashes?
 - [ ] **Changelog:** Updated `CHANGELOG.md` with a summary of changes?
 
 ##  Testing Steps
