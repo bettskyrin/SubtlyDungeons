@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -21,6 +22,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     }
 
     public static final TagKey<Item> TENTS = create("tents");
+    public static final TagKey<Item> LIQUID_CONSUMABLES = create("liquid_consumables");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -31,6 +33,15 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemsSD.CALAMARI);
         valueLookupBuilder(TENTS)
             .addAll(ItemsSD.TENT_ITEM_LIST);
+        valueLookupBuilder(LIQUID_CONSUMABLES)
+                .add(Items.POTION)
+                .add(Items.MILK_BUCKET)
+                .add(Items.HONEY_BOTTLE)
+                .add(Items.BEETROOT_SOUP)
+                .add(Items.MUSHROOM_STEW)
+                .add(Items.SUSPICIOUS_STEW)
+                .add(Items.RABBIT_STEW)
+                .add(ItemsSD.POTTAGE);
     }
 
     private static TagKey<Item> create(String string) {
