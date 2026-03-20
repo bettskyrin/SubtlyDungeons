@@ -4,9 +4,6 @@
 - Updated the Reeds texture
 
 ### Technical Changes
-#### Multiplayer
-- Subtly Dungeons can now connect to servers without the mod installed, without risk of crashing or disconnecting
-
 #### Advancements
 - Changed advancement updating method for increased compatability
     - Advancement JSON files are no longer directly overriden

@@ -1,6 +1,5 @@
 package net.meander.subtlyd.network;
 
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -50,20 +49,6 @@ public class PacketNetworking {
                 }
             }
         )));
-
-        ClientPlayNetworking.registerGlobalReceiver(HandshakePayload.TYPE, (_, context) -> context.client().execute(
-            () -> {
-                Util.Server.isModded = true;
-                Util.LOGGER.info("Modded server detected. Enabled server-side custom behavior");
-            }
-        ));
-
-        ClientPlayConnectionEvents.DISCONNECT.register((_, client) -> client.execute(
-            () -> {
-                Util.Server.isModded = false;
-                Util.LOGGER.info("Modded server not detected. Disabled server-side custom behaviors");
-            }
-        ));
     }
 
     /**

@@ -126,10 +126,6 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Added `/camerashake` command
   - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
 
-
-#### Multiplayer
-- Subtly Dungeons can now connect to servers without the mod installed, without risk of crashing or disconnecting
-
 ### Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day
 - Improved server performance for using tents
