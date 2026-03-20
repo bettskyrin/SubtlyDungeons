@@ -5,7 +5,6 @@ import net.minecraft.util.Mth;
 
 public class TentRenderState extends EntityRenderState {
     public float scale;
-    public boolean hasRedOverlay;
     public float yRot;
     public float xRot;
     public float hurtTime;
