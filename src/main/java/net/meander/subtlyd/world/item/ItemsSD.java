@@ -1,13 +1,13 @@
 package net.meander.subtlyd.world.item;
 
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.util.data.tags.BlockTagsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypeSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.food.FoodsSD;
-import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -151,5 +151,4 @@ public class ItemsSD {
     private static ResourceKey<Item> resourceKey(String name) {
         return ResourceKey.create(Registries.ITEM, Util.identifier(name));
     }
-
 }

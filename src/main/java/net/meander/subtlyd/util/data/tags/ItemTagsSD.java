@@ -23,6 +23,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
 
     public static final TagKey<Item> TENTS = create("tents");
     public static final TagKey<Item> LIQUID_CONSUMABLES = create("liquid_consumables");
+    public static final TagKey<Item> NON_HUMANOID_ARMOR = create("non_humanoid_armor");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -42,6 +43,19 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(Items.SUSPICIOUS_STEW)
                 .add(Items.RABBIT_STEW)
                 .add(ItemsSD.POTTAGE);
+        valueLookupBuilder(NON_HUMANOID_ARMOR)
+                .add(Items.LEATHER_HORSE_ARMOR)
+                .add(Items.COPPER_HORSE_ARMOR)
+                .add(Items.IRON_HORSE_ARMOR)
+                .add(Items.GOLDEN_HORSE_ARMOR)
+                .add(Items.DIAMOND_HORSE_ARMOR)
+                .add(Items.NETHERITE_HORSE_ARMOR)
+                .add(Items.COPPER_NAUTILUS_ARMOR)
+                .add(Items.IRON_NAUTILUS_ARMOR)
+                .add(Items.GOLDEN_NAUTILUS_ARMOR)
+                .add(Items.DIAMOND_NAUTILUS_ARMOR)
+                .add(Items.NETHERITE_NAUTILUS_ARMOR)
+                .add(Items.WOLF_ARMOR);
     }
 
     private static TagKey<Item> create(String string) {
