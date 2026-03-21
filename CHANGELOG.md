@@ -4,16 +4,6 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [4.0 UNNAMED UPDATE] - UNRELEASED
-### New Features
-- All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
-  - The time has been reduced to 20 ticks, to match the Combat Tests
-
-### Technical Changes
-#### Data Tags
-- Added `liquid_consumables` item tag
-  - This is a list of consumables that can be considered liquids (e.g. stews, potions, etc.)
-
 ## [3.0 Wild Instincts Update] - UNRELEASED
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
 
