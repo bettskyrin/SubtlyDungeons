@@ -4,6 +4,10 @@
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
 
+#### Curses
+- Added Curse of Decaying
+  - Affected equipment loses durability twice as fast
+
 #### Speedy Potions
 - All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
     - The time has been reduced to 20 ticks, to match the Combat Tests
@@ -21,4 +25,4 @@
   - This is a list of consumables that can be considered liquids (e.g. stews, potions, etc.)
 - Added `is_occult` damage type tag
   - This tag controls what types of damage Occult Protection can protect against
-    - This includes magic, indirect magic, sonic booms, thorns, and wither damage
+    - This includes magic, indirect magic, sonic booms, and thorns

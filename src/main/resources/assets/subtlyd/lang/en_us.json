@@ -24,6 +24,7 @@
   "commands.camerashake.success.add.single": "Applying camera shake to %s",
   "commands.camerashake.success.stop.multiple": "Stopping camera shake for %s players",
   "commands.camerashake.success.stop.single": "Stopping camera shake for %s",
+  "enchantment.subtlyd.decaying_curse": "Curse of Decaying",
   "enchantment.subtlyd.occult_protection": "Occult Protection",
   "entity.subtlyd.white_tent": "White Tent",
   "entity.subtlyd.orange_tent": "Orange Tent",
