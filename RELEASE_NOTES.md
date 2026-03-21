@@ -25,4 +25,4 @@
   - This is a list of consumables that can be considered liquids (e.g. stews, potions, etc.)
 - Added `is_occult` damage type tag
   - This tag controls what types of damage Occult Protection can protect against
-    - This includes magic, indirect magic, sonic booms, and thorns
+    - This includes magic, indirect magic, sonic booms, withering, and thorns
