@@ -53,6 +53,7 @@ public class ItemStackMixin {
         if (itemStack.is(ItemTagsSD.LIQUID_CONSUMABLES)) {
             if (newDataComponentMap == null) {
                 DataComponentMap oldDataComponentMap = cir.getReturnValue();
+                DataComponentMap.Builder builder = DataComponentMap.builder().addAll(oldDataComponentMap);
                 Consumable oldConsumable = oldDataComponentMap.get(DataComponents.CONSUMABLE);
 
                 if (oldConsumable != null) {
@@ -63,11 +64,15 @@ public class ItemStackMixin {
                             oldConsumable.hasConsumeParticles(),
                             oldConsumable.onConsumeEffects()
                     );
-
-                    newDataComponentMap = DataComponentMap.builder()
+                    builder = DataComponentMap.builder()
                             .addAll(oldDataComponentMap)
-                            .set(DataComponents.CONSUMABLE, newConsumable)
-                            .build();
+                            .set(DataComponents.CONSUMABLE, newConsumable);
+
+                    if (itemStack.is(Items.POTION)) {
+                        builder.set(DataComponents.MAX_STACK_SIZE, 16);
+                    }
+
+                    newDataComponentMap = builder.build();
                 } else {
                     newDataComponentMap = oldDataComponentMap;
                 }
