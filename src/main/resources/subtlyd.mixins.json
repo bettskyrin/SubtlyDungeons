@@ -41,6 +41,7 @@
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.SplashManagerMixin",
     "client.renderer.GameRendererMixin",
+    "client.renderer.HumanoidArmorLayerMixin",
     "client.renderer.ScreenEffectRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.DrownedOuterLayerMixin",
