@@ -56,6 +56,8 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(Items.DIAMOND_NAUTILUS_ARMOR)
                 .add(Items.NETHERITE_NAUTILUS_ARMOR)
                 .add(Items.WOLF_ARMOR);
+        valueLookupBuilder(ItemTags.ARMOR_ENCHANTABLE)
+                .addTag(NON_HUMANOID_ARMOR);
     }
 
     private static TagKey<Item> create(String string) {

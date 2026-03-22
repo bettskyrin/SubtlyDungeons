@@ -3,6 +3,10 @@
 #### Enchantments
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
+- Added Animal Armor enchantments
+  - Horse armor may now be enchanted
+  - Wolf armor may now be enchanted
+  - Nautilus armor may now be enchanted
 
 #### Curses
 - Added Curse of Decaying
@@ -26,3 +30,6 @@
 - Added `is_occult` damage type tag
   - This tag controls what types of damage Occult Protection can protect against
     - This includes magic, indirect magic, sonic booms, withering, and thorns
+- Added `non_humanoid_armor` item tag
+  - This tag is a list of armor items not for humanoids (e.g. diamond horse armor, wolf armor, etc.)
+  - Any item with this tag will become enchantable with armor enchantments.

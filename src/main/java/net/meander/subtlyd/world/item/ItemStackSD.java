@@ -1,10 +1,29 @@
 package net.meander.subtlyd.world.item;
 
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+
+import java.util.Map;
 
 public class ItemStackSD {
-    public static int getEnchantability(ItemStack item) {
-        // TODO
+    public static Map<Item, Integer> enchantabilityMap = Map.ofEntries(
+            Map.entry(Items.WOLF_ARMOR, 9),
+            Map.entry(Items.DIAMOND_HORSE_ARMOR, 10),
+            Map.entry(Items.DIAMOND_NAUTILUS_ARMOR, 10),
+            Map.entry(Items.COPPER_HORSE_ARMOR, 8),
+            Map.entry(Items.COPPER_NAUTILUS_ARMOR, 8),
+            Map.entry(Items.IRON_HORSE_ARMOR, 9),
+            Map.entry(Items.IRON_NAUTILUS_ARMOR, 9),
+            Map.entry(Items.LEATHER_HORSE_ARMOR, 15),
+            Map.entry(Items.NETHERITE_HORSE_ARMOR, 15),
+            Map.entry(Items.NETHERITE_NAUTILUS_ARMOR, 15),
+            Map.entry(Items.GOLDEN_HORSE_ARMOR, 25),
+            Map.entry(Items.GOLDEN_NAUTILUS_ARMOR, 25));
+
+    public static int getEnchantability(Item item) {
+        if (enchantabilityMap.containsKey(item)) {
+            return enchantabilityMap.get(item);
+        }
         return 1;
     }
 }

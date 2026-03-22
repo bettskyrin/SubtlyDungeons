@@ -20,7 +20,6 @@ import java.util.List;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    private DataComponentMap newDataComponentMap = null;
     @Unique private static final List<Item> uncommonItems = List.of(Items.NETHERITE_AXE,
             Items.NETHERITE_HOE,
             Items.NETHERITE_PICKAXE,
@@ -54,7 +53,7 @@ public class ItemStackMixin {
     @Inject(method = "getComponents", at = @At("RETURN"), cancellable = true)
     private void getComponents(CallbackInfoReturnable<DataComponentMap> cir) {
         ItemStack itemStack = (ItemStack) (Object) this;
-
+        DataComponentMap newDataComponentMap = null;
         DataComponentMap oldDataComponentMap = cir.getReturnValue();
         DataComponentMap.Builder builder = DataComponentMap.builder().addAll(oldDataComponentMap);
 
@@ -84,7 +83,7 @@ public class ItemStackMixin {
                 }
 
                 if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR)) {
-                    builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantability(itemStack)));
+                    builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantability(itemStack.getItem())));
                 }
             }
             cir.setReturnValue(newDataComponentMap);
