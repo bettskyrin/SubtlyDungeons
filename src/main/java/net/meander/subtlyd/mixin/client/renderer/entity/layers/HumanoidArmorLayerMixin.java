@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.client.renderer;
+package net.meander.subtlyd.mixin.client.renderer.entity.layers;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.HumanoidModel;
@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantable;
@@ -17,17 +18,20 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(HumanoidArmorLayer.class)
-public abstract class HumanoidArmorLayerMixin <S extends HumanoidRenderState, M extends HumanoidModel<S>, A extends HumanoidModel<S>> extends RenderLayer<S, M>  { // TODO Test
+public abstract class HumanoidArmorLayerMixin <S extends HumanoidRenderState, M extends HumanoidModel<S>> extends RenderLayer<S, M>  {
     public HumanoidArmorLayerMixin(RenderLayerParent<S, M> renderer) {
         super(renderer);
     }
 
+    /**
+     * Enables invisible armor for high enchantibility armors.
+     */
     @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true)
     private void invisibilityCompatibility(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, ItemStack itemStack, EquipmentSlot slot, int lightCoords, S state, CallbackInfo ci) {
-        if (state.isInvisible) {
+        if (state.isInvisible && itemStack.is(ItemTags.ARMOR_ENCHANTABLE)) {
             Enchantable enchantable = itemStack.get(DataComponents.ENCHANTABLE);
 
-            if (enchantable != null && enchantable.value() <= 22) {
+            if (enchantable != null && enchantable.value() >= 15) {
                 ci.cancel();
             }
         }

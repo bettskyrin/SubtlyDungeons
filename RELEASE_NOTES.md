@@ -12,6 +12,9 @@
 - Added Curse of Decaying
   - Affected equipment loses durability twice as fast
 
+#### Enchantibility
+- High enchantibility (level 15 or higher) armors will turn invisible with the wearer
+
 #### Speedy Potions
 - All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
     - The time has been reduced to 20 ticks, to match the Combat Tests

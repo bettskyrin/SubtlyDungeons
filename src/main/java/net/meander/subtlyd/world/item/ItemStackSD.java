@@ -20,7 +20,7 @@ public class ItemStackSD {
             Map.entry(Items.GOLDEN_HORSE_ARMOR, 25),
             Map.entry(Items.GOLDEN_NAUTILUS_ARMOR, 25));
 
-    public static int getEnchantability(Item item) {
+    public static int getEnchantibilityFromMap(Item item) {
         if (enchantabilityMap.containsKey(item)) {
             return enchantabilityMap.get(item);
         }

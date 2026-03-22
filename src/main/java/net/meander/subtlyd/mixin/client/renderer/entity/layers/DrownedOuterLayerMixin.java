@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.client.renderer.entity;
+package net.meander.subtlyd.mixin.client.renderer.entity.layers;
 
 import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
 import net.meander.subtlyd.util.Util;

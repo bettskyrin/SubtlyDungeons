@@ -57,8 +57,8 @@ public class ItemStackMixin {
         DataComponentMap oldDataComponentMap = cir.getReturnValue();
         DataComponentMap.Builder builder = DataComponentMap.builder().addAll(oldDataComponentMap);
 
-        if (itemStack.is(ItemTagsSD.LIQUID_CONSUMABLES)) {
-            if (newDataComponentMap == null) {
+        if (newDataComponentMap == null) {
+            if (itemStack.is(ItemTagsSD.LIQUID_CONSUMABLES)) {
                 Consumable oldConsumable = oldDataComponentMap.get(DataComponents.CONSUMABLE);
 
                 if (oldConsumable != null) {
@@ -76,17 +76,12 @@ public class ItemStackMixin {
                     if (itemStack.is(Items.POTION)) {
                         builder.set(DataComponents.MAX_STACK_SIZE, 16);
                     }
-
-                    newDataComponentMap = builder.build();
-                } else {
-                    newDataComponentMap = oldDataComponentMap;
                 }
-
-                if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR)) {
-                    builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantability(itemStack.getItem())));
-                }
+            } else if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR)) {
+                builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantibilityFromMap(itemStack.getItem())));
             }
-            cir.setReturnValue(newDataComponentMap);
         }
+        newDataComponentMap = builder.build();
+        cir.setReturnValue(newDataComponentMap);
     }
 }
