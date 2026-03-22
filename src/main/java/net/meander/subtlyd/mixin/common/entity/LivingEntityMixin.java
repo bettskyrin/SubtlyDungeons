@@ -3,10 +3,13 @@ package net.meander.subtlyd.mixin.common.entity;
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
@@ -19,6 +22,7 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -26,8 +30,6 @@ import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    private final LivingEntity livingEntity = (LivingEntity) (Object) this;
-
     private LivingEntityMixin(EntityType<?> type, Level level) {
         super(type, level);
     }
@@ -37,11 +39,25 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
         if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
             if (source.getEntity() instanceof LivingEntity attacker) {
                 shareHerdPanic(livingEntity, attacker);
             }
         }
+    }
+
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true)
+    private DamageSource roastedByDragon(DamageSource source) {
+        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
+            if (cloud.getParticle().getType() == ParticleTypes.DRAGON_BREATH) {
+                LivingEntity livingEntity = (LivingEntity) (Object) this;
+                Holder<DamageType> holder = livingEntity.damageSources().dragonBreath().typeHolder();
+
+                return new DamageSource(holder, source.getDirectEntity(), source.getEntity());
+            }
+        }
+        return source;
     }
 
     /**
@@ -89,6 +105,7 @@ public abstract class LivingEntityMixin extends Entity {
     private void consumePrey(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
         if (damageSource.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
             if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
+                LivingEntity livingEntity = (LivingEntity) (Object) this;
                 List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));
 
                 for (ItemEntity droppedItem : drops) {
