@@ -31,33 +31,33 @@ public class EnchantmentsSD {
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
 
         context.register(OCCULT_PROTECTION, Enchantment.enchantment(
-                Enchantment.definition(items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
-                        5,
-                        4,
-                        Enchantment.dynamicCost(5, 8),
-                        Enchantment.dynamicCost(18, 8),
-                        4,
-                        EquipmentSlotGroup.ARMOR))
-                            .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
-                        .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
-                                DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
-                                        .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
-                .build(OCCULT_PROTECTION.identifier())
+            Enchantment.definition(items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                    5,
+                    4,
+                    Enchantment.dynamicCost(5, 8),
+                    Enchantment.dynamicCost(18, 8),
+                    4,
+                    EquipmentSlotGroup.ARMOR))
+                .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
+                .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
+                        DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
+                                .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
+            .build(OCCULT_PROTECTION.identifier())
         );
         context.register(DECAYING_CURSE, Enchantment.enchantment(
-                                Enchantment.definition(
-                                        items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
-                                        1,
-                                        1,
-                                        Enchantment.constantCost(25),
-                                        Enchantment.constantCost(50),
-                                        8,
-                                        EquipmentSlotGroup.ANY))
-                        .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
-                                MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
-                        .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
-                                InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
-                .build(DECAYING_CURSE.identifier())
+                Enchantment.definition(
+                        items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
+                        1,
+                        1,
+                        Enchantment.constantCost(25),
+                        Enchantment.constantCost(50),
+                        8,
+                        EquipmentSlotGroup.ANY))
+                .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
+                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
+                .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
+                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
+            .build(DECAYING_CURSE.identifier())
         );
     }
 }
