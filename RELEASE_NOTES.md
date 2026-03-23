@@ -27,6 +27,17 @@
 #### Burn No More!
 - Players with the Fire Resistance effect will no longer be visually set on fire!
 
+#### Beacons
+- Beacon effect range has been quadrupled
+  - Level 1 Beacon Range:
+    - 20 meters -> 80 meters
+  - Level 2 Beacon Range:
+    - 30 meters -> 120 meters
+  - Level 3 Beacon Range:
+    - 40 meters -> 160 meters
+  - Level 4 Beacon Range:
+    - 50 meters -> 200 meters
+
 ### Technical Changes
 #### Data Tags
 - Added `liquid_consumables` item tag
