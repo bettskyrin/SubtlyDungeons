@@ -1,12 +1,13 @@
 ## [4.0 Snapshot 1] - UNRELEASED
 ### New Features
-#### Enchantments
+#### Enchanting
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
 - Added Animal Armor enchantments
   - Horse armor may now be enchanted
   - Wolf armor may now be enchanted
   - Nautilus armor may now be enchanted
+- Enchanting tables now accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
 
 #### Curses
 - Added Curse of Decaying
