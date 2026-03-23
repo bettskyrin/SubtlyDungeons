@@ -20,6 +20,7 @@
     "common.entity.monster.ZombieMixin",
     "common.server.PlayerListMixin",
     "common.server.ServerAdvancementManagerMixin",
+    "common.world.entity.projectile.hurtingprojectile.WitherSkullMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin",
     "common.world.level.block.entity.BeaconBlockEntityMixin"

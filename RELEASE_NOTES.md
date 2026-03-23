@@ -38,6 +38,10 @@
   - Level 4 Beacon Range:
     - 50 meters -> 200 meters
 
+#### The Wither
+- Wither skulls fired at the player are now on fire!
+  - This was originally intended by Mojang, but caused crashes
+
 ### Technical Changes
 #### Data Tags
 - Added `liquid_consumables` item tag
