@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.monster;
+package net.meander.subtlyd.mixin.common.world.entity.monster;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;

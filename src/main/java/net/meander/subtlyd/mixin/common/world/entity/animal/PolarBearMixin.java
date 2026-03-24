@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.animal;
+package net.meander.subtlyd.mixin.common.world.entity.animal;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;

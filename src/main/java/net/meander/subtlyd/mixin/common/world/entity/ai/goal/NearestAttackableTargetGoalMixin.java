@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.ai.goal;
+package net.meander.subtlyd.mixin.common.world.entity.ai.goal;
 
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;

@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.monster;
+package net.meander.subtlyd.mixin.common.world.entity.monster;
 
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.network.syncher.SynchedEntityData;

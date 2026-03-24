@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.ai.goal;
+package net.meander.subtlyd.mixin.common.world.entity.ai.goal;
 
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;

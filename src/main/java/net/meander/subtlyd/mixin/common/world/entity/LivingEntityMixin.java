@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity;
+package net.meander.subtlyd.mixin.common.world.entity;
 
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
@@ -8,11 +8,13 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -121,6 +123,28 @@ public abstract class LivingEntityMixin extends Entity {
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Alter the maximum health of an entity based on difficulty.
+     */
+    @Inject(method = "getMaxHealth", at = @At("RETURN"), cancellable = true)
+    private void setDifficultyHealth(CallbackInfoReturnable<Float> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        float maxHealth = cir.getReturnValue();
+
+        if (livingEntity instanceof WitherBoss) {
+            Difficulty difficulty = livingEntity.level().getDifficulty();
+
+            if (difficulty == Difficulty.EASY) {
+                maxHealth = 300.0F;
+            } else if (difficulty == Difficulty.NORMAL) {
+                maxHealth = 450.0F;
+            } else if (difficulty == Difficulty.HARD) {
+                maxHealth = 600.0F;
+            }
+            cir.setReturnValue(maxHealth);
         }
     }
 }

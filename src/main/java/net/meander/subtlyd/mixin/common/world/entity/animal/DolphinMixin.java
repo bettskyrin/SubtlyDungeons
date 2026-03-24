@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity.animal;
+package net.meander.subtlyd.mixin.common.world.entity.animal;
 
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.tags.ItemTags;

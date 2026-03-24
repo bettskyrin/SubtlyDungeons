@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.entity;
+package net.meander.subtlyd.mixin.common.world.entity;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.BedBlock;

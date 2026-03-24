@@ -41,6 +41,10 @@
 #### The Wither
 - Wither skulls fired at the player are now on fire!
   - This was originally intended by Mojang, but caused crashes
+- The Wither's health now scales with difficulty to match Bedrock Edition
+  - Easy 300 HP -> 300 HP
+  - Normal 300 HP -> 450 HP
+  - Hard 300 HP -> 600 HP
 
 ### Technical Changes
 #### Data Tags
