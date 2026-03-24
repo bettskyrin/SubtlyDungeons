@@ -57,6 +57,7 @@ public class EntityTypeSD {
      * @param mob The mob to test
      * @return What temperature variant a mob is.
      */
+    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public static Identifier getTemperatureVariantType(Mob mob) {
         if (mob instanceof Pig variableMob) {
             if (variableMob.getVariant().is(PigVariants.WARM)) {

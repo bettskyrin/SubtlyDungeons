@@ -31,7 +31,7 @@ import java.util.List;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin extends Screen {
-    CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
+    final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
     @Shadow private TabNavigationBar tabNavigationBar;

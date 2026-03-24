@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Zombie.class)
 public abstract class ZombieMixin {
-    Zombie zombie = (Zombie) (Object) this;
+    final Zombie zombie = (Zombie) (Object) this;
 
     /**
      * Set a zombie leader

@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.level.block;
 
-import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -26,7 +26,7 @@ public class UnlitCampfireFunction implements UseBlockCallback {
             }
 
             //noinspection DataFlowIssue
-            if (!player.gameMode().isCreative()) {
+            if (player.gameMode() != null && !player.gameMode().isCreative()) {
                 itemStack.shrink(1);
             }
             level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);

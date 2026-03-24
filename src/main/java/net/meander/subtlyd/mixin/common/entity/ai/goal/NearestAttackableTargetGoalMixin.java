@@ -2,11 +2,9 @@ package net.meander.subtlyd.mixin.common.entity.ai.goal;
 
 import net.meander.subtlyd.util.data.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -17,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(NearestAttackableTargetGoal.class)
 public class NearestAttackableTargetGoalMixin {
     @Shadow @Final protected Class<?> targetType;
-    @Shadow @Nullable protected LivingEntity target;
 
     /**
      * Determines when hunting cooldowns should be used.
