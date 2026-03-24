@@ -92,14 +92,14 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
         valueLookupBuilder(BlockTags.UNDERWATER_BONEMEALS)
                 .add(BlocksSD.REEDS);
         valueLookupBuilder(BlockTags.ENCHANTMENT_POWER_TRANSMITTER)
-                .addTag(BlockTags.WOOL_CARPETS)
-                .add(Blocks.MOSS_CARPET)
-                .addTag(BlockTags.CANDLES)
-                .addTag(BlockTags.FLOWER_POTS)
-                .addTag(BlockTags.CAN_GLIDE_THROUGH)
+                .forceAddTag(BlockTags.WOOL_CARPETS)
+                .forceAddTag(BlockTags.CANDLES)
+                .forceAddTag(BlockTags.FLOWER_POTS)
+                .forceAddTag(BlockTags.CAN_GLIDE_THROUGH)
+                .forceAddTag(BlockTags.CHAINS)
                 .add(Blocks.CAULDRON, Blocks.BREWING_STAND)
                 .add(Blocks.CHISELED_BOOKSHELF)
-                .addTag(BlockTags.CHAINS);
+                .add(Blocks.MOSS_CARPET, Blocks.PALE_MOSS_CARPET);
     }
 
     private static TagKey<Block> create(String string) {
