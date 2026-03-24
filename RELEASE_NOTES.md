@@ -66,6 +66,10 @@
 - Added new sound event for the Wither:
   - `entity.wither_skeleton.summon`
 
+#### Textures
+- Added Hardcore HUD hearts for the Poison effect
+- Added Hardcore HUD hearts for the Wither effect
+
 #### Bug Fixes
 - Fixed vanilla bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
