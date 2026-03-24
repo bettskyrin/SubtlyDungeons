@@ -65,6 +65,8 @@
 #### Sounds
 - Added new sound event for the Wither:
   - `entity.wither_skeleton.summon`
+- Added new sound event for Evoker Fangs:
+  - `entity.evoker_fangs.appear`
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect

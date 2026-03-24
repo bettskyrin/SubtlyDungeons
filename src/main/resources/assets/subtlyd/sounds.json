@@ -62,6 +62,14 @@
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
   },
+  "entity.evoker_fangs.appear": {
+    "subtitle": "subtitles.subtlyd.entity.evoker_fangs.appear",
+    "sounds": [
+      "subtlyd:evoker_fangs/fangs_appear1",
+      "subtlyd:evoker_fangs/fangs_appear2",
+      "subtlyd:evoker_fangs/fangs_appear3"
+    ]
+  },
   "entity.wither_skeleton.summon": {
     "subtitle": "subtitles.subtlyd.entity.wither_skeleton.summon",
     "sounds": [

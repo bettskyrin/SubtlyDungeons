@@ -21,6 +21,7 @@
     "common.world.entity.boss.WitherBossMixin",
     "common.world.entity.monster.RaiderMixin",
     "common.world.entity.monster.ZombieMixin",
+    "common.world.entity.projectile.EvokerFangsMixin",
     "common.world.entity.projectile.hurtingprojectile.WitherSkullMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin",

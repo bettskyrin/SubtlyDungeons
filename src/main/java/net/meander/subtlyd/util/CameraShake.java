@@ -1,5 +1,6 @@
 package net.meander.subtlyd.util;
 
+import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -19,7 +20,7 @@ public class CameraShake {
     /**
      * List of sound events, their maxDistance value, and duration value.
      */
-    private static final List<Triple<SoundEvent, Integer, Integer>> shakeEvents = List.of(
+    private static final List<Triple<SoundEvent, Integer, Integer>> shakeEvents = List.of( // TODO Convert to JSON
             Triple.of(SoundEvents.WARDEN_ROAR, 32, 50),
             Triple.of(SoundEvents.WARDEN_SONIC_BOOM, 64, 25),
             Triple.of(SoundEvents.WARDEN_EMERGE, 128, 110),
@@ -33,7 +34,8 @@ public class CameraShake {
             Triple.of(SoundEvents.GENERIC_EXPLODE.value(), 16, 20),
             Triple.of(SoundEvents.MACE_SMASH_AIR, 8, 10),
             Triple.of(SoundEvents.MACE_SMASH_GROUND, 8, 10),
-            Triple.of(SoundEvents.MACE_SMASH_GROUND_HEAVY, 10, 15)
+            Triple.of(SoundEvents.MACE_SMASH_GROUND_HEAVY, 10, 15),
+            Triple.of(SoundEventsSD.EVOKER_FANGS_APPEAR, 10, 30)
     );
 
     /**
