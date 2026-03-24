@@ -75,6 +75,7 @@
   "options.difficulty.peaceful.info": "No hostile creatures and only some neutral creatures spawn. Hunger bar doesn't deplete and health replenishes over time.",
   "subtitles.subtlyd.block.air.idle": "Wind howls",
   "subtitles.subtlyd.block.bush.idle": "Wind blows",
+  "subtitles.subtlyd.entity.wither_skeleton.summon": "Souls wail",
   "subtitles.subtlyd.item.stick.light": "Stick rubs against log",
   "selectWorld.select" : "Play",
   "subtlyd.music.dalarna": "Peter Hont - Dalarna",

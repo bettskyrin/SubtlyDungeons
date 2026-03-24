@@ -14,6 +14,7 @@ public class SoundEventsSD {
     public static final SoundEvent SNOW_BRICK_HIT = register("block.snow_bricks.hit");
     public static final SoundEvent SNOW_BRICK_PLACE = register("block.snow_bricks.place");
     public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
+    public static final SoundEvent WITHER_SKELETONS_SUMMONED = register("entity.wither_skeleton.summon");
     public static final SoundEvent STICK_LIGHT = register("item.stick.light");
 
     public static void registration() { }

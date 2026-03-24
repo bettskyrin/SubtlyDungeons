@@ -62,6 +62,12 @@
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
   },
+  "entity.wither_skeleton.summon": {
+    "subtitle": "subtitles.subtlyd.entity.wither_skeleton.summon",
+    "sounds": [
+      "subtlyd:wither_skeleton/wither_skeleton_summoned"
+    ]
+  },
   "item.stick.light": {
     "subtitle": "subtitles.subtlyd.item.stick.light",
     "sounds": [

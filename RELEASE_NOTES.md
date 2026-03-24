@@ -45,6 +45,11 @@
   - Easy 300 HP -> 300 HP
   - Normal 300 HP -> 450 HP
   - Hard 300 HP -> 600 HP
+- The Wither now summons Wither Skeletons when it has reached 50% health
+  - This is also to match Bedrock Edition
+- All entities with the `wither_friends` entity type tag will no longer target the Wither
+
+  Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
 ### Technical Changes
 #### Data Tags
@@ -56,6 +61,10 @@
 - Added `non_humanoid_armor` item tag
   - This tag is a list of armor items not for humanoids (e.g. diamond horse armor, wolf armor, etc.)
   - Any item with this tag will become enchantable with armor enchantments.
+
+#### Sounds
+- Added new sound event for the Wither:
+  - `entity.wither_skeleton.summon`
 
 #### Bug Fixes
 - Fixed vanilla bug where deaths by dragon's breath were referred to as "magic"

@@ -5,8 +5,10 @@ import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -87,5 +89,15 @@ public class MobMixin implements MobSD {
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void loadHuntingCooldown(ValueInput input, CallbackInfo ci) {
         input.getLong("huntingCooldown").ifPresent(cooldown -> huntingCooldown = cooldown);
+    }
+
+
+    @Inject(method = "setTarget", at = @At("HEAD"), cancellable = true)
+    private void setWitherSkeletonTeam(LivingEntity target, CallbackInfo ci) {
+        if (((LivingEntity) (Object) this).is(EntityTypeTags.WITHER_FRIENDS)) {
+            if (target instanceof WitherBoss) {
+                ci.cancel();
+            }
+        }
     }
 }
