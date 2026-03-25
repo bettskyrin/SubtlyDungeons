@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.level.levelgen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
+import net.meander.subtlyd.world.level.levelgen.feature.ReedsFeature;
 import net.minecraft.core.HolderLookup;
 import org.jetbrains.annotations.NotNull;
 

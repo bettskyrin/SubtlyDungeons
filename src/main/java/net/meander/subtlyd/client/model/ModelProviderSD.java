@@ -1,4 +1,4 @@
-package net.meander.subtlyd.util.data;
+package net.meander.subtlyd.client.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -9,11 +9,15 @@ import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.client.data.models.model.TextureMapping;
+import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricPackOutput output) {
@@ -25,11 +29,38 @@ public class ModelProviderSD extends FabricModelProvider {
      * @param vanillaBlock The original block to obtain a texture from.
      * @param newBlock The custom block that the texture will be mapped to.
      */
-    public static void createCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
+    public static void generateCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
         TextureMapping mapping = TextureMapping.cube(vanillaBlock);
         Identifier model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
         MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
+
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
+    }
+
+    /**
+     * Creates an overhang block.
+     * @param block The block to map to.
+     */
+    public static void generateOverhangBlock(Block block, BlockModelGenerators blockModelGenerators) {
+        Identifier topAndBottom = BuiltInRegistries.BLOCK.getKey(Blocks.AIR);
+
+        Identifier north = TextureMapping.getBlockTexture(block, "_north").sprite();
+        Identifier east = TextureMapping.getBlockTexture(block, "_east").sprite();
+        Identifier south = TextureMapping.getBlockTexture(block, "_south").sprite();
+        Identifier west = TextureMapping.getBlockTexture(block, "_west").sprite();
+
+        TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.UP, new Material(topAndBottom))
+                .put(TextureSlot.DOWN, new Material(topAndBottom))
+                .put(TextureSlot.NORTH, new Material(north))
+                .put(TextureSlot.EAST, new Material(east))
+                .put(TextureSlot.SOUTH, new Material(south))
+                .put(TextureSlot.WEST, new Material(west));
+        Identifier model = ModelTemplatesSD.OVERHANG_BLOCK.create(block, mapping, blockModelGenerators.modelOutput);
+        MultiVariant multiVariant = BlockModelGenerators.createRotatedVariants(BlockModelGenerators.plainModel(model));
+
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, multiVariant));
+        blockModelGenerators.createFlatItemModelWithBlockTexture(block.asItem(), block);
     }
 
     @Override
@@ -51,6 +82,7 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
+        generateOverhangBlock(BlocksSD.WARPED_WART_OVERHANG, blockModelGenerator);
     }
 
     @Override

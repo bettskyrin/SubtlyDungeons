@@ -1,9 +1,10 @@
-package net.meander.subtlyd.world.level.levelgen;
+package net.meander.subtlyd.world.level.levelgen.feature;
 
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.ReedsBlock;
 import com.mojang.serialization.Codec;
+import net.meander.subtlyd.world.level.levelgen.BiomesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;

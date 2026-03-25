@@ -3,6 +3,7 @@ package net.meander.subtlyd.world.level.levelgen;
 import net.meander.subtlyd.util.Util;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.meander.subtlyd.world.level.levelgen.feature.ReedsFeature;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.biome.Biomes;

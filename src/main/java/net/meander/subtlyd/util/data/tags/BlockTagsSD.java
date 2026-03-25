@@ -82,6 +82,8 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .addTag(SKULL_BLOCK);
         valueLookupBuilder(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlocksSD.IRON_GRATE);
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_HOE)
+                .add(BlocksSD.WARPED_WART_OVERHANG);
         valueLookupBuilder(TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)
                 .add(Blocks.SNOW, Blocks.SNOW_BLOCK, Blocks.POWDER_SNOW)
                 .add(Blocks.ICE, Blocks.BLUE_ICE, Blocks.PACKED_ICE, Blocks.FROSTED_ICE)
