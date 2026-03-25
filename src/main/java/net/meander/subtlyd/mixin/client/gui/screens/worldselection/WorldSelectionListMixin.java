@@ -16,10 +16,9 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    final WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
-
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
+        final WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
         cir.setReturnValue(worldSelectionList.getScreen().width - 8);
     }
 

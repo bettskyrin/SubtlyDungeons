@@ -10,8 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Player.class)
 public class PlayerMixin {
-    private final Player player = (Player) (Object) this;
-
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
         tickTentSleep();
@@ -21,6 +19,7 @@ public class PlayerMixin {
      * Wakes up the player once it's daytime
      */
     private void tickTentSleep() {
+        final Player player = (Player) (Object) this;
         if (player.level() instanceof ServerLevel && player.level().isBrightOutside()) {
             if (TentEntity.getTent(player, true) != null) {
                 player.stopSleepInBed(false, true);

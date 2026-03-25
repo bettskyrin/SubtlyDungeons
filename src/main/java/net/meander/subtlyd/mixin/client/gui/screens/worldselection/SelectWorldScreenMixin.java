@@ -32,7 +32,6 @@ import java.util.function.Consumer;
 @Environment(EnvType.CLIENT)
 @Mixin(SelectWorldScreen.class)
 public abstract class SelectWorldScreenMixin extends Screen {
-    private final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
     @Shadow @Final @Mutable protected final Screen lastScreen;
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout;
     @Shadow @Nullable private Button deleteButton;
@@ -60,6 +59,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private void init(CallbackInfo ci) {
         ci.cancel();
+        final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
         int bigButtonWidth = 64;
         int buttonWidth = 48;
 

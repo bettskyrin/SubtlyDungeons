@@ -31,7 +31,6 @@ import java.util.List;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin extends Screen {
-    final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
     @Shadow private TabNavigationBar tabNavigationBar;
@@ -45,6 +44,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     shift = At.Shift.AFTER), cancellable = true)
     private void init(CallbackInfo ci) {
+        final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
         final int ROW_SPACING = 4;
         final int BUTTON_MIDDLE_X = 100;
 

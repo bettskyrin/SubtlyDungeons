@@ -18,8 +18,6 @@ import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    private final GameRenderer gameRenderer = (GameRenderer) (Object) this;
-
     @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
     private void cancelVanillaScreenshot(Path path, CallbackInfo ci) {
         ci.cancel();
@@ -33,6 +31,7 @@ public class GameRendererMixin {
         if (WorldIconState.pathHolder != null) {
             Path path = WorldIconState.pathHolder;
             WorldIconState.pathHolder = null;
+            final GameRenderer gameRenderer = (GameRenderer) (Object) this;
 
             if (gameRenderer.getMinecraft().levelRenderer.countRenderedSections() > 10 && gameRenderer.getMinecraft().levelRenderer.hasRenderedAllSections()) {
                 Screenshot.takeScreenshot(gameRenderer.getMinecraft().getMainRenderTarget(), sourceImage -> Util.ioPool().execute(() -> {

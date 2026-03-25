@@ -13,10 +13,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Entity.class)
 public class EntityMixin {
-    private final Entity entity = (Entity) (Object) this;
-
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent soundEvent, float f, float g, CallbackInfo ci) {
+        Entity entity = (Entity) (Object) this;
         CameraShake.shakeScreenFromSource(soundEvent, entity.blockPosition().getCenter(), 0);
     }
 }

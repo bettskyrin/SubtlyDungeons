@@ -25,8 +25,6 @@ import java.util.Optional;
 @SuppressWarnings("DataFlowIssue")
 @Mixin(Raider.class)
 public class RaiderMixin {
-    private final Raider raider = (Raider) (Object) this;
-    private final Level level = raider.level();
 
     @Inject(method = "finalizeSpawn", at = @At("RETURN"))
     private void finalizeSpawn(CallbackInfoReturnable<Object> cir){
@@ -39,9 +37,11 @@ public class RaiderMixin {
      * i.e. Normal Difficulty with a raid omen of at least V, on wave 3 or higher OR Hard Difficulty with a raid omen of at least 4, on wave 3 or higher
      */
     private void allowFlameCrossbows(){
-        ItemStack mainHandItem = raider.getItemBySlot(EquipmentSlot.MAINHAND);
         final int DIFFICULTY_THRESHOLD = 10;
         final int WAVE_THRESHOLD = 3;
+        final Raider raider = (Raider) (Object) this;
+        final Level level = raider.level();
+        ItemStack mainHandItem = raider.getItemBySlot(EquipmentSlot.MAINHAND);
 
         if (getRaidDifficulty() >= DIFFICULTY_THRESHOLD) {
             float arsonThreshold = 0.0625F * (getRaidDifficulty() - WAVE_THRESHOLD) * raider.getCurrentRaid().getEnchantOdds();
@@ -64,6 +64,7 @@ public class RaiderMixin {
      * Gives pillager captains a 3-minute resistance boost based on raid difficulty level.
      */
     private void setBoost() {
+        final Raider raider = (Raider) (Object) this;
         if (raider.isCaptain() && getRaidDifficulty() >= 4) {
             raider.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 3600, getCaptainBonus()));
         }
@@ -85,6 +86,8 @@ public class RaiderMixin {
      * @return The raid difficulty level
      */
     private int getRaidDifficulty() {
+        final Raider raider = (Raider) (Object) this;
+        final Level level = raider.level();
         if (raider.hasActiveRaid()) {
             return level.getDifficulty().getId() + raider.getCurrentRaid().getRaidOmenLevel() + raider.getWave();
         }

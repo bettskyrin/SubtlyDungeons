@@ -17,8 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractZombieRenderer.class)
 public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>> {
-    @SuppressWarnings("unchecked")
-    private final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
     private final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
     private final Identifier BABY_ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/baby_zombie_leader.png");
     private final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
@@ -34,6 +32,8 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
         Identifier leaderLocation = cir.getReturnValue();
 
         if (((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader()) {
+            @SuppressWarnings("unchecked")
+            final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
             if (renderer instanceof DrownedRenderer) {
                 leaderLocation = state.isBaby ? GURGLE_LEADER_LOCATION : DROWNED_LEADER_LOCATION;
             } else {

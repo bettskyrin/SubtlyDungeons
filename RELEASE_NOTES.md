@@ -75,3 +75,4 @@
 #### Bug Fixes
 - Fixed vanilla bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
+- Fixed some memory leaks

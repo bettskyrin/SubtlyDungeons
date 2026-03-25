@@ -11,14 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
 public class ServerPlayerMixin {
-    private final ServerPlayer player = (ServerPlayer) (Object) this;
-
     /**
      * Prevents setting respawn position if it's not a bed (i.e. a tent).
      */
     @Inject(method = "setRespawnPosition", at = @At("HEAD"), cancellable = true)
     private void preventTentRespawnSetting(@Nullable ServerPlayer.RespawnConfig respawnConfig, boolean showMessage, CallbackInfo ci) {
         if (respawnConfig != null) {
+            final ServerPlayer player = (ServerPlayer) (Object) this;
             BlockState blockState = player.level().getBlockState(respawnConfig.respawnData().pos());
             if (!(blockState.getBlock() instanceof BedBlock)) {
                 ci.cancel();

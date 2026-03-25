@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Spider.class)
 public abstract class SpiderMixin implements ClimberAccessor {
-    private final LivingEntity livingEntity = ((LivingEntity) (Object) this);
     private float progOld; // Animation progress
     private float progNew;
     private float rotOld; // Rotation progress
@@ -33,6 +32,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnim(CallbackInfo ci) {
+        LivingEntity livingEntity = ((LivingEntity) (Object) this);
         final float ANIM_RATE = 0.2F;
         final float SPEED_MULTIPLIER = 8.0F;
         double ySpeed = Math.abs(livingEntity.getDeltaMovement().y());
@@ -59,6 +59,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
     }
 
     public boolean isChangingHeight() {
+        LivingEntity livingEntity = ((LivingEntity) (Object) this);
         return livingEntity.getY() != yOld;
     }
 
