@@ -4,12 +4,12 @@ import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.util.Mth;
 
 public class TentRenderState extends EntityRenderState {
-    public float scale;
     public boolean hasRedOverlay;
+    public int hurtDir;
+    public float scale;
     public float yRot;
     public float xRot;
     public float hurtTime;
-    public int hurtDir;
     public float damage;
 
     public float getXRot(float f) {

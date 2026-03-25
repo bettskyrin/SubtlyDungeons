@@ -17,6 +17,6 @@ public class Util {
     }
 
     public static class Globals {
-        public static int BACK_BUTTON_WIDTH = 60;
+        public static final int BACK_BUTTON_WIDTH = 60;
     }
 }

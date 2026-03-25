@@ -17,7 +17,7 @@ public class AdvancementsSD {
      * List of Advancements to inject into
      */
     public static final Identifier BALANCED_DIET = Identifier.withDefaultNamespace("husbandry/balanced_diet");
-    public static List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET);
+    public static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET);
 
     /**
      * Adds new food items to the balanced diet advancement.
