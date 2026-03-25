@@ -33,7 +33,6 @@ public class PacketNetworking {
      */
     public static void registerCommon() {
         PayloadTypeRegistry.clientboundPlay().register(ScreenShakePacketPayload.ID, ScreenShakePacketPayload.CODEC);
-        PayloadTypeRegistry.clientboundPlay().register(HandshakePayload.TYPE, HandshakePayload.CODEC);
     }
 
     /**

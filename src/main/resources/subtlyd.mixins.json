@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "common.MinecraftServerMixin",
-    "common.server.PlayerListMixin",
     "common.server.ServerAdvancementManagerMixin",
     "common.world.entity.AbstractArrowMixin",
     "common.world.entity.EntityMixin",
