@@ -10,6 +10,6 @@ public class ModelTemplatesSD {
     public static final ModelTemplate OVERHANG_BLOCK = new ModelTemplate(
             Optional.of(Util.identifier("block/overhang_block")),
             Optional.empty(),
-            TextureSlot.NORTH, TextureSlot.EAST, TextureSlot.SOUTH, TextureSlot.WEST
+            TextureSlot.NORTH, TextureSlot.EAST, TextureSlot.SOUTH, TextureSlot.WEST, TextureSlot.PARTICLE
     );
 }

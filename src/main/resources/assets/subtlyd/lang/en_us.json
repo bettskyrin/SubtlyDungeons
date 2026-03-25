@@ -20,6 +20,7 @@
   "block.subtlyd.snow_brick_stairs": "Snow Brick Stairs",
   "block.subtlyd.snow_brick_wall": "Snow Brick Wall",
   "block.subtlyd.unlit_campfire": "Campfire",
+  "block.subtlyd.warped_wart_overhang": "Warped Wart Overhang",
   "commands.camerashake.success.add.multiple": "Applying camera shake to %s players",
   "commands.camerashake.success.add.single": "Applying camera shake to %s",
   "commands.camerashake.success.stop.multiple": "Stopping camera shake for %s players",

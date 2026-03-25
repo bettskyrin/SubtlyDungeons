@@ -55,12 +55,12 @@ public class ModelProviderSD extends FabricModelProvider {
                 .put(TextureSlot.NORTH, new Material(north))
                 .put(TextureSlot.EAST, new Material(east))
                 .put(TextureSlot.SOUTH, new Material(south))
-                .put(TextureSlot.WEST, new Material(west));
+                .put(TextureSlot.WEST, new Material(west))
+                .put(TextureSlot.PARTICLE, new Material(north));
         Identifier model = ModelTemplatesSD.OVERHANG_BLOCK.create(block, mapping, blockModelGenerators.modelOutput);
         MultiVariant multiVariant = BlockModelGenerators.createRotatedVariants(BlockModelGenerators.plainModel(model));
 
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, multiVariant));
-        blockModelGenerators.createFlatItemModelWithBlockTexture(block.asItem(), block);
     }
 
     @Override
@@ -96,5 +96,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.REEDS, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.WARPED_WART_OVERHANG, ModelTemplates.FLAT_ITEM);
     }
 }
