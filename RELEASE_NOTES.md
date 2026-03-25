@@ -45,7 +45,7 @@
   - Easy 300 HP -> 300 HP
   - Normal 300 HP -> 450 HP
   - Hard 300 HP -> 600 HP
-- The Wither now summons Wither Skeletons when it has reached 50% health
+- The Wither now dive bombs and summons Wither Skeletons when it has reached 50% health
   - This is also to match Bedrock Edition
 - All entities with the `wither_friends` entity type tag will no longer target the Wither
 

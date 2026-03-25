@@ -5,7 +5,6 @@ import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -22,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WitherBoss.class)
 public class WitherBossMixin {
-    private boolean shouldDoDiveBomb = true;
 
     /**
      * Determines that the maximum amount of health a wither can have naturally, is 600 health points.
@@ -40,32 +38,38 @@ public class WitherBossMixin {
     @Inject(method = "customServerAiStep", at = @At("TAIL"))
     private void alteredBossBehavior(ServerLevel level, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
-        Difficulty difficulty = wither.level().getDifficulty();
+        int difficultyLevel = wither.level().getDifficulty().getId();
 
         if (wither.getInvulnerableTicks() <= 0) {
+            boolean shouldDoDiveBomb = wither.getEntityData().get(SynchedEntityDataSD.DATA_ID_WITHER_DIVE);
             if (wither.isPowered()) {
-                shouldDoDiveBomb = wither.getEntityData().get(SynchedEntityDataSD.DATA_ID_WITHER_DIVE);
-                if (difficulty != Difficulty.EASY && shouldDoDiveBomb) {
+                if (difficultyLevel > 1 && shouldDoDiveBomb) {
                     Vec3 movement = wither.getDeltaMovement();
 
                     wither.setDeltaMovement(new Vec3(movement.x(), -1.0, movement.z()));
                     if (!wither.getBlockStateOn().is(BlockTags.REPLACEABLE)) {
                         wither.playSound(SoundEventsSD.WITHER_SKELETONS_SUMMONED);
-                        level.explode(wither, wither.getX(), wither.getY(), wither.getZ(), 3.0F, Level.ExplosionInteraction.MOB);
+                        level.explode(wither, wither.getX(), wither.getY(), wither.getZ(), 7.0F, Level.ExplosionInteraction.MOB);
 
                         for (int i = 0; i < 3; i++) {
                             EntityType.WITHER_SKELETON.spawn(level, wither.blockPosition(), EntitySpawnReason.MOB_SUMMONED);
                         }
-                        shouldDoDiveBomb = false;
+                        wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, false);
                     }
                 }
-            } else {
-                if (!shouldDoDiveBomb) {
-                    shouldDoDiveBomb = true;
-                }
+            } else if (!shouldDoDiveBomb) {
+                wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, true);
             }
-            wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, shouldDoDiveBomb);
         }
+    }
+
+    /**
+     * Sets the health gain rate for the wither at the start of the battle.
+     * @return The amount of health to heal per second (?)
+     */
+    @ModifyConstant(method = "customServerAiStep", constant = @Constant(floatValue = 10.0F))
+    private float updatedHealingRate(float health) {
+        return ((WitherBoss) (Object) this).getMaxHealth() / 30.0F;
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))

@@ -8,7 +8,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.*;
@@ -131,18 +130,15 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "getMaxHealth", at = @At("RETURN"), cancellable = true)
     private void setDifficultyHealth(CallbackInfoReturnable<Float> cir) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
         float maxHealth = cir.getReturnValue();
 
-        if (livingEntity instanceof WitherBoss) {
-            Difficulty difficulty = livingEntity.level().getDifficulty();
+        if (((LivingEntity) (Object) this) instanceof WitherBoss witherBoss) {
+            int difficultyLevel = witherBoss.level().getDifficulty().getId();
 
-            if (difficulty == Difficulty.EASY) {
-                maxHealth = 300.0F;
-            } else if (difficulty == Difficulty.NORMAL) {
-                maxHealth = 450.0F;
-            } else if (difficulty == Difficulty.HARD) {
+            if (difficultyLevel > 2) {
                 maxHealth = 600.0F;
+            } else if (difficultyLevel == 2) {
+                maxHealth = 450.0F;
             }
             cir.setReturnValue(maxHealth);
         }
