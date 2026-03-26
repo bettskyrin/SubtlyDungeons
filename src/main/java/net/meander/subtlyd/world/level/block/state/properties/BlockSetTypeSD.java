@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class BlockSetTypeSD {
     private static final Map<String, BlockSetType> TYPES = new Object2ObjectArrayMap<>();
@@ -31,5 +32,9 @@ public class BlockSetTypeSD {
     private static BlockSetType register(final BlockSetType type) {
         TYPES.put(type.name(), type);
         return type;
+    }
+
+    public static Stream<BlockSetType> values() {
+        return TYPES.values().stream();
     }
 }
