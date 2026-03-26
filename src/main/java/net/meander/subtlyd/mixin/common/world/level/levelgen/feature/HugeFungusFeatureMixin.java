@@ -34,15 +34,15 @@ public class HugeFungusFeatureMixin {
      */
     private void alterWarpedFungusHat(LevelAccessor level, BlockState hatState, BlockPos blockPos, RandomSource random) {
         if (hatState.is(Blocks.WARPED_WART_BLOCK)) {
-            BlockPos downPos = blockPos.below();
-            BlockPos upPos = blockPos.above();
+            if (level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK)) {
 
-            if (level.getBlockState(downPos).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK)) {
-                level.setBlock(downPos, BlocksSD.WARPED_OVERHANG.defaultBlockState(), 3);
-            }
+                if (level.getBlockState(blockPos.below()).isAir()) {
+                    level.setBlock(blockPos.below(), BlocksSD.WARPED_OVERHANG.defaultBlockState(), 3);
+                }
 
-            if (level.getBlockState(upPos).isAir() && level.getBlockState(upPos.above()).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK) && random.nextFloat() <= 0.1) {
-                level.setBlock(upPos, Blocks.WARPED_ROOTS.defaultBlockState(), 3);
+                if (level.getBlockState(blockPos.above()).isAir() && level.getBlockState(blockPos.above(2)).isAir() && random.nextFloat() <= 0.1) {
+                    level.setBlock(blockPos.above(), Blocks.WARPED_ROOTS.defaultBlockState(), 3);
+                }
             }
         }
     }
