@@ -51,6 +51,11 @@
 
   Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
+#### The Nether
+- Added Warped Wart Overhang block
+  - Obtainable with silk touch tools, though the preferred tool is a hoe
+  - This design is inspired by Minecraft Dungeons!
+
 ### Technical Changes
 #### Data Tags
 - Added `liquid_consumables` item tag

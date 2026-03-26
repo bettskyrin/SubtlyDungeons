@@ -12,12 +12,10 @@ import net.minecraft.client.data.models.model.TextureMapping;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.client.data.models.model.TexturedModel;
 import net.minecraft.client.resources.model.sprite.Material;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 
 public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricPackOutput output) {
@@ -42,16 +40,12 @@ public class ModelProviderSD extends FabricModelProvider {
      * @param block The block to map to.
      */
     public static void generateOverhangBlock(Block block, BlockModelGenerators blockModelGenerators) {
-        Identifier topAndBottom = BuiltInRegistries.BLOCK.getKey(Blocks.AIR);
-
         Identifier north = TextureMapping.getBlockTexture(block, "_north").sprite();
         Identifier east = TextureMapping.getBlockTexture(block, "_east").sprite();
         Identifier south = TextureMapping.getBlockTexture(block, "_south").sprite();
         Identifier west = TextureMapping.getBlockTexture(block, "_west").sprite();
 
         TextureMapping mapping = new TextureMapping()
-                .put(TextureSlot.UP, new Material(topAndBottom))
-                .put(TextureSlot.DOWN, new Material(topAndBottom))
                 .put(TextureSlot.NORTH, new Material(north))
                 .put(TextureSlot.EAST, new Material(east))
                 .put(TextureSlot.SOUTH, new Material(south))

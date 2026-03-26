@@ -49,7 +49,15 @@ public class BlocksSD {
             .sound(SoundType.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.DESTROY));
-    public static final Block WARPED_WART_OVERHANG = register("warped_wart_overhang", WarpedWartOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK));
+    public static final Block WARPED_WART_OVERHANG = register("warped_wart_overhang", WarpedWartOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK)
+            .noCollision()
+            .noOcclusion()
+            .instabreak()
+            .replaceable()
+            .isValidSpawn(Blocks::never)
+            .isRedstoneConductor(Blocks::never)
+            .isSuffocating(Blocks::never)
+            .isViewBlocking(Blocks::never));
 
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {
