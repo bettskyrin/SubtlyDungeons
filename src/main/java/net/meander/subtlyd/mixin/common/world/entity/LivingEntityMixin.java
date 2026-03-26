@@ -98,7 +98,6 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-
     /**
      * Makes predators consume meat from their prey.
      */
