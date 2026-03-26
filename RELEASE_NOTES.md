@@ -16,13 +16,14 @@
 #### Enchantibility
 - High enchantibility (level 15 or higher) armors will turn invisible with the wearer
 
-#### Speedy Potions
+#### Potion Tweaks
 - All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
     - The time has been reduced to 20 ticks, to match the Combat Tests
-
-#### Stackable Potions
 - Consumable potions are now stackable up to 16 items
   - This is to match the combat tests
+- Potions are now named depending on their enhancement
+  - Example: A Potion of Swiftness that lasts for 8 minutes is now called a "Long Potion of Swiftness"
+  - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
 
 #### Burn No More!
 - Players with the Fire Resistance effect will no longer be visually set on fire!
@@ -94,6 +95,7 @@
     - Plays in Crimson Forests
   - Excuse by C418
     - Plays in Warped Forests and Nether Wastes
+- Music volume has been refactored
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect
