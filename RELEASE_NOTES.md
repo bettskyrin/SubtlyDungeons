@@ -59,6 +59,10 @@
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
+#### Splash Text
+- Added "Music by Rostislav Trifonov!"
+- Added "Music by Eugnosis!"
+
 ### Technical Changes
 #### Data Tags
 - Added `liquid_consumables` item tag
@@ -75,6 +79,21 @@
   - `entity.wither_skeleton.summon`
 - Added new sound event for Evoker Fangs:
   - `entity.evoker_fangs.appear`
+- Added 7 New Songs
+  - Guldrum by Peter Hont
+    - Plays in Nether Wastes
+  - Warped Forest by Eugnosis
+    - Playes in Warped Forests
+  - Soulsand Valley by Rostislav Trifonov
+    - Plays in Soul Sand Valleys
+  - Ashes by Peter Hont
+    - Plays in Basalt Deltas
+  - Basalt Deltas by Peter Hont
+    - Plays in Basalt Deltas
+  - Crimson Forest by Eugnosis
+    - Plays in Crimson Forests
+  - Excuse by C418
+    - Plays in Warped Forests and Nether Wastes
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect
@@ -85,3 +104,4 @@
   - It now properly states that "[Player] was roasted in dragon's breath"
 - Fixed some memory leaks
 - Fixed flaming arrows not setting fire to objects when shot east/west
+- Fixed bug that caused lag due to loading entire music tracks at once

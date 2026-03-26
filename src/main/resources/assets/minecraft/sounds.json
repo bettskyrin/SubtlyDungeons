@@ -19,26 +19,119 @@
   "music.menu": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/the_green_expanse",
-      "subtlyd:music/cliffs_and_canyons",
-      "subtlyd:music/secrets_in_the_forest",
-      "subtlyd:music/wanderlust",
-      "subtlyd:music/halland"
+      {
+        "name": "subtlyd:music/the_green_expanse",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/cliffs_and_canyons",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/secrets_in_the_forest",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/wanderlust",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/halland",
+        "stream": true
+      }
     ]
   },
   "music.game": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/the_green_expanse",
-      "subtlyd:music/cliffs_and_canyons",
-      "subtlyd:music/wanderlust"
+      {
+        "name": "subtlyd:music/the_green_expanse",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/cliffs_and_canyons",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/wanderlust",
+        "stream": true
+      }
     ]
   },
   "music.creative": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/droopy_likes_ricochet",
-      "subtlyd:music/droopy_likes_your_face"
+      {
+        "name": "subtlyd:music/droopy_likes_ricochet",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/droopy_likes_your_face",
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.basalt_deltas": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/basalt_deltas",
+        "weight": 7,
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/ashes",
+        "weight": 7,
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.crimson_forest": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/crimson_forest",
+        "weight": 7,
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.nether_wastes": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/guldrum",
+        "weight": 6,
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/excuse",
+        "weight": 6,
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.soul_sand_valley": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/soulsand_valley",
+        "weight": 7,
+        "stream": true
+      }
+    ]
+  },
+  "music.nether.warped_forest": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/warped_forest",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/excuse",
+        "stream": true
+      }
     ]
   },
   "music.overworld.badlands": {
@@ -46,19 +139,23 @@
     "sounds": [
       {
         "name": "subtlyd:music/skogsstuga",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/pumpkin_pastures",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/cacti_canyon",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/fizz",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -67,7 +164,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/halland",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -76,11 +174,12 @@
     "sounds": [
       {
         "name": "subtlyd:music/cellar",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/haven",
-        "weight": 1
+        "stream": true
       }
     ]
   },
@@ -89,53 +188,63 @@
     "sounds": [
       {
         "name": "subtlyd:music/soggier_cave",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/desert_temple",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/skogsstuga",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/fizz",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
   "music.overworld.dripstone_caves": {
-  "replace": false,
-  "sounds": [
-    {
-      "name": "subtlyd:music/haven",
-      "weight": 2
-    },
-    {
-      "name": "subtlyd:music/fizz",
-      "weight": 2
-    },
-    {
-      "name": "subtlyd:music/intertile",
-      "weight": 2
-    },
-    {
-      "name": "subtlyd:music/squid_coast",
-      "weight": 2
-    }
-  ]
-},
+    "replace": false,
+    "sounds": [
+      {
+        "name": "subtlyd:music/haven",
+        "weight": 2,
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/fizz",
+        "weight": 2,
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/intertile",
+        "weight": 2,
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/squid_coast",
+        "weight": 2,
+        "stream": true
+      }
+    ]
+  },
   "music.overworld.flower_forest": {
     "replace": false,
     "sounds": [
       {
         "name": "subtlyd:music/secrets_in_the_forest",
-        "weight": 4
+        "weight": 4,
+        "stream": true
       },
       {
         "name": "subtlyd:music/halland",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -144,7 +253,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/dalarna",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -153,11 +263,13 @@
     "sounds": [
       {
         "name": "subtlyd:music/top",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       },
       {
         "name": "subtlyd:music/windswept_peaks",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       }
     ]
   },
@@ -166,7 +278,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/alone_with_the_sky",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       }
     ]
   },
@@ -175,11 +288,13 @@
     "sounds": [
       {
         "name": "subtlyd:music/alone_with_the_sky",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       },
       {
         "name": "subtlyd:music/squid_coast",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -188,18 +303,23 @@
     "sounds": [
       {
         "name": "subtlyd:music/creeper_pit",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       },
       {
         "name": "subtlyd:music/soggy_swamp",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
   "music.overworld.lush_caves": {
     "replace": false,
     "sounds": [
-      "subtlyd:music/halland"
+      {
+        "name": "subtlyd:music/halland",
+        "stream": true
+      }
     ]
   },
   "music.overworld.meadow": {
@@ -207,15 +327,18 @@
     "sounds": [
       {
         "name": "subtlyd:music/cliffs_and_canyons",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/secrets_in_the_forest",
-        "weight": 4
+        "weight": 4,
+        "stream": true
       },
       {
         "name": "subtlyd:music/halland",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -224,7 +347,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/halland",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -233,11 +357,13 @@
     "sounds": [
       {
         "name": "subtlyd:music/top",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       },
       {
         "name": "subtlyd:music/windswept_peaks",
-        "weight": 3
+        "weight": 3,
+        "stream": true
       }
     ]
   },
@@ -246,7 +372,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/soggy_swamp",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -255,11 +382,13 @@
     "sounds": [
       {
         "name": "subtlyd:music/finnbacka",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       },
       {
         "name": "subtlyd:music/squid_coast",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -268,7 +397,8 @@
     "sounds": [
       {
         "name": "subtlyd:music/secrets_in_the_forest",
-        "weight": 2
+        "weight": 2,
+        "stream": true
       }
     ]
   },
@@ -277,7 +407,7 @@
     "sounds": [
       {
         "name": "subtlyd:music/soggy_swamp",
-        "weight": 1
+        "stream": true
       }
     ]
   },
@@ -286,39 +416,39 @@
     "sounds": [
       {
         "name": "subtlyd:music/rest_in_reefs",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/coral_rise",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/the_bilge",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/hydrothermal_vent",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/twilight_cavern",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/the_abyssal_monument",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/molten_monument",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/tropical_slime_scramble",
-        "weight": 1
+        "stream": true
       },
       {
         "name": "subtlyd:music/primal_oil_sect",
-        "weight": 1
+        "stream": true
       }
     ]
   }
