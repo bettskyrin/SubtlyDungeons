@@ -52,8 +52,11 @@
   Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
 #### The Nether
-- Added Warped Wart Overhang block
-  - Obtainable with silk touch tools, though the preferred tool is a hoe
+- Huge Warped Fungus
+  - Added Warped Wart Overhang block
+    - Generates beneath Warped Wart blocks
+    - Obtainable with silk touch tools, though the preferred tool is a hoe
+  - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
 ### Technical Changes

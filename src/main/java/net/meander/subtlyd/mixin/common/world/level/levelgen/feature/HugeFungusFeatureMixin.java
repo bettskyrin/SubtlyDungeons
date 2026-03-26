@@ -17,20 +17,32 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class HugeFungusFeatureMixin {
     @Inject(method = "placeHatBlock", at = @At("TAIL"))
     private void placeHatBlock(LevelAccessor level, RandomSource random, HugeFungusConfiguration config, BlockPos.MutableBlockPos blockPos, float decorBlockProbability, float hatBlockProbability, float vinesProbability, CallbackInfo ci) {
-        placeWarpedOverhang(level, config.hatState, blockPos);
+        alterWarpedFungusHat(level, config.hatState, blockPos, random);
     }
 
     @Inject(method = "placeHatDropBlock", at = @At("TAIL"))
     private void placeHatDropBlock(LevelAccessor level, RandomSource random, BlockPos blockPos, BlockState hatState, boolean placeVines, CallbackInfo ci) {
-        placeWarpedOverhang(level, hatState, blockPos);
+        alterWarpedFungusHat(level, hatState, blockPos, random);
     }
 
-    private void placeWarpedOverhang(LevelAccessor level, BlockState hatState, BlockPos blockPos) {
+    /**
+     * Alters the cap of a huge warped fungus.
+     * @param level The game level.
+     * @param hatState The potential blockstate of the block being placed.
+     * @param blockPos The block position of the block being placed.
+     * @param random A randomSource.
+     */
+    private void alterWarpedFungusHat(LevelAccessor level, BlockState hatState, BlockPos blockPos, RandomSource random) {
         if (hatState.is(Blocks.WARPED_WART_BLOCK)) {
             BlockPos downPos = blockPos.below();
+            BlockPos upPos = blockPos.above();
 
             if (level.getBlockState(downPos).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK)) {
                 level.setBlock(downPos, BlocksSD.WARPED_WART_OVERHANG.defaultBlockState(), 3);
+            }
+
+            if (level.getBlockState(upPos).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK) && random.nextFloat() <= 0.1) {
+                level.setBlock(upPos, Blocks.WARPED_ROOTS.defaultBlockState(), 3);
             }
         }
     }

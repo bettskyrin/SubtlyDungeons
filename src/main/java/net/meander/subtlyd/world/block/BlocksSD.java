@@ -53,6 +53,7 @@ public class BlocksSD {
             .noCollision()
             .noOcclusion()
             .instabreak()
+            .pushReaction(PushReaction.DESTROY)
             .replaceable()
             .isValidSpawn(Blocks::never)
             .isRedstoneConductor(Blocks::never)

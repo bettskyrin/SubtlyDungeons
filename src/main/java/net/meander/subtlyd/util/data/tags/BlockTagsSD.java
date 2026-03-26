@@ -102,6 +102,8 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.CAULDRON, Blocks.BREWING_STAND)
                 .add(Blocks.CHISELED_BOOKSHELF)
                 .add(Blocks.MOSS_CARPET, Blocks.PALE_MOSS_CARPET);
+        valueLookupBuilder(BlockTags.SUPPORTS_WARPED_ROOTS)
+                .add(Blocks.WARPED_WART_BLOCK);
     }
 
     private static TagKey<Block> create(String string) {
