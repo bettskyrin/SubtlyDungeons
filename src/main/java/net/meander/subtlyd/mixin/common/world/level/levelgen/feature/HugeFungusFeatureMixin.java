@@ -38,7 +38,7 @@ public class HugeFungusFeatureMixin {
             BlockPos upPos = blockPos.above();
 
             if (level.getBlockState(downPos).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK)) {
-                level.setBlock(downPos, BlocksSD.WARPED_WART_OVERHANG.defaultBlockState(), 3);
+                level.setBlock(downPos, BlocksSD.WARPED_OVERHANG.defaultBlockState(), 3);
             }
 
             if (level.getBlockState(upPos).isAir() && level.getBlockState(upPos.above()).isAir() && level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK) && random.nextFloat() <= 0.1) {

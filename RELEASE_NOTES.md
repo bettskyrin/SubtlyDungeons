@@ -54,7 +54,7 @@
 
 #### The Nether
 - Huge Warped Fungus
-  - Added Warped Wart Overhang block
+  - Added Warped Overhang block
     - Generates beneath Warped Wart blocks
     - Obtainable with silk touch tools, though the preferred tool is a hoe
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap

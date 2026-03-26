@@ -76,7 +76,7 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
-        generateOverhangBlock(BlocksSD.WARPED_WART_OVERHANG, blockModelGenerator);
+        generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
     }
 
     @Override
@@ -90,6 +90,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.UNLIT_CAMPFIRE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.POTTAGE, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.REEDS, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.WARPED_WART_OVERHANG, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.WARPED_OVERHANG, ModelTemplates.FLAT_ITEM);
     }
 }

@@ -10,8 +10,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 
-public class WarpedWartOverhangBlock extends Block {
-    public WarpedWartOverhangBlock(Properties properties) {
+public class WarpedOverhangBlock extends Block {
+    public WarpedOverhangBlock(Properties properties) {
         super(properties);
     }
 
