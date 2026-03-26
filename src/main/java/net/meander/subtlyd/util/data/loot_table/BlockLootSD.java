@@ -29,7 +29,8 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         dropSelf(BlocksSD.STONE_TILE_SLAB);
         dropSelf(BlocksSD.STONE_TILE_WALL);
         dropSelf(BlocksSD.STONE_PILLAR);
-        dropWhenSilkTouch(BlocksSD.WARPED_OVERHANG);
+        createShearsOrSilkTouchOnlyDrop(BlocksSD.WARPED_OVERHANG);
+
         createDoublePlantShearsDrop(BlocksSD.REEDS);
     }
 }

@@ -18,7 +18,7 @@
 - Huge Warped Fungus
   - Added Warped Overhang block
     - Generates beneath Warped Wart blocks
-    - Obtainable with silk touch tools, though the preferred tool is a hoe
+    - Obtainable with silk touch tools or shears
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
