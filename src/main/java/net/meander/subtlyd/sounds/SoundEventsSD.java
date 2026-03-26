@@ -1,6 +1,7 @@
 package net.meander.subtlyd.sounds;
 
 import net.meander.subtlyd.util.Util;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -17,6 +18,8 @@ public class SoundEventsSD {
     public static final SoundEvent WITHER_SKELETONS_SUMMONED = register("entity.wither_skeleton.summon");
     public static final SoundEvent EVOKER_FANGS_APPEAR = register("entity.evoker_fangs.appear");
     public static final SoundEvent STICK_LIGHT = register("item.stick.light");
+    public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
+    public static final SoundEvent BLAST_FUNGUS_THROW = register("item.blast_fungus.throw");
 
     public static void registration() { }
 
@@ -30,4 +33,15 @@ public class SoundEventsSD {
         return Registry.register(BuiltInRegistries.SOUND_EVENT, resourceLocation, SoundEvent.createVariableRangeEvent(resourceLocation2));
     }
 
+    private static Holder.Reference<SoundEvent> registerForHolder(final String id) {
+        return registerForHolder(Util.identifier(id));
+    }
+
+    private static Holder.Reference<SoundEvent> registerForHolder(final Identifier id) {
+        return registerForHolder(id, id);
+    }
+
+    private static Holder.Reference<SoundEvent> registerForHolder(final Identifier id, final Identifier soundId) {
+        return Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id, SoundEvent.createVariableRangeEvent(soundId));
+    }
 }

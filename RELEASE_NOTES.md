@@ -8,13 +8,23 @@
   - Wolf armor may now be enchanted
   - Nautilus armor may now be enchanted
 - Enchanting tables now accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
+- High enchantibility (level 15 or higher) armors will turn invisible with the wearer
 
 #### Curses
 - Added Curse of Decaying
   - Affected equipment loses durability twice as fast
 
-#### Enchantibility
-- High enchantibility (level 15 or higher) armors will turn invisible with the wearer
+#### The Nether
+- Huge Warped Fungus
+  - Added Warped Overhang block
+    - Generates beneath Warped Wart blocks
+    - Obtainable with silk touch tools, though the preferred tool is a hoe
+  - There is a 10% chance for Warped Roots to grow on top of the fungus cap
+  - This design is inspired by Minecraft Dungeons!
+
+#### Blast Fungus
+- Blast Fungi can be crafted shapelessly with a Crimson Fungus and Warped Fungus
+  - Once thrown, a blast fungus explodes on impact, doing no damage to surrounding blocks
 
 #### Potion Tweaks
 - All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
@@ -27,17 +37,6 @@
 
 #### Burn No More!
 - Players with the Fire Resistance effect will no longer be visually set on fire!
-
-#### Beacons
-- Beacon effect range has been quadrupled
-  - Level 1 Beacon Range:
-    - 20 meters -> 80 meters
-  - Level 2 Beacon Range:
-    - 30 meters -> 120 meters
-  - Level 3 Beacon Range:
-    - 40 meters -> 160 meters
-  - Level 4 Beacon Range:
-    - 50 meters -> 200 meters
 
 #### The Wither
 - Wither skulls fired at the player are now on fire!
@@ -52,16 +51,20 @@
 
   Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
-#### The Nether
-- Huge Warped Fungus
-  - Added Warped Overhang block
-    - Generates beneath Warped Wart blocks
-    - Obtainable with silk touch tools, though the preferred tool is a hoe
-  - There is a 10% chance for Warped Roots to grow on top of the fungus cap
-  - This design is inspired by Minecraft Dungeons!
+#### Beacons
+- Beacon effect range has been quadrupled
+  - Level 1 Beacon Range:
+    - 20 meters -> 80 meters
+  - Level 2 Beacon Range:
+    - 30 meters -> 120 meters
+  - Level 3 Beacon Range:
+    - 40 meters -> 160 meters
+  - Level 4 Beacon Range:
+    - 50 meters -> 200 meters
 
 #### Blocks
 - Added Basalt Door
+- Overworld mushrooms may now be placed on logs regardless of light level
 
 #### Splash Text
 - Added "Music by Rostislav Trifonov!"

@@ -104,6 +104,8 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(Blocks.MOSS_CARPET, Blocks.PALE_MOSS_CARPET);
         valueLookupBuilder(BlockTags.SUPPORTS_WARPED_ROOTS)
                 .add(Blocks.WARPED_WART_BLOCK);
+        valueLookupBuilder(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
+                .forceAddTag(BlockTags.OVERWORLD_NATURAL_LOGS);
     }
 
     private static TagKey<Block> create(String string) {

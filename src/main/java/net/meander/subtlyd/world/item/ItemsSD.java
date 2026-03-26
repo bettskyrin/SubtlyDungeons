@@ -8,7 +8,9 @@ import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypeSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.food.FoodsSD;
+import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 import static net.minecraft.world.item.Items.*;
@@ -70,6 +73,7 @@ public class ItemsSD {
     public static final Item REEDS = registerBlock(BlocksSD.REEDS);
     public static final Item WARPED_OVERHANG = registerBlock(BlocksSD.WARPED_OVERHANG);
     public static final Item BASALT_DOOR = registerBlock(BlocksSD.BASALT_DOOR);
+    public static final Item BLAST_FUNGUS = registerItem("blast_fungus", BlastFungusItem::new, new Item.Properties().stacksTo(16));
 
     /**
      * Item tags would be cleaner but are un-ordered collections.
@@ -125,7 +129,20 @@ public class ItemsSD {
             entries.insertAfter(BROWN_MUSHROOM, RED_MUSHROOM);
         });
 
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
+            entries.insertAfter(END_CRYSTAL, BLAST_FUNGUS);
+        });
+
         CompostableRegistry.INSTANCE.add(APPLE_PIE, 1.0F);
+    }
+
+    private static Item registerItem(final String name, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+        return registerItem(ResourceKey.create(Registries.ITEM, Util.identifier(name)), itemFactory, properties);
+    }
+
+    public static Item registerItem(final ResourceKey<Item> key, final Function<Item.Properties, Item> itemFactory, final Item.Properties properties) {
+        Item item = itemFactory.apply(properties.setId(key));
+        return Registry.register(BuiltInRegistries.ITEM, key, item);
     }
 
     @NotNull private static Item registerTentItem(String string, EntityType<TentEntity> entityType) {

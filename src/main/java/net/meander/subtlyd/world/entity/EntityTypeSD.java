@@ -4,7 +4,10 @@ import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
@@ -26,7 +29,7 @@ import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;
 
-public class EntityTypeSD {
+public class EntityTypeSD<T extends Entity> {
     public static final EntityType<TentEntity> WHITE_TENT = registerTent(DyeColor.WHITE, () -> ItemsSD.WHITE_TENT);
     public static final EntityType<TentEntity> LIGHT_GRAY_TENT = registerTent(DyeColor.LIGHT_GRAY, () -> ItemsSD.LIGHT_GRAY_TENT);
     public static final EntityType<TentEntity> GRAY_TENT = registerTent(DyeColor.GRAY, () -> ItemsSD.GRAY_TENT);
@@ -43,6 +46,11 @@ public class EntityTypeSD {
     public static final EntityType<TentEntity> PURPLE_TENT = registerTent(DyeColor.PURPLE, () -> ItemsSD.PURPLE_TENT);
     public static final EntityType<TentEntity> MAGENTA_TENT = registerTent(DyeColor.MAGENTA, () -> ItemsSD.MAGENTA_TENT);
     public static final EntityType<TentEntity> PINK_TENT = registerTent(DyeColor.PINK, () -> ItemsSD.PINK_TENT);
+    public static final EntityType<BlastFungusEntity> BLAST_FUNGUS = register(ItemsSD.BLAST_FUNGUS, EntityType.Builder.<BlastFungusEntity>of(BlastFungusEntity::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
+
+    private static <T extends Entity> EntityType<T> register(Item item, EntityType.Builder<T> builder) {
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item), builder.build(ResourceKey.create(Registries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item))));
+    }
 
     private static EntityType<TentEntity> registerTent(DyeColor dyeColor, Supplier<Item> supplier) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(dyeColor), EntityType.Builder.of(tentFactory(supplier), MobCategory.MISC).sized(3.5F, 1.8F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(dyeColor)));

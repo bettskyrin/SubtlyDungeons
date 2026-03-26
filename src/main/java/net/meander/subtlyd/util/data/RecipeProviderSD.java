@@ -66,7 +66,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
                 this.grate(BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK);
 
-                this.doorBuilder(ItemsSD.BASALT_DOOR, Ingredient.of(Blocks.BASALT));
+                this.doorBuilder(ItemsSD.BASALT_DOOR, Ingredient.of(Blocks.BASALT)); // TODO Check
 
                 this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
                 this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
@@ -127,6 +127,13 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 }
 
                 colorItemWithDye(ItemsSD.DYE_ITEM_LIST, ItemsSD.TENT_ITEM_LIST, "tent_dye", RecipeCategory.MISC);
+
+                shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS)
+                        .requires(Items.WARPED_FUNGUS)
+                        .requires(Items.CRIMSON_FUNGUS)
+                        .unlockedBy(getHasName(Items.CRIMSON_FUNGUS), has(Items.CRIMSON_FUNGUS))
+                        .unlockedBy(getHasName(Items.WARPED_FUNGUS), has(Items.WARPED_FUNGUS))
+                        .save(output);
             }
 
             private void cookRecipesSD(Item ingredient, float experience, Item result) {

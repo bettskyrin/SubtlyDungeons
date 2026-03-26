@@ -1,11 +1,12 @@
 package net.meander.subtlyd.client.renderer;
 
+import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.meander.subtlyd.client.model.TentModel;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.world.entity.EntityTypeSD;
-import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
 public class EntityRenderersSD extends EntityRenderers {
     public static void registration() {
@@ -25,6 +26,8 @@ public class EntityRenderersSD extends EntityRenderers {
         register(EntityTypeSD.GREEN_TENT, context -> new TentRenderer(context, ModelLayersSD.GREEN_TENT));
         register(EntityTypeSD.RED_TENT, context -> new TentRenderer(context, ModelLayersSD.RED_TENT));
         register(EntityTypeSD.BLACK_TENT, context -> new TentRenderer(context, ModelLayersSD.BLACK_TENT));
+        register(EntityTypeSD.BLAST_FUNGUS, ThrownItemRenderer::new);
+
 
         for (ModelLayerLocation modelLayerLocation : ModelLayersSD.ALL_MODELS) {
             ModelLayerRegistry.registerModelLayer(modelLayerLocation, TentModel::createBodyLayer);
