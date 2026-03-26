@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -35,13 +36,15 @@ public class HugeFungusFeatureMixin {
     private void alterWarpedFungusHat(LevelAccessor level, BlockState hatState, BlockPos blockPos, RandomSource random) {
         if (hatState.is(Blocks.WARPED_WART_BLOCK)) {
             if (level.getBlockState(blockPos).is(Blocks.WARPED_WART_BLOCK)) {
+                BlockPos.MutableBlockPos overhangPos = blockPos.mutable().move(Direction.DOWN);
+                BlockPos.MutableBlockPos rootsPos = blockPos.mutable().move(Direction.UP);
 
-                if (level.getBlockState(blockPos.below()).isAir()) {
+                if (level.isEmptyBlock(overhangPos)) {
                     level.setBlock(blockPos.below(), BlocksSD.WARPED_OVERHANG.defaultBlockState(), 3);
                 }
 
-                if (level.getBlockState(blockPos.above()).isAir() && level.getBlockState(blockPos.above(2)).isAir() && random.nextFloat() <= 0.1) {
-                    level.setBlock(blockPos.above(), Blocks.WARPED_ROOTS.defaultBlockState(), 3);
+                if (level.isEmptyBlock(rootsPos) && random.nextFloat() <= 0.1) {
+                    level.setBlock(rootsPos, Blocks.WARPED_ROOTS.defaultBlockState(), 3);
                 }
             }
         }
