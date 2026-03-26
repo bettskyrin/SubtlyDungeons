@@ -69,6 +69,7 @@ public class ItemsSD {
     public static final Item STONE_TILE_WALL = registerBlock(BlocksSD.STONE_TILE_WALL);
     public static final Item REEDS = registerBlock(BlocksSD.REEDS);
     public static final Item WARPED_OVERHANG = registerBlock(BlocksSD.WARPED_OVERHANG);
+    public static final Item BASALT_DOOR = registerBlock(BlocksSD.BASALT_DOOR);
 
     /**
      * Item tags would be cleaner but are un-ordered collections.
@@ -94,6 +95,7 @@ public class ItemsSD {
             }
 
             entries.insertAfter(STONE_SLAB, STONE_PILLAR);
+            entries.insertAfter(BASALT, BASALT_DOOR);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {

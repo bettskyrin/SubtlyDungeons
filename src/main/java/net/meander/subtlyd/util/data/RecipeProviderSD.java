@@ -66,6 +66,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
                 this.grate(BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK);
 
+                this.doorBuilder(ItemsSD.BASALT_DOOR, Ingredient.of(Blocks.BASALT));
+
                 this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
                 this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
                 this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_SLAB, Blocks.SNOW_BLOCK, 2);

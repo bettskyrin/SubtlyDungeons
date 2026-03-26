@@ -60,6 +60,9 @@
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
+#### Blocks
+- Added Basalt Door
+
 #### Splash Text
 - Added "Music by Rostislav Trifonov!"
 - Added "Music by Eugnosis!"
