@@ -31,15 +31,15 @@ public abstract class ZombieMixin {
     private void saveLeaderData(ValueOutput output, CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
 
-        output.putBoolean("IsLeader", zombie.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER));
+        output.putBoolean("is_leader", zombie.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void loadLeaderData(ValueInput input, CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
 
-        if (input.contains("IsLeader")) {
-            zombie.getEntityData().set(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("IsLeader", false));
+        if (input.contains("is_leader")) {
+            zombie.getEntityData().set(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("is_leader", false));
         }
     }
 }
