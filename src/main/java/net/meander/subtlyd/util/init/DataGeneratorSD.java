@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.meander.subtlyd.client.model.ModelProviderSD;
+import net.meander.subtlyd.util.data.LanguageProviderSD;
 import net.meander.subtlyd.util.data.RecipeProviderSD;
 import net.meander.subtlyd.util.data.loot_table.BlockLootSD;
 import net.meander.subtlyd.util.data.tags.*;
@@ -28,6 +29,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
         pack.addProvider(BiomeProviderSD::new);
+        pack.addProvider(LanguageProviderSD::new);
 
         pack.addProvider((output, registriesFuture) -> new FabricDynamicRegistryProvider(output, registriesFuture) {
             @Override

@@ -2,7 +2,6 @@ package net.meander.subtlyd.world.block;
 
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.level.block.sounds.SoundTypeSD;
-import net.meander.subtlyd.world.level.block.state.properties.BlockSetTypeSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.*;
@@ -60,9 +59,6 @@ public class BlocksSD {
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never));
-    public static final Block BASALT_DOOR = register("basalt_door",
-            p -> new DoorBlock(BlockSetTypeSD.BASALT, p),
-            BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT).pushReaction(PushReaction.BLOCK));
 
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {

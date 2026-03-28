@@ -72,7 +72,6 @@ public class ItemsSD {
     public static final Item STONE_TILE_WALL = registerBlock(BlocksSD.STONE_TILE_WALL);
     public static final Item REEDS = registerBlock(BlocksSD.REEDS);
     public static final Item WARPED_OVERHANG = registerBlock(BlocksSD.WARPED_OVERHANG);
-    public static final Item BASALT_DOOR = registerBlock(BlocksSD.BASALT_DOOR);
     public static final Item BLAST_FUNGUS = registerItem("blast_fungus", BlastFungusItem::new, new Item.Properties().stacksTo(16));
 
     /**
@@ -99,7 +98,6 @@ public class ItemsSD {
             }
 
             entries.insertAfter(STONE_SLAB, STONE_PILLAR);
-            entries.insertAfter(BASALT, BASALT_DOOR);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {

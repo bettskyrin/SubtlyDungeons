@@ -35,6 +35,9 @@
   - Example: A Potion of Swiftness that lasts for 8 minutes is now called a "Long Potion of Swiftness"
   - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
 
+#### New Potions
+- Added Potion of Decay to match Bedrock Edition
+
 #### Burn No More!
 - Players with the Fire Resistance effect will no longer be visually set on fire!
 
