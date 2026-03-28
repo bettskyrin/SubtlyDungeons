@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.util.data.tags.ItemTagsSD;
+import net.meander.subtlyd.data.tags.ItemTagsSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;

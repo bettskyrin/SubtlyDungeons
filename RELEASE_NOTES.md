@@ -74,6 +74,14 @@
 - Added "Music by Eugnosis!"
 
 ### Technical Changes
+#### Camera Shake Events
+Camera Shake events are now data driven, similar to sound events
+- Added `sound_event` field: a Sound Event ID, specifies what sound event should trigger the Camera Shake Event
+- Added `max_distance` field: a float, specifies the maximum distance that the camera shake can be experienced from
+- Added `duration` field: an integer, specifies the amount of ticks that the camera shake will last
+- Added `modifier` field: an optional float, specifies the intensity modifier value
+  - Default: `4`
+
 #### Data Tags
 - Added `liquid_consumables` item tag
   - This is a list of consumables that can be considered liquids (e.g. stews, potions, etc.)

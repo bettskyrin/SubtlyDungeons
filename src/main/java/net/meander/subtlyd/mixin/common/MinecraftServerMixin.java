@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common;
 
-import net.meander.subtlyd.util.WorldIconState;
+import net.meander.subtlyd.world.level.storage.WorldIconState;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.MinecraftServer;

@@ -3,7 +3,7 @@ package net.meander.subtlyd.world.item;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.util.data.tags.BlockTagsSD;
+import net.meander.subtlyd.data.tags.BlockTagsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypeSD;
 import net.meander.subtlyd.world.entity.TentEntity;

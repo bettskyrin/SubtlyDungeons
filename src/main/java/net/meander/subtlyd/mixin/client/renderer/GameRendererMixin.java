@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer;
 
-import net.meander.subtlyd.util.WorldIconState;
+import net.meander.subtlyd.world.level.storage.WorldIconState;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.DeltaTracker;

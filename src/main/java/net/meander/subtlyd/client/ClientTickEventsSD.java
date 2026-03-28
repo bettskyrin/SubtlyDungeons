@@ -1,6 +1,6 @@
 package net.meander.subtlyd.client;
 
-import net.meander.subtlyd.util.CameraShake;
+import net.meander.subtlyd.camera.CameraShake;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class ClientTickEventsSD {

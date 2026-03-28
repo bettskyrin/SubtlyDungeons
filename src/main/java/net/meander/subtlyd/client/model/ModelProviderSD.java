@@ -77,7 +77,6 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
-        blockModelGenerator.createDoor(BlocksSD.BASALT_DOOR);
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.util.data.tags.DamageTypeTagsSD;
+import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

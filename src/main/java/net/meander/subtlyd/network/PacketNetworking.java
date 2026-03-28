@@ -3,7 +3,7 @@ package net.meander.subtlyd.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.meander.subtlyd.util.CameraShake;
+import net.meander.subtlyd.camera.CameraShake;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;

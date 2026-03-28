@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-          "net.meander.subtlyd.util.init.InitializerSD"
+			"net.meander.subtlyd.util.InitializerSD"
 		],
 		"fabric-datagen": [
-          "net.meander.subtlyd.util.init.DataGeneratorSD"
+			"net.meander.subtlyd.data.DataGeneratorSD"
 		],
       "client": [
-        "net.meander.subtlyd.util.init.ClientInitializerSD"
+		  "net.meander.subtlyd.util.ClientInitializerSD"
       ]
 	},
 	"mixins": [

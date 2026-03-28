@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.level;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionInstanceSD;
-import net.meander.subtlyd.util.CameraShake;
+import net.meander.subtlyd.camera.CameraShake;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.util.Util;
