@@ -7,6 +7,7 @@ import net.meander.subtlyd.client.model.ModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.loot_table.BlockLootSD;
 import net.meander.subtlyd.data.tags.*;
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
 import net.minecraft.core.HolderLookup;
@@ -33,8 +34,12 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider((output, registriesFuture) -> new FabricDynamicRegistryProvider(output, registriesFuture) {
             @Override
             protected void configure(HolderLookup.Provider registries, Entries entries) {
-                entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
-                entries.addAll(registries.lookupOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT));
+                try {
+                    entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
+                    entries.addAll(registries.lookupOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT));
+                } catch (Exception e) {
+                    Util.LOGGER.error("Failed to configure dynamic registries: {}", e.getMessage());
+                }
             }
 
             @Override

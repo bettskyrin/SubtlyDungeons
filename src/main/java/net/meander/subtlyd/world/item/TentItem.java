@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -30,6 +31,7 @@ public class TentItem extends Item {
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
         Level level = useOnContext.getLevel();
+        Player player = useOnContext.getPlayer();
         ItemStack itemStack = useOnContext.getItemInHand();
         BlockPlaceContext blockPlaceContext = new BlockPlaceContext(useOnContext);
         BlockPos blockPos = blockPlaceContext.getClickedPos();
@@ -42,20 +44,20 @@ public class TentItem extends Item {
         } else {
             if (level.noCollision(null, aABB) && level.getEntities(null, aABB).isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
-                    Consumer<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, useOnContext.getPlayer());
+                    Consumer<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, player);
                     TentEntity tentEntity = this.entityType.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
                     if (tentEntity == null) {
                         return InteractionResult.FAIL;
                     }
-                    if (useOnContext.getPlayer() != null){
-                        tentEntity.setYRot(useOnContext.getPlayer().getYRot() + 180F);
+                    if (player != null){
+                        tentEntity.setYRot(player.getYRot() + 180F);
                     }
                     serverLevel.addFreshEntityWithPassengers(tentEntity);
                     level.playSound(null, tentEntity.getX(), tentEntity.getY(), tentEntity.getZ(), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
-                    tentEntity.gameEvent(GameEvent.ENTITY_PLACE, useOnContext.getPlayer());
+                    tentEntity.gameEvent(GameEvent.ENTITY_PLACE, player);
                 }
-                itemStack.shrink(1);
+                itemStack.consume(1, player);
                 return InteractionResult.SUCCESS;
             } else {
                 return InteractionResult.FAIL;

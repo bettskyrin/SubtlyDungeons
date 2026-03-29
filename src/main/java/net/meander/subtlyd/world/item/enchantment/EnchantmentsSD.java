@@ -21,43 +21,53 @@ import net.minecraft.world.item.enchantment.effects.AddValue;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import org.jspecify.annotations.NonNull;
 
 public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("occult_protection"));
     public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("abrading_curse"));
 
-    public static void bootstrap(BootstrapContext<Enchantment> context) {
+    @SuppressWarnings("LoggingSimilarMessage")
+    public static void bootstrap(@NonNull BootstrapContext<Enchantment> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
 
-        context.register(OCCULT_PROTECTION, Enchantment.enchantment(
-            Enchantment.definition(items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
-                    5,
-                    4,
-                    Enchantment.dynamicCost(5, 8),
-                    Enchantment.dynamicCost(18, 8),
-                    4,
-                    EquipmentSlotGroup.ARMOR))
-                .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
-                .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
-                        DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
-                                .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
-            .build(OCCULT_PROTECTION.identifier())
-        );
-        context.register(ABRADING_CURSE, Enchantment.enchantment(
-                Enchantment.definition(
-                        items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
-                        1,
-                        1,
-                        Enchantment.constantCost(25),
-                        Enchantment.constantCost(50),
-                        8,
-                        EquipmentSlotGroup.ANY))
-                .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
-                        MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
-                .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
-                        InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
-            .build(ABRADING_CURSE.identifier())
-        );
+        try {
+            context.register(OCCULT_PROTECTION, Enchantment.enchantment(
+                Enchantment.definition(items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                        5,
+                        4,
+                        Enchantment.dynamicCost(5, 8),
+                        Enchantment.dynamicCost(18, 8),
+                        4,
+                        EquipmentSlotGroup.ARMOR))
+                    .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
+                    .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
+                            DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
+                                    .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
+                .build(OCCULT_PROTECTION.identifier())
+            );
+        } catch (Exception e) {
+            Util.LOGGER.error("Failed to get tag for: {}: {}", OCCULT_PROTECTION.identifier(), e.getMessage());
+        }
+        try {
+            context.register(ABRADING_CURSE, Enchantment.enchantment(
+                    Enchantment.definition(
+                            items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
+                            1,
+                            1,
+                            Enchantment.constantCost(25),
+                            Enchantment.constantCost(50),
+                            8,
+                            EquipmentSlotGroup.ANY))
+                    .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
+                            MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
+                    .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
+                            InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
+                .build(ABRADING_CURSE.identifier())
+            );
+        } catch (Exception e) {
+            Util.LOGGER.error("Failed to get tag for: {}: {}", ABRADING_CURSE.identifier(), e.getMessage());
+        }
     }
 }

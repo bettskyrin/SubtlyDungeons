@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.monster;
 
+import net.meander.subtlyd.util.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -46,11 +47,15 @@ public class RaiderMixin {
         if (getRaidDifficulty() >= DIFFICULTY_THRESHOLD) {
             float arsonThreshold = 0.0625F * (getRaidDifficulty() - WAVE_THRESHOLD) * raider.getCurrentRaid().getEnchantOdds();
             if (mainHandItem.isEnchanted() && mainHandItem.is(Items.CROSSBOW)) {
-                Optional<Enchantment> flameEnchantment = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOptional(Enchantments.FLAME);
+                try {
+                    Optional<Enchantment> flameEnchantment = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOptional(Enchantments.FLAME);
 
-                if (raider.getRandom().nextFloat() < arsonThreshold && flameEnchantment.isPresent()) {
-                    EnchantmentHelper.setEnchantments(mainHandItem, ItemEnchantments.EMPTY);
-                    mainHandItem.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).wrapAsHolder(flameEnchantment.get()), 1);
+                    if (raider.getRandom().nextFloat() < arsonThreshold && flameEnchantment.isPresent()) {
+                        EnchantmentHelper.setEnchantments(mainHandItem, ItemEnchantments.EMPTY);
+                        mainHandItem.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).wrapAsHolder(flameEnchantment.get()), 1);
+                    }
+                } catch (Exception e) {
+                    Util.LOGGER.error("Failed to set enchantment: {}", e.getMessage());
                 }
             }
             setBoost();

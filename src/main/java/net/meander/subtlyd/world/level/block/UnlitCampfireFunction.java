@@ -13,10 +13,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
+import org.jspecify.annotations.NonNull;
 
 public class UnlitCampfireFunction implements UseBlockCallback {
     @Override
-    public InteractionResult interact(Player player, Level level, InteractionHand interactionHand, BlockHitResult blockHitResult) {
+    public InteractionResult interact(@NonNull Player player, @NonNull Level level, InteractionHand interactionHand, @NonNull BlockHitResult blockHitResult) {
         BlockPos blockPos = blockHitResult.getBlockPos();
         BlockState blockState = level.getBlockState(blockPos);
         ItemStack itemStack = player.getItemInHand(interactionHand);
@@ -24,11 +25,7 @@ public class UnlitCampfireFunction implements UseBlockCallback {
             if (level.getRandom().nextFloat() > 0.7F) {
                 level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
             }
-
-            //noinspection DataFlowIssue
-            if (player.gameMode() != null && !player.gameMode().isCreative()) {
-                itemStack.shrink(1);
-            }
+            itemStack.consume(1, player);
             level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);
             return InteractionResult.SUCCESS;
         }
