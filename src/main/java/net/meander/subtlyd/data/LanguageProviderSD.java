@@ -41,7 +41,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("commands.camerashake.success.stop.multiple", "Stopping camera shake for %s players");
         translationBuilder.add("commands.camerashake.success.stop.single", "Stopping camera shake for %s");
 
-        translationBuilder.add("enchantment.subtlyd.decaying_curse", "Curse of Decaying");
+        translationBuilder.add("enchantment.subtlyd.abrading_curse", "Curse of Abrading");
         translationBuilder.add("enchantment.subtlyd.occult_protection", "Occult Protection");
 
         translationBuilder.add("entity.subtlyd.black_tent", "Black Tent");

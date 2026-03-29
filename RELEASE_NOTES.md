@@ -1,4 +1,6 @@
 ## [4.0 Snapshot 1] - UNRELEASED
+It's snapshot time! We've got some nice magical tweaks and technical upgrades for you!
+
 ### New Features
 #### Enchanting
 - Added Occult Protection enchantment
@@ -11,7 +13,7 @@
 - High enchantibility (level 15 or higher) armors will turn invisible with the wearer
 
 #### Curses
-- Added Curse of Decaying
+- Added Curse of Abrading
   - Affected equipment loses durability twice as fast
 
 #### The Nether
@@ -34,6 +36,7 @@
 - Potions are now named depending on their enhancement
   - Example: A Potion of Swiftness that lasts for 8 minutes is now called a "Long Potion of Swiftness"
   - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
+  - This is based on their internal code names
 
 #### New Potions
 - Added Potion of Decay to match Bedrock Edition
@@ -75,7 +78,7 @@
 
 ### Technical Changes
 #### Camera Shake Events
-Camera Shake events are now data driven, similar to sound events
+Camera Shake events are now data driven, similar to sound events. Camera shake event files are to be put in a `data/[datapack namespace]/subtlyd/camera_shake_event/` folder.
 - Added `sound_event` field: a Sound Event ID, specifies what sound event should trigger the Camera Shake Event
 - Added `range` field: a float, specifies the maximum distance that the camera shake can be experienced from
 - Added `duration` field: an integer, specifies the amount of ticks that the camera shake will last

@@ -24,7 +24,7 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 
 public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("occult_protection"));
-    public static final ResourceKey<Enchantment> DECAYING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("decaying_curse"));
+    public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("abrading_curse"));
 
     public static void bootstrap(BootstrapContext<Enchantment> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -44,7 +44,7 @@ public class EnchantmentsSD {
                                 .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
             .build(OCCULT_PROTECTION.identifier())
         );
-        context.register(DECAYING_CURSE, Enchantment.enchantment(
+        context.register(ABRADING_CURSE, Enchantment.enchantment(
                 Enchantment.definition(
                         items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
                         1,
@@ -57,7 +57,7 @@ public class EnchantmentsSD {
                         MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
                 .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
                         InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
-            .build(DECAYING_CURSE.identifier())
+            .build(ABRADING_CURSE.identifier())
         );
     }
 }

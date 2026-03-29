@@ -24,6 +24,6 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
         getOrCreateRawBuilder(EnchantmentTags.ON_TRADED_EQUIPMENT)
                 .addOptionalElement(EnchantmentsSD.OCCULT_PROTECTION.identifier());
         getOrCreateRawBuilder(EnchantmentTags.CURSE)
-                .addOptionalElement(EnchantmentsSD.DECAYING_CURSE.identifier());
+                .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
     }
 }
