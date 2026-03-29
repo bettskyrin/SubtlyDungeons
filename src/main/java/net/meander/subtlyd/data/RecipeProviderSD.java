@@ -126,7 +126,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
                 colorItemWithDye(ItemsSD.DYE_ITEM_LIST, ItemsSD.TENT_ITEM_LIST, "tent_dye", RecipeCategory.MISC);
 
-                shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS)
+                shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS, 2)
                         .requires(Items.WARPED_FUNGUS)
                         .requires(Items.CRIMSON_FUNGUS)
                         .unlockedBy(getHasName(Items.CRIMSON_FUNGUS), has(Items.CRIMSON_FUNGUS))
