@@ -122,5 +122,5 @@ Camera Shake events are now data driven, similar to sound events
 - **MC-84595** - Fixed bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
 - Fixed some memory leaks
-- Fixed flaming arrows not setting fire to objects when shot east/west
+- Fixed flaming arrows not setting fire to objects when shot east or west
 - Optimized music tracks loading
