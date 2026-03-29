@@ -41,8 +41,8 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
 #### New Potions
 - Added Potion of Decay to match Bedrock Edition
 
-#### Burn No More!
-- Players with the Fire Resistance effect will no longer be visually set on fire!
+#### Potion Effects
+- Players with the Fire Resistance effect will no longer be visually set on fire
 
 #### The Wither
 - Wither skulls fired at the player are now on fire!
@@ -69,7 +69,6 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
     - 50 meters -> 200 meters
 
 #### Blocks
-- Added Basalt Door
 - Overworld mushrooms may now be placed on logs regardless of light level
 
 #### Splash Text
