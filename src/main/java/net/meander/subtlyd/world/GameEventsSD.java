@@ -12,7 +12,7 @@ import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.minecraft.world.entity.LivingEntity;
 
-public class WorldEventsSD {
+public class GameEventsSD {
     public static void registration() {
         UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
         allowTentSleep();

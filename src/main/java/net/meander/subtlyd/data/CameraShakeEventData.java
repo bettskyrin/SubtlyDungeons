@@ -2,8 +2,11 @@ package net.meander.subtlyd.data;
 
 import net.meander.subtlyd.camera.CameraShakeEvents;
 import net.meander.subtlyd.client.resources.camera.CameraShakeEvent;
+import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 
@@ -26,7 +29,11 @@ public class CameraShakeEventData {
         context.register(CameraShakeEvents.EVOKER_FANGS_APPEAR, getEvent(SoundEventsSD.EVOKER_FANGS_APPEAR, 10, 30));
     }
 
-    private static CameraShakeEvent getEvent(SoundEvent soundEvent, int maxDistance, int durationTicks) {
-        return new CameraShakeEvent(soundEvent.location(), maxDistance, durationTicks, 4.0F);
+    public static ResourceKey<CameraShakeEvent> register(String id) {
+        return ResourceKey.create(RegistriesSD.CAMERA_SHAKE_EVENT, Util.identifier(id));
+    }
+
+    private static CameraShakeEvent getEvent(SoundEvent soundEvent, int range, int durationTicks) {
+        return new CameraShakeEvent(soundEvent.location(), range, durationTicks, 4.0F);
     }
 }

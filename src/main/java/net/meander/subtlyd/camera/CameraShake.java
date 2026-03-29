@@ -2,12 +2,14 @@ package net.meander.subtlyd.camera;
 
 import net.meander.subtlyd.client.resources.camera.CameraShakeEvent;
 import net.meander.subtlyd.core.registries.RegistriesSD;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
+import org.jspecify.annotations.NonNull;
 
 
 public class CameraShake {
@@ -58,7 +60,7 @@ public class CameraShake {
      * @param durationTicks The duration of the camera shake in ticks.
      * @param maxDistance The maximum distance from the source of the camera shake that the shake can go in effect.
      * @param distance The distance of the player from the camera shake source.
-     * @param modifier The magnitude modifier.
+     * @param modifier The magnitude intensity.
      */
     public static void setShake(int durationTicks, float maxDistance, float distance, float modifier) {
         if (distance <= maxDistance) {
@@ -75,28 +77,32 @@ public class CameraShake {
      * @param soundEvent The sound event causing the camera shake.
      * @param source The source of the camera shake event.
      */
-    public static void shakeScreenFromSource(final SoundEvent soundEvent, final Vec3 source, float modifier) {
+    public static void shakeScreenFromSource(final SoundEvent soundEvent, final @NonNull Vec3 source, float modifier) {
         Vec3 sourcePos = new Vec3(source.x, source.y, source.z);
         Entity player = minecraft.getCameraEntity();
 
         if (player != null && !player.isSpectator() && player.level().isClientSide()) {
             float distance = (float) Math.sqrt(player.distanceToSqr(sourcePos));
-            Registry<CameraShakeEvent> registry = player.level().registryAccess().getOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT).value();
 
-            for (CameraShakeEvent event : registry) {
-                 if (event.soundEvent() == soundEvent.location()) {
-                     int duration = event.durationTicks();
-                     float maxDistance = event.maxDistance();
+            try {
+                Registry<CameraShakeEvent> registry = player.level().registryAccess().lookupOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT);
+                for (CameraShakeEvent event : registry) {
+                    if (event.soundEvent().equals(soundEvent.location())) {
+                        int duration = event.durationTicks();
+                        float maxDistance = event.range();
 
-                     if (modifier == 4.0F) {
-                         modifier = event.modifier();
-                     } else {
-                         maxDistance = (int) (16 * (modifier / 3));
-                         duration = 15;
-                     }
-                     setShake(duration, maxDistance, distance, modifier);
-                     break;
+                        if (modifier == 4.0F) {
+                            modifier = event.intensity();
+                        } else {
+                            maxDistance = (int) (16 * (modifier / 3));
+                            duration = 15;
+                        }
+                        setShake(duration, maxDistance, distance, modifier);
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                Util.LOGGER.error("Failed to load shake event", e);
             }
         }
     }

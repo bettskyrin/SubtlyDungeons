@@ -77,9 +77,9 @@
 #### Camera Shake Events
 Camera Shake events are now data driven, similar to sound events
 - Added `sound_event` field: a Sound Event ID, specifies what sound event should trigger the Camera Shake Event
-- Added `max_distance` field: a float, specifies the maximum distance that the camera shake can be experienced from
+- Added `range` field: a float, specifies the maximum distance that the camera shake can be experienced from
 - Added `duration` field: an integer, specifies the amount of ticks that the camera shake will last
-- Added `modifier` field: an optional float, specifies the intensity modifier value
+- Added `intensity` field: an optional float, specifies the intensity modifier value
   - Default: `4`
 
 #### Data Tags
@@ -119,8 +119,8 @@ Camera Shake events are now data driven, similar to sound events
 - Added Hardcore HUD hearts for the Wither effect
 
 #### Bug Fixes
-- Fixed vanilla bug where deaths by dragon's breath were referred to as "magic"
+- **MC-84595** - Fixed bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
 - Fixed some memory leaks
 - Fixed flaming arrows not setting fire to objects when shot east/west
-- Fixed bug that caused lag due to loading entire music tracks at once
+- Optimized music tracks loading

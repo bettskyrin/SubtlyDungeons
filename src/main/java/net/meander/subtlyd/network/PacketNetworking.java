@@ -13,13 +13,13 @@ import net.minecraft.server.level.ServerPlayer;
 import org.jspecify.annotations.NonNull;
 
 public class PacketNetworking {
-    public record ScreenShakePacketPayload(int durationTicks, float intensity) implements CustomPacketPayload {
-        public static final CustomPacketPayload.Type<ScreenShakePacketPayload> ID = new  CustomPacketPayload.Type<>(Util.identifier("screen_shake"));
+    public record CameraShakePacketPayload(int durationTicks, float intensity) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<CameraShakePacketPayload> ID = new  CustomPacketPayload.Type<>(Util.identifier("camera_shake"));
 
-        public static final StreamCodec<FriendlyByteBuf, ScreenShakePacketPayload> CODEC = StreamCodec.composite(
-                ByteBufCodecs.INT, ScreenShakePacketPayload::durationTicks,
-                ByteBufCodecs.FLOAT, ScreenShakePacketPayload::intensity,
-                ScreenShakePacketPayload::new
+        public static final StreamCodec<FriendlyByteBuf, CameraShakePacketPayload> CODEC = StreamCodec.composite(
+                ByteBufCodecs.INT, CameraShakePacketPayload::durationTicks,
+                ByteBufCodecs.FLOAT, CameraShakePacketPayload::intensity,
+                CameraShakePacketPayload::new
         );
 
         @Override @NonNull
@@ -32,14 +32,14 @@ public class PacketNetworking {
      * Registers common packets.
      */
     public static void registerCommon() {
-        PayloadTypeRegistry.clientboundPlay().register(ScreenShakePacketPayload.ID, ScreenShakePacketPayload.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(CameraShakePacketPayload.ID, CameraShakePacketPayload.CODEC);
     }
 
     /**
      * Registers client receivers.
      */
     public static void registerClient() {
-        ClientPlayNetworking.registerGlobalReceiver(ScreenShakePacketPayload.ID, ((payload, context) -> context.client().execute(
+        ClientPlayNetworking.registerGlobalReceiver(CameraShakePacketPayload.ID, ((payload, context) -> context.client().execute(
             () -> {
                 if (payload.durationTicks <= 0) {
                     CameraShake.stop();
@@ -66,6 +66,6 @@ public class PacketNetworking {
      * @param intensity The intensity of the screen shake effect.
      */
     public static void setScreenShakePackets(ServerPlayer player, int durationTicks, float intensity) {
-        sendPackets(player, new ScreenShakePacketPayload(durationTicks, intensity));
+        sendPackets(player, new CameraShakePacketPayload(durationTicks, intensity));
     }
 }

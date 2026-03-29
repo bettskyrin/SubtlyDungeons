@@ -1,12 +1,12 @@
 package net.meander.subtlyd.mixin.common;
 
-import net.meander.subtlyd.world.level.storage.WorldIconState;
 import com.llamalad7.mixinextras.sugar.Local;
+import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.level.storage.WorldIconState;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.PngInfo;
 import net.minecraft.world.level.storage.LevelStorageSource;
-import org.slf4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -21,7 +21,6 @@ import java.util.Optional;
 @Mixin(MinecraftServer.class)
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class MinecraftServerMixin {
-    @Shadow @Final private static Logger LOGGER;
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
 
     @Inject(method = "loadStatusIcon", at = @At("RETURN"), cancellable = true)
@@ -43,7 +42,7 @@ public class MinecraftServerMixin {
                     throw new IllegalArgumentException("Invalid world icon size [" + pngInfo.width() + ", " + pngInfo.height() + "], but expected [455, 256]");
                 }
             } catch (Exception var3) {
-                LOGGER.error("Couldn't load common icon", var3);
+                Util.LOGGER.error("Couldn't load common icon", var3);
                 return Optional.empty();
             }
         });
