@@ -115,6 +115,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - Excuse by C418
     - Plays in Warped Forests and Nether Wastes
 - Music volume has been refactored
+- The unused Warped Forest mood sounds are now used
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect
