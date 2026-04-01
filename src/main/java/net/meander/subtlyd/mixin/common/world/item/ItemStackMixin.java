@@ -102,7 +102,7 @@ public class ItemStackMixin {
                         builder.set(DataComponents.MAX_STACK_SIZE, 16);
                     }
                 }
-            } else if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR)) {
+            } else if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR) || itemStack.is(Items.ELYTRA)) {
                 builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantibilityFromMap(itemStack.getItem())));
             }
         }

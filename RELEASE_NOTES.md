@@ -10,7 +10,25 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
   - Wolf armor may now be enchanted
   - Nautilus armor may now be enchanted
 - Enchanting tables now accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
+- Tweaked Anvil Enchanting
+  - The "Too Expensive!" message has been replaced with "Unrepairable!"
+    - The idea of the "Too Expensive!" repair limit is to mimic how in real life, you can't keep repairing an object over and over, forever. While we are not removing this feature, we have decided to rename it, to help make this more clear.
+  - The limit for adding enchantments is now tied to enchantibility
+    - The message for an item with too many enchantments is "Magic Capacity Met!"
+  - Repairing an item enchanted with mending will have an enchantment level cost of 1.
+  - Enchanting and repairing an item enchanted with mending will have a decreased enchantment cost
+    - This cost is reduced by 4 levels
+
+#### Enchantiblity
+- The enchantibility difference of two items in an anvil will scale the enchantment cost cap.
+  - Enchantibility difference is calculated as `|enchantibility of item 1 - enchantibility of item 2|` 
+  - The enchantment level cap is now calculated by this formula: `(enchantibility difference * 2.4) + 40`
+      - Example: A diamond helmet (Enchantibility level 10) in an anvil with an enchanted book (Enchantability level 0) will have a maximum enchantment cost of 55
+        - If the cost gets any higher than this, the anvil will say "Unrepairable!"
+      - The enchantment cap is always rounded up
+      - The maximum enchantment level cap is now 100 (which can be achieved by combining two pieces of golden armor)
 - High enchantibility (level 15 or higher) armors will turn invisible with the wearer
+- Elytras now have an enchantibility level of 9
 
 #### Curses
 - Added Curse of Abrading
@@ -127,3 +145,4 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Fixed some memory leaks
 - Fixed flaming arrows not setting fire to objects when shot east or west
 - Optimized music tracks loading
+- Fixed Netherite items with custom names not inheriting a new rarity value

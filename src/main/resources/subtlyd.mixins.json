@@ -22,6 +22,7 @@
     "common.world.entity.monster.ZombieMixin",
     "common.world.entity.projectile.EvokerFangsMixin",
     "common.world.entity.projectile.hurtingprojectile.WitherSkullMixin",
+    "common.world.inventory.AnvilMenuMixin",
     "common.world.item.BlockItemMixin",
     "common.world.item.ItemStackMixin",
     "common.world.item.PotionItemMixin",
@@ -55,7 +56,8 @@
     "client.renderer.entity.layers.DrownedOuterLayerMixin",
     "client.renderer.entity.layers.HumanoidArmorLayerMixin",
     "client.renderer.state.LivingEntityRenderStateMixin",
-    "client.renderer.state.UndeadRenderStateMixin"
+    "client.renderer.state.UndeadRenderStateMixin",
+    "client.world.inventory.AnvilScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

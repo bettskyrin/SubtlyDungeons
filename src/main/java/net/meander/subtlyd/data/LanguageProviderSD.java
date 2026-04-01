@@ -36,6 +36,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("block.subtlyd.unlit_campfire", "Campfire");
         translationBuilder.add("block.subtlyd.warped_overhang", "Warped Overhang");
 
+        translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
+        translationBuilder.add("container.repair.unfixable", "Unrepairable!");
+
         translationBuilder.add("commands.camerashake.success.add.multiple", "Applying camera shake to %s players");
         translationBuilder.add("commands.camerashake.success.add.single", "Applying camera shake to %s");
         translationBuilder.add("commands.camerashake.success.stop.multiple", "Stopping camera shake for %s players");
