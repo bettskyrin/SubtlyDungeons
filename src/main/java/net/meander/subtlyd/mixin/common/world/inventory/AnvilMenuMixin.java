@@ -2,8 +2,7 @@ package net.meander.subtlyd.mixin.common.world.inventory;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import net.meander.subtlyd.world.inventory.AnvilMenuSD;
-import net.meander.subtlyd.world.item.ItemStackSD;
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Inventory;
@@ -16,9 +15,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -39,6 +36,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     @Inject(method = "createResult", at = @At("RETURN"))
     private void modifyCosts(CallbackInfo ci, @Local(name = "input") ItemStack input) {
         ItemStack addition = inputSlots.getItem(1);
+        ItemStack result = resultSlots.getItem(0);
         List<ItemStack> inputs = List.of(input, addition);
         boolean hasMending = false;
         boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
@@ -63,20 +61,10 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
                 cost.set(Math.max(1, getCost() - 4));
             }
         }
-    }
-
-    @ModifyConstant(method = "createResult", constant = @Constant(intValue = 40))
-    private int modifyLimit(int constant) {
-        ItemStack input = inputSlots.getItem(0);
-        ItemStack addition = inputSlots.getItem(1);
-        boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
         if (input.isEnchanted() || (addition.isEnchanted()) || usingBook) {
-            int inputEnchantability = ItemStackSD.getEnchantability(input);
-            int additionEnchantability = ItemStackSD.getEnchantability(addition);
-
-            return AnvilMenuSD.getCostByEnchantibility(inputEnchantability, additionEnchantability);
+            result.set(DataComponents.REPAIR_COST, result.getOrDefault(DataComponents.REPAIR_COST, 0));
+            result.set(DataComponentsSD.MAGIC_LEVEL, result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + addition.getOrDefault(DataComponents.REPAIR_COST, 1));
         }
-        return constant;
     }
 }

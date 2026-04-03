@@ -2,6 +2,7 @@ package net.meander.subtlyd.util;
 
 import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.camera.CameraShakeEvents;
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.data.loot_table.LootSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
@@ -16,6 +17,7 @@ public class InitializerSD implements ModInitializer {
     @Override public void onInitialize() {
         Util.LOGGER.info("Initializing Subtly Dungeons");
         GameRulesSD.registration();
+        DataComponentsSD.registration();
         SynchedEntityDataSD.createEntityData();
         PacketNetworking.registerCommon();
 
