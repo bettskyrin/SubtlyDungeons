@@ -34,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
      * @param input The first anvil item.
      */
     @Inject(method = "createResult", at = @At("RETURN"))
-    private void modifyCosts(CallbackInfo ci, @Local(name = "input") ItemStack input) {
+    private void modifyCosts(CallbackInfo ci, @Local(name = "input") ItemStack input) { // TODO Check
         ItemStack addition = inputSlots.getItem(1);
         ItemStack result = resultSlots.getItem(0);
         List<ItemStack> inputs = List.of(input, addition);

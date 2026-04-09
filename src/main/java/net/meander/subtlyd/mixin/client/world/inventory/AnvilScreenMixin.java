@@ -41,7 +41,7 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
             boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
             int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
 
-            if (magicLevel > magicLimit && ((input.isEnchanted() ^ addition.isEnchanted()) || (input.isEnchanted() && addition.isEnchanted()) || usingBook)) { // TODO
+            if (magicLevel > magicLimit && ((input.isEnchanted() ^ addition.isEnchanted()) || (input.isEnchanted() && addition.isEnchanted()) || usingBook)) { // FIXME
                 color = -40864;
                 return Component.translatable("container.repair.unenchantable");
             } else if (menu.getCost() >= 40 && !(input.isEnchanted() || addition.isEnchanted() || usingBook)) {
