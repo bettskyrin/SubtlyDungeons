@@ -134,6 +134,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
     - Plays in Warped Forests and Nether Wastes
 - Music volume has been refactored
 - The unused Warped Forest mood sounds are now used
+- The Hardcore activate sound has been slightly altered
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect

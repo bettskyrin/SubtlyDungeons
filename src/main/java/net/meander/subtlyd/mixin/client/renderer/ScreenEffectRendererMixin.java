@@ -12,7 +12,7 @@ public class ScreenEffectRendererMixin {
     /**
      * Prevents players from having fire rendered on them in first person.
      */
-    @Redirect(method = "renderScreenEffect", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isOnFire()Z"))
+    @Redirect(method = "submit", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;isOnFire()Z"))
     private boolean isOnFire(LocalPlayer localPlayer) {
         return localPlayer.isOnFire() && !localPlayer.hasEffect(MobEffects.FIRE_RESISTANCE);
     }

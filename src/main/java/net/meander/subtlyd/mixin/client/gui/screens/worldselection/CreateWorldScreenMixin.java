@@ -167,8 +167,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 uiState.setGameMode(isHardcore ? WorldCreationUiState.SelectedGameMode.HARDCORE : WorldCreationUiState.SelectedGameMode.SURVIVAL);
                 uiState.setDifficulty(Difficulty.HARD);
                 if (isHardcore) {
-                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F));
-                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIRECHARGE_USE, 0.8F));
+                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F, 1.0F));
+                    Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIRECHARGE_USE, 0.8F, 0.5F));
                     Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIRE_AMBIENT, 0.5F));
                 }
             }).withInfo(HARDCORE_INFO);

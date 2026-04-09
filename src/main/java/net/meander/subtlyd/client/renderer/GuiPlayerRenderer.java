@@ -3,6 +3,7 @@ package net.meander.subtlyd.client.renderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.player.PlayerCapeModel;
 import net.minecraft.client.model.player.PlayerModel;
@@ -21,6 +22,7 @@ public class GuiPlayerRenderer {
         EntityRenderDispatcher dispatcher = minecraft.getEntityRenderDispatcher();
         AvatarRenderer<AbstractClientPlayer> playerRenderer = dispatcher.playerRenderers.get(skin.model());
         PlayerModel model = playerRenderer.getModel();
+        Model.Simple simple = new Model.Simple(model.root(), model.renderType());
 
         AvatarRenderState state = new AvatarRenderState();
         state.skin = skin;
@@ -53,11 +55,12 @@ public class GuiPlayerRenderer {
 
         if (state.showCape && skin.cape() != null) {
             PlayerCapeModel capeModel = new PlayerCapeModel(minecraft.getEntityModels().bakeLayer(ModelLayers.PLAYER_CAPE));
+            Model.Simple capeSimple = new Model.Simple(capeModel.root(), capeModel.renderType());
             capeModel.setupAnim(state);
 
-            guiGraphics.skin(capeModel, skin.cape().texturePath(), (float) scale, 0, state.bodyRot, 0, x0, y0, x1, y1);
+            guiGraphics.skin(capeSimple, skin.cape().texturePath(), (float) scale, 0, state.bodyRot, 0, x0, y0, x1, y1);
         }
 
-        guiGraphics.skin(model, skin.body().texturePath(), (float) scale, 0, state.bodyRot, 0.0F, x0, y0, x1, y1);
+        guiGraphics.skin(simple, skin.body().texturePath(), (float) scale, 0, state.bodyRot, 0.0F, x0, y0, x1, y1);
     }
 }

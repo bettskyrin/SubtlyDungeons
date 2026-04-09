@@ -4,30 +4,23 @@ import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.meander.subtlyd.client.model.TentModel;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.world.entity.EntityTypeSD;
+import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.block.ColorCollection;
 
 public class EntityRenderersSD extends EntityRenderers {
     public static void registration() {
-        register(EntityTypeSD.WHITE_TENT, context -> new TentRenderer(context, ModelLayersSD.WHITE_TENT));
-        register(EntityTypeSD.ORANGE_TENT, context -> new TentRenderer(context, ModelLayersSD.ORANGE_TENT));
-        register(EntityTypeSD.MAGENTA_TENT, context -> new TentRenderer(context, ModelLayersSD.MAGENTA_TENT));
-        register(EntityTypeSD.LIGHT_BLUE_TENT, context -> new TentRenderer(context, ModelLayersSD.LIGHT_BLUE_TENT));
-        register(EntityTypeSD.YELLOW_TENT, context -> new TentRenderer(context, ModelLayersSD.YELLOW_TENT));
-        register(EntityTypeSD.LIME_TENT, context -> new TentRenderer(context, ModelLayersSD.LIME_TENT));
-        register(EntityTypeSD.PINK_TENT, context -> new TentRenderer(context, ModelLayersSD.PINK_TENT));
-        register(EntityTypeSD.GRAY_TENT, context -> new TentRenderer(context, ModelLayersSD.GRAY_TENT));
-        register(EntityTypeSD.LIGHT_GRAY_TENT, context -> new TentRenderer(context, ModelLayersSD.LIGHT_GRAY_TENT));
-        register(EntityTypeSD.CYAN_TENT, context -> new TentRenderer(context, ModelLayersSD.CYAN_TENT));
-        register(EntityTypeSD.PURPLE_TENT, context -> new TentRenderer(context, ModelLayersSD.PURPLE_TENT));
-        register(EntityTypeSD.BLUE_TENT, context -> new TentRenderer(context, ModelLayersSD.BLUE_TENT));
-        register(EntityTypeSD.BROWN_TENT, context -> new TentRenderer(context, ModelLayersSD.BROWN_TENT));
-        register(EntityTypeSD.GREEN_TENT, context -> new TentRenderer(context, ModelLayersSD.GREEN_TENT));
-        register(EntityTypeSD.RED_TENT, context -> new TentRenderer(context, ModelLayersSD.RED_TENT));
-        register(EntityTypeSD.BLACK_TENT, context -> new TentRenderer(context, ModelLayersSD.BLACK_TENT));
-        register(EntityTypeSD.BLAST_FUNGUS, ThrownItemRenderer::new);
+        ColorCollection.zipApply((type,  tent) -> {
+            @SuppressWarnings("unchecked")
+            EntityType<TentEntity> tentType = (EntityType<TentEntity>) type;
 
+            EntityRenderers.register(tentType, (context) -> new TentRenderer(context, tent));
+        }, EntityTypeSD.TENT, ModelLayersSD.TENT);
+
+        register(EntityTypeSD.BLAST_FUNGUS, ThrownItemRenderer::new);
 
         for (ModelLayerLocation modelLayerLocation : ModelLayersSD.ALL_MODELS) {
             ModelLayerRegistry.registerModelLayer(modelLayerLocation, TentModel::createBodyLayer);

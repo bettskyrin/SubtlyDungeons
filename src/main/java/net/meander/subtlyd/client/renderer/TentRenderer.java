@@ -1,11 +1,11 @@
 package net.meander.subtlyd.client.renderer;
 
 import com.google.common.collect.Lists;
-import net.meander.subtlyd.client.renderer.state.TentRenderState;
-import net.meander.subtlyd.client.model.TentModel;
-import net.meander.subtlyd.world.entity.TentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.meander.subtlyd.client.model.TentModel;
+import net.meander.subtlyd.client.renderer.state.TentRenderState;
+import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -32,7 +32,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
         this.model = new TentModel(context.bakeLayer(modelLayerLocation));
-        this.texture = modelLayerLocation.model().withPath(color -> "textures/entity/" + color + ".png");
+        this.texture = modelLayerLocation.model().withPath(color -> "textures/entity/" + color + "_tent.png");
         this.shadowRadius = 1.8F;
     }
 

@@ -1,14 +1,13 @@
 package net.meander.subtlyd.world.entity;
 
+import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -51,12 +50,8 @@ public class TentEntity extends Entity {
         this.occupied = false;
     }
 
-    public static Identifier getLocation(DyeColor color) {
-        return Util.identifier(color.toString() + "_tent");
-    }
-
     public static ResourceKey<@NotNull EntityType<?>> getResourceKey(DyeColor color) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, getLocation(color));
+        return ResourceKey.create(Registries.ENTITY_TYPE, Util.identifier(color.toString() + "_tent"));
     }
 
     @Override

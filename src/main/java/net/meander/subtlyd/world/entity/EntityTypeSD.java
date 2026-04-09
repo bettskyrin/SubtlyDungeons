@@ -1,6 +1,8 @@
 package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.meander.subtlyd.world.level.block.ColorCollectionSD;
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -23,40 +25,26 @@ import net.minecraft.world.entity.animal.pig.Pig;
 import net.minecraft.world.entity.animal.pig.PigVariants;
 import net.minecraft.world.entity.animal.rabbit.Rabbit;
 import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.animal.wolf.WolfVariant;
 import net.minecraft.world.entity.animal.wolf.WolfVariants;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.ColorCollection;
 
 import java.util.function.Supplier;
 
-public class EntityTypeSD<T extends Entity> {
-    public static final EntityType<TentEntity> WHITE_TENT = registerTent(DyeColor.WHITE, () -> ItemsSD.WHITE_TENT);
-    public static final EntityType<TentEntity> LIGHT_GRAY_TENT = registerTent(DyeColor.LIGHT_GRAY, () -> ItemsSD.LIGHT_GRAY_TENT);
-    public static final EntityType<TentEntity> GRAY_TENT = registerTent(DyeColor.GRAY, () -> ItemsSD.GRAY_TENT);
-    public static final EntityType<TentEntity> BLACK_TENT = registerTent(DyeColor.BLACK, () -> ItemsSD.BLACK_TENT);
-    public static final EntityType<TentEntity> BROWN_TENT = registerTent(DyeColor.BROWN, () -> ItemsSD.BROWN_TENT);
-    public static final EntityType<TentEntity> RED_TENT = registerTent(DyeColor.RED, () -> ItemsSD.RED_TENT);
-    public static final EntityType<TentEntity> ORANGE_TENT = registerTent(DyeColor.ORANGE, () -> ItemsSD.ORANGE_TENT);
-    public static final EntityType<TentEntity> YELLOW_TENT = registerTent(DyeColor.YELLOW, () -> ItemsSD.YELLOW_TENT);
-    public static final EntityType<TentEntity> LIME_TENT = registerTent(DyeColor.LIME, () -> ItemsSD.LIME_TENT);
-    public static final EntityType<TentEntity> GREEN_TENT = registerTent(DyeColor.GREEN, () -> ItemsSD.GREEN_TENT);
-    public static final EntityType<TentEntity> CYAN_TENT = registerTent(DyeColor.CYAN, () -> ItemsSD.CYAN_TENT);
-    public static final EntityType<TentEntity> LIGHT_BLUE_TENT = registerTent(DyeColor.LIGHT_BLUE, () -> ItemsSD.LIGHT_BLUE_TENT);
-    public static final EntityType<TentEntity> BLUE_TENT = registerTent(DyeColor.BLUE, () -> ItemsSD.BLUE_TENT);
-    public static final EntityType<TentEntity> PURPLE_TENT = registerTent(DyeColor.PURPLE, () -> ItemsSD.PURPLE_TENT);
-    public static final EntityType<TentEntity> MAGENTA_TENT = registerTent(DyeColor.MAGENTA, () -> ItemsSD.MAGENTA_TENT);
-    public static final EntityType<TentEntity> PINK_TENT = registerTent(DyeColor.PINK, () -> ItemsSD.PINK_TENT);
+public class EntityTypeSD {
+    public static final ColorCollection<EntityType<? extends Entity>> TENT = ColorCollectionSD.registerTentEntity();
     public static final EntityType<BlastFungusEntity> BLAST_FUNGUS = register(ItemsSD.BLAST_FUNGUS, EntityType.Builder.<BlastFungusEntity>of(BlastFungusEntity::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
 
-    private static <T extends Entity> EntityType<T> register(Item item, EntityType.Builder<T> builder) {
+    public static <T extends Entity> EntityType<T> register(Item item, EntityType.Builder<T> builder) {
         return Registry.register(BuiltInRegistries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item), builder.build(ResourceKey.create(Registries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item))));
     }
 
-    private static EntityType<TentEntity> registerTent(DyeColor dyeColor, Supplier<Item> supplier) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, TentEntity.getLocation(dyeColor), EntityType.Builder.of(tentFactory(supplier), MobCategory.MISC).sized(3.5F, 1.8F).noLootTable().clientTrackingRange(10).build(TentEntity.getResourceKey(dyeColor)));
+    public static <T extends Entity> EntityType<T> register(Identifier key, EntityType.Builder<T> builder) {
+        return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(ResourceKey.create(Registries.ENTITY_TYPE, key)));
     }
 
-    private static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {
+    public static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {
         return (entityType, level) -> new TentEntity(entityType, level, supplier);
     }
 
@@ -65,7 +53,6 @@ public class EntityTypeSD<T extends Entity> {
      * @param mob The mob to test
      * @return What temperature variant a mob is.
      */
-    @SuppressWarnings("EqualsBetweenInconvertibleTypes")
     public static Identifier getTemperatureVariantType(Mob mob) {
         if (mob instanceof Pig variableMob) {
             if (variableMob.getVariant().is(PigVariants.WARM)) {
@@ -109,12 +96,16 @@ public class EntityTypeSD<T extends Entity> {
                 return TemperatureVariants.COLD;
             }
         } else if (mob instanceof Wolf variableMob) {
-            if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.STRIPED || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.SPOTTED || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.RUSTY) {
-                return TemperatureVariants.WARM;
-            }else if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.WOODS) {
-                return TemperatureVariants.TEMPERATE;
-            } else if (variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.BLACK || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.CHESTNUT || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.PALE || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.ASHEN || variableMob.get(DataComponents.WOLF_VARIANT) == WolfVariants.SNOWY) {
-                return TemperatureVariants.COLD;
+            Holder<WolfVariant> variant = variableMob.get(DataComponents.WOLF_VARIANT);
+
+            if (variant != null) {
+                if (variant.is(WolfVariants.STRIPED) || variant.is(WolfVariants.SPOTTED) || variant.is(WolfVariants.RUSTY)) {
+                    return TemperatureVariants.WARM;
+                } else if (variant.is(WolfVariants.WOODS)) {
+                    return TemperatureVariants.TEMPERATE;
+                } else if (variant.is(WolfVariants.BLACK) || variant.is(WolfVariants.CHESTNUT) || variant.is(WolfVariants.PALE) || variant.is(WolfVariants.ASHEN) || variant.is(WolfVariants.SNOWY)) {
+                    return TemperatureVariants.COLD;
+                }
             }
         } else if (mob instanceof Fox variableMob) {
             if (variableMob.getVariant() == Fox.Variant.SNOW || variableMob.getVariant() == Fox.Variant.RED) {

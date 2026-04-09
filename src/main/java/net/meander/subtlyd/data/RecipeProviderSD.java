@@ -1,9 +1,9 @@
 package net.meander.subtlyd.data;
 
-import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -17,6 +17,7 @@ import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.item.crafting.SmokingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ColorCollection;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
 
@@ -120,11 +121,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 cookRecipesSD(ItemsSD.CALAMARI, 0.35F, ItemsSD.COOKED_CALAMARI);
 
                 /* MISC */
-                for (int i = 0; i <= 15; i++) {
-                    tentBuilderFromWool(ItemsSD.TENT_ITEM_LIST.get(i), ItemsSD.WOOL_ITEM_LIST.get(i));
-                }
-
-                colorItemWithDye(ItemsSD.DYE_ITEM_LIST, ItemsSD.TENT_ITEM_LIST, "tent_dye", RecipeCategory.MISC);
+                ColorCollection.zipApply(this::tent, ItemsSD.TENT, Blocks.WOOL);
+                colorItemWithDye(Items.DYE.asList(), ItemsSD.TENT.asList(), "tent_dye", RecipeCategory.MISC);
 
                 shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS, 2)
                         .requires(Items.WARPED_FUNGUS)
@@ -140,7 +138,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 this.simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
             }
 
-            public void tentBuilderFromWool(ItemLike tentOutput, ItemLike wool) {
+            private void tent(ItemLike tentOutput, ItemLike wool) {
                 this.shaped(RecipeCategory.MISC, tentOutput)
                         .group("tent_wool")
                         .define('#', wool)

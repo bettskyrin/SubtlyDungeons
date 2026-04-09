@@ -33,7 +33,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
         valueLookupBuilder(ItemTags.CAT_FOOD)
                 .add(ItemsSD.CALAMARI);
         valueLookupBuilder(TENTS)
-            .addAll(ItemsSD.TENT_ITEM_LIST);
+            .addAll(ItemsSD.TENT.asList());
         valueLookupBuilder(LIQUID_CONSUMABLES)
                 .add(Items.POTION)
                 .add(Items.MILK_BUCKET)

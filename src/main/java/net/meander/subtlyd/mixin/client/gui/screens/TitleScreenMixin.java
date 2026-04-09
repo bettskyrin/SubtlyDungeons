@@ -57,7 +57,7 @@ public class TitleScreenMixin extends Screen {
     private void moveLang(CallbackInfo ci) {
         SpriteIconButton spriteIconButton = this.addRenderableWidget(CommonButtons.language(
                 20,
-                _ -> this.minecraft.setScreen(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
+                _ -> this.minecraft.setScreenAndShow(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
                 true)
         );
         spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
