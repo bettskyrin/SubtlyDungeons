@@ -126,7 +126,6 @@ public abstract class GameTabButton extends AbstractButton {
             return this.pos(i, j).size(k, l);
         }
 
-
         public GameTabButton build() {
             this.textureWidth = (this.textureWidth == 0) ? this.width : this.textureWidth;
             this.textureHeight = (this.textureHeight == 0) ? this.height : this.textureHeight;
