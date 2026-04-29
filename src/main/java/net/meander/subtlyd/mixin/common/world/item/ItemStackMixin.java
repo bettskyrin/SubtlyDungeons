@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.data.tags.ItemTagsSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
@@ -102,8 +103,12 @@ public class ItemStackMixin {
                         builder.set(DataComponents.MAX_STACK_SIZE, 16);
                     }
                 }
-            } else if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR) || itemStack.is(Items.ELYTRA)) {
+            } else if (!oldDataComponentMap.has(DataComponents.ENCHANTABLE) && (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR) || itemStack.is(Items.ELYTRA))) {
                 builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantibilityFromMap(itemStack.getItem())));
+            }
+
+            if (!oldDataComponentMap.has(DataComponentsSD.MAGIC_LEVEL) && itemStack.is(ItemTagsSD.HAS_MAGIC_LIMIT)) { // FIXME
+                builder.set(DataComponentsSD.MAGIC_LEVEL, 0);
             }
         }
         newDataComponentMap = builder.build();

@@ -16,7 +16,7 @@ public class BiomeTagsSD extends BiomeTagsProvider {
         super(packOutput, completableFuture);
     }
 
-    public static final TagKey<Biome> IS_WINDY = create("is_windy");
+    public static final TagKey<Biome> IS_WINDY = bind("is_windy");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
@@ -33,7 +33,7 @@ public class BiomeTagsSD extends BiomeTagsProvider {
                 .add(Biomes.GROVE);
     }
 
-    private static TagKey<Biome> create(String string) {
+    private static TagKey<Biome> bind(String string) {
         return TagKey.create(Registries.BIOME, Util.identifier(string));
     }
 }

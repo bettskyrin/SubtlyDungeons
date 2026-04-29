@@ -21,11 +21,11 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
         super(output, registriesFuture);
     }
 
-    public static final TagKey<Block> SNOW_BRICKS = create("snow_bricks");
-    public static final TagKey<Block> SKULL_BLOCK = create("skull_block");
-    public static final TagKey<Block> STONE_TILES = create("stone_tiles");
-    public static final TagKey<Block> DRIPSTONE = create("dripstone");
-    public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = create("triggers_ambient_wind_block_sounds");
+    public static final TagKey<Block> SNOW_BRICKS = bind("snow_bricks");
+    public static final TagKey<Block> SKULL_BLOCK = bind("skull_block");
+    public static final TagKey<Block> STONE_TILES = bind("stone_tiles");
+    public static final TagKey<Block> DRIPSTONE = bind("dripstone");
+    public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
 
     @Override protected void addTags(HolderLookup.Provider registries) {
         valueLookupBuilder(SNOW_BRICKS)
@@ -106,7 +106,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .forceAddTag(BlockTags.OVERWORLD_NATURAL_LOGS);
     }
 
-    private static TagKey<Block> create(String string) {
+    private static TagKey<Block> bind(String string) {
         return TagKey.create(Registries.BLOCK, Util.identifier(string));
     }
 
