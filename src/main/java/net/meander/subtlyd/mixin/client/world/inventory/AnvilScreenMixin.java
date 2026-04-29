@@ -5,7 +5,6 @@ import net.meander.subtlyd.world.inventory.AnvilMenuSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -35,19 +34,19 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
     private Component determineLimit(Component line) {
         ItemStack input = menu.getSlot(0).getItem();
         ItemStack addition = menu.getSlot(1).getItem();
-        int magicLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
 
         if (player != null && !addition.isEmpty() && !player.hasInfiniteMaterials()) {
-            boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
+            int magicLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
             int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
 
-            if (magicLevel > magicLimit && ((input.isEnchanted() ^ addition.isEnchanted()) || (input.isEnchanted() && addition.isEnchanted()) || usingBook)) { // FIXME
+            if (magicLevel > magicLimit && AnvilMenuSD.isEnchanting(input, addition)) {
                 color = -40864;
                 return Component.translatable("container.repair.unenchantable");
-            } else if (menu.getCost() >= 40 && !(input.isEnchanted() || addition.isEnchanted() || usingBook)) {
+            } else if (menu.getCost() >= 40) {
                 color = -40864;
                 return Component.translatable("container.repair.unfixable");
             }
+            color = -8323296;
             return Component.translatable("container.repair.cost", menu.getCost());
         }
         return line;
