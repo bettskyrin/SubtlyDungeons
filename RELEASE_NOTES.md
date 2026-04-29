@@ -1,3 +1,3 @@
-## [3.1] - 4/9/26
+## [3.1.2] - 4/28/26
 ### Changes
-- Updated for version 26.2
+- Fixed a crash related to sleeping in tents
