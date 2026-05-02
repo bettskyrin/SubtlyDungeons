@@ -9,6 +9,7 @@ import java.util.Map;
 
 public class ItemStackSD {
     public static Map<Item, Integer> enchantabilityMap = Map.ofEntries(
+            Map.entry(Items.ENCHANTED_BOOK, 1),
             Map.entry(Items.ELYTRA, 9),
             Map.entry(Items.WOLF_ARMOR, 9),
             Map.entry(Items.DIAMOND_HORSE_ARMOR, 10),

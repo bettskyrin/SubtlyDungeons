@@ -5,6 +5,7 @@ import net.meander.subtlyd.world.inventory.AnvilMenuSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
@@ -36,13 +37,19 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
         ItemStack addition = menu.getSlot(1).getItem();
 
         if (player != null && !addition.isEmpty() && !player.hasInfiniteMaterials()) {
-            int magicLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
+            int inputLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
+            int additionLevel = addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
+            int magicLevel = (inputLevel + additionLevel) / 2;
             int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
 
-            if (magicLevel > magicLimit && AnvilMenuSD.isEnchanting(input, addition)) {
+            int repairCost = input.getOrDefault(DataComponents.REPAIR_COST, 0);
+            int repairLimit = AnvilMenuSD.checkMending(input, addition) ? 250 : 40;
+            boolean isEnchanting = AnvilMenuSD.isEnchanting(input, addition);
+
+            if (magicLevel > magicLimit && isEnchanting) {
                 color = -40864;
                 return Component.translatable("container.repair.unenchantable");
-            } else if (menu.getCost() >= 40) {
+            } else if (repairCost >= repairLimit) {
                 color = -40864;
                 return Component.translatable("container.repair.unfixable");
             }
