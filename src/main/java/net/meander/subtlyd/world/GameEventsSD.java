@@ -2,6 +2,7 @@ package net.meander.subtlyd.world;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
+import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
@@ -14,6 +15,12 @@ import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.util.RandomSource;
+import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +28,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.enchantment.Enchantable;
+import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +67,19 @@ public class GameEventsSD {
 
     private static void registerBlockEvents() {
         UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
+        PlayerBlockBreakEvents.AFTER.register((level, _, pos, state, _) -> {
+            if (level.getServer() instanceof MinecraftServer server && server.getGameRules().get(GameRules.BLOCK_DROPS)) {
+                RandomSource random = RandomSource.create();
+
+                if (state.is(BlockTags.CROPS)) {
+                    CropBlock crop = (CropBlock) state.getBlock();
+
+                    if (crop.isMaxAge(state)) {
+                        ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), UniformInt.of(0, 3).sample(random));
+                    }
+                }
+            }
+        });
     }
 
     /**

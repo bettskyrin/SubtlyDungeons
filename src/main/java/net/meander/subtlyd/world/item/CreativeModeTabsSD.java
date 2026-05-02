@@ -2,8 +2,13 @@ package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.meander.subtlyd.data.tags.BlockTagsSD;
+import net.meander.subtlyd.world.item.alchemy.PotionsSD;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 
 import java.util.List;
 
@@ -61,6 +66,18 @@ public class CreativeModeTabsSD {
             entries.insertAfter(RABBIT_STEW, POTTAGE);
             entries.insertAfter(DRIED_KELP, BROWN_MUSHROOM);
             entries.insertAfter(BROWN_MUSHROOM, RED_MUSHROOM);
+            entries.getDisplayStacks().removeIf(stack ->
+                    stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(PotionsSD.DECAY)
+            );
+            entries.insertAfter(itemStack -> itemStack.is(POTION) && itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.STRONG_POISON),
+                    List.of(PotionContents.createItemStack(POTION, PotionsSD.DECAY)),
+                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            entries.insertAfter(itemStack -> itemStack.is(SPLASH_POTION) && itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.STRONG_POISON),
+                    List.of(PotionContents.createItemStack(SPLASH_POTION, PotionsSD.DECAY)),
+                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            entries.insertAfter(itemStack -> itemStack.is(LINGERING_POTION) && itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.STRONG_POISON),
+                    List.of(PotionContents.createItemStack(LINGERING_POTION, PotionsSD.DECAY)),
+                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {

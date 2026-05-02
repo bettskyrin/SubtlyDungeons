@@ -1,8 +1,8 @@
 package net.meander.subtlyd.data.loot_table;
 
-import net.meander.subtlyd.world.block.BlocksSD;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.meander.subtlyd.world.block.BlocksSD;
 import net.minecraft.core.HolderLookup;
 
 import java.util.concurrent.CompletableFuture;
@@ -30,7 +30,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         dropSelf(BlocksSD.STONE_TILE_WALL);
         dropSelf(BlocksSD.STONE_PILLAR);
         createShearsOrSilkTouchOnlyDrop(BlocksSD.WARPED_OVERHANG);
-
         createDoublePlantShearsDrop(BlocksSD.REEDS);
     }
 }
