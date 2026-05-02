@@ -28,7 +28,8 @@ public class AnvilMenuSD {
     }
 
     /**
-     * @param inputs A list of anvil inputs.
+     * @param input The first slot's item. This is the item being "repaired."
+     * @param addition The second slot's item.
      * @return A boolean relating to whether Mending is being used.
      */
     public static boolean checkMending(ItemStack input,  ItemStack addition) {
