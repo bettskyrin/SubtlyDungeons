@@ -3,9 +3,9 @@ package net.meander.subtlyd.data.loot_table.entities;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.minecraft.advancements.criterion.EntityFlagsPredicate;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -19,7 +19,7 @@ public class EntityLootSD {
             EntityPredicate onFirePredicate = EntityPredicate.Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnFire(true)).build();
 
             try {
-                if (resourceKey.equals(EntityType.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityType.GLOW_SQUID.getDefaultLootTable().orElseThrow())) {
+                if (resourceKey.equals(EntityTypes.SQUID.getDefaultLootTable().orElseThrow()) || resourceKey.equals(EntityTypes.GLOW_SQUID.getDefaultLootTable().orElseThrow())) {
                     LootPool.Builder poolBuilder = LootPool.lootPool()
                             .setRolls(ConstantValue.exactly(1.0F))
                             .add(LootItem.lootTableItem(ItemsSD.CALAMARI)

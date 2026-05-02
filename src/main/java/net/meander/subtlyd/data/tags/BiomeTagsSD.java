@@ -12,11 +12,11 @@ import net.minecraft.world.level.biome.Biomes;
 import java.util.concurrent.CompletableFuture;
 
 public class BiomeTagsSD extends BiomeTagsProvider {
+    public static final TagKey<Biome> IS_WINDY = bind("is_windy");
+
     public BiomeTagsSD(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(packOutput, completableFuture);
     }
-
-    public static final TagKey<Biome> IS_WINDY = bind("is_windy");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {

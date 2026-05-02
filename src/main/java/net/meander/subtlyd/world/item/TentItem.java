@@ -23,6 +23,7 @@ import java.util.function.Consumer;
 
 public class TentItem extends Item {
     private final EntityType<TentEntity> entityType;
+
     public TentItem(EntityType<TentEntity> entityType, Properties properties) {
         super(properties);
         this.entityType = entityType;

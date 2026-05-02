@@ -6,7 +6,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.EntitySpawnReason;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
@@ -52,7 +52,7 @@ public class WitherBossMixin {
                         level.explode(wither, wither.getX(), wither.getY(), wither.getZ(), 7.0F, Level.ExplosionInteraction.MOB);
 
                         for (int i = 0; i < 3; i++) {
-                            EntityType.WITHER_SKELETON.spawn(level, wither.blockPosition(), EntitySpawnReason.MOB_SUMMONED);
+                            EntityTypes.WITHER_SKELETON.spawn(level, wither.blockPosition(), EntitySpawnReason.MOB_SUMMONED);
                         }
                         wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, false);
                     }

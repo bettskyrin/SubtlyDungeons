@@ -32,7 +32,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
         this.model = new TentModel(context.bakeLayer(modelLayerLocation));
-        this.texture = modelLayerLocation.model().withPath(color -> "textures/entity/" + color + "_tent.png");
+        this.texture = modelLayerLocation.model().withPath(tent -> "textures/entity/tent/" + tent + ".png");
         this.shadowRadius = 1.8F;
     }
 

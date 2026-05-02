@@ -121,7 +121,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 cookRecipesSD(ItemsSD.CALAMARI, 0.35F, ItemsSD.COOKED_CALAMARI);
 
                 /* MISC */
-                ColorCollection.zipApply(this::tent, ItemsSD.TENT, Blocks.WOOL);
+                ColorCollection.zipApply(ItemsSD.TENT, Blocks.WOOL, this::tent);
                 colorItemWithDye(Items.DYE.asList(), ItemsSD.TENT.asList(), "tent_dye", RecipeCategory.MISC);
 
                 shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS, 2)

@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.common.server;
 import net.meander.subtlyd.data.AdvancementsSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.packs.resources.ResourceManager;

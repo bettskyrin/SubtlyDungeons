@@ -159,6 +159,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtlyd.music.warped_forest", "Eugnosis - Warped Forest");
         translationBuilder.add("subtlyd.music.windswept_peaks", "Peter Hont - Windswept Peaks");
 
+        translationBuilder.add("tag.item.subtlyd.has_magic_limit", "Has Magic Limit");
         translationBuilder.add("tag.item.subtlyd.liquid_consumables", "Liquid Consumables");
         translationBuilder.add("tag.item.subtlyd.non_humanoid_armor", "Non Humanoid Armor");
         translationBuilder.add("tag.item.subtlyd.tents", "Tents");

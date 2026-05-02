@@ -3,7 +3,7 @@ package net.meander.subtlyd.data.loot_table.gameplay;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.advancements.criterion.LocationPredicate;
+import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;

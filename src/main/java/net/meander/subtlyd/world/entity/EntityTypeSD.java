@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.entity;
 
+import net.meander.subtlyd.references.EntityTypeIdsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.meander.subtlyd.world.level.block.ColorCollectionSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -33,7 +33,17 @@ import net.minecraft.world.level.block.ColorCollection;
 import java.util.function.Supplier;
 
 public class EntityTypeSD {
-    public static final ColorCollection<EntityType<? extends Entity>> TENT = ColorCollectionSD.registerTentEntity();
+    public static final ColorCollection<EntityType<TentEntity>> TENT = ColorCollection.zipMap(ColorCollection.VALUES,
+            EntityTypeIdsSD.TENT,
+            (color, key) -> Registry.register(
+                    BuiltInRegistries.ENTITY_TYPE,
+                    key,
+                    EntityType.Builder.of(EntityTypeSD.tentFactory(() -> ItemsSD.TENT.pick(color)), MobCategory.MISC)
+                        .sized(3.5F, 1.8F)
+                        .noLootTable()
+                        .clientTrackingRange(10)
+                        .build(key))
+    );
     public static final EntityType<BlastFungusEntity> BLAST_FUNGUS = register(ItemsSD.BLAST_FUNGUS, EntityType.Builder.<BlastFungusEntity>of(BlastFungusEntity::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
 
     public static <T extends Entity> EntityType<T> register(Item item, EntityType.Builder<T> builder) {

@@ -2,9 +2,9 @@ package net.meander.subtlyd.world.item.enchantment;
 
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
-import net.minecraft.advancements.criterion.DamageSourcePredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.TagPredicate;
+import net.minecraft.advancements.predicates.DamageSourcePredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.TagPredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;

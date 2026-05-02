@@ -1,9 +1,9 @@
 package net.meander.subtlyd.data;
 
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.criterion.ConsumeItemTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.triggers.ConsumeItemTrigger;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
