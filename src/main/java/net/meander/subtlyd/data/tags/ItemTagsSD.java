@@ -2,6 +2,7 @@ package net.meander.subtlyd.data.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.core.Holder;
@@ -73,6 +74,16 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ItemTags.BOW_ENCHANTABLE)
                 .add(ItemIds.BOOK)
                 .add(ItemIds.ENCHANTED_BOOK);
+        tag(ItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
+                .add(BlockItemIdsSD.STONE_PILLAR.item())
+                .add(BlockItemIdsSD.STONE_TILES.item())
+                .add(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE.item())
+                .add(BlockItemIdsSD.POLISHED_DRIPSTONE.item())
+                .add(BlockItemIdsSD.CHARCOAL_BLOCK.item());
+        tag(ItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
+                .add(BlockItemIdsSD.SNOW_BRICKS.item());
+        tag(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
+                .add(BlockItemIdsSD.IRON_GRATE.item());
     }
 
     private static TagKey<Item> bind(String string) {

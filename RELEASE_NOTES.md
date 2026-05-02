@@ -1,4 +1,4 @@
-## [4.0 Snapshot 1] - UNRELEASED
+## [4.0 Snapshot 1] - 5/2/26
 It's snapshot time! We've got some nice magical tweaks and technical upgrades for you!
 
 ### New Features
@@ -17,7 +17,10 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
     - The message for an item with too many enchantments is "Magic Capacity Met!"
   - Repairing an item enchanted with mending will have an enchantment level cost of 1.
   - Enchanting and repairing an item enchanted with mending will have a decreased enchantment cost
-    - This cost is reduced by 4 levels
+    - This cost is reduced by 4 levels, to a minimum of 1 level.
+  - Repairing and Enchanting in an anvil have been split into two numbers.
+    - Repair Cost (also known as the Prior Work Penalty): Functions the same as it did before, but now, enchanting does not increase the Repair Cost
+    - Magic Level: Is a separate number that increases each time an item is enchanted. An item can be enchanted until you reach the magic limit, as mentioned above.
 
 #### Enchantiblity
 - The enchantibility difference of two items in an anvil will scale the enchantment cost cap.
@@ -88,6 +91,7 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
 
 #### Blocks
 - Overworld mushrooms may now be placed on logs regardless of light level
+- Harvesting fully grown crops now provides 0-3 experience orbs.
 
 #### Splash Text
 - Added "Music by Rostislav Trifonov!"
