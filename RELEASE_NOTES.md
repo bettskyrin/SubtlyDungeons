@@ -150,4 +150,5 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Fixed some memory leaks
 - Fixed flaming arrows not setting fire to objects when shot east or west
 - Optimized music tracks loading
+- Optimized music track size 
 - Fixed Netherite items with custom names not inheriting a new rarity value
