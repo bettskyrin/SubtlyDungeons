@@ -75,7 +75,7 @@ public class GameEventsSD {
                     CropBlock crop = (CropBlock) state.getBlock();
 
                     if (crop.isMaxAge(state)) {
-                        ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), UniformInt.of(0, 3).sample(random));
+                        ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), UniformInt.of(0, 2).sample(random));
                     }
                 }
             }
