@@ -19,7 +19,7 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
 - Tweaked Anvil Enchanting
   - The "Too Expensive!" message has been replaced with "Unrepairable!"
     - The idea of the "Too Expensive!" repair limit is to mimic how in real life, you can't keep repairing an object over and over, forever. While we are not removing this feature, we have decided to rename it, to help make this more clear.
-  - The limit for adding enchantments is now tied to enchantibility
+  - The limit for adding enchantments is now tied to enchantability
     - The message for an item with too many enchantments is "Magic Capacity Met!"
   - Repairing an item enchanted with mending will have an enchantment level cost of 1.
   - Enchanting and repairing an item enchanted with mending will have a decreased enchantment cost
@@ -29,15 +29,15 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
     - Magic Level: Is a separate number that increases each time an item is enchanted. An item can be enchanted until you reach the magic limit, as mentioned above.
 
 #### Enchantiblity
-- The enchantibility difference of two items in an anvil will scale the enchantment cost cap.
-  - Enchantibility difference is calculated as `|enchantibility of item 1 - enchantibility of item 2|`
-  - The enchantment level cap is now calculated by this formula: `(enchantibility difference * 2.4) + 40`
-    - Example: A diamond helmet (Enchantibility level 10) in an anvil with an enchanted book (Enchantability level 0) will have a maximum enchantment cost of 55
+- The enchantability difference of two items in an anvil will scale the enchantment cost cap.
+  - Enchantability difference is calculated as `|enchantability of item 1 - enchantability of item 2|`
+  - The enchantment level cap is now calculated by this formula: `(enchantability difference * 2.4) + 40`
+    - Example: A diamond helmet (Enchantability level 10) in an anvil with an enchanted book (Enchantability level 0) will have a maximum enchantment cost of 55
       - If the cost gets any higher than this, the anvil will say "Unrepairable!"
     - The enchantment cap is always rounded up
     - The maximum enchantment level cap is now 100 (which can be achieved by combining two pieces of golden armor)
-- High enchantibility (level 15 or higher) armors will turn invisible with the wearer
-- Elytras now have an enchantibility level of 9
+- High enchantability (level 15 or higher) armors will turn invisible with the wearer
+- Elytras now have an enchantability level of 9
 
 #### Curses
 - Added Curse of Abrading
@@ -131,7 +131,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - Guldrum by Peter Hont
     - Plays in Nether Wastes
   - Warped Forest by Eugnosis
-    - Playes in Warped Forests
+    - Plays in Warped Forests
   - Soulsand Valley by Rostislav Trifonov
     - Plays in Soul Sand Valleys
   - Ashes by Peter Hont

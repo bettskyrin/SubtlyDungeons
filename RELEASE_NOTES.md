@@ -125,7 +125,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - Guldrum by Peter Hont
     - Plays in Nether Wastes
   - Warped Forest by Eugnosis
-    - Playes in Warped Forests
+    - Plays in Warped Forests
   - Soulsand Valley by Rostislav Trifonov
     - Plays in Soul Sand Valleys
   - Ashes by Peter Hont
