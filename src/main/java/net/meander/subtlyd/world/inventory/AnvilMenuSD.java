@@ -15,13 +15,13 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import java.util.List;
 
 public class AnvilMenuSD {
-    public static int getCostByEnchantibility(int input, int addition) {
-        int difference = Math.abs(input - addition);
+    public static int getCostByEnchantability(int input, int addition) {
+        int difference = (Mth.abs(input - addition));
 
         if (difference <= 1) {
             return 40;
         }
-        return 40 + Mth.ceil(difference * 2.4);
+        return 40 + Mth.ceil(difference * 2);
     }
 
     public static boolean isEnchanting(final ItemStack input, final ItemStack addition) {
@@ -61,7 +61,7 @@ public class AnvilMenuSD {
         boolean hasGlyphAffinity = EnchantmentHelper.hasTag(input, EnchantmentTagsSD.INCREASES_MAGIC_LIMIT);
         int inputLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
         int additionLevel = addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
-        double reduction = hasGlyphAffinity ? 4.0 : 2.0;
+        double reduction = hasGlyphAffinity ? 4.5 : 2.5;
 
         return Mth.ceil((inputLevel + additionLevel) / reduction);
     }
@@ -73,8 +73,8 @@ public class AnvilMenuSD {
      */
     public static int getMagicLimit(ItemStack input, ItemStack addition) {
         boolean hasGlyphAffinity = EnchantmentHelper.hasTag(input, EnchantmentTagsSD.INCREASES_MAGIC_LIMIT);
-        int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
+        int magicLimit = getCostByEnchantability(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
 
-        return hasGlyphAffinity ? (int) Math.ceil(magicLimit * 1.5F) : magicLimit;
+        return hasGlyphAffinity ? Mth.ceil(magicLimit * 1.5F) : magicLimit;
     }
 }
