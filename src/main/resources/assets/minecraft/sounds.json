@@ -312,11 +312,6 @@
         "name": "subtlyd:music/creeper_pit",
         "weight": 3,
         "stream": true
-      },
-      {
-        "name": "subtlyd:music/soggy_swamp",
-        "weight": 2,
-        "stream": true
       }
     ]
   },
@@ -374,16 +369,6 @@
       }
     ]
   },
-  "music.overworld.sparse_jungle": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "subtlyd:music/soggy_swamp",
-        "weight": 2,
-        "stream": true
-      }
-    ]
-  },
   "music.overworld.stony_peaks": {
     "replace": false,
     "sounds": [
@@ -405,15 +390,6 @@
       {
         "name": "subtlyd:music/secrets_in_the_forest",
         "weight": 2,
-        "stream": true
-      }
-    ]
-  },
-  "music.overworld.swamp": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "subtlyd:music/soggy_swamp",
         "stream": true
       }
     ]

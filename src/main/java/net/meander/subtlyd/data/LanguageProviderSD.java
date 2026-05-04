@@ -147,7 +147,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtlyd.music.secrets_in_the_forest", "Crispin Hands - Secrets in the Forest");
         translationBuilder.add("subtlyd.music.skogsstuga", "Peter Hont - Skogsstuga");
         translationBuilder.add("subtlyd.music.soggier_cave", "Johan Johnson - Soggier Cave");
-        translationBuilder.add("subtlyd.music.soggy_swamp", "Johan Johnson - Soggy Swamp");
         translationBuilder.add("subtlyd.music.soulsand_valley", "Rostislav Trifonov - Soulsand Valley");
         translationBuilder.add("subtlyd.music.squid_coast", "Johan Johnson - Squid Coast");
         translationBuilder.add("subtlyd.music.the_abyssal_monument", "Grant Kirkhope - The Abyssal Monument");

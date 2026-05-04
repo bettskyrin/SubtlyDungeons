@@ -17,6 +17,10 @@
 #### Loot
 - Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
 
+#### Sounds
+- Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
+  - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
+
 ### Technical Changes
 #### Data Tags
 - Added `increases_magic_limit` enchantment tag
