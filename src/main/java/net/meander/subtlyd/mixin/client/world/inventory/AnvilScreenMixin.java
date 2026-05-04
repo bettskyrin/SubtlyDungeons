@@ -2,7 +2,6 @@ package net.meander.subtlyd.mixin.client.world.inventory;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.world.inventory.AnvilMenuSD;
-import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.core.component.DataComponents;
@@ -12,6 +11,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -35,16 +35,15 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
     private Component determineLimit(Component line) {
         ItemStack input = menu.getSlot(0).getItem();
         ItemStack addition = menu.getSlot(1).getItem();
+        ItemStack result = menu.getSlot(2).getItem();
 
         if (player != null && !addition.isEmpty() && !player.hasInfiniteMaterials()) {
-            int inputLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
-            int additionLevel = addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
-            int magicLevel = (inputLevel + additionLevel) / 2;
-            int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
+            boolean isEnchanting = AnvilMenuSD.isEnchanting(input, addition);
+            int magicLevel = result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
+            int magicLimit = AnvilMenuSD.getMagicLimit(input, addition);
 
             int repairCost = input.getOrDefault(DataComponents.REPAIR_COST, 0);
-            int repairLimit = AnvilMenuSD.checkMending(input, addition) ? 250 : 40;
-            boolean isEnchanting = AnvilMenuSD.isEnchanting(input, addition);
+            int repairLimit = AnvilMenuSD.checkEnchantment(input, addition, Enchantments.MENDING) ? 250 : 40;
 
             if (magicLevel > magicLimit && isEnchanting) {
                 color = -40864;
@@ -52,9 +51,12 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
             } else if (repairCost >= repairLimit) {
                 color = -40864;
                 return Component.translatable("container.repair.unfixable");
+            } else {
+                if (!menu.getSlot(2).mayPickup(this.player)) {
+                    color = -40864;
+                }
+                return Component.translatable("container.repair.cost", menu.getCost());
             }
-            color = -8323296;
-            return Component.translatable("container.repair.cost", menu.getCost());
         }
         return line;
     }

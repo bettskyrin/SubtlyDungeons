@@ -3,11 +3,11 @@ package net.meander.subtlyd.mixin.common.world.inventory;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.world.inventory.AnvilMenuSD;
-import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     private void modifyCosts(CallbackInfo ci, @Local(name = "input") ItemStack input) {
         ItemStack addition = inputSlots.getItem(1);
         ItemStack result = resultSlots.getItem(0);
-        boolean hasMending = AnvilMenuSD.checkMending(input, addition);
+        boolean hasMending = AnvilMenuSD.checkEnchantment(input, addition, Enchantments.MENDING);
         boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
         if (AnvilMenuSD.isEnchanting(input, addition)) {
@@ -51,16 +51,15 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
                 result.set(DataComponents.REPAIR_COST, getCost());
             }
 
-            int inputLevel = input.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
-            int additionLevel = addition.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
-            int magicLevel = (inputLevel + additionLevel) / 2;
-            int magicLimit = AnvilMenuSD.getCostByEnchantibility(ItemStackSD.getEnchantability(input), ItemStackSD.getEnchantability(addition));
+            int magicLevel = result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0);
+            int magicLevelIncrease = AnvilMenuSD.getMagicLevelIncrease(input, addition);
+            int magicLimit = AnvilMenuSD.getMagicLimit(input, addition);
 
             if (magicLevel > magicLimit) {
                 resultSlots.setItem(0, ItemStack.EMPTY);
             }
-            result.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
-            cost.set(magicLevel);
+            result.set(DataComponentsSD.MAGIC_LEVEL, magicLevel + magicLevelIncrease);
+            cost.set(result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0));
         }
     }
 }

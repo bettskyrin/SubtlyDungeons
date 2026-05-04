@@ -1,7 +1,9 @@
 package net.meander.subtlyd.world.item.enchantment;
 
-import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
+import net.meander.subtlyd.data.tags.EnchantmentTagsSD;
+import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.advancements.predicates.DamageSourcePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.TagPredicate;
@@ -26,7 +28,11 @@ import org.jspecify.annotations.NonNull;
 public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("occult_protection"));
     public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("abrading_curse"));
+    public static final ResourceKey<Enchantment> GLYPH_AFFINITY = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("glyph_affinity"));
 
+    /**
+     * Registeres new enchantments.
+     */
     @SuppressWarnings("LoggingSimilarMessage")
     public static void bootstrap(@NonNull BootstrapContext<Enchantment> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -50,6 +56,7 @@ public class EnchantmentsSD {
         } catch (Exception e) {
             Util.LOGGER.error("Failed to get tag for: {}: {}", OCCULT_PROTECTION.identifier(), e.getMessage());
         }
+
         try {
             context.register(ABRADING_CURSE, Enchantment.enchantment(
                     Enchantment.definition(
@@ -60,6 +67,7 @@ public class EnchantmentsSD {
                             Enchantment.constantCost(50),
                             8,
                             EquipmentSlotGroup.ANY))
+                    .exclusiveWith(enchantments.getOrThrow(EnchantmentTagsSD.REPAIRS_EQUIPMENT))
                     .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
                             MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
                     .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
@@ -68,6 +76,21 @@ public class EnchantmentsSD {
             );
         } catch (Exception e) {
             Util.LOGGER.error("Failed to get tag for: {}: {}", ABRADING_CURSE.identifier(), e.getMessage());
+        }
+
+        try {
+            context.register(GLYPH_AFFINITY, Enchantment.enchantment(
+                            Enchantment.definition(items.getOrThrow(ItemTagsSD.HAS_MAGIC_LIMIT),
+                                    1,
+                                    1,
+                                    Enchantment.constantCost(25),
+                                    Enchantment.constantCost(65),
+                                    8,
+                                    EquipmentSlotGroup.ANY))
+                    .build(GLYPH_AFFINITY.identifier())
+            );
+        } catch (Exception e) {
+            Util.LOGGER.error("Failed to get tag for: {}: {}", GLYPH_AFFINITY.identifier(), e.getMessage());
         }
     }
 }
