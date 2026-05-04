@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.world.entity;
 
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,11 +33,11 @@ public class EntityMixin {
     private void positionClimbingRider(Spider spider, Entity passenger, Entity.MoveFunction moveFunction, CallbackInfo ci) {
         if (spider.isClimbing()) {
             Direction wallDir = EntitySD.getNearestWall(spider);
-            float yaw = (float) Math.toRadians(wallDir != null ? wallDir.toYRot() : spider.getYRot());
+            float yaw = Mth.DEG_TO_RAD * (wallDir != null ? wallDir.toYRot() : spider.getYRot());
             double distanceFromMount = 1D;
 
-            double offsetX = Math.sin(yaw) * distanceFromMount;
-            double offsetZ = -Math.cos(yaw) * distanceFromMount;
+            double offsetX = Mth.sin(yaw) * distanceFromMount;
+            double offsetZ = -Mth.cos(yaw) * distanceFromMount;
             double offsetY = 0.05D;
 
             double x = spider.getX() + offsetX;

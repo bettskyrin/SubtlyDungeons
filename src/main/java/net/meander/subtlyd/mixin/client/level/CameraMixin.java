@@ -7,6 +7,7 @@ import net.meander.subtlyd.client.OptionInstanceSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,9 +42,9 @@ public abstract class CameraMixin {
         if (OptionInstanceSD.SCREEN_SHAKE.get()) {
             float intensity = CameraShake.getShakeIntensity() * 0.5F;
             if (intensity > 0.0F) {
-                float yaw = (float) (Math.sin(Util.getMillis() / 30.0) * intensity);
-                float pitch = (float) (Math.cos(Util.getMillis() / 60.0) * intensity);
-                this.setRotation((float) (yRot() - pitch * Math.sqrt(2)), xRot() + (yaw));
+                float yaw = Mth.sin(Util.getMillis() / 30.0) * intensity;
+                float pitch = Mth.cos(Util.getMillis() / 60.0) * intensity;
+                this.setRotation(yRot() - pitch * Mth.sqrt(2), xRot() + (yaw));
             }
         }
     }

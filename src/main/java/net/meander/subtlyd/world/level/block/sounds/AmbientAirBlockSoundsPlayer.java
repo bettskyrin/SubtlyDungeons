@@ -1,13 +1,14 @@
 package net.meander.subtlyd.world.level.block.sounds;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.meander.subtlyd.data.tags.BiomeTagsSD;
 import net.meander.subtlyd.data.tags.BlockTagsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -55,7 +56,8 @@ public class AmbientAirBlockSoundsPlayer {
 
     private static boolean columnContainsTriggeringBlock(Level level, BlockPos.MutableBlockPos mutableBlockPos) {
         int i = level.getHeight(Heightmap.Types.WORLD_SURFACE, mutableBlockPos) - 1;
-        if (Math.abs(i - mutableBlockPos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
+
+        if (Mth.abs(i - mutableBlockPos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
             mutableBlockPos.move(Direction.UP, 6);
             BlockState blockState = level.getBlockState(mutableBlockPos);
             mutableBlockPos.move(Direction.DOWN);

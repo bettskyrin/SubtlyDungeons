@@ -51,7 +51,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public void extractRenderState(TentEntity tent, TentRenderState renderState, float partialTicks) {
         super.extractRenderState(tent, renderState, partialTicks);
         renderState.scale = 1.0F;
-        renderState.yRot = Mth.lerp(partialTicks, tent.yRotO, tent.getYRot());
+        renderState.yRot = Mth.rotLerp(partialTicks, tent.yRotO, tent.getYRot());
         renderState.xRot = renderState.getXRot(partialTicks);
 
         renderState.hurtTime = (float) tent.getHurtTime() - partialTicks;
@@ -74,7 +74,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         }
 
         if (renderState.hurtTime > 0F) {
-            poseStack.mulPose(Axis.XP.rotationDegrees((float) (((Math.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir)));
+            poseStack.mulPose(Axis.XP.rotationDegrees(((Mth.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir));
         }
 
         float g = renderState.scale;

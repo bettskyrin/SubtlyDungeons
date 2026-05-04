@@ -6,6 +6,7 @@ import net.meander.subtlyd.world.level.LevelSD;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,17 +17,11 @@ import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.SimpleExplosionDamageCalculator;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Optional;
-
 public class BlastFungusEntity extends ThrowableItemProjectile {
-    public static final ExplosionDamageCalculator FUNGUS_EXPLOSION_DAMAGE_CALCULATOR = new SimpleExplosionDamageCalculator(
-            false, true, Optional.empty(), Optional.empty());
-
     public BlastFungusEntity(final EntityType<? extends BlastFungusEntity> type, final Level level) {
         super(type, level);
     }
@@ -89,9 +84,9 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
                     public float getEntityDamageAmount(final Explosion explosion, final Entity entity, final float exposure) {
                         float diameter = explosion.radius() * 2.0F;
                         Vec3 center = explosion.center();
-                        double dist = Math.sqrt(entity.distanceToSqr(center)) / diameter;
-                        double pow = ((1.0 - dist) * exposure) / 6.0;
-                        return (float) ((pow * pow + pow) / 2.0 * 7.0 * diameter + 1.0);
+                        float dist = Mth.sqrt((float) entity.distanceToSqr(center)) / diameter;
+                        float pow = ((1.0F - dist) * exposure) / 6.0F;
+                        return (pow * pow + pow) / 2.0F * 7.0F * diameter + 1.0F;
                     }
                 },
                 this.getX(),

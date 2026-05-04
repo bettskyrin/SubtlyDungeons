@@ -35,7 +35,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
         LivingEntity livingEntity = ((LivingEntity) (Object) this);
         final float ANIM_RATE = 0.2F;
         final float SPEED_MULTIPLIER = 8.0F;
-        double ySpeed = Math.abs(livingEntity.getDeltaMovement().y());
+        float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
         Direction nearestWall = EntitySD.getNearestWall(livingEntity);
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
@@ -44,7 +44,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
             progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
             if (isChangingHeight()) {
-                float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
+                float animationSpeed = ySpeed * SPEED_MULTIPLIER;
 
                 livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
                 if (livingEntity.tickCount % 8 == 0) {

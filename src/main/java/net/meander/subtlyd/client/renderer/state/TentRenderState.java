@@ -13,6 +13,6 @@ public class TentRenderState extends EntityRenderState {
     public float damage;
 
     public float getXRot(float f) {
-        return f == 1.0F ? this.xRot : Mth.lerp(f, this.xRot, this.xRot);
+        return f == 1.0F ? this.xRot : Mth.rotLerp(f, this.xRot, this.xRot);
     }
 }
