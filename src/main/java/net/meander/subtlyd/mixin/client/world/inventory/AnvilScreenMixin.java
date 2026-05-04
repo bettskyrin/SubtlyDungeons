@@ -45,18 +45,22 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
             int repairCost = input.getOrDefault(DataComponents.REPAIR_COST, 0);
             int repairLimit = AnvilMenuSD.checkEnchantment(input, addition, Enchantments.MENDING) ? 250 : 40;
 
-            if (magicLevel > magicLimit && isEnchanting) {
-                color = -40864;
-                return Component.translatable("container.repair.unenchantable");
-            } else if (repairCost >= repairLimit) {
+            if (magicLevel > magicLimit) {
+                if (isEnchanting) {
+                    color = -40864;
+                    return Component.translatable("container.repair.unenchantable");
+                }
+            }
+
+            if (repairCost >= repairLimit) {
                 color = -40864;
                 return Component.translatable("container.repair.unfixable");
-            } else {
-                if (!menu.getSlot(2).mayPickup(this.player)) {
-                    color = -40864;
-                }
-                return Component.translatable("container.repair.cost", menu.getCost());
             }
+
+            if (!menu.getSlot(2).mayPickup(this.player)) {
+                color = -40864;
+            }
+            return Component.translatable("container.repair.cost", menu.getCost());
         }
         return line;
     }
