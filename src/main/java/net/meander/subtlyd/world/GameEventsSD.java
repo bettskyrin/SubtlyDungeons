@@ -18,6 +18,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.ExperienceOrb;
@@ -27,12 +28,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Consumable;
-import net.minecraft.world.item.enchantment.Enchantable;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameEventsSD {
@@ -137,20 +136,12 @@ public class GameEventsSD {
             });
             listener.modify(Items.POTION, (builder) -> builder.set(DataComponents.MAX_STACK_SIZE, 16));
 
-            List<Item> enchantables = new ArrayList<>(ItemTagsSD.getItems(ItemTagsSD.NON_HUMANOID_ARMOR));
-            enchantables.add(Items.ELYTRA);
-
-            listener.modify(enchantables, (builder, item) -> {
-                if (!item.components().has(DataComponents.ENCHANTABLE)) {
-                    builder.set(DataComponents.ENCHANTABLE, new Enchantable(ItemStackSD.getEnchantibilityFromMap(item)));
-                }
-            });
             listener.modify(ItemTagsSD.getItems(ItemTagsSD.HAS_MAGIC_LIMIT), (builder, item) -> {
                 ItemStack itemStack = item.getDefaultInstance();
                 int magicLevel = 0;
 
                 if (itemStack.isEnchanted() || itemStack.is(Items.ENCHANTED_BOOK)) {
-                    magicLevel = (int) Math.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantibilityFromMap(item))) / 3);
+                    magicLevel = Mth.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantabilityFromMap(item))) / 3);
                 }
                 builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
             });

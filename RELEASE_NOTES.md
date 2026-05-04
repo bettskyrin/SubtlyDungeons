@@ -5,9 +5,17 @@
 - Added Glyph Affinity enchantment
     - An enchantment which increases the Enchantment Limit by a factor of 1.5
     - Is a treasure enchantment
+- Magic level now increases when an item is enchanted via enchanting table.
+- Non-Humanoid armors are no longer enchantable via enchanting table.
+
+#### Enchantiblity
+- The enchantment level cap is now calculated by this formula: `(enchantability difference * 2) + 40`
 
 #### Blocks
 - Harvesting fully grown crops now provides 0-2 experience, down from the previous 0-3.
+
+#### Loot
+- Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
 
 ### Technical Changes
 #### Data Tags
@@ -19,3 +27,4 @@
 ### Bug Fixes
 - Fixed bug preventing the Magic Level value from going up properly
 - Fixed bug where the cost of expensive anvil repairs and enchants weren't colored properly
+- Improved determinism

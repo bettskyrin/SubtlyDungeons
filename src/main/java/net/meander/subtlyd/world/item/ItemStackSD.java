@@ -25,7 +25,7 @@ public class ItemStackSD {
             Map.entry(Items.GOLDEN_NAUTILUS_ARMOR, 25)
     );
 
-    public static int getEnchantibilityFromMap(Item item) {
+    public static int getEnchantabilityFromMap(Item item) {
         if (enchantabilityMap.containsKey(item)) {
             return enchantabilityMap.get(item);
         }
@@ -36,6 +36,8 @@ public class ItemStackSD {
     public static int getEnchantability(ItemStack itemStack) {
         if (itemStack.getComponents().get(DataComponents.ENCHANTABLE) != null) {
             return itemStack.getComponents().get(DataComponents.ENCHANTABLE).value();
+        } else if (enchantabilityMap.containsKey(itemStack.getItem())) {
+            return getEnchantabilityFromMap(itemStack.getItem());
         }
         return 0;
     }

@@ -1,5 +1,6 @@
 package net.meander.subtlyd.data.loot_table;
 
+import net.meander.subtlyd.data.loot_table.chests.GenericChestLootSD;
 import net.meander.subtlyd.data.loot_table.chests.VillageLootSD;
 import net.meander.subtlyd.data.loot_table.entities.EntityLootSD;
 import net.meander.subtlyd.data.loot_table.gameplay.FishingLootSD;
@@ -11,5 +12,6 @@ public class LootSD {
         VillageHeroLootSD.register();
         EntityLootSD.register();
         FishingLootSD.register();
+        GenericChestLootSD.register();
     }
 }
