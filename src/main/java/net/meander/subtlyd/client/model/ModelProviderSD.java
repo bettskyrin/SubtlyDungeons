@@ -7,14 +7,12 @@ import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
-import net.minecraft.client.data.models.model.ModelTemplates;
-import net.minecraft.client.data.models.model.TextureMapping;
-import net.minecraft.client.data.models.model.TextureSlot;
-import net.minecraft.client.data.models.model.TexturedModel;
+import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricPackOutput output) {
@@ -32,6 +30,27 @@ public class ModelProviderSD extends FabricModelProvider {
         MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
 
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
+    }
+
+    /**
+     * Builds a slab model from a vanilla pillar block texture.
+     * @param vanillaBlock The original block to obtain a texture from.
+     * @param newBlock The custom block that the texture will be mapped to.
+     */
+    public static void generatePillarSlabFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
+        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(vanillaBlock));
+        Identifier top = TextureMapping.getBlockTexture(vanillaBlock, "_top").sprite();
+        Identifier side = TextureMapping.getBlockTexture(vanillaBlock, "_side").sprite();
+
+        TextureMapping slabTextures = new TextureMapping()
+                .put(TextureSlot.BOTTOM, new Material(top))
+                .put(TextureSlot.TOP, new Material(top))
+                .put(TextureSlot.SIDE, new Material(side));
+
+        MultiVariant blockBottom = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_BOTTOM.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
+        MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
+
+        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
     }
 
     /**
@@ -61,21 +80,25 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS)
                 .stairs(BlocksSD.SNOW_BRICK_STAIRS)
                 .slab(BlocksSD.SNOW_BRICK_SLAB)
-                .wall(BlocksSD.SNOW_BRICK_WALL).getFamily());
+                .wall(BlocksSD.SNOW_BRICK_WALL)
+                .getFamily());
         blockModelGenerator.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(new BlockFamily.Builder(BlocksSD.POLISHED_DRIPSTONE)
                 .stairs(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
                 .slab(BlocksSD.POLISHED_DRIPSTONE_SLAB)
-                .wall(BlocksSD.POLISHED_DRIPSTONE_WALL).getFamily());
+                .wall(BlocksSD.POLISHED_DRIPSTONE_WALL)
+                .getFamily());
         blockModelGenerator.family(BlocksSD.STONE_TILES).generateFor(new BlockFamily.Builder(BlocksSD.STONE_TILES)
                 .stairs(BlocksSD.STONE_TILE_STAIRS)
                 .slab(BlocksSD.STONE_TILE_SLAB)
-                .wall(BlocksSD.STONE_TILE_WALL).getFamily());
+                .wall(BlocksSD.STONE_TILE_WALL)
+                .getFamily());
         blockModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
+        generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
     }
 
     @Override

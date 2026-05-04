@@ -54,6 +54,7 @@ public class ItemsSD {
     public static final Item REEDS = registerBlockSD(BlocksSD.REEDS);
     public static final Item WARPED_OVERHANG = registerBlockSD(BlocksSD.WARPED_OVERHANG);
     public static final Item BLAST_FUNGUS = registerItemSD("blast_fungus", BlastFungusItem::new, new Item.Properties().stacksTo(16));
+    public static final Item BASALT_SLAB = registerBlockSD(BlocksSD.BASALT_SLAB);
 
     public static void registration() {
         CreativeModeTabsSD.bootstrap();

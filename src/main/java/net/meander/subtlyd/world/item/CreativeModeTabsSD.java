@@ -43,11 +43,13 @@ public class CreativeModeTabsSD {
             BlockTagsSD.getBlocks(BlockTagsSD.STONE_TILES).forEach(block -> entries.insertBefore(GRANITE, block));
             BlockTagsSD.getBlocks(BlockTagsSD.DRIPSTONE).forEach(block -> entries.insertBefore(GRANITE, block));
             entries.insertAfter(STONE_SLAB, STONE_PILLAR);
+            entries.insertAfter(BASALT, BASALT_SLAB);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
             entries.insertAfter(BUSH, REEDS);
             entries.insertAfter(WARPED_WART_BLOCK, WARPED_OVERHANG);
+            entries.insertAfter(BASALT, BASALT_SLAB);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {

@@ -13,6 +13,8 @@
 
 #### Blocks
 - Harvesting fully grown crops now provides 0-2 experience, down from the previous 0-3.
+- Warped Overhang can now be used to craft Warped Wart Blocks
+- Added Basalt Slab
 
 #### Loot
 - Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors

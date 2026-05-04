@@ -59,6 +59,7 @@ public class BlocksSD {
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never));
+    public static final Block BASALT_SLAB = registerSlab("basalt_slab", Blocks.BASALT);
 
     public static void registration() { }
     private static ResourceKey<Block> resourceKey(String name) {

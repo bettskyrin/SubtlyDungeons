@@ -14,7 +14,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("block.minecraft.campfire", "Lit Campfire");
-        translationBuilder.add("block.subtlyd.basalt_door", "Basalt Door");
+        translationBuilder.add("block.subtlyd.basalt_slab", "Basalt Slab");
         translationBuilder.add("block.subtlyd.charcoal_block", "Block of Charcoal");
         translationBuilder.add("block.subtlyd.chiseled_polished_dripstone", "Chiseled Polished Dripstone");
         translationBuilder.add("block.subtlyd.chiseled_stone", "Chiseled Stone");
@@ -112,6 +112,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("subtitles.subtlyd.block.air.idle", "Wind howls");
         translationBuilder.add("subtitles.subtlyd.block.bush.idle", "Wind blows");
+        translationBuilder.add("subtitles.subtlyd.block.frosted_ice.freeze", "Ice freezes");
         translationBuilder.add("subtitles.subtlyd.entity.blast_fungus.explode", "Blast Fungus explodes");
         translationBuilder.add("subtitles.subtlyd.entity.evoker_fangs.appear", "Ground rumbles");
         translationBuilder.add("subtitles.subtlyd.entity.wither_skeleton.summon", "Souls wail");

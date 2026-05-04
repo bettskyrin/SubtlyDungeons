@@ -33,62 +33,67 @@ public class RecipeProviderSD extends FabricRecipeProvider {
         return new RecipeProvider(registries, output) {
             @Override public void buildRecipes() {
                 /* BUILDING BLOCKS */
-                this.shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_PILLAR, 2)
-                        .define('#', Blocks.STONE)
-                        .pattern("#")
-                        .pattern("#")
-                        .unlockedBy(getHasName(Blocks.STONE), has(Blocks.STONE))
-                        .unlockedBy(getHasName(BlocksSD.STONE_PILLAR), has(BlocksSD.STONE_PILLAR))
-                        .save(output);
+                shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_PILLAR, 2)
+                   .define('#', Blocks.STONE)
+                   .pattern("#")
+                   .pattern("#")
+                   .unlockedBy(getHasName(Blocks.STONE), has(Blocks.STONE))
+                   .unlockedBy(getHasName(BlocksSD.STONE_PILLAR), has(BlocksSD.STONE_PILLAR))
+                   .save(output);
 
-                this.shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, 4)
+                shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, 4)
                         .define('S', Blocks.STONE_BRICKS)
                         .pattern("SS")
                         .pattern("SS")
                         .unlockedBy(getHasName(Blocks.STONE_BRICKS), has(Blocks.STONE_BRICKS))
                         .save(output);
 
-                this.nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
-                this.twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
+                nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
+                twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
 
-                this.stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(output);
-                this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
-                this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_WALL, ItemsSD.SNOW_BRICKS);
+                stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(output);
+                slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
+                wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_WALL, ItemsSD.SNOW_BRICKS);
 
-                this.chiseled(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHISELED_POLISHED_DRIPSTONE, ItemsSD.POLISHED_DRIPSTONE_SLAB);
-                this.polished(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE, Items.DRIPSTONE_BLOCK);
-                this.stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE)).unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), this.has(ItemsSD.POLISHED_DRIPSTONE)).save(output);
-                this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_SLAB, ItemsSD.POLISHED_DRIPSTONE);
-                this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_WALL, ItemsSD.POLISHED_DRIPSTONE);
+                chiseled(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHISELED_POLISHED_DRIPSTONE, ItemsSD.POLISHED_DRIPSTONE_SLAB);
+                polished(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE, Items.DRIPSTONE_BLOCK);
+                stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE)).unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), has(ItemsSD.POLISHED_DRIPSTONE)).save(output);
+                slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_SLAB, ItemsSD.POLISHED_DRIPSTONE);
+                wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_WALL, ItemsSD.POLISHED_DRIPSTONE);
 
-                this.stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES)).unlockedBy(getHasName(ItemsSD.STONE_TILES), this.has(ItemsSD.STONE_TILES)).save(output);
-                this.slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_SLAB, ItemsSD.STONE_TILES);
-                this.wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_WALL, ItemsSD.STONE_TILES);
+                stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES)).unlockedBy(getHasName(ItemsSD.STONE_TILES), has(ItemsSD.STONE_TILES)).save(output);
+                slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_SLAB, ItemsSD.STONE_TILES);
+                wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_WALL, ItemsSD.STONE_TILES);
 
-                this.grate(BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK);
+                grate(BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK);
 
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_SLAB, Blocks.SNOW_BLOCK, 2);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_WALL, Blocks.SNOW_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK, 4);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.CHISELED_POLISHED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_STAIRS, Blocks.DRIPSTONE_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_SLAB, Blocks.DRIPSTONE_BLOCK, 2);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_WALL, Blocks.DRIPSTONE_BLOCK);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_STAIRS, BlocksSD.POLISHED_DRIPSTONE);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_SLAB, BlocksSD.POLISHED_DRIPSTONE, 2);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_WALL, BlocksSD.POLISHED_DRIPSTONE);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_PILLAR, Blocks.STONE);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, Blocks.STONE);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, Blocks.STONE_BRICKS);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_STAIRS, Blocks.STONE);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_SLAB, Blocks.STONE, 2);
-                this.stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_WALL, Blocks.STONE);
+                threeByThreePacker(RecipeCategory.BUILDING_BLOCKS, Blocks.WARPED_WART_BLOCK, ItemsSD.WARPED_OVERHANG);
+
+                slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.BASALT_SLAB, Items.BASALT);
+
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_SLAB, Blocks.SNOW_BLOCK, 2);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_WALL, Blocks.SNOW_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK, 4);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.CHISELED_POLISHED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE, Blocks.DRIPSTONE_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_STAIRS, Blocks.DRIPSTONE_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_SLAB, Blocks.DRIPSTONE_BLOCK, 2);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_WALL, Blocks.DRIPSTONE_BLOCK);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_STAIRS, BlocksSD.POLISHED_DRIPSTONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_SLAB, BlocksSD.POLISHED_DRIPSTONE, 2);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.POLISHED_DRIPSTONE_WALL, BlocksSD.POLISHED_DRIPSTONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_PILLAR, Blocks.STONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, Blocks.STONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILES, Blocks.STONE_BRICKS);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_STAIRS, Blocks.STONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_SLAB, Blocks.STONE, 2);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.STONE_TILE_WALL, Blocks.STONE);
+                stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.BASALT_SLAB, Blocks.BASALT, 2);
 
                 /* DECORATIONS */
-                this.shaped(RecipeCategory.DECORATIONS, ItemsSD.UNLIT_CAMPFIRE)
+                shaped(RecipeCategory.DECORATIONS, ItemsSD.UNLIT_CAMPFIRE)
                         .define('#', Items.STICK)
                         .define('X', ItemTags.LOGS)
                         .pattern(" # ")
@@ -98,7 +103,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .save(output);
 
                 /* FOOD */
-                this.shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
+                shapeless(RecipeCategory.FOOD, ItemsSD.APPLE_PIE)
                         .group("apple_pie")
                         .requires(Items.APPLE)
                         .requires(Items.SUGAR)
@@ -108,7 +113,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.ENCHANTED_GOLDEN_APPLE), has(Items.ENCHANTED_GOLDEN_APPLE))
                         .save(output);
 
-                this.shapeless(RecipeCategory.FOOD, ItemsSD.POTTAGE)
+                shapeless(RecipeCategory.FOOD, ItemsSD.POTTAGE)
                         .requires(Items.BOWL)
                         .requires(Items.CARROT)
                         .requires(Items.WHEAT)
