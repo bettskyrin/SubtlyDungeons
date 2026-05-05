@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.world.item;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.item.TridentSD;
+import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -20,14 +21,15 @@ public class ItemMixin {
         if (itemStack.is(Items.TRIDENT)) {
             if (TridentSD.canChargeChanneling(level, livingEntity, itemStack)) {
                 int ticksUsed = itemStack.getItem().getUseDuration(itemStack, livingEntity) - ticksRemaining;
+                BlockPos soundLocation = BlockPos.containing(livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ());
 
                 if (ticksUsed >= 10 && ticksUsed < TridentSD.CHANNELING_CHARGE_TIME) {
                     if (level.getRandom().nextFloat() < 0.07F) {
-                        level.playSound(null, livingEntity.blockPosition().above(), SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
+                        level.playSound(null, soundLocation, SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
                     }
                 } else if (ticksUsed >= TridentSD.CHANNELING_CHARGE_TIME) {
                     if ((ticksUsed - TridentSD.CHANNELING_CHARGE_TIME) % 43 == 0) { // Every 2.15 seconds
-                        level.playSound(null, livingEntity.blockPosition().above(), SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
+                        level.playSound(null, soundLocation, SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
                     }
                 }
             }

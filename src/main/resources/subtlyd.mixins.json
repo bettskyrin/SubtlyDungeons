@@ -56,14 +56,16 @@
     "client.renderer.entity.HuskRendererMixin",
     "client.renderer.entity.LivingEntityRendererMixin",
     "client.renderer.entity.SimpleEquipmentLayerMixin",
+    "client.renderer.entity.ThrownTridentRendererMixin",
     "client.renderer.entity.ZombifiedPiglinRendererMixin",
     "client.renderer.entity.layers.DrownedOuterLayerMixin",
     "client.renderer.entity.layers.HumanoidArmorLayerMixin",
+    "client.renderer.entity.state.LivingEntityRenderStateMixin",
+    "client.renderer.entity.state.ThrownTridentRenderStateMixin",
+    "client.renderer.entity.state.UndeadRenderStateMixin",
     "client.renderer.item.ItemModelResolverMixin",
     "client.renderer.item.ItemStackRenderStateMixin",
     "client.renderer.item.TridentSpecialRendererMixin",
-    "client.renderer.state.LivingEntityRenderStateMixin",
-    "client.renderer.state.UndeadRenderStateMixin",
     "client.world.inventory.AnvilScreenMixin"
   ],
   "injectors": {

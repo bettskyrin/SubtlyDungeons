@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.client.renderer.state;
+package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
 import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
 import net.fabricmc.api.EnvType;

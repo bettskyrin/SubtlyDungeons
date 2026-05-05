@@ -9,9 +9,10 @@
 - Non-Humanoid armors are no longer enchantable via enchanting table.
 
 #### Charged Tridents
-- Tridents enchanted with Channeling can now be charged for 3 seconds to create Charged Trident
-- Charged Tridents (in dimensions with weather) can summon a lightning bolt regardless of the current weather
-  - Charged Tridents have a visual effect similar to that of Charged Creepers
+- Tridents enchanted with Channeling can now be charged for 4 seconds to create Charged Trident
+- Charged Tridents can summon a lightning bolt regardless of the current weather
+- Charged Tridents have a visual effect similar to that of Charged Creepers
+- Tridents may only be charged if the user's dimension is capable of having weather
 
 #### Enchantiblity
 - The enchantment level cap is now calculated by this formula: `(enchantability difference * 2) + 40`
@@ -43,4 +44,4 @@
 ### Bug Fixes
 - Fixed bug preventing the Magic Level value from going up properly
 - Fixed bug where the cost of expensive anvil repairs and enchants weren't colored properly
-- Improved determinism
+- Fixed Gurgle missing texture bug

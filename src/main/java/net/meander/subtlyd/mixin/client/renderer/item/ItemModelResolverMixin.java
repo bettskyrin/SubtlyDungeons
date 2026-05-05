@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemModelResolver.class)
 public class ItemModelResolverMixin {
     @Inject(method = "updateForTopItem", at = @At("TAIL"))
-    private void extractTridentCharge(ItemStackRenderState output, ItemStack item, ItemDisplayContext displayContext, Level level, ItemOwner owner, int seed, CallbackInfo ci) {
+    private void updateTridentAura(ItemStackRenderState output, ItemStack item, ItemDisplayContext displayContext, Level level, ItemOwner owner, int seed, CallbackInfo ci) {
         if (item.is(Items.TRIDENT)) {
             if (owner instanceof LivingEntity livingEntity) {
                 if (livingEntity.getTicksUsingItem() >= TridentSD.CHANNELING_CHARGE_TIME && TridentSD.canChargeChanneling(level, livingEntity, item)) {
