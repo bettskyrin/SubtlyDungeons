@@ -18,6 +18,14 @@
       "subtlyd:wind/lightwind4"
     ]
   },
+  "block.frosted_ice.freeze": {
+    "subtitle": "subtitles.subtlyd.block.frosted_ice.freeze",
+    "sounds": [
+      "subtlyd:frosted_ice/freeze1",
+      "subtlyd:frosted_ice/freeze2",
+      "subtlyd:frosted_ice/freeze3"
+    ]
+  },
   "block.snow_bricks.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [

@@ -20,8 +20,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "animateTick", at = @At("HEAD"))
-    private void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
-        playAmbientSounds(blockState.getBlock(), level, blockPos, randomSource);
+    private void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        playAmbientSounds(state.getBlock(), level, pos, random);
     }
 
     /**

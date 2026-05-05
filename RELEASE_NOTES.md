@@ -22,6 +22,7 @@
 #### Sounds
 - Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
+- Added sound effect for Frosted Ice (ice created by the Frost Walker enchantment)
 
 ### Technical Changes
 #### Data Tags
