@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(HuskRenderer.class)
 public class HuskRendererMixin {
     private final Identifier HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader.png");
-    private final Identifier BABY_HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/baby_husk_leader.png");
+    private final Identifier BABY_HUSK_LEADER_LOCATION = Util.identifier("textures/entity/zombie/husk_leader_baby.png");
 
     /**
      * Changes the husk leader texture to their unique design.
