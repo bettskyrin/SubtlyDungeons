@@ -46,7 +46,7 @@ public class ServerPlayerSD extends ServerPlayer {
                 if (!player.isCreative()) {
                     double d = 8.0;
                     double e = 5.0;
-                    Vec3 vec3 = player.blockPosition().getCenter();
+                    Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
                     List<Monster> list = player.level()
                             .getEntitiesOfClass(
                                     Monster.class,
