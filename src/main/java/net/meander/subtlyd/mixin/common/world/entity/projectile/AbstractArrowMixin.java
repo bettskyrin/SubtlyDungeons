@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.world.entity;
+package net.meander.subtlyd.mixin.common.world.entity.projectile;
 
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;

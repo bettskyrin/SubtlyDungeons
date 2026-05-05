@@ -19,8 +19,10 @@ public class SoundEventsSD {
     public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
     public static final SoundEvent EVOKER_FANGS_APPEAR = register("entity.evoker_fangs.appear");
     public static final SoundEvent WITHER_SKELETONS_SUMMONED = register("entity.wither_skeleton.summon");
-    public static final SoundEvent STICK_LIGHT = register("item.stick.light");
     public static final SoundEvent BLAST_FUNGUS_THROW = register("item.blast_fungus.throw");
+    public static final SoundEvent STICK_LIGHT = register("item.stick.light");
+    public static final SoundEvent TRIDENT_CHARGING = register("item.trident.charging");
+    public static final SoundEvent TRIDENT_CHARGED = register("item.trident.charged");
 
     public static void registration() { }
 

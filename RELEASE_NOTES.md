@@ -8,6 +8,11 @@
 - Magic level now increases when an item is enchanted via enchanting table.
 - Non-Humanoid armors are no longer enchantable via enchanting table.
 
+#### Charged Tridents
+- Tridents enchanted with Channeling can now be charged for 3 seconds to create Charged Trident
+- Charged Tridents (in dimensions with weather) can summon a lightning bolt regardless of the current weather
+  - Charged Tridents have a visual effect similar to that of Charged Creepers
+
 #### Enchantiblity
 - The enchantment level cap is now calculated by this formula: `(enchantability difference * 2) + 40`
 

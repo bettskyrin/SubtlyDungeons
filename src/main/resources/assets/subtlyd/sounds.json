@@ -92,6 +92,14 @@
       "subtlyd:wither_skeleton/wither_skeleton_summoned"
     ]
   },
+  "item.blast_fungus.throw": {
+    "subtitle": "subtitles.subtlyd.item.blast_fungus.throw",
+    "sounds": [
+      "subtlyd:blast_fungus/blast_fungus_throw1",
+      "subtlyd:blast_fungus/blast_fungus_throw2",
+      "subtlyd:blast_fungus/blast_fungus_throw3"
+    ]
+  },
   "item.stick.light": {
     "subtitle": "subtitles.subtlyd.item.stick.light",
     "sounds": [
@@ -101,12 +109,17 @@
       "subtlyd:stick/stick_light4"
     ]
   },
-  "item.blast_fungus.throw": {
-    "subtitle": "subtitles.subtlyd.item.blast_fungus.throw",
+  "item.trident.charged": {
+    "subtitle": "subtitles.subtlyd.item.trident.charged",
     "sounds": [
-      "subtlyd:blast_fungus/blast_fungus_throw1",
-      "subtlyd:blast_fungus/blast_fungus_throw2",
-      "subtlyd:blast_fungus/blast_fungus_throw3"
+      "subtlyd:trident/charged"
+    ]
+  },
+  "item.trident.charging": {
+    "subtitle": "subtitles.subtlyd.item.trident.charging",
+    "sounds": [
+      "subtlyd:trident/charging1",
+      "subtlyd:trident/charging2"
     ]
   }
 }

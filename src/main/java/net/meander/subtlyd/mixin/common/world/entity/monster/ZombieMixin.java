@@ -19,12 +19,13 @@ public abstract class ZombieMixin {
     @Inject(method = "handleAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/monster/zombie/Zombie;setCanBreakDoors(Z)V"))
     private void setLeader(CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
+
         zombie.getEntityData().set(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER, true);
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
-    private void defineLeaderData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER, false);
+    private void defineLeaderData(SynchedEntityData.Builder entityData, CallbackInfo ci) {
+        entityData.define(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))

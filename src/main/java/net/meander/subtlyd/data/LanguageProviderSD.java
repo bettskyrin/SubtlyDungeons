@@ -118,6 +118,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtitles.subtlyd.entity.wither_skeleton.summon", "Souls wail");
         translationBuilder.add("subtitles.subtlyd.item.blast_fungus.throw", "Blast Fungus squelches");
         translationBuilder.add("subtitles.subtlyd.item.stick.light", "Stick rubs against log");
+        translationBuilder.add("subtitles.subtlyd.item.trident.charged", "Trident crackles");
+        translationBuilder.add("subtitles.subtlyd.item.trident.charging", "Trident crackles");
 
         translationBuilder.add("subtlyd.music.alone_with_the_sky", "Crispin Hands - Alone With the Sky");
         translationBuilder.add("subtlyd.music.ashes", "Peter Hont - Ashes");

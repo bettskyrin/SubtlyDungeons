@@ -52,6 +52,10 @@ public class AnvilMenuSD {
         return false;
     }
 
+    public static boolean checkEnchantment(ItemStack input, ResourceKey<Enchantment> enchantment) {
+        return checkEnchantment(input, ItemStack.EMPTY, enchantment);
+    }
+
     /**
      * @param input The first item in the anvil.
      * @param addition The second item in the anvil.
