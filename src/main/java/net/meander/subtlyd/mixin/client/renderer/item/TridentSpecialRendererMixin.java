@@ -23,22 +23,20 @@ public class TridentSpecialRendererMixin {
 
     @Inject(method = "submit", at = @At("TAIL"))
     private void renderElectricity(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor, CallbackInfo ci) {
-        if (ChargedTridentState.IS_CHARGED.get() && minecraft.player != null) {
+        if (ChargedTridentState.CHANNELING_CHARGE.get() && minecraft.player != null) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
-            RenderType auraType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
+            RenderType foilRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
                     scrollTime * 0.01F,
                     scrollTime * 0.01F
             );
 
             poseStack.pushPose();
-            poseStack.scale(1.03F, 1.03F, 1.03F); // TODO Check
-            // TODO First person
-
-            submitNodeCollector.submitCustomGeometry(poseStack, auraType, (pose, vertexConsumer) -> {
+            submitNodeCollector.submitCustomGeometry(poseStack, foilRenderType, (pose, vertexConsumer) -> {
                 PoseStack newStack = new PoseStack();
+
                 newStack.last().pose().set(pose.pose());
                 newStack.last().normal().set(pose.normal());
-
+                newStack.scale(1.0F, 1.0F, 1.0F);
                 model.renderToBuffer(newStack, vertexConsumer, lightCoords, overlayCoords, 0xFFFFFFFF);
             });
 

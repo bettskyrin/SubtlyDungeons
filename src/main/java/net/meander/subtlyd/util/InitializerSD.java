@@ -18,7 +18,7 @@ public class InitializerSD implements ModInitializer {
         Util.LOGGER.info("Initializing Subtly Dungeons");
         GameRulesSD.registration();
         DataComponentsSD.registration();
-        SynchedEntityDataSD.createEntityData();
+        SynchedEntityDataSD.registerEntityData();
         PacketNetworking.registerCommon();
 
         Util.LOGGER.info("Registering items and blocks");

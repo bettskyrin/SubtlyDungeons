@@ -15,5 +15,5 @@ public class SynchedEntityDataSD {
     public static final EntityDataAccessor<Boolean> DATA_ID_WITHER_DIVE = SynchedEntityData.defineId(WitherBoss.class, EntityDataSerializers.BOOLEAN);
     public static EntityDataAccessor<Boolean> DATA_ID_CHARGED_TRIDENT;
 
-    public static void createEntityData() {}
+    public static void registerEntityData() {}
 }

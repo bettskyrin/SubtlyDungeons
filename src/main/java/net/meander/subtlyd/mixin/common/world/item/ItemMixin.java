@@ -1,6 +1,7 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.world.item.TridentSD;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -17,15 +18,17 @@ public class ItemMixin {
     @Inject(method = "onUseTick", at = @At("TAIL"))
     private void playTridentChargeSound(Level level, LivingEntity livingEntity, ItemStack itemStack, int ticksRemaining, CallbackInfo ci) {
         if (itemStack.is(Items.TRIDENT)) {
-            int ticksUsed = itemStack.getItem().getUseDuration(itemStack, livingEntity) - ticksRemaining;
+            if (TridentSD.canChargeChanneling(level, livingEntity, itemStack)) {
+                int ticksUsed = itemStack.getItem().getUseDuration(itemStack, livingEntity) - ticksRemaining;
 
-            if (ticksUsed >= 10 && ticksUsed < 60) {
-                if (level.getRandom().nextFloat() < 0.05F) {
-                    level.playSound(null, livingEntity.blockPosition(), SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
-                }
-            } else if (ticksUsed >= 60) {
-                if ((ticksUsed - 60) % 43 == 0) { // Every 2.15 seconds
-                    level.playSound(null, livingEntity.blockPosition(), SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
+                if (ticksUsed >= 10 && ticksUsed < TridentSD.CHANNELING_CHARGE_TIME) {
+                    if (level.getRandom().nextFloat() < 0.07F) {
+                        level.playSound(null, livingEntity.blockPosition().above(), SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
+                    }
+                } else if (ticksUsed >= TridentSD.CHANNELING_CHARGE_TIME) {
+                    if ((ticksUsed - TridentSD.CHANNELING_CHARGE_TIME) % 43 == 0) { // Every 2.15 seconds
+                        level.playSound(null, livingEntity.blockPosition().above(), SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
+                    }
                 }
             }
         }

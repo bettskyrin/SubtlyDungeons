@@ -26,12 +26,12 @@ public class ItemStackRenderStateMixin implements ChargedTridentState.Accessor {
     @Inject(method = "submit", at = @At("HEAD"))
     private void pushChargedState(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, int outlineColor, CallbackInfo ci) {
         if (subtlyDungeons$isCharged()) {
-            ChargedTridentState.IS_CHARGED.set(true);
+            ChargedTridentState.CHANNELING_CHARGE.set(true);
         }
     }
 
     @Inject(method = "submit", at = @At("TAIL"))
     private void popChargedState(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, int outlineColor, CallbackInfo ci) {
-        ChargedTridentState.IS_CHARGED.remove();
+        ChargedTridentState.CHANNELING_CHARGE.remove();
     }
 }

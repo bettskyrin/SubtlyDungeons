@@ -1,18 +1,12 @@
 package net.meander.subtlyd.world.inventory;
 
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.data.tags.EnchantmentTagsSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-
-import java.util.List;
 
 public class AnvilMenuSD {
     public static int getCostByEnchantability(int input, int addition) {
@@ -29,31 +23,6 @@ public class AnvilMenuSD {
         boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
         return  enchantingBook || usingBook || (input.isEnchanted() && addition.isEnchantable()) || addition.isEnchanted();
-    }
-
-    /**
-     * @param input The first slot's item. This is the item being "repaired."
-     * @param addition The second slot's item.
-     * @param enchantment The enchantment to search for.
-     * @return A boolean relating to whether an enchantment is being used.
-     */
-    public static boolean checkEnchantment(ItemStack input, ItemStack addition, ResourceKey<Enchantment> enchantment) {
-        List<ItemStack> inputs = List.of(input, addition);
-
-        for (ItemStack inputStack : inputs) {
-            for (Object2IntMap.Entry<Holder<Enchantment>> entry : inputStack.getEnchantments().entrySet()) {
-                if (entry.getKey().unwrapKey().isPresent()) {
-                    if (entry.getKey().unwrapKey().get() == enchantment) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    public static boolean checkEnchantment(ItemStack input, ResourceKey<Enchantment> enchantment) {
-        return checkEnchantment(input, ItemStack.EMPTY, enchantment);
     }
 
     /**

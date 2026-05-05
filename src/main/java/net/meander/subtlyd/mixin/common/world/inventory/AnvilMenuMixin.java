@@ -3,6 +3,7 @@ package net.meander.subtlyd.mixin.common.world.inventory;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.world.inventory.AnvilMenuSD;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.*;
@@ -33,7 +34,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     private void modifyCosts(CallbackInfo ci, @Local(name = "input") ItemStack input) {
         ItemStack addition = inputSlots.getItem(1);
         ItemStack result = resultSlots.getItem(0);
-        boolean hasMending = AnvilMenuSD.checkEnchantment(input, addition, Enchantments.MENDING);
+        boolean hasMending = EnchantmentHelperSD.checkEnchantment(input, addition, Enchantments.MENDING);
         boolean usingBook = addition.has(DataComponents.STORED_ENCHANTMENTS);
 
         if (AnvilMenuSD.isEnchanting(input, addition)) {

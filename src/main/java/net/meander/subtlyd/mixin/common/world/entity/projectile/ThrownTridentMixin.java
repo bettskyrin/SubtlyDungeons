@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ThrownTrident.class)
-public class ThrownTridentMixin implements ChargedTridentState.Accessor {
+public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor {
     @Override
     public boolean subtlyDungeons$isCharged() {
         ThrownTrident trident = (ThrownTrident) (Object) this;
@@ -52,15 +52,15 @@ public class ThrownTridentMixin implements ChargedTridentState.Accessor {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
-        output.putBoolean("is_charged",  subtlyDungeons$isCharged());
+        output.putBoolean("IsCharged",  subtlyDungeons$isCharged());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void readAdditionalSaveData(ValueInput input, CallbackInfo ci) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        if (input.contains("is_charged")) {
-            trident.getEntityData().set(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("is_charged", false));
+        if (input.contains("IsCharged")) {
+            trident.getEntityData().set(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("IsCharged", false));
         }
     }
 
@@ -85,8 +85,8 @@ public class ThrownTridentMixin implements ChargedTridentState.Accessor {
                 bolt.setCause(trident.getOwner() instanceof ServerPlayer player ? player : null);
                 trident.level().addFreshEntity(bolt);
                 trident.level().playSound(null, hitPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
-                subtlyDungeons$setCharged(false);
             }
+            subtlyDungeons$setCharged(false);
         }
     }
 }

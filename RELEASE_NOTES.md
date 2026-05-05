@@ -36,6 +36,10 @@
 - Added `repairs_equipment` enchantment tag
   - These enchantments are incomptabile with the abrading curse
 
+#### Entity Data
+- Custom Entity Data has been changed to use camel case, rather than snake case
+  - e.g. The command for summoning a leader zombie is now `/summon zombie ~ ~ ~ {IsLeader:1b}`
+
 ### Bug Fixes
 - Fixed bug preventing the Magic Level value from going up properly
 - Fixed bug where the cost of expensive anvil repairs and enchants weren't colored properly

@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.client.world.inventory;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.world.inventory.AnvilMenuSD;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.client.gui.screens.inventory.AnvilScreen;
 import net.minecraft.client.gui.screens.inventory.ItemCombinerScreen;
 import net.minecraft.core.component.DataComponents;
@@ -43,7 +44,7 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
             int magicLimit = AnvilMenuSD.getMagicLimit(input, addition);
 
             int repairCost = input.getOrDefault(DataComponents.REPAIR_COST, 0);
-            int repairLimit = AnvilMenuSD.checkEnchantment(input, addition, Enchantments.MENDING) ? 250 : 40;
+            int repairLimit = EnchantmentHelperSD.checkEnchantment(input, addition, Enchantments.MENDING) ? 250 : 40;
 
             if (magicLevel > magicLimit) {
                 if (isEnchanting) {
