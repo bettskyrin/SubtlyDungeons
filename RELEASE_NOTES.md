@@ -45,3 +45,5 @@
 - Fixed bug preventing the Magic Level value from going up properly
 - Fixed bug where the cost of expensive anvil repairs and enchants weren't colored properly
 - Fixed Gurgle missing texture bug
+- Fixed Warped Overhang not being mineable
+- Fixed a possible bug where reeds could prevent trees from spawning

@@ -57,13 +57,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(SNOW_BRICKS)
-                .addTag(STONE_TILES)
-                .addTag(DRIPSTONE)
-                .add(BlockItemIdsSD.STONE_PILLAR.block())
-                .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
-                .add(BlockItemIdsSD.IRON_GRATE.block());
         tag(SKULL_BLOCK)
                 .add(BlockItemIds.SKELETON_SKULL.block())
                 .add(BlockIds.SKELETON_WALL_SKULL)
@@ -79,8 +72,20 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockIds.PLAYER_WALL_HEAD)
                 .add(BlockItemIds.PIGLIN_HEAD.block())
                 .add(BlockIds.PIGLIN_WALL_HEAD);
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(SNOW_BRICKS)
+                .addTag(STONE_TILES)
+                .addTag(DRIPSTONE)
+                .add(BlockItemIdsSD.STONE_PILLAR.block())
+                .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
+                .add(BlockItemIdsSD.IRON_GRATE.block())
+                .add(BlockItemIdsSD.BASALT_SLAB.block());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
+        tag(BlockTags.MINEABLE_WITH_HOE)
+                .add(BlockItemIdsSD.WARPED_OVERHANG.block());
+        tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
+                .add(BlockItemIdsSD.WARPED_OVERHANG.block());
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlockItemIdsSD.IRON_GRATE.block());
         tag(TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)
@@ -94,6 +99,8 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.STONE.block())
                 .add(BlockItemIds.CALCITE.block());
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)
+                .add(BlockItemIdsSD.REEDS.block());
+        tag(BlockTags.REPLACEABLE_BY_TREES)
                 .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.UNDERWATER_BONEMEALS)
                 .add(BlockItemIdsSD.REEDS.block());

@@ -22,4 +22,6 @@ public class BlockItemIdsSD {
     public static final BlockItemId CHISELED_POLISHED_DRIPSTONE = BlockItemId.create(Util.identifier("chiseled_polished_dripstone"), Util.identifier("chiseled_polished_dripstone"));
     public static final BlockItemId REEDS = BlockItemId.create(Util.identifier("reeds"), Util.identifier("reeds"));
     public static final BlockItemId WARPED_OVERHANG = BlockItemId.create(Util.identifier("warped_overhang"), Util.identifier("warped_overhang"));
+    public static final BlockItemId BASALT_SLAB = BlockItemId.create(Util.identifier("basalt_slab"), Util.identifier("basalt_slab"));
+
 }
