@@ -33,4 +33,17 @@ public class EnchantmentHelperSD {
     public static boolean checkEnchantment(ItemStack input, ResourceKey<Enchantment> enchantment) {
         return checkEnchantment(input, ItemStack.EMPTY, enchantment);
     }
+
+    public static int getEnchantmentCost(ItemStack itemStack) {
+        int value = 0;
+
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getEnchantments().entrySet()) {
+            if (entry.getKey().unwrapKey().isPresent()) {
+                Enchantment enchantment = entry.getKey().value();
+                value += enchantment.getAnvilCost();
+            }
+        }
+
+        return value;
+    }
 }

@@ -13,6 +13,7 @@ import net.meander.subtlyd.data.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
@@ -142,6 +143,10 @@ public class GameEventsSD {
 
                 if (itemStack.isEnchanted() || itemStack.is(Items.ENCHANTED_BOOK)) {
                     magicLevel = Mth.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantabilityFromMap(item))) / 3);
+
+                    if (itemStack.is(Items.ENCHANTED_BOOK)) {
+                        magicLevel =  EnchantmentHelperSD.getEnchantmentCost(itemStack);
+                    }
                 }
                 builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
             });
