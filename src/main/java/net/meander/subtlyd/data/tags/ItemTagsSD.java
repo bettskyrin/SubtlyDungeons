@@ -61,6 +61,8 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.WOLF_ARMOR);
         tag(ItemTags.ARMOR_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
+        tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(ItemIds.WOLF_ARMOR);
         tag(ItemTags.EQUIPPABLE_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.VANISHING_ENCHANTABLE)

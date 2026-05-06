@@ -82,8 +82,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.BASALT_SLAB.block());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
-        tag(BlockTags.MINEABLE_WITH_HOE)
-                .add(BlockItemIdsSD.WARPED_OVERHANG.block());
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
                 .add(BlockItemIdsSD.WARPED_OVERHANG.block());
         tag(BlockTags.NEEDS_STONE_TOOL)
