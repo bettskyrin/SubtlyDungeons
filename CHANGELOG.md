@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ## [4.0 Snapshot] - UNRELEASED
-It's snapshot time! We've got some nice magical tweaks and technical upgrades for you!
 
 ### New Features
 #### Enchanting
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
+- Added Glyph Affinity enchantment
+  - A treasure enchantment which increases the Enchantment Limit by a factor of 1.5
 - Added Animal Armor enchantments
   - Horse armor may now be enchanted
   - Wolf armor may now be enchanted
@@ -28,16 +29,11 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
     - Repair Cost (also known as the Prior Work Penalty): Functions the same as it did before, but now, enchanting does not increase the Repair Cost
     - Magic Level: Is a separate number that increases each time an item is enchanted. An item can be enchanted until you reach the magic limit, as mentioned above.
 
-#### Enchantiblity
-- The enchantability difference of two items in an anvil will scale the enchantment cost cap.
-  - Enchantability difference is calculated as `|enchantability of item 1 - enchantability of item 2|`
-  - The enchantment level cap is now calculated by this formula: `(enchantability difference * 2.4) + 40`
-    - Example: A diamond helmet (Enchantability level 10) in an anvil with an enchanted book (Enchantability level 0) will have a maximum enchantment cost of 55
-      - If the cost gets any higher than this, the anvil will say "Unrepairable!"
-    - The enchantment cap is always rounded up
-    - The maximum enchantment level cap is now 100 (which can be achieved by combining two pieces of golden armor)
-- High enchantability (level 15 or higher) armors will turn invisible with the wearer
-- Elytras now have an enchantability level of 9
+#### Charged Tridents
+- Tridents enchanted with Channeling can now be charged for 4 seconds to create Charged Trident
+- Charged Tridents can summon a lightning bolt regardless of the current weather
+- Charged Tridents have a visual effect similar to that of Charged Creepers
+- Tridents may only be charged if the user's dimension is capable of having weather
 
 #### Curses
 - Added Curse of Abrading
@@ -48,6 +44,7 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
   - Added Warped Overhang block
     - Generates beneath Warped Wart blocks
     - Obtainable with silk touch tools or shears
+    - Can be used to craft Warped Wart Blocks
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
@@ -70,6 +67,7 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
 
 #### Potion Effects
 - Players with the Fire Resistance effect will no longer be visually set on fire
+- High enchantability (level 15 or higher) armors will turn invisible with the wearer
 
 #### The Wither
 - Wither skulls fired at the player are now on fire!
@@ -97,7 +95,14 @@ It's snapshot time! We've got some nice magical tweaks and technical upgrades fo
 
 #### Blocks
 - Overworld mushrooms may now be placed on logs regardless of light level
-- Harvesting fully grown crops now provides 0-3 experience orbs.
+- Harvesting fully grown crops now provides 0-2 experience
+- Added Basalt Slab.
+- 
+#### Loot
+- Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
+
+#### Sounds
+- Added sound effect for Frosted Ice (ice created by the Frost Walker enchantment)
 
 #### Splash Text
 - Added "Music by Rostislav Trifonov!"
@@ -121,6 +126,24 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Added `non_humanoid_armor` item tag
   - This tag is a list of armor items not for humanoids (e.g. diamond horse armor, wolf armor, etc.)
   - Any item with this tag will become enchantable with armor enchantments.
+- Added `increases_magic_limit` enchantment tag
+  - These enchantments increase the magic level limit of the item and decrease how quickly an item's magic level will increase
+- Added `repairs_equipment` enchantment tag
+  - These enchantments are incomptabile with the abrading curse
+
+#### Enchantiblity
+- The enchantability difference of two items in an anvil will scale the enchantment cost cap.
+  - Enchantability difference is calculated as `|enchantability of item 1 - enchantability of item 2|`
+  - The enchantment level cap is calculated by this formula: `(enchantability difference * 2) + 40`
+    - Example: A diamond helmet (Enchantability level 10) in an anvil with an enchanted book (Enchantability level 0) will have a maximum enchantment cost of 55
+      - If the cost gets any higher than this, the anvil will say "Unrepairable!"
+    - The enchantment cap is always rounded up
+    - The maximum enchantment level cap is now 100 (which can be achieved by combining two pieces of golden armor)
+- Elytras now have an enchantability level of 9
+
+- #### Entity Data
+- Custom Entity Data has been changed to use camel case, rather than snake case
+  - e.g. The command for summoning a leader zombie is now `/summon zombie ~ ~ ~ {IsLeader:1b}`
 
 #### Sounds
 - Added new sound event for the Wither:
@@ -143,6 +166,8 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - Excuse by C418
     - Plays in Warped Forests and Nether Wastes
 - Music volume has been refactored
+- Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
+  - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
 - The unused Warped Forest mood sounds are now used
 - The Hardcore activate sound has been slightly altered
 
@@ -158,6 +183,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Optimized music tracks loading
 - Optimized music track size
 - Fixed Netherite items with custom names not inheriting a new rarity value
+- Fixed a possible bug where reeds could prevent trees from spawning
 
 ## [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
