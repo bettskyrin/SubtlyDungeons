@@ -17,6 +17,7 @@ public class EntityMixin {
     @Inject(method = "playSound(Lnet/minecraft/sounds/SoundEvent;FF)V", at = @At("RETURN"))
     private void playSound(SoundEvent sound, float volume, float pitch, CallbackInfo ci) {
         Entity entity = (Entity) (Object) this;
+
         CameraShake.shakeScreenFromSource(sound, Vec3.atCenterOf(entity.blockPosition()));
     }
 }
