@@ -6,6 +6,29 @@
       "minecraft:ambient/nether/warped_forest/mood9"
     ]
   },
+  "entity.blaze.shoot": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:blaze/blaze_shoot1",
+      "subtlyd:blaze/blaze_shoot2",
+      "subtlyd:blaze/blaze_shoot3"
+    ]
+  },
+  "entity.ender_dragon.shoot": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:fireball/large_fireball1",
+      "subtlyd:fireball/large_fireball2",
+      "subtlyd:fireball/large_fireball3"
+    ]
+  },
+  "entity.ghast.shoot": {
+    "replace": false,
+    "sounds": [
+      "subtlyd:ghast/ghast_shoot1",
+      "subtlyd:ghast/ghast_shoot2"
+    ]
+  },
   "entity.ravager.roar": {
     "replace": true,
     "sounds": [
