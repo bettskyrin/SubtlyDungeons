@@ -23,7 +23,6 @@ public class EntityTypeTagsSD extends FabricTagsProvider.EntityTypeTagsProvider 
     public static final TagKey<EntityType<?>> CAN_BE_FULL = bind("can_be_full");
     public static final TagKey<EntityType<?>> NOCTURNAL = bind("nocturnal");
     public static final TagKey<EntityType<?>> FEAST_OR_FAMINE_HUNTER = bind("feast_or_famine_hunter");
-    public static final TagKey<EntityType<?>> SENSITIVE_TO_UNCHANTING = bind("sensitive_to_unchanting");
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
