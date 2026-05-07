@@ -80,7 +80,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
         if (subtlyDungeons$isCharged() && !trident.level().isClientSide()) {
             LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(trident.level(), EntitySpawnReason.TRIGGERED);
 
-            if (bolt != null) {
+            if (bolt != null && bolt.level().canHaveWeather()) {
                 bolt.moveOrInterpolateTo(Vec3.atBottomCenterOf(hitPos));
                 bolt.setCause(trident.getOwner() instanceof ServerPlayer player ? player : null);
                 trident.level().addFreshEntity(bolt);
