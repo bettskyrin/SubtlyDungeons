@@ -7,7 +7,6 @@
   - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
   - Is obtainable for enchanted books or equipment via villager trading
 
-
 #### Sounds
 - Arrows that are on fire, now have new sound effects
 - The Ghast, Blaze, and Ender Dragon have new fireball shooting sound effects
@@ -32,6 +31,10 @@
 #### Cozy Creatures
 - The Killer Bunny no longer cares about a biome's temperature
   - Run.
+
+#### Textures
+- The Dragon Fireball texture has been changed to match Bedrock Edition
+- The Fire Charge/Fireball texture has been changed
 
 ### Technical Changes
 #### Particles
