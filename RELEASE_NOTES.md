@@ -1,8 +1,16 @@
 ## [4.0 Snapshot 3] - UNRELEASED
 ### Changes
+#### Blast Fungus
+- Added new particle effect
+- Slightly increased damage output
+
 #### Cozy Creatures
 - The Killer Bunny no longer cares about a biome's temperature
   - Run.
+
+### Technical Changes
+#### Particles
+- Added `spore_cloud` particle
 
 #### Bug Fixes
 - Fixed bug that prevented enchanted books from using their vanilla enchantment costs to calculate Magic Capacity

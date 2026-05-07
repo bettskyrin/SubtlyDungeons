@@ -85,7 +85,8 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
                         float diameter = explosion.radius() * 2.0F;
                         Vec3 center = explosion.center();
                         float dist = Mth.sqrt((float) entity.distanceToSqr(center)) / diameter;
-                        float pow = ((1.0F - dist) * exposure) / 6.0F;
+                        float pow = ((1.0F - dist) * exposure) / 5.5F;
+
                         return (pow * pow + pow) / 2.0F * 7.0F * diameter + 1.0F;
                     }
                 },
