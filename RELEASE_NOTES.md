@@ -11,15 +11,18 @@
 - Added new "Traveler" adventure challenge for sleeping in a tent at least 1 km away from spawn... or in a different dimension
 
 ### Changes
-#### Blast Fungus
-- Added new particle effect
-- Slightly increased damage output
+#### Piercing Enchantment
+- Changed Piercing to reduce the effectiveness of armor by 10% with each level
 
 #### Impaling Enchantment
 - Changed Impaling to affect all mobs that are in contact with water for parity with Bedrock Edition
 
 #### Abrading Curse
 - Changed Abrading Curse do 3 durability damage to an item
+
+#### Blast Fungus
+- Added new particle effect
+- Slightly increased damage output
 
 #### Cozy Creatures
 - The Killer Bunny no longer cares about a biome's temperature
