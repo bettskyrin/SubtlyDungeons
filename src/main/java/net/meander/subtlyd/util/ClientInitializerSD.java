@@ -1,6 +1,6 @@
 package net.meander.subtlyd.util;
 
-import net.meander.subtlyd.client.ClientTickEventsSD;
+import net.meander.subtlyd.client.ClientEventsSD;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.client.renderer.EntityRenderersSD;
 import net.meander.subtlyd.network.PacketNetworking;
@@ -13,7 +13,7 @@ public class ClientInitializerSD implements ClientModInitializer {
         ModelLayersSD.registration();
         EntityRenderersSD.registration();
         SoundEventsSD.registration();
-        ClientTickEventsSD.registration();
+        ClientEventsSD.registration();
         PacketNetworking.registerClient();
     }
 }

@@ -135,12 +135,12 @@ public abstract class SelectWorldScreenMixin extends Screen {
                         .build()
         );
 
-        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X + (Util.Globals.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+        rowHelper.addChild(new SpacerElement(this.width / 2 - (BUTTON_MIDDLE_X + (Util.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
 
         rowHelper.addChild(
                 Button.builder(
                                 CommonComponents.GUI_BACK, _ -> this.minecraft.setScreenAndShow(this.lastScreen))
-                        .width(Util.Globals.BACK_BUTTON_WIDTH)
+                        .width(Util.GUI_COMMON.BACK_BUTTON_WIDTH)
                         .build());
     }
 }

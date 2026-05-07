@@ -1,7 +1,8 @@
-package net.meander.subtlyd.client.model;
+package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.meander.subtlyd.client.model.ModelTemplatesSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.client.data.models.BlockModelGenerators;

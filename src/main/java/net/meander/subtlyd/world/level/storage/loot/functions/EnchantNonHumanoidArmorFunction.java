@@ -26,6 +26,9 @@ public class EnchantNonHumanoidArmorFunction extends LootItemConditionalFunction
         return CODEC;
     }
 
+    /**
+     * Function for randomly enchanting non-humanoid armors.
+     */
     @Override
     protected ItemStack run(ItemStack itemStack, LootContext context) {
         HolderLookup.Provider registries = context.getLevel().registryAccess();

@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.entity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.camera.CameraShake;
+import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;

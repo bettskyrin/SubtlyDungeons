@@ -4,7 +4,7 @@ import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.entity.EntityTypeSD;
+import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
@@ -32,7 +32,7 @@ public class ItemsSD {
     public static final Item COOKED_CALAMARI = registerItemSD(resourceKey("cooked_calamari"), Item::new, new Item.Properties().food(FoodsSD.COOKED_CALAMARI));
     public static final Item POTTAGE = registerItemSD(resourceKey("pottage"), Item::new, new Item.Properties().food(FoodsSD.POTTAGE).stacksTo(1));
     public static final ColorCollection<Item> TENT = ColorCollection.registerItems(
-            ItemIdsSD.TENT, (id, color) -> registerItemSD(id, properties -> new TentItem(EntityTypeSD.TENT.pick(color), properties), new Item.Properties().stacksTo(1))
+            ItemIdsSD.TENT, (id, color) -> registerItemSD(id, properties -> new TentItem(EntityTypesSD.TENT.pick(color), properties), new Item.Properties().stacksTo(1))
     );
     public static final Item UNLIT_CAMPFIRE = registerBlockSD(Blocks.CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY).component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))), "unlit_campfire");
     public static final Item SNOW_BRICKS = registerBlockSD(BlocksSD.SNOW_BRICKS);

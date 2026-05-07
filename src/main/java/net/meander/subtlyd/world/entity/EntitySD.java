@@ -7,7 +7,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 public class EntitySD {
-
     /**
      * Finds the nearest climbable wall for an entity.
      * @param entity The entity to use as a basis for the test.

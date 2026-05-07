@@ -1,7 +1,6 @@
-package net.meander.subtlyd.camera;
+package net.meander.subtlyd.client.camera.shake;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
-import net.meander.subtlyd.client.resources.camera.CameraShakeEvent;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.resources.ResourceKey;

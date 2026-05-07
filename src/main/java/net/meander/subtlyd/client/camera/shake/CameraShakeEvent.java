@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.resources.camera;
+package net.meander.subtlyd.client.camera.shake;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

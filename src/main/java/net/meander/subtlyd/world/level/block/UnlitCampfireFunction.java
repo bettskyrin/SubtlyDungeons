@@ -21,6 +21,7 @@ public class UnlitCampfireFunction implements UseBlockCallback {
         BlockPos blockPos = blockHitResult.getBlockPos();
         BlockState blockState = level.getBlockState(blockPos);
         ItemStack itemStack = player.getItemInHand(interactionHand);
+
         if (blockState.getBlock() instanceof CampfireBlock && !blockState.getValue(CampfireBlock.LIT) && itemStack.getItem() == Items.STICK) {
             if (level.getRandom().nextFloat() > 0.7F) {
                 level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);

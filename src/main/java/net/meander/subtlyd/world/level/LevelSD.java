@@ -9,6 +9,7 @@ public class LevelSD {
             .add(new ExplosionParticleInfo(ParticleTypes.WARPED_SPORE, 0.5F, 1.0F))
             .add(new ExplosionParticleInfo(ParticleTypes.CRIMSON_SPORE, 1.0F, 1.0F))
             .add(new ExplosionParticleInfo(ParticleTypes.CRIMSON_SPORE, 2.0F, 0.5F))
+            // TODO Add more particles
             .add(new ExplosionParticleInfo(ParticleTypes.WARPED_SPORE, 2.0F, 0.5F))
             .build();
 }

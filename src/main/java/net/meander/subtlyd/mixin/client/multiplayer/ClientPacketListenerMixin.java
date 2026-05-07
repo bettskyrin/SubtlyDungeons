@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.multiplayer;
 
-import net.meander.subtlyd.camera.CameraShake;
+import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundExplodePacket;
 import org.spongepowered.asm.mixin.Mixin;

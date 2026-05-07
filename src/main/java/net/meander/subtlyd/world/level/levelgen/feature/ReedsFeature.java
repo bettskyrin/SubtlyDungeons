@@ -1,9 +1,9 @@
 package net.meander.subtlyd.world.level.levelgen.feature;
 
+import com.mojang.serialization.Codec;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.ReedsBlock;
-import com.mojang.serialization.Codec;
 import net.meander.subtlyd.world.level.levelgen.BiomesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -53,33 +53,29 @@ public class ReedsFeature extends Feature<ProbabilityFeatureConfiguration> {
 
     @Override
     public boolean place(FeaturePlaceContext<ProbabilityFeatureConfiguration> featurePlaceContext) {
-        boolean bl = false;
-        RandomSource randomSource = featurePlaceContext.random();
+        boolean placedAny = false;
+        RandomSource random = featurePlaceContext.random();
         WorldGenLevel worldGenLevel = featurePlaceContext.level();
-        BlockPos blockPos = featurePlaceContext.origin();
-        ProbabilityFeatureConfiguration probabilityFeatureConfiguration = featurePlaceContext.config();
-        int i = randomSource.nextInt(8) - randomSource.nextInt(8);
-        int j = randomSource.nextInt(8) - randomSource.nextInt(8);
-        int k = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, blockPos.getX() + i, blockPos.getZ() + j);
-        BlockPos blockPos2 = new BlockPos(blockPos.getX() + i, k, blockPos.getZ() + j);
-        if (worldGenLevel.getBlockState(blockPos2).is(Blocks.WATER)) {
-            boolean bl2 = randomSource.nextDouble() < probabilityFeatureConfiguration.probability;
-            BlockState blockState = BlocksSD.REEDS.defaultBlockState();
-            if (blockState.canSurvive(worldGenLevel, blockPos2)) {
-                if (bl2) {
-                    BlockState blockState2 = blockState.setValue(ReedsBlock.HALF, DoubleBlockHalf.UPPER);
-                    BlockPos blockPos3 = blockPos2.above();
-                    if (worldGenLevel.getBlockState(blockPos3).is(Blocks.AIR)) {
-                        worldGenLevel.setBlock(blockPos2, blockState, 2);
-                        worldGenLevel.setBlock(blockPos3, blockState2, 2);
-                    }
-                } else {
-                    worldGenLevel.setBlock(blockPos2, blockState, 2);
+        BlockPos origin = featurePlaceContext.origin();
+        int x = random.nextInt(8) - random.nextInt(8);
+        int z = random.nextInt(8) - random.nextInt(8);
+        int y = worldGenLevel.getHeight(Heightmap.Types.OCEAN_FLOOR_WG, origin.getX() + x, origin.getZ() + z);
+        BlockPos reedsPos = new BlockPos(origin.getX() + x, y, origin.getZ() + z);
+
+        if (worldGenLevel.getBlockState(reedsPos).is(Blocks.WATER)) {
+            BlockState state = BlocksSD.REEDS.defaultBlockState();
+            if (state.canSurvive(worldGenLevel, reedsPos)) {
+                BlockState upperState = state.setValue(ReedsBlock.HALF, DoubleBlockHalf.UPPER);
+                BlockPos blockPos3 = reedsPos.above();
+
+                if (worldGenLevel.getBlockState(blockPos3).is(Blocks.AIR)) {
+                    worldGenLevel.setBlock(reedsPos, state, 2);
+                    worldGenLevel.setBlock(blockPos3, upperState, 2);
                 }
 
-                bl = true;
+                placedAny = true;
             }
         }
-        return bl;
+        return placedAny;
     }
 }

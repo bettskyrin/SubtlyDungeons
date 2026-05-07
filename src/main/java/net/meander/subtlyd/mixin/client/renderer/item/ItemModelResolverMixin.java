@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
 import net.meander.subtlyd.client.renderer.ChargedTridentState;
-import net.meander.subtlyd.world.item.TridentSD;
+import net.meander.subtlyd.world.item.ItemHelperSD;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import net.minecraft.world.entity.ItemOwner;
@@ -21,7 +21,7 @@ public class ItemModelResolverMixin {
     private void updateTridentAura(ItemStackRenderState output, ItemStack item, ItemDisplayContext displayContext, Level level, ItemOwner owner, int seed, CallbackInfo ci) {
         if (item.is(Items.TRIDENT)) {
             if (owner instanceof LivingEntity livingEntity) {
-                if (livingEntity.getTicksUsingItem() >= TridentSD.CHANNELING_CHARGE_TIME && TridentSD.canChargeChanneling(level, livingEntity, item)) {
+                if (livingEntity.getTicksUsingItem() >= ItemHelperSD.CHANNELING_CHARGE_TIME && ItemHelperSD.canChargeChanneling(level, livingEntity, item)) {
                     ((ChargedTridentState.Accessor) output).subtlyDungeons$setCharged(true);
                     return;
                 }

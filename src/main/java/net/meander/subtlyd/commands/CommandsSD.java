@@ -1,10 +1,11 @@
 package net.meander.subtlyd.commands;
 
-import net.meander.subtlyd.network.PacketNetworking;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import net.meander.subtlyd.network.PacketNetworking;
 import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentUtils;
@@ -17,17 +18,17 @@ public class CommandsSD {
      * Registers the camera shake command. Called "Camera Shake" instead of screen shake, for Bedrock parity.
      */
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(net.minecraft.commands.Commands.literal("camerashake")
-                .then(net.minecraft.commands.Commands.literal("stop")
-                        .then(net.minecraft.commands.Commands.argument("targets", EntityArgument.players())
+        dispatcher.register(Commands.literal("camerashake")
+                .then(Commands.literal("stop")
+                        .then(Commands.argument("targets", EntityArgument.players())
                                 .executes(context -> stopShake(context.getSource(), EntityArgument.getPlayers(context, "targets")))
                         )
                 )
 
-                .then(net.minecraft.commands.Commands.literal("add")
-                        .then(net.minecraft.commands.Commands.argument("targets", EntityArgument.players())
-                                .then(net.minecraft.commands.Commands.argument("intensity", FloatArgumentType.floatArg(0.0F, 4.0F))
-                                        .then(net.minecraft.commands.Commands.argument("seconds", IntegerArgumentType.integer())
+                .then(Commands.literal("add")
+                        .then(Commands.argument("targets", EntityArgument.players())
+                                .then(Commands.argument("intensity", FloatArgumentType.floatArg(0.0F, 4.0F))
+                                        .then(Commands.argument("seconds", IntegerArgumentType.integer())
                                                 .executes(ctx -> addShake(
                                                         ctx.getSource(),
                                                         EntityArgument.getPlayers(ctx, "targets"),

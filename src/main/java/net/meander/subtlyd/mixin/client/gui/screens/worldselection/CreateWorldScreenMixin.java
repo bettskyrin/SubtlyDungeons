@@ -58,12 +58,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         .build()
         );
 
-        rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X + (Util.Globals.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+        rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X + (Util.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
 
         rowHelper.addChild(
                 Button.builder(
                                 CommonComponents.GUI_CANCEL, (_) -> createWorldScreen.popScreen())
-                        .width(Util.Globals.BACK_BUTTON_WIDTH)
+                        .width(Util.GUI_COMMON.BACK_BUTTON_WIDTH)
                         .build());
         this.layout.visitWidgets((button) -> {
             button.setTabOrderGroup(1);

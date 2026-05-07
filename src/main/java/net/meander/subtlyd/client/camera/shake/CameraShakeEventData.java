@@ -1,7 +1,5 @@
-package net.meander.subtlyd.data;
+package net.meander.subtlyd.client.camera.shake;
 
-import net.meander.subtlyd.camera.CameraShakeEvents;
-import net.meander.subtlyd.client.resources.camera.CameraShakeEvent;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.util.Util;

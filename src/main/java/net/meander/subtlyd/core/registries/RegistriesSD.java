@@ -1,6 +1,6 @@
 package net.meander.subtlyd.core.registries;
 
-import net.meander.subtlyd.client.resources.camera.CameraShakeEvent;
+import net.meander.subtlyd.client.camera.shake.CameraShakeEvent;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;

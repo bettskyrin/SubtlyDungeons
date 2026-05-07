@@ -32,19 +32,19 @@ public class AmbientAirBlockSoundsPlayer {
     }
 
     private static boolean shouldPlayColdWindSound(Level level, BlockPos blockPos) {
-        int i = 0;
-        int j = 0;
+        int matchingBlocksFound = 0;
+        int sidesChecked = 0;
         BlockPos.MutableBlockPos mutableBlockPos = blockPos.mutable();
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             mutableBlockPos.set(blockPos).move(direction, SURROUNDING_BLOCKS_DISTANCE_HORIZONTAL_CHECK);
-            if (columnContainsTriggeringBlock(level, mutableBlockPos) && i++ >= SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD) {
+            if (columnContainsTriggeringBlock(level, mutableBlockPos) && matchingBlocksFound++ >= SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD) {
                 return true;
             }
 
-            j++;
-            int k = HORIZONTAL_DIRECTIONS - j;
-            int l = k + i;
+            sidesChecked++;
+            int k = HORIZONTAL_DIRECTIONS - sidesChecked;
+            int l = k + matchingBlocksFound;
             boolean bl = l >= SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD;
 
             if (!bl) {
@@ -55,14 +55,14 @@ public class AmbientAirBlockSoundsPlayer {
     }
 
     private static boolean columnContainsTriggeringBlock(Level level, BlockPos.MutableBlockPos mutableBlockPos) {
-        int i = level.getHeight(Heightmap.Types.WORLD_SURFACE, mutableBlockPos) - 1;
+        int surfaceY = level.getHeight(Heightmap.Types.WORLD_SURFACE, mutableBlockPos) - 1;
 
-        if (Mth.abs(i - mutableBlockPos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
+        if (Mth.abs(surfaceY - mutableBlockPos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
             mutableBlockPos.move(Direction.UP, 6);
             BlockState blockState = level.getBlockState(mutableBlockPos);
             mutableBlockPos.move(Direction.DOWN);
 
-            for (int j = 0; j < 10; j++) {
+            for (int i = 0; i < 10; i++) {
                 BlockState blockState2 = level.getBlockState(mutableBlockPos);
                 if (blockState.isAir() && canTriggerColdWindSounds(blockState2)) {
                     return true;
@@ -74,8 +74,8 @@ public class AmbientAirBlockSoundsPlayer {
 
             return false;
         } else {
-            boolean bl = level.getBlockState(mutableBlockPos.setY(i + 1)).isAir();
-            return bl && canTriggerColdWindSounds(level.getBlockState(mutableBlockPos.setY(i)));
+            boolean bl = level.getBlockState(mutableBlockPos.setY(surfaceY + 1)).isAir();
+            return bl && canTriggerColdWindSounds(level.getBlockState(mutableBlockPos.setY(surfaceY)));
         }
     }
 

@@ -27,11 +27,11 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
     }
 
     public BlastFungusEntity(final Level level, final LivingEntity mob, final ItemStack itemStack) {
-        super(EntityTypeSD.BLAST_FUNGUS, mob, level, itemStack);
+        super(EntityTypesSD.BLAST_FUNGUS, mob, level, itemStack);
     }
 
     public BlastFungusEntity(final Level level, final double x, final double y, final double z, final ItemStack itemStack) {
-        super(EntityTypeSD.BLAST_FUNGUS, x, y, z, level, itemStack);
+        super(EntityTypesSD.BLAST_FUNGUS, x, y, z, level, itemStack);
     }
 
     @Override

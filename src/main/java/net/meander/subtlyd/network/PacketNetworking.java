@@ -3,31 +3,12 @@ package net.meander.subtlyd.network;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.meander.subtlyd.camera.CameraShake;
-import net.meander.subtlyd.util.Util;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
+import net.meander.subtlyd.client.camera.shake.CameraShake;
+import net.meander.subtlyd.network.protocol.CameraShakePacketPayload;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import org.jspecify.annotations.NonNull;
 
 public class PacketNetworking {
-    public record CameraShakePacketPayload(int durationTicks, float intensity) implements CustomPacketPayload {
-        public static final CustomPacketPayload.Type<CameraShakePacketPayload> ID = new  CustomPacketPayload.Type<>(Util.identifier("camera_shake"));
-
-        public static final StreamCodec<FriendlyByteBuf, CameraShakePacketPayload> CODEC = StreamCodec.composite(
-                ByteBufCodecs.INT, CameraShakePacketPayload::durationTicks,
-                ByteBufCodecs.FLOAT, CameraShakePacketPayload::intensity,
-                CameraShakePacketPayload::new
-        );
-
-        @Override @NonNull
-        public Type<? extends CustomPacketPayload> type() {
-            return ID;
-        }
-    }
-
     /**
      * Registers common packets.
      */
@@ -41,7 +22,7 @@ public class PacketNetworking {
     public static void registerClient() {
         ClientPlayNetworking.registerGlobalReceiver(CameraShakePacketPayload.ID, ((payload, context) -> context.client().execute(
             () -> {
-                if (payload.durationTicks <= 0) {
+                if (payload.durationTicks() <= 0) {
                     CameraShake.stop();
                 } else {
                     CameraShake.setShake(payload.durationTicks(), payload.intensity());

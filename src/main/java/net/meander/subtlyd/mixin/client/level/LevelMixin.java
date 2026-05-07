@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.level;
 
-import net.meander.subtlyd.camera.CameraShake;
+import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.sounds.SoundEvent;
