@@ -1,5 +1,11 @@
 ## [4.0 Snapshot 3] - UNRELEASED
 ### New Features
+#### Enchantments
+- Added Illager's Bane enchantment
+  - Does increased damage to illagers
+    - Each level adds 2.5 damage to an attack
+  - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
+
 #### Advancements
 - Added new "Traveler" adventure challenge for sleeping in a tent at least 1 km away from spawn... or in a different dimension
 
@@ -7,6 +13,9 @@
 #### Blast Fungus
 - Added new particle effect
 - Slightly increased damage output
+
+#### Abrading Curse
+- Changed Abrading Curse do 3 durability damage to an item
 
 #### Cozy Creatures
 - The Killer Bunny no longer cares about a biome's temperature

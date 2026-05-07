@@ -49,6 +49,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("enchantment.subtlyd.abrading_curse", "Curse of Abrading");
         translationBuilder.add("enchantment.subtlyd.glyph_affinity", "Glyph Affinity");
+        translationBuilder.add("enchantment.subtlyd.illagers_bane", "Illager's Bane");
         translationBuilder.add("enchantment.subtlyd.occult_protection", "Occult Protection");
 
         translationBuilder.add("entity.subtlyd.black_tent", "Black Tent");

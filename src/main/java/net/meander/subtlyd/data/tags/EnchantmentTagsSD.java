@@ -31,8 +31,11 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
                 .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ON_RANDOM_LOOT)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
+        getOrCreateRawBuilder(EnchantmentTags.ON_TRADED_EQUIPMENT)
+                .addOptionalElement(EnchantmentsSD.ILLAGERS_BANE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.TRADEABLE)
-                .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
+                .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier())
+                .addOptionalElement(EnchantmentsSD.ILLAGERS_BANE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.CURSE)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ARMOR_EXCLUSIVE)
@@ -47,5 +50,4 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
     private static TagKey<Enchantment> bind(final String name) {
         return TagKey.create(Registries.ENCHANTMENT, Util.identifier(name));
     }
-
 }

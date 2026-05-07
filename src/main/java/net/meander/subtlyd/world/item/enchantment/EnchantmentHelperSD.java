@@ -43,7 +43,6 @@ public class EnchantmentHelperSD {
                 value += enchantment.getAnvilCost();
             }
         }
-
         return value;
     }
 }
