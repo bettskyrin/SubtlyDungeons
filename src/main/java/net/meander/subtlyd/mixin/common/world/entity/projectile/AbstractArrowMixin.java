@@ -1,8 +1,10 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile;
 
+import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.block.BaseFireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.EntityHitResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -21,9 +24,50 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractArrowMixin {
     @Shadow protected abstract boolean isInGround();
 
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tick(CallbackInfo ci) {
+        final AbstractArrow arrow = (AbstractArrow) (Object) (this);
+        final Level level = arrow.level();
+
+        if (!level.isClientSide() && arrow.isOnFire() && arrow.tickCount == 1) {
+            playFlameShootSound(arrow);
+        }
+    }
+
+
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     private void onHitBlock(final BlockHitResult hitResult, CallbackInfo ci) {
+        final AbstractArrow arrow = (AbstractArrow) (Object) (this);
+        final Level level = arrow.level();
+
+        if (!level.isClientSide() && arrow.isOnFire()) {
+            playFlameHitSound(arrow);
+        }
         trySetFire(hitResult);
+    }
+
+    @Inject(method = "onHitEntity", at = @At("RETURN"))
+    private void onHitEntity(EntityHitResult hitResult, CallbackInfo ci) {
+        final AbstractArrow arrow = (AbstractArrow) (Object) (this);
+        final Level level = arrow.level();
+
+        if (!level.isClientSide() && arrow.isOnFire()) {
+            playFlameHitSound(arrow);
+        }
+    }
+
+    /**
+     * Plays the flaming arrow shoot sound.
+     */
+    private void playFlameShootSound(AbstractArrow arrow) {
+        arrow.level().playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEventsSD.FLAME_ARROW_SHOOT, SoundSource.PLAYERS, 0.7F, (float) arrow.level().getRandom().nextIntBetweenInclusive(10, 13) / 10);
+    }
+
+    /**
+     * Plays the flaming arrow hit sound.
+     */
+    private void playFlameHitSound (AbstractArrow arrow) {
+        arrow.level().playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEventsSD.FLAME_ARROW_HIT, SoundSource.PLAYERS, 0.3F, 1.0F);
     }
 
     /**

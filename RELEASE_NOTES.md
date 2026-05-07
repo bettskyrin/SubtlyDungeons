@@ -11,6 +11,9 @@
 - Added new "Traveler" adventure challenge for sleeping in a tent at least 1 km away from spawn... or in a different dimension
 
 ### Changes
+#### Arrows
+- Arrows that are on fire, now have new sound effects
+
 #### Piercing Enchantment
 - Changed Piercing to reduce the effectiveness of armor by 10% with each level
 

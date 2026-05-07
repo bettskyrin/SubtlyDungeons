@@ -70,6 +70,23 @@
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
   },
+  "entity.arrow.hit_flame": {
+    "subtitle": "subtitles.subtlyd.entity.arrow.hit_flame",
+    "sounds": [
+      "subtlyd:arrow/hit_flame1",
+      "subtlyd:arrow/hit_flame2",
+      "subtlyd:arrow/hit_flame3",
+      "subtlyd:arrow/hit_flame4"
+    ]
+  },
+  "entity.arrow.shoot_flame": {
+    "subtitle": "subtitles.subtlyd.entity.arrow.shoot_flame",
+    "sounds": [
+      "subtlyd:arrow/shoot_flame1",
+      "subtlyd:arrow/shoot_flame2",
+      "subtlyd:arrow/shoot_flame3"
+    ]
+  },
   "entity.blast_fungus.explode": {
     "subtitle": "subtitles.subtlyd.entity.blast_fungus.explode",
     "sounds": [
