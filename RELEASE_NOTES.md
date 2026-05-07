@@ -5,6 +5,7 @@
   - Does increased damage to illagers
     - Each level adds 2.5 damage to an attack
   - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
+  - Is obtainable for enchanted books or equipment via villager trading
 
 #### Advancements
 - Added new "Traveler" adventure challenge for sleeping in a tent at least 1 km away from spawn... or in a different dimension
@@ -13,6 +14,9 @@
 #### Blast Fungus
 - Added new particle effect
 - Slightly increased damage output
+
+#### Impaling Enchantment
+- Changed Impaling to affect all mobs that are in contact with water for parity with Bedrock Edition
 
 #### Abrading Curse
 - Changed Abrading Curse do 3 durability damage to an item
