@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.entity;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
+import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.client.entity.player.PlayerSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
@@ -60,6 +61,8 @@ public class ServerPlayerSD extends ServerPlayer {
                     }
                     Either<PlayerSD.TentSleepingProblem, Unit> either = PlayerSD.startSleepInTent(pos, tent, player);
                     player.level().updateSleepingPlayerList();
+
+                    either.ifRight(_ -> CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player));
                     return either;
                 }
             }

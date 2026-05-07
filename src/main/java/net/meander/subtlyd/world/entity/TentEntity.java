@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
+import net.meander.subtlyd.stats.StatsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -249,7 +250,7 @@ public class TentEntity extends Entity {
                 if (tentSleepingProblem.message() != null) {
                     player.sendOverlayMessage(tentSleepingProblem.message());
                 }
-            });
+            }).ifRight(_ -> player.awardStat(StatsSD.SLEEP_IN_TENT));
         }
         return InteractionResult.SUCCESS_SERVER;
     }

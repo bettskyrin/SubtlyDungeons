@@ -13,6 +13,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+        translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Traveler");
+        translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
+
         translationBuilder.add("block.minecraft.campfire", "Lit Campfire");
         translationBuilder.add("block.subtlyd.basalt_slab", "Basalt Slab");
         translationBuilder.add("block.subtlyd.charcoal_block", "Block of Charcoal");
@@ -109,6 +112,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.difficulty.peaceful.info", "No hostile creatures and only some neutral creatures spawn. Hunger bar doesn't deplete and health replenishes over time.");
 
         translationBuilder.add("selectWorld.select", "Play");
+
+        translationBuilder.add("stat.subtlyd.sleep_in_tent", "Times Slept in a Tent");
 
         translationBuilder.add("subtitles.subtlyd.block.air.idle", "Wind howls");
         translationBuilder.add("subtitles.subtlyd.block.bush.idle", "Wind blows");

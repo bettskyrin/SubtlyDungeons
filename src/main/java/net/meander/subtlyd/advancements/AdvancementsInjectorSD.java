@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data;
+package net.meander.subtlyd.advancements;
 
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.predicates.ItemPredicate;
@@ -12,7 +12,7 @@ import net.minecraft.world.item.Items;
 import java.util.List;
 import java.util.Map;
 
-public class AdvancementsSD {
+public class AdvancementsInjectorSD {
     /**
      * List of Advancements to inject into
      */

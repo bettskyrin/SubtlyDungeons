@@ -29,6 +29,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
         pack.addProvider(BiomeProviderSD::new);
+        pack.addProvider(AdvancementProviderSD::new);
         pack.addProvider(LanguageProviderSD::new);
 
         pack.addProvider((output, registriesFuture) -> new FabricDynamicRegistryProvider(output, registriesFuture) {
