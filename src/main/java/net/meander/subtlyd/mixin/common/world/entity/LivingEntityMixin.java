@@ -48,7 +48,7 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true)
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "source")
     private DamageSource roastedByDragon(DamageSource source) {
         if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
             if (cloud.getParticle().getType() == ParticleTypes.DRAGON_BREATH) {
