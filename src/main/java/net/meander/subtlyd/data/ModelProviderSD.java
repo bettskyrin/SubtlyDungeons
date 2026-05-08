@@ -21,19 +21,6 @@ public class ModelProviderSD extends FabricModelProvider {
     }
 
     /**
-     * Builds a cube model from a vanilla texture.
-     * @param vanillaBlock The original block to obtain a texture from.
-     * @param newBlock The custom block that the texture will be mapped to.
-     */
-    public static void generateCubeFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
-        TextureMapping mapping = TextureMapping.cube(vanillaBlock);
-        Identifier model = ModelTemplates.CUBE_ALL.create(newBlock, mapping, blockModelGenerators.modelOutput);
-        MultiVariant multiVariant = BlockModelGenerators.plainVariant(model);
-
-        blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(newBlock, multiVariant));
-    }
-
-    /**
      * Builds a slab model from a vanilla pillar block texture.
      * @param vanillaBlock The original block to obtain a texture from.
      * @param newBlock The custom block that the texture will be mapped to.
