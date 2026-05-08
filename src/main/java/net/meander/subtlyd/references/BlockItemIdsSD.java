@@ -4,6 +4,7 @@ import net.meander.subtlyd.util.Util;
 import net.minecraft.references.BlockItemId;
 
 public class BlockItemIdsSD {
+    public static final BlockItemId UNLIT_CAMPFIRE = BlockItemId.create(Util.identifier("unlit_campfire"), Util.identifier("unlit_campfire"));
     public static final BlockItemId SNOW_BRICKS = BlockItemId.create(Util.identifier("snow_bricks"), Util.identifier("snow_bricks"));
     public static final BlockItemId SNOW_BRICK_STAIRS = BlockItemId.create(Util.identifier("snow_brick_stairs"), Util.identifier("snow_brick_stairs"));
     public static final BlockItemId SNOW_BRICK_SLAB = BlockItemId.create(Util.identifier("snow_brick_slab"), Util.identifier("snow_brick_slab"));
@@ -23,5 +24,5 @@ public class BlockItemIdsSD {
     public static final BlockItemId REEDS = BlockItemId.create(Util.identifier("reeds"), Util.identifier("reeds"));
     public static final BlockItemId WARPED_OVERHANG = BlockItemId.create(Util.identifier("warped_overhang"), Util.identifier("warped_overhang"));
     public static final BlockItemId BASALT_SLAB = BlockItemId.create(Util.identifier("basalt_slab"), Util.identifier("basalt_slab"));
-
+    public static final BlockItemId SOUL_JACK_O_LANTERN = BlockItemId.create(Util.identifier("soul_jack_o_lantern"), Util.identifier("soul_jack_o_lantern"));
 }

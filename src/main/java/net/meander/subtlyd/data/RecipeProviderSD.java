@@ -48,6 +48,14 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Blocks.STONE_BRICKS), has(Blocks.STONE_BRICKS))
                         .save(output);
 
+                shaped(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SOUL_JACK_O_LANTERN)
+                        .define('A', Blocks.CARVED_PUMPKIN)
+                        .define('B', Blocks.SOUL_TORCH)
+                        .pattern("A")
+                        .pattern("B")
+                        .unlockedBy(getHasName(Blocks.SOUL_TORCH), has(Blocks.SOUL_TORCH))
+                        .save(this.output);
+
                 nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
                 twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
 
@@ -123,6 +131,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
                         .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
                         .save(output);
+
                 cookRecipesSD(ItemsSD.CALAMARI, 0.35F, ItemsSD.COOKED_CALAMARI);
 
                 /* MISC */

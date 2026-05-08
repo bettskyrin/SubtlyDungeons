@@ -32,5 +32,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         add(BlocksSD.WARPED_OVERHANG, this::createShearsOrSilkTouchOnlyDrop);
         add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
         dropSelf(BlocksSD.BASALT_SLAB);
+        dropSelf(BlocksSD.SOUL_JACK_O_LANTERN);
     }
 }

@@ -14,6 +14,10 @@
     - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
     - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
 
+#### Blocks
+- Added Soul Jack o'Lantern
+  - Can be crafted with a carved pumpkin and soul torch
+
 #### Sounds
 - Arrows that are on fire, now have new sound effects
 - The Ghast, Blaze, and Ender Dragon have new fireball shooting sound effects
