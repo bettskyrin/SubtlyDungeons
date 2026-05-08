@@ -67,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity {
      * @param attacker The attacking entity.
      */
     private void shareHerdPanic(LivingEntity victim, LivingEntity attacker) {
-        double RADIUS = 16.0F;
+        final double RADIUS = 16.0F;
         AABB searchAabb = victim.getBoundingBox().inflate(RADIUS);
         List<? extends LivingEntity> herd = victim.level().getEntitiesOfClass(Animal.class, searchAabb);
 

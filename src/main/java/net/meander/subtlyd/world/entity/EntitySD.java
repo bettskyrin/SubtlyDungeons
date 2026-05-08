@@ -64,10 +64,10 @@ public class EntitySD {
      * @return Whether an entity should burn with the soul fire overlay
      */
     public static boolean shouldSoulFireBurn(Entity entity) {
-        double sizeModifier = 0.003;
+        final double SIZE_MODIFIER = 0.003;
         AABB bB = entity.getBoundingBox();
-        BlockPos minPos = BlockPos.containing(bB.minX + sizeModifier, bB.minY + sizeModifier, bB.minZ + sizeModifier);
-        BlockPos maxPos = BlockPos.containing(bB.maxX - sizeModifier, bB.maxY - sizeModifier, bB.maxZ - sizeModifier);
+        BlockPos minPos = BlockPos.containing(bB.minX + SIZE_MODIFIER, bB.minY + SIZE_MODIFIER, bB.minZ + SIZE_MODIFIER);
+        BlockPos maxPos = BlockPos.containing(bB.maxX - SIZE_MODIFIER, bB.maxY - SIZE_MODIFIER, bB.maxZ - SIZE_MODIFIER);
 
         if (entity.is(EntityTypes.WITHER_SKULL)) {
             return true;
