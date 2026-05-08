@@ -16,21 +16,21 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
     /**
      * @return The progress of the climb animation.
      */
-    @Override public float subtlyDungeons$getClimbProgress() {
+    @Override public float subtlyd$getClimbProgress() {
         return this.climbProgress;
     }
 
     /**
      * @return The desired rotation angle.
      */
-    @Override public float subtlyDungeons$getClimbRotation() {
+    @Override public float subtlyd$getClimbRotation() {
         return this.climbRotation;
     }
 
     /**
      * @return Whether the render state is for a isJockey or not.
      */
-    @Override public boolean subtlyDungeons$isJockey() {
+    @Override public boolean subtlyd$isJockey() {
         return isJockey;
     }
 
@@ -38,7 +38,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * Sets the climb animation progress value.
      * @param progress The desired progress value.
      */
-    @Override public void subtlyDungeons$setClimbProgress(float progress) {
+    @Override public void subtlyd$setClimbProgress(float progress) {
         this.climbProgress = progress;
     }
 
@@ -46,7 +46,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * Sets the climb rotation angle.
      * @param rotation The desired rotation angle.
      */
-    @Override public void subtlyDungeons$setClimbRotation(float rotation) {
+    @Override public void subtlyd$setClimbRotation(float rotation) {
         this.climbRotation = rotation;
     }
 
@@ -54,7 +54,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * Sets the "isJockey" status of the render state.
      * @param bl The isJockey status.
      */
-    @Override public void subtlyDungeons$setJockey(boolean bl) {
+    @Override public void subtlyd$setJockey(boolean bl) {
         this.isJockey = bl;
     }
 }

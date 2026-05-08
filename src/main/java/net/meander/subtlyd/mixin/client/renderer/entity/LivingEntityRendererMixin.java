@@ -60,19 +60,19 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param partialTicks The partial ticks.
      */
     private void extractClimberState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
+        float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
-        stateAccessor.subtlyDungeons$setClimbProgress(progress);
+        stateAccessor.subtlyd$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
-            float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
+            float oldYaw = stateAccessor.subtlyd$getClimbRotation();
             float yaw = EntitySD.getClimberRotation(entity, nearestWall, oldYaw);
 
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
             state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
-            stateAccessor.subtlyDungeons$setClimbRotation(yaw);
-            climberAccessor.subtlyDungeons$tickRotation(climberAccessor.subtlyDungeons$getRotation(partialTicks));
+            stateAccessor.subtlyd$setClimbRotation(yaw);
+            climberAccessor.subtlyd$tickRotation(climberAccessor.subtlyd$getRotation(partialTicks));
         }
     }
 
@@ -85,14 +85,14 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param partialTicks The partial ticks.
      */
     private void extractClimberJockeyState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.subtlyDungeons$getClimbTransition(partialTicks);
+        float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
-        stateAccessor.subtlyDungeons$setJockey(true);
-        stateAccessor.subtlyDungeons$setClimbProgress(progress);
+        stateAccessor.subtlyd$setJockey(true);
+        stateAccessor.subtlyd$setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
-            float oldYaw = stateAccessor.subtlyDungeons$getClimbRotation();
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyDungeons$getRotation(partialTicks));
+            float oldYaw = stateAccessor.subtlyd$getClimbRotation();
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
             state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getClimberRotation(entity, nearestWall, oldYaw));
         }
     }
@@ -105,12 +105,12 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param bBH The bounding box height of the entity. Used for relative translations.
      */
     private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float bBH) {
-        float progress = accessor.subtlyDungeons$getClimbProgress();
+        float progress = accessor.subtlyd$getClimbProgress();
         float yOffset;
         float zOffset;
 
         if (progress > climbProgressThreshold) {
-            if (!accessor.subtlyDungeons$isJockey()) {
+            if (!accessor.subtlyd$isJockey()) {
                 yOffset = 0.2F * progress;
                 zOffset = (-1.06F * bBH + 0.2F) * progress; // Linear function to prevent cave spiders from clipping into walls.
             } else {
@@ -119,7 +119,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             }
             poseStack.translate(0, yOffset, zOffset);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
-            poseStack.mulPose(Axis.YP.rotationDegrees(accessor.subtlyDungeons$getClimbRotation() * progress));
+            poseStack.mulPose(Axis.YP.rotationDegrees(accessor.subtlyd$getClimbRotation() * progress));
         }
     }
 }

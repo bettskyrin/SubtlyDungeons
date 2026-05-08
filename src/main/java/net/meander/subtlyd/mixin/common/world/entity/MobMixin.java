@@ -23,12 +23,12 @@ public class MobMixin implements MobSD {
     @Unique private long huntingCooldown = 0;
 
     @Override
-    public long subtlyDungeons$getHuntingCooldownTicks() {
+    public long subtlyd$getHuntingCooldownTicks() {
         return huntingCooldown;
     }
 
     @Override
-    public void subtlyDungeons$setHuntingCooldown(long time) {
+    public void subtlyd$setHuntingCooldown(long time) {
         huntingCooldown = time;
     }
 

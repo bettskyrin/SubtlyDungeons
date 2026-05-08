@@ -24,7 +24,7 @@ public class HuskRendererMixin {
     private void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).subtlyDungeons$isLeader()) {
+        if (((UndeadRenderStateAccessor) state).subtlyd$isLeader()) {
             leaderLocation = state.isBaby ? BABY_HUSK_LEADER_LOCATION : HUSK_LEADER_LOCATION;
         }
         cir.setReturnValue(leaderLocation);

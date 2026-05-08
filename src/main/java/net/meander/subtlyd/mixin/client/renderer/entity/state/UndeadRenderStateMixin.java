@@ -14,7 +14,7 @@ public class UndeadRenderStateMixin implements UndeadRenderStateAccessor {
     /**
      * @return Whether an undead entity is a leader zombie or not.
      */
-    @Override public boolean subtlyDungeons$isLeader() {
+    @Override public boolean subtlyd$isLeader() {
         return isLeader;
     }
 
@@ -22,7 +22,7 @@ public class UndeadRenderStateMixin implements UndeadRenderStateAccessor {
      * Sets an undead entity's leader status.
      * @param bl The leader status.
      */
-    @Override public void subtlyDungeons$setLeader(boolean bl) {
+    @Override public void subtlyd$setLeader(boolean bl) {
         isLeader = bl;
     }
 }

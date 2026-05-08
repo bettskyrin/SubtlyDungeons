@@ -21,10 +21,10 @@ public class NearestAttackableTargetGoalMixin {
      */
     @Inject(method = "canUse", at = @At("HEAD"), cancellable = true)
     private void checkHuntCooldowns(CallbackInfoReturnable<Boolean> cir) {
-        Mob mob = ((TargetGoalAccessor) this).subtlyDungeons$getMob();
+        Mob mob = ((TargetGoalAccessor) this).subtlyd$getMob();
 
         if (mob.is(EntityTypeTagsSD.CAN_BE_FULL) && Animal.class.isAssignableFrom(targetType)) {
-            long nextAllowedHuntTime = ((MobSD) mob).subtlyDungeons$getHuntingCooldownTicks();
+            long nextAllowedHuntTime = ((MobSD) mob).subtlyd$getHuntingCooldownTicks();
 
             if (mob.level().getGameTime() < nextAllowedHuntTime) {
                 cir.setReturnValue(false);

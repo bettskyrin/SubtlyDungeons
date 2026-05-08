@@ -11,21 +11,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStackRenderState.class)
 public class ItemStackRenderStateMixin implements ChargedTridentState.Accessor {
-    private boolean subtlyDungeons$charged = false;
+    private boolean subtlyd$charged = false;
 
     @Override
-    public boolean subtlyDungeons$isCharged() {
-        return subtlyDungeons$charged;
+    public boolean subtlyd$isCharged() {
+        return subtlyd$charged;
     }
 
     @Override
-    public void subtlyDungeons$setCharged(boolean charged) {
-        subtlyDungeons$charged = charged;
+    public void subtlyd$setCharged(boolean charged) {
+        subtlyd$charged = charged;
     }
 
     @Inject(method = "submit", at = @At("HEAD"))
     private void pushChargedState(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, int outlineColor, CallbackInfo ci) {
-        if (subtlyDungeons$isCharged()) {
+        if (subtlyd$isCharged()) {
             ChargedTridentState.CHANNELING_CHARGE.set(true);
         }
     }
