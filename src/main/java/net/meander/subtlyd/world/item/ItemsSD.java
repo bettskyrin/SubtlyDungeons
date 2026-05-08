@@ -6,6 +6,7 @@ import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
+import net.meander.subtlyd.world.item.component.ConsumablesSD;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +57,7 @@ public class ItemsSD {
     public static final Item WARPED_OVERHANG = registerBlockSD(BlocksSD.WARPED_OVERHANG);
     public static final Item BLAST_FUNGUS = registerItemSD("blast_fungus", BlastFungusItem::new, new Item.Properties().stacksTo(16));
     public static final Item BASALT_SLAB = registerBlockSD(BlocksSD.BASALT_SLAB);
+    public static final Item ELIXIR = registerItemSD("elixir", Item::new, new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON).component(DataComponents.CONSUMABLE, ConsumablesSD.ELIXIR).usingConvertsTo(Items.GLASS_BOTTLE));
 
     public static void registration() {
         CreativeModeTabsSD.bootstrap();

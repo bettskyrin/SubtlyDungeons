@@ -19,10 +19,11 @@ import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 
 public class FishingLootSD {
     public static void register() {
-        LootTableEvents.REPLACE.register(((key, _, _, registries) -> {
+        LootTableEvents.REPLACE.register(((key, _, _, provider) -> {
             try {
                 if (key.equals(BuiltInLootTables.FISHING_FISH)) {
-                    HolderLookup.RegistryLookup<Biome> registryLookup = registries.lookupOrThrow(Registries.BIOME);
+                    HolderLookup.RegistryLookup<Biome> registryLookup = provider.lookupOrThrow(Registries.BIOME);
+
                     LootTable.Builder newFishingTable = LootTable.lootTable().withPool(LootPool.lootPool()
                                 .add(LootItem.lootTableItem(Items.COD).when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(
                                                 registryLookup.getOrThrow(Biomes.COLD_OCEAN),

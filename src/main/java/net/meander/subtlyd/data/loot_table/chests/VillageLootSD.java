@@ -1,10 +1,10 @@
 package net.meander.subtlyd.data.loot_table.chests;
 
-import net.meander.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.world.item.Items;
+import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -17,7 +17,7 @@ public class VillageLootSD {
                 LootPool.Builder chestPool = LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(ItemsSD.APPLE_PIE).setWeight(97))
-                        .add(LootItem.lootTableItem(Items.AIR).setWeight(903)); // Simulate Pumpkin Pie's 9.7% chest loot_table weight
+                        .add(EmptyLootItem.emptyItem().setWeight(903)); // Simulate Pumpkin Pie's 9.7% chest loot_table weight
                 tableBuilder.pool(chestPool.build());
             } else if (resourceKey.equals(BuiltInLootTables.VILLAGE_FISHER)) {
                 tableBuilder.modifyPools(poolBuilder -> {

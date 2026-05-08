@@ -7,6 +7,13 @@
   - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
   - Is obtainable for enchanted books or equipment via villager trading
 
+#### Potions
+- Added Elixir
+  - Removes all negative potion effects
+  - Can be obtained by killing a Witch in a Swamp
+    - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
+    - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
+
 #### Sounds
 - Arrows that are on fire, now have new sound effects
 - The Ghast, Blaze, and Ender Dragon have new fireball shooting sound effects
