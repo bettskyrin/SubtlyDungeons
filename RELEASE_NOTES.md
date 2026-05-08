@@ -10,7 +10,7 @@
 #### Potions
 - Added Elixir
   - Removes all negative potion effects
-  - Can be obtained by killing a Witch in a Swamp
+  - Can only be obtained by killing a Witch in a Swamp
     - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
     - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
 
@@ -42,6 +42,8 @@
 #### Textures
 - The Dragon Fireball texture has been changed to match Bedrock Edition
 - The Fire Charge/Fireball texture has been changed
+- The On Fire texture for entities has changed depending on whether they are standing in Soul Fire, on Soul Sand, or on Soul Soil
+- Wither Skulls now burn with Soul Fire
 
 ### Technical Changes
 #### Particles
