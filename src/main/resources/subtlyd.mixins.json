@@ -50,6 +50,7 @@
     "client.level.LevelMixin",
     "client.multiplayer.ClientPacketListenerMixin",
     "client.options.AccessibilityOptionsScreenMixin",
+    "client.options.OptionsMixin",
     "client.options.SplashManagerMixin",
     "client.options.VideoSettingsScreenMixin",
     "client.renderer.GameRendererMixin",

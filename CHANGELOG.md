@@ -192,6 +192,10 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - `entity.wither_skeleton.summon`
 - Added new sound event for Evoker Fangs:
   - `entity.evoker_fangs.appear`
+- Added new sound event for Lingering Potion Area Effect Clouds:
+  - `entity.area_effect_cloud.gas`
+- Added new sound event for Dragon's Breath Area Effect Clouds:
+  - `entity.ender_dragon.breath`
 - Added 7 New Songs
   - Guldrum by Peter Hont
     - Plays in Nether Wastes
@@ -229,7 +233,8 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Optimized music track size
 - Fixed Netherite items with custom names not inheriting a new rarity value
 - Fixed a possible bug where reeds could prevent trees from spawning
-- - Fixed bug that made Killer Bunnies try and find shelter from weather
+- Fixed bug that made Killer Bunnies try and find shelter from weather
+- Fixed bug that prevented custom options from saving after exiting the game
 
 ## [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!

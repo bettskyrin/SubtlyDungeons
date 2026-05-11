@@ -58,6 +58,12 @@
 #### Particles
 - Added `spore_cloud` particle
 
+#### Sounds
+- Added new sound event for Lingering Potion Area Effect Clouds:
+  - `entity.area_effect_cloud.gas`
+- Added new sound event for Dragon's Breath Area Effect Clouds:
+  - `entity.ender_dragon.breath`
+
 #### Stats
 - Added `Times Slept in a Tent` statistic
 
@@ -66,3 +72,4 @@
   - Enchanted books' enchantability value now functions as a fallback
 - Fixed bug that allowed a charged Channeling trident to be thrown through a portal and summon lightning
 - Fixed bug that made Killer Bunnies try and find shelter from weather
+- Fixed bug that prevented custom options from saving after exiting the game
