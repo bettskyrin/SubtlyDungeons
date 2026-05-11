@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ## [4.0 Snapshot] - UNRELEASED
 
 ### New Features
-#### Enchanting
+#### Enchantments
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
 - Added Glyph Affinity enchantment
@@ -16,8 +16,92 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Horse armor may now be enchanted
   - Wolf armor may now be enchanted
   - Nautilus armor may now be enchanted
-- Enchanting tables now accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
-- Tweaked Anvil Enchanting
+- Added Illager's Bane enchantment
+  - Does increased damage to illagers
+    - Each level adds 2.5 damage to an attack
+  - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
+  - Is obtainable for enchanted books or equipment via villager trading
+
+#### Curses
+- Added Curse of Abrading
+  - Affected equipment loses durability thrice as fast
+
+#### Charged Tridents
+- Tridents enchanted with Channeling can now be charged for 4 seconds to create a Charged Trident
+- Charged Tridents can summon a lightning bolt regardless of the current weather
+- Charged Tridents have a visual effect similar to that of Charged Creepers
+- Tridents may only be charged if the user's dimension is capable of having weather
+
+#### The Nether
+- Huge Warped Fungus
+  - Now have Warped Overhang
+  - There is a 10% chance for Warped Roots to grow on top of the fungus cap
+  - This design is inspired by Minecraft Dungeons!
+
+#### Blast Fungus
+- Blast Fungi can be crafted shapelessly with a Crimson Fungus and Warped Fungus
+  - Once thrown, a blast fungus explodes on impact, doing no damage to surrounding blocks
+
+#### Potions
+- Added Potion of Decay
+  - Can be brewed by adding a Wither Skeleton Skull to an Awkward Potion
+- Added Elixir
+  - Removes all negative potion effects
+  - Can only be obtained by killing a Witch in a Swamp
+    - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
+    - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
+
+#### Potion Effects
+- Players with the Fire Resistance effect will no longer be visually set on fire
+- High enchantability (level 15 or higher) armors will turn invisible with the wearer
+
+#### The Wither
+- Wither skulls fired at the player are now on fire!
+  - This was originally intended by Mojang, but caused crashes
+  - The skull flames are blue, to match Soul Fire
+- The Wither's health now scales with difficulty to match Bedrock Edition
+  - Easy 300 HP -> 300 HP
+  - Normal 300 HP -> 450 HP
+  - Hard 300 HP -> 600 HP
+- The Wither now dive bombs and summons Wither Skeletons when it has reached 50% health
+  - This is also to match Bedrock Edition
+- All entities with the `wither_friends` entity type tag will no longer target the Wither
+
+  Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
+
+#### Blocks
+- Added Basalt Slab
+- Added Soul Jack o'Lantern
+  - Can be crafted with a carved pumpkin and soul torch
+- Added Warped Overhang block
+  - Generates beneath Warped Wart blocks
+  - Obtainable with silk touch tools or shears
+  - Can be used to craft Warped Wart Blocks
+
+#### Advancements
+- Added new "Traveler" adventure challenge
+  - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
+
+#### Loot
+- Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
+
+#### Sounds
+- Added sound effects for Frosted Ice (ice created by the Frost Walker enchantment)
+- Added new flaming arrow sound effect
+- Added new Ghast fireball shooting sound  effect
+- Added new Blaze fireball shooting sound effect
+- Added new Ender Dragon fireball shooting sound effect
+- Added sound effects for Lingering Potion Area Effect Clouds
+- Added sound effects for Dragon's Breath Area Effect Clouds
+
+#### Splash Text
+- Added "Music by Rostislav Trifonov!"
+- Added "Music by Eugnosis!"
+
+### Changes
+#### Enchanting
+- Changed Enchanting tables to accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
+- Changed Anvil Enchanting
   - The "Too Expensive!" message has been replaced with "Unrepairable!"
     - The idea of the "Too Expensive!" repair limit is to mimic how in real life, you can't keep repairing an object over and over, forever. While we are not removing this feature, we have decided to rename it, to help make this more clear.
   - The limit for adding enchantments is now tied to enchantability
@@ -29,58 +113,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - Repair Cost (also known as the Prior Work Penalty): Functions the same as it did before, but now, enchanting does not increase the Repair Cost
     - Magic Level: Is a separate number that increases each time an item is enchanted. An item can be enchanted until you reach the magic limit, as mentioned above.
 
-#### Charged Tridents
-- Tridents enchanted with Channeling can now be charged for 4 seconds to create Charged Trident
-- Charged Tridents can summon a lightning bolt regardless of the current weather
-- Charged Tridents have a visual effect similar to that of Charged Creepers
-- Tridents may only be charged if the user's dimension is capable of having weather
+#### Enchantments
+- Changed Piercing to reduce the effectiveness of armor by 10% with each level
+- Changed Impaling to affect all mobs that are in contact with water for parity with Bedrock Edition
 
-#### Curses
-- Added Curse of Abrading
-  - Affected equipment loses durability twice as fast
-
-#### The Nether
-- Huge Warped Fungus
-  - Added Warped Overhang block
-    - Generates beneath Warped Wart blocks
-    - Obtainable with silk touch tools or shears
-    - Can be used to craft Warped Wart Blocks
-  - There is a 10% chance for Warped Roots to grow on top of the fungus cap
-  - This design is inspired by Minecraft Dungeons!
-
-#### Blast Fungus
-- Blast Fungi can be crafted shapelessly with a Crimson Fungus and Warped Fungus
-  - Once thrown, a blast fungus explodes on impact, doing no damage to surrounding blocks
-
-#### Potion Tweaks
-- All drinks (potions, milk buckets, stews, etc.) are now consumed faster!
+#### Potions
+- Changed liquid consumables to be consumed faster!
   - The time has been reduced to 20 ticks, to match the Combat Tests
-- Consumable potions are now stackable up to 16 items
+- Changed consumable potions to be stackable up to 16 items
   - This is to match the combat tests
-- Potions are now named depending on their enhancement
+- Changed potions naming to be based on their enhancement
   - Example: A Potion of Swiftness that lasts for 8 minutes is now called a "Long Potion of Swiftness"
   - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
   - This is based on their internal code names
-
-#### New Potions
-- Added Potion of Decay to match Bedrock Edition
-
-#### Potion Effects
-- Players with the Fire Resistance effect will no longer be visually set on fire
-- High enchantability (level 15 or higher) armors will turn invisible with the wearer
-
-#### The Wither
-- Wither skulls fired at the player are now on fire!
-  - This was originally intended by Mojang, but caused crashes
-- The Wither's health now scales with difficulty to match Bedrock Edition
-  - Easy 300 HP -> 300 HP
-  - Normal 300 HP -> 450 HP
-  - Hard 300 HP -> 600 HP
-- The Wither now dive bombs and summons Wither Skeletons when it has reached 50% health
-  - This is also to match Bedrock Edition
-- All entities with the `wither_friends` entity type tag will no longer target the Wither
-
-  Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
 #### Beacons
 - Beacon effect range has been quadrupled
@@ -93,20 +138,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Level 4 Beacon Range:
     - 50 meters -> 200 meters
 
-#### Blocks
-- Overworld mushrooms may now be placed on logs regardless of light level
+#### Agricultural XP
 - Harvesting fully grown crops now provides 0-2 experience
-- Added Basalt Slab.
-- 
-#### Loot
-- Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
 
-#### Sounds
-- Added sound effect for Frosted Ice (ice created by the Frost Walker enchantment)
-
-#### Splash Text
-- Added "Music by Rostislav Trifonov!"
-- Added "Music by Eugnosis!"
+#### Mushroom Placement
+- Overworld mushrooms may now be placed on logs regardless of light level
 
 ### Technical Changes
 #### Camera Shake Events
@@ -145,6 +181,9 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Custom Entity Data has been changed to use camel case, rather than snake case
   - e.g. The command for summoning a leader zombie is now `/summon zombie ~ ~ ~ {IsLeader:1b}`
 
+#### Stats
+- Added `Times Slept in a Tent` statistic
+
 #### Sounds
 - Added new sound event for the Wither:
   - `entity.wither_skeleton.summon`
@@ -175,6 +214,9 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Added Hardcore HUD hearts for the Poison effect
 - Added Hardcore HUD hearts for the Wither effect
 
+#### Particles
+- Added `spore_cloud` particle
+
 #### Bug Fixes
 - **MC-84595** - Fixed bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
@@ -184,6 +226,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Optimized music track size
 - Fixed Netherite items with custom names not inheriting a new rarity value
 - Fixed a possible bug where reeds could prevent trees from spawning
+- - Fixed bug that made Killer Bunnies try and find shelter from weather
 
 ## [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!

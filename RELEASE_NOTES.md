@@ -1,4 +1,4 @@
-## [4.0 Snapshot 3] - UNRELEASED
+## [4.0 Snapshot 3] - 5/12/26
 ### New Features
 #### Enchantments
 - Added Illager's Bane enchantment
@@ -19,12 +19,12 @@
   - Can be crafted with a carved pumpkin and soul torch
 
 #### Sounds
-- Arrows that are on fire, now have new sound effects
-- Added new Ghast fireball shooting sound 
-- Added new Blaze fireball shooting sound
-- Added new Ender Dragon fireball shooting sound
-- Added sounds for Lingering Potion Area Effect Clouds
-- Added sounds for Dragon's Breath Area Effect Clouds
+- Added new flaming arrow sound effect
+- Added new Ghast fireball shooting sound  effect
+- Added new Blaze fireball shooting sound effect
+- Added new Ender Dragon fireball shooting sound effect
+- Added sound effects for Lingering Potion Area Effect Clouds
+- Added sound effects for Dragon's Breath Area Effect Clouds
 
 #### Advancements
 - Added new "Traveler" adventure challenge
@@ -45,10 +45,6 @@
   - Added new cloud particle effect
 - Slightly increased damage output
 
-#### Cozy Creatures
-- The Killer Bunny no longer cares about a biome's temperature
-  - Run.
-
 #### Textures
 - The Dragon Fireball texture has been changed to match Bedrock Edition
 - The Fire Charge/Fireball texture has been changed
@@ -66,3 +62,4 @@
 - Fixed bug that prevented enchanted books from using their vanilla enchantment costs to calculate Magic Capacity
   - Enchanted books' enchantability value now functions as a fallback
 - Fixed bug that allowed a charged Channeling trident to be thrown through a portal and summon lightning
+- Fixed bug that made Killer Bunnies try and find shelter from weather
