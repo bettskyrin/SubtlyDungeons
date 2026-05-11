@@ -20,10 +20,15 @@
 
 #### Sounds
 - Arrows that are on fire, now have new sound effects
-- The Ghast, Blaze, and Ender Dragon have new fireball shooting sound effects
+- Added new Ghast fireball shooting sound 
+- Added new Blaze fireball shooting sound
+- Added new Ender Dragon fireball shooting sound
+- Added sounds for Lingering Potion Area Effect Clouds
+- Added sounds for Dragon's Breath Area Effect Clouds
 
 #### Advancements
-- Added new "Traveler" adventure challenge for sleeping in a tent at least 1 km away from spawn... or in a different dimension
+- Added new "Traveler" adventure challenge
+  - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
 
 ### Changes
 #### Piercing Enchantment
@@ -36,7 +41,8 @@
 - Changed Abrading Curse do 3 durability damage to an item
 
 #### Blast Fungus
-- Added new particle effect
+- Changed particle effects
+  - Added new cloud particle effect
 - Slightly increased damage output
 
 #### Cozy Creatures

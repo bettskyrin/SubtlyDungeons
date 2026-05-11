@@ -5,6 +5,7 @@
   "mixins": [
     "common.MinecraftServerMixin",
     "common.server.ServerAdvancementManagerMixin",
+    "common.world.entity.AreaEffectCloudMixin",
     "common.world.entity.EntityMixin",
     "common.world.entity.LivingEntityMixin",
     "common.world.entity.MobMixin",

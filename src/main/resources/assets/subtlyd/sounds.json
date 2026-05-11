@@ -70,6 +70,14 @@
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
   },
+  "entity.area_effect_cloud.gas": {
+    "subtitle": "subtitles.subtlyd.entity.area_effect_cloud.gas",
+    "sounds": [
+      "subtlyd:area_effect_cloud/effect_cloud1",
+      "subtlyd:area_effect_cloud/effect_cloud2",
+      "subtlyd:area_effect_cloud/effect_cloud3"
+    ]
+  },
   "entity.arrow.hit_flame": {
     "subtitle": "subtitles.subtlyd.entity.arrow.hit_flame",
     "sounds": [
@@ -93,6 +101,14 @@
       "subtlyd:blast_fungus/blast_fungus_explode1",
       "subtlyd:blast_fungus/blast_fungus_explode2",
       "subtlyd:blast_fungus/blast_fungus_explode3"
+    ]
+  },
+  "entity.ender_dragon.breath": {
+    "subtitle": "subtitles.subtlyd.entity.ender_dragon.breath",
+    "sounds": [
+      "subtlyd:area_effect_cloud/effect_cloud1",
+      "subtlyd:area_effect_cloud/effect_cloud2",
+      "subtlyd:area_effect_cloud/effect_cloud3"
     ]
   },
   "entity.evoker_fangs.appear": {

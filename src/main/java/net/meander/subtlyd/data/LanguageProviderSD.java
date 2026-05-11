@@ -121,9 +121,11 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtitles.subtlyd.block.air.idle", "Wind howls");
         translationBuilder.add("subtitles.subtlyd.block.bush.idle", "Wind blows");
         translationBuilder.add("subtitles.subtlyd.block.frosted_ice.freeze", "Frosty noises");
+        translationBuilder.add("subtitles.subtlyd.entity.area_effect_cloud.gas", "Effect cloud hisses");
         translationBuilder.add("subtitles.subtlyd.entity.arrow.hit_flame", "Flaming arrow hits");
         translationBuilder.add("subtitles.subtlyd.entity.arrow.shoot_flame", "Flaming arrow fired");
         translationBuilder.add("subtitles.subtlyd.entity.blast_fungus.explode", "Blast Fungus explodes");
+        translationBuilder.add("subtitles.subtlyd.entity.ender_dragon.breath", "Dragon's Breath hisses");
         translationBuilder.add("subtitles.subtlyd.entity.evoker_fangs.appear", "Ground rumbles");
         translationBuilder.add("subtitles.subtlyd.entity.wither_skeleton.summon", "Souls wail");
         translationBuilder.add("subtitles.subtlyd.item.blast_fungus.throw", "Blast Fungus squelches");

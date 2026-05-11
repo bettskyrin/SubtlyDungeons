@@ -18,7 +18,9 @@ public class SoundEventsSD {
     public static final SoundEvent SNOW_BRICK_STEP = register("block.snow_bricks.step");
     public static final SoundEvent FLAME_ARROW_HIT = register("entity.arrow.hit_flame");
     public static final SoundEvent FLAME_ARROW_SHOOT = register("entity.arrow.shoot_flame");
+    public static final SoundEvent AREA_EFFECT_CLOUD_GAS = register("entity.area_effect_cloud.gas");
     public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
+    public static final SoundEvent ENDER_DRAGON_BREATH = register("entity.ender_dragon.breath");
     public static final SoundEvent EVOKER_FANGS_APPEAR = register("entity.evoker_fangs.appear");
     public static final SoundEvent WITHER_SKELETONS_SUMMONED = register("entity.wither_skeleton.summon");
     public static final SoundEvent BLAST_FUNGUS_THROW = register("item.blast_fungus.throw");
