@@ -42,7 +42,7 @@ public class TitleScreenMixin extends Screen {
         if (canChangeUi) {
             return null;
         }
-        return instance;
+        return addRenderableWidget((SpriteIconButton) guiEventListener);
     }
 
     /**
