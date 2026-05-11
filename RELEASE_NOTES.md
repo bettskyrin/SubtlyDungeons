@@ -46,7 +46,7 @@
 #### Blast Fungus
 - Changed particle effects
   - Added new cloud particle effect
-- Slightly increased damage output
+- Changed damage output to be slightly higher
 
 #### Textures
 - The Dragon Fireball texture has been changed to match Bedrock Edition
