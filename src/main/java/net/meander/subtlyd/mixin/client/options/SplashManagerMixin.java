@@ -31,13 +31,13 @@ public class SplashManagerMixin {
     @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;",
             at = @At("RETURN"),
             cancellable = true)
-    private void appendCustomSplash(ResourceManager resourceManager, ProfilerFiller profilerFiller, CallbackInfoReturnable<List<Component>> cir) {
+    private void appendCustomSplash(ResourceManager manager, ProfilerFiller profiler, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();
         List<Component> newSplashes = new ArrayList<>(originalSplashes);
         Identifier splashLocation = Util.identifier("texts/splashes.txt");
 
         try {
-            Optional<Resource> resource = resourceManager.getResource(splashLocation);
+            Optional<Resource> resource = manager.getResource(splashLocation);
 
             if (resource.isPresent()) {
                 try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.get().open(), StandardCharsets.UTF_8))) {
@@ -56,7 +56,6 @@ public class SplashManagerMixin {
         } catch (Exception e) {
             Util.LOGGER.error("Failed to load custom splash text: {}", e.getMessage());
         }
-
         cir.setReturnValue(newSplashes);
     }
 }
