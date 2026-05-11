@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
+import net.meander.subtlyd.client.OptionInstanceSD;
 import net.meander.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -22,6 +23,7 @@ public class TitleScreenMixin extends Screen {
     @Shadow private boolean fading;
     private final int BUTTON_HEIGHT = 20;
     private final int SPRITE_XPOS = 4;
+    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
 
     protected TitleScreenMixin(Component component) {
         super(component);
@@ -37,14 +39,21 @@ public class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     ordinal = 0))
     private GuiEventListener cancelDeclaration(TitleScreen instance, GuiEventListener guiEventListener) {
-        return null;
+        if (canChangeUi) {
+            return null;
+        }
+        return instance;
     }
 
     /**
      * Prevents the language button position from being set.
      */
     @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V", ordinal = 0))
-    private void cancelPosition(SpriteIconButton instance, int i, int j) {}
+    private void cancelPosition(SpriteIconButton instance, int i, int j) {
+        if (!canChangeUi) {
+            instance.setPosition(i, j);
+        }
+    }
 
     /**
      * Moves the language button to the bottom left corner of the screen.
@@ -55,12 +64,14 @@ public class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     ordinal = 3))
     private void moveLang(CallbackInfo ci) {
-        SpriteIconButton spriteIconButton = this.addRenderableWidget(CommonButtons.language(
-                20,
-                _ -> this.minecraft.setScreenAndShow(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
-                true)
-        );
-        spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
+        if (canChangeUi) {
+            SpriteIconButton spriteIconButton = this.addRenderableWidget(CommonButtons.language(
+                    20,
+                    _ -> this.minecraft.setScreenAndShow(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
+                    true)
+            );
+            spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
+        }
     }
 
     /**
@@ -72,7 +83,10 @@ public class TitleScreenMixin extends Screen {
                 target = "Lnet/minecraft/client/gui/components/CommonButtons;language(ILnet/minecraft/client/gui/components/Button$OnPress;Z)Lnet/minecraft/client/gui/components/SpriteIconButton;"),
                 index = 0)
     private int languageButton(int i) {
-        return BUTTON_HEIGHT;
+        if (canChangeUi) {
+            return BUTTON_HEIGHT;
+        }
+        return i;
     }
 
     /**
@@ -84,7 +98,10 @@ public class TitleScreenMixin extends Screen {
                 target = "Lnet/minecraft/client/gui/components/CommonButtons;accessibility(ILnet/minecraft/client/gui/components/Button$OnPress;Z)Lnet/minecraft/client/gui/components/SpriteIconButton;"),
                 index = 0)
     private int accessibilityButton(int i) {
-        return BUTTON_HEIGHT;
+        if (canChangeUi) {
+            return BUTTON_HEIGHT;
+        }
+        return i;
     }
 
     /**
@@ -97,8 +114,10 @@ public class TitleScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V",
                     ordinal = 1))
     private void setAccPos(Args args) {
-        args.set(0, SPRITE_XPOS + BUTTON_HEIGHT + 4);
-        args.set(1, height - (4 + BUTTON_HEIGHT));
+        if (canChangeUi) {
+            args.set(0, SPRITE_XPOS + BUTTON_HEIGHT + 4);
+            args.set(1, height - (4 + BUTTON_HEIGHT));
+        }
     }
 
     /**
@@ -108,16 +127,23 @@ public class TitleScreenMixin extends Screen {
             at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Ljava/lang/String;III)V"))
-    private void cancelVersion(GuiGraphicsExtractor instance, Font font, String str, int x, int y, int color) {}
+    private void cancelVersion(GuiGraphicsExtractor graphics, Font font, String str, int x, int y, int color) {
+        if (!canChangeUi) {
+            graphics.text(font, str, x, y, color);
+        }
+    }
 
     /**
      * Renders the player in the bottom right corner of the screen after the fade animation is complete, as player shaders do not support transparency.
      */
     @Inject(method = "extractRenderState", at = @At("TAIL"))
     private void renderPlayer(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
-        int CHARACTER_SCALE = 40;
-        if (!this.fading) {
-            GuiPlayerRenderer.renderPlayer(graphics, this.width / 2 + 170, this.height / 4 + 132, CHARACTER_SCALE, mouseX, mouseY);
+        if (canChangeUi) {
+            int AVATAR_SCALE = 40;
+
+            if (!this.fading) {
+                GuiPlayerRenderer.renderPlayer(graphics, this.width / 2 + 170, this.height / 4 + 132, AVATAR_SCALE, mouseX, mouseY);
+            }
         }
     }
 }

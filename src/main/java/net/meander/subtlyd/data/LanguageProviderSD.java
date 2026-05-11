@@ -109,6 +109,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
         translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
+        translationBuilder.add("options.experimental.ui", "Experimental UI");
+        translationBuilder.add("options.experimental.ui.tooltip", "Toggles the experimental UI changes from Subtly Dungeons.");
         translationBuilder.add("options.difficulty.easy.info", "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.");
         translationBuilder.add("options.difficulty.hard.info", "Hostile creatures spawn and deal more damage. Hunger bar depletes and drains all health.");
         translationBuilder.add("options.difficulty.normal.info", "Hostile creatures spawn and deal standard damage. Hunger bar depletes and drains health down to half a heart.");

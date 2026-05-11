@@ -30,6 +30,9 @@
 - Added new "Traveler" adventure challenge
   - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
 
+#### UI
+- Added Video Settings option for toggling the experimental UI changes
+
 ### Changes
 #### Piercing Enchantment
 - Changed Piercing to reduce the effectiveness of armor by 10% with each level
