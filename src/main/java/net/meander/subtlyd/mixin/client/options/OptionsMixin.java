@@ -15,6 +15,6 @@ public class OptionsMixin {
     @Inject(method = "processOptions", at = @At("HEAD"))
     private void saveOptions(Options.FieldAccess access, CallbackInfo ci) {
         access.process("camera_shake", OptionInstanceSD.CAMERA_SHAKE);
-        access.process("experimental_ui", OptionInstanceSD.EXPERIMENTAL_UI);
+        access.process("experimental_gui", OptionInstanceSD.EXPERIMENTAL_GUI);
     }
 }

@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
@@ -30,7 +30,7 @@ public class WorldSelectionListMixin {
     @Environment(EnvType.CLIENT)
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
-        private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+        private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 

@@ -21,7 +21,7 @@ public class FaviconTextureMixin {
     @Shadow @Final private TextureManager textureManager;
     @Shadow private void checkOpen() {}
     @Shadow public void clear() {}
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
 
     /**
      * Saves a thumbnail of size 455x256 pixels

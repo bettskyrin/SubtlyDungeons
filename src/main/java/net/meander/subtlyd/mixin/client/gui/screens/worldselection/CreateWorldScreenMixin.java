@@ -35,7 +35,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
     @Shadow private TabNavigationBar tabNavigationBar;
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
 
     protected CreateWorldScreenMixin(Component title) {
         super(title);
@@ -92,7 +92,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
         private static final Component ALLOW_COMMANDS_INFO = Component.translatable("selectWorld.allowCommands.info");
         private static final Component HARDCORE = Component.translatable("selectWorld.gameMode.hardcore");
         private static final Component HARDCORE_INFO = Component.translatable("selectWorld.gameMode.hardcore.info");
-        private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+        private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
 
         public GameTabMixin(EditBox nameEdit) {
             super(TITLE);

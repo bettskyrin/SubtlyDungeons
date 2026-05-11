@@ -42,7 +42,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
     private final int ROW_SPACING = 4;
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_UI.get();
+    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);
