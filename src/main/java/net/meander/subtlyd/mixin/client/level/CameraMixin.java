@@ -39,7 +39,7 @@ public abstract class CameraMixin {
      * Determines if screen shake is enabled and if so, handles the math for placing the camera to create the screen shake effect.
      */
     private void applyScreenShake() {
-        if (OptionInstanceSD.SCREEN_SHAKE.get()) {
+        if (OptionInstanceSD.CAMERA_SHAKE.get()) {
             float intensity = CameraShake.getShakeIntensity() * 0.5F;
             if (intensity > 0.0F) {
                 float yaw = Mth.sin(Util.getMillis() / 30.0) * intensity;
