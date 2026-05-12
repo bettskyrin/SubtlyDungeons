@@ -21,7 +21,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.LivingEntity;
@@ -71,13 +70,11 @@ public class GameEventsSD {
         UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
         PlayerBlockBreakEvents.AFTER.register((level, _, pos, state, _) -> {
             if (level.getServer() instanceof MinecraftServer server && server.getGameRules().get(GameRules.BLOCK_DROPS)) {
-                RandomSource random = RandomSource.create();
-
                 if (state.is(BlockTags.CROPS)) {
                     CropBlock crop = (CropBlock) state.getBlock();
 
                     if (crop.isMaxAge(state)) {
-                        ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), UniformInt.of(0, 2).sample(random));
+                        ExperienceOrb.award((ServerLevel) level, Vec3.atCenterOf(pos), UniformInt.of(0, 2).sample(level.getRandom()));
                     }
                 }
             }
