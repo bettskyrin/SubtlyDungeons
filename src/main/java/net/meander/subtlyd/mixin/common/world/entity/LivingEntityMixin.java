@@ -74,10 +74,10 @@ public abstract class LivingEntityMixin extends Entity {
         for (LivingEntity animal : herd) {
             if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
                 if (animal instanceof PathfinderMob mob) {
-                    Vec3 pos = new Vec3(mob.getX(), mob.getY(), mob.getZ());
+                    Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
                     int tries = 0;
 
-                    while (tries < 256 && (pos == null || (pos.x == mob.getX() && pos.z == mob.getZ()))) {
+                    while (tries < 10 && (pos == null || (pos.x == mob.getX() && pos.z == mob.getZ()))) {
                         pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
                         tries++;
                     }
@@ -102,8 +102,8 @@ public abstract class LivingEntityMixin extends Entity {
      * Makes predators consume meat from their prey.
      */
     @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
-    private void consumePrey(ServerLevel level, DamageSource damageSource, CallbackInfo ci) {
-        if (damageSource.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+    private void consumePrey(ServerLevel level, DamageSource source, CallbackInfo ci) {
+        if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
             if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
                 LivingEntity livingEntity = (LivingEntity) (Object) this;
                 List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));
@@ -129,9 +129,8 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "getMaxHealth", at = @At("RETURN"), cancellable = true)
     private void setDifficultyHealth(CallbackInfoReturnable<Float> cir) {
-        float maxHealth = cir.getReturnValue();
-
         if (((LivingEntity) (Object) this) instanceof WitherBoss witherBoss) {
+            float maxHealth = cir.getReturnValue();
             int difficultyLevel = witherBoss.level().getDifficulty().getId();
 
             if (difficultyLevel > 2) {

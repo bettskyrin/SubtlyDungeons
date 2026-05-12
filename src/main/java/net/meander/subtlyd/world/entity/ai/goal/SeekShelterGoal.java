@@ -5,17 +5,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
 public class SeekShelterGoal extends Goal {
-    protected final PathfinderMob mob;
     protected final double speedModifier;
     protected double shelterX;
     protected double shelterY;
     protected double shelterZ;
+    protected long nextStartTick;
+    protected final PathfinderMob mob;
 
     public SeekShelterGoal(PathfinderMob mob, double speedModifier) {
         this.mob = mob;
@@ -51,7 +51,7 @@ public class SeekShelterGoal extends Goal {
             for (int j = 0; j < searchRadius * 6; j++) {
                 BlockPos randPos = mob.blockPosition().offset(random.nextInt((searchRadius * 2) + 1) - searchRadius, random.nextInt((YRADIUS * 2) + 1) - YRADIUS, random.nextInt((searchRadius * 2) + 1) - searchRadius);
 
-                if (!mob.level().isRainingAt(randPos) && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
+                if (!mob.level().isRainingAt(randPos) && mob.getNavigation().isStableDestination(randPos)) {
                     return Vec3.atBottomCenterOf(randPos);
                 }
             }
@@ -61,29 +61,31 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!mob.level().isRainingAt(mob.blockPosition()) || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
+        if (mob.getNavigation().isInProgress() || mob.level().getGameTime() < nextStartTick || !mob.level().isRainingAt(mob.blockPosition())
+                || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
+        } else {
+            boolean foundShelter = setShelterPos();
+
+            if (!foundShelter) {
+                nextStartTick = mob.level().getGameTime() + 100L + mob.getRandom().nextInt(10) * 20L;
+            }
+            return setShelterPos();
         }
-        return setShelterPos();
     }
 
     @Override
     public boolean canContinueToUse() {
         if (!mob.level().isRaining() || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
+        } else if (mob.getNavigation().isDone()) {
+            return !mob.level().isRainingAt(mob.blockPosition());
         }
-        return !mob.getNavigation().isDone();
+        return true;
     }
 
     @Override
     public void start() {
         mob.getNavigation().moveTo(shelterX,  shelterY, shelterZ, speedModifier);
-    }
-
-    @Override
-    public void tick() {
-        if (mob.getNavigation().isDone() && mob.level().isRainingAt(mob.blockPosition()) && setShelterPos()) {
-            start();
-        }
     }
 }
