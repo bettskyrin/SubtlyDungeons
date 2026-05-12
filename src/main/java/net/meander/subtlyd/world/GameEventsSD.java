@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.commands.CommandsSD;
+import net.meander.subtlyd.core.CauldronInteractionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.data.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
@@ -63,6 +64,7 @@ public class GameEventsSD {
         registerFuelValues();
         registerCommands();
         modifyItemComponents();
+        CauldronInteractionsSD.bootstrap();
     }
 
     private static void registerBlockEvents() {

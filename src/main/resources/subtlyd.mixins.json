@@ -32,7 +32,8 @@
     "common.world.item.TridentItemMixin",
     "common.world.level.block.FrostedIceBlockMixin",
     "common.world.level.block.entity.BeaconBlockEntityMixin",
-    "common.world.level.levelgen.feature.HugeFungusFeatureMixin"
+    "common.world.level.levelgen.feature.HugeFungusFeatureMixin",
+    "common.world.level.levelgen.structure.structures.SwampHutPieceMixin"
   ],
   "client": [
     "client.blocks.BlockMixin",

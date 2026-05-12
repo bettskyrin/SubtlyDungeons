@@ -4,12 +4,16 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.client.model.ModelTemplatesSD;
 import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
+import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.resources.model.sprite.Material;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.block.Block;
@@ -63,6 +67,40 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, multiVariant));
     }
 
+    /**
+     * Creates a textured cauldron block
+     */
+    @SuppressWarnings("DataFlowIssue")
+    public static void generateFilledCauldron(Block block, BlockModelGenerators blockModelGenerators) {
+        TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.CONTENT, new Material(Identifier.tryParse("minecraft:block/water_still")))
+                .put(TextureSlot.TOP, new Material(Identifier.tryParse("minecraft:block/cauldron_top")))
+                .put(TextureSlot.INSIDE, new Material(Identifier.tryParse("minecraft:block/cauldron_inner")))
+                .put(TextureSlot.BOTTOM, new Material(Identifier.tryParse("minecraft:block/cauldron_bottom")))
+                .put(TextureSlot.SIDE, new Material(Identifier.tryParse("minecraft:block/cauldron_side")))
+                .put(TextureSlot.PARTICLE, new Material(Identifier.tryParse("minecraft:block/cauldron_side")));
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+
+        Identifier level1Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_level1");
+        Identifier level2Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_level2");
+        Identifier level3Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_full");
+
+        Identifier level1 = ModelTemplates.CAULDRON_LEVEL1.create(level1Id, mapping, blockModelGenerators.modelOutput);
+        Identifier level2 = ModelTemplates.CAULDRON_LEVEL2.create(level2Id, mapping, blockModelGenerators.modelOutput);
+        Identifier level3 = ModelTemplates.CAULDRON_FULL.create(level3Id, mapping, blockModelGenerators.modelOutput);
+
+        blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(block)
+                .with(PropertyDispatch.initial(PotionCauldronBlock.POTION_LEVEL)
+                        .select(1, BlockModelGenerators.plainVariant(level1))
+                        .select(2, BlockModelGenerators.plainVariant(level1))
+                        .select(3, BlockModelGenerators.plainVariant(level2))
+                        .select(4, BlockModelGenerators.plainVariant(level2))
+                        .select(5, BlockModelGenerators.plainVariant(level3))
+                        .select(6, BlockModelGenerators.plainVariant(level3))
+                )
+        );
+    }
+
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerator) {
         blockModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS)
@@ -88,6 +126,7 @@ public class ModelProviderSD extends FabricModelProvider {
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
+        generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
     }
 
     @Override

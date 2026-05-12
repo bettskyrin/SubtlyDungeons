@@ -25,4 +25,5 @@ public class BlockItemIdsSD {
     public static final BlockItemId WARPED_OVERHANG = BlockItemId.create(Util.identifier("warped_overhang"), Util.identifier("warped_overhang"));
     public static final BlockItemId BASALT_SLAB = BlockItemId.create(Util.identifier("basalt_slab"), Util.identifier("basalt_slab"));
     public static final BlockItemId SOUL_JACK_O_LANTERN = BlockItemId.create(Util.identifier("soul_jack_o_lantern"), Util.identifier("soul_jack_o_lantern"));
+    public static final BlockItemId POTION_CAULDRON = BlockItemId.create(Util.identifier("potion_cauldron"), Util.identifier("potion_cauldron"));
 }

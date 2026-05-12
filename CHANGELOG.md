@@ -55,6 +55,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Players with the Fire Resistance effect will no longer be visually set on fire
 - High enchantability (level 15 or higher) armors will turn invisible with the wearer
 
+#### Cauldron Potions
+- Added Potion Cauldron block entity
+- Behavior mimics Bedrock Edition
+  - Cauldrons will now hold potions inside of them
+  - Tipped arrows may now be created using cauldrons
+  - Have a maximum of 6 levels
+    - However, there are still only 3 visual levels
+
 #### The Wither
 - Wither skulls fired at the player are now on fire!
   - This was originally intended by Mojang, but caused crashes
@@ -140,6 +148,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - 40 meters -> 160 meters
   - Level 4 Beacon Range:
     - 50 meters -> 200 meters
+
+#### Structures
+- Changed Swamp Hut cauldrons to now have a random potion effect inside of them, to match Bedrock Edition
 
 #### Agricultural XP
 - Harvesting fully grown crops now provides 0-2 experience

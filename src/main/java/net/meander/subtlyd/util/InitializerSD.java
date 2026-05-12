@@ -10,6 +10,7 @@ import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.world.GameEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.block.entity.BlockEntityTypesSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
@@ -27,6 +28,7 @@ public class InitializerSD implements ModInitializer {
         Util.LOGGER.info("Registering items and blocks");
         PotionsSD.registration();
         BlocksSD.registration();
+        BlockEntityTypesSD.registration();
         ItemsSD.registration();
         LootItemConditionsSD.registration();
 

@@ -18,6 +18,12 @@
 - Added Soul Jack o'Lantern
   - Can be crafted with a carved pumpkin and soul torch
 
+#### Cauldron Potions
+- Added Potion Cauldron block entity
+- Behavior matches Bedrock Edition
+  - Cauldrons will now hold potions inside of them
+  - Tipped arrows may now be created using cauldrons
+
 #### Sounds
 - Added new flaming arrow sound effect
 - Added new Ghast fireball shooting sound  effect
@@ -34,6 +40,9 @@
 - Added Video Settings option for toggling the experimental UI changes
 
 ### Changes
+#### Structures
+- Changed Swamp Hut cauldrons to now have a random potion effect inside of them, to match Bedrock Edition
+
 #### Piercing Enchantment
 - Changed Piercing to reduce the effectiveness of armor by 10% with each level
 

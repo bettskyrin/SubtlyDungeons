@@ -1,5 +1,6 @@
 package net.meander.subtlyd.world.block;
 
+import net.meander.subtlyd.core.CauldronInteractionsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.references.BlockItemId;
@@ -63,8 +64,9 @@ public class BlocksSD {
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F).sound(SoundType.WOOD).lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
+    public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
 
-    public static void registration() { }
+    public static void registration() {}
 
     private static Block register(final BlockItemId id, final BlockBehaviour.Properties properties) {
         return Blocks.register(id.block(), properties);
