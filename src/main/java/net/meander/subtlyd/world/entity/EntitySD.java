@@ -6,6 +6,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
@@ -64,22 +65,22 @@ public class EntitySD {
      * @return Whether an entity should burn with the soul fire overlay
      */
     public static boolean shouldSoulFireBurn(Entity entity) {
-        final double SIZE_MODIFIER = 0.003;
-        AABB bB = entity.getBoundingBox();
-        BlockPos minPos = BlockPos.containing(bB.minX + SIZE_MODIFIER, bB.minY + SIZE_MODIFIER, bB.minZ + SIZE_MODIFIER);
-        BlockPos maxPos = BlockPos.containing(bB.maxX - SIZE_MODIFIER, bB.maxY - SIZE_MODIFIER, bB.maxZ - SIZE_MODIFIER);
-
-        if (entity.is(EntityTypes.WITHER_SKULL)) {
+        if (entity.is(EntityTypes.WITHER_SKULL) || entity.level().getBiome(entity.blockPosition()).is(Biomes.SOUL_SAND_VALLEY)) {
             return true;
-        }
+        } else {
+            final double SIZE_MODIFIER = 0.003;
+            AABB bB = entity.getBoundingBox();
+            BlockPos minPos = BlockPos.containing(bB.minX + SIZE_MODIFIER, bB.minY + SIZE_MODIFIER, bB.minZ + SIZE_MODIFIER);
+            BlockPos maxPos = BlockPos.containing(bB.maxX - SIZE_MODIFIER, bB.maxY - SIZE_MODIFIER, bB.maxZ - SIZE_MODIFIER);
 
-        for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
-            BlockState block = entity.level().getBlockState(pos);
+            for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
+                BlockState block = entity.level().getBlockState(pos);
 
-            if (block.is(Blocks.SOUL_FIRE) || block.is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
-                return true;
+                if (block.is(Blocks.SOUL_FIRE) || block.is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
+                    return true;
+                }
             }
+            return false;
         }
-        return false;
     }
 }

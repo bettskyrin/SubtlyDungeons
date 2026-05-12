@@ -62,20 +62,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Have a maximum of 6 levels
     - However, there are still only 3 visual levels
 
-#### The Wither
-- Wither skulls fired at the player are now on fire!
-  - This was originally intended by Mojang, but caused crashes
-  - The skull flames are blue, to match Soul Fire
-- The Wither's health now scales with difficulty to match Bedrock Edition
-  - Easy 300 HP -> 300 HP
-  - Normal 300 HP -> 450 HP
-  - Hard 300 HP -> 600 HP
-- The Wither now dive bombs and summons Wither Skeletons when it has reached 50% health
-  - This is also to match Bedrock Edition
-- All entities with the `wither_friends` entity type tag will no longer target the Wither
-
-  Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
-
 #### Blocks
 - Added Basalt Slab
 - Added Soul Jack o'Lantern
@@ -90,7 +76,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
 
 #### Loot
-- Horse Armor is now enchanted in Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
+- Added Enchanted Horse Armor loot pool to Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
+  - This replaces the unenchanted Horse Armor loot pool
 
 #### Sounds
 - Added sound effects for Frosted Ice (ice created by the Frost Walker enchantment)
@@ -137,8 +124,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
   - This is based on their internal code names
 
+#### The Wither
+- Changed launched Wither Skulls to be on fire 
+  - This was originally intended by Mojang, but caused crashes
+  - The skull flames are blue, to match Soul Fire
+- Changed Wither health to scale with difficulty to match Bedrock Edition
+  - Easy 300 HP -> 300 HP
+  - Normal 300 HP -> 450 HP
+  - Hard 300 HP -> 600 HP
+- The Wither now dive bombs and summons Wither Skeletons when it has reached 50% health
+  - This is also to match Bedrock Edition
+- All entities with the `wither_friends` entity type tag will no longer target the Wither
+
+  Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
+
 #### Beacons
-- Beacon effect range has been quadrupled
+- Changed Beacon effect range to be 4 times as high
   - Level 1 Beacon Range:
     - 20 meters -> 80 meters
   - Level 2 Beacon Range:
@@ -147,15 +148,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - 40 meters -> 160 meters
   - Level 4 Beacon Range:
     - 50 meters -> 200 meters
+- This helps balance a more difficult Wither boss battle
 
 #### Structures
 - Changed Swamp Hut cauldrons to now have a random potion effect inside of them, to match Bedrock Edition
 
 #### Agricultural XP
-- Harvesting fully grown crops now provides 0-2 experience
+- Changed fully grown crops to drop 0-2 XP when reaped
 
 #### Mushroom Placement
-- Overworld mushrooms may now be placed on logs regardless of light level
+- Changed overworld mushrooms to always be placeable on logs
+
+#### Textures
+- Changed Dragon Fireball texture to match Bedrock Edition
+- Changed Fire Charge/Fireball texture
+- Changed texture for entities on fire that are Wither Skulls, in Soul Fire, on Soul Sand, on Soul Soil, or in Soul Sand Valleys
 
 ### Technical Changes
 #### Camera Shake Events

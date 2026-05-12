@@ -1,5 +1,5 @@
 ## [4.0 Snapshot 3] - 5/12/26
-Test the hottest new mechanics in Subtly Dungeons 4.0 snapshot 3! Pitch a tent far from home to earn the new Traveler advancement – just make sure you pack the all-new Elixir to cure any nasty curses along the way! A new Illager's Bane enchantment gives you the upper hand against woodland mansions, but who will you test it on first? It's up to you to find out! Finally, check out the fiery new visuals for Wither Skulls and enjoy a smoother experience with our latest game optimizations.
+Test the hottest new mechanics in Subtly Dungeons 4.0 Snapshot 3! Fill your cauldrons with potions and make tipped arrows for your travels! Then pitch a tent far from home to earn the new Traveler advancement – just make sure you pack the all-new Elixir to cure any nasty ailments along the way! A new Illager's Bane enchantment gives you the upper hand against woodland mansions, but who will you test it on first? It's up to you to find out! Finally, check out the fiery new visuals for Wither Skulls and enjoy a smoother experience with our latest game optimizations.
 
 ### New Features
 #### Enchantments
@@ -16,15 +16,15 @@ Test the hottest new mechanics in Subtly Dungeons 4.0 snapshot 3! Pitch a tent f
     - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
     - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
 
-#### Blocks
-- Added Soul Jack o'Lantern
-  - Can be crafted with a carved pumpkin and soul torch
-
 #### Cauldron Potions
 - Added Potion Cauldron block entity
 - Behavior matches Bedrock Edition
   - Cauldrons will now hold potions inside of them
   - Tipped arrows may now be created using cauldrons
+
+#### Blocks
+- Added Soul Jack o'Lantern
+  - Can be crafted with a carved pumpkin and soul torch
 
 #### Sounds
 - Added new flaming arrow sound effect
@@ -60,10 +60,9 @@ Test the hottest new mechanics in Subtly Dungeons 4.0 snapshot 3! Pitch a tent f
 - Changed damage output to be slightly higher
 
 #### Textures
-- The Dragon Fireball texture has been changed to match Bedrock Edition
-- The Fire Charge/Fireball texture has been changed
-- The On Fire texture for entities has changed depending on whether they are standing in Soul Fire, on Soul Sand, or on Soul Soil
-- Wither Skulls now burn with Soul Fire
+- Changed Dragon Fireball texture to match Bedrock Edition
+- Changed Fire Charge/Fireball texture
+- Changed texture for entities on fire that are Wither Skulls, in Soul Fire, on Soul Sand, on Soul Soil, or in Soul Sand Valleys
 
 ### Technical Changes
 #### Particles
