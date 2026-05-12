@@ -4,14 +4,9 @@ import net.meander.subtlyd.client.OptionInstanceSD;
 import net.meander.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-import net.minecraft.client.gui.components.CommonButtons;
-import net.minecraft.client.gui.components.SpriteIconButton;
-import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.TitleScreen;
-import net.minecraft.client.gui.screens.options.LanguageSelectScreen;
 import net.minecraft.network.chat.Component;
-import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -30,78 +25,27 @@ public class TitleScreenMixin extends Screen {
     }
 
     /**
-     * Prevents the language button from being created.
-     * @return Null
+     * Corrects vertical spacing when using the experimental GUI.
      */
-    @Nullable
-    @Redirect(method = "init",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-                    ordinal = 0))
-    private GuiEventListener cancelDeclaration(TitleScreen instance, GuiEventListener guiEventListener) {
-        if (canChangeUi) {
-            return null;
-        }
-        return addRenderableWidget((SpriteIconButton) guiEventListener);
-    }
-
-    /**
-     * Prevents the language button position from being set.
-     */
-    @Redirect(method = "init", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V", ordinal = 0))
-    private void cancelPosition(SpriteIconButton instance, int i, int j) {
-        if (!canChangeUi) {
-            instance.setPosition(i, j);
-        }
+    @ModifyVariable(method = "init", at = @At(value = "STORE", ordinal = 2), name = "topPos")
+    private int modifySpacing(int topPos) {
+        return topPos - 12;
     }
 
     /**
      * Moves the language button to the bottom left corner of the screen.
+     * @param args The original arguments that handled the position of the button.
      */
-    @Inject(method = "init",
+    @ModifyArgs(method = "init",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/TitleScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-                    ordinal = 3))
-    private void moveLang(CallbackInfo ci) {
+                    target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V",
+                    ordinal = 0))
+    private void setLanguagePos(Args args) {
         if (canChangeUi) {
-            SpriteIconButton spriteIconButton = this.addRenderableWidget(CommonButtons.language(
-                    20,
-                    _ -> this.minecraft.setScreenAndShow(new LanguageSelectScreen(this, this.minecraft.options, this.minecraft.getLanguageManager())),
-                    true)
-            );
-            spriteIconButton.setPosition(SPRITE_XPOS, height - (4 + BUTTON_HEIGHT));
+            args.set(0, SPRITE_XPOS);
+            args.set(1, height - (BUTTON_HEIGHT + 4));
         }
-    }
-
-    /**
-     * Sets the language button to be the constant BUTTON_HEIGHT value.
-     * @return The size of the button.
-     */
-    @ModifyArg(method = "init", at = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/client/gui/components/CommonButtons;language(ILnet/minecraft/client/gui/components/Button$OnPress;Z)Lnet/minecraft/client/gui/components/SpriteIconButton;"),
-                index = 0)
-    private int languageButton(int i) {
-        if (canChangeUi) {
-            return BUTTON_HEIGHT;
-        }
-        return i;
-    }
-
-    /**
-     * Sets the accessibility button to be the constant BUTTON_HEIGHT value.
-     * @return The size of the button.
-     */
-    @ModifyArg(method = "init", at = @At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/client/gui/components/CommonButtons;accessibility(ILnet/minecraft/client/gui/components/Button$OnPress;Z)Lnet/minecraft/client/gui/components/SpriteIconButton;"),
-                index = 0)
-    private int accessibilityButton(int i) {
-        if (canChangeUi) {
-            return BUTTON_HEIGHT;
-        }
-        return i;
     }
 
     /**
@@ -113,10 +57,25 @@ public class TitleScreenMixin extends Screen {
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/components/SpriteIconButton;setPosition(II)V",
                     ordinal = 1))
-    private void setAccPos(Args args) {
+    private void setAccessibilityPos(Args args) {
         if (canChangeUi) {
-            args.set(0, SPRITE_XPOS + BUTTON_HEIGHT + 4);
-            args.set(1, height - (4 + BUTTON_HEIGHT));
+            args.set(0, SPRITE_XPOS + (BUTTON_HEIGHT + 4));
+            args.set(1, height - (BUTTON_HEIGHT + 4));
+        }
+    }
+
+    /**
+     * Moves the friends button to the bottom left.
+     * @param args The original arguments that handled the position of the button.
+     */
+    @ModifyArgs(method = "init",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/components/FriendsButton;setPosition(II)V"))
+    private void setFriendsPos(Args args) {
+        if (canChangeUi) {
+            args.set(0, SPRITE_XPOS + (BUTTON_HEIGHT + 4) * 2);
+            args.set(1, height - (BUTTON_HEIGHT + 4));
         }
     }
 

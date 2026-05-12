@@ -101,7 +101,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added sound effects for Lingering Potion Area Effect Clouds
 - Added sound effects for Dragon's Breath Area Effect Clouds
 
-#### UI
+#### Settings
 - Added Video Settings option for toggling the experimental UI changes
 
 #### Splash Text

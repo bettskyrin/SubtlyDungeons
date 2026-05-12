@@ -1,4 +1,6 @@
 ## [4.0 Snapshot 3] - 5/12/26
+Test the hottest new mechanics in Subtly Dungeons 4.0 snapshot 3! Pitch a tent far from home to earn the new Traveler advancement – just make sure you pack the all-new Elixir to cure any nasty curses along the way! A new Illager's Bane enchantment gives you the upper hand against woodland mansions, but who will you test it on first? It's up to you to find out! Finally, check out the fiery new visuals for Wither Skulls and enjoy a smoother experience with our latest game optimizations.
+
 ### New Features
 #### Enchantments
 - Added Illager's Bane enchantment
@@ -36,7 +38,7 @@
 - Added new "Traveler" adventure challenge
   - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
 
-#### UI
+#### Settings
 - Added Video Settings option for toggling the experimental UI changes
 
 ### Changes
