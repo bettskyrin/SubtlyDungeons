@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WitherBoss.class)
 public class WitherBossMixin {
-
     /**
      * Determines that the maximum amount of health a wither can have naturally, is 600 health points.
      * @param health The orignal amount of health.
