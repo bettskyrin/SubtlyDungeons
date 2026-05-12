@@ -9,8 +9,9 @@ import net.minecraft.network.chat.Component;
 @Environment(EnvType.CLIENT)
 public class OptionInstanceSD {
     private static final Component ACCESSIBILITY_TOOLTIP_CAMERA_SHAKE = Component.translatable("options.accessibility.camera_shake.tooltip");
-    private static final Component EXPERIMENTAL_TOOLTIP_GUI = CommonComponents.joinLines(Component.translatable("options.experimental.gui.tooltip"),
-            Component.translatable("options.needsRestart"));
+    private static final Component EXPERIMENTAL_TOOLTIP_GUI = CommonComponents.joinLines(Component.translatable("options.needsRestart"),
+            CommonComponents.EMPTY,
+            Component.translatable("options.experimental.gui.tooltip"));
 
     public static final OptionInstance<Boolean> CAMERA_SHAKE = OptionInstance.createBoolean(
             "options.accessibility.camera_shake", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_CAMERA_SHAKE), true
