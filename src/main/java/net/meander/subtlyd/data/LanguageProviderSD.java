@@ -39,7 +39,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("block.subtlyd.stone_tile_wall", "Stone Tile Wall");
         translationBuilder.add("block.subtlyd.stone_tiles", "Stone Tiles");
         translationBuilder.add("block.subtlyd.unlit_campfire", "Campfire");
-        translationBuilder.add("block.subtlyd.unlit_soul_campfire", "Soul_Campfire");
+        translationBuilder.add("block.subtlyd.unlit_soul_campfire", "Soul Campfire");
         translationBuilder.add("block.subtlyd.warped_overhang", "Warped Overhang");
 
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
