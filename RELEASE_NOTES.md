@@ -2,3 +2,7 @@
 ### Changes
 #### Loot
 - Changed cows, mooshrooms, horses, llamas, mules, donkeys, and trader llamas to drop between 1 and 4 leather
+
+### Technical Changes
+#### Bug Fixes
+- Fixed bug preventing animals seeking shelter from walking around

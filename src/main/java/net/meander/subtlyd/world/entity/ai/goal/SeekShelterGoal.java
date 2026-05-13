@@ -2,9 +2,9 @@ package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
@@ -44,15 +44,13 @@ public class SeekShelterGoal extends Goal {
      * @return A Vec3 shelter position or null, if valid shelter is not found.
      */
     private Vec3 findShelter() {
-        RandomSource random = mob.getRandom();
         int YRADIUS = 4;
 
         for (int searchRadius = 4; searchRadius <= 16; searchRadius += 4) {
             for (int j = 0; j < searchRadius * 6; j++) {
-                BlockPos randPos = mob.blockPosition().offset(random.nextInt((searchRadius * 2) + 1) - searchRadius, random.nextInt((YRADIUS * 2) + 1) - YRADIUS, random.nextInt((searchRadius * 2) + 1) - searchRadius);
-
-                if (!mob.level().isRainingAt(randPos) && mob.getNavigation().isStableDestination(randPos)) {
-                    return Vec3.atBottomCenterOf(randPos);
+                Vec3 randPos = DefaultRandomPos.getPos(mob, searchRadius, YRADIUS);
+                if (randPos != null && !mob.level().isRainingAt(BlockPos.containing(randPos))) {
+                    return randPos;
                 }
             }
         }
@@ -87,5 +85,19 @@ public class SeekShelterGoal extends Goal {
     @Override
     public void start() {
         mob.getNavigation().moveTo(shelterX,  shelterY, shelterZ, speedModifier);
+    }
+
+    @Override
+    public void tick() {
+        if (mob.getNavigation().isDone() && !mob.level().isRainingAt(mob.blockPosition())) {
+            if (mob.getRandom().nextInt(120) == 0) {
+
+                Vec3 randomPos = DefaultRandomPos.getPos(mob, 4, 3);
+
+                if (randomPos != null && !mob.level().isRainingAt(BlockPos.containing(randomPos))) {
+                    mob.getNavigation().moveTo(randomPos.x, randomPos.y, randomPos.z, speedModifier * 0.5);
+                }
+            }
+        }
     }
 }
