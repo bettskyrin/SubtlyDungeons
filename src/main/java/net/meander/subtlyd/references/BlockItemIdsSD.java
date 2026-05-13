@@ -5,6 +5,7 @@ import net.minecraft.references.BlockItemId;
 
 public class BlockItemIdsSD {
     public static final BlockItemId UNLIT_CAMPFIRE = BlockItemId.create(Util.identifier("unlit_campfire"), Util.identifier("unlit_campfire"));
+    public static final BlockItemId UNLIT_SOUL_CAMPFIRE = BlockItemId.create(Util.identifier("unlit_soul_campfire"), Util.identifier("unlit_soul_campfire"));
     public static final BlockItemId SNOW_BRICKS = BlockItemId.create(Util.identifier("snow_bricks"), Util.identifier("snow_bricks"));
     public static final BlockItemId SNOW_BRICK_STAIRS = BlockItemId.create(Util.identifier("snow_brick_stairs"), Util.identifier("snow_brick_stairs"));
     public static final BlockItemId SNOW_BRICK_SLAB = BlockItemId.create(Util.identifier("snow_brick_slab"), Util.identifier("snow_brick_slab"));

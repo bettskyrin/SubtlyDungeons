@@ -60,6 +60,7 @@ public class CreativeModeTabsSD {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
             TENT.forEach(tent -> entries.insertBefore(CANDLE, tent));
             entries.insertAfter(CAMPFIRE, UNLIT_CAMPFIRE);
+            entries.insertAfter(SOUL_CAMPFIRE, UNLIT_SOUL_CAMPFIRE);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {

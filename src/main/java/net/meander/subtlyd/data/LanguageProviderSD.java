@@ -17,6 +17,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
 
         translationBuilder.add("block.minecraft.campfire", "Lit Campfire");
+        translationBuilder.add("block.minecraft.soul_campfire", "Lit Soul Campfire");
         translationBuilder.add("block.subtlyd.basalt_slab", "Basalt Slab");
         translationBuilder.add("block.subtlyd.charcoal_block", "Block of Charcoal");
         translationBuilder.add("block.subtlyd.chiseled_polished_dripstone", "Chiseled Polished Dripstone");
@@ -38,6 +39,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("block.subtlyd.stone_tile_wall", "Stone Tile Wall");
         translationBuilder.add("block.subtlyd.stone_tiles", "Stone Tiles");
         translationBuilder.add("block.subtlyd.unlit_campfire", "Campfire");
+        translationBuilder.add("block.subtlyd.unlit_soul_campfire", "Soul_Campfire");
         translationBuilder.add("block.subtlyd.warped_overhang", "Warped Overhang");
 
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
