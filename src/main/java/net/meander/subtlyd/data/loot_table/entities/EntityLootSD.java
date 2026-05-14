@@ -44,11 +44,11 @@ public class EntityLootSD {
                     tableBuilder.withPool(squidPool).build();
                 } else if (resourceKey.equals(EntityTypes.WITCH.getDefaultLootTable().orElseThrow())) {
                     LootPool.Builder witchPool = LootPool.lootPool()
-                            .add(LootItem.lootTableItem(ItemsSD.ELIXIR)
+                            .add(LootItem.lootTableItem(ItemsSD.COVEN_ELIXIR)
                                     .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setStructures(HolderSet.direct(
                                             structureLookup.getOrThrow(BuiltinStructures.SWAMP_HUT)))))
                                     .setWeight(18))
-                            .add(LootItem.lootTableItem(ItemsSD.ELIXIR)
+                            .add(LootItem.lootTableItem(ItemsSD.COVEN_ELIXIR)
                                     .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(
                                             biomeLookup.getOrThrow(BiomeTags.HAS_SWAMP_HUT))))
                                     .setWeight(1))

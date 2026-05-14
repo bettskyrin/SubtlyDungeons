@@ -90,7 +90,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("item.subtlyd.calamari", "Calamari");
         translationBuilder.add("item.subtlyd.cooked_calamari", "Cooked Calamari");
         translationBuilder.add("item.subtlyd.cyan_tent", "Cyan Tent");
-        translationBuilder.add("item.subtlyd.elixir", "Elixir");
+        translationBuilder.add("item.subtlyd.coven_elixir", "Elixir of the Coven");
         translationBuilder.add("item.subtlyd.gray_tent", "Gray Tent");
         translationBuilder.add("item.subtlyd.green_tent", "Green Tent");
         translationBuilder.add("item.subtlyd.light_blue_tent", "Light Blue Tent");

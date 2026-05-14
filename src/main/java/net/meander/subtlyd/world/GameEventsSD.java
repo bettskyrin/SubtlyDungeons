@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.commands.CommandsSD;
@@ -64,6 +65,11 @@ public class GameEventsSD {
         registerCommands();
         modifyItemComponents();
         CauldronInteractionsSD.bootstrap();
+        registerCompostables();
+    }
+
+    private static void registerCompostables() {
+        CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
     }
 
     private static void registerBlockEvents() {

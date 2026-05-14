@@ -7,9 +7,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class LootItemConditionsSD {
-    private static final Registry<MapCodec<? extends LootItemCondition>> registry = BuiltInRegistries.LOOT_CONDITION_TYPE;
+    private static final Registry<MapCodec<? extends LootItemCondition>> REGISTRY = BuiltInRegistries.LOOT_CONDITION_TYPE;
 
     public static void registration() {
-        Registry.register(registry, Util.identifier("is_wet"), IsWetCondition.CODEC);
+        Registry.register(REGISTRY, Util.identifier("is_wet"), IsWetCondition.CODEC);
     }
 }

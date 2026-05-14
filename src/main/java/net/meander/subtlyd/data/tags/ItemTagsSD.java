@@ -46,7 +46,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.SUSPICIOUS_STEW)
                 .add(ItemIds.RABBIT_STEW)
                 .add(ItemIdsSD.POTTAGE)
-                .add(ItemIdsSD.ELIXIR);
+                .add(ItemIdsSD.COVEN_ELIXIR);
         tag(NON_HUMANOID_ARMOR)
                 .add(ItemIds.LEATHER_HORSE_ARMOR)
                 .add(ItemIds.COPPER_HORSE_ARMOR)

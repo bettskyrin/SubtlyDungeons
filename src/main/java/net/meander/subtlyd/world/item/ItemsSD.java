@@ -1,6 +1,5 @@
 package net.meander.subtlyd.world.item;
 
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
@@ -24,12 +23,18 @@ import java.util.function.BiFunction;
 import java.util.function.UnaryOperator;
 
 public class ItemsSD {
-    public static final Item APPLE_PIE = Items.registerItem(ItemIdsSD.APPLE_PIE, Item::new, new Item.Properties().food(FoodsSD.APPLE_PIE));
-    public static final Item CALAMARI = Items.registerItem(ItemIdsSD.CALAMARI, Item::new, new Item.Properties().food(FoodsSD.CALAMARI));
-    public static final Item COOKED_CALAMARI = Items.registerItem(ItemIdsSD.COOKED_CALAMARI, Item::new, new Item.Properties().food(FoodsSD.COOKED_CALAMARI));
-    public static final Item POTTAGE = Items.registerItem(ItemIdsSD.POTTAGE, Item::new, new Item.Properties().food(FoodsSD.POTTAGE).stacksTo(1));
+    public static final Item APPLE_PIE = Items.registerItem(ItemIdsSD.APPLE_PIE, Item::new, new Item.Properties()
+            .food(FoodsSD.APPLE_PIE));
+    public static final Item CALAMARI = Items.registerItem(ItemIdsSD.CALAMARI, Item::new, new Item.Properties()
+            .food(FoodsSD.CALAMARI));
+    public static final Item COOKED_CALAMARI = Items.registerItem(ItemIdsSD.COOKED_CALAMARI, Item::new, new Item.Properties()
+            .food(FoodsSD.COOKED_CALAMARI));
+    public static final Item POTTAGE = Items.registerItem(ItemIdsSD.POTTAGE, Item::new, new Item.Properties()
+            .food(FoodsSD.POTTAGE)
+            .stacksTo(1));
     public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT,
-            (id, color) -> Items.registerItem(id, properties -> new TentItem(EntityTypesSD.TENT.pick(color), properties), new Item.Properties().stacksTo(1))
+            (id, color) -> Items.registerItem(id, properties -> new TentItem(EntityTypesSD.TENT.pick(color), properties), new Item.Properties()
+                    .stacksTo(1))
     );
     public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
@@ -53,17 +58,18 @@ public class ItemsSD {
     public static final Item STONE_TILE_WALL = Items.registerBlock(BlockItemIdsSD.STONE_TILE_WALL, BlocksSD.STONE_TILE_WALL);
     public static final Item REEDS = Items.registerBlock(BlockItemIdsSD.REEDS, BlocksSD.REEDS);
     public static final Item WARPED_OVERHANG = Items.registerBlock(BlockItemIdsSD.WARPED_OVERHANG, BlocksSD.WARPED_OVERHANG);
-    public static final Item BLAST_FUNGUS = Items.registerItem(ItemIdsSD.BLAST_FUNGUS, BlastFungusItem::new, new Item.Properties().stacksTo(16));
+    public static final Item BLAST_FUNGUS = Items.registerItem(ItemIdsSD.BLAST_FUNGUS, BlastFungusItem::new, new Item.Properties()
+            .stacksTo(16));
     public static final Item BASALT_SLAB = Items.registerBlock(BlockItemIdsSD.BASALT_SLAB, BlocksSD.BASALT_SLAB);
-    public static final Item ELIXIR = Items.registerItem(ItemIdsSD.ELIXIR, Item::new, new Item.Properties().stacksTo(16)
+    public static final Item COVEN_ELIXIR = Items.registerItem(ItemIdsSD.COVEN_ELIXIR, Item::new, new Item.Properties()
+            .stacksTo(16)
             .rarity(Rarity.UNCOMMON)
-            .component(DataComponents.CONSUMABLE, ConsumablesSD.ELIXIR)
+            .component(DataComponents.CONSUMABLE, ConsumablesSD.COVEN_ELIXIR)
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
 
-    public static void registration() {
+    public static void bootstrap() {
         CreativeModeTabsSD.bootstrap();
-        CompostableRegistry.INSTANCE.add(APPLE_PIE, 1.0F);
     }
 
     private static Item registerBlockSD(final BlockItemId id, final Block block, final UnaryOperator<Item.Properties> propertiesFunction) {

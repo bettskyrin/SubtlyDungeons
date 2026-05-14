@@ -66,7 +66,7 @@ public class BlocksSD {
                     .pushReaction(PushReaction.DESTROY));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
 
-    public static void registration() {}
+    public static void bootstrap() {}
 
     private static Block register(final BlockItemId id, final BlockBehaviour.Properties properties) {
         return Blocks.register(id.block(), properties);

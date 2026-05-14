@@ -11,6 +11,7 @@ import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.world.GameEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.entity.BlockEntityTypesSD;
+import net.meander.subtlyd.world.effect.MobEffectsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
@@ -20,16 +21,17 @@ import net.meander.subtlyd.world.level.storage.loot.predicates.LootItemCondition
 public class InitializerSD implements ModInitializer {
     @Override public void onInitialize() {
         Util.LOGGER.info("Initializing Subtly Dungeons");
-        GameRulesSD.registration();
-        DataComponentsSD.registration();
-        SynchedEntityDataSD.defineIds();
+        GameRulesSD.bootstrap();
+        DataComponentsSD.bootstrap();
+        SynchedEntityDataSD.bootstrap();
         PacketNetworking.registerCommon();
 
         Util.LOGGER.info("Registering items and blocks");
-        PotionsSD.registration();
-        BlocksSD.registration();
-        BlockEntityTypesSD.registration();
-        ItemsSD.registration();
+        MobEffectsSD.bootstrap();
+        PotionsSD.bootstrap();
+        BlocksSD.bootstrap();
+        BlockEntityTypesSD.bootstrap();
+        ItemsSD.bootstrap();
         LootItemConditionsSD.registration();
 
         Util.LOGGER.info("Registering world events");
@@ -37,7 +39,7 @@ public class InitializerSD implements ModInitializer {
         CameraShakeEvents.registration();
         BiomesSD.init();
         LootSD.registration();
-        CriteriaTriggersSD.registration();
-        StatsSD.registration();
+        CriteriaTriggersSD.bootstrap();
+        StatsSD.bootstrap();
     }
 }

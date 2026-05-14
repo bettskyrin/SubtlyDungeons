@@ -16,7 +16,7 @@ import java.util.function.ToIntFunction;
 public class GameRulesSD {
     public static final GameRule<Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
 
-    public static void registration() {}
+    public static void bootstrap() {}
 
     private static GameRule<Boolean> registerBoolean(String string, GameRuleCategory gameRuleCategory, boolean bl) {
         return register(

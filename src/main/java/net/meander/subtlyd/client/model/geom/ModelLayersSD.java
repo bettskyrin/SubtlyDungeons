@@ -20,7 +20,7 @@ public class ModelLayersSD extends ModelLayers {
         ModelLayerLocation modelLayerLocation = createLocation(string);
 
         if (!ALL_MODELS.add(modelLayerLocation)) {
-            throw new IllegalStateException("Duplicate registration for " + modelLayerLocation);
+            throw new IllegalStateException("Duplicate bootstrap for " + modelLayerLocation);
         }
     }
 
