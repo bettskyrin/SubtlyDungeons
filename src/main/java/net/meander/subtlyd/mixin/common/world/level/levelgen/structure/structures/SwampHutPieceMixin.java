@@ -6,6 +6,7 @@ import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.ChunkPos;
@@ -26,11 +27,19 @@ public class SwampHutPieceMixin {
     private void fillWitchHutCauldron(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource random, BoundingBox chunkBB, ChunkPos chunkPos, BlockPos referencePos, CallbackInfo ci) {
         SwampHutPiece piece = (SwampHutPiece) (Object) this;
         BlockPos cauldronPos = new BlockPos(piece.getWorldX(4, 6), piece.getWorldY(2), piece.getWorldZ(4, 6));
+        final WeightedList<Holder<Potion>> CAULDRON_POTIONS = WeightedList.<Holder<Potion>>builder()
+                .add(Potions.HEALING, 25)
+                .add(Potions.POISON, 25)
+                .add(Potions.SWIFTNESS, 15)
+                .add(Potions.SLOWNESS, 10)
+                .add(Potions.WEAKNESS, 10)
+                .add(Potions.WATER_BREATHING, 10)
+                .add(Potions.FIRE_RESISTANCE, 5)
+                .build();
 
         if (chunkBB.isInside(cauldronPos) && level.getBlockState(cauldronPos).is(Blocks.CAULDRON)) {
             int levels = (random.nextInt(3) + 1) * 2;
-            int roll = random.nextInt(100);
-            Holder<Potion> selectedPotion = getPotion(roll);
+            Holder<Potion> selectedPotion = CAULDRON_POTIONS.getRandom(random).orElse(Potions.WATER);
 
             level.setBlock(cauldronPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.POTION_LEVEL, levels), 2);
 
@@ -39,26 +48,5 @@ public class SwampHutPieceMixin {
                 blockEntity.setPotionType("minecraft:potion");
             }
         }
-    }
-
-    private static Holder<Potion> getPotion(int roll) {
-        Holder<Potion> selectedPotion;
-
-        if (roll < 25) {
-            selectedPotion = Potions.HEALING;
-        } else if (roll < 50) {
-            selectedPotion = Potions.POISON;
-        } else if (roll < 65) {
-            selectedPotion = Potions.SWIFTNESS;
-        } else if (roll < 75) {
-            selectedPotion = Potions.SLOWNESS;
-        } else if (roll < 85) {
-            selectedPotion = Potions.WEAKNESS;
-        } else if (roll < 95) {
-            selectedPotion = Potions.WATER_BREATHING;
-        } else {
-            selectedPotion = Potions.FIRE_RESISTANCE;
-        }
-        return selectedPotion;
     }
 }
