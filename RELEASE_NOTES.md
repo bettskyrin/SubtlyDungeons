@@ -5,6 +5,9 @@
   - Is given when the player picks up an unlit Soul Campfire block with Silk Touch
 
 ### Changes
+#### Potions
+- Increased Jump Boost height by half a block
+
 #### Textures
 - Added potion bottle archetypes
   - Some potions have different bottle shapes, to better help visibility for those with colorblindness
