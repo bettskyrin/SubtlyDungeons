@@ -40,7 +40,7 @@ public class ItemModelResolverMixin {
 
     @ModifyVariable(method = "updateForTopItem", at = @At("HEAD"), argsOnly = true, name = "item")
     private ItemStack createPotionArchetypes(ItemStack item) {
-        if (item.is(Items.POTION)) {
+        if (item.is(Items.POTION) || item.is(Items.SPLASH_POTION) || item.is(Items.LINGERING_POTION)) {
             PotionContents contents = item.get(DataComponents.POTION_CONTENTS);
 
             if (contents != null && contents.potion().isPresent()) {
@@ -64,8 +64,8 @@ public class ItemModelResolverMixin {
 
                 if (modelId != null && !modelId.equals(item.get(DataComponents.ITEM_MODEL))) {
                     ItemStack potionStack = item.copy();
-                    potionStack.set(DataComponents.ITEM_MODEL, modelId);
 
+                    potionStack.set(DataComponents.ITEM_MODEL, modelId);
                     return potionStack;
                 }
             }

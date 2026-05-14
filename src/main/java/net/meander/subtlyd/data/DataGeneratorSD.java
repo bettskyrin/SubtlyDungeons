@@ -13,6 +13,7 @@ import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.PackOutput;
 
 public class DataGeneratorSD implements DataGeneratorEntrypoint {
 	@Override
@@ -20,7 +21,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
         pack.addProvider(ModelProviderSD::new);
-        pack.addProvider(PotionBottleProviderSD::new);
+        pack.addProvider((PackOutput output) -> new PotionBottleProviderSD(output));
         pack.addProvider(BiomeTagsSD::new);
         pack.addProvider(ItemTagsSD::new);
         pack.addProvider(PotionTagsSD::new);

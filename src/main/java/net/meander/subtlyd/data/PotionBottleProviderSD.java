@@ -22,6 +22,9 @@ public class PotionBottleProviderSD implements DataProvider {
         this.modelsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item/potion");
     }
 
+    /**
+     * Generates the potion bottle archetype JSON files.
+     */
     @Override
     public CompletableFuture<?> run(CachedOutput writer) {
         List<String> shapes = List.of("conical_bottle", "spherical_bottle", "vial_bottle");
@@ -38,7 +41,7 @@ public class PotionBottleProviderSD implements DataProvider {
                 Path itemFilePath = this.itemsPath.json(Util.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, itemDef, itemFilePath));
 
-                JsonObject visualModel = getModelJson(fileName); // models/item/potion/...
+                JsonObject visualModel = getModelJson(fileName, shape); // models/item/potion/...
 
                 Path modelFilePath = this.modelsPath.json(Util.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, visualModel, modelFilePath));
@@ -48,12 +51,13 @@ public class PotionBottleProviderSD implements DataProvider {
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
-    private static @NonNull JsonObject getModelJson(String fileName) {
+    private static @NonNull JsonObject getModelJson(String fileName, String shape) {
         JsonObject visualModel = new JsonObject();
+        JsonObject textures = new JsonObject();
+
         visualModel.addProperty("parent", "minecraft:item/generated");
 
-        JsonObject textures = new JsonObject();
-        textures.addProperty("layer0", "subtlyd:item/potion/" + fileName.replace("_bottle", "_overlay"));
+        textures.addProperty("layer0", "subtlyd:item/potion/" + shape.replace("_bottle", "_overlay"));
         textures.addProperty("layer1", "subtlyd:item/potion/" + fileName);
 
         visualModel.add("textures", textures);
@@ -63,11 +67,12 @@ public class PotionBottleProviderSD implements DataProvider {
     private static @NonNull JsonObject getItemJson(String fileName) {
         JsonObject itemDef = new JsonObject();
         JsonObject modelObj = new JsonObject();
+        JsonArray tints = new JsonArray();
+        JsonObject tintObj = new JsonObject();
+
         modelObj.addProperty("type", "minecraft:model");
         modelObj.addProperty("model", "subtlyd:item/potion/" + fileName);
 
-        JsonArray tints = new JsonArray();
-        JsonObject tintObj = new JsonObject();
         tintObj.addProperty("type", "minecraft:potion");
         tintObj.addProperty("default", 16253176);
         tints.add(tintObj);
