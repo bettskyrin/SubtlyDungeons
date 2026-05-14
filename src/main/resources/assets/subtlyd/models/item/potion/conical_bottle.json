@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "subtlyd:item/potion/conical_overlay",
+    "layer1": "subtlyd:item/potion/conical_bottle"
+  }
+}

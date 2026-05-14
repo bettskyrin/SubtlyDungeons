@@ -23,12 +23,19 @@ public class DamageTypeTagsSD extends TagsProvider<DamageType> {
     }
 
     @SuppressWarnings("unchecked")
-    @Override protected void addTags(HolderLookup.Provider registries) {
-        this.tag(CAN_BREAK_TENT).add(DamageTypes.PLAYER_EXPLOSION).add(DamageTypes.PLAYER_ATTACK, DamageTypes.SPEAR, DamageTypes.MACE_SMASH);
-        this.tag(ALWAYS_KILLS_TENT).add(DamageTypes.ARROW, DamageTypes.TRIDENT, DamageTypes.FIREBALL, DamageTypes.WITHER_SKULL, DamageTypes.WIND_CHARGE);
-        this.tag(BURNS_TENTS).add(DamageTypes.ON_FIRE);
-        this.tag(IGNITES_TENTS).add(DamageTypes.IN_FIRE, DamageTypes.CAMPFIRE);
-        this.tag(IS_OCCULT).add(DamageTypes.MAGIC, DamageTypes.INDIRECT_MAGIC, DamageTypes.SONIC_BOOM, DamageTypes.THORNS, DamageTypes.WITHER);
+    @Override
+    protected void addTags(HolderLookup.Provider registries) {
+        tag(CAN_BREAK_TENT)
+                .add(DamageTypes.PLAYER_EXPLOSION)
+                .add(DamageTypes.PLAYER_ATTACK, DamageTypes.SPEAR, DamageTypes.MACE_SMASH);
+        tag(ALWAYS_KILLS_TENT)
+                .add(DamageTypes.ARROW, DamageTypes.TRIDENT, DamageTypes.FIREBALL, DamageTypes.WITHER_SKULL, DamageTypes.WIND_CHARGE);
+        tag(BURNS_TENTS)
+                .add(DamageTypes.ON_FIRE);
+        tag(IGNITES_TENTS)
+                .add(DamageTypes.IN_FIRE, DamageTypes.CAMPFIRE);
+        tag(IS_OCCULT)
+                .add(DamageTypes.MAGIC, DamageTypes.INDIRECT_MAGIC, DamageTypes.SONIC_BOOM, DamageTypes.THORNS, DamageTypes.WITHER);
     }
 
     private static TagKey<DamageType> bind(String string) {

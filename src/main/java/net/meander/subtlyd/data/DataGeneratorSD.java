@@ -20,8 +20,10 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
         pack.addProvider(ModelProviderSD::new);
+        pack.addProvider(PotionBottleProviderSD::new);
         pack.addProvider(BiomeTagsSD::new);
         pack.addProvider(ItemTagsSD::new);
+        pack.addProvider(PotionTagsSD::new);
         pack.addProvider(EnchantmentTagsSD::new);
         pack.addProvider(BlockTagsSD::new);
         pack.addProvider(EntityTypeTagsSD::new);

@@ -3,6 +3,7 @@ package net.meander.subtlyd.data;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.client.model.ModelTemplatesSD;
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -29,7 +30,7 @@ public class ModelProviderSD extends FabricModelProvider {
      * @param vanillaBlock The original block to obtain a texture from.
      * @param newBlock The custom block that the texture will be mapped to.
      */
-    public static void generatePillarSlabFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
+    private static void generatePillarSlabFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerators) {
         MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(vanillaBlock));
         Identifier top = TextureMapping.getBlockTexture(vanillaBlock, "_top").sprite();
         Identifier side = TextureMapping.getBlockTexture(vanillaBlock, "_side").sprite();
@@ -49,7 +50,7 @@ public class ModelProviderSD extends FabricModelProvider {
      * Creates an overhang block.
      * @param block The block to map to.
      */
-    public static void generateOverhangBlock(Block block, BlockModelGenerators blockModelGenerators) {
+    private static void generateOverhangBlock(Block block, BlockModelGenerators blockModelGenerators) {
         Identifier north = TextureMapping.getBlockTexture(block, "_north").sprite();
         Identifier east = TextureMapping.getBlockTexture(block, "_east").sprite();
         Identifier south = TextureMapping.getBlockTexture(block, "_south").sprite();
@@ -71,7 +72,7 @@ public class ModelProviderSD extends FabricModelProvider {
      * Creates a textured cauldron block
      */
     @SuppressWarnings("DataFlowIssue")
-    public static void generateFilledCauldron(Block block, BlockModelGenerators blockModelGenerators) {
+    private static void generateFilledCauldron(Block block, BlockModelGenerators blockModelGenerators) {
         TextureMapping mapping = new TextureMapping()
                 .put(TextureSlot.CONTENT, new Material(Identifier.tryParse("minecraft:block/water_still")))
                 .put(TextureSlot.TOP, new Material(Identifier.tryParse("minecraft:block/cauldron_top")))
@@ -99,6 +100,16 @@ public class ModelProviderSD extends FabricModelProvider {
                         .select(6, BlockModelGenerators.plainVariant(level3))
                 )
         );
+    }
+
+    private static void generatePotionArchetypes(ItemModelGenerators itemModelGenerator) {
+        Identifier conicalBottle = Util.identifier("item/potion/conical_overlay");
+        Identifier sphericalBottle = Util.identifier("item/potion/spherical_overlay");
+        Identifier vialBottle = Util.identifier("item/potion/vial_overlay");
+
+        ModelTemplates.FLAT_ITEM.create(conicalBottle, TextureMapping.layer0(new Material(conicalBottle)), itemModelGenerator.modelOutput);
+        ModelTemplates.FLAT_ITEM.create(sphericalBottle, TextureMapping.layer0(new Material(sphericalBottle)), itemModelGenerator.modelOutput);
+        ModelTemplates.FLAT_ITEM.create(vialBottle, TextureMapping.layer0(new Material(vialBottle)), itemModelGenerator.modelOutput);
     }
 
     @Override
@@ -142,5 +153,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.WARPED_OVERHANG, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.BLAST_FUNGUS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.ELIXIR, ModelTemplates.FLAT_ITEM);
+        generatePotionArchetypes(itemModelGenerator);
     }
 }
