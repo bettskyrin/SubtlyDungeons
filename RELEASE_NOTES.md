@@ -14,18 +14,23 @@
     - Vial
   - These archetypes are controlled via Data Tags
   - This design is to match Minecraft Dungeons
+- Reverted the Uncraftable Potion texture to its pre-1.21 color (Magenta)
 
 #### Blocks
-- Unlit campfires are now given when the player picks up an unlit Campfire block with Silk Touch
+- Changed Unlit Campfires to drop when broken with a Silk Touch tool
 
 #### Loot
 - Changed cows, mooshrooms, horses, llamas, mules, donkeys, and trader llamas to drop between 1 and 4 leather
 
 ### Technical Changes
 #### Data Tags
-- Created `conical` potion tag
-- Created `spherical` potion tag
-- Created `vial` potion tag
+- Added `conical` potion tag
+  - By default, includes Strength, Weakness, Slow Falling, Wind Charging and Decay potions
+- Added `spherical` potion tag
+  - By default, includes Water Breathing, Oozing, Infestation, and Turtle Master potions
+- Added `vial` potion tag
+  - By default, includes Swiftness, Slowness, Leaping, and Weaving potions
 
 #### Bug Fixes
 - Fixed bug preventing animals seeking shelter from walking around
+- Fixed bug causing the vanilla Title Screen icon buttons to be placed incorrectly
