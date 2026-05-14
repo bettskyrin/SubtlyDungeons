@@ -29,7 +29,10 @@ public class TitleScreenMixin extends Screen {
      */
     @ModifyVariable(method = "init", at = @At(value = "STORE", ordinal = 2), name = "topPos")
     private int modifySpacing(int topPos) {
-        return topPos - 12;
+        if (canChangeUi) {
+            return topPos - 12;
+        }
+        return topPos;
     }
 
     /**
