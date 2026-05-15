@@ -11,15 +11,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - A protection enchantment that protects the wearer from magical forms of harm
 - Added Glyph Affinity enchantment
   - A treasure enchantment which increases the Enchantment Limit by a factor of 1.5
-- Added Animal Armor enchantments
-  - Horse armor may now be enchanted
-  - Wolf armor may now be enchanted
-  - Nautilus armor may now be enchanted
 - Added Illager's Bane enchantment
   - Does increased damage to illagers
     - Each level adds 2.5 damage to an attack
   - Is incompatible with Bane of Arthropods, Sharpeness, Density, Breach, and Impaling
   - Is obtainable for enchanted books or equipment via villager trading
+- Added Animal Armor enchantments
+  - Horse armor may now be enchanted
+  - Wolf armor may now be enchanted
+  - Nautilus armor may now be enchanted
 
 #### Curses
 - Added Curse of Abrading

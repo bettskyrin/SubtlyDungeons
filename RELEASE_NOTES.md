@@ -1,4 +1,7 @@
-## [4.0 Snapshot 4] - UNRELEASED
+## [4.0 Snapshot 4] - 5/19/26
+It's snapshot day! This snapshot brings the last additions from the Magical Madness update. Check out some block tweaks, buffed leather drops, new potion bottles, and bug fixes. If no more bugs are found and no major feedback, this will be the version that gets released. See you at Minecraft LIVE!
+
+Developer's Note: We have more magic stuff planned, but we need to update some other things first!
 
 #### Warning
 Some of the 4.0 items have had their item IDs altered, meaning these items will disappear from your worlds. These items are of uncommon rarity, so we believe this shouldn't disrupt many people's worlds, if any at all.
