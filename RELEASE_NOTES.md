@@ -1,54 +1,14 @@
-## [4.0 Snapshot 4] - 5/19/26
-It's snapshot day! This snapshot brings the last additions from the Magical Madness update. Check out some block tweaks, buffed leather drops, new potion bottles, and bug fixes. If no more bugs are found and no major feedback, this will be the version that gets released. See you at Minecraft LIVE!
-
-Developer's Note: We have more magic stuff planned, but we need to update some other things first!
-
-#### Warning
-Some of the 4.0 items have had their item IDs altered, meaning these items will disappear from your worlds. These items are of uncommon rarity, so we believe this shouldn't disrupt many people's worlds, if any at all.
-These items are the Elixir (now called the Elixir of the Coven) and the Potion of Decay
+## [4.0 Snapshot 5] - 5/14/26
+Sneaking in some small tweaks!
 
 ### New Features
-#### Blocks
-- Added Unlit Soul Campfire
-  - Is given when the player picks up an unlit Soul Campfire block with Silk Touch
+#### The Wither
+- Changed Wither Skulls to set Soul Fire when they explode
 
 ### Changes
-#### Elixirs
-- Changed Elixir to be named Elixir of the Coven
-
-#### Potion Effects
-- Changed Jump Boost effect to be increased by half a meter
-  - The common Potion of Leaping will now allow the player to leap 2 meters high by default
-
-#### Textures
-- Added potion bottle archetypes
-  - Some potions have different bottle shapes, to better help visibility for those with colorblindness
-  - These archetypes are:
-    - Conical
-    - Spherical
-    - Vial
-  - These archetypes are controlled via Data Tags
-  - This design is to match Minecraft Dungeons
-- Reverted the Uncraftable Potion texture to its pre-1.21 color (Magenta)
-- Changed Elixir of the Coven texture
-
-#### Blocks
-- Changed Unlit Campfires to drop when broken with a Silk Touch tool
-
-#### Loot
-- Changed cows, mooshrooms, horses, llamas, mules, donkeys, and trader llamas to drop between 1 and 4 leather
+#### Music
+- Changed Dalarna to have a chance to play on the main menu
 
 ### Technical Changes
-#### Data Tags
-- Added `conical` potion tag
-  - By default, this includes potions of Strength, Weakness, Slow Falling, Wind Charging and Decay 
-- Added `spherical` potion tag
-  - By default, this includes potions of Water Breathing, Oozing, Infestation, and Turtle Master
-- Added `vial` potion tag
-  - By default, this includes potions of Swiftness, Slowness, Leaping, and Weaving
-
-#### Bug Fixes
-- Fixed bug preventing animals that are taking shelter from walking around
-- Fixed bug causing the vanilla Title Screen icon buttons to be placed incorrectly
-- Fixed bug giving Potions of Decay an improper namespace ID
-- Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
+#### Sounds
+- The unused Warped Forest mood sound "sound 9" is now unused again

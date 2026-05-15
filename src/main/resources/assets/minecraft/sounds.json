@@ -2,8 +2,7 @@
   "ambient.warped_forest.mood": {
     "replace": false,
     "sounds": [
-      "minecraft:ambient/nether/warped_forest/mood8",
-      "minecraft:ambient/nether/warped_forest/mood9"
+      "minecraft:ambient/nether/warped_forest/mood8"
     ]
   },
   "entity.blaze.shoot": {
@@ -67,6 +66,10 @@
       },
       {
         "name": "subtlyd:music/halland",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/dalarna",
         "stream": true
       }
     ]

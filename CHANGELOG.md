@@ -75,6 +75,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Unlit Soul Campfire
   - Is given when the player picks up an unlit Soul Campfire block with Silk Touch
 
+#### Music
+- Added 7 new background music tracks:
+  - Guldrum by Peter Hont
+    - Plays in Nether Wastes
+  - Warped Forest by Eugnosis
+    - Plays in Warped Forests
+  - Soulsand Valley by Rostislav Trifonov
+    - Plays in Soul Sand Valleys
+  - Ashes by Peter Hont
+    - Plays in Basalt Deltas
+  - Basalt Deltas by Peter Hont
+    - Plays in Basalt Deltas
+  - Crimson Forest by Eugnosis
+    - Plays in Crimson Forests
+  - Excuse by C418
+    - Plays in Warped Forests and Nether Wastes
+- Changed the unused Warped Forest mood sound "mood 8" to be used
+- Changed Dalarna to have a chance to play on the main menu
+- Music volume has been refactored
+- Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
+  - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
+
 #### Advancements
 - Added new "Traveler" adventure challenge
   - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
@@ -92,6 +114,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added new Ender Dragon fireball shooting sound effect
 - Added sound effects for Lingering Potion Area Effect Clouds
 - Added sound effects for Dragon's Breath Area Effect Clouds
+- The Hardcore activate sound has been slightly altered
 
 #### Settings
 - Added Video Settings option for toggling the experimental UI changes
@@ -133,6 +156,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed launched Wither Skulls to be on fire 
   - This was originally intended by Mojang, but caused crashes
   - The skull flames are blue, to match Soul Fire
+  - These skulls now place Soul Fire when they explode
 - Changed Wither health to scale with difficulty to match Bedrock Edition
   - Easy 300 HP -> 300 HP
   - Normal 300 HP -> 450 HP
@@ -234,26 +258,6 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - `entity.area_effect_cloud.gas`
 - Added new sound event for Dragon's Breath Area Effect Clouds:
   - `entity.ender_dragon.breath`
-- Added 7 New Songs
-  - Guldrum by Peter Hont
-    - Plays in Nether Wastes
-  - Warped Forest by Eugnosis
-    - Plays in Warped Forests
-  - Soulsand Valley by Rostislav Trifonov
-    - Plays in Soul Sand Valleys
-  - Ashes by Peter Hont
-    - Plays in Basalt Deltas
-  - Basalt Deltas by Peter Hont
-    - Plays in Basalt Deltas
-  - Crimson Forest by Eugnosis
-    - Plays in Crimson Forests
-  - Excuse by C418
-    - Plays in Warped Forests and Nether Wastes
-- Music volume has been refactored
-- Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
-  - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
-- The unused Warped Forest mood sounds are now used
-- The Hardcore activate sound has been slightly altered
 
 #### Textures
 - Added Hardcore HUD hearts for the Poison effect
