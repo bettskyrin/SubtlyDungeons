@@ -1,0 +1,117 @@
+[
+  {
+    "section": "Meander Studios",
+    "disciplines": [
+      {
+        "discipline": "Leadership",
+        "titles": [
+          {
+            "title": "Studio Head",
+            "names": [
+              "Kyrin Betts"
+            ]
+          },
+          {
+            "title": "Art Director",
+            "names": [
+              "Aldin Besic"
+            ]
+          },
+          {
+            "title": "Social Media Managers",
+            "names": [
+              "Kyrin Betts"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Design",
+        "titles": [
+          {
+            "title": "Design Director",
+            "names": [
+              "Kyrin Betts"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Programming",
+        "titles": [
+          {
+            "title": "Lead Software Developer",
+            "names": [
+              "Kyrin Betts"
+            ]
+          },
+          {
+            "title": "Software Developers",
+            "names": [
+              "Andrew Titich",
+              "Kyrin Betts",
+              "Riley Reynolds"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Visual Arts",
+        "titles": [
+          {
+            "title": "Lead Artist",
+            "names": [
+              "Aldin Besic"
+            ]
+          },
+          {
+            "title": "Artists",
+            "names": [
+              "Aldin Besic",
+              "Cameron Fisher",
+              "Kyrin Betts"
+            ]
+          }
+        ]
+      },
+      {
+        "discipline": "Audio",
+        "titles": [
+          {
+            "title": "Sound Designers",
+            "names": [
+              "Kyrin Betts"
+            ]
+          },
+          {
+            "title": "Music composed by",
+            "names": [
+              "Peter Hont",
+              "Crispin Hands",
+              "John Johnson",
+              "Grant Kirkhope",
+              "Rostislav Trifonov",
+              "Eugnosis"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "section": "Development Partner - TriioStudio",
+    "disciplines": [
+      {
+        "discipline": "",
+        "titles": [
+          {
+            "title": "Software Developers",
+            "names": [
+              "ZeioDust"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

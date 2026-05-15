@@ -9,6 +9,8 @@ accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/re
 accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
 accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;
+accessible class net/minecraft/client/gui/screens/WinScreen$CreditsReader
+accessible method net/minecraft/client/gui/screens/WinScreen addCreditsFile (Ljava/io/Reader;)V
 
 ## World Selection
 accessible method net/minecraft/client/gui/screens/Screen setInitialFocus (Lnet/minecraft/client/gui/components/events/GuiEventListener;)V

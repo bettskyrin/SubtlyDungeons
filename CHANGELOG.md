@@ -265,6 +265,8 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 
 #### Particles
 - Added `spore_cloud` particle
+#### Credits
+- Added ourselves (and the talented artists that make the mod's music) to the game's end credits!
 
 #### Bug Fixes
 - **MC-84595** - Fixed bug where deaths by dragon's breath were referred to as "magic"

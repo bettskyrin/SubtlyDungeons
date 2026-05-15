@@ -3,7 +3,7 @@
   "package": "net.meander.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
-    "common.MinecraftServerMixin",
+    "common.server.MinecraftServerMixin",
     "common.server.ServerAdvancementManagerMixin",
     "common.world.entity.AreaEffectCloudMixin",
     "common.world.entity.EntityMixin",
@@ -42,6 +42,7 @@
     "client.entity.monster.SpiderMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
+    "client.gui.screens.WinScreenMixin",
     "client.gui.screens.worldselection.CreateWorldScreenMixin",
     "client.gui.screens.worldselection.CreateWorldScreenMixin$GameTabMixin",
     "client.gui.screens.worldselection.SelectWorldScreenMixin",
@@ -53,7 +54,6 @@
     "client.multiplayer.ClientPacketListenerMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.OptionsMixin",
-    "client.options.SplashManagerMixin",
     "client.options.VideoSettingsScreenMixin",
     "client.renderer.GameRendererMixin",
     "client.renderer.ScreenEffectRendererMixin",
@@ -76,6 +76,7 @@
     "client.renderer.item.ItemModelResolverMixin",
     "client.renderer.item.ItemStackRenderStateMixin",
     "client.renderer.item.TridentSpecialRendererMixin",
+    "client.resources.SplashManagerMixin",
     "client.world.inventory.AnvilScreenMixin"
   ],
   "injectors": {

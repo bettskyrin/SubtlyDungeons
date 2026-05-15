@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common;
+package net.meander.subtlyd.mixin.common.server;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.util.Util;
