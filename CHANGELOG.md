@@ -44,15 +44,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Potions
 - Added Potion of Decay
   - Can be brewed by adding a Wither Skeleton Skull to an Awkward Potion
-- Added Elixir
+- Added Elixir of the Coven
   - Removes all negative potion effects
   - Can only be obtained by killing a Witch in a Swamp
     - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
     - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
 
 #### Potion Effects
-- Players with the Fire Resistance effect will no longer be visually set on fire
+- Changed entities with Fire Resistance to no longer be visually set on fire
 - High enchantability (level 15 or higher) armors will turn invisible with the wearer
+- Changed Jump Boost effect to be increased by half a meter
+  - The common Potion of Leaping will now allow the player to leap 2 meters high by default
 
 #### Cauldron Potions
 - Added Potion Cauldron block entity
@@ -70,6 +72,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Generates beneath Warped Wart blocks
   - Obtainable with silk touch tools or shears
   - Can be used to craft Warped Wart Blocks
+- Added Unlit Soul Campfire
+  - Is given when the player picks up an unlit Soul Campfire block with Silk Touch
 
 #### Advancements
 - Added new "Traveler" adventure challenge
@@ -78,6 +82,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Loot
 - Added Enchanted Horse Armor loot pool to Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
   - This replaces the unenchanted Horse Armor loot pool
+- Changed cows, mooshrooms, horses, llamas, mules, donkeys, and trader llamas to drop between 1 and 4 leather
 
 #### Sounds
 - Added sound effects for Frosted Ice (ice created by the Frost Walker enchantment)
@@ -156,13 +161,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Agricultural XP
 - Changed fully grown crops to drop 0-2 XP when reaped
 
-#### Mushroom Placement
+#### Blocks
 - Changed overworld mushrooms to always be placeable on logs
+- Changed Unlit Campfires to drop when broken with a Silk Touch tool
 
 #### Textures
 - Changed Dragon Fireball texture to match Bedrock Edition
 - Changed Fire Charge/Fireball texture
 - Changed texture for entities on fire that are Wither Skulls, in Soul Fire, on Soul Sand, on Soul Soil, or in Soul Sand Valleys
+- Added potion bottle archetypes
+  - Some potions have different bottle shapes, to better help visibility for those with colorblindness
+  - These archetypes are:
+    - Conical
+    - Spherical
+    - Vial
+  - These archetypes are controlled via Data Tags
+  - This design is to match Minecraft Dungeons
+- Reverted the Uncraftable Potion texture to its pre-1.21 color (Magenta)
 
 ### Technical Changes
 #### Camera Shake Events
@@ -186,6 +201,12 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
   - These enchantments increase the magic level limit of the item and decrease how quickly an item's magic level will increase
 - Added `repairs_equipment` enchantment tag
   - These enchantments are incomptabile with the abrading curse
+- Added `conical` potion tag
+  - By default, this includes potions of Strength, Weakness, Slow Falling, Wind Charging and Decay
+- Added `spherical` potion tag
+  - By default, this includes potions of Water Breathing, Oozing, Infestation, and Turtle Master
+- Added `vial` potion tag
+  - By default, this includes potions of Swiftness, Slowness, Leaping, and Weaving
 
 #### Enchantiblity
 - The enchantability difference of two items in an anvil will scale the enchantment cost cap.
@@ -252,6 +273,8 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Fixed a possible bug where reeds could prevent trees from spawning
 - Fixed bug that made Killer Bunnies try and find shelter from weather
 - Fixed bug that prevented custom options from saving after exiting the game
+- Fixed bug preventing animals that are taking shelter from walking around
+- Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
 
 ## [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!

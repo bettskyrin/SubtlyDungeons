@@ -45,6 +45,7 @@ These items are the Elixir (now called the Elixir of the Coven) and the Potion o
   - By default, this includes potions of Swiftness, Slowness, Leaping, and Weaving
 
 #### Bug Fixes
-- Fixed bug preventing animals seeking shelter from walking around
+- Fixed bug preventing animals that are taking shelter from walking around
 - Fixed bug causing the vanilla Title Screen icon buttons to be placed incorrectly
 - Fixed bug giving Potions of Decay an improper namespace ID
+- Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
