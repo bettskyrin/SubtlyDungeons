@@ -27,6 +27,7 @@ These items are the Elixir (now called the Elixir of the Coven) and the Potion o
   - These archetypes are controlled via Data Tags
   - This design is to match Minecraft Dungeons
 - Reverted the Uncraftable Potion texture to its pre-1.21 color (Magenta)
+- Changed Elixir of the Coven texture
 
 #### Blocks
 - Changed Unlit Campfires to drop when broken with a Silk Touch tool
