@@ -1,24 +1,24 @@
 package net.meander.subtlyd.data.tags;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 
 import java.util.concurrent.CompletableFuture;
 
-public class DamageTypeTagsSD extends TagsProvider<DamageType> {
+public class DamageTypeTagsSD extends FabricTagsProvider<DamageType> {
     public static final TagKey<DamageType> CAN_BREAK_TENT = bind("can_break_tents");
     public static final TagKey<DamageType> ALWAYS_KILLS_TENT = bind("always_kills_tent");
     public static final TagKey<DamageType> BURNS_TENTS = bind("burns_tents");
     public static final TagKey<DamageType> IGNITES_TENTS = bind("ignites_tents");
     public static final TagKey<DamageType> IS_OCCULT = bind("is_occult");
 
-    public DamageTypeTagsSD(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+    public DamageTypeTagsSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(packOutput, Registries.DAMAGE_TYPE, completableFuture);
     }
 

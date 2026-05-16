@@ -1,24 +1,24 @@
 package net.meander.subtlyd.data.tags;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.alchemy.PotionIdsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionIds;
 
 import java.util.concurrent.CompletableFuture;
 
-public class PotionTagsSD extends TagsProvider<Potion> {
+public class PotionTagsSD extends FabricTagsProvider<Potion> {
     public static final TagKey<Potion> CONICAL = create("conical");
     public static final TagKey<Potion> SPHERICAL = create("spherical");
     public static final TagKey<Potion> VIAL = create("vial");
 
-    public PotionTagsSD(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(output, Registries.POTION, lookupProvider);
+    public PotionTagsSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, Registries.POTION, lookupProvider);
     }
 
     @Override

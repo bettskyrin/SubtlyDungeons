@@ -1,26 +1,26 @@
 package net.meander.subtlyd.data.tags;
 
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
-import net.minecraft.data.tags.BiomeTagsProvider;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BiomeTagsSD extends BiomeTagsProvider {
+public class BiomeTagsSD extends FabricTagsProvider<Biome> {
     public static final TagKey<Biome> IS_WINDY = bind("is_windy");
 
-    public BiomeTagsSD(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
-        super(packOutput, completableFuture);
+    public BiomeTagsSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
+        super(packOutput, Registries.BIOME, completableFuture);
     }
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        this.tag(IS_WINDY)
+        tag(IS_WINDY)
                 .add(Biomes.SNOWY_PLAINS)
                 .add(Biomes.ICE_SPIKES)
                 .add(Biomes.FROZEN_OCEAN)
