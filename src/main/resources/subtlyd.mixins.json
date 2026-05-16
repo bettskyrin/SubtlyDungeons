@@ -74,6 +74,7 @@
     "client.renderer.entity.state.UndeadRenderStateMixin",
     "client.renderer.feature.FlameFeatureRendererMixin",
     "client.renderer.feature.FlameFeatureRendererSubmitMixin",
+    "client.renderer.fog.FogRendererMixin",
     "client.renderer.item.ItemModelResolverMixin",
     "client.renderer.item.ItemStackRenderStateMixin",
     "client.renderer.item.TridentSpecialRendererMixin",

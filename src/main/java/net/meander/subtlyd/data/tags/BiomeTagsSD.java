@@ -13,6 +13,8 @@ import java.util.concurrent.CompletableFuture;
 
 public class BiomeTagsSD extends FabricTagsProvider<Biome> {
     public static final TagKey<Biome> IS_WINDY = bind("is_windy");
+    public static final TagKey<Biome> IS_VERY_FOGGY = bind("is_very_foggy");
+    public static final TagKey<Biome> IS_FOGGY = bind("is_foggy");
 
     public BiomeTagsSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(packOutput, Registries.BIOME, completableFuture);
@@ -31,6 +33,12 @@ public class BiomeTagsSD extends FabricTagsProvider<Biome> {
                 .add(Biomes.JAGGED_PEAKS)
                 .add(Biomes.SNOWY_SLOPES)
                 .add(Biomes.GROVE);
+        tag(IS_VERY_FOGGY)
+                .add(Biomes.PALE_GARDEN);
+        tag(IS_FOGGY)
+                .add(Biomes.SWAMP)
+                .add(Biomes.MANGROVE_SWAMP);
+
     }
 
     private static TagKey<Biome> bind(String string) {
