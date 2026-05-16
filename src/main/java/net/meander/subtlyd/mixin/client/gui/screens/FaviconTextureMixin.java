@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.minecraft.client.gui.screens.FaviconTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -21,7 +21,7 @@ public class FaviconTextureMixin {
     @Shadow @Final private TextureManager textureManager;
     @Shadow private void checkOpen() {}
     @Shadow public void clear() {}
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
 
     /**
      * Saves a thumbnail of size 455x256 pixels

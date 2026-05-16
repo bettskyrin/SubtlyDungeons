@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
@@ -30,7 +30,7 @@ public class WorldSelectionListMixin {
     @Environment(EnvType.CLIENT)
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
-        private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
+        private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 

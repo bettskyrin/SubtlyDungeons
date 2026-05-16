@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.util.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,7 +42,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
     private final int ROW_SPACING = 4;
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);

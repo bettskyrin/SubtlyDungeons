@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.renderer.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -18,7 +18,7 @@ public class TitleScreenMixin extends Screen {
     @Shadow private boolean fading;
     private final int BUTTON_HEIGHT = 20;
     private final int SPRITE_XPOS = 4;
-    private static final boolean canChangeUi = OptionInstanceSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
 
     protected TitleScreenMixin(Component component) {
         super(component);

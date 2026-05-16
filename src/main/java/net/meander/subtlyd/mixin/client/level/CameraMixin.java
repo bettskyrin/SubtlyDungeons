@@ -3,7 +3,7 @@ package net.meander.subtlyd.mixin.client.level;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
@@ -39,7 +39,7 @@ public abstract class CameraMixin {
      * Determines if screen shake is enabled and if so, handles the math for placing the camera to create the screen shake effect.
      */
     private void applyScreenShake() {
-        if (OptionInstanceSD.CAMERA_SHAKE.get()) {
+        if (OptionsSD.CAMERA_SHAKE.get()) {
             float intensity = CameraShake.getShakeIntensity() * 0.5F;
             if (intensity > 0.0F) {
                 float yaw = Mth.sin(Util.getMillis() / 30.0) * intensity;

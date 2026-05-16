@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.options;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.client.OptionInstanceSD;
+import net.meander.subtlyd.client.OptionsSD;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.options.VideoSettingsScreen;
@@ -23,7 +23,7 @@ public class VideoSettingsScreenMixin {
     @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
     private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-        optionInstanceList.add(8, new OptionInstanceSD().ui());
+        optionInstanceList.add(8, new OptionsSD().ui());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }
