@@ -1,17 +1,12 @@
-## [4.0 Snapshot 5] - 5/14/26
-Sneaking in some small tweaks!
-
+## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
-#### The Wither
-- Changed Wither Skulls to set Soul Fire when they explode
-
-#### Credits
-- Added ourselves (and the talented artists that make the mod's music) to the game's end credits!
+#### World Generation
+- Increased biome size by 50%
 
 ### Changes
-#### Music
-- Changed Dalarna to have a chance to play on the main menu
-
-### Technical Changes
 #### Sounds
-- The unused Warped Forest mood sound "sound 9" is now unused again
+- Changed Bush ambient sound to be louder
+- Changed Sand ambient sound to be louder
+- Changed dry vegetation ambient sound to be louder
+- Changed dead bush ambient sound to be louder
+- Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
