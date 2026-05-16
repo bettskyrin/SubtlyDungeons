@@ -2,7 +2,14 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.entity.EntityTypesSD;
+import net.meander.subtlyd.world.item.ItemsSD;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -16,31 +23,30 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Traveler");
         translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
 
-        translationBuilder.add("block.minecraft.campfire", "Lit Campfire");
-        translationBuilder.add("block.minecraft.soul_campfire", "Lit Soul Campfire");
-        translationBuilder.add("block.subtlyd.basalt_slab", "Basalt Slab");
-        translationBuilder.add("block.subtlyd.charcoal_block", "Block of Charcoal");
-        translationBuilder.add("block.subtlyd.chiseled_polished_dripstone", "Chiseled Polished Dripstone");
-        translationBuilder.add("block.subtlyd.chiseled_stone", "Chiseled Stone");
-        translationBuilder.add("block.subtlyd.iron_grate", "Iron Grate");
-        translationBuilder.add("block.subtlyd.polished_dripstone", "Polished Dripstone");
-        translationBuilder.add("block.subtlyd.polished_dripstone_slab", "Polished Dripstone Slab");
-        translationBuilder.add("block.subtlyd.polished_dripstone_stairs", "Polished Dripstone Stairs");
-        translationBuilder.add("block.subtlyd.polished_dripstone_wall", "Polished Dripstone Wall");
-        translationBuilder.add("block.subtlyd.reeds", "Reeds");
-        translationBuilder.add("block.subtlyd.snow_brick_slab", "Snow Brick Slab");
-        translationBuilder.add("block.subtlyd.snow_brick_stairs", "Snow Brick Stairs");
-        translationBuilder.add("block.subtlyd.snow_brick_wall", "Snow Brick Wall");
-        translationBuilder.add("block.subtlyd.snow_bricks", "Snow Bricks");
-        translationBuilder.add("block.subtlyd.soul_jack_o_lantern", "Soul Jack o'Lantern");
-        translationBuilder.add("block.subtlyd.stone_pillar", "Stone Pillar");
-        translationBuilder.add("block.subtlyd.stone_tile_slab", "Stone Tile Slab");
-        translationBuilder.add("block.subtlyd.stone_tile_stairs", "Stone Tile Stairs");
-        translationBuilder.add("block.subtlyd.stone_tile_wall", "Stone Tile Wall");
-        translationBuilder.add("block.subtlyd.stone_tiles", "Stone Tiles");
-        translationBuilder.add("block.subtlyd.unlit_campfire", "Campfire");
-        translationBuilder.add("block.subtlyd.unlit_soul_campfire", "Soul Campfire");
-        translationBuilder.add("block.subtlyd.warped_overhang", "Warped Overhang");
+        translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
+        translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");
+        translationBuilder.add(BlocksSD.BASALT_SLAB, "Basalt Slab");
+        translationBuilder.add(BlocksSD.CHARCOAL_BLOCK, "Block of Charcoal");
+        translationBuilder.add(BlocksSD.CHISELED_POLISHED_DRIPSTONE, "Chiseled Polished Dripstone");
+        translationBuilder.add(BlocksSD.IRON_GRATE, "Iron Grate");
+        translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE, "Polished Dripstone");
+        translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_SLAB, "Polished Dripstone Slab");
+        translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_STAIRS, "Polished Dripstone Stairs");
+        translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_WALL, "Polished Dripstone Wall");
+        translationBuilder.add(BlocksSD.REEDS, "Reeds");
+        translationBuilder.add(BlocksSD.SNOW_BRICK_SLAB, "Snow Brick Slab");
+        translationBuilder.add(BlocksSD.SNOW_BRICK_STAIRS, "Snow Brick Stairs");
+        translationBuilder.add(BlocksSD.SNOW_BRICK_WALL, "Snow Brick Wall");
+        translationBuilder.add(BlocksSD.SNOW_BRICKS, "Snow Bricks");
+        translationBuilder.add(BlocksSD.SOUL_JACK_O_LANTERN, "Soul Jack o'Lantern");
+        translationBuilder.add(BlocksSD.STONE_PILLAR, "Stone Pillar");
+        translationBuilder.add(BlocksSD.STONE_TILE_SLAB, "Stone Tile Slab");
+        translationBuilder.add(BlocksSD.STONE_TILE_STAIRS, "Stone Tile Stairs");
+        translationBuilder.add(BlocksSD.STONE_TILE_WALL, "Stone Tile Wall");
+        translationBuilder.add(BlocksSD.STONE_TILES, "Stone Tiles");
+        translationBuilder.add(ItemsSD.UNLIT_CAMPFIRE, "Campfire");
+        translationBuilder.add(ItemsSD.UNLIT_SOUL_CAMPFIRE, "Soul Campfire");
+        translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
 
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
@@ -50,62 +56,64 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("commands.camerashake.success.stop.multiple", "Stopping camera shake for %s players");
         translationBuilder.add("commands.camerashake.success.stop.single", "Stopping camera shake for %s");
 
-        translationBuilder.add("enchantment.subtlyd.abrading_curse", "Curse of Abrading");
-        translationBuilder.add("enchantment.subtlyd.glyph_affinity", "Glyph Affinity");
-        translationBuilder.add("enchantment.subtlyd.illagers_bane", "Illager's Bane");
-        translationBuilder.add("enchantment.subtlyd.occult_protection", "Occult Protection");
+        translationBuilder.addEnchantment(EnchantmentsSD.ABRADING_CURSE, "Curse of Abrading");
+        translationBuilder.addEnchantment(EnchantmentsSD.GLYPH_AFFINITY, "Glyph Affinity");
+        translationBuilder.addEnchantment(EnchantmentsSD.ILLAGERS_BANE, "Illager's Bane");
+        translationBuilder.addEnchantment(EnchantmentsSD.OCCULT_PROTECTION, "Occult Protection");
 
-        translationBuilder.add("entity.subtlyd.black_tent", "Black Tent");
-        translationBuilder.add("entity.subtlyd.blue_tent", "Blue Tent");
-        translationBuilder.add("entity.subtlyd.brown_tent", "Brown Tent");
-        translationBuilder.add("entity.subtlyd.cyan_tent", "Cyan Tent");
-        translationBuilder.add("entity.subtlyd.gray_tent", "Gray Tent");
-        translationBuilder.add("entity.subtlyd.green_tent", "Green Tent");
-        translationBuilder.add("entity.subtlyd.light_blue_tent", "Light Blue Tent");
-        translationBuilder.add("entity.subtlyd.light_gray_tent", "Light Gray Tent");
-        translationBuilder.add("entity.subtlyd.lime_tent", "Lime Tent");
-        translationBuilder.add("entity.subtlyd.magenta_tent", "Magenta Tent");
-        translationBuilder.add("entity.subtlyd.orange_tent", "Orange Tent");
-        translationBuilder.add("entity.subtlyd.pink_tent", "Pink Tent");
-        translationBuilder.add("entity.subtlyd.purple_tent", "Purple Tent");
-        translationBuilder.add("entity.subtlyd.red_tent", "Red Tent");
+        translationBuilder.add(EntityTypesSD.TENT.black(), "Black Tent");
+        translationBuilder.add(EntityTypesSD.TENT.blue(), "Blue Tent");
+        translationBuilder.add(EntityTypesSD.TENT.brown(), "Brown Tent");
+        translationBuilder.add(EntityTypesSD.TENT.cyan(), "Cyan Tent");
+        translationBuilder.add(EntityTypesSD.TENT.gray(), "Gray Tent");
+        translationBuilder.add(EntityTypesSD.TENT.green(), "Green Tent");
+        translationBuilder.add(EntityTypesSD.TENT.lightBlue(), "Light Blue Tent");
+        translationBuilder.add(EntityTypesSD.TENT.lightGray(), "Light Gray Tent");
+        translationBuilder.add(EntityTypesSD.TENT.lime(), "Lime Tent");
+        translationBuilder.add(EntityTypesSD.TENT.magenta(), "Magenta Tent");
+        translationBuilder.add(EntityTypesSD.TENT.orange(), "Orange Tent");
+        translationBuilder.add(EntityTypesSD.TENT.pink(), "Pink Tent");
+        translationBuilder.add(EntityTypesSD.TENT.purple(), "Purple Tent");
+        translationBuilder.add(EntityTypesSD.TENT.red(), "Red Tent");
         translationBuilder.add("entity.subtlyd.tent.occupied", "This tent is occupied");
         translationBuilder.add("entity.subtlyd.tent.too_far_away", "You may not rest now; the tent is too far away");
-        translationBuilder.add("entity.subtlyd.white_tent", "White Tent");
-        translationBuilder.add("entity.subtlyd.yellow_tent", "Yellow Tent");
+        translationBuilder.add(EntityTypesSD.TENT.white(), "White Tent");
+        translationBuilder.add(EntityTypesSD.TENT.yellow(), "Yellow Tent");
 
         translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
+
+        translationBuilder.add("generator.subtlyd.classic", "Classic Biomes");
 
         translationBuilder.add("item.minecraft.lingering_potion.effect.decay", "Lingering Potion of Decay");
         translationBuilder.add("item.minecraft.potion.effect.decay", "Potion of Decay");
         translationBuilder.add("item.minecraft.splash_potion.effect.decay", "Splash Potion of Decay");
         translationBuilder.add("item.minecraft.tipped_arrow.effect.decay", "Arrow of Decay");
 
-        translationBuilder.add("item.subtlyd.apple_pie", "Apple Pie");
-        translationBuilder.add("item.subtlyd.black_tent", "Black Tent");
-        translationBuilder.add("item.subtlyd.blast_fungus", "Blast Fungus");
-        translationBuilder.add("item.subtlyd.blue_tent", "Blue Tent");
-        translationBuilder.add("item.subtlyd.brown_tent", "Brown Tent");
-        translationBuilder.add("item.subtlyd.calamari", "Calamari");
-        translationBuilder.add("item.subtlyd.cooked_calamari", "Cooked Calamari");
-        translationBuilder.add("item.subtlyd.cyan_tent", "Cyan Tent");
-        translationBuilder.add("item.subtlyd.coven_elixir", "Elixir of the Coven");
-        translationBuilder.add("item.subtlyd.gray_tent", "Gray Tent");
-        translationBuilder.add("item.subtlyd.green_tent", "Green Tent");
-        translationBuilder.add("item.subtlyd.light_blue_tent", "Light Blue Tent");
-        translationBuilder.add("item.subtlyd.light_gray_tent", "Light Gray Tent");
-        translationBuilder.add("item.subtlyd.lime_tent", "Lime Tent");
-        translationBuilder.add("item.subtlyd.magenta_tent", "Magenta Tent");
-        translationBuilder.add("item.subtlyd.orange_tent", "Orange Tent");
-        translationBuilder.add("item.subtlyd.pink_tent", "Pink Tent");
+        translationBuilder.add(ItemsSD.APPLE_PIE, "Apple Pie");
+        translationBuilder.add(ItemsSD.TENT.black(), "Black Tent");
+        translationBuilder.add(ItemsSD.BLAST_FUNGUS, "Blast Fungus");
+        translationBuilder.add(ItemsSD.TENT.blue(), "Blue Tent");
+        translationBuilder.add(ItemsSD.TENT.brown(), "Brown Tent");
+        translationBuilder.add(ItemsSD.CALAMARI, "Calamari");
+        translationBuilder.add(ItemsSD.COOKED_CALAMARI, "Cooked Calamari");
+        translationBuilder.add(ItemsSD.TENT.cyan(), "Cyan Tent");
+        translationBuilder.add(ItemsSD.COVEN_ELIXIR, "Elixir of the Coven");
+        translationBuilder.add(ItemsSD.TENT.gray(), "Gray Tent");
+        translationBuilder.add(ItemsSD.TENT.green(), "Green Tent");
+        translationBuilder.add(ItemsSD.TENT.lightBlue(), "Light Blue Tent");
+        translationBuilder.add(ItemsSD.TENT.lightGray(), "Light Gray Tent");
+        translationBuilder.add(ItemsSD.TENT.lime(), "Lime Tent");
+        translationBuilder.add(ItemsSD.TENT.magenta(), "Magenta Tent");
+        translationBuilder.add(ItemsSD.TENT.orange(), "Orange Tent");
+        translationBuilder.add(ItemsSD.TENT.pink(), "Pink Tent");
         translationBuilder.add("item.subtlyd.potion.long_potion", "Long %s");
         translationBuilder.add("item.subtlyd.potion.strong_potion", "Strong %s");
-        translationBuilder.add("item.subtlyd.pottage", "Pottage");
-        translationBuilder.add("item.subtlyd.purple_tent", "Purple Tent");
-        translationBuilder.add("item.subtlyd.red_tent", "Red Tent");
-        translationBuilder.add("item.subtlyd.white_tent", "White Tent");
-        translationBuilder.add("item.subtlyd.yellow_tent", "Yellow Tent");
+        translationBuilder.add(ItemsSD.POTTAGE, "Pottage");
+        translationBuilder.add(ItemsSD.TENT.purple(), "Purple Tent");
+        translationBuilder.add(ItemsSD.TENT.red(), "Red Tent");
+        translationBuilder.add(ItemsSD.TENT.white(), "White Tent");
+        translationBuilder.add(ItemsSD.TENT.yellow(), "Yellow Tent");
 
         translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
 
@@ -122,20 +130,20 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("stat.subtlyd.sleep_in_tent", "Times Slept in a Tent");
 
-        translationBuilder.add("subtitles.subtlyd.block.air.idle", "Wind howls");
-        translationBuilder.add("subtitles.subtlyd.block.bush.idle", "Wind blows");
-        translationBuilder.add("subtitles.subtlyd.block.frosted_ice.freeze", "Frosty noises");
-        translationBuilder.add("subtitles.subtlyd.entity.area_effect_cloud.gas", "Effect cloud hisses");
-        translationBuilder.add("subtitles.subtlyd.entity.arrow.hit_flame", "Flaming arrow hits");
-        translationBuilder.add("subtitles.subtlyd.entity.arrow.shoot_flame", "Flaming arrow fired");
-        translationBuilder.add("subtitles.subtlyd.entity.blast_fungus.explode", "Blast Fungus explodes");
-        translationBuilder.add("subtitles.subtlyd.entity.ender_dragon.breath", "Dragon's Breath hisses");
-        translationBuilder.add("subtitles.subtlyd.entity.evoker_fangs.appear", "Ground rumbles");
-        translationBuilder.add("subtitles.subtlyd.entity.wither_skeleton.summon", "Souls wail");
-        translationBuilder.add("subtitles.subtlyd.item.blast_fungus.throw", "Blast Fungus squelches");
-        translationBuilder.add("subtitles.subtlyd.item.stick.light", "Stick rubs against log");
-        translationBuilder.add("subtitles.subtlyd.item.trident.charged", "Trident crackles");
-        translationBuilder.add("subtitles.subtlyd.item.trident.charging", "Trident crackles");
+        translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
+        translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
+        translationBuilder.add(SoundEventsSD.ICE_FREEZE, "Frosty noises");
+        translationBuilder.add(SoundEventsSD.AREA_EFFECT_CLOUD_GAS, "Effect cloud hisses");
+        translationBuilder.add(SoundEventsSD.FLAME_ARROW_HIT, "Flaming arrow hits");
+        translationBuilder.add(SoundEventsSD.FLAME_ARROW_SHOOT, "Flaming arrow fired");
+        translationBuilder.add(SoundEventsSD.BLAST_FUNGUS_EXPLODE.value(), "Blast Fungus explodes");
+        translationBuilder.add(SoundEventsSD.ENDER_DRAGON_BREATH, "Dragon's Breath hisses");
+        translationBuilder.add(SoundEventsSD.EVOKER_FANGS_APPEAR, "Ground rumbles");
+        translationBuilder.add(SoundEventsSD.WITHER_SKELETONS_SUMMONED, "Souls wail");
+        translationBuilder.add(SoundEventsSD.BLAST_FUNGUS_THROW, "Blast Fungus squelches");
+        translationBuilder.add(SoundEventsSD.STICK_LIGHT, "Stick rubs against log");
+        translationBuilder.add(SoundEventsSD.TRIDENT_CHARGED, "Trident crackles");
+        translationBuilder.add(SoundEventsSD.TRIDENT_CHARGING, "Trident crackles");
 
         translationBuilder.add("subtlyd.music.alone_with_the_sky", "Crispin Hands - Alone With the Sky");
         translationBuilder.add("subtlyd.music.ashes", "Peter Hont - Ashes");
@@ -178,9 +186,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtlyd.music.warped_forest", "Eugnosis - Warped Forest");
         translationBuilder.add("subtlyd.music.windswept_peaks", "Peter Hont - Windswept Peaks");
 
-        translationBuilder.add("tag.item.subtlyd.has_magic_limit", "Has Magic Limit");
-        translationBuilder.add("tag.item.subtlyd.liquid_consumables", "Liquid Consumables");
-        translationBuilder.add("tag.item.subtlyd.non_humanoid_armor", "Non Humanoid Armor");
-        translationBuilder.add("tag.item.subtlyd.tents", "Tents");
+        translationBuilder.add(ItemTagsSD.HAS_MAGIC_LIMIT, "Has Magic Limit");
+        translationBuilder.add(ItemTagsSD.LIQUID_CONSUMABLES, "Liquid Consumables");
+        translationBuilder.add(ItemTagsSD.NON_HUMANOID_ARMOR, "Non Humanoid Armor");
+        translationBuilder.add(ItemTagsSD.TENTS, "Tents");
     }
 }

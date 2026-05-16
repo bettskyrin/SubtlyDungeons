@@ -26,7 +26,7 @@ public class AmbientAirBlockSoundsPlayer {
     public static void playColdWindSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
         if (level.getBlockState(blockPos.above()).is(Blocks.AIR) && !level.getBlockState(blockPos.below()).is(Blocks.AIR) && level.getBiome(blockPos).is(BiomeTagsSD.IS_WINDY)) {
             if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && shouldPlayColdWindSound(level, blockPos)) {
-                level.playLocalSound(blockPos.getX(), blockPos.getY(), blockPos.getZ(), SoundEventsSD.WIND, SoundSource.AMBIENT, 0.7F, 1.0F, false);
+                level.playPlayerSound(SoundEventsSD.WIND, SoundSource.AMBIENT, 0.7F, 1.0F);
             }
         }
     }

@@ -12,7 +12,7 @@ public class AmbientBushBlockSoundsPlayer {
 
     public static void playAmbientBushSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {
-            level.playLocalSound(blockPos, SoundEventsSD.BUSH_IDLE, SoundSource.AMBIENT, 0.4F, 1.0F, false);
+            level.playPlayerSound(SoundEventsSD.BUSH_IDLE, SoundSource.AMBIENT, 0.7F, 1.0F);
         }
     }
 }
