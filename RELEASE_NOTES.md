@@ -1,7 +1,12 @@
 ## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
+#### Biomes
+- Added ambient fog to Swamp biomes
+- Added ambient fog to Pale Garden biomes
+
 #### World Generation
 - Increased biome size by 50%
+- Increased ocean depth by 50%
 
 ### Changes
 #### Sounds
