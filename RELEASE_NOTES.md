@@ -27,6 +27,9 @@
 - Changed frog spawn rates in Swamp biomes to be higher
 - Added tadpole spawning to Swamp biomes
 
+#### Water Logging
+- Doors are now water loggable
+
 ### Changes
 #### Sounds
 - Changed Bush ambient sound to be louder

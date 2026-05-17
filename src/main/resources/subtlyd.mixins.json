@@ -3,6 +3,7 @@
   "package": "net.meander.subtlyd.mixin",
   "compatibilityLevel": "JAVA_25",
   "mixins": [
+    "client.blocks.WaterLoggableBlocksMixin",
     "common.server.MinecraftServerMixin",
     "common.server.ServerAdvancementManagerMixin",
     "common.world.entity.AreaEffectCloudMixin",
