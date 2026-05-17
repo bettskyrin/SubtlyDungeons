@@ -54,32 +54,28 @@ public class AmbientAirBlockSoundsPlayer {
         return false;
     }
 
-    private static boolean columnContainsTriggeringBlock(Level level, BlockPos.MutableBlockPos mutableBlockPos) {
-        int surfaceY = level.getHeight(Heightmap.Types.WORLD_SURFACE, mutableBlockPos) - 1;
+    private static boolean columnContainsTriggeringBlock(Level level, BlockPos.MutableBlockPos mutablePos) {
+        int surfaceY = level.getHeight(Heightmap.Types.WORLD_SURFACE, mutablePos) - 1;
 
-        if (Mth.abs(surfaceY - mutableBlockPos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
-            mutableBlockPos.move(Direction.UP, 6);
-            BlockState blockState = level.getBlockState(mutableBlockPos);
-            mutableBlockPos.move(Direction.DOWN);
+        if (Mth.abs(surfaceY - mutablePos.getY()) > SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK) {
+            mutablePos.move(Direction.UP, 6);
+            BlockState aboveBlockState = level.getBlockState(mutablePos);
+            mutablePos.move(Direction.DOWN);
 
             for (int i = 0; i < 10; i++) {
-                BlockState blockState2 = level.getBlockState(mutableBlockPos);
-                if (blockState.isAir() && canTriggerColdWindSounds(blockState2)) {
+                BlockState currentBlockState = level.getBlockState(mutablePos);
+                if (aboveBlockState.isAir() && currentBlockState.is(BlockTagsSD.TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)) {
                     return true;
                 }
 
-                blockState = blockState2;
-                mutableBlockPos.move(Direction.DOWN);
+                aboveBlockState = currentBlockState;
+                mutablePos.move(Direction.DOWN);
             }
 
             return false;
         } else {
-            boolean bl = level.getBlockState(mutableBlockPos.setY(surfaceY + 1)).isAir();
-            return bl && canTriggerColdWindSounds(level.getBlockState(mutableBlockPos.setY(surfaceY)));
+            boolean hasAirAbove = level.getBlockState(mutablePos.setY(surfaceY + 1)).isAir();
+            return hasAirAbove && level.getBlockState(mutablePos.setY(surfaceY)).is(BlockTagsSD.TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS);
         }
-    }
-
-    private static boolean canTriggerColdWindSounds(BlockState blockState) {
-        return blockState.is(BlockTagsSD.TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS);
     }
 }

@@ -23,7 +23,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> STONE_TILES = bind("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
-    public static final TagKey<Block> HAS_AMBIENT_BLOCK_SOUNDS = bind("has_ambient_block_sounds");
+    public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
 
     public BlockTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -97,9 +97,9 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockIds.FROSTED_ICE)
                 .add(BlockItemIds.STONE.block())
                 .add(BlockItemIds.CALCITE.block());
-        tag(HAS_AMBIENT_BLOCK_SOUNDS)
-                .add(BlockItemIds.AIR.block())
-                .add(BlockItemIds.BUSH.block());
+        tag(TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
+                .add(BlockItemIds.BUSH.block())
+                .add(BlockItemIds.FERN.block());
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)
                 .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.REPLACEABLE_BY_TREES)

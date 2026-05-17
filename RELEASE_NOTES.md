@@ -36,5 +36,8 @@
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 
 ### Technical Changes
+#### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag
+- Added `triggers_ambient_bush_block_sounds` block tag
+- Removed `has_ambient_block_sounds` block tag
