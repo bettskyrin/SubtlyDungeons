@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:trees_birch_and_oak_leaf_litter",
+  "feature": "minecraft:birch_tall",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,12 +7,12 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "data": 11,
-            "weight": 7
+            "data": 10,
+            "weight": 9
           },
           {
-            "data": 13,
-            "weight": 3
+            "data": 12,
+            "weight": 1
           }
         ]
       }

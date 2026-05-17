@@ -3,7 +3,7 @@
   "placement": [
     {
       "type": "minecraft:rarity_filter",
-      "chance": 9
+      "chance": 25
     },
     {
       "type": "minecraft:in_square"
@@ -23,8 +23,8 @@
       "type": "minecraft:random_offset",
       "xz_spread": {
         "type": "minecraft:trapezoid",
-        "max": 5,
-        "min": -5,
+        "max": 10,
+        "min": -10,
         "plateau": 0
       },
       "y_spread": {

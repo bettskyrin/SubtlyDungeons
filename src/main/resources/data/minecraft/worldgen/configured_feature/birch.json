@@ -23,14 +23,15 @@
     },
     "decorators": [],
     "foliage_placer": {
-      "type": "minecraft:dark_oak_foliage_placer",
+      "type": "minecraft:blob_foliage_placer",
+      "height": 3,
       "offset": 0,
-      "radius": 1
+      "radius": 2
     },
     "foliage_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:dark_oak_leaves",
+        "Name": "minecraft:birch_leaves",
         "Properties": {
           "distance": "7",
           "persistent": "false",
@@ -40,19 +41,18 @@
     },
     "ignore_vines": true,
     "minimum_size": {
-      "type": "minecraft:three_layers_feature_size",
-      "upper_size": 2
+      "type": "minecraft:two_layers_feature_size"
     },
     "trunk_placer": {
-      "type": "minecraft:dark_oak_trunk_placer",
-      "base_height": 6,
-      "height_rand_a": 3,
-      "height_rand_b": 2
+      "type": "minecraft:straight_trunk_placer",
+      "base_height": 7,
+      "height_rand_a": 2,
+      "height_rand_b": 1
     },
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:dark_oak_log",
+        "Name": "minecraft:birch_log",
         "Properties": {
           "axis": "y"
         }

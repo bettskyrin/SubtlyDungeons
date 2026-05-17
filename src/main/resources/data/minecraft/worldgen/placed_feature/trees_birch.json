@@ -1,5 +1,5 @@
 {
-  "feature": "minecraft:trees_birch_and_oak_leaf_litter",
+  "feature": "minecraft:trees_birch",
   "placement": [
     {
       "type": "minecraft:count",
@@ -7,12 +7,12 @@
         "type": "minecraft:weighted_list",
         "distribution": [
           {
-            "data": 11,
-            "weight": 7
+            "data": 10,
+            "weight": 9
           },
           {
-            "data": 13,
-            "weight": 3
+            "data": 11,
+            "weight": 1
           }
         ]
       }
@@ -30,6 +30,18 @@
     },
     {
       "type": "minecraft:biome"
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "minecraft:birch_sapling",
+          "Properties": {
+            "stage": "0"
+          }
+        }
+      }
     }
   ]
 }

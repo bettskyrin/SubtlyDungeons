@@ -2,8 +2,10 @@
   "feature": "minecraft:grass",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 7
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 15,
+      "below_noise": 9,
+      "noise_level": -0.8
     },
     {
       "type": "minecraft:in_square"
