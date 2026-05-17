@@ -141,7 +141,7 @@
         "type": "minecraft:frog",
         "maxCount": 5,
         "minCount": 2,
-        "weight": 10
+        "weight": 14
       }
     ],
     "misc": [],
@@ -215,7 +215,14 @@
         "weight": 10
       }
     ],
-    "water_ambient": [],
+    "water_ambient": [
+      {
+        "type": "minecraft:tadpole",
+        "maxCount": 3,
+        "minCount": 2,
+        "weight": 8
+      }
+    ],
     "water_creature": []
   },
   "temperature": 0.8
