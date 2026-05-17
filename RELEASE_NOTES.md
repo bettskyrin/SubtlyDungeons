@@ -6,16 +6,26 @@
 - Added ambient fog to Pale Garden biomes
 
 #### World Generation
-- Increased biome size by 50%
-- Increased ocean depth by 50%
-- Increased tree height for some trees:
-  - Oak
-  - Dark Oak
-  - Pale Oak
-  - Birch
-  - Spruce
-  - Pine
-- Changed the dark forest to be taller and have a larger canopy
+- Increased Oak tree height
+- Increased Birch tree height
+- Increased grass placement rate
+- Increased bush placement rate
+
+#### Biomes
+- Changed all biome sizes to be 50% larger
+- Changed all ocean depths to be 50% deeper
+
+##### Forest
+- Added sparse rocks to the understory
+- Added more grass to the understory
+
+##### Dark Forest
+- Changed canopys to be larger
+- Added sparese rocks to the understory
+
+##### Swamp
+- Changed frog spawn rates in Swamp biomes to be higher
+- Added tadpole spawning to Swamp biomes
 
 ### Changes
 #### Sounds
