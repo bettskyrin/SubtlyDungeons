@@ -1,6 +1,7 @@
 {
   "block.air.idle": {
     "subtitle": "subtitles.subtlyd.block.air.idle",
+    "stream": true,
     "sounds": [
       "subtlyd:wind/howlingwind1",
       "subtlyd:wind/lightwind1",
@@ -11,6 +12,7 @@
   },
   "block.bush.idle": {
     "subtitle": "subtitles.subtlyd.block.bush.idle",
+    "stream": true,
     "sounds": [
       "subtlyd:wind/lightwind1",
       "subtlyd:wind/lightwind2",
