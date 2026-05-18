@@ -14,13 +14,14 @@
   - Iron bars
   - All glass panes
 - The snow layers may be removed by using a shovel on the snowlogged block
-- Snow layers build up during 
+- Snowlogged blocks may generate during world generation
+- Blocks may be snowlogged during snowfall
 
 #### World Generation
-- Increased Oak tree height
-- Increased Birch tree height
-- Increased grass placement rate
-- Increased bush placement rate
+- Changed Oak tree height
+- Changed Birch tree height
+- Changed grass placement rate
+- Changed bush placement rate
 
 #### Biomes
 - Changed all biome sizes to be 50% larger
@@ -33,8 +34,9 @@
 
 ##### Dark Forest
 - Changed canopys to be larger
-- Added sparse rocks to the understory
 - Changed the sky to be darker
+- Changed the ratio of Dark Oaks trees to other vegetation
+- Added sparse rocks to the understory
 
 ##### Swamp
 - Changed frog spawn rates in Swamp biomes to be higher
