@@ -33,7 +33,8 @@
 
 ##### Dark Forest
 - Changed canopys to be larger
-- Added sparese rocks to the understory
+- Added sparse rocks to the understory
+- Changed the sky to be darker
 
 ##### Swamp
 - Changed frog spawn rates in Swamp biomes to be higher

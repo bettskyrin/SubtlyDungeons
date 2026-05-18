@@ -7,7 +7,8 @@
         "sound": "minecraft:music.overworld.forest"
       }
     },
-    "minecraft:visual/sky_color": "#79a6ff"
+    "minecraft:visual/sky_color": "#677aa1",
+    "minecraft:visual/fog_color": "#677aa1"
   },
   "carvers": [
     "minecraft:cave",
