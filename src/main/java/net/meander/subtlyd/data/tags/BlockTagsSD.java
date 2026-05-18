@@ -98,8 +98,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.STONE.block())
                 .add(BlockItemIds.CALCITE.block());
         tag(TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
-                .add(BlockItemIds.BUSH.block())
-                .add(BlockItemIds.FERN.block());
+                .add(BlockItemIds.BUSH.block());
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)
                 .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.REPLACEABLE_BY_TREES)
