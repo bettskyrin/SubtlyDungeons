@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.client.blocks;
+package net.meander.subtlyd.mixin.common.world.level.block;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

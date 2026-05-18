@@ -1,9 +1,20 @@
 ## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
-#### Fog
-- Added ambient fog to Swamp biomes
-- Added ambient fog to Mangrove Swamp biomes
-- Added ambient fog to Pale Garden biomes
+#### Snowlogging
+- Added snowlogging, like on Bedrock Edition
+- Only some blocks are now snow loggable:
+  - All flowers
+  - All grasses
+  - All bushes/ferns
+  - All tree saplings
+  - All mushrooms
+  - All fences
+  - All fence gates
+  - All walls
+  - Iron bars
+  - All glass panes
+- The snow layers may be removed by using a shovel on the snowlogged block
+- Snow layers build up during 
 
 #### World Generation
 - Increased Oak tree height
@@ -18,6 +29,7 @@
 ##### Forest
 - Added sparse rocks to the understory
 - Added more grass to the understory
+- Added rabbit spawning to biome
 
 ##### Dark Forest
 - Changed canopys to be larger
@@ -29,6 +41,11 @@
 
 #### Water Logging
 - Doors are now water loggable
+
+#### Fog
+- Added ambient fog to Swamp biomes
+- Added ambient fog to Mangrove Swamp biomes
+- Added ambient fog to Pale Garden biomes
 
 ### Changes
 #### Crafting
