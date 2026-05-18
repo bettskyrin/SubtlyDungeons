@@ -31,6 +31,11 @@
 - Doors are now water loggable
 
 ### Changes
+#### Crafting
+- Changed map crafting recipe
+  - Changed map crafting recipe to be a 9x9 of paper
+    - This matches Bedrock Edition
+
 #### Sounds
 - Changed Bush ambient sound to be louder
 - Changed Sand ambient sound to be louder
