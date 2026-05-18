@@ -16,7 +16,7 @@ public class SnowAndFreezeFeatureMixin {
             target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
     private boolean snowlogDuringWorldGen(WorldGenLevel level, BlockPos pos, BlockState state, int flags) {
         if (state.is(Blocks.SNOW)) {
-            final int MAX_LAYERS = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+            final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
             BlockState currentTarget = level.getBlockState(pos);
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
