@@ -17,6 +17,13 @@
 - Snowlogged blocks may generate during world generation
 - Blocks may be snowlogged during snowfall
 
+#### Weather
+- Added biome dependent precipitation levels
+  - Precipitation rates are tied to a biome's downfall 
+  - There is a downfall modifier, based on the average downfall of every player's current biome
+    - This modifier makes it more likely to rain, snow, or storm
+      - Example: If three players are in a world and two are in a jungle, because the jungle has such a high downfall level, it is likely to rain more often
+
 #### World Generation
 - Changed Oak tree height
 - Changed Birch tree height
@@ -31,6 +38,11 @@
 - Added sparse rocks to the understory
 - Added more grass to the understory
 - Added rabbit spawning to biome
+- Added moss carpet to fallen logs
+
+##### Birch Forest
+- Added more grass to the understory
+- Added moss carpet to fallen logs
 
 ##### Dark Forest
 - Changed canopys to be larger
@@ -62,6 +74,9 @@
 - Changed dry vegetation ambient sound to be louder
 - Changed dead bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
+
+#### Splash Text
+- Added "Bigger! Better!" splash text
 
 ### Technical Changes
 #### Data Tags
