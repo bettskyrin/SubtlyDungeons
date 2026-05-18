@@ -11,11 +11,17 @@
               "data": {
                 "Name": "minecraft:red_mushroom"
               },
-              "weight": 2
+              "weight": 3
             },
             {
               "data": {
                 "Name": "minecraft:brown_mushroom"
+              },
+              "weight": 2
+            },
+            {
+              "data": {
+                "Name": "minecraft:moss_carpet"
               },
               "weight": 1
             }
