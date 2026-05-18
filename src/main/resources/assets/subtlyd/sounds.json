@@ -36,7 +36,8 @@
       "subtlyd:snow_bricks/snow_bricks_dig3",
       "subtlyd:snow_bricks/snow_bricks_dig4"
     ]
-  },"block.snow_bricks.step": {
+  },
+  "block.snow_bricks.step": {
     "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
       "subtlyd:snow_bricks/snow_bricks_dig1",
