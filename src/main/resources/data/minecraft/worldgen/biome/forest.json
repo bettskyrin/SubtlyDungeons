@@ -100,8 +100,8 @@
       {
         "type": "minecraft:rabbit",
         "maxCount": 3,
-        "minCount": 2,
-        "weight": 12
+        "minCount": 1,
+        "weight": 11
       }
     ],
     "axolotls": [],
