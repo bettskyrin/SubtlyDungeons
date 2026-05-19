@@ -378,6 +378,42 @@ public class ModelProviderSD extends FabricModelProvider {
         }
     }
 
+    public void generateSnowloggableSegmentableVegetation(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.SEGMENTABLE_VEGETATION) {
+            if (block instanceof SegmentableBlock segmentableBlock) {
+                final int MAX_SEGMENTS = segmentableBlock.getSegmentAmountProperty().getPossibleValues().getLast();
+                UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+
+                for (int segment = 1; segment <= MAX_SEGMENTS; segment++) {
+                    Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_" + segment);
+
+                    if (modelId != null) {
+                        for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
+                            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                                Quadrant quadrant = switch (direction) {
+                                    case EAST -> Quadrant.R90;
+                                    case SOUTH -> Quadrant.R180;
+                                    case WEST -> Quadrant.R270;
+                                    default -> Quadrant.R0;
+                                };
+
+                                generator.with(
+                                        new ConditionBuilder()
+                                                .term(segmentableBlock.getSegmentAmountProperty(), segment)
+                                                .term(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, direction)
+                                                .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                        new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
+                                );
+                            }
+                        }
+                    }
+                }
+                generateSnowloggedLayers(generator);
+                blockModelGenerator.blockStateOutput.accept(generator);
+            }
+        }
+    }
+
     public void generateSnowloggableCrossCollisionBlocks(BlockModelGenerators blockModelGenerator) {
         List<Block> crossBlocks = new ArrayList<>(List.of(Blocks.IRON_BARS, Blocks.GLASS_PANE));
         crossBlocks.addAll(Blocks.STAINED_GLASS_PANE.asList());
