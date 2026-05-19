@@ -4,6 +4,7 @@ import com.mojang.math.Quadrant;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.client.model.ModelTemplatesSD;
+import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
 import net.meander.subtlyd.data.models.blockstates.UnsafeMultiPartGenerator;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
@@ -25,8 +26,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.WallSide;
+import net.minecraft.world.level.block.state.properties.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +74,12 @@ public class ModelProviderSD extends FabricModelProvider {
             ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, blockModelGenerator.modelOutput);
             ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, blockModelGenerator.modelOutput);
         }
+    }
+
+    public static void generateCustomWalls(BlockModelGenerators blockModelGenerator) {
+        generateCustomWallFromVanilla(BlocksSD.POLISHED_DRIPSTONE, BlocksSD.POLISHED_DRIPSTONE_WALL, blockModelGenerator);
+        generateCustomWallFromVanilla(BlocksSD.STONE_TILES, BlocksSD.STONE_TILE_WALL, blockModelGenerator);
+        generateCustomWallFromVanilla(BlocksSD.SNOW_BRICKS, BlocksSD.SNOW_BRICK_WALL, blockModelGenerator);
     }
 
     /**
@@ -132,11 +138,9 @@ public class ModelProviderSD extends FabricModelProvider {
         );
     }
 
-    public static void generateSnowLayers(UnsafeMultiPartGenerator generator) {
-        int maxLevels = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
-
-        for (int i = 1; i <= maxLevels; i++) {
-            String modelName = (i == maxLevels) ? "block/snow_block" : "block/snow_height" + (i * 2);
+    public static void generateSnowloggedLayers(UnsafeMultiPartGenerator generator) {
+        for (int i = 1; i <= SnowloggableBlocks.MAX_LAYERS; i++) {
+            String modelName = (i == SnowloggableBlocks.MAX_LAYERS) ? "block/snow_block" : "block/snow_height" + (i * 2);
             Identifier snowModelId = Identifier.withDefaultNamespace(modelName);
 
             generator.with(
@@ -149,260 +153,85 @@ public class ModelProviderSD extends FabricModelProvider {
     }
 
     public void generateSnowloggableFences(BlockModelGenerators blockModelGenerator) {
-        List<Block> fences = List.of(Blocks.OAK_FENCE, Blocks.SPRUCE_FENCE, Blocks.BIRCH_FENCE, Blocks.JUNGLE_FENCE,
-                Blocks.ACACIA_FENCE, Blocks.DARK_OAK_FENCE, Blocks.MANGROVE_FENCE, Blocks.CHERRY_FENCE, Blocks.BAMBOO_FENCE,
-                Blocks.CRIMSON_FENCE, Blocks.WARPED_FENCE, Blocks.NETHER_BRICK_FENCE, Blocks.PALE_OAK_FENCE
-        );
-
-        for (Block fenceBlock : fences) {
+        for (Block fenceBlock : SnowloggableBlocks.FENCES) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(fenceBlock);
 
             Identifier postModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(fenceBlock) + "_post");
             Identifier sideModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(fenceBlock) + "_side");
 
             if (postModelId != null && sideModelId != null) {
-                for (int i = 0; i < BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast(); i++) {
+                Quadrant quadrant;
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
                     generator.with(
                             new ConditionBuilder().term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
                             new MultiVariant(WeightedList.of(new Variant(postModelId)))
                     );
 
-                    generator.with(
-                            new ConditionBuilder().term(FenceBlock.NORTH, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withUvLock(true)))
-                    );
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        switch (direction) {
+                            case EAST -> quadrant = Quadrant.R90;
+                            case SOUTH -> quadrant = Quadrant.R180;
+                            case WEST -> quadrant = Quadrant.R270;
+                            default -> quadrant = Quadrant.R0;
+                        }
 
-                    generator.with(
-                            new ConditionBuilder().term(FenceBlock.EAST, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
+                        if (fenceBlock.defaultBlockState().is(Blocks.BAMBOO_FENCE)) { // Why is this the only one like this??
+                            Identifier.tryParse(sideModelId + "_" + direction.name().toLowerCase());
+                        }
 
-                    generator.with(
-                            new ConditionBuilder().term(FenceBlock.SOUTH, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R180).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(FenceBlock.WEST, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R270).withUvLock(true)))
-                    );
+                        generator.with(
+                                new ConditionBuilder().term(FenceBlock.PROPERTY_BY_DIRECTION.get(direction), true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(quadrant).withUvLock(true)))
+                        );
+                    }
                 }
 
-                generateSnowLayers(generator);
+                generateSnowloggedLayers(generator);
                 blockModelGenerator.blockStateOutput.accept(generator);
             }
         }
     }
 
     public void generateSnowloggableFenceGates(BlockModelGenerators blockModelGenerator) {
-        List<Block> fenceGates = List.of(Blocks.OAK_FENCE_GATE, Blocks.SPRUCE_FENCE_GATE, Blocks.BIRCH_FENCE_GATE, Blocks.JUNGLE_FENCE_GATE,
-                Blocks.ACACIA_FENCE_GATE, Blocks.DARK_OAK_FENCE_GATE, Blocks.MANGROVE_FENCE_GATE, Blocks.CHERRY_FENCE_GATE, Blocks.BAMBOO_FENCE_GATE,
-                Blocks.CRIMSON_FENCE_GATE, Blocks.WARPED_FENCE_GATE, Blocks.PALE_OAK_FENCE_GATE
-        );
-
-        for (Block gateBlock : fenceGates) {
+        for (Block gateBlock : SnowloggableBlocks.FENCE_GATES) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(gateBlock);
-
             Identifier baseModel = ModelLocationUtils.getModelLocation(gateBlock);
             Identifier openModel = Identifier.tryParse(baseModel + "_open");
             Identifier wallModel = Identifier.tryParse(baseModel + "_wall");
             Identifier wallOpenModel = Identifier.tryParse(baseModel + "_wall_open");
 
             if (openModel != null && wallModel != null && wallOpenModel != null) {
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.NORTH).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(baseModel).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.NORTH).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(openModel).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.NORTH).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallModel).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.NORTH).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallOpenModel).withUvLock(true))));
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        Quadrant quadrant = switch (direction) {
+                            case EAST -> Quadrant.R90;
+                            case SOUTH -> Quadrant.R180;
+                            case WEST -> Quadrant.R270;
+                            default -> Quadrant.R0;
+                        };
 
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.EAST).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(baseModel).withYRot(Quadrant.R90).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.EAST).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(openModel).withYRot(Quadrant.R90).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.EAST).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallModel).withYRot(Quadrant.R90).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.EAST).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallOpenModel).withYRot(Quadrant.R90).withUvLock(true))));
+                        for (boolean isOpen : new boolean[]{true, false}) {
+                            for (boolean inWall : new boolean[]{true, false}) {
+                                Identifier model;
 
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.SOUTH).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(baseModel).withYRot(Quadrant.R180).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.SOUTH).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(openModel).withYRot(Quadrant.R180).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.SOUTH).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallModel).withYRot(Quadrant.R180).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.SOUTH).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallOpenModel).withYRot(Quadrant.R180).withUvLock(true))));
+                                if (isOpen && inWall) {
+                                    model = wallOpenModel;
+                                } else if (isOpen) {
+                                    model = openModel;
+                                } else if (inWall) {
+                                    model = wallModel;
+                                } else {
+                                    model = baseModel;
+                                }
 
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.WEST).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(baseModel).withYRot(Quadrant.R270).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.WEST).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, false), new MultiVariant(WeightedList.of(new Variant(openModel).withYRot(Quadrant.R270).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.WEST).term(FenceGateBlock.OPEN, false).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallModel).withYRot(Quadrant.R270).withUvLock(true))));
-                generator.with(new ConditionBuilder().term(FenceGateBlock.FACING, Direction.WEST).term(FenceGateBlock.OPEN, true).term(FenceGateBlock.IN_WALL, true), new MultiVariant(WeightedList.of(new Variant(wallOpenModel).withYRot(Quadrant.R270).withUvLock(true))));
-
-                generateSnowLayers(generator);
-                blockModelGenerator.blockStateOutput.accept(generator);
-            }
-        }
-    }
-
-    public void generateSnowloggableWalls(BlockModelGenerators blockModelGenerator) {
-        List<Block> walls = List.of(
-                Blocks.COBBLESTONE_WALL, Blocks.MOSSY_COBBLESTONE_WALL, Blocks.STONE_BRICK_WALL, Blocks.MOSSY_STONE_BRICK_WALL,
-                Blocks.GRANITE_WALL, Blocks.DIORITE_WALL, Blocks.ANDESITE_WALL, Blocks.COBBLED_DEEPSLATE_WALL, Blocks.POLISHED_DEEPSLATE_WALL,
-                Blocks.DEEPSLATE_BRICK_WALL, Blocks.DEEPSLATE_TILE_WALL, Blocks.BRICK_WALL, Blocks.PRISMARINE_WALL, Blocks.RED_SANDSTONE_WALL,
-                Blocks.SANDSTONE_WALL, Blocks.END_STONE_BRICK_WALL, Blocks.BLACKSTONE_WALL, Blocks.POLISHED_BLACKSTONE_WALL, Blocks.POLISHED_BLACKSTONE_BRICK_WALL,
-                Blocks.CINNABAR_WALL, Blocks.CINNABAR_BRICK_WALL, Blocks.POLISHED_CINNABAR_WALL, Blocks.SULFUR_WALL, Blocks.SULFUR_BRICK_WALL,
-                Blocks.POLISHED_SULFUR_WALL, Blocks.RESIN_BRICK_WALL, BlocksSD.POLISHED_DRIPSTONE_WALL, BlocksSD.STONE_TILE_WALL, BlocksSD.SNOW_BRICK_WALL
-        );
-
-        generateCustomWallFromVanilla(BlocksSD.POLISHED_DRIPSTONE, BlocksSD.POLISHED_DRIPSTONE_WALL, blockModelGenerator);
-        generateCustomWallFromVanilla(BlocksSD.STONE_TILES, BlocksSD.STONE_TILE_WALL, blockModelGenerator);
-        generateCustomWallFromVanilla(BlocksSD.SNOW_BRICKS, BlocksSD.SNOW_BRICK_WALL, blockModelGenerator);
-
-        for (Block wallBlock : walls) {
-            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(wallBlock);
-
-            Identifier postModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_post");
-            Identifier sideModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_side");
-            Identifier sideTallModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_side_tall");
-
-            if (postModelId != null && sideModelId != null && sideTallModelId != null) {
-                for (int i = 0; i < BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast(); i++) {
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.UP, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(postModelId)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.NORTH, WallSide.LOW).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.NORTH, WallSide.TALL).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideTallModelId).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.EAST, WallSide.LOW).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.EAST, WallSide.TALL).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideTallModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.SOUTH, WallSide.LOW).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R180).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.SOUTH, WallSide.TALL).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideTallModelId).withYRot(Quadrant.R180).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.WEST, WallSide.LOW).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R270).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(WallBlock.WEST, WallSide.TALL).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideTallModelId).withYRot(Quadrant.R270).withUvLock(true)))
-                    );
-                }
-                generateSnowLayers(generator);
-                blockModelGenerator.blockStateOutput.accept(generator);
-            }
-        }
-    }
-
-    public void generateSnowloggableSimpleVegetation(BlockModelGenerators blockModelGenerator) {
-        List<Block> snowLoggableVegetation = List.of(Blocks.SHORT_DRY_GRASS, Blocks.TALL_DRY_GRASS, Blocks.SHORT_GRASS,
-                Blocks.BUSH, Blocks.FIREFLY_BUSH, Blocks.FERN, Blocks.DANDELION, Blocks.POPPY, Blocks.CORNFLOWER, Blocks.ALLIUM,
-                Blocks.AZURE_BLUET, Blocks.BLUE_ORCHID, Blocks.GOLDEN_DANDELION, Blocks.ORANGE_TULIP, Blocks.PINK_TULIP, Blocks.RED_TULIP,
-                Blocks.WHITE_TULIP, Blocks.OXEYE_DAISY, Blocks.LILY_OF_THE_VALLEY, Blocks.WITHER_ROSE, Blocks.CLOSED_EYEBLOSSOM,
-                Blocks.OPEN_EYEBLOSSOM, Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS, Blocks.CRIMSON_ROOTS,
-                Blocks.WARPED_ROOTS, Blocks.NETHER_SPROUTS
-        );
-
-        for (Block block : snowLoggableVegetation) {
-            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
-            Identifier modelId = ModelLocationUtils.getModelLocation(block);
-
-            generator.with(new MultiVariant(WeightedList.of(new Variant(modelId))));
-            generateSnowLayers(generator);
-            blockModelGenerator.blockStateOutput.accept(generator);
-        }
-    }
-
-    public void generateSnowloggableAgingVegetation(BlockModelGenerators blockModelGenerator) {
-        List<Block> snowLoggableVegetation = List.of(Blocks.SWEET_BERRY_BUSH, Blocks.TORCHFLOWER_CROP, Blocks.ACACIA_SAPLING,
-                Blocks.BIRCH_SAPLING, Blocks.CHERRY_SAPLING, Blocks.DARK_OAK_SAPLING, Blocks.JUNGLE_SAPLING, Blocks.OAK_SAPLING,
-                Blocks.PALE_OAK_SAPLING, Blocks.SPRUCE_SAPLING);
-
-        for (Block block : snowLoggableVegetation) {
-            int maxAge = -1;
-
-            if (block instanceof CropBlock crop) {
-                maxAge = crop.getMaxAge();
-            } else if (block instanceof SweetBerryBushBlock) {
-                maxAge = SweetBerryBushBlock.MAX_AGE;
-            }
-
-            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
-
-            for (int i = 0; i <= maxAge; i++) {
-                Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_stage" + i);
-
-                if (modelId != null) {
-                    generator.with(new MultiVariant(WeightedList.of(new Variant(modelId))));
-                }
-            }
-            generateSnowLayers(generator);
-            blockModelGenerator.blockStateOutput.accept(generator);
-        }
-    }
-
-    public void generateSnowloggableDoubleVegetation(BlockModelGenerators blockModelGenerator) {
-        List<Block> doubleVegetation = List.of(Blocks.TALL_GRASS, Blocks.LARGE_FERN);
-
-        for (Block block : doubleVegetation) {
-            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
-
-            Identifier bottomModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_bottom");
-            Identifier topModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_top");
-
-            if (bottomModelId != null && topModelId != null) {
-                generator.with(
-                        new ConditionBuilder().term(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER),
-                        new MultiVariant(WeightedList.of(new Variant(bottomModelId)))
-                );
-
-                generator.with(
-                        new ConditionBuilder().term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER),
-                        new MultiVariant(WeightedList.of(new Variant(topModelId)))
-                );
-
-                generateSnowLayers(generator);
-                blockModelGenerator.blockStateOutput.accept(generator);
-            }
-        }
-    }
-
-    public void generateSnowloggableSegmentableVegetation(BlockModelGenerators blockModelGenerator) {
-        for (Block block : SnowloggableBlocks.SEGMENTABLE_VEGETATION) {
-            if (block instanceof SegmentableBlock segmentableBlock) {
-                final int MAX_SEGMENTS = segmentableBlock.getSegmentAmountProperty().getPossibleValues().getLast();
-                UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
-
-                for (int segment = 1; segment <= MAX_SEGMENTS; segment++) {
-                    Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_" + segment);
-
-                    if (modelId != null) {
-                        for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
-                            for (Direction direction : Direction.Plane.HORIZONTAL) {
-                                Quadrant quadrant = switch (direction) {
-                                    case EAST -> Quadrant.R90;
-                                    case SOUTH -> Quadrant.R180;
-                                    case WEST -> Quadrant.R270;
-                                    default -> Quadrant.R0;
-                                };
-
-                                generator.with(
-                                        new ConditionBuilder()
-                                                .term(segmentableBlock.getSegmentAmountProperty(), segment)
-                                                .term(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, direction)
-                                                .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
-                                        new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
+                                generator.with(new ConditionBuilder()
+                                                .term(FenceGateBlock.FACING, direction)
+                                                .term(FenceGateBlock.OPEN, isOpen)
+                                                .term(FenceGateBlock.IN_WALL, inWall)
+                                                .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                        new MultiVariant(WeightedList.of(
+                                                new Variant(model).withYRot(quadrant).withUvLock(true)
+                                        ))
                                 );
                             }
                         }
@@ -414,60 +243,244 @@ public class ModelProviderSD extends FabricModelProvider {
         }
     }
 
-    public void generateSnowloggableCrossCollisionBlocks(BlockModelGenerators blockModelGenerator) {
-        List<Block> crossBlocks = new ArrayList<>(List.of(Blocks.IRON_BARS, Blocks.GLASS_PANE));
-        crossBlocks.addAll(Blocks.STAINED_GLASS_PANE.asList());
+    public void generateSnowloggableWalls(BlockModelGenerators blockModelGenerator) {
+        SnowloggableBlocks.addToList();
+        generateCustomWalls(blockModelGenerator);
 
-        for (Block block : crossBlocks) {
+        for (Block wallBlock : SnowloggableBlocks.WALLS) {
+            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(wallBlock);
+            Identifier postModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_post");
+            Identifier sideModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_side");
+            Identifier sideTallModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(wallBlock) + "_side_tall");
+
+            if (postModelId != null && sideModelId != null && sideTallModelId != null) {
+                List<Identifier> directionalModels = List.of(sideModelId, sideTallModelId);
+
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
+                    generator.with(
+                            new ConditionBuilder()
+                                    .term(WallBlock.UP, true)
+                                    .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                            new MultiVariant(WeightedList.of(new Variant(postModelId)))
+                    );
+
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        EnumProperty<WallSide> wallSide = WallBlock.PROPERTY_BY_DIRECTION.get(direction);
+                        Quadrant quadrant = switch (direction) {
+                            case EAST -> Quadrant.R90;
+                            case SOUTH -> Quadrant.R180;
+                            case WEST -> Quadrant.R270;
+                            default -> Quadrant.R0;
+                        };
+
+                        for (Identifier model : directionalModels) {
+                            WallSide currentWallSide = model == sideModelId ? WallSide.LOW : WallSide.TALL;
+
+                            generator.with(
+                                    new ConditionBuilder()
+                                            .term(wallSide, currentWallSide)
+                                            .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                    new MultiVariant(WeightedList.of(new Variant(model)
+                                            .withYRot(quadrant)
+                                            .withUvLock(true))
+                                    )
+                            );
+                        }
+                    }
+                }
+                generateSnowloggedLayers(generator);
+                blockModelGenerator.blockStateOutput.accept(generator);
+            }
+        }
+    }
+
+    public void generateSnowloggableSimpleVegetation(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.SIMPLE_VEGETATION) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+            Identifier modelId = ModelLocationUtils.getModelLocation(block);
 
-            boolean areIronBars = block == Blocks.IRON_BARS;
+            for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
+                generator.with(
+                        new ConditionBuilder().term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                        new MultiVariant(WeightedList.of(new Variant(modelId)))
+                );
+            }
+
+            generateSnowloggedLayers(generator);
+            blockModelGenerator.blockStateOutput.accept(generator);
+        }
+    }
+
+    public void generateSnowloggableAgingVegetation(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.AGING_VEGETATION) {
+            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+            Property<?> growthProperty = block.defaultBlockState().getProperties().stream()
+                    .filter(p -> p.getName().equals("age") || p.getName().equals("stage"))
+                    .findFirst()
+                    .orElse(null);
+
+            if (growthProperty instanceof IntegerProperty intProp) {
+                int maxGrowth = intProp.getPossibleValues().stream().max(Integer::compareTo).orElse(0);
+
+                for (int currentStage = 0; currentStage <= maxGrowth; currentStage++) {
+                    Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_stage" + currentStage);
+
+                    if (modelId != null) {
+                        for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
+                            generator.with(
+                                    new ConditionBuilder()
+                                            .term(intProp, currentStage)
+                                            .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                    new MultiVariant(WeightedList.of(new Variant(modelId)))
+                            );
+                        }
+                    }
+                }
+            }
+            generateSnowloggedLayers(generator);
+            blockModelGenerator.blockStateOutput.accept(generator);
+        }
+    }
+
+    public void generateSnowloggableTallVegetation(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.TALL_VEGETATION) {
+            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+            Identifier bottomModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_bottom");
+            Identifier topModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_top");
+
+            if (bottomModelId != null && topModelId != null) {
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
+                    for (DoubleBlockHalf half : DoubleBlockHalf.values()) {
+                        Identifier modelId = half == DoubleBlockHalf.LOWER ? bottomModelId : topModelId;
+
+                        generator.with(
+                                new ConditionBuilder()
+                                        .term(DoublePlantBlock.HALF, half)
+                                        .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                new MultiVariant(WeightedList.of(new Variant(modelId)))
+                        );
+                    }
+                }
+
+                generateSnowloggedLayers(generator);
+                blockModelGenerator.blockStateOutput.accept(generator);
+            }
+        }
+    }
+
+    public void generateSnowloggableSegmentableVegetation(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.SEGMENTABLE_VEGETATION) {
+            if (block instanceof SegmentableBlock segmentableBlock) {
+                UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+                List<Object> segmentCount = new ArrayList<>();
+
+                if (block instanceof FlowerBedBlock) {
+                    segmentCount.add(null);
+                    segmentCount.add(new Integer[]{2, 3, 4});
+                    segmentCount.add(new Integer[]{3, 4});
+                } else {
+                    segmentCount.add(1);
+                    segmentCount.add(new Integer[]{2, 3});
+                    segmentCount.add(3);
+                }
+                segmentCount.add(4);
+
+                for (int i = 0; i < segmentCount.size(); i++) {
+                    Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_" + (i + 1));
+
+                    if (modelId != null) {
+                        for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
+                            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                                Quadrant quadrant = switch (direction) {
+                                    case EAST -> Quadrant.R90;
+                                    case SOUTH -> Quadrant.R180;
+                                    case WEST -> Quadrant.R270;
+                                    default -> Quadrant.R0;
+                                };
+
+                                if (layer == 0) { // Still generate the snow layers, but don't render them to prevent Z-Fighting. I don't want to have to write this again.
+                                    switch (segmentCount.get(i)) {
+                                        case Integer[] segmentValues -> generator.with(
+                                                new ConditionBuilder()
+                                                        .term(segmentableBlock.getSegmentAmountProperty(), segmentValues[0], segmentValues)
+                                                        .term(BlockStateProperties.HORIZONTAL_FACING, direction)
+                                                        .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                                new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
+                                        );
+                                        case Integer segmentValue -> generator.with(
+                                                new ConditionBuilder()
+                                                        .term(segmentableBlock.getSegmentAmountProperty(), segmentValue)
+                                                        .term(BlockStateProperties.HORIZONTAL_FACING, direction)
+                                                        .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                                new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
+                                        );
+                                        case null -> generator.with(
+                                                new ConditionBuilder()
+                                                        .term(BlockStateProperties.HORIZONTAL_FACING, direction)
+                                                        .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                                new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
+                                        );
+                                        default -> {
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                generateSnowloggedLayers(generator);
+                blockModelGenerator.blockStateOutput.accept(generator);
+            }
+        }
+    }
+
+    public void generateSnowloggableCrossCollisionBlocks(BlockModelGenerators blockModelGenerator) {
+        for (Block block : SnowloggableBlocks.CROSS_BLOCKS) {
+            UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
+            boolean isIronBars = block == Blocks.IRON_BARS;
 
             Identifier sideModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_side");
             Identifier sideAltModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_side_alt");
+            Identifier postModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + (isIronBars ? "_cap" : "_noside"));
+            Identifier postAltModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + (isIronBars ? "_cap_alt" : "_noside_alt"));
 
-            Identifier falseModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + (areIronBars ? "_cap" : "_noside"));
-            Identifier falseAltModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + (areIronBars ? "_cap_alt" : "_noside_alt"));
+            if (sideModelId != null && sideAltModelId != null && postModelId != null && postAltModelId != null) {
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
+                    for (Direction direction : Direction.Plane.HORIZONTAL) {
+                        for (boolean isConnected : new boolean[]{true, false}) {
+                            Identifier selectedModel;
+                            Quadrant selectedRotation = Quadrant.R0;
 
-            if (sideModelId != null && sideAltModelId != null && falseModelId != null && falseAltModelId != null) {
-                for (int i = 0; i < BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast(); i++) {
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.NORTH, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.NORTH, false).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(falseModelId).withUvLock(true)))
-                    );
+                            if (isConnected) {
+                                selectedModel = (direction == Direction.NORTH || direction == Direction.EAST) ? sideModelId : sideAltModelId;
+                                selectedRotation = (direction == Direction.EAST || direction == Direction.WEST) ? Quadrant.R90 : Quadrant.R0;
+                            } else {
+                                switch (direction) {
+                                    case EAST -> selectedModel = postAltModelId;
+                                    case SOUTH -> {
+                                        selectedModel = isIronBars ? postModelId : postAltModelId;
+                                        selectedRotation = Quadrant.R90;
+                                    }
+                                    case WEST -> {
+                                        selectedModel = isIronBars ? postAltModelId : postModelId;
+                                        selectedRotation = isIronBars ? Quadrant.R90 : Quadrant.R270;
+                                    }
+                                    default -> selectedModel = postModelId;
+                                }
+                            }
 
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.EAST, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.EAST, false).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(falseAltModelId).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.SOUTH, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideAltModelId).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.SOUTH, false).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(areIronBars ? falseModelId : falseAltModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
-
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.WEST, true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(sideAltModelId).withYRot(Quadrant.R90).withUvLock(true)))
-                    );
-                    generator.with(
-                            new ConditionBuilder().term(CrossCollisionBlock.WEST, false).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                            new MultiVariant(WeightedList.of(new Variant(areIronBars ? falseAltModelId : falseModelId).withYRot(areIronBars ? Quadrant.R90 : Quadrant.R270).withUvLock(true)))
-                    );
+                            generator.with(
+                                    new ConditionBuilder()
+                                            .term(CrossCollisionBlock.PROPERTY_BY_DIRECTION.get(direction), isConnected)
+                                            .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                    new MultiVariant(WeightedList.of(new Variant(selectedModel)
+                                            .withYRot(selectedRotation)
+                                            .withUvLock(true)))
+                            );
+                        }
+                    }
                 }
-                generateSnowLayers(generator);
+                generateSnowloggedLayers(generator);
                 blockModelGenerator.blockStateOutput.accept(generator);
             }
         }
@@ -476,7 +489,8 @@ public class ModelProviderSD extends FabricModelProvider {
     private void generateSnowloggables(BlockModelGenerators blockModelGenerator) {
         generateSnowloggableSimpleVegetation(blockModelGenerator);
         generateSnowloggableAgingVegetation(blockModelGenerator);
-        generateSnowloggableDoubleVegetation(blockModelGenerator);
+        generateSnowloggableTallVegetation(blockModelGenerator);
+        generateSnowloggableSegmentableVegetation(blockModelGenerator);
         generateSnowloggableFences(blockModelGenerator);
         generateSnowloggableCrossCollisionBlocks(blockModelGenerator);
         generateSnowloggableWalls(blockModelGenerator);

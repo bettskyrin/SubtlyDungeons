@@ -2,6 +2,7 @@ package net.meander.subtlyd.world;
 
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
+import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
@@ -23,7 +24,10 @@ import net.meander.subtlyd.world.level.block.state.properties.BlockStateProperti
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.InteractionResult;
@@ -34,6 +38,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.SnowLayerBlock;
@@ -156,6 +161,31 @@ public class GameEventsSD {
             }
             return null;
         }));
+
+        AttackBlockCallback.EVENT.register((player, level, hand, pos, _) -> {
+            BlockState state = level.getBlockState(pos);
+
+            if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+
+                if (layers > 0) {
+                    if (!level.isClientSide()) {
+                        ItemStack tool = player.getItemInHand(hand);
+
+                        if (tool.is(ItemTags.SHOVELS)) {
+                            Block.popResource(level, pos, new ItemStack(Items.SNOWBALL, layers));
+                            tool.hurtAndBreak(1, player, player.getEquipmentSlotForItem(tool));
+                        }
+
+                        Block.popResource(level, pos, new ItemStack(Items.SNOWBALL, layers));
+                        level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 0), 3);
+                        level.playSound(null, pos, SoundEvents.SNOW_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
+                    }
+                    return InteractionResult.SUCCESS;
+                }
+            }
+            return InteractionResult.PASS;
+        });
     }
 
     /**

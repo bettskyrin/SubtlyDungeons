@@ -4,7 +4,6 @@ import net.meander.subtlyd.world.level.block.state.properties.BlockStateProperti
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -56,16 +55,6 @@ public interface SimpleSnowloggedBlock {
                             heldItem.shrink(1);
                         }
                     }
-                }
-                return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
-            }
-
-            if (heldItem.is(ItemTags.SHOVELS) && layers > 0) {
-                if (!level.isClientSide()) {
-                    level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 0), 3);
-                    level.playSound(null, pos, SoundEvents.SNOW_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                    heldItem.hurtAndBreak(layers, player, player.getEquipmentSlotForItem(heldItem));
                 }
                 return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             }
