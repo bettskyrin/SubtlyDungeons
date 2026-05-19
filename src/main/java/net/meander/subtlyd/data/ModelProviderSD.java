@@ -420,8 +420,7 @@ public class ModelProviderSD extends FabricModelProvider {
                                                         .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
                                                 new MultiVariant(WeightedList.of(new Variant(modelId).withYRot(quadrant)))
                                         );
-                                        default -> {
-                                        }
+                                        default -> {}
                                     }
                                 }
                             }
