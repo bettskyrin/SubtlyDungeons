@@ -172,12 +172,11 @@ public class GameEventsSD {
                     if (!level.isClientSide()) {
                         ItemStack tool = player.getItemInHand(hand);
 
-                        if (tool.is(ItemTags.SHOVELS)) {
+                        if (tool.is(ItemTags.SHOVELS) && !player.hasInfiniteMaterials()) {
                             Block.popResource(level, pos, new ItemStack(Items.SNOWBALL, layers));
                             tool.hurtAndBreak(1, player, player.getEquipmentSlotForItem(tool));
                         }
 
-                        Block.popResource(level, pos, new ItemStack(Items.SNOWBALL, layers));
                         level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 0), 3);
                         level.playSound(null, pos, SoundEvents.SNOW_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
                     }

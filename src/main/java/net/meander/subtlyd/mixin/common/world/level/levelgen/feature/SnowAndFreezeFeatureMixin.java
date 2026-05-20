@@ -21,7 +21,7 @@ public class SnowAndFreezeFeatureMixin {
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
 
-            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getBlock().defaultBlockState().canSurvive(level, pos)) {
                 int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (currentLayers < MAX_LAYERS) {

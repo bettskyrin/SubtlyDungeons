@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Block.class)
@@ -19,8 +20,20 @@ public class BlockMixin implements SimpleSnowloggedBlock {
         Block block = (Block) (Object) this;
 
         if (block instanceof VegetationBlock || block instanceof CrossCollisionBlock ||
-                block instanceof FenceGateBlock || block instanceof WallBlock) {
+                block instanceof FenceGateBlock || block instanceof WallBlock || block instanceof SegmentableBlock) {
             builder.add(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+
+            if (block instanceof DoublePlantBlock) {
+                builder.add(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED);
+            }
         }
+    }
+
+    @ModifyVariable(method = "registerDefaultState", at = @At("HEAD"), name = "state", argsOnly = true)
+    private BlockState setDefaultStates(BlockState state) {
+        if (state.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
+            return state.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, false);
+        }
+        return state;
     }
 }

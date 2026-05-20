@@ -1,26 +1,31 @@
-package net.meander.subtlyd.mixin.common.world.level;
+package net.meander.subtlyd.mixin.common.server.level;
 
+import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
     @Redirect(method = "tickPrecipitation", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"))
-    private boolean snowlogDuringSnow(ServerLevel level, BlockPos pos, BlockState state) {
+    private boolean snowlogDuringDownfall(ServerLevel level, BlockPos pos, BlockState state) {
         if (state.is(Blocks.SNOW)) {
-            final int MAX_LAYERS = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+            final int MAX_LAYERS = SnowloggableBlocks.MAX_LAYERS;
             BlockState currentTarget = level.getBlockState(pos);
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
 
-            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getBlock().defaultBlockState().canSurvive(level, belowPos)) {
                 int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (currentLayers < MAX_LAYERS) {

@@ -20,13 +20,12 @@ public interface SimpleSnowloggedBlock {
             final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
             ItemStack heldItem = player.getItemInHand(hand);
+            BlockPos belowPos = pos.below();
+            BlockState belowState = level.getBlockState(belowPos);
 
             if (heldItem.is(Items.SNOW)) {
                 if (state.getBlock() instanceof DoublePlantBlock) {
                     if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-                        BlockPos belowPos = pos.below();
-                        BlockState belowState = level.getBlockState(belowPos);
-
                         if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) < 8) {
                             pos = belowPos;
                             state = belowState;

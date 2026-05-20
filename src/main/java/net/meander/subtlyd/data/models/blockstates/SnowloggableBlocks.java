@@ -1,7 +1,6 @@
 package net.meander.subtlyd.data.models.blockstates;
 
 import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnowloggableBlocks {
-    public static final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
+    public static final int MAX_LAYERS = 8;
 
     public static List<Block> FENCES = List.of(
             Blocks.OAK_FENCE,

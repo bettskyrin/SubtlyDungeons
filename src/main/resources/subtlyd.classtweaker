@@ -36,3 +36,8 @@ accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldY (I)I
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
+accessible field net/minecraft/world/level/biome/Biome climateSettings Lnet/minecraft/world/level/biome/Biome$ClimateSettings;
+accessible field net/minecraft/world/level/biome/Biome$ClimateSettings downfall F
+
+# Blocks
+accessible method net/minecraft/world/level/block/state/BlockBehaviour getShape (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
