@@ -133,7 +133,7 @@
       {
         "type": "minecraft:rabbit",
         "maxCount": 3,
-        "minCount": 1,
+        "minCount": 2,
         "weight": 11
       }
     ],
