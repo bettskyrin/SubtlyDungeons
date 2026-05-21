@@ -67,7 +67,7 @@ public class ServerLevelMixin {
             if (((clockRate * level.getDefaultClockTime()) % 240) == 0) {
                 int adjustment = ServerLevelSD.getDownfallModifier(level);
 
-                return Math.max(0, clearWeatherTime - (adjustment * 100));
+                return Math.max(0, clearWeatherTime - adjustment);
             }
         }
         return clearWeatherTime;
