@@ -24,6 +24,11 @@ public class FogRendererMixin {
     private static void increaseFog(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir) {
         long currentTime = level.getGameTime();
 
+        if (currentTime - lastCheck >= 5L || currentTime < lastCheck) {
+            targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
+            lastCheck = currentTime;
+        }
+
         if (fogWeight != targetWeight) {
             float targetFogStart = 0.0F;
             float targetFogEnd = 64.0F;
