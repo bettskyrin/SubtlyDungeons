@@ -24,14 +24,17 @@ public class FogRendererMixin {
 
         if (fog != null) {
             float targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
-            fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
 
-            if (fogWeight >= 0.001F) {
-                float targetFogStart = 0.0F;
-                float targetFogEnd = 64.0F;
+            if (fogWeight != targetWeight) {
+                fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
 
-                fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
-                fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
+                if (fogWeight >= 0.001F) {
+                    float targetFogStart = 0.0F;
+                    float targetFogEnd = 64.0F;
+
+                    fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
+                    fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
+                }
             }
         }
     }

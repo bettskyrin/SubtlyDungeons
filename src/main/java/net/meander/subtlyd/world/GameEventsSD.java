@@ -138,7 +138,7 @@ public class GameEventsSD {
                     }
                 }
 
-                if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
                     int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
                     if (layers > 0) {
                         BlockState snowState = (layers == 8)
@@ -151,7 +151,7 @@ public class GameEventsSD {
         });
 
         BlockEvents.USE_ITEM_ON.register(((_, blockState, level, blockPos, player, interactionHand, _) -> {
-            if (blockState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(blockState.getBlock())) {
                 SimpleSnowloggedBlock snowloggedBlock = (SimpleSnowloggedBlock) blockState.getBlock();
                 InteractionResult result = snowloggedBlock.trySnowlog(blockState, level, blockPos, player, interactionHand);
 
@@ -165,7 +165,7 @@ public class GameEventsSD {
         AttackBlockCallback.EVENT.register((player, level, hand, pos, _) -> {
             BlockState state = level.getBlockState(pos);
 
-            if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
                 int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (layers > 0) {

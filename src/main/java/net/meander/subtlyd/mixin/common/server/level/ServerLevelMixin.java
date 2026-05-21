@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.server.level;
 
 import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
 import net.meander.subtlyd.server.ServerLevelSD;
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -24,7 +25,7 @@ public class ServerLevelMixin {
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
 
-            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getBlock().defaultBlockState().canSurvive(level, belowPos)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock()) && state.getBlock().defaultBlockState().canSurvive(level, belowPos)) {
                 int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (currentLayers < MAX_LAYERS) {
@@ -40,7 +41,7 @@ public class ServerLevelMixin {
                 }
             }
 
-            if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(belowState.getBlock())) {
                 int belowLayers = belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (belowLayers < MAX_LAYERS) {
@@ -86,7 +87,7 @@ public class ServerLevelMixin {
             if (((clockRate * level.getDefaultClockTime()) % 240) == 0) {
                 int adjustment = ServerLevelSD.getDownfallModifier(level);
 
-                return Math.max(1, (rainTime) - adjustment);
+                return Math.max(1, rainTime - adjustment);
             }
         }
         return rainTime;

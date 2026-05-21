@@ -10,13 +10,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
 public interface SimpleSnowloggedBlock {
     default InteractionResult trySnowlog(BlockState state, LevelAccessor level, BlockPos pos, Player player, InteractionHand hand) {
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
             final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
             ItemStack heldItem = player.getItemInHand(hand);
@@ -26,7 +26,7 @@ public interface SimpleSnowloggedBlock {
             if (heldItem.is(Items.SNOW)) {
                 if (state.getBlock() instanceof DoublePlantBlock) {
                     if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-                        if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) < 8) {
+                        if (SimpleSnowloggedBlock.isSnowloggable(belowState.getBlock()) && belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) < 8) {
                             pos = belowPos;
                             state = belowState;
                         }
@@ -37,7 +37,7 @@ public interface SimpleSnowloggedBlock {
                             BlockPos abovePos = pos.above();
                             BlockState aboveState = level.getBlockState(abovePos);
 
-                            if (aboveState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                            if (SimpleSnowloggedBlock.isSnowloggable(aboveState.getBlock())) {
                                 pos = abovePos;
                                 state = aboveState;
                             }
@@ -59,5 +59,10 @@ public interface SimpleSnowloggedBlock {
             }
         }
         return InteractionResult.PASS;
+    }
+
+    static boolean isSnowloggable(Block block) {
+        return block instanceof SegmentableBlock || block instanceof VegetationBlock || block instanceof CrossCollisionBlock ||
+                block instanceof FenceGateBlock || block instanceof WallBlock;
     }
 }

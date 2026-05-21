@@ -1,6 +1,9 @@
 package net.meander.subtlyd.mixin.common.world.level.block.state;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,16 +21,20 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 @Mixin(BlockBehaviour.BlockStateBase.class)
 public abstract class BlockStateBaseMixin {
     /**
      * Sets the selection outline shape
      */
-    private static final Map<VoxelShape, VoxelShape[]> SHAPE_CACHE = new ConcurrentHashMap<>();
-    private static final Map<VoxelShape, VoxelShape[]> COLLISION_CACHE = new ConcurrentHashMap<>();
+    private static final Cache<VoxelShape, VoxelShape[]> SHAPE_CACHE = CacheBuilder.newBuilder().weakKeys().maximumSize(1024).build();
+    private static final Cache<VoxelShape, VoxelShape[]> COLLISION_CACHE = CacheBuilder.newBuilder().weakKeys().maximumSize(1024).build();
+    private static final VoxelShape[] SNOW_SHAPES = new VoxelShape[9];
+
+    static {
+        for (int i = 1; i <= 8; i++) {
+            SNOW_SHAPES[i] = Block.box(0.0, 0.0, 0.0, 16.0, i * 2.0, 16.0);
+        }
+    }
 
     @Inject(method = "getShape(Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;",
             at = @At("RETURN"), cancellable = true)
@@ -35,7 +42,7 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
@@ -43,13 +50,16 @@ public abstract class BlockStateBaseMixin {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();
-                    VoxelShape[] cachedShapes = SHAPE_CACHE.computeIfAbsent(baseShape, _ -> new VoxelShape[9]);
+                    VoxelShape[] cachedShapes = SHAPE_CACHE.getIfPresent(baseShape);
 
-                    if (cachedShapes[layers] == null) {
-                        VoxelShape snowShape = Block.box(0.0, 0.0, 0.0, 16.0, layers * 2.0, 16.0);
-                        cachedShapes[layers] = Shapes.or(baseShape, snowShape);
+                    if (cachedShapes == null) {
+                        cachedShapes = new VoxelShape[9];
+                        SHAPE_CACHE.put(baseShape, cachedShapes);
                     }
 
+                    if (cachedShapes[layers] == null) {
+                        cachedShapes[layers] = Shapes.or(baseShape, SNOW_SHAPES[layers]);
+                    }
                     cir.setReturnValue(cachedShapes[layers]);
                 }
             }
@@ -62,7 +72,7 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
@@ -70,7 +80,12 @@ public abstract class BlockStateBaseMixin {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();
-                    VoxelShape[] cachedCollisions = COLLISION_CACHE.computeIfAbsent(baseShape, _ -> new VoxelShape[9]);
+                    VoxelShape[] cachedCollisions = COLLISION_CACHE.getIfPresent(baseShape);
+
+                    if (cachedCollisions == null) {
+                        cachedCollisions = new VoxelShape[9];
+                        COLLISION_CACHE.put(baseShape, cachedCollisions);
+                    }
 
                     if (cachedCollisions[layers] == null) {
                         VoxelShape snowCollision = Block.box(0.0D, 0.0D, 0.0D, 16.0D, (layers - 1) * 2.0D, 16.0D);
@@ -87,9 +102,11 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
-            if (state.getBlock() instanceof FenceBlock) {
-                cir.setReturnValue(Shapes.empty());
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
+            if (state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+                if (state.getBlock() instanceof FenceBlock) {
+                    cir.setReturnValue(Shapes.empty());
+                }
             }
         }
     }
@@ -102,8 +119,10 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
-            cir.setReturnValue(false);
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
+            if (state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+                cir.setReturnValue(false);
+            }
         }
     }
 
@@ -115,11 +134,13 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        boolean isSnowlogged = state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
-        boolean isBottomSnowlogged = state.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED) && state.getValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED);
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
+            boolean isSnowlogged = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
+            boolean isBottomSnowlogged = state.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED) && state.getValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED);
 
-        if (isSnowlogged || isBottomSnowlogged) {
-            cir.setReturnValue(Vec3.ZERO);
+            if (isSnowlogged || isBottomSnowlogged) {
+                cir.setReturnValue(Vec3.ZERO);
+            }
         }
     }
 }

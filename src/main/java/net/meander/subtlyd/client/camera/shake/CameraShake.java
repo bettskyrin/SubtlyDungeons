@@ -10,7 +10,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
-
 public class CameraShake {
     private static int totalDuration = 0;
     private static int remainingDuration = 0;
@@ -32,12 +31,13 @@ public class CameraShake {
      * @return The intensity value of the camera shake.
      */
     public static float getShakeIntensity() {
-        float progress = remainingDuration / (float) totalDuration;
-
         if (remainingDuration <= 0 || intensity <= 0) {
             return 0.0F;
+        } else {
+            float progress = remainingDuration / (float) totalDuration;
+
+            return intensity * Mth.square(progress);
         }
-        return intensity * Mth.square(progress);
     }
 
     /**
@@ -77,14 +77,15 @@ public class CameraShake {
      * @param source The source of the camera shake event.
      */
     public static void shakeScreenFromSource(final SoundEvent soundEvent, final @NonNull Vec3 source, float modifier) {
-        Vec3 sourcePos = new Vec3(source.x, source.y, source.z);
         Entity player = minecraft.getCameraEntity();
 
         if (player != null && !player.isSpectator() && player.level().isClientSide()) {
+            Vec3 sourcePos = new Vec3(source.x, source.y, source.z);
             float distance = (float) Math.sqrt(player.distanceToSqr(sourcePos));
 
             try {
                 Registry<CameraShakeEvent> registry = player.level().registryAccess().lookupOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT);
+
                 for (CameraShakeEvent event : registry) {
                     if (event.soundEvent().equals(soundEvent.location())) {
                         int duration = event.durationTicks();

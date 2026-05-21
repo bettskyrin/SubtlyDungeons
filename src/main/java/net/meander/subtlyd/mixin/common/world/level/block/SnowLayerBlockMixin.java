@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.block;
 
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -22,7 +23,7 @@ public class SnowLayerBlockMixin {
         int maxLayers = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
         
         if (layers < maxLayers && context.getItemInHand().getItem() instanceof BlockItem snowloggable) {
-            if (snowloggable.getBlock().defaultBlockState().hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(snowloggable.getBlock())) {
                 cir.setReturnValue(true);
             }
         }

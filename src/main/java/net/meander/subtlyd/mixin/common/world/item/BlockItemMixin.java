@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.world.item;
 
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -39,7 +40,7 @@ public class BlockItemMixin {
     private void acceptSnowLayers(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
         BlockState placementState = cir.getReturnValue();
 
-        if (placementState != null && placementState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (placementState != null && SimpleSnowloggedBlock.isSnowloggable(placementState.getBlock())) {
             BlockPos pos = context.getClickedPos();
             BlockState worldState = context.getLevel().getBlockState(pos);
 

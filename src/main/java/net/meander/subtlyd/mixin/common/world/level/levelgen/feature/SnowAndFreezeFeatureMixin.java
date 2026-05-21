@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -21,23 +22,25 @@ public class SnowAndFreezeFeatureMixin {
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
 
-            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getBlock().defaultBlockState().canSurvive(level, pos)) {
-                int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+            if (SimpleSnowloggedBlock.isSnowloggable(currentTarget.getBlock())) {
+                if (state.getBlock().defaultBlockState().canSurvive(level, pos)) {
+                    int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
-                if (currentLayers < MAX_LAYERS) {
-                    return level.setBlock(pos, currentTarget.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, currentLayers + 1), flags);
-                } else {
-                    BlockPos abovePos = pos.above();
-                    BlockState aboveState = level.getBlockState(abovePos);
+                    if (currentLayers < MAX_LAYERS) {
+                        return level.setBlock(pos, currentTarget.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, currentLayers + 1), flags);
+                    } else {
+                        BlockPos abovePos = pos.above();
+                        BlockState aboveState = level.getBlockState(abovePos);
 
-                    if (aboveState.isAir() || aboveState.canBeReplaced()) {
-                        return level.setBlock(abovePos, state, flags);
+                        if (aboveState.isAir() || aboveState.canBeReplaced()) {
+                            return level.setBlock(abovePos, state, flags);
+                        }
+                        return false;
                     }
-                    return false;
                 }
             }
 
-            if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (SimpleSnowloggedBlock.isSnowloggable(belowState.getBlock())) {
                 int belowLayers = belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                 if (belowLayers < MAX_LAYERS) {

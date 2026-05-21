@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.biome;
 
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
+import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
@@ -20,7 +20,7 @@ public abstract class BiomeMixin {
     private void shouldSnowlogVegetation(LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState state = level.getBlockState(pos);
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
             if (coldEnoughToSnow(pos, level.getSeaLevel()) && level.getBrightness(LightLayer.BLOCK, pos) < 10) {
                 cir.setReturnValue(level.isInsideBuildHeight(pos));
             }

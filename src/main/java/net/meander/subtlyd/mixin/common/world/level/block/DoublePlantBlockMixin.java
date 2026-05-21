@@ -22,7 +22,7 @@ public class DoublePlantBlockMixin {
             BlockState resultState = cir.getReturnValue();
             
             if (resultState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
-                boolean isBottomSnowlogged = neighbourState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && neighbourState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
+                boolean isBottomSnowlogged = neighbourState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
                 
                 cir.setReturnValue(resultState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, isBottomSnowlogged));
             }

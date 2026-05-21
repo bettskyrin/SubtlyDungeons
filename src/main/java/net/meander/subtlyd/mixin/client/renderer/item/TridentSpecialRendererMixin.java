@@ -24,7 +24,7 @@ public class TridentSpecialRendererMixin {
     private void renderElectricity(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (ChargedTridentState.CHANNELING_CHARGE.get() && minecraft.player != null) {
+        if (minecraft.player != null && ChargedTridentState.CHANNELING_CHARGE.get()) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
             RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
                     scrollTime * 0.01F,
