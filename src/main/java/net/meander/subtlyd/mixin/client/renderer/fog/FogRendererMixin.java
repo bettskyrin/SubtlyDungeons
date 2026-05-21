@@ -17,25 +17,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {
     private static float fogWeight = 0.0F;
+    private static float targetWeight = 0.0F;
+    private static long lastCheck = 0;
 
     @Inject(method = "setupFog", at = @At("RETURN"))
     private static void increaseFog(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir) {
-        FogData fog = cir.getReturnValue();
+        long currentTime = level.getGameTime();
 
-        if (fog != null) {
-            float targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
+        if (fogWeight != targetWeight) {
+            float targetFogStart = 0.0F;
+            float targetFogEnd = 64.0F;
+            FogData fog = cir.getReturnValue();
+            fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
 
-            if (fogWeight != targetWeight) {
-                fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
-
-                if (fogWeight >= 0.001F) {
-                    float targetFogStart = 0.0F;
-                    float targetFogEnd = 64.0F;
-
-                    fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
-                    fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
-                }
+            if (currentTime - lastCheck >= 5L || currentTime < lastCheck) {
+                targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
+                lastCheck = currentTime;
             }
+
+            fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
+            fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
         }
     }
 
