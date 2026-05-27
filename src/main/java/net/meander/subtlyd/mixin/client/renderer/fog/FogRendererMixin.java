@@ -35,11 +35,6 @@ public class FogRendererMixin {
             FogData fog = cir.getReturnValue();
             fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
 
-            if (currentTime - lastCheck >= 5L || currentTime < lastCheck) {
-                targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
-                lastCheck = currentTime;
-            }
-
             fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
             fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
         }
