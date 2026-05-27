@@ -11,19 +11,19 @@
               "data": {
                 "Name": "minecraft:red_mushroom"
               },
-              "weight": 2
+              "weight": 3
             },
             {
               "data": {
                 "Name": "minecraft:brown_mushroom"
               },
-              "weight": 1
+              "weight": 2
             },
             {
               "data": {
                 "Name": "minecraft:moss_carpet"
               },
-              "weight": 2
+              "weight": 1
             }
           ]
         },
@@ -36,13 +36,17 @@
     "log_length": {
       "type": "minecraft:uniform",
       "max_inclusive": 8,
-      "min_inclusive": 5
+      "min_inclusive": 4
     },
-    "stump_decorators": [],
+    "stump_decorators": [
+      {
+        "type": "minecraft:trunk_vine"
+      }
+    ],
     "trunk_provider": {
       "type": "minecraft:simple_state_provider",
       "state": {
-        "Name": "minecraft:birch_log",
+        "Name": "minecraft:oak_log",
         "Properties": {
           "axis": "y"
         }

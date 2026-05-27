@@ -1,23 +1,29 @@
 {
-  "feature": "minecraft:grass",
+  "feature": "minecraft:tall_grass",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 7
+      "type": "minecraft:noise_threshold_count",
+      "above_noise": 8,
+      "below_noise": 0,
+      "noise_level": -0.8
+    },
+    {
+      "type": "minecraft:rarity_filter",
+      "chance": 32
     },
     {
       "type": "minecraft:in_square"
     },
     {
       "type": "minecraft:heightmap",
-      "heightmap": "WORLD_SURFACE_WG"
+      "heightmap": "MOTION_BLOCKING"
     },
     {
       "type": "minecraft:biome"
     },
     {
       "type": "minecraft:count",
-      "count": 32
+      "count": 96
     },
     {
       "type": "minecraft:random_offset",

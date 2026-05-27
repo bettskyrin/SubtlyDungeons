@@ -23,7 +23,7 @@
               "data": {
                 "Name": "minecraft:moss_carpet"
               },
-              "weight": 2
+              "weight": 3
             }
           ]
         },
@@ -35,7 +35,7 @@
     ],
     "log_length": {
       "type": "minecraft:uniform",
-      "max_inclusive": 8,
+      "max_inclusive": 15,
       "min_inclusive": 5
     },
     "stump_decorators": [],
