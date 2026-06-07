@@ -75,9 +75,21 @@ public class ServerLevelMixin {
     }
 
     /**
-     * Decreases the time in between downfall
+     * Decreases the time in between rainfall
      */
     @ModifyVariable(method = "advanceWeatherCycle", at = @At(value = "LOAD", ordinal = 0), name = "rainTime")
+    private int increaseRainTime(int rainTime) {
+        return increaseBiomeDownfall(rainTime);
+    }
+
+    /**
+     * Decreases the time in between thunderstorms
+     */
+    @ModifyVariable(method = "advanceWeatherCycle", at = @At(value = "LOAD", ordinal = 0), name = "thunderTime")
+    private int increaseThunderTime(int thunderTime) {
+        return increaseBiomeDownfall(thunderTime);
+    }
+
     private int increaseBiomeDownfall(int rainTime) {
         ServerLevel level = (ServerLevel) (Object) this;
 
