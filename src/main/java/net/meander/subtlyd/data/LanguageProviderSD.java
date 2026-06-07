@@ -29,6 +29,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.CHARCOAL_BLOCK, "Block of Charcoal");
         translationBuilder.add(BlocksSD.CHISELED_POLISHED_DRIPSTONE, "Chiseled Polished Dripstone");
         translationBuilder.add(BlocksSD.IRON_GRATE, "Iron Grate");
+        translationBuilder.add(BlocksSD.PERSE_WILDFLOWERS, "Perse Wildflowers");
         translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE, "Polished Dripstone");
         translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_SLAB, "Polished Dripstone Slab");
         translationBuilder.add(BlocksSD.POLISHED_DRIPSTONE_STAIRS, "Polished Dripstone Stairs");

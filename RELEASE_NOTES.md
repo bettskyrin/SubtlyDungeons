@@ -1,5 +1,14 @@
 ## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
+
+#### Blocks
+- Added Perse Wildflowers
+  - Can be crafted into Purple Dye
+  - Can be found in Birch Forests, Meadows, Swamps, and the Dappled Forest
+  - Developer Notes:
+    - These are inspired by Forget-Me-Not flowers
+    - "Perse" is an archaic term for "blue-ish" :D
+
 #### Snowlogging
 - Added snowlogging, like on Bedrock Edition
 - Only some blocks are now snow loggable:

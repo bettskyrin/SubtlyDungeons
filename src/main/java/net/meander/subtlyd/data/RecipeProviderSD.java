@@ -137,6 +137,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 /* MISC */
                 ColorCollection.zipApply(ItemsSD.TENT, Blocks.WOOL, this::tent);
                 colorItemWithDye(Items.DYE.asList(), ItemsSD.TENT.asList(), "tent_dye", RecipeCategory.MISC);
+                oneToOneConversionRecipe(Items.DYE.purple(), BlocksSD.PERSE_WILDFLOWERS, "purple_dye");
 
                 shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS, 2)
                         .requires(Items.WARPED_FUNGUS)

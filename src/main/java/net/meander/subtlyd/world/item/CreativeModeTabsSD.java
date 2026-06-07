@@ -51,6 +51,7 @@ public class CreativeModeTabsSD {
             entries.insertAfter(WARPED_WART_BLOCK, WARPED_OVERHANG);
             entries.insertAfter(BASALT, BASALT_SLAB);
             entries.insertAfter(JACK_O_LANTERN, SOUL_JACK_O_LANTERN);
+            entries.insertBefore(WILDFLOWERS, PERSE_WILDFLOWERS);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {

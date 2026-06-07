@@ -120,6 +120,10 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.WARPED_WART_BLOCK.block());
         tag(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)
                 .forceAddTag(BlockTags.OVERWORLD_NATURAL_LOGS);
+        tag(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+                .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
+        tag(BlockTags.BEE_ATTRACTIVE)
+                .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
     }
     
     private static TagKey<Block> bind(String string) {

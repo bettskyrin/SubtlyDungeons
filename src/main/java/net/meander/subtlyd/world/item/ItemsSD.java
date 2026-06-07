@@ -34,8 +34,7 @@ public class ItemsSD {
             .stacksTo(1));
     public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT,
             (id, color) -> Items.registerItem(id, properties -> new TentItem(EntityTypesSD.TENT.pick(color), properties), new Item.Properties()
-                    .stacksTo(1))
-    );
+                    .stacksTo(1)));
     public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
     public static final Item UNLIT_SOUL_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_SOUL_CAMPFIRE, Blocks.SOUL_CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
@@ -67,6 +66,7 @@ public class ItemsSD {
             .component(DataComponents.CONSUMABLE, ConsumablesSD.COVEN_ELIXIR)
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
+    public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
 
     public static void bootstrap() {
         CreativeModeTabsSD.bootstrap();

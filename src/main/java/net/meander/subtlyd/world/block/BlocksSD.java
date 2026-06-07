@@ -65,6 +65,7 @@ public class BlocksSD {
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, FlowerBedBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().sound(SoundType.PINK_PETALS).pushReaction(PushReaction.DESTROY));
 
     public static void bootstrap() {}
 

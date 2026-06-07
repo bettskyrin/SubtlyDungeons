@@ -2,6 +2,7 @@ package net.meander.subtlyd.util;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.meander.subtlyd.client.ClientEventsSD;
+import net.meander.subtlyd.client.color.block.BlockColorsSD;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.client.renderer.EntityRenderersSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
@@ -12,6 +13,7 @@ public class ClientInitializerSD implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModelLayersSD.registration();
+        BlockColorsSD.registration();
         EntityRenderersSD.registration();
         SoundEventsSD.registration();
         ClientEventsSD.registration();

@@ -158,6 +158,7 @@ public class ModelProviderSD extends FabricModelProvider {
 
             Identifier postModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(fenceBlock) + "_post");
             Identifier sideModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(fenceBlock) + "_side");
+            Identifier finalSideModelId = sideModelId;
 
             if (postModelId != null && sideModelId != null) {
                 Quadrant quadrant;
@@ -168,21 +169,24 @@ public class ModelProviderSD extends FabricModelProvider {
                     );
 
                     for (Direction direction : Direction.Plane.HORIZONTAL) {
-                        switch (direction) {
-                            case EAST -> quadrant = Quadrant.R90;
-                            case SOUTH -> quadrant = Quadrant.R180;
-                            case WEST -> quadrant = Quadrant.R270;
-                            default -> quadrant = Quadrant.R0;
+                        if (fenceBlock.defaultBlockState().is(Blocks.BAMBOO_FENCE)) { // These are weird for some reason.
+                            finalSideModelId = Identifier.tryParse(sideModelId + "_" + direction.name().toLowerCase());
+                            quadrant = Quadrant.R0;
+                        } else {
+                            switch (direction) {
+                                case EAST -> quadrant = Quadrant.R90;
+                                case SOUTH -> quadrant = Quadrant.R180;
+                                case WEST -> quadrant = Quadrant.R270;
+                                default -> quadrant = Quadrant.R0;
+                            }
                         }
 
-                        if (fenceBlock.defaultBlockState().is(Blocks.BAMBOO_FENCE)) { // Why is this the only one like this??
-                            Identifier.tryParse(sideModelId + "_" + direction.name().toLowerCase());
+                        if (finalSideModelId != null) {
+                            generator.with(
+                                    new ConditionBuilder().term(FenceBlock.PROPERTY_BY_DIRECTION.get(direction), true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                    new MultiVariant(WeightedList.of(new Variant(finalSideModelId).withYRot(quadrant).withUvLock(true)))
+                            );
                         }
-
-                        generator.with(
-                                new ConditionBuilder().term(FenceBlock.PROPERTY_BY_DIRECTION.get(direction), true).term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                                new MultiVariant(WeightedList.of(new Variant(sideModelId).withYRot(quadrant).withUvLock(true)))
-                        );
                     }
                 }
 
@@ -485,6 +489,13 @@ public class ModelProviderSD extends FabricModelProvider {
         }
     }
 
+    private void generateCustomFlowerBedBlock(final Block flowerbed, BlockModelGenerators blockModelGenerator) {
+        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_1.create(flowerbed, blockModelGenerator.modelOutput));
+        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_2.create(flowerbed, blockModelGenerator.modelOutput));
+        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_3.create(flowerbed, blockModelGenerator.modelOutput));
+        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_4.create(flowerbed, blockModelGenerator.modelOutput));
+    }
+
     private void generateSnowloggables(BlockModelGenerators blockModelGenerator) {
         generateSnowloggableSimpleVegetation(blockModelGenerator);
         generateSnowloggableAgingVegetation(blockModelGenerator);
@@ -533,6 +544,7 @@ public class ModelProviderSD extends FabricModelProvider {
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
+        generateCustomFlowerBedBlock(BlocksSD.PERSE_WILDFLOWERS, blockModelGenerator);
         generateSnowloggables(blockModelGenerator);
     }
 
@@ -549,8 +561,10 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.WARPED_OVERHANG, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.BLAST_FUNGUS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.COVEN_ELIXIR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.PERSE_WILDFLOWERS, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
         generateInventoryItemFromBlock(BlocksSD.POLISHED_DRIPSTONE_WALL, itemModelGenerator);
         generateInventoryItemFromBlock(BlocksSD.STONE_TILE_WALL, itemModelGenerator);
-        generateInventoryItemFromBlock(BlocksSD.SNOW_BRICK_WALL, itemModelGenerator);}
+        generateInventoryItemFromBlock(BlocksSD.SNOW_BRICK_WALL, itemModelGenerator);
+    }
 }

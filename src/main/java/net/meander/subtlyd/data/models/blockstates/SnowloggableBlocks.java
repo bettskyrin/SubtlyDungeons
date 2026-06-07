@@ -126,7 +126,8 @@ public class SnowloggableBlocks {
     public static List<Block> SEGMENTABLE_VEGETATION = List.of(
             Blocks.LEAF_LITTER,
             Blocks.WILDFLOWERS,
-            Blocks.PINK_PETALS
+            Blocks.PINK_PETALS,
+            BlocksSD.PERSE_WILDFLOWERS
     );
 
     public static List<Block> CROSS_BLOCKS = new ArrayList<>(List.of(
