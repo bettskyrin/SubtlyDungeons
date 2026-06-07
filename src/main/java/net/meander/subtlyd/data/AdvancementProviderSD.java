@@ -23,7 +23,7 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
     @Override
     public void generateAdvancement(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
         Advancement.Builder.advancement()
-                .parent(new AdvancementHolder(Identifier.withDefaultNamespace("adventure/sleep_in_bed"), null))
+                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/sleep_in_bed")))
                 .display(
                         ItemsSD.TENT.red(),
                         Component.translatable("advancements.subtlyd.camp_far_away.title"),
