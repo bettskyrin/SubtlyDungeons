@@ -1,17 +1,19 @@
 package net.meander.subtlyd.data;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.JsonOps;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.Identifier;
-import org.jspecify.annotations.NonNull;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public class PotionProviderSD implements DataProvider {
@@ -33,42 +35,39 @@ public class PotionProviderSD implements DataProvider {
     }
 
     /**
-     * Modifies only the Uncraftable Potion's color
+     * Modifies the uncraftable potion's texture
      */
     private void modifyUncraftablePotion(CachedOutput writer, List<CompletableFuture<?>> futures) {
         final int MAGENTA = 16253176;
+        final int BLUE = 3694022;
         List<String> potionTypes = List.of("potion", "splash_potion", "lingering_potion");
         List<String> blankPotions = List.of("minecraft:water", "minecraft:mundane", "minecraft:awkward", "minecraft:thick");
 
         for (String potionTypeId : potionTypes) {
-            JsonObject itemDefObj = new JsonObject();
-            JsonObject currentModelObj = new JsonObject();
-
-            JsonArray cases = new JsonArray();
-
-            currentModelObj.addProperty("type", "minecraft:select");
-            currentModelObj.addProperty("property", "minecraft:component");
-            currentModelObj.addProperty("component", "minecraft:potion_contents");
-
+            List<PotionCase> cases = new ArrayList<>();
             for (String potion : blankPotions) {
-                JsonObject potionCase = getBlankPotionCase(potionTypeId, potion);
-                cases.add(potionCase);
+                cases.add(new PotionCase(
+                        Map.of("potion", potion),
+                        new SimpleModel("minecraft:model", "minecraft:item/" + potionTypeId, List.of(new Tint("minecraft:potion", BLUE)))
+                ));
             }
-            currentModelObj.add("cases", cases);
 
-            JsonObject newModelObj = modifyColor(potionTypeId, MAGENTA);
+            SelectModel selectModel = new SelectModel(
+                    "minecraft:select",
+                    "minecraft:component",
+                    "minecraft:potion_contents",
+                    cases,
+                    new SimpleModel("minecraft:model", "minecraft:item/" + potionTypeId, List.of(new Tint("minecraft:potion", MAGENTA)))
+            );
 
-            currentModelObj.add("fallback", newModelObj);
-            itemDefObj.add("model", currentModelObj);
-
+            ItemDef<SelectModel> itemDef = new ItemDef<>(selectModel);
             Path vanillaPath = this.itemsPath.json(Identifier.withDefaultNamespace(potionTypeId));
-            futures.add(DataProvider.saveStable(writer, itemDefObj, vanillaPath));
+
+            JsonElement encodedJson = ItemDef.codec(SelectModel.CODEC).encodeStart(JsonOps.INSTANCE, itemDef).getOrThrow();
+            futures.add(DataProvider.saveStable(writer, encodedJson, vanillaPath));
         }
     }
 
-    /**
-     * Generates the potion bottle archetype JSON files.
-     */
     private void setArchetype(CachedOutput writer, List<CompletableFuture<?>> futures) {
         List<String> potionArchetypes = List.of("conical_bottle", "spherical_bottle", "vial_bottle");
         List<String> potionTypePrefixes = List.of("", "splash_", "lingering_");
@@ -76,104 +75,79 @@ public class PotionProviderSD implements DataProvider {
         for (String archetype : potionArchetypes) {
             for (String prefix : potionTypePrefixes) {
                 String fileName = prefix + archetype;
-                JsonObject itemDef = getItemDefJson(fileName); // items/...
-                JsonObject currentModel = getItemModelJson(fileName, archetype);// models/item/potion/...
 
-                Path itemFilePath = this.itemsPath.json(Util.identifier(fileName));
-                futures.add(DataProvider.saveStable(writer, itemDef, itemFilePath));
+                TextureModel model = new TextureModel(
+                        "minecraft:item/generated",
+                        Map.of(
+                                "layer0", "subtlyd:item/potion/" + archetype.replace("_bottle", "_overlay"),
+                                "layer1", "subtlyd:item/potion/" + fileName
+                        )
+                );
+
+                ItemDef<SimpleModel> itemDef = new ItemDef<>(new SimpleModel(
+                        "minecraft:model",
+                        "subtlyd:item/potion/" + fileName,
+                        List.of(new Tint("minecraft:potion", 16253176))
+                ));
 
                 Path modelFilePath = this.modelsPath.json(Util.identifier(fileName));
-                futures.add(DataProvider.saveStable(writer, currentModel, modelFilePath));
+                futures.add(DataProvider.saveStable(writer, TextureModel.CODEC.encodeStart(JsonOps.INSTANCE, model).getOrThrow(), modelFilePath));
+
+                Path itemFilePath = this.itemsPath.json(Util.identifier(fileName));
+                futures.add(DataProvider.saveStable(writer, ItemDef.codec(SimpleModel.CODEC).encodeStart(JsonOps.INSTANCE, itemDef).getOrThrow(), itemFilePath));
             }
         }
-    }
-
-    /**
-     * Modifies a potion's color
-     * @param potionId The potion as a string
-     * @param colorValue The integer value of the color to set it to
-     * @return The modified potion model
-     */
-    private static @NonNull JsonObject modifyColor(String potionId, int colorValue) {
-        JsonObject newModel = new JsonObject();
-        newModel.addProperty("type", "minecraft:model");
-        newModel.addProperty("model", "minecraft:item/" + potionId);
-
-        JsonArray newTints = new JsonArray();
-        JsonObject newTentObj = new JsonObject();
-
-        newTentObj.addProperty("type", "minecraft:potion");
-        newTentObj.addProperty("default", colorValue);
-        newTints.add(newTentObj);
-        newModel.add("tints", newTints);
-        return newModel;
-    }
-
-    /**
-     * Gets the case where a potion has no "potion" value.
-     * @param potionTypeId The potion type
-     * @param potion The potion
-     * @return A blank potion, colored blue
-     */
-    private static @NonNull JsonObject getBlankPotionCase(String potionTypeId, String potion) {
-        final int BLUE = 3694022;
-        JsonObject whenNode = new JsonObject();
-        JsonObject caseNode = new JsonObject();
-        JsonObject modelCase = modifyColor(potionTypeId, BLUE);
-
-        whenNode.addProperty("potion", potion);
-        caseNode.add("when", whenNode);
-        caseNode.add("model", modelCase);
-
-        return caseNode;
-    }
-
-    /**
-     * Creates an item model.
-     * @param fileName The file name for the model
-     * @param archetype The potion archetype.
-     * @return The item model as a JsonObject
-     */
-    private static @NonNull JsonObject getItemModelJson(String fileName, String archetype) {
-        JsonObject model = new JsonObject();
-        JsonObject textures = new JsonObject();
-
-        model.addProperty("parent", "minecraft:item/generated");
-
-        textures.addProperty("layer0", "subtlyd:item/potion/" + archetype.replace("_bottle", "_overlay"));
-        textures.addProperty("layer1", "subtlyd:item/potion/" + fileName);
-
-        model.add("textures", textures);
-
-        return model;
-    }
-
-    /**
-     * Creates an item definition.
-     * @param fileName The file name for the model/item definition
-     * @return The item definition as a JsonObject
-     */
-    private static @NonNull JsonObject getItemDefJson(String fileName) {
-        JsonObject itemDefObj = new JsonObject();
-        JsonObject modelObj = new JsonObject();
-        JsonArray tints = new JsonArray();
-        JsonObject tintObj = new JsonObject();
-
-        modelObj.addProperty("type", "minecraft:model");
-        modelObj.addProperty("model", "subtlyd:item/potion/" + fileName);
-
-        tintObj.addProperty("type", "minecraft:potion");
-        tintObj.addProperty("default", 16253176);
-        tints.add(tintObj);
-
-        modelObj.add("tints", tints);
-        itemDefObj.add("model", modelObj);
-
-        return itemDefObj;
     }
 
     @Override
     public String getName() {
         return "Potion Bottle Models & Definitions";
+    }
+
+    public record TextureModel(String parent, Map<String, String> textures) {
+        public static final Codec<TextureModel> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+                Codec.STRING.fieldOf("parent").forGetter(TextureModel::parent),
+                Codec.unboundedMap(Codec.STRING, Codec.STRING).fieldOf("textures").forGetter(TextureModel::textures)
+        ).apply(inst, TextureModel::new));
+    }
+
+    public record Tint(String type, int defaultValue) {
+        public static final Codec<Tint> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+                Codec.STRING.fieldOf("type").forGetter(Tint::type),
+                Codec.INT.fieldOf("default").forGetter(Tint::defaultValue)
+        ).apply(inst, Tint::new));
+    }
+
+    public record SimpleModel(String type, String model, List<Tint> tints) {
+        public static final Codec<SimpleModel> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+                Codec.STRING.fieldOf("type").forGetter(SimpleModel::type),
+                Codec.STRING.fieldOf("model").forGetter(SimpleModel::model),
+                Tint.CODEC.listOf().optionalFieldOf("tints", List.of()).forGetter(SimpleModel::tints)
+        ).apply(inst, SimpleModel::new));
+    }
+
+    public record PotionCase(Map<String, String> when, SimpleModel model) {
+        public static final Codec<PotionCase> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+                Codec.unboundedMap(Codec.STRING, Codec.STRING).fieldOf("when").forGetter(PotionCase::when),
+                SimpleModel.CODEC.fieldOf("model").forGetter(PotionCase::model)
+        ).apply(inst, PotionCase::new));
+    }
+
+    public record SelectModel(String type, String property, String component, List<PotionCase> cases, SimpleModel fallback) {
+        public static final Codec<SelectModel> CODEC = RecordCodecBuilder.create(inst -> inst.group(
+                Codec.STRING.fieldOf("type").forGetter(SelectModel::type),
+                Codec.STRING.fieldOf("property").forGetter(SelectModel::property),
+                Codec.STRING.fieldOf("component").forGetter(SelectModel::component),
+                PotionCase.CODEC.listOf().fieldOf("cases").forGetter(SelectModel::cases),
+                SimpleModel.CODEC.fieldOf("fallback").forGetter(SelectModel::fallback)
+        ).apply(inst, SelectModel::new));
+    }
+
+    public record ItemDef<T>(T model) {
+        public static <T> Codec<ItemDef<T>> codec(Codec<T> modelCodec) {
+            return RecordCodecBuilder.create(inst -> inst.group(
+                    modelCodec.fieldOf("model").forGetter(ItemDef::model)
+            ).apply(inst, ItemDef::new));
+        }
     }
 }
