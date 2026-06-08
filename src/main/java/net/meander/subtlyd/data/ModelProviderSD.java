@@ -1,5 +1,6 @@
 package net.meander.subtlyd.data;
 
+import com.google.gson.JsonObject;
 import com.mojang.math.Quadrant;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
@@ -173,6 +174,30 @@ public class ModelProviderSD extends FabricModelProvider {
         }
     }
 
+    /**
+     * Generates a block model JSON file that enables ambient occulsion for snowlogged foliage.
+     * @param block The vanilla foliage block.
+     * @param level The snowlogged level of the block model
+     */
+    private Identifier generateAmbientOcclusionModel(Block block, int level, BlockModelGenerators blockModelGenerator) {
+        Identifier baseModelId = ModelLocationUtils.getModelLocation(block);
+        String blockName = BuiltInRegistries.BLOCK.getKey(block).getPath();
+
+        Identifier aoModelId = Identifier.tryParse("subtlyd:block/snowlogged_" + blockName + level);
+
+        if (aoModelId != null) {
+            blockModelGenerator.modelOutput.accept(aoModelId, () -> {
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("parent", baseModelId.toString());
+                jsonObject.addProperty("ambientocclusion", true);
+
+                return jsonObject;
+            });
+        }
+
+        return aoModelId;
+    }
+
     public void generateSnowloggableFences(BlockModelGenerators blockModelGenerator) {
         for (Block fenceBlock : SnowloggableBlocks.FENCES) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(fenceBlock);
@@ -322,15 +347,16 @@ public class ModelProviderSD extends FabricModelProvider {
     public void generateSnowloggableSimpleVegetation(BlockModelGenerators blockModelGenerator) {
         for (Block block : SnowloggableBlocks.SIMPLE_VEGETATION) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
-            Identifier modelId = ModelLocationUtils.getModelLocation(block);
+            Identifier baseModelId = ModelLocationUtils.getModelLocation(block);
 
             for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
+                Identifier finalModelId = (layer == 0) ? baseModelId : generateAmbientOcclusionModel(block, layer, blockModelGenerator);
+
                 generator.with(
                         new ConditionBuilder().term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
-                        new MultiVariant(WeightedList.of(new Variant(modelId)))
+                        new MultiVariant(WeightedList.of(new Variant(finalModelId)))
                 );
             }
-
             generateSnowloggedLayers(generator);
             blockModelGenerator.blockStateOutput.accept(generator);
         }
