@@ -58,6 +58,27 @@ public class ModelProviderSD extends FabricModelProvider {
     }
 
     /**
+     * Builds a stair model from a vanilla pillar block texture.
+     * @param vanillaBlock The original block to obtain a texture from.
+     * @param newBlock The custom stair block that the texture will be mapped to.
+     */
+    private static void generatePillarStairsFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
+        Identifier top = TextureMapping.getBlockTexture(vanillaBlock, "_top").sprite();
+        Identifier side = TextureMapping.getBlockTexture(vanillaBlock, "_side").sprite();
+
+        TextureMapping mapping = new TextureMapping()
+                .put(TextureSlot.BOTTOM, new Material(top))
+                .put(TextureSlot.TOP, new Material(top))
+                .put(TextureSlot.SIDE, new Material(side));
+
+        MultiVariant inner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(newBlock, mapping, blockModelGenerator.modelOutput));
+        MultiVariant straight = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(newBlock, mapping, blockModelGenerator.modelOutput));
+        MultiVariant outer = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(newBlock, mapping, blockModelGenerator.modelOutput));
+
+        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createStairs(newBlock, inner, straight, outer));
+    }
+
+    /**
      * Separate from the rest of the block family generation to allow for snowlogging.
      * @param vanillaBlock The original block to obtain a texture from.
      * @param wallBlock The custom wall that the texture will be mapped to.
@@ -542,6 +563,8 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
+        generatePillarStairsFromVanilla(Blocks.HAY_BLOCK, BlocksSD.HAY_STAIRS, blockModelGenerator);
+        generatePillarSlabFromVanilla(Blocks.HAY_BLOCK, BlocksSD.HAY_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
         generateCustomFlowerBedBlock(BlocksSD.PERSE_WILDFLOWERS, blockModelGenerator);

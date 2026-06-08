@@ -79,6 +79,9 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.BASALT_SLAB, Items.BASALT);
 
+                stairBuilder(ItemsSD.HAY_STAIRS, Ingredient.of(Items.HAY_BLOCK)).unlockedBy(getHasName(Items.HAY_BLOCK), this.has(Items.HAY_BLOCK)).save(output);
+                slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.HAY_SLAB, Items.HAY_BLOCK);
+
                 stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
                 stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
                 stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_SLAB, Blocks.SNOW_BLOCK, 2);

@@ -22,6 +22,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> SKULL_BLOCK = bind("skull_block");
     public static final TagKey<Block> STONE_TILES = bind("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
+    public static final TagKey<Block> HAY = bind("hay");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
 
@@ -46,6 +47,10 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block());
+        tag(HAY)
+                .add(BlockItemIds.HAY_BLOCK.block())
+                .add(BlockItemIdsSD.HAY_STAIRS.block())
+                .add(BlockItemIdsSD.HAY_SLAB.block());
         tag(BlockTags.WALLS)
                 .add(BlockItemIdsSD.SNOW_BRICK_WALL.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
@@ -53,11 +58,13 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.STAIRS)
                 .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
-                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block());
+                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
+                .add(BlockItemIdsSD.HAY_STAIRS.block());
         tag(BlockTags.SLABS)
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
+                .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
+                .add(BlockItemIdsSD.HAY_SLAB.block());
         tag(SKULL_BLOCK)
                 .add(BlockItemIds.SKELETON_SKULL.block())
                 .add(BlockIds.SKELETON_WALL_SKULL)
@@ -83,6 +90,9 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.BASALT_SLAB.block());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .addTag(SKULL_BLOCK);
+        tag(BlockTags.MINEABLE_WITH_HOE)
+                .add(BlockItemIdsSD.HAY_STAIRS.block())
+                .add(BlockItemIdsSD.HAY_SLAB.block());
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
                 .add(BlockItemIdsSD.WARPED_OVERHANG.block());
         tag(BlockTags.NEEDS_STONE_TOOL)

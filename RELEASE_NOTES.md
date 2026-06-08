@@ -7,6 +7,8 @@
   - Developer Notes:
     - These are inspired by Forget-Me-Not flowers
     - "Perse" is an archaic term for "blue-ish" :D
+- Added Hay Stairs
+- Added Hay Slab
 
 #### Snowlogging
 - Added snowlogging, like on Bedrock Edition

@@ -67,6 +67,8 @@ public class ItemsSD {
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
     public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
+    public static final Item HAY_STAIRS = Items.registerBlock(BlockItemIdsSD.HAY_STAIRS, BlocksSD.HAY_STAIRS);
+    public static final Item HAY_SLAB = Items.registerBlock(BlockItemIdsSD.HAY_SLAB, BlocksSD.HAY_SLAB);
 
     public static void bootstrap() {
         CreativeModeTabsSD.bootstrap();
