@@ -1,17 +1,14 @@
 package net.meander.subtlyd.mixin.common.server.level;
 
 import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
-import net.meander.subtlyd.server.ServerLevelSD;
 import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLevel.class)
@@ -52,56 +49,5 @@ public class ServerLevelMixin {
             }
         }
         return level.setBlockAndUpdate(pos, state);
-    }
-
-
-    /**
-     * Decreases the time in that weather stays clear.
-     */
-    @ModifyVariable(method = "advanceWeatherCycle", at = @At(value = "LOAD", ordinal = 0), name = "clearWeatherTime")
-    private int decreaseClearWeatherTime(int clearWeatherTime) {
-        ServerLevel level = (ServerLevel) (Object) this;
-
-        if (!level.isRaining()) {
-            float clockRate = Mth.ceil(level.clockManager().packState().clocks().get(level.dimensionType().defaultClock().get()).rate());
-
-            if (((clockRate * level.getDefaultClockTime()) % 240) == 0) {
-                int adjustment = ServerLevelSD.getDownfallModifier(level);
-
-                return Math.max(0, clearWeatherTime - adjustment);
-            }
-        }
-        return clearWeatherTime;
-    }
-
-    /**
-     * Decreases the time in between rainfall
-     */
-    @ModifyVariable(method = "advanceWeatherCycle", at = @At(value = "LOAD", ordinal = 0), name = "rainTime")
-    private int increaseRainTime(int rainTime) {
-        return increaseBiomeDownfall(rainTime);
-    }
-
-    /**
-     * Decreases the time in between thunderstorms
-     */
-    @ModifyVariable(method = "advanceWeatherCycle", at = @At(value = "LOAD", ordinal = 0), name = "thunderTime")
-    private int increaseThunderTime(int thunderTime) {
-        return increaseBiomeDownfall(thunderTime);
-    }
-
-    private int increaseBiomeDownfall(int rainTime) {
-        ServerLevel level = (ServerLevel) (Object) this;
-
-        if (!level.isRaining()) {
-            float clockRate = Mth.ceil(level.clockManager().packState().clocks().get(level.dimensionType().defaultClock().get()).rate());
-
-            if (((clockRate * level.getDefaultClockTime()) % 240) == 0) {
-                int adjustment = ServerLevelSD.getDownfallModifier(level);
-
-                return Math.max(1, rainTime - adjustment);
-            }
-        }
-        return rainTime;
     }
 }
