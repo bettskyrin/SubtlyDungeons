@@ -20,7 +20,7 @@
   - All fence gates
   - All walls
   - Iron bars
-  - All glass panesw
+  - All glass panes
 - Snowlogged blocks may generate during world generation
 - Blocks may be snowlogged during snowfall
 
