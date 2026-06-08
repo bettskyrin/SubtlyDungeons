@@ -1,6 +1,5 @@
 ## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
-
 #### Blocks
 - Added Perse Wildflowers
   - Can be crafted into Purple Dye
@@ -21,8 +20,7 @@
   - All fence gates
   - All walls
   - Iron bars
-  - All glass panes
-- The snow layers may be removed by using a shovel on the snowlogged block
+  - All glass panesw
 - Snowlogged blocks may generate during world generation
 - Blocks may be snowlogged during snowfall
 
@@ -31,6 +29,7 @@
 - Changed Birch tree height
 - Changed grass placement rate
 - Changed bush placement rate
+- Snow will now generate under trees during world generation
 
 #### Biomes
 - Added Warm River biome
