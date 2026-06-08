@@ -13,6 +13,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 
 public class DataGeneratorSD implements DataGeneratorEntrypoint {
+    public static boolean isDataGeneratorRunning = System.getProperty("fabric-api.datagen") != null;
+
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();

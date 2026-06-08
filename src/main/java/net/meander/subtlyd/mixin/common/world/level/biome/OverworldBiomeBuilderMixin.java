@@ -1,6 +1,7 @@
 package net.meander.subtlyd.mixin.common.world.level.biome;
 
 import com.mojang.datafixers.util.Pair;
+import net.meander.subtlyd.data.DataGeneratorSD;
 import net.meander.subtlyd.world.level.levelgen.BiomesSD;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
@@ -30,58 +31,57 @@ public class OverworldBiomeBuilderMixin {
         final Climate.Parameter riverErosion = Climate.Parameter.span(-0.375F, 1.0F);
         final Climate.Parameter riverWeirdness = Climate.Parameter.span(-0.06F, 0.06F);
 
-        if (System.getProperty("fabric-api.datagen") != null) {
-            return biomes;
+        if (!DataGeneratorSD.isDataGeneratorRunning) {
+            return pair -> {
+                ResourceKey<Biome> biomeKey = pair.getSecond();
+                Climate.ParameterPoint p = pair.getFirst();
+
+                if (biomeKey.equals(Biomes.RIVER)) {
+                    biomes.accept(Pair.of(Climate.parameters(
+                            temperatureRanges[1],
+                            FULL_RANGE,
+                            riverContinentalness,
+                            riverErosion,
+                            p.depth(),
+                            riverWeirdness,
+                            0.0F
+                    ), BiomesSD.COLD_RIVER));
+
+                    biomes.accept(Pair.of(Climate.parameters(
+                            temperatureRanges[4],
+                            Climate.Parameter.span(-1.0F, -0.15F),
+                            riverContinentalness,
+                            riverErosion,
+                            p.depth(),
+                            riverWeirdness,
+                            0.0F
+                    ), BiomesSD.WARM_RIVER));
+
+                    biomes.accept(Pair.of(Climate.parameters(
+                            Climate.Parameter.span(-0.3F, 0.5F),
+                            FULL_RANGE,
+                            riverContinentalness,
+                            riverErosion,
+                            p.depth(),
+                            riverWeirdness,
+                            0.0F
+                    ), Biomes.RIVER));
+
+                    biomes.accept(Pair.of(Climate.parameters(
+                            temperatureRanges[4],
+                            Climate.Parameter.span(-0.15F, 1.0F),
+                            riverContinentalness,
+                            riverErosion,
+                            p.depth(),
+                            riverWeirdness,
+                            0.0F
+                    ), Biomes.RIVER));
+
+                } else {
+                    biomes.accept(pair);
+                }
+            };
         }
-
-        return pair -> {
-            ResourceKey<Biome> biomeKey = pair.getSecond();
-            Climate.ParameterPoint p = pair.getFirst();
-
-            if (biomeKey.equals(Biomes.RIVER)) {
-                biomes.accept(Pair.of(Climate.parameters(
-                        temperatureRanges[1],
-                        FULL_RANGE,
-                        riverContinentalness,
-                        riverErosion,
-                        p.depth(),
-                        riverWeirdness,
-                        0.0F
-                ), BiomesSD.COLD_RIVER));
-
-                biomes.accept(Pair.of(Climate.parameters(
-                        temperatureRanges[4],
-                        Climate.Parameter.span(-1.0F, -0.15F),
-                        riverContinentalness,
-                        riverErosion,
-                        p.depth(),
-                        riverWeirdness,
-                        0.0F
-                ), BiomesSD.WARM_RIVER));
-
-                biomes.accept(Pair.of(Climate.parameters(
-                        Climate.Parameter.span(-0.3F, 0.5F),
-                        FULL_RANGE,
-                        riverContinentalness,
-                        riverErosion,
-                        p.depth(),
-                        riverWeirdness,
-                        0.0F
-                ), Biomes.RIVER));
-
-                biomes.accept(Pair.of(Climate.parameters(
-                        temperatureRanges[4],
-                        Climate.Parameter.span(-0.15F, 1.0F),
-                        riverContinentalness,
-                        riverErosion,
-                        p.depth(),
-                        riverWeirdness,
-                        0.0F
-                ), Biomes.RIVER));
-
-            } else {
-                biomes.accept(pair);
-            }
-        };
+        return biomes;
     }
 }
