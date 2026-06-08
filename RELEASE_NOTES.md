@@ -81,6 +81,7 @@
 
 #### Splash Text
 - Added "Bigger! Better!" splash text
+- Added "Perse!" splash text
 
 ### Technical Changes
 #### Data Tags
