@@ -23,6 +23,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Traveler");
         translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
 
+        translationBuilder.add("biome.subtlyd.cold_river", "Cold River");
+        translationBuilder.add("biome.subtlyd.warm_river", "Warm River");
+
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
         translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");
         translationBuilder.add(BlocksSD.BASALT_SLAB, "Basalt Slab");

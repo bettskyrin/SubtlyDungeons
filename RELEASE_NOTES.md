@@ -26,13 +26,6 @@
 - Snowlogged blocks may generate during world generation
 - Blocks may be snowlogged during snowfall
 
-#### Weather
-- Added biome dependent precipitation levels
-  - Precipitation rates are tied to a biome's downfall 
-  - There is a downfall modifier, based on the average downfall of every player's current biome
-    - This modifier makes it more likely to rain, snow, or storm
-      - Example: If three players are in a world and two are in a jungle, because the jungle has such a high downfall level, it is likely to rain more often
-
 #### World Generation
 - Changed Oak tree height
 - Changed Birch tree height
@@ -40,6 +33,8 @@
 - Changed bush placement rate
 
 #### Biomes
+- Added Warm River biome
+- Added Cold River biome
 - Changed all biome sizes to be 50% larger
 - Changed all ocean depths to be 50% deeper
 

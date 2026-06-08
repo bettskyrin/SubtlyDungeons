@@ -33,6 +33,7 @@
     "common.world.item.TridentItemMixin",
     "common.world.level.ServerExplosionMixin",
     "common.world.level.biome.BiomeMixin",
+    "common.world.level.biome.OverworldBiomeBuilderMixin",
     "common.world.level.block.BlockMixin",
     "common.world.level.block.DoublePlantBlockMixin",
     "common.world.level.block.FrostedIceBlockMixin",
