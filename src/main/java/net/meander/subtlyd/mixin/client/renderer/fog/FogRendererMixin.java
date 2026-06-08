@@ -29,7 +29,7 @@ public class FogRendererMixin {
             lastCheck = currentTime;
         }
 
-        if (fogWeight != targetWeight) {
+        if (Math.abs(fogWeight - targetWeight) >= 0.001F) {
             float targetFogStart = 0.0F;
             float targetFogEnd = 64.0F;
             FogData fog = cir.getReturnValue();
