@@ -2,8 +2,10 @@ package net.meander.subtlyd.mixin.common.world.level.block;
 
 import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,6 +28,15 @@ public class SnowLayerBlockMixin {
             if (SimpleSnowloggedBlock.isSnowloggable(snowloggable.getBlock())) {
                 cir.setReturnValue(true);
             }
+        }
+    }
+
+    @Inject(method = "canSurvive", at = @At("HEAD"), cancellable = true)
+    private void allowSnowlayersOnSnowloggables(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        BlockState blockBelow = level.getBlockState(pos.below());
+
+        if (blockBelow.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && blockBelow.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) == 8) {
+            cir.setReturnValue(true);
         }
     }
 }
