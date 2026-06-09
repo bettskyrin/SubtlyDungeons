@@ -60,7 +60,7 @@ public class SnowAndFreezeFeatureMixin {
     }
 
     @Inject(method = "place", at = @At("TAIL"))
-    private void placeDriplineSnow(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
+    private void placeDriplineSnow(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) { // FIXME
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();
         BlockState snowState = Blocks.SNOW.defaultBlockState();
