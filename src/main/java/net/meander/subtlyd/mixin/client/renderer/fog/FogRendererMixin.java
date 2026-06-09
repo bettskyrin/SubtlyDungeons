@@ -23,21 +23,19 @@ public class FogRendererMixin {
     @Inject(method = "setupFog", at = @At("RETURN"))
     private static void increaseFog(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir) {
         long currentTime = level.getGameTime();
+        float targetFogStart = 0.0F;
+        float targetFogEnd = 64.0F;
+        FogData fog = cir.getReturnValue();
 
         if (currentTime - lastCheck >= 5L || currentTime < lastCheck) {
             targetWeight = getBiomeFogWeight(level.getBiome(camera.blockPosition()));
             lastCheck = currentTime;
         }
 
-        if (Math.abs(fogWeight - targetWeight) >= 0.001F) {
-            float targetFogStart = 0.0F;
-            float targetFogEnd = 64.0F;
-            FogData fog = cir.getReturnValue();
-            fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
+        fogWeight = Mth.lerp(0.007F, fogWeight, targetWeight);
 
-            fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
-            fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
-        }
+        fog.renderDistanceStart = Mth.lerp(fogWeight, fog.renderDistanceStart, targetFogStart);
+        fog.renderDistanceEnd = Mth.lerp(fogWeight, fog.renderDistanceEnd, targetFogEnd);
     }
 
     private static float getBiomeFogWeight(Holder<Biome> biome) {
