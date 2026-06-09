@@ -7,6 +7,9 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Tags cannot exist during model generation so a list was made.
+ */
 public class SnowloggableBlocks {
     public static final int MAX_LAYERS = 8;
 
