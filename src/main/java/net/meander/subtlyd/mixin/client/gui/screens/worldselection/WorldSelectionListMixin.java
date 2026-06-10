@@ -4,15 +4,23 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
+import net.meander.subtlyd.client.gui.screens.TailoredWorldGenConfig;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
 import net.minecraft.client.gui.screens.worldselection.WorldSelectionList;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.storage.LevelSummary;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+
+import java.nio.file.Path;
 
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
@@ -30,9 +38,19 @@ public class WorldSelectionListMixin {
     @Environment(EnvType.CLIENT)
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
+        @Shadow @Final private LevelSummary summary;
         private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
+
+        @Inject(method = "recreateWorld", at = @At("HEAD"))
+        private void loadRecreateSettings(CallbackInfo ci) {
+            Path oldWorldDir = Minecraft.getInstance().gameDirectory.toPath()
+                    .resolve("saves")
+                    .resolve(this.summary.getLevelId());
+
+            TailoredWorldGenConfig.loadSettingsFromFile(oldWorldDir);
+        }
 
         @ModifyArgs(method = "extractContent",
                     at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))

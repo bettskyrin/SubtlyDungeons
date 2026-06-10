@@ -45,6 +45,8 @@
     "common.world.level.block.state.BlockStateBaseMixin",
     "common.world.level.levelgen.feature.HugeFungusFeatureMixin",
     "common.world.level.levelgen.feature.SnowAndFreezeFeatureMixin",
+    "common.world.level.levelgen.structure.structures.MonumentBuildingMixin",
+    "common.world.level.levelgen.structure.structures.OceanMonumentStructureMixin",
     "common.world.level.levelgen.structure.structures.SwampHutPieceMixin"
   ],
   "client": [
@@ -55,6 +57,7 @@
     "client.gui.screens.WinScreenMixin",
     "client.gui.screens.worldselection.CreateWorldScreenMixin",
     "client.gui.screens.worldselection.CreateWorldScreenMixin$GameTabMixin",
+    "client.gui.screens.worldselection.CreateWorldScreenMixin$WorldTabMixin",
     "client.gui.screens.worldselection.SelectWorldScreenMixin",
     "client.gui.screens.worldselection.WorldSelectionListMixin",
     "client.gui.screens.worldselection.WorldSelectionListMixin$WorldListEntryMixin",

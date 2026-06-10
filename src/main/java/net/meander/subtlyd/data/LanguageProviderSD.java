@@ -52,6 +52,12 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.UNLIT_SOUL_CAMPFIRE, "Soul Campfire");
         translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
 
+        translationBuilder.add("createWorld.customize.custom.title", "World Customization");
+        translationBuilder.add("createWorld.customize.custom.master_scale", "Master World Generation Scale");
+        translationBuilder.add("createWorld.customize.custom.climate_smoothness", "Climate Smoothness");
+        translationBuilder.add("createWorld.customize.custom.continent_scale", "Continent Scale");
+        translationBuilder.add("createWorld.customize.custom.ocean_depth", "Ocean Depth");
+
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
 
@@ -86,8 +92,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
-
-        translationBuilder.add("generator.subtlyd.classic", "Classic Biomes");
 
         translationBuilder.add("item.minecraft.lingering_potion.effect.decay", "Lingering Potion of Decay");
         translationBuilder.add("item.minecraft.potion.effect.decay", "Potion of Decay");

@@ -1,7 +1,11 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.components.GameTabButton;
+import net.meander.subtlyd.client.gui.screens.TailoredWorldGenConfig;
+import net.meander.subtlyd.client.gui.screens.CustomWorldGenConfigScreen;
+import net.meander.subtlyd.world.level.levelgen.TailoredWorldGenerator;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -14,10 +18,15 @@ import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.SwitchGrid;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.storage.LevelDataAndDimensions;
+import net.minecraft.world.level.storage.LevelResource;
+import net.minecraft.world.level.storage.LevelStorageSource;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -26,9 +35,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Mixin(CreateWorldScreen.class)
 public abstract class CreateWorldScreenMixin extends Screen {
@@ -46,6 +58,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     shift = At.Shift.AFTER), cancellable = true)
     private void init(CallbackInfo ci) {
+        TailoredWorldGenConfig.reset();
+
         if (canChangeUi) {
             final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
             final int ROW_SPACING = 4;
@@ -78,17 +92,30 @@ public abstract class CreateWorldScreenMixin extends Screen {
         }
     }
 
+    @Inject(method = "createNewWorld",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
+    private void modifyWorldGeneration(
+            LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules,
+            CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
+        if (newWorldAccess.isPresent()) {
+            Path worldRootPath = newWorldAccess.get().getLevelPath(LevelResource.ROOT);
+
+            TailoredWorldGenerator.modifyWorldGeneration(worldRootPath);
+        }
+    }
+
     /**
      * Changes the Game Tab Layout
      */
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
+        @Shadow @Final private static Component TITLE;
+        @Shadow @Final private static Component ALLOW_COMMANDS;
         @Shadow @Final @Mutable private EditBox nameEdit;
-        private static final Component TITLE = Component.translatable("createWorld.tab.game.title");
         private static final Component NAME_LABEL = Component.translatable("selectWorld.enterName");
         private static final Component GAME_MODE_LABEL = Component.translatable("selectWorld.gameMode");
         private static final Component DIFFICULTY_LABEL = Component.translatable("options.difficulty");
-        private static final Component ALLOW_COMMANDS = Component.translatable("selectWorld.allowCommands");
         private static final Component ALLOW_COMMANDS_INFO = Component.translatable("selectWorld.allowCommands.info");
         private static final Component HARDCORE = Component.translatable("selectWorld.gameMode.hardcore");
         private static final Component HARDCORE_INFO = Component.translatable("selectWorld.gameMode.hardcore.info");
@@ -298,6 +325,35 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 return widget;
             }
             return instance.addChild(widget);
+        }
+    }
+
+    @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$WorldTab")
+    public static class WorldTabMixin extends GridLayoutTab {
+        @Shadow @Final private Button customizeTypeButton;
+        @Shadow @Final CreateWorldScreen this$0;
+
+        public WorldTabMixin(Component title) {
+            super(title);
+        }
+
+        @Inject(method = "<init>", at = @At("RETURN"))
+        private void addCustomizeButton(CreateWorldScreen helper, CallbackInfo ci) {
+            helper.getUiState().addListener(data -> {
+                if (!data.isDebug() && data.getPresetEditor() == null) {
+                    this.customizeTypeButton.active = true;
+                }
+            });
+        }
+
+        @Inject(method = "openPresetEditor", at = @At("HEAD"), cancellable = true)
+        private void openWorldValueSliderScreen(CallbackInfo ci) {
+            CreateWorldScreen parentScreen = this$0;
+
+            if (parentScreen != null && parentScreen.getUiState().getPresetEditor() == null) {
+                Minecraft.getInstance().setScreenAndShow(new CustomWorldGenConfigScreen(parentScreen));
+                ci.cancel();
+            }
         }
     }
 }
