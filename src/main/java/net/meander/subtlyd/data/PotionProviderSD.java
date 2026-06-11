@@ -21,8 +21,8 @@ public class PotionProviderSD implements DataProvider {
     private final PackOutput.PathProvider modelsPath;
 
     public PotionProviderSD(PackOutput output) {
-        this.itemsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
-        this.modelsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item/potion");
+        itemsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
+        modelsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item/potion");
     }
 
     @Override
