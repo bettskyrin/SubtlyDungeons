@@ -26,7 +26,7 @@ public class InitializerSD implements ModInitializer {
         SynchedEntityDataSD.bootstrap();
         PacketNetworking.registerCommon();
 
-        Util.LOGGER.info("Registering items and blocks");
+        // Blocks & Items
         MobEffectsSD.bootstrap();
         PotionsSD.bootstrap();
         BlocksSD.bootstrap();
@@ -34,7 +34,7 @@ public class InitializerSD implements ModInitializer {
         ItemsSD.bootstrap();
         LootItemConditionsSD.registration();
 
-        Util.LOGGER.info("Registering world events");
+        // World Events
         GameEventsSD.registration();
         CameraShakeEvents.registration();
         BiomesSD.init();

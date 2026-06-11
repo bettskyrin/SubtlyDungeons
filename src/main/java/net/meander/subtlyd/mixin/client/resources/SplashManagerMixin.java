@@ -51,7 +51,6 @@ public class SplashManagerMixin {
                         }
                     }
                 }
-                Util.LOGGER.info("Successfully loaded custom splash text");
             }
         } catch (Exception e) {
             Util.LOGGER.error("Failed to load custom splash text: {}", e.getMessage());
