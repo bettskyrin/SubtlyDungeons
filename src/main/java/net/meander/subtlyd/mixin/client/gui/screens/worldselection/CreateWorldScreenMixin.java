@@ -3,9 +3,8 @@ package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.components.GameTabButton;
-import net.meander.subtlyd.client.gui.screens.TailoredWorldGenConfig;
-import net.meander.subtlyd.client.gui.screens.CustomWorldGenConfigScreen;
-import net.meander.subtlyd.world.level.levelgen.TailoredWorldGenerator;
+import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
+import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettingsScreen;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -53,19 +52,22 @@ public abstract class CreateWorldScreenMixin extends Screen {
         super(title);
     }
 
+    @Inject(method = "init()V", at = @At("HEAD"))
+    private void initWorldGeneration(CallbackInfo ci) {
+        TailoredWorldGenSettings.reset();
+    }
+
     @Inject(method = "init()V",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
                     shift = At.Shift.AFTER), cancellable = true)
     private void init(CallbackInfo ci) {
-        TailoredWorldGenConfig.reset();
-
         if (canChangeUi) {
             final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
             final int ROW_SPACING = 4;
             final int BUTTON_MIDDLE_X = 100;
 
-            GridLayout gridLayout = this.layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
+            GridLayout gridLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
             gridLayout.defaultCellSetting().alignHorizontallyCenter();
             GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(createWorldScreen.width);
             rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X - (ROW_SPACING * 3)), 0));
@@ -81,13 +83,13 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                     CommonComponents.GUI_CANCEL, (_) -> createWorldScreen.popScreen())
                             .width(Util.GUI_COMMON.BACK_BUTTON_WIDTH)
                             .build());
-            this.layout.visitWidgets((button) -> {
+            layout.visitWidgets((button) -> {
                 button.setTabOrderGroup(1);
-                this.addRenderableWidget(button);
+                addRenderableWidget(button);
             });
             tabNavigationBar.selectTab(0, false);
             uiState.onChanged();
-            this.repositionElements();
+            repositionElements();
             ci.cancel();
         }
     }
@@ -95,13 +97,13 @@ public abstract class CreateWorldScreenMixin extends Screen {
     @Inject(method = "createNewWorld",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
-    private void modifyWorldGeneration(
-            LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules,
-            CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
-        if (newWorldAccess.isPresent()) {
+    private void saveTailoredSettings(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings,
+                                      Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir,
+                                      @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
+        if (newWorldAccess.isPresent() && TailoredWorldGenSettings.shouldAlterSettings) {
             Path worldRootPath = newWorldAccess.get().getLevelPath(LevelResource.ROOT);
 
-            TailoredWorldGenerator.modifyWorldGeneration(worldRootPath);
+            TailoredWorldGenSettings.saveSettingsToFile(worldRootPath);
         }
     }
 
@@ -351,7 +353,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
             CreateWorldScreen parentScreen = this$0;
 
             if (parentScreen != null && parentScreen.getUiState().getPresetEditor() == null) {
-                Minecraft.getInstance().setScreenAndShow(new CustomWorldGenConfigScreen(parentScreen));
+                Minecraft.getInstance().setScreenAndShow(new TailoredWorldGenSettingsScreen(parentScreen));
                 ci.cancel();
             }
         }

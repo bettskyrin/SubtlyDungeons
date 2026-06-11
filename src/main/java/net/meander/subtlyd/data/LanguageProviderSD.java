@@ -52,11 +52,12 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.UNLIT_SOUL_CAMPFIRE, "Soul Campfire");
         translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
 
-        translationBuilder.add("createWorld.customize.custom.title", "World Customization");
-        translationBuilder.add("createWorld.customize.custom.master_scale", "Master World Generation Scale");
-        translationBuilder.add("createWorld.customize.custom.climate_smoothness", "Climate Smoothness");
-        translationBuilder.add("createWorld.customize.custom.continent_scale", "Continent Scale");
-        translationBuilder.add("createWorld.customize.custom.ocean_depth", "Ocean Depth");
+        translationBuilder.add("createWorld.customize.tailored.title", "Tailored World Generation");
+        translationBuilder.add("createWorld.customize.tailored.climate_smoothness", "Climate Smoothness");
+        translationBuilder.add("createWorld.customize.tailored.continent_scale", "Continent Scale");
+        translationBuilder.add("createWorld.customize.tailored.master_scale", "Master World Generation Scale");
+        translationBuilder.add("createWorld.customize.tailored.ocean_depth", "Ocean Depth");
+        translationBuilder.add("createWorld.customize.tailored.pack", "Custom World Generation");
 
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");

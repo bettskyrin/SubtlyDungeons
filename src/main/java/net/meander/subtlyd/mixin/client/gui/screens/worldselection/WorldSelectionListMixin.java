@@ -4,7 +4,7 @@ import com.mojang.blaze3d.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.client.gui.screens.TailoredWorldGenConfig;
+import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
@@ -49,7 +49,7 @@ public class WorldSelectionListMixin {
                     .resolve("saves")
                     .resolve(this.summary.getLevelId());
 
-            TailoredWorldGenConfig.loadSettingsFromFile(oldWorldDir);
+            TailoredWorldGenSettings.loadSettingsFromFile(oldWorldDir);
         }
 
         @ModifyArgs(method = "extractContent",

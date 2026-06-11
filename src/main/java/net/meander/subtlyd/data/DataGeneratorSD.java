@@ -22,6 +22,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(ModelProviderSD::new);
         pack.addProvider((PackOutput output) -> new PotionProviderSD(output));
         pack.addProvider(BiomeTagsSD::new);
+        pack.addProvider((PackOutput output) -> new WorldGeneratorSD(output));
         pack.addProvider(ItemTagsSD::new);
         pack.addProvider(PotionTagsSD::new);
         pack.addProvider(EnchantmentTagsSD::new);

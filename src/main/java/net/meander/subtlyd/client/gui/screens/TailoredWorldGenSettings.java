@@ -7,9 +7,9 @@ import net.meander.subtlyd.util.Util;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class TailoredWorldGenConfig {
+public class TailoredWorldGenSettings {
     private static boolean isWorldCopy = false;
-
+    public static boolean shouldAlterSettings = false;
     public static double masterScale = 1.0;
     public static double continentScale = 1.0;
     public static double erosionScale = 1.0;
@@ -44,15 +44,16 @@ public class TailoredWorldGenConfig {
             settings.addProperty("erosionScale", erosionScale);
             settings.addProperty("climateScale", climateScale);
             settings.addProperty("oceanDepth", oceanDepth);
-            Files.writeString(worldRoot.resolve("subtlyd_worldgen_settings.json"), settings.toString());
+            Files.writeString(worldRoot.resolve("tailored_worldgen_settings.json"), settings.toString());
         } catch (Exception e) {
-            Util.LOGGER.error("Error saving custom world generation settings to file: {}", e.getMessage());
+            Util.LOGGER.error("Error saving tailored world generation settings to file: {}", e.getMessage());
         }
     }
 
     public static void loadSettingsFromFile(Path oldWorldRoot) {
         try {
-            Path file = oldWorldRoot.resolve("subtlyd_worldgen_settings.json");
+            Path file = oldWorldRoot.resolve("tailored_worldgen_settings.json");
+
             if (Files.exists(file)) {
                 JsonObject json = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
                 masterScale = json.has("masterScale") ? json.get("masterScale").getAsDouble() : 1.0;
@@ -62,9 +63,10 @@ public class TailoredWorldGenConfig {
                 oceanDepth = json.has("oceanDepth") ? json.get("oceanDepth").getAsDouble() : 1.0;
 
                 isWorldCopy = true;
+                shouldAlterSettings = true;
             }
         } catch (Exception e) {
-            Util.LOGGER.error("Error loading custom world generation settings from file: {}", e.getMessage());
+            Util.LOGGER.error("Error loading tailored world generation settings from file: {}", e.getMessage());
         }
     }
 }
