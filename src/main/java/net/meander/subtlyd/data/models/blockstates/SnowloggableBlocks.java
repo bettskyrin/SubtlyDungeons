@@ -138,7 +138,6 @@ public class SnowloggableBlocks {
             Blocks.GLASS_PANE
     ));
 
-
     public static void addToList() {
         CROSS_BLOCKS.addAll(Blocks.STAINED_GLASS_PANE.asList());
     }
