@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
-    private static final double TERRAIN_SCALER = 1.5;
-    private static final double OCEAN_DEPTH_SCALER = 2.25;
+    public static final double TERRAIN_SCALER = 0.68;
+    public static final double OCEAN_DEPTH_SCALER = 2.15;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final PackOutput packOutput;
 
@@ -61,13 +61,15 @@ public class WorldGeneratorSD implements DataProvider {
             final Path densityFunctions = rootFolder.resolve("data/minecraft/worldgen/density_function/overworld");
             final Path noiseSettings = rootFolder.resolve("data/minecraft/worldgen/noise_settings");
 
-            if (!DataGeneratorSD.isDataGeneratorRunning) {
-                JsonObject metaRoot = buildMcMeta();
-                Files.writeString(rootFolder.resolve("pack.mcmeta"), GSON.toJson(metaRoot));
-            }
-
+            Files.createDirectories(rootFolder);
             Files.createDirectories(densityFunctions);
             Files.createDirectories(noiseSettings);
+
+            if (!DataGeneratorSD.isDataGeneratorRunning) {
+                JsonObject metaRoot = buildMcMeta();
+
+                Files.writeString(rootFolder.resolve("pack.mcmeta"), GSON.toJson(metaRoot));
+            }
 
             Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale)));
             Files.writeString(densityFunctions.resolve("erosion.json"), GSON.toJson(getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.erosionScale)));
@@ -98,8 +100,6 @@ public class WorldGeneratorSD implements DataProvider {
         return metaRoot;
     }
 
-
-
     /**
      * Modifies a simple overworld density function's scale on the X and Z axes.
      * @param densityFunctionName The name of the density function to modify
@@ -118,26 +118,23 @@ public class WorldGeneratorSD implements DataProvider {
 
                 if (targetNode.has("xz_scale")) {
                     final double classicScale = targetNode.get("xz_scale").getAsDouble();
-                    double finalScaler = TERRAIN_SCALER * customScaler;
+                    final double finalScaler = TERRAIN_SCALER * customScaler;
+                    JsonObject cache2D = new JsonObject();
+                    JsonObject flatCache = new JsonObject();
 
-                    targetNode.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale / finalScaler));
+                    targetNode.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
 
-                    if (densityFunction == targetNode) {
-                        JsonObject cache2D = new JsonObject();
-                        JsonObject flatCache = new JsonObject();
+                    cache2D.addProperty("type", "minecraft:cache_2d");
+                    cache2D.add("argument", targetNode);
 
-                        cache2D.addProperty("type", "minecraft:cache_2d");
-                        cache2D.add("argument", targetNode);
+                    flatCache.addProperty("type", "minecraft:flat_cache");
+                    flatCache.add("argument", cache2D);
 
-                        flatCache.addProperty("type", "minecraft:flat_cache");
-                        flatCache.add("argument", cache2D);
-
-                        densityFunction = flatCache;
-                    }
+                    return flatCache;
                 }
                 return densityFunction;
             } else {
-                throw new IllegalStateException("Unable to resolve file: " + densityFunctionName);
+                throw new IllegalStateException("Could not resolve file: " + densityFunctionName);
             }
         }
     }
@@ -148,57 +145,66 @@ public class WorldGeneratorSD implements DataProvider {
      */
     private static JsonObject getModifiedOverworldNoiseSettings() throws Exception {
         try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/noise_settings/overworld.json")) {
-            if (fileStream == null) throw new IllegalStateException("Missing vanilla overworld.json");
+            if (fileStream != null) {
+                JsonObject overworld = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
 
-            JsonObject overworld = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
+                if (overworld.has("noise_router")) {
+                    JsonObject noiseRouter = overworld.getAsJsonObject("noise_router");
 
-            if (overworld.has("noise_router")) {
-                JsonObject noiseRouter = overworld.getAsJsonObject("noise_router");
+                    if (noiseRouter.has("temperature")) {
+                        JsonObject temperature = noiseRouter.getAsJsonObject("temperature");
 
-                if (noiseRouter.has("temperature")) {
-                    JsonObject temperature = noiseRouter.getAsJsonObject("temperature");
+                        while (temperature.has("argument")) {
+                            temperature = temperature.getAsJsonObject("argument");
+                        }
 
-                    if (temperature.has("xz_scale")) {
-                        final double classicScale = temperature.get("xz_scale").getAsDouble();
-                        double finalScaler = TERRAIN_SCALER * TailoredWorldGenSettings.climateScale;
+                        if (temperature.has("xz_scale")) {
+                            final double classicScale = temperature.get("xz_scale").getAsDouble();
+                            final double finalScaler = TERRAIN_SCALER * TailoredWorldGenSettings.climateScale;
+                            JsonObject cache2D = new JsonObject();
+                            JsonObject flatCache = new JsonObject();
 
-                        temperature.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale / finalScaler));
+                            temperature.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
 
-                        JsonObject cache2D = new JsonObject();
-                        JsonObject flatCache = new JsonObject();
+                            cache2D.addProperty("type", "minecraft:cache_2d");
+                            cache2D.add("argument", temperature);
 
-                        cache2D.addProperty("type", "minecraft:cache_2d");
-                        cache2D.add("argument", temperature);
+                            flatCache.addProperty("type", "minecraft:flat_cache");
+                            flatCache.add("argument", cache2D);
 
-                        flatCache.addProperty("type", "minecraft:flat_cache");
-                        flatCache.add("argument", cache2D);
+                            noiseRouter.add("temperature", flatCache);
+                        }
+                    }
 
-                        noiseRouter.add("temperature", flatCache);
+                    if (noiseRouter.has("vegetation")) {
+                        JsonObject humidity = noiseRouter.getAsJsonObject("vegetation");
+
+                        while (humidity.has("argument")) {
+                            humidity = humidity.getAsJsonObject("argument");
+                        }
+
+                        if (humidity.has("xz_scale")) {
+                            final double classicScale = humidity.get("xz_scale").getAsDouble();
+                            final double finalScaler = TERRAIN_SCALER * TailoredWorldGenSettings.climateScale;
+                            JsonObject cache2D = new JsonObject();
+                            JsonObject flatCache = new JsonObject();
+
+                            humidity.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
+
+                            cache2D.addProperty("type", "minecraft:cache_2d");
+                            cache2D.add("argument", humidity);
+
+                            flatCache.addProperty("type", "minecraft:flat_cache");
+                            flatCache.add("argument", cache2D);
+
+                            noiseRouter.add("vegetation", flatCache);
+                        }
                     }
                 }
-
-                if (noiseRouter.has("vegetation")) {
-                    JsonObject humidity = noiseRouter.getAsJsonObject("vegetation");
-
-                    if (humidity.has("xz_scale")) {
-                        double classicScale = humidity.get("xz_scale").getAsDouble();
-
-                        humidity.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale / (TERRAIN_SCALER * TailoredWorldGenSettings.climateScale)));
-
-                        JsonObject cache2D = new JsonObject();
-                        JsonObject flatCache = new JsonObject();
-
-                        cache2D.addProperty("type", "minecraft:cache_2d");
-                        cache2D.add("argument", humidity);
-
-                        flatCache.addProperty("type", "minecraft:flat_cache");
-                        flatCache.add("argument", cache2D);
-
-                        noiseRouter.add("vegetation", flatCache);
-                    }
-                }
+                return overworld;
+            } else {
+                throw new IllegalStateException("Unable to resolve overworld.json");
             }
-            return overworld;
         }
     }
 
@@ -208,7 +214,7 @@ public class WorldGeneratorSD implements DataProvider {
     private static JsonObject getModifiedOceanOffsetSplines() throws Exception {
         try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/density_function/overworld/offset.json")) {
             if (fileStream != null) {
-                double finalScaler = OCEAN_DEPTH_SCALER * TailoredWorldGenSettings.oceanDepth;
+                final double finalScaler = OCEAN_DEPTH_SCALER * TailoredWorldGenSettings.oceanDepth;
                 JsonObject offset = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
                 JsonArray splinePoints = findSplinePoints(offset);
 
@@ -216,19 +222,18 @@ public class WorldGeneratorSD implements DataProvider {
                     for (JsonElement splinePoint : splinePoints) {
                         JsonObject point = splinePoint.getAsJsonObject();
 
-                        if (point.has("location") && point.get("location").getAsDouble() <= 0.05) {
+                        if (point.has("location") && point.get("location").getAsDouble() <= -0.15) {
                             if (point.has("value") && point.get("value").isJsonPrimitive()) {
                                 double classicDepth = point.get("value").getAsDouble();
+                                double modifiedDepth = (classicDepth - 0.1) * Math.max(finalScaler, -2.5);
 
-                                if (classicDepth <= 0) {
-                                    double newDepth = Math.max(classicDepth * finalScaler, -2.5);
-                                    point.addProperty("value", MthSD.roundToTenThousandths(newDepth));
-                                }
+                                point.addProperty("value", MthSD.roundToTenThousandths(modifiedDepth));
+
                             }
                         }
                     }
                 } else {
-                    Util.LOGGER.warn("Could not resolve offset spline points");
+                    Util.LOGGER.warn("Could not resolve offset.json spline points");
                 }
                 return offset;
             } else {

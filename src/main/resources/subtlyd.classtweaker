@@ -17,7 +17,6 @@ accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScr
 accessible method net/minecraft/client/gui/screens/worldselection/WorldCreationUiState tryUpdateDataConfiguration (Lnet/minecraft/world/level/WorldDataConfiguration;)Z
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getOrCreateTempDataPackDir ()Ljava/nio/file/Path;
 accessible field net/minecraft/client/gui/screens/worldselection/CreateWorldScreen tempDataPackRepository Lnet/minecraft/server/packs/repository/PackRepository;
-# TODO These last two
 
 # Options
 accessible class net/minecraft/client/Options$FieldAccess
