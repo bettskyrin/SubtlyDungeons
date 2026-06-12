@@ -53,7 +53,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
 
         translationBuilder.add("createWorld.customize.tailored.title", "Tailored World Generation");
-        translationBuilder.add("createWorld.customize.tailored.climate_smoothness", "Climate Smoothness");
+        translationBuilder.add("createWorld.customize.tailored.biome_scale", "Biome Scale");
         translationBuilder.add("createWorld.customize.tailored.continent_scale", "Continent Scale");
         translationBuilder.add("createWorld.customize.tailored.master_scale", "Master World Generation Scale");
         translationBuilder.add("createWorld.customize.tailored.ocean_depth", "Ocean Depth");

@@ -42,7 +42,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         lastScreen = parent;
         initialMaster = TailoredWorldGenSettings.masterScale;
         initialContinent = TailoredWorldGenSettings.continentScale;
-        initialClimate = TailoredWorldGenSettings.climateScale;
+        initialClimate = TailoredWorldGenSettings.biomeScale;
         initialOcean = TailoredWorldGenSettings.oceanDepth;
 
         super(Component.translatable("createWorld.customize.tailored.title"));
@@ -72,8 +72,8 @@ public class TailoredWorldGenSettingsScreen extends Screen {
                 TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
 
         climateSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.customize.tailored.climate_smoothness").getString(), MIN_VALUE, MAX_VALUE,
-                TailoredWorldGenSettings.climateScale, v -> TailoredWorldGenSettings.climateScale = v);
+                Component.translatable("createWorld.customize.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
+                TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
         oceanSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.customize.tailored.ocean_depth").getString(), MIN_VALUE, MAX_VALUE,
@@ -113,7 +113,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
     private void updateSliders() {
         if (continentSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.continentScale);
-        if (climateSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.climateScale);
+        if (climateSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.biomeScale);
         if (oceanSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.oceanDepth);
     }
 
@@ -161,7 +161,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private void onCancel() {
         TailoredWorldGenSettings.masterScale = initialMaster;
         TailoredWorldGenSettings.continentScale = initialContinent;
-        TailoredWorldGenSettings.climateScale = initialClimate;
+        TailoredWorldGenSettings.biomeScale = initialClimate;
         TailoredWorldGenSettings.oceanDepth = initialOcean;
     }
 

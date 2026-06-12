@@ -12,16 +12,14 @@ public class TailoredWorldGenSettings {
     public static boolean shouldAlterSettings = false;
     public static double masterScale = 1.0;
     public static double continentScale = 1.0;
-    public static double erosionScale = 1.0;
-    public static double climateScale = 1.0;
+    public static double biomeScale = 1.0;
     public static double oceanDepth = 1.0;
 
     public static void reset() {
         if (!isWorldCopy) {
             masterScale = 1.0;
             continentScale = 1.0;
-            erosionScale = 1.0;
-            climateScale = 1.0;
+            biomeScale = 1.0;
             oceanDepth = 1.0;
         } else {
             isWorldCopy = false;
@@ -31,8 +29,7 @@ public class TailoredWorldGenSettings {
     public static void applyMasterScale(double newMasterScale) {
         masterScale = newMasterScale;
         continentScale = newMasterScale;
-        erosionScale = newMasterScale;
-        climateScale = newMasterScale;
+        biomeScale = newMasterScale;
         oceanDepth = newMasterScale;
     }
 
@@ -41,8 +38,7 @@ public class TailoredWorldGenSettings {
             JsonObject settings = new JsonObject();
             settings.addProperty("masterScale", masterScale);
             settings.addProperty("continentScale", continentScale);
-            settings.addProperty("erosionScale", erosionScale);
-            settings.addProperty("climateScale", climateScale);
+            settings.addProperty("climateScale", biomeScale);
             settings.addProperty("oceanDepth", oceanDepth);
             Files.writeString(worldRoot.resolve("tailored_worldgen_settings.json"), settings.toString());
         } catch (Exception e) {
@@ -58,8 +54,7 @@ public class TailoredWorldGenSettings {
                 JsonObject json = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
                 masterScale = json.has("masterScale") ? json.get("masterScale").getAsDouble() : 1.0;
                 continentScale = json.has("continentScale") ? json.get("continentScale").getAsDouble() : 1.0;
-                erosionScale = json.has("erosionScale") ? json.get("erosionScale").getAsDouble() : 1.0;
-                climateScale = json.has("climateScale") ? json.get("climateScale").getAsDouble() : 1.0;
+                biomeScale = json.has("climateScale") ? json.get("climateScale").getAsDouble() : 1.0;
                 oceanDepth = json.has("oceanDepth") ? json.get("oceanDepth").getAsDouble() : 1.0;
 
                 isWorldCopy = true;
