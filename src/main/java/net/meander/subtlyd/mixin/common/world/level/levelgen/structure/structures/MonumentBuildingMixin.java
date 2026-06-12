@@ -18,16 +18,17 @@ import java.util.List;
 public class MonumentBuildingMixin {
     @Shadow @Final private List<OceanMonumentPieces.OceanMonumentPiece> childPieces;
 
+    @SuppressWarnings("deprecation")
     @Inject(method = "<init>*", at = @At("TAIL"))
-    private void subtlyd$sinkAllPieces(RandomSource random, int west, int north, Direction direction, CallbackInfo ci) {
+    private void modifyPieceY(RandomSource random, int west, int north, Direction direction, CallbackInfo ci) {
         int shiftDown = OceanMonumentStructureSD.NEW_DEPTH.get();
 
-        if (shiftDown < 0) {
-            StructurePiece piece = (StructurePiece) (Object) this;
+        if (shiftDown != 0) {
+            StructurePiece mainPiece = (StructurePiece) (Object) this;
 
-            piece.getBoundingBox().move(0, shiftDown, 0);
+            mainPiece.getBoundingBox().move(0, shiftDown, 0);
 
-            for (StructurePiece child : this.childPieces) {
+            for (StructurePiece child : childPieces) {
                 child.getBoundingBox().move(0, shiftDown, 0);
             }
         }

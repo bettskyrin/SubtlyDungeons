@@ -18,26 +18,20 @@ public class OceanMonumentStructureMixin {
      */
     @Inject(method = "generatePieces", at = @At("HEAD"))
     private static void relocateMonument(StructurePiecesBuilder builder, Structure.GenerationContext context, CallbackInfo ci) {
-        final int classicFloorY = 39;
-        int minFloorY = Integer.MAX_VALUE;
-        int startX = context.chunkPos().getMinBlockX();
-        int startZ = context.chunkPos().getMinBlockZ();
+        final int CLASSIC_OCEAN_FLOOR_Y = 39;
+        int centerX = context.chunkPos().getMiddleBlockX();
+        int centerZ = context.chunkPos().getMiddleBlockZ();
+        int floorY = context.chunkGenerator().getBaseHeight(
+                centerX,
+                centerZ,
+                Heightmap.Types.OCEAN_FLOOR_WG,
+                context.heightAccessor(),
+                context.randomState()
+        );
 
-        for (int x = 0; x <= 58; x += 14) {
-            for (int z = 0; z <= 58; z += 14) {
-                int floorY = context.chunkGenerator().getBaseHeight(
-                        startX + x,
-                        startZ + z,
-                        Heightmap.Types.OCEAN_FLOOR_WG,
-                        context.heightAccessor(),
-                        context.randomState()
-                );
-                minFloorY = Math.min(minFloorY, floorY);
-            }
-        }
-        int shift = minFloorY - classicFloorY;
+        int shift = floorY - CLASSIC_OCEAN_FLOOR_Y;
 
-        OceanMonumentStructureSD.NEW_DEPTH.set(Math.min(shift, 0));
+        OceanMonumentStructureSD.NEW_DEPTH.set(shift);
     }
 
     @Inject(method = "generatePieces", at = @At("RETURN"))
