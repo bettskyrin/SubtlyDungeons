@@ -1,5 +1,19 @@
 ## [5.0 Snapshot 1] - UNRELEASED
 ### New Features
+#### Player-Tailored World Generation
+- Added the Tailored World Generation system
+- During world creation, a "Default" world type can now be customized
+- Choosing the "Customize" option allows the player to modify sliders corresponding to world generation factors
+  - Added customizable option:
+    - Continent Scale
+      - How large continents are. Also increases the continent-to-ocean ratio
+    - Climate Smoothness
+      - How large a transition between biomes of different climates should be.
+        - Example: Increasing this value can make a biome transition go from Forest -> Jungle to Forest -> Swamp -> Jungle
+    - Ocean Depth
+  - There is also a Master scale, which will adjust these values (alongside other hidden ones) together. This slider can be thought of a "Biome Size" slider.
+Developer Note: We intend to expand on this system. Please leave us feedback if you have any suggestions or ideas.
+
 #### Blocks
 - Added Perse Wildflowers
   - Can be crafted into Purple Dye
@@ -9,35 +23,32 @@
     - "Perse" is an archaic term for "blue-ish" :D
 - Added Hay Stairs
 - Added Hay Slab
-
-#### Snowlogging
 - Added snowlogging, like on Bedrock Edition
-- Only some blocks are now snow loggable:
-  - All flowers
-  - All grasses
-  - All bushes/ferns
-  - All tree saplings
-  - All mushrooms
-  - All fences
-  - All fence gates
-  - All walls
-  - Iron bars
-  - All glass panes
-- Snowlogged blocks may generate during world generation
-- Blocks may be snowlogged during snowfall
+  - Only some blocks are now snow loggable:
+    - All flowers
+    - All grasses
+    - All bushes/ferns
+    - All tree saplings
+    - All mushrooms
+    - All fences
+    - All fence gates
+    - All walls
+    - Iron bars
+    - All glass panes
+  - Snowlogged blocks may generate during world generation
+  - Blocks may be snowlogged during snowfall
+- Changed doors to be water loggable
 
 #### World Generation
-- Changed Oak tree height
-- Changed Birch tree height
-- Changed grass placement rate
-- Changed bush placement rate
-- Snow will now generate under trees during world generation
-
-#### Biomes
 - Added Warm River biome
 - Added Cold River biome
 - Changed all biome sizes to be 50% larger
 - Changed all ocean depths to be 50% deeper
+- Changed Oak tree height
+- Changed Birch tree height
+- Changed grass placement rate
+- Changed bush placement rate
+- Changed snow to generate under trees in snowy biomes
 
 ##### Forest
 - Added sparse rocks to the understory
@@ -59,10 +70,7 @@
 - Changed frog spawn rates in Swamp biomes to be higher
 - Added tadpole spawning to Swamp biomes
 
-#### Water Logging
-- Doors are now water loggable
-
-#### Fog
+#### Atmospherics
 - Added ambient fog to Swamp biomes
 - Added ambient fog to Mangrove Swamp biomes
 - Added ambient fog to Pale Garden biomes
@@ -77,12 +85,13 @@
 - Changed Bush ambient sound to be louder
 - Changed Sand ambient sound to be louder
 - Changed dry vegetation ambient sound to be louder
-- Changed dead bush ambient sound to be louder
+- Changed Dead Bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 
 #### Splash Text
 - Added "Bigger! Better!" splash text
 - Added "Perse!" splash text
+- Added "Any shape and size!" splash text
 
 ### Technical Changes
 #### Data Tags

@@ -17,12 +17,15 @@ import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.gui.screens.worldselection.SwitchGrid;
 import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.core.Holder;
 import net.minecraft.core.LayeredRegistryAccess;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.levelgen.presets.WorldPreset;
+import net.minecraft.world.level.levelgen.presets.WorldPresets;
 import net.minecraft.world.level.storage.LevelDataAndDimensions;
 import net.minecraft.world.level.storage.LevelResource;
 import net.minecraft.world.level.storage.LevelStorageSource;
@@ -94,6 +97,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
         }
     }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Inject(method = "createNewWorld",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
@@ -192,10 +196,10 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
                 creativeButton.setSelected(() -> uiState.getGameMode() == WorldCreationUiState.SelectedGameMode.CREATIVE);
 
-                this.nameEdit = new EditBox(helper.getFont(), WORLD_SETTINGS_WIDTH, 20, Component.translatable("selectWorld.enterName"));
-                this.nameEdit.setValue(uiState.getName());
-                this.nameEdit.setResponder(uiState::setName);
-                helper.setInitialFocus(this.nameEdit);
+                nameEdit = new EditBox(helper.getFont(), WORLD_SETTINGS_WIDTH, 20, Component.translatable("selectWorld.enterName"));
+                nameEdit.setValue(uiState.getName());
+                nameEdit.setResponder(uiState::setName);
+                helper.setInitialFocus(nameEdit);
 
                 switchGridBuilder.addSwitch(HARDCORE, uiState::isHardcore, (isHardcore) -> {
                     uiState.setGameMode(isHardcore ? WorldCreationUiState.SelectedGameMode.HARDCORE : WorldCreationUiState.SelectedGameMode.SURVIVAL);
@@ -209,13 +213,13 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
                 switchGridBuilder.addSwitch(ALLOW_COMMANDS, uiState::isAllowCommands, uiState::setAllowCommands).withInfo(ALLOW_COMMANDS_INFO);
                 worldSettingsSection.addChild(
-                        CommonLayouts.labeledElement(helper.getFont(), this.nameEdit, NAME_LABEL),
+                        CommonLayouts.labeledElement(helper.getFont(), nameEdit, NAME_LABEL),
                         topRow.newCellSettings().alignHorizontallyCenter());
                 SwitchGrid switchGrid = switchGridBuilder.build();
                 worldSettingsSection.addChild(switchGrid.layout());
                 topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), gameModeSection, GAME_MODE_LABEL));
                 topRow.addChild(worldSettingsSection);
-                this.layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyLeft());
+                layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyLeft());
 
                 /* Difficulty */
                 GameTabButton peacefulButton = difficultySection.addChild(
@@ -275,7 +279,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 hardButton.setSelected(() -> uiState.getDifficulty() == Difficulty.HARD);
 
                 uiState.addListener(worldCreationUiState -> {
-                    this.nameEdit.setTooltip(Tooltip.create(Component.translatable("selectWorld.targetFolder",
+                    nameEdit.setTooltip(Tooltip.create(Component.translatable("selectWorld.targetFolder",
                             Component.literal(worldCreationUiState.getTargetFolder()).withStyle(ChatFormatting.ITALIC))));
                     survivalButton.setLocked(uiState.isHardcore());
                     creativeButton.setActive(!uiState.isHardcore());
@@ -298,7 +302,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     }
                 });
                 LayoutElement bottomRow = CommonLayouts.labeledElement(helper.getFont(), difficultySection, DIFFICULTY_LABEL);
-                this.layout.addChild(bottomRow, 1, 0, linearLayout.newCellSettings().alignHorizontallyLeft().paddingHorizontal(SPACING));
+                layout.addChild(bottomRow, 1, 0, linearLayout.newCellSettings().alignHorizontallyLeft().paddingHorizontal(SPACING));
             }
         }
 
@@ -342,8 +346,10 @@ public abstract class CreateWorldScreenMixin extends Screen {
         @Inject(method = "<init>", at = @At("RETURN"))
         private void addCustomizeButton(CreateWorldScreen helper, CallbackInfo ci) {
             helper.getUiState().addListener(data -> {
-                if (!data.isDebug() && data.getPresetEditor() == null) {
-                    this.customizeTypeButton.active = true;
+                Holder<WorldPreset> worldPreset = data.getWorldType().preset();
+
+                if (worldPreset != null && worldPreset.is(WorldPresets.NORMAL)) {
+                    customizeTypeButton.active = true;
                 }
             });
         }
@@ -352,9 +358,13 @@ public abstract class CreateWorldScreenMixin extends Screen {
         private void openWorldValueSliderScreen(CallbackInfo ci) {
             CreateWorldScreen parentScreen = this$0;
 
-            if (parentScreen != null && parentScreen.getUiState().getPresetEditor() == null) {
-                Minecraft.getInstance().setScreenAndShow(new TailoredWorldGenSettingsScreen(parentScreen));
-                ci.cancel();
+            if (parentScreen != null) {
+                Holder<WorldPreset> worldPreset = parentScreen.getUiState().getWorldType().preset();
+
+                if (worldPreset != null && worldPreset.is(WorldPresets.NORMAL)) {
+                    Minecraft.getInstance().setScreenAndShow(new TailoredWorldGenSettingsScreen(parentScreen));
+                    ci.cancel();
+                }
             }
         }
     }
