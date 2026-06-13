@@ -13,14 +13,12 @@ public class TailoredWorldGenSettings {
     public static double masterScale = 1.0;
     public static double continentScale = 1.0;
     public static double biomeScale = 1.0;
-    public static double oceanDepth = 1.0;
 
     public static void reset() {
         if (!isWorldCopy) {
             masterScale = 1.0;
             continentScale = 1.0;
             biomeScale = 1.0;
-            oceanDepth = 1.0;
         } else {
             isWorldCopy = false;
         }
@@ -30,7 +28,6 @@ public class TailoredWorldGenSettings {
         masterScale = newMasterScale;
         continentScale = newMasterScale;
         biomeScale = newMasterScale;
-        oceanDepth = newMasterScale;
     }
 
     public static void saveSettingsToFile(Path worldRoot) {
@@ -39,7 +36,6 @@ public class TailoredWorldGenSettings {
             settings.addProperty("masterScale", masterScale);
             settings.addProperty("continentScale", continentScale);
             settings.addProperty("climateScale", biomeScale);
-            settings.addProperty("oceanDepth", oceanDepth);
             Files.writeString(worldRoot.resolve("tailored_worldgen_settings.json"), settings.toString());
         } catch (Exception e) {
             Util.LOGGER.error("Error saving tailored world generation settings to file: {}", e.getMessage());
@@ -55,7 +51,6 @@ public class TailoredWorldGenSettings {
                 masterScale = json.has("masterScale") ? json.get("masterScale").getAsDouble() : 1.0;
                 continentScale = json.has("continentScale") ? json.get("continentScale").getAsDouble() : 1.0;
                 biomeScale = json.has("climateScale") ? json.get("climateScale").getAsDouble() : 1.0;
-                oceanDepth = json.has("oceanDepth") ? json.get("oceanDepth").getAsDouble() : 1.0;
 
                 isWorldCopy = true;
                 shouldAlterSettings = true;

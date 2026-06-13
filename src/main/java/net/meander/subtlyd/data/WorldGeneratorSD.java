@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
-    public static final double TERRAIN_SCALER = 0.68;
-    public static final double OCEAN_DEPTH_SCALER = 2.05;
+    public static final double TERRAIN_SCALER = 2.5;
+    //public static final double OCEAN_DEPTH_SCALER = 1.0;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final PackOutput packOutput;
 
@@ -37,15 +37,15 @@ public class WorldGeneratorSD implements DataProvider {
         try {
             JsonObject continents = getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale);
             JsonObject biomes = getModifiedOverworldNoiseSettings();
-            JsonObject ocean = getModifiedOceanOffsetSplines();
+            //JsonObject ocean = getModifiedOceanOffsetSplines();
 
             Path continentsPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/continents.json");
             Path noisePath = outputFolder.resolve("data/minecraft/worldgen/noise_settings/overworld.json");
-            Path offsetPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/offset.json");
+            //Path offsetPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/offset.json");
 
             futures.add(DataProvider.saveStable(cache, continents, continentsPath));
             futures.add(DataProvider.saveStable(cache, biomes, noisePath));
-            futures.add(DataProvider.saveStable(cache, ocean, offsetPath));
+            //futures.add(DataProvider.saveStable(cache, ocean, offsetPath));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
@@ -70,7 +70,7 @@ public class WorldGeneratorSD implements DataProvider {
 
             Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale)));
             Files.writeString(noiseSettings.resolve("overworld.json"), GSON.toJson(getModifiedOverworldNoiseSettings()));
-            Files.writeString(densityFunctions.resolve("offset.json"), GSON.toJson(getModifiedOceanOffsetSplines()));
+            //Files.writeString(densityFunctions.resolve("offset.json"), GSON.toJson(getModifiedOceanOffsetSplines()));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
@@ -114,7 +114,7 @@ public class WorldGeneratorSD implements DataProvider {
 
                 if (targetNode.has("xz_scale")) {
                     final double classicScale = targetNode.get("xz_scale").getAsDouble();
-                    final double finalScaler = TERRAIN_SCALER * customScaler;
+                    final double finalScaler = (1 / TERRAIN_SCALER) * customScaler;
                     JsonObject cache2D = new JsonObject();
                     JsonObject flatCache = new JsonObject();
 
@@ -156,7 +156,7 @@ public class WorldGeneratorSD implements DataProvider {
 
                         if (temperature.has("xz_scale")) {
                             final double classicScale = temperature.get("xz_scale").getAsDouble();
-                            final double finalScaler = TERRAIN_SCALER * TailoredWorldGenSettings.biomeScale;
+                            final double finalScaler = (1 / TERRAIN_SCALER) * TailoredWorldGenSettings.biomeScale;
                             JsonObject cache2D = new JsonObject();
                             JsonObject flatCache = new JsonObject();
 
@@ -181,7 +181,7 @@ public class WorldGeneratorSD implements DataProvider {
 
                         if (humidity.has("xz_scale")) {
                             final double classicScale = humidity.get("xz_scale").getAsDouble();
-                            final double finalScaler = TERRAIN_SCALER * TailoredWorldGenSettings.biomeScale;
+                            final double finalScaler = (1 / TERRAIN_SCALER) * TailoredWorldGenSettings.biomeScale;
                             JsonObject cache2D = new JsonObject();
                             JsonObject flatCache = new JsonObject();
 
@@ -204,102 +204,102 @@ public class WorldGeneratorSD implements DataProvider {
         }
     }
 
-    /**
-     * @return The modified ocean depth created by editing offset.json spline point values.
-     */
-    private static JsonObject getModifiedOceanOffsetSplines() throws Exception {
-        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/density_function/overworld/offset.json")) {
-            if (fileStream != null) {
-                final double finalScaler = OCEAN_DEPTH_SCALER * TailoredWorldGenSettings.oceanDepth;
-                JsonObject offset = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
-                JsonObject splineParent = getSplineParent(offset);
-
-                if (splineParent != null && splineParent.has("points")) {
-                    JsonArray oldPoints = splineParent.getAsJsonArray("points");
-                    JsonArray newPoints = new JsonArray();
-
-                    for (JsonElement splinePoint : oldPoints) {
-                        JsonObject point = splinePoint.getAsJsonObject();
-
-                        if (point.has("location")) {
-                            double location = point.get("location").getAsDouble();
-
-                            if (location == -0.16) {
-                                newPoints.add(point);
-                                continue;
-                            } else if (location == -0.18) {
-                                double classicDepth = point.get("value").getAsDouble(); // Vanilla is -0.12
-                                double targetDeepDepth = (classicDepth - 0.1) * Math.max(finalScaler, -2.5);
-                                double shelfDepth = classicDepth + (targetDeepDepth - classicDepth) * 0.2;
-
-                                point.addProperty("value", MthSD.roundToTenThousandths(shelfDepth));
-                                newPoints.add(point);
-
-                                JsonObject slopePoint = new JsonObject();
-                                double midDepth = classicDepth + (targetDeepDepth - classicDepth) * 0.6;
-
-                                slopePoint.addProperty("derivative", 0.0);
-                                slopePoint.addProperty("location", -0.31);
-                                slopePoint.addProperty("value", MthSD.roundToTenThousandths(midDepth));
-                                newPoints.add(slopePoint);
-                                continue;
-                            } else if (location <= -0.44 && point.has("value") && point.get("value").isJsonPrimitive()) {
-                                double classicDepth = point.get("value").getAsDouble();
-
-                                double modifiedDepth = (classicDepth - 0.1) * Math.max(finalScaler, -2.5);
-                                point.addProperty("value", MthSD.roundToTenThousandths(modifiedDepth));
-                                newPoints.add(point);
-                                continue;
-                            }
-                        }
-                        newPoints.add(point);
-                    }
-                    splineParent.add("points", newPoints);
-
-                } else {
-                    Util.LOGGER.warn("Could not resolve offset.json spline parent");
-                }
-                return offset;
-            } else {
-                throw new IllegalStateException("Could not resolve offset.json");
-            }
-        }
-    }
-
-    /**
-     * Recursively searches a file for spline points.
-     * @param jsonFile The JSON file to search
-     * @return Spline points within a JSON file as a JSONArray
-     */
-    private static JsonObject getSplineParent(JsonObject jsonFile) {
-        if (jsonFile.has("spline") && jsonFile.getAsJsonObject("spline").has("coordinate") &&
-                "minecraft:overworld/continents".equals(jsonFile.getAsJsonObject("spline").get("coordinate").getAsString())) {
-            return jsonFile.getAsJsonObject("spline");
-        } else {
-            for (String key : jsonFile.keySet()) {
-                JsonElement element = jsonFile.get(key);
-
-                if (element.isJsonObject()) {
-                    JsonObject foundParent = getSplineParent(element.getAsJsonObject());
-
-                    if (foundParent != null) {
-                        return foundParent;
-                    }
-                } else if (element.isJsonArray()) {
-                    for (JsonElement arrayElem : element.getAsJsonArray()) {
-                        if (arrayElem.isJsonObject()) {
-                            JsonObject foundParent = getSplineParent(arrayElem.getAsJsonObject());
-
-                            if (foundParent != null) {
-                                return foundParent;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
+//    /**
+//     * @return The modified ocean depth created by editing offset.json spline point values.
+//     */
+//    private static JsonObject getModifiedOceanOffsetSplines() throws Exception {
+//        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/density_function/overworld/offset.json")) {
+//            if (fileStream != null) {
+//                final double finalScaler = OCEAN_DEPTH_SCALER * TailoredWorldGenSettings.oceanDepth;
+//                JsonObject offset = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
+//                JsonObject splineParent = getSplineParent(offset);
+//
+//                if (splineParent != null && splineParent.has("points")) {
+//                    JsonArray oldPoints = splineParent.getAsJsonArray("points");
+//                    JsonArray newPoints = new JsonArray();
+//
+//                    for (JsonElement splinePoint : oldPoints) {
+//                        JsonObject point = splinePoint.getAsJsonObject();
+//
+//                        if (point.has("location")) {
+//                            double location = point.get("location").getAsDouble();
+//
+//                            if (location == -0.16) {
+//                                newPoints.add(point);
+//                                continue;
+//                            } else if (location == -0.18) {
+//                                double classicDepth = point.get("value").getAsDouble(); // Vanilla is -0.12
+//                                double targetDeepDepth = (classicDepth - 0.1) * Math.max(finalScaler, -2.5);
+//                                double shelfDepth = classicDepth + (targetDeepDepth - classicDepth) * 0.2;
+//
+//                                point.addProperty("value", MthSD.roundToTenThousandths(shelfDepth));
+//                                newPoints.add(point);
+//
+//                                JsonObject slopePoint = new JsonObject();
+//                                double midDepth = classicDepth + (targetDeepDepth - classicDepth) * 0.6;
+//
+//                                slopePoint.addProperty("derivative", 0.0);
+//                                slopePoint.addProperty("location", -0.31);
+//                                slopePoint.addProperty("value", MthSD.roundToTenThousandths(midDepth));
+//                                newPoints.add(slopePoint);
+//                                continue;
+//                            } else if (location <= -0.44 && point.has("value") && point.get("value").isJsonPrimitive()) {
+//                                double classicDepth = point.get("value").getAsDouble();
+//
+//                                double modifiedDepth = (classicDepth - 0.1) * Math.max(finalScaler, -2.5);
+//                                point.addProperty("value", MthSD.roundToTenThousandths(modifiedDepth));
+//                                newPoints.add(point);
+//                                continue;
+//                            }
+//                        }
+//                        newPoints.add(point);
+//                    }
+//                    splineParent.add("points", newPoints);
+//
+//                } else {
+//                    Util.LOGGER.warn("Could not resolve offset.json spline parent");
+//                }
+//                return offset;
+//            } else {
+//                throw new IllegalStateException("Could not resolve offset.json");
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Recursively searches a file for spline points.
+//     * @param jsonFile The JSON file to search
+//     * @return Spline points within a JSON file as a JSONArray
+//     */
+//    private static JsonObject getSplineParent(JsonObject jsonFile) {
+//        if (jsonFile.has("spline") && jsonFile.getAsJsonObject("spline").has("coordinate") &&
+//                "minecraft:overworld/continents".equals(jsonFile.getAsJsonObject("spline").get("coordinate").getAsString())) {
+//            return jsonFile.getAsJsonObject("spline");
+//        } else {
+//            for (String key : jsonFile.keySet()) {
+//                JsonElement element = jsonFile.get(key);
+//
+//                if (element.isJsonObject()) {
+//                    JsonObject foundParent = getSplineParent(element.getAsJsonObject());
+//
+//                    if (foundParent != null) {
+//                        return foundParent;
+//                    }
+//                } else if (element.isJsonArray()) {
+//                    for (JsonElement arrayElem : element.getAsJsonArray()) {
+//                        if (arrayElem.isJsonObject()) {
+//                            JsonObject foundParent = getSplineParent(arrayElem.getAsJsonObject());
+//
+//                            if (foundParent != null) {
+//                                return foundParent;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        return null;
+//    }
 
     @Override
     public String getName() {

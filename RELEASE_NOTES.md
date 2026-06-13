@@ -6,13 +6,8 @@
 - Choosing the "Customize" option allows the player to modify sliders corresponding to world generation factors
   - Added customizable option:
     - Continent Scale
-      - How large continents are. Also increases the continent-to-ocean ratio
-    - Climate Smoothness
-      - How large a transition between biomes of different climates should be.
-        - Example: Increasing this value can make a biome transition go from Forest -> Jungle to Forest -> Swamp -> Jungle
-    - Ocean Depth
-  - There is also a Master scale, which will adjust these values (alongside other hidden ones) together. This slider can be thought of a "Biome Size" slider.
-Developer Note: We intend to expand on this system. Please leave us feedback if you have any suggestions or ideas.
+    - Biome Scale
+  - There is also a Master scale, which will adjust these values  together.
 
 #### Blocks
 - Added Perse Wildflowers
