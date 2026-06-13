@@ -86,6 +86,7 @@
 - Changed dry vegetation ambient sound to be louder
 - Changed Dead Bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
+- Changed ambient cold wind sounds to be less common
 
 #### Splash Text
 - Added "Bigger! Better!" splash text
