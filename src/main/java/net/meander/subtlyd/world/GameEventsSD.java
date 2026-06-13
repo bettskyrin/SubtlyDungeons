@@ -140,6 +140,7 @@ public class GameEventsSD {
 
                 if (SimpleSnowloggedBlock.isSnowloggable(state.getBlock())) {
                     int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+
                     if (layers > 0) {
                         BlockState snowState = (layers == 8)
                                 ? Blocks.SNOW_BLOCK.defaultBlockState()
