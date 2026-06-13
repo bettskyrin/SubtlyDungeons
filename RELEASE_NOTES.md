@@ -62,8 +62,11 @@
 - Added small mushroom rings around huge mushrooms
 
 ##### Swamp
+- Added perse wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
-- Added tadpole spawning to Swamp biomes
+
+##### Taiga
+- Changed vegetation to be more common
 
 #### Atmospherics
 - Added ambient fog to Swamp biomes
