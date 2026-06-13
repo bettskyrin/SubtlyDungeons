@@ -16,8 +16,6 @@
   - Developer Notes:
     - These are inspired by Forget-Me-Not flowers
     - "Perse" is an archaic term for "blue-ish" :D
-- Added Hay Stairs
-- Added Hay Slab
 - Added snowlogging, like on Bedrock Edition
   - Only some blocks are now snow loggable:
     - All flowers
@@ -35,8 +33,6 @@
 - Changed doors to be water loggable
 
 #### World Generation
-- Added Warm River biome
-- Added Cold River biome
 - Changed all biomes to be larger
 - Changed all continents to be larger
 - Changed Oak tree height
