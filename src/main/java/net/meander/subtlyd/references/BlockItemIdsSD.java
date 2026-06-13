@@ -29,8 +29,6 @@ public class BlockItemIdsSD {
     public static final BlockItemId SOUL_JACK_O_LANTERN = create("soul_jack_o_lantern");
     public static final BlockItemId POTION_CAULDRON = create("potion_cauldron");
     public static final BlockItemId PERSE_WILDFLOWERS = create("perse_wildflowers");
-    public static final BlockItemId HAY_STAIRS = create("hay_stairs");
-    public static final BlockItemId HAY_SLAB = create("hay_slab");
 
     public static BlockItemId create(final String name) {
         Identifier id = Util.identifier(name);

@@ -52,7 +52,6 @@ public class CreativeModeTabsSD {
             entries.insertAfter(BASALT, BASALT_SLAB);
             entries.insertAfter(JACK_O_LANTERN, SOUL_JACK_O_LANTERN);
             entries.insertBefore(WILDFLOWERS, PERSE_WILDFLOWERS);
-            BlockTagsSD.getBlocks(BlockTagsSD.HAY).forEach(block -> entries.insertBefore(HAY_BLOCK, block));
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {

@@ -82,7 +82,5 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         add(Blocks.CAMPFIRE, campfireBuilder);
         add(Blocks.SOUL_CAMPFIRE, soulCampfireBuilder);
         dropSelf(BlocksSD.PERSE_WILDFLOWERS);
-        dropSelf(BlocksSD.HAY_STAIRS);
-        dropSelf(BlocksSD.HAY_SLAB);
     }
 }
