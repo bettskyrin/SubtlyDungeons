@@ -37,8 +37,8 @@
 #### World Generation
 - Added Warm River biome
 - Added Cold River biome
-- Changed all biome sizes to be 50% larger
-- Changed all ocean depths to be 50% deeper
+- Changed all biomes to be larger
+- Changed all continents to be larger
 - Changed Oak tree height
 - Changed Birch tree height
 - Changed grass placement rate
@@ -56,10 +56,13 @@
 - Added moss carpet to fallen logs
 
 ##### Dark Forest
-- Changed canopys to be larger
-- Changed the sky to be darker
-- Changed the ratio of Dark Oaks trees to other vegetation
 - Added sparse rocks to the understory
+- Changed canopys to be larger
+- Changed dark oak trees to be taller
+- Changed the sky to be darker
+- Changed the ratio of Dark Oaks trees to other vegetation and huge mushrooms
+- Changed red mushroom caps to be slightly shorter
+- Added small mushroom rings around huge mushrooms
 
 ##### Swamp
 - Changed frog spawn rates in Swamp biomes to be higher
@@ -69,12 +72,16 @@
 - Added ambient fog to Swamp biomes
 - Added ambient fog to Mangrove Swamp biomes
 - Added ambient fog to Pale Garden biomes
+- Added ambient fog to Dark Forest biomes
 
 ### Changes
 #### Crafting
 - Changed map crafting recipe
   - Changed map crafting recipe to be a 9x9 of paper
     - This matches Bedrock Edition
+
+#### Textures
+- Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
 
 #### Sounds
 - Changed Bush ambient sound to be louder
@@ -92,5 +99,6 @@
 #### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag
+- Added `has_cespitose` biome tag
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Removed `has_ambient_block_sounds` block tag

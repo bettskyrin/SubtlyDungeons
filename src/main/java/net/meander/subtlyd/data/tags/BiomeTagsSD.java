@@ -17,6 +17,7 @@ public class BiomeTagsSD extends FabricTagsProvider<Biome> {
     public static final TagKey<Biome> IS_WINDY = bind("is_windy");
     public static final TagKey<Biome> IS_VERY_FOGGY = bind("is_very_foggy");
     public static final TagKey<Biome> IS_FOGGY = bind("is_foggy");
+    public static final TagKey<Biome> HAS_CESPITOSE = bind("has_cespitose");
 
     public BiomeTagsSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> completableFuture) {
         super(packOutput, Registries.BIOME, completableFuture);
@@ -38,8 +39,11 @@ public class BiomeTagsSD extends FabricTagsProvider<Biome> {
         tag(IS_VERY_FOGGY)
                 .add(Biomes.PALE_GARDEN);
         tag(IS_FOGGY)
+                .add(Biomes.DARK_FOREST)
                 .add(Biomes.SWAMP)
                 .add(Biomes.MANGROVE_SWAMP);
+        tag(HAS_CESPITOSE)
+                .add(Biomes.DARK_FOREST);
         tag(BiomeTags.IS_RIVER)
                 .addOptional(BiomesSD.COLD_RIVER)
                 .addOptional(BiomesSD.WARM_RIVER);

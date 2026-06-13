@@ -8,7 +8,7 @@
       }
     },
     "minecraft:visual/sky_color": "#677aa1",
-    "minecraft:visual/fog_color": "#677aa1"
+    "minecraft:visual/fog_color": "#8495b8"
   },
   "carvers": [
     "minecraft:cave",
