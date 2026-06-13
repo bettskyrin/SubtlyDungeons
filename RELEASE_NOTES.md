@@ -7,7 +7,7 @@
   - Added customizable option:
     - Continent Scale
     - Biome Scale
-  - There is also a Master scale, which will adjust these values  together.
+  - There is also a Master scale, which will adjust these values together.
 
 #### Blocks
 - Added Perse Wildflowers
