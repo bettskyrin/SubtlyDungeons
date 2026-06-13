@@ -35,7 +35,7 @@ public class TailoredWorldGenSettings {
             JsonObject settings = new JsonObject();
             settings.addProperty("masterScale", masterScale);
             settings.addProperty("continentScale", continentScale);
-            settings.addProperty("climateScale", biomeScale);
+            settings.addProperty("biomeScale", biomeScale);
             Files.writeString(worldRoot.resolve("tailored_worldgen_settings.json"), settings.toString());
         } catch (Exception e) {
             Util.LOGGER.error("Error saving tailored world generation settings to file: {}", e.getMessage());
@@ -50,7 +50,7 @@ public class TailoredWorldGenSettings {
                 JsonObject json = JsonParser.parseString(Files.readString(file)).getAsJsonObject();
                 masterScale = json.has("masterScale") ? json.get("masterScale").getAsDouble() : 1.0;
                 continentScale = json.has("continentScale") ? json.get("continentScale").getAsDouble() : 1.0;
-                biomeScale = json.has("climateScale") ? json.get("climateScale").getAsDouble() : 1.0;
+                biomeScale = json.has("biomeScale") ? json.get("biomeScale").getAsDouble() : 1.0;
 
                 isWorldCopy = true;
                 shouldAlterSettings = true;

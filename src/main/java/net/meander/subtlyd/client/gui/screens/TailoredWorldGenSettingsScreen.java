@@ -28,22 +28,19 @@ import java.util.List;
 public class TailoredWorldGenSettingsScreen extends Screen {
     private final double initialMaster;
     private final double initialContinent;
-    private final double initialClimate;
-    //private final double initialOcean;
+    private final double initialBiome;
     private final Screen lastScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 50, 50);
     private SliderList list;
     private AbstractSliderButton continentSlider;
-    private AbstractSliderButton climateSlider;
-    //private AbstractSliderButton oceanSlider;
+    private AbstractSliderButton biomeSlider;
 
 
     public TailoredWorldGenSettingsScreen(Screen parent) {
         lastScreen = parent;
         initialMaster = TailoredWorldGenSettings.masterScale;
         initialContinent = TailoredWorldGenSettings.continentScale;
-        initialClimate = TailoredWorldGenSettings.biomeScale;
-        //initialOcean = TailoredWorldGenSettings.oceanDepth;
+        initialBiome = TailoredWorldGenSettings.biomeScale;
 
         super(Component.translatable("createWorld.customize.tailored.title"));
     }
@@ -71,16 +68,11 @@ public class TailoredWorldGenSettingsScreen extends Screen {
                 Component.translatable("createWorld.customize.tailored.continent_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
 
-        climateSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+        biomeSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.customize.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
-//        oceanSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-//                Component.translatable("createWorld.customize.tailored.ocean_depth").getString(), MIN_VALUE, MAX_VALUE,
-//                TailoredWorldGenSettings.oceanDepth, v -> TailoredWorldGenSettings.oceanDepth = v);
-
-        list.addDouble(continentSlider, climateSlider);
-        //list.addSingle(oceanSlider);
+        list.addDouble(continentSlider, biomeSlider);
         createFooterButtons();
         layout.visitWidgets(this::addRenderableWidget);
         repositionElements();
@@ -113,8 +105,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
     private void updateSliders() {
         if (continentSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.continentScale);
-        if (climateSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.biomeScale);
-        //if (oceanSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.oceanDepth);
+        if (biomeSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.biomeScale);
     }
 
     private void onDone() {
@@ -161,8 +152,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private void onCancel() {
         TailoredWorldGenSettings.masterScale = initialMaster;
         TailoredWorldGenSettings.continentScale = initialContinent;
-        TailoredWorldGenSettings.biomeScale = initialClimate;
-        //TailoredWorldGenSettings.oceanDepth = initialOcean;
+        TailoredWorldGenSettings.biomeScale = initialBiome;
     }
 
     @Override

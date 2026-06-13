@@ -35,12 +35,15 @@ public class WorldGeneratorSD implements DataProvider {
 
         try {
             JsonObject continents = getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale);
+            JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.biomeScale);
             JsonObject biomes = getModifiedOverworldNoiseSettings();
 
             Path continentsPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/continents.json");
+            Path erosionPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/erosion.json");
             Path noisePath = outputFolder.resolve("data/minecraft/worldgen/noise_settings/overworld.json");
 
             futures.add(DataProvider.saveStable(cache, continents, continentsPath));
+            futures.add(DataProvider.saveStable(cache, erosion, erosionPath));
             futures.add(DataProvider.saveStable(cache, biomes, noisePath));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
@@ -65,8 +68,8 @@ public class WorldGeneratorSD implements DataProvider {
             }
 
             Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale)));
+            Files.writeString(densityFunctions.resolve("erosion.json"), GSON.toJson(getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.biomeScale)));
             Files.writeString(noiseSettings.resolve("overworld.json"), GSON.toJson(getModifiedOverworldNoiseSettings()));
-            //Files.writeString(densityFunctions.resolve("offset.json"), GSON.toJson(getModifiedOceanOffsetSplines()));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
