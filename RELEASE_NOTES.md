@@ -31,6 +31,7 @@
   - Snowlogged blocks may generate during world generation
   - Blocks may be snowlogged during snowfall
 - Changed doors to be water loggable
+- Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
 
 #### World Generation
 - Changed all biomes to be larger

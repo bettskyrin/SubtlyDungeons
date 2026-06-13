@@ -9,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
@@ -141,6 +142,16 @@ public abstract class BlockStateBaseMixin {
             if (isSnowlogged || isBottomSnowlogged) {
                 cir.setReturnValue(Vec3.ZERO);
             }
+        }
+    }
+
+    @Inject(method = "getLightEmission", at = @At("HEAD"), cancellable = true)
+    private void setLightEmission(CallbackInfoReturnable<Integer> cir) {
+        @SuppressWarnings("DataFlowIssue")
+        BlockState state = (BlockState) (Object) this;
+
+        if (state.is(Blocks.BROWN_MUSHROOM_BLOCK)) {
+            cir.setReturnValue(1);
         }
     }
 }
