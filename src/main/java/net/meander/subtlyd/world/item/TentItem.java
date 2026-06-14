@@ -9,6 +9,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PostSpawnProcessor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,8 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.function.Consumer;
 
 public class TentItem extends Item {
     private final EntityType<TentEntity> entityType;
@@ -45,7 +44,7 @@ public class TentItem extends Item {
         } else {
             if (level.noCollision(null, aABB) && level.getEntities(null, aABB).isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
-                    Consumer<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, player);
+                    PostSpawnProcessor<TentEntity> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, player);
                     TentEntity tentEntity = this.entityType.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
                     if (tentEntity == null) {
