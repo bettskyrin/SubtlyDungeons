@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [4.0 Snapshot] - UNRELEASED
+## [4.0 Magical Madness Update] - 6/16/26
 ### New Features
 #### Enchantments
 - Added Occult Protection enchantment
@@ -281,6 +281,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Fixed bug that prevented custom options from saving after exiting the game
 - Fixed bug preventing animals that are taking shelter from walking around
 - Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
+- Fixed a bug causing the game to crash on launch for some players
 
 ## [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
