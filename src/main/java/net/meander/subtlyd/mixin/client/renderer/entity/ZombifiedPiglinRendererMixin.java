@@ -27,7 +27,7 @@ public class ZombifiedPiglinRendererMixin {
     private void getTextureLocation(ZombifiedPiglinRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).subtlyd$isLeader()) {
+        if (((UndeadRenderStateAccessor) state).isLeader()) {
                 leaderLocation = state.isBaby ? BABY_ZOMBIFIED_PIGLIN_LEADER_LOCATION : ZOMBIFIED_PIGLIN_LEADER_LOCATION;
         }
         cir.setReturnValue(leaderLocation);
@@ -37,6 +37,6 @@ public class ZombifiedPiglinRendererMixin {
             at = @At("TAIL"))
     private void setLeaderRenderState(ZombifiedPiglin entity, ZombifiedPiglinRenderState state, float partialTicks, CallbackInfo ci) {
         boolean isLeader = entity.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER);
-        ((UndeadRenderStateAccessor) state).subtlyd$setLeader(isLeader);
+        ((UndeadRenderStateAccessor) state).setLeader(isLeader);
     }
 }

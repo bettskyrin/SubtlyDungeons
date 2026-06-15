@@ -16,7 +16,7 @@ public class SubmitNodeCollectionMixin {
     private SubmitNode subtlyd$onSoulFire(SubmitNode submit, @Local(argsOnly = true, name = "renderState") EntityRenderState renderState) {
         if (submit instanceof FlameFeatureRendererSubmitAccessor accessor) {
             if (renderState.displayFireAnimation) {
-                accessor.subtlyd$setSoulFire(((EntityRenderStateAccessor) renderState).subtlyd$isOnSoulFire());
+                accessor.subtlyd$setSoulFire(((EntityRenderStateAccessor) renderState).isOnSoulFire());
             }
         }
         return submit;

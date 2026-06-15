@@ -4,11 +4,11 @@ public interface UndeadRenderStateAccessor {
     /**
      * @return Whether a zombie is a leader zombie or not.
      */
-    boolean subtlyd$isLeader();
+    boolean isLeader();
 
     /**
      * Sets a zombie entity's leader status.
      * @param isLeader The leader status.
      */
-    void subtlyd$setLeader(boolean isLeader);
+    void setLeader(boolean isLeader);
 }

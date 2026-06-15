@@ -18,7 +18,7 @@ public class EntityRendererMixin {
         if (entity.isOnFire()) {
             EntityRenderStateAccessor accessor = (EntityRenderStateAccessor) state;
 
-            accessor.subtlyd$setSoulFire(EntitySD.shouldSoulFireBurn(entity));
+            accessor.setSoulFire(EntitySD.shouldSoulFireBurn(entity));
         }
     }
 }

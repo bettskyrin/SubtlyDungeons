@@ -9,12 +9,12 @@ public class EntityRenderStateMixin implements EntityRenderStateAccessor {
     private boolean isWitherSkull;
 
     @Override
-    public boolean subtlyd$isOnSoulFire() {
+    public boolean isOnSoulFire() {
         return isWitherSkull;
     }
 
     @Override
-    public void subtlyd$setSoulFire(boolean isOnSoulFire) {
+    public void setSoulFire(boolean isOnSoulFire) {
         this.isWitherSkull = isOnSoulFire;
     }
 }

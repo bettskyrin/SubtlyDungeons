@@ -31,7 +31,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     private void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier location = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).subtlyd$isLeader()) {
+        if (((UndeadRenderStateAccessor) state).isLeader()) {
             @SuppressWarnings("unchecked")
             final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
             if (renderer instanceof DrownedRenderer) {
@@ -47,6 +47,6 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
             at = @At("TAIL"))
     private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         boolean isLeader = entity.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER);
-            ((UndeadRenderStateAccessor) state).subtlyd$setLeader(isLeader);
+            ((UndeadRenderStateAccessor) state).setLeader(isLeader);
     }
 }

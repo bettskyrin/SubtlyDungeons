@@ -63,15 +63,15 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
-        stateAccessor.subtlyd$setClimbProgress(progress);
+        stateAccessor.setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
-            float oldYaw = stateAccessor.subtlyd$getClimbRotation();
+            float oldYaw = stateAccessor.getClimbRotation();
             float yaw = EntitySD.getClimberRotation(entity, nearestWall, oldYaw);
 
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
             state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
-            stateAccessor.subtlyd$setClimbRotation(yaw);
+            stateAccessor.setClimbRotation(yaw);
             climberAccessor.subtlyd$tickRotation(climberAccessor.subtlyd$getRotation(partialTicks));
         }
     }
@@ -88,10 +88,10 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
         float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
-        stateAccessor.subtlyd$setJockey(true);
-        stateAccessor.subtlyd$setClimbProgress(progress);
+        stateAccessor.setIsJockey(true);
+        stateAccessor.setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
-            float oldYaw = stateAccessor.subtlyd$getClimbRotation();
+            float oldYaw = stateAccessor.getClimbRotation();
             state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
             state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getClimberRotation(entity, nearestWall, oldYaw));
         }
@@ -105,12 +105,12 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param bBH The bounding box height of the entity. Used for relative translations.
      */
     private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float bBH) {
-        float progress = accessor.subtlyd$getClimbProgress();
+        float progress = accessor.getClimbProgress();
         float yOffset;
         float zOffset;
 
         if (progress > climbProgressThreshold) {
-            if (!accessor.subtlyd$isJockey()) {
+            if (!accessor.isJockey()) {
                 yOffset = 0.2F * progress;
                 zOffset = (-1.06F * bBH + 0.2F) * progress; // Linear function to prevent cave spiders from clipping into walls.
             } else {
@@ -119,7 +119,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             }
             poseStack.translate(0, yOffset, zOffset);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
-            poseStack.mulPose(Axis.YP.rotationDegrees(accessor.subtlyd$getClimbRotation() * progress));
+            poseStack.mulPose(Axis.YP.rotationDegrees(accessor.getClimbRotation() * progress));
         }
     }
 }

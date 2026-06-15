@@ -4,33 +4,33 @@ public interface LivingEntityRenderStateAccessor {
     /**
      * @return The progress of the climb animation.
      */
-    float subtlyd$getClimbProgress();
+    float getClimbProgress();
 
     /**
      * @return The desired rotation angle.
      */
-    float subtlyd$getClimbRotation();
+    float getClimbRotation();
 
     /**
      * @return Whether the render state is for a jockey or not.
      */
-    boolean subtlyd$isJockey();
+    boolean isJockey();
 
     /**
      * Sets the climb animation progress value.
      * @param progress The desired progress value.
      */
-    void subtlyd$setClimbProgress(float progress);
+    void setClimbProgress(float progress);
 
     /**
      * Sets the climb rotation angle.
      * @param rotation The desired rotation angle.
      */
-    void subtlyd$setClimbRotation(float rotation);
+    void setClimbRotation(float rotation);
 
     /**
      * Sets the "jockey" status of the render state.
      * @param bl The jockey status.
      */
-    void subtlyd$setJockey(boolean bl);
+    void setIsJockey(boolean bl);
 }
