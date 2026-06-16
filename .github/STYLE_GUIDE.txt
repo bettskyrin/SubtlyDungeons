@@ -1,4 +1,5 @@
-import this.import // Single spacing after imports
+import this.import1
+import this.import2 // Single spacing after all imports
 
 public class className {
     public int publicField; // Fields at top of class

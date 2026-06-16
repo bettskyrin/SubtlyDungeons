@@ -177,7 +177,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - 40 meters -> 160 meters
   - Level 4 Beacon Range:
     - 50 meters -> 200 meters
-- This helps balance a more difficult Wither boss battle
+  - This helps balance a more difficult Wither boss battle
 
 #### Structures
 - Changed Swamp Hut cauldrons to now have a random potion effect inside of them, to match Bedrock Edition
@@ -265,6 +265,7 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
 
 #### Particles
 - Added `spore_cloud` particle
+
 #### Credits
 - Added ourselves (and the talented artists that make the mod's music) to the game's end credits!
 
