@@ -11,7 +11,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.Level;
 import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -22,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Shadow private @Nullable Level level;
-
     @Shadow protected abstract void setRotation(float yRot, float xRot);
     @Shadow protected abstract void setPosition(double x, double y, double z);
     @Shadow public abstract @Nullable Entity entity();
@@ -32,10 +29,8 @@ public abstract class CameraMixin {
 
     @Inject(method = "update", at = @At("TAIL"))
     private void setup(DeltaTracker deltaTracker, CallbackInfo ci) {
-        if (level != null && entity() != null) {
-            applyScreenShake();
-            setCampingPlayerCamera(entity(), xRot());
-        }
+        applyScreenShake();
+        setCampingPlayerCamera(entity(), xRot());
     }
 
     /**
@@ -48,7 +43,8 @@ public abstract class CameraMixin {
             if (intensity > 0.0F) {
                 float yaw = Mth.sin(Util.getMillis() / 30.0) * intensity;
                 float pitch = Mth.cos(Util.getMillis() / 60.0) * intensity;
-                this.setRotation(yRot() - pitch * Mth.sqrt(2), xRot() + (yaw));
+
+                setRotation(yRot() - pitch * Mth.sqrt(2), xRot() + (yaw));
             }
         }
     }
@@ -56,13 +52,13 @@ public abstract class CameraMixin {
     /**
      * Locks the camera to the player's head while sleeping in a tent
      * @param entity The sleeping entity.
-     * @param f The entity head rotation angle
+     * @param heatRot The entity head rotation angle
      */
-    private void setCampingPlayerCamera(Entity entity, float f) {
+    private void setCampingPlayerCamera(Entity entity, float heatRot) {
         if (entity instanceof LivingEntity livingEntity) {
             if (TentEntity.getTent(livingEntity, true) != null) {
-                this.setRotation(livingEntity.getViewYRot(f), -90F);
-                this.setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
+                setRotation(livingEntity.getViewYRot(heatRot), -90F);
+                setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
             }
         }
     }

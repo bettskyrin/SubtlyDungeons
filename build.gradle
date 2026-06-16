@@ -69,3 +69,7 @@ publishing {
         }
     }
 }
+
+tasks.withType(AbstractCopyTask).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}

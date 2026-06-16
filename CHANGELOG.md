@@ -95,7 +95,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Dalarna to have a chance to play on the main menu
 - Music volume has been refactored
 - Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
-  - Developer Note: This music track seems to try and create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
+  - Developer Note: This music track seems to try to create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
 
 #### Advancements
 - Added new "Traveler" adventure challenge
@@ -128,7 +128,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Enchanting tables to accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
 - Changed Anvil Enchanting
   - The "Too Expensive!" message has been replaced with "Unrepairable!"
-    - The idea of the "Too Expensive!" repair limit is to mimic how in real life, you can't keep repairing an object over and over, forever. While we are not removing this feature, we have decided to rename it, to help make this more clear.
+    - The idea of the "Too Expensive!" repair limit is to mimic how, in real life, you can't keep repairing an object over and over, forever. While we are not removing this feature, we have decided to rename it to help make this more clear.
   - The limit for adding enchantments is now tied to enchantability
     - The message for an item with too many enchantments is "Magic Capacity Met!"
   - Repairing an item enchanted with mending will have an enchantment level cost of 1.
@@ -153,7 +153,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - This is based on their internal code names
 
 #### The Wither
-- Changed launched Wither Skulls to be on fire 
+- Changed launched Wither Skulls to be on fire
   - This was originally intended by Mojang, but caused crashes
   - The skull flames are blue, to match Soul Fire
   - These skulls now place Soul Fire when they explode
@@ -194,7 +194,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Fire Charge/Fireball texture
 - Changed texture for entities on fire that are Wither Skulls, in Soul Fire, on Soul Sand, on Soul Soil, or in Soul Sand Valleys
 - Added potion bottle archetypes
-  - Some potions have different bottle shapes, to better help visibility for those with colorblindness
+  - Some potions have different bottle shapes to better help visibility for those with colorblindness
   - These archetypes are:
     - Conical
     - Spherical
@@ -205,7 +205,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 ### Technical Changes
 #### Camera Shake Events
-Camera Shake events are now data driven, similar to sound events. Camera shake event files are to be put in a `data/[datapack namespace]/subtlyd/camera_shake_event/` folder.
+Camera Shake events are now data-driven, similar to sound events. Camera shake event files are to be put in a `data/[datapack namespace]/subtlyd/camera_shake_event/` folder.
 - Added `sound_event` field: a Sound Event ID, specifies what sound event should trigger the Camera Shake Event
 - Added `range` field: a float, specifies the maximum distance that the camera shake can be experienced from
 - Added `duration` field: an integer, specifies the amount of ticks that the camera shake will last
@@ -224,9 +224,9 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Added `increases_magic_limit` enchantment tag
   - These enchantments increase the magic level limit of the item and decrease how quickly an item's magic level will increase
 - Added `repairs_equipment` enchantment tag
-  - These enchantments are incomptabile with the abrading curse
+  - These enchantments are incompatible with the abrading curse
 - Added `conical` potion tag
-  - By default, this includes potions of Strength, Weakness, Slow Falling, Wind Charging and Decay
+  - By default, this includes potions of Strength, Weakness, Slow Falling, Wind Charging, and Decay
 - Added `spherical` potion tag
   - By default, this includes potions of Water Breathing, Oozing, Infestation, and Turtle Master
 - Added `vial` potion tag
@@ -243,7 +243,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Elytras now have an enchantability level of 9
 
 - #### Entity Data
-- Custom Entity Data has been changed to use camel case, rather than snake case
+- Custom Entity Data has been changed to use pascal case, rather than snake case
   - e.g. The command for summoning a leader zombie is now `/summon zombie ~ ~ ~ {IsLeader:1b}`
 
 #### Stats
@@ -277,7 +277,7 @@ Camera Shake events are now data driven, similar to sound events. Camera shake e
 - Optimized music track size
 - Fixed Netherite items with custom names not inheriting a new rarity value
 - Fixed a possible bug where reeds could prevent trees from spawning
-- Fixed bug that made Killer Bunnies try and find shelter from weather
+- Fixed bug that made Killer Bunnies try to find shelter from weather
 - Fixed bug that prevented custom options from saving after exiting the game
 - Fixed bug preventing animals that are taking shelter from walking around
 - Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
