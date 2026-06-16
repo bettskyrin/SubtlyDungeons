@@ -1,7 +1,9 @@
 package net.meander.subtlyd.client.gui.screens;
 
-import net.meander.subtlyd.client.gui.components.ScaleSliderButton;
+import com.mojang.datafixers.util.Pair;
+import net.meander.subtlyd.client.gui.components.RatioSliderButton;
 import net.meander.subtlyd.data.WorldGeneratorSD;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -13,7 +15,6 @@ import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
-import net.minecraft.client.gui.screens.worldselection.WorldCreationUiState;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -57,18 +58,18 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
         list = layout.addToContents(new SliderList());
 
-        list.addSingle(new ScaleSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
+        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.customize.tailored.master_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.masterScale, (newValue) -> {
             TailoredWorldGenSettings.applyMasterScale(newValue);
             updateSliders();
         }));
 
-        continentSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+        continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.customize.tailored.continent_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
 
-        biomeSlider = new ScaleSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+        biomeSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.customize.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
@@ -81,18 +82,12 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private void createFooterButtons() {
         final int BUTTON_WIDTH = 150;
         LinearLayout footer = layout.addToFooter(LinearLayout.vertical().spacing(4));
-        footer.defaultCellSetting().alignHorizontallyCenter();
         LinearLayout footerButtons = footer.addChild(LinearLayout.horizontal().spacing(8));
 
-        footerButtons.addChild(Button.builder(CommonComponents.GUI_DONE, _ -> {
-            onDone();
-            minecraft.gui.setScreen(lastScreen);
-        }).width(BUTTON_WIDTH).build());
+        footer.defaultCellSetting().alignHorizontallyCenter();
 
-        footerButtons.addChild(Button.builder(CommonComponents.GUI_CANCEL, _ -> {
-            onCancel();
-            minecraft.gui.setScreen(lastScreen);
-        }).width(BUTTON_WIDTH).build());
+        footerButtons.addChild(Button.builder(CommonComponents.GUI_DONE, _ -> onDone()).width(BUTTON_WIDTH).build());
+        footerButtons.addChild(Button.builder(CommonComponents.GUI_CANCEL, _ -> onCancel()).width(BUTTON_WIDTH).build());
     }
 
     @Override
@@ -104,55 +99,59 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     }
 
     private void updateSliders() {
-        if (continentSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.continentScale);
-        if (biomeSlider instanceof ScaleSliderButton s) s.setValueFromConfig(TailoredWorldGenSettings.biomeScale);
-    }
-
-    private void onDone() {
-        TailoredWorldGenSettings.shouldAlterSettings = true;
-
-        if (lastScreen instanceof CreateWorldScreen createScreen) {
-            Path tailoredPackDir;
-            Path tempPackDir = createScreen.getOrCreateTempDataPackDir();
-
-            if (tempPackDir != null) {
-                PackRepository packRepository = createScreen.tempDataPackRepository;
-                tailoredPackDir = tempPackDir.resolve("subtlyd_worldgen");
-
-                WorldGeneratorSD.modifyWorldGeneration(tailoredPackDir);
-
-                if (packRepository != null) {
-                    packRepository.reload();
-
-                    WorldCreationUiState uiState = createScreen.getUiState();
-                    WorldDataConfiguration newConfig = getWorldDataConfiguration(uiState, packRepository);
-
-                    uiState.tryUpdateDataConfiguration(newConfig);
-                }
-            }
+        if (continentSlider instanceof RatioSliderButton button) {
+            button.setRatioValue(TailoredWorldGenSettings.continentScale);
+        }
+        if (biomeSlider instanceof RatioSliderButton button) {
+            button.setRatioValue(TailoredWorldGenSettings.biomeScale);
         }
     }
 
-    private static WorldDataConfiguration getWorldDataConfiguration(WorldCreationUiState uiState, PackRepository repository) {
-        WorldDataConfiguration currentConfig = uiState.getSettings().dataConfiguration();
-        List<String> enabledPacks = new ArrayList<>(currentConfig.dataPacks().getEnabled());
+    private void onDone() {
+        if (lastScreen instanceof CreateWorldScreen createScreen) {
+            Path tempDataPackDir = createScreen.getOrCreateTempDataPackDir();
+            WorldGeneratorSD.modifyWorldGeneration(tempDataPackDir);
+            WorldDataConfiguration config = createScreen.getUiState().getSettings().dataConfiguration();
 
-        String packId = repository.getAvailableIds().stream()
-                .filter(id -> id.contains("subtlyd_worldgen"))
-                .findFirst()
-                .orElse("file/subtlyd_worldgen");
+            Pair<Path, PackRepository> settings = createScreen.getDataPackSelectionSettings(config);
+
+            if (settings != null) {
+                PackRepository tempRepo = settings.getSecond();
+
+                WorldGeneratorSD.modifyWorldGeneration(tempDataPackDir);
+                tempRepo.reload();
+
+                createScreen.applyNewPackConfig(
+                        tempRepo,
+                        getWorldDataConfiguration(config),
+                        (_) -> Util.LOGGER.error("Minecraft aborted datapack reload! Malformed JSON syntax.")
+                );
+            }
+        } else {
+            minecraft.setScreenAndShow(lastScreen);
+        }
+    }
+
+    private static WorldDataConfiguration getWorldDataConfiguration(WorldDataConfiguration currentConfig) {
+        String packId = "file/tailored_worldgen";
+        List<String> enabledPacks = new ArrayList<>(currentConfig.dataPacks().getEnabled());
 
         if (!enabledPacks.contains(packId)) {
             enabledPacks.add(packId);
         }
 
-        DataPackConfig newPackConfig = new DataPackConfig(enabledPacks, currentConfig.dataPacks().getDisabled());
-        return new WorldDataConfiguration(newPackConfig, currentConfig.enabledFeatures());
+        return new WorldDataConfiguration(
+                new DataPackConfig(enabledPacks, currentConfig.dataPacks().getDisabled()),
+                currentConfig.enabledFeatures()
+        );
     }
+
     private void onCancel() {
         TailoredWorldGenSettings.masterScale = initialMaster;
         TailoredWorldGenSettings.continentScale = initialContinent;
         TailoredWorldGenSettings.biomeScale = initialBiome;
+
+        minecraft.gui.setScreen(lastScreen);
     }
 
     @Override
@@ -199,22 +198,23 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
             @Override
             public void extractContent(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
-                int center = TailoredWorldGenSettingsScreen.this.width / 2;
+                int centerX = TailoredWorldGenSettingsScreen.this.width / 2;
 
                 if (leftWidget != null) {
                     leftWidget.setY(getContentY());
 
                     if (rightWidget == null && leftWidget.getWidth() > 150) {
-                        leftWidget.setX(center - (leftWidget.getWidth() / 2));
+                        leftWidget.setX(centerX - (leftWidget.getWidth() / 2));
                     } else {
-                        leftWidget.setX(center - 155);
+                        leftWidget.setX(centerX - 155);
                     }
+
                     leftWidget.extractRenderState(graphics, mouseX, mouseY, a);
                 }
 
                 if (rightWidget != null) {
                     rightWidget.setY(getContentY());
-                    rightWidget.setX(center + 5);
+                    rightWidget.setX(centerX + 5);
                     rightWidget.extractRenderState(graphics, mouseX, mouseY, a);
                 }
             }

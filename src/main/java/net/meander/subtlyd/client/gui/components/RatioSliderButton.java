@@ -4,18 +4,19 @@ import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 import java.util.function.Consumer;
 
-public class ScaleSliderButton extends AbstractSliderButton {
+public class RatioSliderButton extends AbstractSliderButton {
     private final String prefix;
     private final double min;
     private final double max;
     private final Consumer<Double> onValueChanged;
 
-    public ScaleSliderButton(int x, int y, int width, int height, String prefix, double min, double max, double currentValue, Consumer<Double> onValueChanged) {
+    public RatioSliderButton(int x, int y, int width, int height, String prefix, double min, double max, double currentValue, Consumer<Double> onValueChanged) {
         super(x, y, width, height, Component.empty(), (currentValue - min) / (max - min));
         this.prefix = prefix;
         this.min = min;
         this.max = max;
         this.onValueChanged = onValueChanged;
+
         updateMessage();
     }
 
@@ -30,11 +31,13 @@ public class ScaleSliderButton extends AbstractSliderButton {
     @Override
     protected void applyValue() {
         double realValue = min + (value * (max - min));
+
         onValueChanged.accept(realValue);
     }
 
-    public void setValueFromConfig(double newRealValue) {
-        value = (newRealValue - min) / (max - min);
+    public void setRatioValue(final double newValue) {
+        value = (newValue - min) / (max - min);
+
         updateMessage();
     }
 }

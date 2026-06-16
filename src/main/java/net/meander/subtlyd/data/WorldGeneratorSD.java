@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
-    public static final double TERRAIN_SCALER = 2.0;
+    private static final double BIOME_SCALER = 1.5;
+    private static final double EROSION_ELASTICITY = 0.15;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final PackOutput packOutput;
 
@@ -30,12 +31,13 @@ public class WorldGeneratorSD implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
+        double EROSION_SCALE = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
         Path outputFolder = packOutput.getOutputFolder();
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
         try {
-            JsonObject continents = getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale);
-            JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.biomeScale);
+            JsonObject continents = getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale * BIOME_SCALER);
+            JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", EROSION_SCALE);
             JsonObject biomes = getModifiedOverworldNoiseSettings();
 
             Path continentsPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/continents.json");
@@ -48,27 +50,27 @@ public class WorldGeneratorSD implements DataProvider {
         } catch (Exception e) {
             Util.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
-
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
-    public static void modifyWorldGeneration(Path rootFolder) {
+    public static void modifyWorldGeneration(Path tempPackDir) {
         try {
-            final Path densityFunctions = rootFolder.resolve("data/minecraft/worldgen/density_function/overworld");
-            final Path noiseSettings = rootFolder.resolve("data/minecraft/worldgen/noise_settings");
+            double EROSION_SCALE = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
+            final Path packRoot = tempPackDir.resolve("tailored_worldgen");
+            final Path densityFunctions = packRoot.resolve("data/minecraft/worldgen/density_function/overworld");
+            final Path noiseSettings = packRoot.resolve("data/minecraft/worldgen/noise_settings");
 
-            Files.createDirectories(rootFolder);
             Files.createDirectories(densityFunctions);
             Files.createDirectories(noiseSettings);
 
             if (!DataGeneratorSD.isDataGeneratorRunning) {
                 JsonObject metaRoot = buildMcMeta();
 
-                Files.writeString(rootFolder.resolve("pack.mcmeta"), GSON.toJson(metaRoot));
+                Files.writeString(packRoot.resolve("pack.mcmeta"), GSON.toJson(metaRoot));
             }
 
-            Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale)));
-            Files.writeString(densityFunctions.resolve("erosion.json"), GSON.toJson(getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.biomeScale)));
+            Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
+            Files.writeString(densityFunctions.resolve("erosion.json"), GSON.toJson(getModifiedSimpleDensityFunction("erosion.json", EROSION_SCALE)));
             Files.writeString(noiseSettings.resolve("overworld.json"), GSON.toJson(getModifiedOverworldNoiseSettings()));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
@@ -97,12 +99,12 @@ public class WorldGeneratorSD implements DataProvider {
 
     /**
      * Modifies a simple overworld density function's scale on the X and Z axes.
-     * @param densityFunctionName The name of the density function to modify
-     * @param customScaler Player custom scaling factor
+     * @param fileName The file name of the density function to modify
+     * @param scaler Player custom scaling factor
      * @return The density function's file
      */
-    private static JsonObject getModifiedSimpleDensityFunction(String densityFunctionName, double customScaler) throws Exception {
-        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/density_function/overworld/" + densityFunctionName)) {
+    private static JsonObject getModifiedSimpleDensityFunction(String fileName, double scaler) throws Exception {
+        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/density_function/overworld/" + fileName)) {
             if (fileStream != null) {
                 JsonObject densityFunction = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
                 JsonObject targetNode = densityFunction;
@@ -113,7 +115,7 @@ public class WorldGeneratorSD implements DataProvider {
 
                 if (targetNode.has("xz_scale")) {
                     final double classicScale = targetNode.get("xz_scale").getAsDouble();
-                    final double finalScaler = (1 / TERRAIN_SCALER) * customScaler;
+                    final double finalScaler = 1.0 / scaler;
                     JsonObject cache2D = new JsonObject();
                     JsonObject flatCache = new JsonObject();
 
@@ -129,7 +131,7 @@ public class WorldGeneratorSD implements DataProvider {
                 }
                 return densityFunction;
             } else {
-                throw new IllegalStateException("Could not resolve file: " + densityFunctionName);
+                throw new IllegalStateException("Could not resolve file: " + fileName);
             }
         }
     }
@@ -145,56 +147,8 @@ public class WorldGeneratorSD implements DataProvider {
 
                 if (overworld.has("noise_router")) {
                     JsonObject noiseRouter = overworld.getAsJsonObject("noise_router");
-
-                    if (noiseRouter.has("temperature")) {
-                        JsonObject temperature = noiseRouter.getAsJsonObject("temperature");
-
-                        while (temperature.has("argument")) {
-                            temperature = temperature.getAsJsonObject("argument");
-                        }
-
-                        if (temperature.has("xz_scale")) {
-                            final double classicScale = temperature.get("xz_scale").getAsDouble();
-                            final double finalScaler = (1 / TERRAIN_SCALER) * TailoredWorldGenSettings.biomeScale;
-                            JsonObject cache2D = new JsonObject();
-                            JsonObject flatCache = new JsonObject();
-
-                            temperature.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
-
-                            cache2D.addProperty("type", "minecraft:cache_2d");
-                            cache2D.add("argument", temperature);
-
-                            flatCache.addProperty("type", "minecraft:flat_cache");
-                            flatCache.add("argument", cache2D);
-
-                            noiseRouter.add("temperature", flatCache);
-                        }
-                    }
-
-                    if (noiseRouter.has("vegetation")) {
-                        JsonObject humidity = noiseRouter.getAsJsonObject("vegetation");
-
-                        while (humidity.has("argument")) {
-                            humidity = humidity.getAsJsonObject("argument");
-                        }
-
-                        if (humidity.has("xz_scale")) {
-                            final double classicScale = humidity.get("xz_scale").getAsDouble();
-                            final double finalScaler = (1 / TERRAIN_SCALER) * TailoredWorldGenSettings.biomeScale;
-                            JsonObject cache2D = new JsonObject();
-                            JsonObject flatCache = new JsonObject();
-
-                            humidity.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
-
-                            cache2D.addProperty("type", "minecraft:cache_2d");
-                            cache2D.add("argument", humidity);
-
-                            flatCache.addProperty("type", "minecraft:flat_cache");
-                            flatCache.add("argument", cache2D);
-
-                            noiseRouter.add("vegetation", flatCache);
-                        }
-                    }
+                    modifyNoiseRouterArgument(noiseRouter, "temperature");
+                    modifyNoiseRouterArgument(noiseRouter, "vegetation");
                 }
                 return overworld;
             } else {
@@ -203,8 +157,42 @@ public class WorldGeneratorSD implements DataProvider {
         }
     }
 
+    /**
+     * Adds a 2D cache to the noise router argument and modifies its value.
+     * @param noiseRouter The noise router object
+     * @param key The key to search for within the noise router
+     */
+    private static void modifyNoiseRouterArgument(JsonObject noiseRouter, String key) {
+        if (noiseRouter.has(key)) {
+            JsonObject node = noiseRouter.getAsJsonObject(key);
+
+            while (node.has("argument")) {
+                node = node.getAsJsonObject("argument");
+            }
+
+            if (node.has("xz_scale")) {
+                double scale = BIOME_SCALER * TailoredWorldGenSettings.biomeScale;
+                final double classicScale = node.get("xz_scale").getAsDouble();
+                final double finalScaler = 1.0 / scale;
+
+                JsonObject cache2D = new JsonObject();
+                JsonObject flatCache = new JsonObject();
+
+                node.addProperty("xz_scale", MthSD.roundToTenThousandths(classicScale * finalScaler));
+
+                cache2D.addProperty("type", "minecraft:cache_2d");
+                cache2D.add("argument", node);
+
+                flatCache.addProperty("type", "minecraft:flat_cache");
+                flatCache.add("argument", cache2D);
+
+                noiseRouter.add(key, flatCache);
+            }
+        }
+    }
+
     @Override
     public String getName() {
-        return "Subtly Dungeons Modified Terrain Data Generator";
+        return "Modified Terrain Data Generator";
     }
 }
