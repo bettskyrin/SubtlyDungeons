@@ -24,7 +24,7 @@ public class NearestAttackableTargetGoalMixin {
         Mob mob = ((NearestAttackableTargetGoal<?>) (Object) this).mob;
 
         if (mob.is(EntityTypeTagsSD.CAN_BE_FULL) && Animal.class.isAssignableFrom(targetType)) {
-            long nextAllowedHuntTime = ((MobSD) mob).subtlyd$getHuntingCooldownTicks();
+            long nextAllowedHuntTime = ((MobSD) mob).getHuntingCooldownTicks();
 
             if (mob.level().getGameTime() < nextAllowedHuntTime) {
                 cir.setReturnValue(false);

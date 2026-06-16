@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemStackRenderState.class)
 public class ItemStackRenderStateMixin implements ChargedTridentState.Accessor {
-    private boolean subtlyd$charged = false;
+    private boolean isCharged = false;
 
     @Override
     public boolean subtlyd$isCharged() {

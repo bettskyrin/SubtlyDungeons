@@ -1,6 +1,6 @@
 package net.meander.subtlyd.client.renderer.feature;
 
 public interface FlameFeatureRendererSubmitAccessor {
-    boolean subtlyd$isSoulFire();
-    void subtlyd$setSoulFire(boolean isSoulFire);
+    boolean isSoulFire();
+    void setSoulFire(boolean isSoulFire);
 }

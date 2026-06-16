@@ -9,12 +9,12 @@ public class FlameFeatureRendererSubmitMixin implements FlameFeatureRendererSubm
     private boolean isSoulFire = false;
 
     @Override
-    public boolean subtlyd$isSoulFire() {
+    public boolean isSoulFire() {
         return isSoulFire;
     }
 
     @Override
-    public void subtlyd$setSoulFire(boolean isSoulFire) {
+    public void setSoulFire(boolean isSoulFire) {
         this.isSoulFire = isSoulFire;
     }
 }

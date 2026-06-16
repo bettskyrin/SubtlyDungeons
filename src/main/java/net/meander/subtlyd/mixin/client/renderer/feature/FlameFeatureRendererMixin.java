@@ -24,10 +24,10 @@ public class FlameFeatureRendererMixin {
             method = "buildGroup",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/feature/FlameFeatureRenderer;prepare(Lnet/minecraft/client/renderer/feature/FlameFeatureRenderer$Submit;Lcom/mojang/blaze3d/vertex/VertexConsumer;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;Lnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V")
     )
-    private void subtlyd$setFireType(FlameFeatureRenderer instance, FlameFeatureRenderer.Submit submit, VertexConsumer buffer,
+    private void setFireType(FlameFeatureRenderer instance, FlameFeatureRenderer.Submit submit, VertexConsumer buffer,
                                      TextureAtlasSprite fire1, TextureAtlasSprite fire2, Operation<Void> original,
                                      @Local(argsOnly = true, name = "context") FeatureFrameContext context) {
-        if (((FlameFeatureRendererSubmitAccessor) (Object) submit).subtlyd$isSoulFire()) {
+        if (((FlameFeatureRendererSubmitAccessor) (Object) submit).isSoulFire()) {
             TextureAtlasSprite soulFire1 = context.atlasManager().get(Sheets.BLOCKS_MAPPER.defaultNamespaceApply("soul_fire_0"));
             TextureAtlasSprite soulFire2 = context.atlasManager().get(Sheets.BLOCKS_MAPPER.defaultNamespaceApply("soul_fire_1"));
 

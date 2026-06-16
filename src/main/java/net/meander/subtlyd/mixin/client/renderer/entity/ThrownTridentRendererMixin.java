@@ -27,9 +27,9 @@ public class ThrownTridentRendererMixin  {
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/projectile/arrow/ThrownTrident;Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;F)V",
             at = @At("TAIL"))
     private void extractAuraState(ThrownTrident entity, ThrownTridentRenderState state, float partialTicks, CallbackInfo ci) {
-        boolean isCharged = ((ChargedTridentState.Accessor) entity).subtlyd$isCharged();
+        boolean isCharged = ((ChargedTridentState.Accessor) entity).isCharged();
 
-        ((ChargedTridentState.Accessor) state).subtlyd$setCharged(isCharged);
+        ((ChargedTridentState.Accessor) state).setCharged(isCharged);
     }
 
     @Inject(method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
@@ -38,7 +38,7 @@ public class ThrownTridentRendererMixin  {
                     shift = At.Shift.AFTER))
     private void renderAura(ThrownTridentRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (((ChargedTridentState.Accessor) state).subtlyd$isCharged() && minecraft.player != null) {
+        if (((ChargedTridentState.Accessor) state).isCharged() && minecraft.player != null) {
 
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
             RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),

@@ -6,15 +6,15 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(ThrownTridentRenderState.class)
 public class ThrownTridentRenderStateMixin implements ChargedTridentState.Accessor {
-    private boolean subtlyd$charged = false;
+    private boolean charged = false;
 
     @Override
-    public boolean subtlyd$isCharged() {
-        return subtlyd$charged;
+    public boolean isCharged() {
+        return charged;
     }
 
     @Override
-    public void subtlyd$setCharged(boolean charged) {
-        subtlyd$charged = charged;
+    public void setCharged(boolean isCharged) {
+        charged = isCharged;
     }
 }

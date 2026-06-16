@@ -13,10 +13,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(SubmitNodeCollection.class)
 public class SubmitNodeCollectionMixin {
     @ModifyArg(method = "submitFlame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/feature/phase/SimpleFeatureRenderPhase;submit(Lnet/minecraft/client/renderer/feature/submit/SubmitNode;)V"))
-    private SubmitNode subtlyd$onSoulFire(SubmitNode submit, @Local(argsOnly = true, name = "renderState") EntityRenderState renderState) {
+    private SubmitNode submitSoulFireFlame(SubmitNode submit, @Local(argsOnly = true, name = "renderState") EntityRenderState renderState) {
         if (submit instanceof FlameFeatureRendererSubmitAccessor accessor) {
             if (renderState.displayFireAnimation) {
-                accessor.subtlyd$setSoulFire(((EntityRenderStateAccessor) renderState).isOnSoulFire());
+                accessor.setSoulFire(((EntityRenderStateAccessor) renderState).isOnSoulFire());
             }
         }
         return submit;

@@ -99,7 +99,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
             long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
 
-            ((MobSD) predator).subtlyd$setHuntingCooldown(predator.level().getGameTime() + cooldownTicks);
+            ((MobSD) predator).setHuntingCooldownTicks(predator.level().getGameTime() + cooldownTicks);
         }
     }
 

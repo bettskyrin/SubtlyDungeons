@@ -60,7 +60,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param partialTicks The partial ticks.
      */
     private void extractClimberState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
+        float progress = climberAccessor.getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.setClimbProgress(progress);
@@ -68,11 +68,11 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             float oldYaw = stateAccessor.getClimbRotation();
             float yaw = EntitySD.getClimberRotation(entity, nearestWall, oldYaw);
 
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
             state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
             stateAccessor.setClimbRotation(yaw);
-            climberAccessor.subtlyd$tickRotation(climberAccessor.subtlyd$getRotation(partialTicks));
+            climberAccessor.tickRotation(climberAccessor.getRotation(partialTicks));
         }
     }
 
@@ -85,14 +85,14 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      * @param partialTicks The partial ticks.
      */
     private void extractClimberJockeyState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.subtlyd$getClimbTransition(partialTicks);
+        float progress = climberAccessor.getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.setIsJockey(true);
         stateAccessor.setClimbProgress(progress);
         if (progress > climbProgressThreshold && nearestWall != null) {
             float oldYaw = stateAccessor.getClimbRotation();
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.subtlyd$getRotation(partialTicks));
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.getRotation(partialTicks));
             state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getClimberRotation(entity, nearestWall, oldYaw));
         }
     }

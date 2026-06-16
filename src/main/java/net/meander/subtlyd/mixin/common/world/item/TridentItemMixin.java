@@ -24,7 +24,7 @@ public class TridentItemMixin {
             int ticksUsed = trident.getWeaponItem().getUseDuration(entity) - remainingTime;
 
             if (ticksUsed >= TICK_BUFFER) {
-                ((ChargedTridentState.Accessor) trident).subtlyd$setCharged(true);
+                ((ChargedTridentState.Accessor) trident).setCharged(true);
             }
         }
         return trident;

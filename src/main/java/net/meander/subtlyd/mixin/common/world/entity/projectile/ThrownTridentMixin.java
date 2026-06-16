@@ -27,14 +27,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor {
     @Override
-    public boolean subtlyd$isCharged() {
+    public boolean isCharged() {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
         return trident.getEntityData().get(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT);
     }
 
     @Override
-    public void subtlyd$setCharged(boolean charged) {
+    public void setCharged(boolean charged) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
         trident.getEntityData().set(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, charged);
@@ -52,7 +52,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
-        output.putBoolean("IsCharged",  subtlyd$isCharged());
+        output.putBoolean("IsCharged",  isCharged());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
@@ -77,7 +77,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
     private void handleStrike(BlockPos hitPos) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        if (subtlyd$isCharged() && !trident.level().isClientSide()) {
+        if (isCharged() && !trident.level().isClientSide()) {
             LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(trident.level(), EntitySpawnReason.TRIGGERED);
 
             if (bolt != null && bolt.level().canHaveWeather()) {
@@ -86,7 +86,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
                 trident.level().addFreshEntity(bolt);
                 trident.level().playSound(null, hitPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
             }
-            subtlyd$setCharged(false);
+            setCharged(false);
         }
     }
 }
