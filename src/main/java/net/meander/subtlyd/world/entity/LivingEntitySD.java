@@ -13,7 +13,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 public abstract class LivingEntitySD extends LivingEntity {
-
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }

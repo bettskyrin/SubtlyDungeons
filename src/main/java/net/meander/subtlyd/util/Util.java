@@ -16,7 +16,7 @@ public class Util {
         return Identifier.fromNamespaceAndPath(NAMESPACE, string);
     }
 
-    public static class Globals {
+    public static class GUI_COMMON {
         public static final int BACK_BUTTON_WIDTH = 60;
     }
 }

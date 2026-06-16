@@ -1,0 +1,42 @@
+import this.import // Single spacing after imports
+
+public class className {
+    public int publicField; // Fields at top of class
+
+    public className(int field) {
+        publicField = field; // Different names, so we can avoid using "this.publicField" for consistency
+    }
+
+    public int getPublicField() { // Accessors and then mutators at the top, beneath the constructor
+        return publicField;
+    }
+
+    public void setPublicField(int fieldValue) { // "get" or "set" before the name of the value being accessed or mutated
+        publicField = fieldValue;
+    }
+
+    static {
+        // Static block space if needed
+    }
+
+    public returnType publicMethod() {
+        int integerValue = 1; // Most primiative data type at the top
+        int secondInt;
+        float floatingPoint = 0.1F;
+        double floatDouble = 0.2;
+    }
+
+    private returnType privateMethod() {
+        int number = 0;
+
+        if (number > 1) { // Single spacing separating variables from method calls, if statement blocks, etc.
+            int secondNumber = 1;
+
+            setpublicField(secondNumber);
+        }
+    }
+
+    private class innerClass { // Single spacing for pretty much everything
+        public final float VALUE_OF_PI = 3.14; // Final numerical variables can have uppercase camel-case names
+    }
+}

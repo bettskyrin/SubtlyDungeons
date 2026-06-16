@@ -1,13 +1,16 @@
 package net.meander.subtlyd.mixin.client.renderer;
 
-import net.meander.subtlyd.util.WorldIconState;
+import net.meander.subtlyd.world.level.storage.WorldIconState;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.DeltaTracker;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Util;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,10 +21,10 @@ import java.nio.file.Path;
 
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    private final GameRenderer gameRenderer = (GameRenderer) (Object) this;
+    @Shadow @Final private Minecraft minecraft;
 
     @Inject(method = "takeAutoScreenshot", at = @At("HEAD"), cancellable = true)
-    private void cancelVanillaScreenshot(Path path, CallbackInfo ci) {
+    private void cancelVanillaScreenshot(Path screenshotFile, CallbackInfo ci) {
         ci.cancel();
     }
 
@@ -29,13 +32,14 @@ public class GameRendererMixin {
      * Replaces the logic to crop and/or set the ratio for  world thumbnails to 16:9.
      */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel(Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER))
-    private void captureScreenshot(final DeltaTracker deltaTracker, final boolean renderLevel, CallbackInfo ci) {
+    private void captureScreenshot(final DeltaTracker deltaTracker, final boolean advanceGameTime, CallbackInfo ci) {
         if (WorldIconState.pathHolder != null) {
             Path path = WorldIconState.pathHolder;
             WorldIconState.pathHolder = null;
+            final GameRenderer gameRenderer = (GameRenderer) (Object) this;
 
-            if (gameRenderer.getMinecraft().levelRenderer.countRenderedSections() > 10 && gameRenderer.getMinecraft().levelRenderer.hasRenderedAllSections()) {
-                Screenshot.takeScreenshot(gameRenderer.getMinecraft().getMainRenderTarget(), sourceImage -> Util.ioPool().execute(() -> {
+            if (minecraft.levelExtractor.countRenderedSections() > 10 && minecraft.levelRenderer.hasRenderedAllSections()) {
+                Screenshot.takeScreenshot(gameRenderer.mainRenderTarget(), sourceImage -> Util.ioPool().execute(() -> {
                     int targetWidth = 455;
                     int targetHeight = 256;
 

@@ -2,12 +2,17 @@ package net.meander.subtlyd.world.entity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityTypes;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class EntitySD {
-
     /**
      * Finds the nearest climbable wall for an entity.
      * @param entity The entity to use as a basis for the test.
@@ -53,5 +58,29 @@ public class EntitySD {
             }
         }
         return yaw;
+    }
+
+    /**
+     * @param entity The entity to test.
+     * @return Whether an entity should burn with the soul fire overlay
+     */
+    public static boolean shouldSoulFireBurn(Entity entity) {
+        if (entity.is(EntityTypes.WITHER_SKULL) || entity.level().getBiome(entity.blockPosition()).is(Biomes.SOUL_SAND_VALLEY)) {
+            return true;
+        } else {
+            final double SIZE_MODIFIER = 0.003;
+            AABB bB = entity.getBoundingBox();
+            BlockPos minPos = BlockPos.containing(bB.minX + SIZE_MODIFIER, bB.minY + SIZE_MODIFIER, bB.minZ + SIZE_MODIFIER);
+            BlockPos maxPos = BlockPos.containing(bB.maxX - SIZE_MODIFIER, bB.maxY - SIZE_MODIFIER, bB.maxZ - SIZE_MODIFIER);
+
+            for (BlockPos pos : BlockPos.betweenClosed(minPos, maxPos)) {
+                BlockState block = entity.level().getBlockState(pos);
+
+                if (block.is(Blocks.SOUL_FIRE) || block.is(BlockTags.SOUL_FIRE_BASE_BLOCKS)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

@@ -18,7 +18,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
 @Mixin(Spider.class)
 public abstract class SpiderMixin implements ClimberAccessor {
-    private final LivingEntity livingEntity = ((LivingEntity) (Object) this);
     private float progOld; // Animation progress
     private float progNew;
     private float rotOld; // Rotation progress
@@ -33,9 +32,10 @@ public abstract class SpiderMixin implements ClimberAccessor {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnim(CallbackInfo ci) {
+        LivingEntity livingEntity = ((LivingEntity) (Object) this);
         final float ANIM_RATE = 0.2F;
         final float SPEED_MULTIPLIER = 8.0F;
-        double ySpeed = Math.abs(livingEntity.getDeltaMovement().y());
+        float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
         Direction nearestWall = EntitySD.getNearestWall(livingEntity);
         float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
         progOld = progNew;
@@ -44,7 +44,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
             progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
             if (isChangingHeight()) {
-                float animationSpeed = (float) ySpeed * SPEED_MULTIPLIER;
+                float animationSpeed = ySpeed * SPEED_MULTIPLIER;
 
                 livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
                 if (livingEntity.tickCount % 8 == 0) {
@@ -55,10 +55,11 @@ public abstract class SpiderMixin implements ClimberAccessor {
             progNew = Math.max(0.0F, progNew - ANIM_RATE);
         }
         yOld = livingEntity.getY();
-        subtlyDungeons$tickRotation(targetRot);
+        subtlyd$tickRotation(targetRot);
     }
 
     public boolean isChangingHeight() {
+        LivingEntity livingEntity = ((LivingEntity) (Object) this);
         return livingEntity.getY() != yOld;
     }
 
@@ -68,7 +69,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
      * @return Value from 0.0 to 1.0 Representing the animation's completion.
      */
     @Override
-    public float subtlyDungeons$getClimbTransition(float partialTicks) {
+    public float subtlyd$getClimbTransition(float partialTicks) {
         return Mth.lerp(partialTicks, progOld, progNew);
     }
 
@@ -78,7 +79,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
      * @return Value from 0.0 to 1.0 Representing the animation's completion.
      */
     @Override
-    public float subtlyDungeons$getRotation(float partialTicks) {
+    public float subtlyd$getRotation(float partialTicks) {
         return Mth.rotLerp(partialTicks, rotOld, rotNew);
     }
 
@@ -87,7 +88,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
      * @param targetRot The target rotation.
      */
     @Override
-    public void subtlyDungeons$tickRotation(float targetRot) {
+    public void subtlyd$tickRotation(float targetRot) {
         rotOld = rotNew;
         rotNew = Mth.rotLerp(0.2F, rotOld, targetRot);
     }

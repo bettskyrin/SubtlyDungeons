@@ -1,11 +1,11 @@
 package net.meander.subtlyd.client.renderer;
 
 import com.google.common.collect.Lists;
-import net.meander.subtlyd.client.renderer.state.TentRenderState;
-import net.meander.subtlyd.client.model.TentModel;
-import net.meander.subtlyd.world.entity.TentEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.meander.subtlyd.client.model.TentModel;
+import net.meander.subtlyd.client.renderer.state.TentRenderState;
+import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -32,7 +32,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
         this.model = new TentModel(context.bakeLayer(modelLayerLocation));
-        this.texture = modelLayerLocation.model().withPath(color -> "textures/entity/" + color + ".png");
+        this.texture = modelLayerLocation.model().withPath(tent -> "textures/entity/tent/" + tent + ".png");
         this.shadowRadius = 1.8F;
     }
 
@@ -51,7 +51,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     public void extractRenderState(TentEntity tent, TentRenderState renderState, float partialTicks) {
         super.extractRenderState(tent, renderState, partialTicks);
         renderState.scale = 1.0F;
-        renderState.yRot = Mth.lerp(partialTicks, tent.yRotO, tent.getYRot());
+        renderState.yRot = Mth.rotLerp(partialTicks, tent.yRotO, tent.getYRot());
         renderState.xRot = renderState.getXRot(partialTicks);
 
         renderState.hurtTime = (float) tent.getHurtTime() - partialTicks;
@@ -74,7 +74,7 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
         }
 
         if (renderState.hurtTime > 0F) {
-            poseStack.mulPose(Axis.XP.rotationDegrees((float) (((Math.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir)));
+            poseStack.mulPose(Axis.XP.rotationDegrees(((Mth.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir));
         }
 
         float g = renderState.scale;

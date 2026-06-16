@@ -1,9 +1,10 @@
 package net.meander.subtlyd.mixin.client.blocks;
 
-import net.meander.subtlyd.world.level.block.sounds.AmbientAirBlockSoundsPlayer;
-import net.meander.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.meander.subtlyd.data.tags.BlockTagsSD;
+import net.meander.subtlyd.world.level.block.sounds.AmbientAirBlockSoundsPlayer;
+import net.meander.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -20,8 +21,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class BlockMixin {
     @Inject(method = "animateTick", at = @At("HEAD"))
-    private void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource, CallbackInfo ci) {
-        playAmbientSounds(blockState.getBlock(), level, blockPos, randomSource);
+    private void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+        if (state.is(BlockTagsSD.HAS_AMBIENT_BLOCK_SOUNDS)) {
+            playAmbientSounds(state.getBlock(), level, pos, random);
+        }
     }
 
     /**

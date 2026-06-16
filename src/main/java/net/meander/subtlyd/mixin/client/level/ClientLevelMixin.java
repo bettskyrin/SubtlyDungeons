@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.level;
 
-import net.meander.subtlyd.util.CameraShake;
+import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -17,6 +17,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ClientLevelMixin {
     @Inject(method = "playLocalSound(DDDLnet/minecraft/sounds/SoundEvent;Lnet/minecraft/sounds/SoundSource;FFZ)V", at = @At("RETURN"))
     private void playLocalSound(double x, double y, double z, SoundEvent soundEvent, SoundSource soundSource, float g, float h, boolean bl, CallbackInfo ci) {
-        CameraShake.shakeScreenFromSource(soundEvent, new Vec3(x, y, z), 0);
+        CameraShake.shakeScreenFromSource(soundEvent, new Vec3(x, y, z));
     }
 }

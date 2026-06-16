@@ -8,7 +8,7 @@ import net.minecraft.world.level.biome.Biome;
 
 public class BiomeSD {
     /**
-     * @return Whether a biome is considered cold.
+     * @return A biome as a temperature variant by location.
      */
     public static Identifier getTemperatureAsVariantType(Level level, BlockPos blockPos) {
         if (level.getBiome(blockPos).value().coldEnoughToSnow(blockPos, level.getSeaLevel()) || level.precipitationAt(blockPos) == Biome.Precipitation.SNOW) {

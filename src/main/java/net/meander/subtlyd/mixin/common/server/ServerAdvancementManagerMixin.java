@@ -1,9 +1,9 @@
 package net.meander.subtlyd.mixin.common.server;
 
-import net.meander.subtlyd.util.data.AdvancementsSD;
+import net.meander.subtlyd.advancements.AdvancementsInjectorSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
-import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.ServerAdvancementManager;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class ServerAdvancementManagerMixin {
     @Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)V", at = @At("HEAD"))
     private void injectAdvancementData(Map<Identifier, Advancement> preparations, ResourceManager manager, ProfilerFiller profiler, CallbackInfo ci) {
-        for (Identifier advancement : AdvancementsSD.ADVANCEMENTS) {
+        for (Identifier advancement : AdvancementsInjectorSD.ADVANCEMENTS) {
             if (preparations.containsKey(advancement)) {
                 Advancement vanillaAdvancement = preparations.get(advancement);
                 Map<String, Criterion<?>> newCriteria = new HashMap<>(vanillaAdvancement.criteria());
@@ -45,8 +45,8 @@ public class ServerAdvancementManagerMixin {
     }
 
     private void chooseAdvancement(Identifier advancement, Map<String, Criterion<?>> criteria, List<List<String>> requirements) {
-        if (advancement.equals(AdvancementsSD.BALANCED_DIET)) {
-            AdvancementsSD.balancedDiet(criteria, requirements);
+        if (advancement.equals(AdvancementsInjectorSD.BALANCED_DIET)) {
+            AdvancementsInjectorSD.balancedDiet(criteria, requirements);
         }
     }
 }

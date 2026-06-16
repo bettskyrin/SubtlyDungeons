@@ -2,20 +2,20 @@ package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 
 public class SeekShelterGoal extends Goal {
-    protected final PathfinderMob mob;
     protected final double speedModifier;
     protected double shelterX;
     protected double shelterY;
     protected double shelterZ;
+    protected long nextStartTick;
+    protected final PathfinderMob mob;
 
     public SeekShelterGoal(PathfinderMob mob, double speedModifier) {
         this.mob = mob;
@@ -44,15 +44,13 @@ public class SeekShelterGoal extends Goal {
      * @return A Vec3 shelter position or null, if valid shelter is not found.
      */
     private Vec3 findShelter() {
-        RandomSource random = mob.getRandom();
         int YRADIUS = 4;
 
         for (int searchRadius = 4; searchRadius <= 16; searchRadius += 4) {
             for (int j = 0; j < searchRadius * 6; j++) {
-                BlockPos randPos = mob.blockPosition().offset(random.nextInt((searchRadius * 2) + 1) - searchRadius, random.nextInt((YRADIUS * 2) + 1) - YRADIUS, random.nextInt((searchRadius * 2) + 1) - searchRadius);
-
-                if (!mob.level().isRainingAt(randPos) && mob.level().getBlockState(randPos).isPathfindable(PathComputationType.LAND)) {
-                    return Vec3.atBottomCenterOf(randPos);
+                Vec3 randPos = DefaultRandomPos.getPos(mob, searchRadius, YRADIUS);
+                if (randPos != null && !mob.level().isRainingAt(BlockPos.containing(randPos))) {
+                    return randPos;
                 }
             }
         }
@@ -61,18 +59,27 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public boolean canUse() {
-        if (!mob.level().isRainingAt(mob.blockPosition()) || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
+        if (mob.getNavigation().isInProgress() || mob.level().getGameTime() < nextStartTick || !mob.level().isRainingAt(mob.blockPosition())
+                || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
+        } else {
+            boolean foundShelter = setShelterPos();
+
+            if (!foundShelter) {
+                nextStartTick = mob.level().getGameTime() + 100L + mob.getRandom().nextInt(10) * 20L;
+            }
+            return setShelterPos();
         }
-        return setShelterPos();
     }
 
     @Override
     public boolean canContinueToUse() {
         if (!mob.level().isRaining() || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
+        } else if (mob.getNavigation().isDone()) {
+            return !mob.level().isRainingAt(mob.blockPosition());
         }
-        return !mob.getNavigation().isDone();
+        return true;
     }
 
     @Override
@@ -82,8 +89,15 @@ public class SeekShelterGoal extends Goal {
 
     @Override
     public void tick() {
-        if (mob.getNavigation().isDone() && mob.level().isRainingAt(mob.blockPosition()) && setShelterPos()) {
-            start();
+        if (mob.getNavigation().isDone() && !mob.level().isRainingAt(mob.blockPosition())) {
+            if (mob.getRandom().nextInt(120) == 0) {
+
+                Vec3 randomPos = DefaultRandomPos.getPos(mob, 4, 3);
+
+                if (randomPos != null && !mob.level().isRainingAt(BlockPos.containing(randomPos))) {
+                    mob.getNavigation().moveTo(randomPos.x, randomPos.y, randomPos.z, speedModifier * 0.5);
+                }
+            }
         }
     }
 }

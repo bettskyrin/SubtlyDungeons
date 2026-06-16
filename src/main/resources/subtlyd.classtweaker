@@ -1,17 +1,23 @@
 classTweaker v1 official
 
+
+# Menus
 accessible class net/minecraft/client/gui/screens/worldselection/SwitchGrid
 accessible method net/minecraft/client/gui/screens/worldselection/SwitchGrid <init> (Ljava/util/List;Lnet/minecraft/client/gui/layouts/Layout;)V
 accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry
 accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
-accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
-accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
 accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
 accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;
+accessible class net/minecraft/client/gui/screens/WinScreen$CreditsReader
+accessible method net/minecraft/client/gui/screens/WinScreen addCreditsFile (Ljava/io/Reader;)V
 
-# World Selection
+## World Selection
 accessible method net/minecraft/client/gui/screens/Screen setInitialFocus (Lnet/minecraft/client/gui/components/events/GuiEventListener;)V
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen onCreate ()V
+
+# Options
+accessible class net/minecraft/client/Options$FieldAccess
 
 # AI
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
@@ -23,3 +29,11 @@ accessible field net/minecraft/world/entity/animal/fox/Fox STALKABLE_PREY Ljava/
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible field net/minecraft/server/level/ChunkMap entityMap Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
 accessible method net/minecraft/world/level/pathfinder/Path setDebug ([Lnet/minecraft/world/level/pathfinder/Node;[Lnet/minecraft/world/level/pathfinder/Node;Ljava/util/Set;)V
+
+# Potions
+accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
+
+# World Generation
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldY (I)I
+accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
