@@ -1,16 +1,21 @@
 package net.meander.subtlyd.world.level.levelgen;
 
 import com.google.gson.*;
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
+import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.data.DataGeneratorSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.level.levelgen.feature.PlacedFeaturesSD;
 import net.minecraft.SharedConstants;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -190,6 +195,10 @@ public class WorldGeneratorSD implements DataProvider {
                 noiseRouter.add(key, flatCache);
             }
         }
+    }
+
+    public static void modifyBiomes() {
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeaturesSD.REEDS);
     }
 
     @Override

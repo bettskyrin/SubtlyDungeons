@@ -8,14 +8,16 @@ import net.meander.subtlyd.client.camera.shake.CameraShakeEventProvider;
 import net.meander.subtlyd.client.data.model.ModelProviderSD;
 import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
-import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
-import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.meander.subtlyd.data.recipies.RecipeProviderSD;
 import net.meander.subtlyd.tags.*;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
-import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
+import net.meander.subtlyd.world.level.levelgen.feature.ConfiguredFeaturesSD;
+import net.meander.subtlyd.world.level.levelgen.feature.FeatureProvider;
+import net.meander.subtlyd.world.level.levelgen.feature.PlacedFeaturesSD;
+import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
+import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -40,7 +42,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(LootTablesSD::create);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
-        pack.addProvider(BiomeProviderSD::new);
+        pack.addProvider(FeatureProvider::new);
         pack.addProvider(AdvancementProviderSD::new);
         pack.addProvider(LanguageProviderSD::new);
         pack.addProvider(EnchantmentProvider::new);
@@ -51,5 +53,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesSD::bootstrap);
     }
 }

@@ -16,7 +16,7 @@ public class PotionsSD {
             new Potion("decay", new MobEffectInstance(MobEffects.WITHER, 800, 1))
     );
 
-    public static void bootstrap() {
+    public static void registration() {
         FabricPotionBrewingBuilder.BUILD.register(builder -> {
             builder.addMix(Potions.AWKWARD, Items.WITHER_SKELETON_SKULL, DECAY);
         });

@@ -4,10 +4,10 @@
 - Added the Tailored World Generation system
 - During world creation, a "Default" world type can now be customized
 - Choosing the "Customize" option allows the player to modify sliders corresponding to world generation factors
-  - Added customizable option:
+  - Added customizable options:
     - Continent Scale
     - Biome Scale
-  - There is also a Master scale, which will adjust these values together.
+    - Master World Generation Scale
 
 #### Blocks
 - Added Perse Wildflowers
@@ -43,14 +43,14 @@
 - Changed snow to generate under trees in snowy biomes
 
 ##### Forest
-- Added sparse rocks to the understory
-- Added more grass to the understory
-- Added rabbit spawning to biome
-- Added moss carpet to fallen logs
+- Changed forests to have sparse rocks
+- Changed forests to have more grass
+- Changed mob spawning to include rabbits
+- Changed fallen logs to potentially have moss carpet generate on top
 
 ##### Birch Forest
-- Added more grass to the understory
-- Added moss carpet to fallen logs
+- Changed forest to have more grass
+- Changed fallen logs to potentially have moss carpet generate on top
 
 ##### Dark Forest
 - Added sparse rocks to the understory

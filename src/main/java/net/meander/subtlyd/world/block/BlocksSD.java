@@ -81,7 +81,7 @@ public class BlocksSD {
             .pushReaction(PushReaction.DESTROY)); // TODO Big Mushroom + FIXME not placeable
     public static final Block POTTED_BLUE_GLOWSHROOM = register(BlockItemIdsSD.POTTED_BLUE_GLOWSHROOM, (p) -> new FlowerPotBlock(BLUE_GLOWSHROOM, p), Blocks.flowerPotProperties());
 
-    public static void bootstrap() {}
+    public static void registration() {}
 
     private static Block register(final BlockItemId id, final BlockBehaviour.Properties properties) {
         return Blocks.register(id.block(), properties);

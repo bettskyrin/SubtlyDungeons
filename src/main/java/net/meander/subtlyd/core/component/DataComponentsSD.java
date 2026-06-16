@@ -12,7 +12,7 @@ public class DataComponentsSD {
             "magic_level", DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT)
     );
 
-    public static void bootstrap() {}
+    public static void registration() {}
 
     @SuppressWarnings({"unchecked", "rawtypes"})
     private static <T> DataComponentType<T> register(final String id, final DataComponentType.Builder builder) {

@@ -16,7 +16,7 @@ import static net.meander.subtlyd.world.item.ItemsSD.*;
 import static net.minecraft.world.item.Items.*;
 
 public class CreativeModeTabsSD {
-    public static void bootstrap() {
+    public static void registration() {
         List<DyeColor> gameplayColorOrder = List.of(
                 DyeColor.WHITE,
                 DyeColor.LIGHT_GRAY,

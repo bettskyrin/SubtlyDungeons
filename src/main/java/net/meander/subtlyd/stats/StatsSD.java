@@ -10,7 +10,7 @@ import net.minecraft.stats.Stats;
 public class StatsSD {
     public static final Identifier SLEEP_IN_TENT = makeCustomStat("sleep_in_tent", StatFormatter.DEFAULT);
 
-    public static void bootstrap() {}
+    public static void registration() {}
 
     private static Identifier makeCustomStat(final String id, final StatFormatter formatter) {
         Identifier location = Util.identifier(id);

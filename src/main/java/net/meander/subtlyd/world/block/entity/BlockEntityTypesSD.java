@@ -15,7 +15,7 @@ import java.util.Set;
 public class BlockEntityTypesSD {
     public static final BlockEntityType<PotionCauldronBlockEntity> POTION_CAULDRON = register(BlockEntityTypeIdsSD.POTION_CAULDRON, PotionCauldronBlockEntity::new, BlocksSD.POTION_CAULDRON);
 
-    public static void bootstrap() {}
+    public static void registration() {}
 
     private static <T extends BlockEntity> BlockEntityType<T> register(final ResourceKey<BlockEntityType<?>> key, final BlockEntityType.BlockEntitySupplier<? extends T> factory, final Block... validBlocks) {
         Identifier id = key.identifier();

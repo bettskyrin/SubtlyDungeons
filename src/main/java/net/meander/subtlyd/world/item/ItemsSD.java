@@ -71,8 +71,8 @@ public class ItemsSD {
             .food(FoodsSD.BLUE_GLOWSHROOM)
             .component(DataComponents.CONSUMABLE, ConsumablesSD.GLOW_MUSHROOM));
 
-    public static void bootstrap() {
-        CreativeModeTabsSD.bootstrap();
+    public static void registration() {
+        CreativeModeTabsSD.registration();
     }
 
     private static Item registerBlockSD(final BlockItemId id, final Block block, final UnaryOperator<Item.Properties> propertiesFunction) {
