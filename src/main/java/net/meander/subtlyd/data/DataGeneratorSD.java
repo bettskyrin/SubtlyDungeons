@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEventData;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.loot_table.BlockLootSD;
+import net.meander.subtlyd.data.loot_table.LootProviderSD;
 import net.meander.subtlyd.data.tags.*;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
@@ -29,6 +30,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagsSD::new);
         pack.addProvider(EntityTypeTagsSD::new);
         pack.addProvider(RecipeProviderSD::new);
+        pack.addProvider(LootProviderSD::create);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
         pack.addProvider(BiomeProviderSD::new);

@@ -4,7 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEvents;
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.data.loot_table.LootSD;
+import net.meander.subtlyd.data.loot_table.LootProviderSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
@@ -38,7 +38,7 @@ public class InitializerSD implements ModInitializer {
         GameEventsSD.registration();
         CameraShakeEvents.registration();
         BiomesSD.init();
-        LootSD.registration();
+        LootProviderSD.registration();
         CriteriaTriggersSD.bootstrap();
         StatsSD.bootstrap();
     }

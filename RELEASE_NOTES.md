@@ -80,6 +80,9 @@
   - Changed map crafting recipe to be a 9x9 of paper
     - This matches Bedrock Edition
 
+#### Loot
+- Swamp Hut cauldron potions are now Data Driven
+
 #### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
 
