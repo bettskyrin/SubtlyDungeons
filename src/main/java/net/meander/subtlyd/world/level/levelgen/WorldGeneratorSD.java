@@ -1,7 +1,8 @@
-package net.meander.subtlyd.data;
+package net.meander.subtlyd.world.level.levelgen;
 
 import com.google.gson.*;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
+import net.meander.subtlyd.data.DataGeneratorSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.SharedConstants;

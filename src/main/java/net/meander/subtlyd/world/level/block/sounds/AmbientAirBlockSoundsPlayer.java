@@ -2,8 +2,8 @@ package net.meander.subtlyd.world.level.block.sounds;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.data.tags.BiomeTagsSD;
-import net.meander.subtlyd.data.tags.BlockTagsSD;
+import net.meander.subtlyd.tags.BiomeTagsSD;
+import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

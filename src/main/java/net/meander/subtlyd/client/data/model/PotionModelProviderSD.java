@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data;
+package net.meander.subtlyd.client.data.model;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class PotionProviderSD implements DataProvider {
+public class PotionModelProviderSD implements DataProvider {
     private final PackOutput.PathProvider itemsPath;
     private final PackOutput.PathProvider modelsPath;
 
-    public PotionProviderSD(PackOutput output) {
+    public PotionModelProviderSD(PackOutput output) {
         itemsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "items");
         modelsPath = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item/potion");
     }

@@ -1,23 +1,17 @@
 package net.meander.subtlyd.world.level.levelgen;
 
-import net.meander.subtlyd.util.Util;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.level.levelgen.feature.ReedsFeature;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 
 public class BiomesSD {
-    public static final ResourceKey<Biome> COLD_RIVER = ResourceKey.create(Registries.BIOME, Util.identifier("cold_river"));
-    public static final ResourceKey<Biome> WARM_RIVER = ResourceKey.create(Registries.BIOME, Util.identifier("warm_river"));
-
     public static void init() {
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, ReedsFeature.REEDS_PLACED_FEATURE);
     }

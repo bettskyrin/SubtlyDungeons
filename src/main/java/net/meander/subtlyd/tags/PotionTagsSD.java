@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data.tags;
+package net.meander.subtlyd.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;

@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data.loot_table.gameplay;
+package net.meander.subtlyd.world.level.storage.loot.gameplay;
 
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;

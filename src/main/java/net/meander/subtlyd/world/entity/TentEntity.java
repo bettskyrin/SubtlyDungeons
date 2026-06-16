@@ -1,6 +1,6 @@
 package net.meander.subtlyd.world.entity;
 
-import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
+import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.minecraft.core.component.DataComponents;

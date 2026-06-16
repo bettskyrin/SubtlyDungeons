@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data.loot_table.chests;
+package net.meander.subtlyd.world.level.storage.loot.chests;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.meander.subtlyd.world.level.storage.loot.functions.EnchantNonHumanoidArmorFunction;

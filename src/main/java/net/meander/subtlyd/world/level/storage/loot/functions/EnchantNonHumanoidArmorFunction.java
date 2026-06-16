@@ -2,7 +2,7 @@ package net.meander.subtlyd.world.level.storage.loot.functions;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;

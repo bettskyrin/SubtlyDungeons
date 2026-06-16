@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.level.block;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.data.tags.BlockTagsSD;
+import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.world.level.block.sounds.AmbientAirBlockSoundsPlayer;
 import net.meander.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
 import net.minecraft.core.BlockPos;

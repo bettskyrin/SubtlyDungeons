@@ -2,13 +2,20 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
+import net.meander.subtlyd.advancements.AdvancementProviderSD;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEventData;
+import net.meander.subtlyd.client.camera.shake.CameraShakeEventProvider;
+import net.meander.subtlyd.client.data.model.ModelProviderSD;
+import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
-import net.meander.subtlyd.data.loot_table.BlockLootSD;
-import net.meander.subtlyd.data.loot_table.LootProviderSD;
-import net.meander.subtlyd.data.tags.*;
+import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
+import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
+import net.meander.subtlyd.data.recipies.RecipeProviderSD;
+import net.meander.subtlyd.tags.*;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
+import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
@@ -21,7 +28,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
         pack.addProvider(ModelProviderSD::new);
-        pack.addProvider((PackOutput output) -> new PotionProviderSD(output));
+        pack.addProvider((PackOutput output) -> new PotionModelProviderSD(output));
         pack.addProvider(BiomeTagsSD::new);
         pack.addProvider((PackOutput output) -> new WorldGeneratorSD(output));
         pack.addProvider(ItemTagsSD::new);
@@ -30,7 +37,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagsSD::new);
         pack.addProvider(EntityTypeTagsSD::new);
         pack.addProvider(RecipeProviderSD::new);
-        pack.addProvider(LootProviderSD::create);
+        pack.addProvider(LootTablesSD::create);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(DamageTypeTagsSD::new);
         pack.addProvider(BiomeProviderSD::new);

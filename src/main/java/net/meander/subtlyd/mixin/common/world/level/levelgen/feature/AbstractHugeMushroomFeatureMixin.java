@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
-import net.meander.subtlyd.data.tags.BiomeTagsSD;
+import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;

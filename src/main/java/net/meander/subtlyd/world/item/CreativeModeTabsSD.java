@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.meander.subtlyd.data.tags.BlockTagsSD;
+import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CreativeModeTab;

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
-import net.meander.subtlyd.data.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;

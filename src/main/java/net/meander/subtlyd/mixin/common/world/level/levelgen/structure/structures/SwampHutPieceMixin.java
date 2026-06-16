@@ -1,10 +1,10 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.structure.structures;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.meander.subtlyd.data.loot_table.LootTablesSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
+import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;

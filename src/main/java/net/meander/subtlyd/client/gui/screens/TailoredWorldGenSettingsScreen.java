@@ -2,7 +2,7 @@ package net.meander.subtlyd.client.gui.screens;
 
 import com.mojang.datafixers.util.Pair;
 import net.meander.subtlyd.client.gui.components.RatioSliderButton;
-import net.meander.subtlyd.data.WorldGeneratorSD;
+import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;

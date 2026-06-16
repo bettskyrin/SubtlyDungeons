@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data.loot_table;
+package net.meander.subtlyd.world.level.storage.loot;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;

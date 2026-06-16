@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data;
+package net.meander.subtlyd.advancements;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class AdvancementProviderSD extends FabricAdvancementProvider {
-    protected AdvancementProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
+    public AdvancementProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(output, registryLookup);
     }
 

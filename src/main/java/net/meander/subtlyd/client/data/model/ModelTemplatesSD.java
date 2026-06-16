@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.model;
+package net.meander.subtlyd.client.data.model;
 
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.data.models.model.ModelTemplate;

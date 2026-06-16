@@ -1,12 +1,14 @@
-package net.meander.subtlyd.data.loot_table;
+package net.meander.subtlyd.world.level.storage.loot;
 
-import net.meander.subtlyd.data.loot_table.chests.GenericChestLootSD;
-import net.meander.subtlyd.data.loot_table.chests.VillageLootSD;
-import net.meander.subtlyd.data.loot_table.entities.EntityLootSD;
-import net.meander.subtlyd.data.loot_table.gameplay.FishingLootSD;
-import net.meander.subtlyd.data.loot_table.gameplay.SwampHutLoot;
-import net.meander.subtlyd.data.loot_table.gameplay.VillageHeroLootSD;
+import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.level.storage.loot.chests.GenericChestLootSD;
+import net.meander.subtlyd.world.level.storage.loot.chests.VillageLootSD;
+import net.meander.subtlyd.world.level.storage.loot.entities.EntityLootSD;
+import net.meander.subtlyd.world.level.storage.loot.gameplay.FishingLootSD;
+import net.meander.subtlyd.world.level.storage.loot.gameplay.SwampHutLoot;
+import net.meander.subtlyd.world.level.storage.loot.gameplay.VillageHeroLootSD;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.loot.LootTableSubProvider;
@@ -19,7 +21,9 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
-public class LootProviderSD {
+public class LootTablesSD {
+    public static final ResourceKey<LootTable> SWAMP_HUT_CAULDRON = ResourceKey.create(Registries.LOOT_TABLE, Util.identifier("gameplay/swamp_hut_cauldron"));
+
     public static LootTableProvider create(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         return new LootTableProvider(
                 output,

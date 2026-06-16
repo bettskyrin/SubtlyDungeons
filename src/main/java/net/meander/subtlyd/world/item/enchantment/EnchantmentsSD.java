@@ -1,8 +1,8 @@
 package net.meander.subtlyd.world.item.enchantment;
 
-import net.meander.subtlyd.data.tags.DamageTypeTagsSD;
-import net.meander.subtlyd.data.tags.EnchantmentTagsSD;
-import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.tags.DamageTypeTagsSD;
+import net.meander.subtlyd.tags.EnchantmentTagsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.advancements.predicates.DamageSourcePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;

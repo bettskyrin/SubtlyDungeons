@@ -13,7 +13,7 @@ import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.CauldronInteractionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.ItemsSD;

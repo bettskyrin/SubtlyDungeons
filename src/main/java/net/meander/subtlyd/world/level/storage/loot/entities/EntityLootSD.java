@@ -1,4 +1,4 @@
-package net.meander.subtlyd.data.loot_table.entities;
+package net.meander.subtlyd.world.level.storage.loot.entities;
 
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.meander.subtlyd.util.Util;

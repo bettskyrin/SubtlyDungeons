@@ -2,7 +2,7 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.meander.subtlyd.data.tags.ItemTagsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
@@ -22,9 +22,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Traveler");
         translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
-
-        translationBuilder.add("biome.subtlyd.cold_river", "Cold River");
-        translationBuilder.add("biome.subtlyd.warm_river", "Warm River");
 
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
         translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");

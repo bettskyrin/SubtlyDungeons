@@ -1,6 +1,6 @@
-package net.meander.subtlyd.data.loot_table.gameplay;
+package net.meander.subtlyd.world.level.storage.loot.gameplay;
 
-import net.meander.subtlyd.data.loot_table.LootTablesSD;
+import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.fog;
 
-import net.meander.subtlyd.data.tags.BiomeTagsSD;
+import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.multiplayer.ClientLevel;

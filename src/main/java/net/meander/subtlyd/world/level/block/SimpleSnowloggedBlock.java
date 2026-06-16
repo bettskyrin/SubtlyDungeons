@@ -62,7 +62,13 @@ public interface SimpleSnowloggedBlock {
     }
 
     static boolean isSnowloggable(Block block) {
-        return block instanceof SegmentableBlock || block instanceof VegetationBlock || block instanceof CrossCollisionBlock ||
+        if (block instanceof VegetationBlock) {
+            if (block instanceof DoublePlantBlock plantBlock) {
+                return plantBlock.defaultBlockState().getValue(DoublePlantBlock.HALF) != DoubleBlockHalf.LOWER;
+            }
+            return true;
+        }
+        return block instanceof SegmentableBlock || block instanceof CrossCollisionBlock ||
                 block instanceof FenceGateBlock || block instanceof WallBlock;
     }
 }

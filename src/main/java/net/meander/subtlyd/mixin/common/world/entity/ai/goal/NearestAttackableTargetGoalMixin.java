@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.ai.goal;
 
-import net.meander.subtlyd.data.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;

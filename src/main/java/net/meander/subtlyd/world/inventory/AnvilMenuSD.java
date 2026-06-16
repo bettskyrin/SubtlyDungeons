@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.inventory;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.data.tags.EnchantmentTagsSD;
+import net.meander.subtlyd.tags.EnchantmentTagsSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
