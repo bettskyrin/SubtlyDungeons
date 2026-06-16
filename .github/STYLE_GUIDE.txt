@@ -1,10 +1,10 @@
 import this.import1
 import this.import2 // Single spacing after all imports
 
-public class className {
+public class ClassName {
     public int publicField; // Fields at top of class
 
-    public className(int field) {
+    public ClassName(int field) {
         publicField = field; // Different names, so we can avoid using "this.publicField" for consistency
     }
 
