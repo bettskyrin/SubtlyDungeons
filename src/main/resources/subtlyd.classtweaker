@@ -26,6 +26,7 @@ accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/worl
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/ai/goal/PanicGoal speedModifier D
 accessible field net/minecraft/world/entity/animal/fox/Fox STALKABLE_PREY Ljava/util/function/Predicate;
+accessible field net/minecraft/world/entity/ai/goal/target/TargetGoal mob Lnet/minecraft/world/entity/Mob;
 
 # Server
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
