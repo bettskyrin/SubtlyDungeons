@@ -113,7 +113,8 @@ public class SnowloggableBlocks {
             Blocks.JUNGLE_SAPLING,
             Blocks.OAK_SAPLING,
             Blocks.PALE_OAK_SAPLING,
-            Blocks.SPRUCE_SAPLING
+            Blocks.SPRUCE_SAPLING,
+            BlocksSD.BLUE_GLOWSHROOM
     );
 
     public static List<Block> AGING_VEGETATION = List.of(

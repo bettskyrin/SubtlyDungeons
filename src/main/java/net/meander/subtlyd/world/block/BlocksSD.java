@@ -65,7 +65,21 @@ public class BlocksSD {
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
-    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, FlowerBedBlock::new, BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollision().sound(SoundType.PINK_PETALS).pushReaction(PushReaction.DESTROY));
+    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, FlowerBedBlock::new, BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .noCollision()
+            .sound(SoundType.PINK_PETALS)
+            .pushReaction(PushReaction.DESTROY));
+    public static final Block BLUE_GLOWSHROOM = register(BlockItemIdsSD.BLUE_GLOWSHROOM, (p) -> new MushroomBlock(null, p), BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_CYAN)
+            .noCollision()
+            .randomTicks()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .lightLevel((_) -> 8)
+            .postProcess(Blocks::postProcessSelf)
+            .pushReaction(PushReaction.DESTROY)); // TODO Big Mushroom + FIXME not placeable
+    public static final Block POTTED_BLUE_GLOWSHROOM = register(BlockItemIdsSD.POTTED_BLUE_GLOWSHROOM, (p) -> new FlowerPotBlock(BLUE_GLOWSHROOM, p), Blocks.flowerPotProperties());
 
     public static void bootstrap() {}
 

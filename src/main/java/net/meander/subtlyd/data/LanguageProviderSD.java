@@ -99,6 +99,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.APPLE_PIE, "Apple Pie");
         translationBuilder.add(ItemsSD.TENT.black(), "Black Tent");
         translationBuilder.add(ItemsSD.BLAST_FUNGUS, "Blast Fungus");
+        translationBuilder.add(ItemsSD.BLUE_GLOWSHROOM, "Blue Glowshroom");
         translationBuilder.add(ItemsSD.TENT.blue(), "Blue Tent");
         translationBuilder.add(ItemsSD.TENT.brown(), "Brown Tent");
         translationBuilder.add(ItemsSD.CALAMARI, "Calamari");

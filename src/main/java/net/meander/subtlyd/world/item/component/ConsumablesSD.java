@@ -14,4 +14,7 @@ public class ConsumablesSD {
     public static final Consumable COVEN_ELIXIR = Consumables.defaultDrink()
             .onConsume(RemoveNegativeStatusEffectsConsumeEffect.INSTANCE)
             .build();
+    public static final Consumable GLOW_MUSHROOM = Consumable.builder()
+            .onConsume(new ApplyStatusEffectsConsumeEffect(new MobEffectInstance(MobEffects.GLOWING, 60, 0)))
+            .build();
 }

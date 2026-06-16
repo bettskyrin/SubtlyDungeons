@@ -146,22 +146,20 @@ public class ModelProviderSD extends FabricModelProvider {
         );
     }
 
-    private void generateCustomFlowerBedBlock(final Block flowerbed, BlockModelGenerators blockModelGenerator) {
+    private void generateSnowloggableFlowerBedBlock(final Block flowerbed, BlockModelGenerators blockModelGenerator) {
         BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_1.create(flowerbed, blockModelGenerator.modelOutput));
         BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_2.create(flowerbed, blockModelGenerator.modelOutput));
         BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_3.create(flowerbed, blockModelGenerator.modelOutput));
         BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_4.create(flowerbed, blockModelGenerator.modelOutput));
     }
 
-    private void generateSnowloggables(BlockModelGenerators blockModelGenerator) {
-        SnowloggedBlockModelProvider.generateSnowloggableSimpleVegetation(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableAgingVegetation(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableTallVegetation(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableSegmentableVegetation(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableFences(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableCrossCollisionBlocks(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableWalls(blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggableFenceGates(blockModelGenerator);
+    private void generateSnowloggablePlantWithDefaultItem(Block block, Block potted, BlockModelGenerators.PlantType plantType, BlockModelGenerators blockModelGenerator) {
+        ModelTemplates.CROSS.create(block, TextureMapping.cross(block), blockModelGenerator.modelOutput);
+
+        TextureMapping textures = plantType.getPlantTextureMapping(block);
+        MultiVariant model = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(potted, textures, blockModelGenerator.modelOutput));
+
+        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(potted, model));
     }
 
     private void generatePotionArchetypes(ItemModelGenerators itemModelGenerator) {
@@ -201,8 +199,9 @@ public class ModelProviderSD extends FabricModelProvider {
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
-        generateCustomFlowerBedBlock(BlocksSD.PERSE_WILDFLOWERS, blockModelGenerator);
-        generateSnowloggables(blockModelGenerator);
+        generateSnowloggableFlowerBedBlock(BlocksSD.PERSE_WILDFLOWERS, blockModelGenerator);
+        generateSnowloggablePlantWithDefaultItem(BlocksSD.BLUE_GLOWSHROOM, BlocksSD.POTTED_BLUE_GLOWSHROOM, BlockModelGenerators.PlantType.NOT_TINTED, blockModelGenerator);
+        SnowloggedBlockModelProvider.generateSnowloggables(blockModelGenerator);
     }
 
     @Override
@@ -223,5 +222,6 @@ public class ModelProviderSD extends FabricModelProvider {
         generateInventoryItemFromBlock(BlocksSD.POLISHED_DRIPSTONE_WALL, itemModelGenerator);
         generateInventoryItemFromBlock(BlocksSD.STONE_TILE_WALL, itemModelGenerator);
         generateInventoryItemFromBlock(BlocksSD.SNOW_BRICK_WALL, itemModelGenerator);
+        itemModelGenerator.generateFlatItem(ItemsSD.BLUE_GLOWSHROOM, ModelTemplates.FLAT_ITEM);
     }
 }
