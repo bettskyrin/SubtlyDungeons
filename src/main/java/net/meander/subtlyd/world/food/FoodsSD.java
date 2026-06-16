@@ -9,7 +9,6 @@ public class FoodsSD {
     public static final FoodProperties POTTAGE = stew(6).build();
     public static final FoodProperties BROWN_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
     public static final FoodProperties RED_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
-    public static final FoodProperties BLUE_GLOWSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
 
     private static FoodProperties.Builder stew(int i) {
         return new FoodProperties.Builder().nutrition(i).saturationModifier(0.6F);
