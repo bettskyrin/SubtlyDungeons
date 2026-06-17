@@ -14,18 +14,18 @@ public class ItemStackRenderStateMixin implements ChargedTridentState.Accessor {
     private boolean isCharged = false;
 
     @Override
-    public boolean subtlyd$isCharged() {
-        return subtlyd$charged;
+    public boolean isCharged() {
+        return isCharged;
     }
 
     @Override
-    public void subtlyd$setCharged(boolean charged) {
-        subtlyd$charged = charged;
+    public void setCharged(boolean charged) {
+        isCharged = charged;
     }
 
     @Inject(method = "submit", at = @At("HEAD"))
     private void pushChargedState(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, int outlineColor, CallbackInfo ci) {
-        if (subtlyd$isCharged()) {
+        if (isCharged()) {
             ChargedTridentState.CHANNELING_CHARGE.set(true);
         }
     }

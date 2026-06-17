@@ -30,11 +30,11 @@ public class ItemModelResolverMixin {
         if (item.is(Items.TRIDENT)) {
             if (owner instanceof LivingEntity livingEntity) {
                 if (livingEntity.getTicksUsingItem() >= ItemHelperSD.CHANNELING_CHARGE_TIME && ItemHelperSD.canChargeChanneling(level, livingEntity, item)) {
-                    ((ChargedTridentState.Accessor) output).subtlyd$setCharged(true);
+                    ((ChargedTridentState.Accessor) output).setCharged(true);
                     return;
                 }
             }
-            ((ChargedTridentState.Accessor) output).subtlyd$setCharged(false);
+            ((ChargedTridentState.Accessor) output).setCharged(false);
         }
     }
 

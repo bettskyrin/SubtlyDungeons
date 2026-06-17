@@ -1,12 +1,14 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
-import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.SnowAndFreezeFeature;
@@ -14,86 +16,80 @@ import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConf
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(SnowAndFreezeFeature.class)
 public class SnowAndFreezeFeatureMixin {
-    @Redirect(method = "place", at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/WorldGenLevel;setBlock(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;I)Z"))
-    private boolean snowlogDuringWorldGen(WorldGenLevel level, BlockPos pos, BlockState state, int flags) {
-        if (state.is(Blocks.SNOW)) {
-            final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
-            BlockState currentTarget = level.getBlockState(pos);
-            BlockPos belowPos = pos.below();
-            BlockState belowState = level.getBlockState(belowPos);
-
-            if (SimpleSnowloggedBlock.isSnowloggable(currentTarget.getBlock())) {
-                if (state.getBlock().defaultBlockState().canSurvive(level, pos)) {
-                    int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
-
-                    if (currentLayers < MAX_LAYERS) {
-                        return level.setBlock(pos, currentTarget.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, currentLayers + 1), flags);
-                    } else {
-                        BlockPos abovePos = pos.above();
-                        BlockState aboveState = level.getBlockState(abovePos);
-
-                        if (aboveState.isAir() || aboveState.canBeReplaced()) {
-                            return level.setBlock(abovePos, state, flags);
-                        }
-                        return false;
-                    }
-                }
-            }
-
-            if (SimpleSnowloggedBlock.isSnowloggable(belowState.getBlock())) {
-                int belowLayers = belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
-
-                if (belowLayers < MAX_LAYERS) {
-                    return level.setBlock(belowPos, belowState.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, belowLayers + 1), flags);
-                } else {
-                    return level.setBlock(pos, state, flags);
-                }
-            }
-        }
-        return level.setBlock(pos, state, flags);
-    }
-
-    @Inject(method = "place", at = @At("TAIL"))
-    private void placeDriplineSnow(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) { // FIXME
+    @Inject(method = "place", at = @At("HEAD"), cancellable = true)
+    private void placeDriplineSnow(FeaturePlaceContext<NoneFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();
-        BlockState snowState = Blocks.SNOW.defaultBlockState();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        boolean wasSnowPlaced = false;
 
-        for (int x = 0; x < 16; x++) {
-            for (int z = 0; z < 16; z++) {
-                int blockX = origin.getX() + x;
-                int blockZ = origin.getZ() + z;
+        for (int dx = 0; dx < 16; dx++) {
+            for (int dz = 0; dz < 16; dz++) {
+                int x = origin.getX() + dx;
+                int z = origin.getZ() + dz;
 
-                int canopyY = level.getHeight(Heightmap.Types.MOTION_BLOCKING, blockX, blockZ);
-                int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockX, blockZ);
+                int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+                pos.set(x, groundY, z);
+
+                if (tryPlaceSnowAt(level, pos)) {
+                    wasSnowPlaced = true;
+                }
+
+                int canopyY = level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z);
 
                 if (canopyY > groundY) {
-                    BlockPos surfacePos = new BlockPos(blockX, groundY, blockZ);
-                    BlockState surfaceState = level.getBlockState(surfacePos);
-
-                    if (level.getBiome(surfacePos).value().coldEnoughToSnow(surfacePos, level.getSeaLevel())) {
-                        boolean canPlace = SimpleSnowloggedBlock.isSnowloggable(surfaceState.getBlock())
-                                || (surfaceState.canBeReplaced() && snowState.canSurvive(level, surfacePos));
-
-                        if (canPlace) {
-                            if (snowlogDuringWorldGen(level, surfacePos, snowState, 2)) {
-                                BlockPos groundPos = surfacePos.below();
-                                BlockState groundState = level.getBlockState(groundPos);
-
-                                if (groundState.hasProperty(BlockStateProperties.SNOWY)) {
-                                    level.setBlock(groundPos, groundState.setValue(BlockStateProperties.SNOWY, true), 2);
-                                }
-                            }
-                        }
+                    pos.set(x, canopyY, z);
+                    if (tryPlaceSnowAt(level, pos)) {
+                        wasSnowPlaced = true;
                     }
                 }
             }
         }
+
+        if (wasSnowPlaced) {
+            cir.setReturnValue(true);
+        }
+    }
+
+    private boolean tryPlaceSnowAt(WorldGenLevel level, BlockPos pos) {
+        Biome biome = level.getBiome(pos).value();
+
+        if (biome.shouldSnow(level, pos)) {
+            BlockState state = level.getBlockState(pos);
+
+            if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                BlockState belowState = level.getBlockState(pos.below());
+
+                level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 1), 2);
+
+                if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
+                    level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+                }
+
+                if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
+                    BlockPos abovePos = pos.above();
+                    BlockState aboveState = level.getBlockState(abovePos);
+
+                    if (aboveState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
+                        level.setBlock(abovePos, aboveState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), 2);
+                    }
+                }
+                return true;
+            } else if (state.isAir()) {
+                BlockState belowState = level.getBlockState(pos.below());
+
+                level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 3);
+
+                if (belowState.hasProperty(SnowyBlock.SNOWY)) {
+                    level.setBlock(pos.below(), belowState.setValue(SnowyBlock.SNOWY, true), 3);
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }

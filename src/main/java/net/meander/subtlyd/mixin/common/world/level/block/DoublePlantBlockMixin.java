@@ -44,7 +44,7 @@ public class DoublePlantBlockMixin {
             boolean isBottomSnowlogged = downState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
 
             if (isBottomSnowlogged) {
-                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), 3);
+                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), 2);
             }
         }
     }
@@ -59,7 +59,7 @@ public class DoublePlantBlockMixin {
             boolean isBottomSnowlogged = downState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
 
             if (isBottomSnowlogged) {
-                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), updateType | 3);
+                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), updateType);
             }
         }
     }

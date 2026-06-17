@@ -139,6 +139,15 @@ public class SnowloggableBlocks {
             Blocks.GLASS_PANE
     ));
 
+    public static List<Block> SNOWY_BLOCKS = List.of(
+            Blocks.SWEET_BERRY_BUSH,
+            Blocks.SHORT_GRASS,
+            Blocks.TALL_GRASS,
+            Blocks.FERN,
+            Blocks.LARGE_FERN,
+            Blocks.BUSH
+    );
+
     public static void addToList() {
         CROSS_BLOCKS.addAll(Blocks.STAINED_GLASS_PANE.asList());
     }

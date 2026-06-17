@@ -21,6 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SnowloggedBlockModelProvider {
+    public static void generateSnowloggables(BlockModelGenerators blockModelGenerator) {
+        generateSnowloggableSimpleVegetation(blockModelGenerator);
+        generateSnowloggableAgingVegetation(blockModelGenerator);
+        generateSnowloggableTallVegetation(blockModelGenerator);
+        generateSnowloggableSegmentableVegetation(blockModelGenerator);
+        generateSnowloggableFences(blockModelGenerator);
+        generateSnowloggableCrossCollisionBlocks(blockModelGenerator);
+        generateSnowloggableWalls(blockModelGenerator);
+        generateSnowloggableFenceGates(blockModelGenerator);
+    }
+
     public static void generateSnowloggedLayers(UnsafeMultiPartGenerator generator) {
         for (int i = 1; i <= SnowloggableBlocks.MAX_LAYERS; i++) {
             String modelName = (i == SnowloggableBlocks.MAX_LAYERS) ? "block/snow_block" : "block/snow_height" + (i * 2);
@@ -35,28 +46,49 @@ public class SnowloggedBlockModelProvider {
         }
     }
 
+    private static void writeModelJson(Identifier modelId, String parentModel, String textureSlot, Identifier textureId, BlockModelGenerators generators) {
+        generators.modelOutput.accept(modelId, () -> {
+            JsonObject json = new JsonObject();
+            json.addProperty("parent", parentModel);
+            json.addProperty("ambientocclusion", true);
+
+            if (textureSlot != null && textureId != null) {
+                JsonObject textures = new JsonObject();
+                textures.addProperty(textureSlot, textureId.toString());
+                json.add("textures", textures);
+            }
+            return json;
+        });
+    }
+
     /**
      * Generates a block model JSON file that enables ambient occulsion for snowlogged foliage.
      * @param block The vanilla foliage block.
-     * @param level The snowlogged level of the block model
      */
-    private static Identifier generateAmbientOcclusionModel(Block block, int level, BlockModelGenerators blockModelGenerator) {
+    private static Identifier generateAmbientOcclusionModel(Block block, BlockModelGenerators generators) {
         Identifier baseModelId = ModelLocationUtils.getModelLocation(block);
-        String blockName = BuiltInRegistries.BLOCK.getKey(block).getPath();
-
-        Identifier aoModelId = Identifier.tryParse("subtlyd:block/snowlogged_" + blockName + level);
+        Identifier aoModelId = Identifier.tryParse("subtlyd:block/snowlogged_" + BuiltInRegistries.BLOCK.getKey(block).getPath());
 
         if (aoModelId != null) {
-            blockModelGenerator.modelOutput.accept(aoModelId, () -> {
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("parent", baseModelId.toString());
-                jsonObject.addProperty("ambientocclusion", true);
-
-                return jsonObject;
-            });
+            writeModelJson(aoModelId, baseModelId.toString(), null, null, generators);
         }
-
         return aoModelId;
+    }
+
+    /**
+     * Generates a new model file for blocks with a snowy texture variant.
+     * @param baseModelId The base block's model ID
+     * @param textureSlot The slot in the parent model to apply the snowy texture to
+     */
+    private static Identifier generateSnowyModelVariant(Identifier baseModelId, String textureSlot, BlockModelGenerators generators) {
+        Identifier snowyModelId = Identifier.tryParse(baseModelId + "_snowy");
+        Identifier snowyTexId = Identifier.tryParse(baseModelId.getNamespace() + ":" + baseModelId.getPath() + "_snowy");
+
+        if (snowyModelId != null && snowyTexId != null) {
+            String parent = textureSlot.equals("crop") ? "minecraft:block/crop" : "minecraft:block/cross";
+            writeModelJson(snowyModelId, parent, textureSlot, snowyTexId, generators);
+        }
+        return snowyModelId;
     }
 
     public static void generateSnowloggableFences(BlockModelGenerators blockModelGenerator) {
@@ -76,7 +108,7 @@ public class SnowloggedBlockModelProvider {
                     );
 
                     for (Direction direction : Direction.Plane.HORIZONTAL) {
-                        if (fenceBlock.defaultBlockState().is(Blocks.BAMBOO_FENCE)) { // These are weird for some reason.
+                        if (fenceBlock.defaultBlockState().is(Blocks.BAMBOO_FENCE)) {
                             finalSideModelId = Identifier.tryParse(sideModelId + "_" + direction.name().toLowerCase());
                             quadrant = Quadrant.R0;
                         } else {
@@ -209,14 +241,24 @@ public class SnowloggedBlockModelProvider {
         for (Block block : SnowloggableBlocks.SIMPLE_VEGETATION) {
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
             Identifier baseModelId = ModelLocationUtils.getModelLocation(block);
+            boolean hasSnowyVariant = SnowloggableBlocks.SNOWY_BLOCKS.contains(block);
+
+            Identifier snowyModelId = hasSnowyVariant ? generateSnowyModelVariant(baseModelId, "cross", blockModelGenerator) : null;
+            Identifier aoModelId = !hasSnowyVariant ? generateAmbientOcclusionModel(block, blockModelGenerator) : null;
 
             for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
-                Identifier finalModelId = (layer == 0) ? baseModelId : generateAmbientOcclusionModel(block, layer, blockModelGenerator);
+                Identifier finalModelId = baseModelId;
 
-                generator.with(
-                        new ConditionBuilder().term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
-                        new MultiVariant(WeightedList.of(new Variant(finalModelId)))
-                );
+                if (layer > 0) {
+                    finalModelId = hasSnowyVariant ? snowyModelId : aoModelId;
+                }
+
+                if (finalModelId != null) {
+                    generator.with(
+                            new ConditionBuilder().term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                            new MultiVariant(WeightedList.of(new Variant(finalModelId)))
+                    );
+                }
             }
             generateSnowloggedLayers(generator);
             blockModelGenerator.blockStateOutput.accept(generator);
@@ -225,6 +267,7 @@ public class SnowloggedBlockModelProvider {
 
     public static void generateSnowloggableAgingVegetation(BlockModelGenerators blockModelGenerator) {
         for (Block block : SnowloggableBlocks.AGING_VEGETATION) {
+            boolean hasSnowyVariant = SnowloggableBlocks.SNOWY_BLOCKS.contains(block);
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
             Property<?> growthProperty = block.defaultBlockState().getProperties().stream()
                     .filter(p -> p.getName().equals("age") || p.getName().equals("stage"))
@@ -238,13 +281,19 @@ public class SnowloggedBlockModelProvider {
                     Identifier modelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_stage" + currentStage);
 
                     if (modelId != null) {
+                        Identifier snowyModelId = hasSnowyVariant ? generateSnowyModelVariant(modelId, "crop", blockModelGenerator) : null;
+
                         for (int layer = 0; layer < SnowloggableBlocks.MAX_LAYERS; layer++) {
-                            generator.with(
-                                    new ConditionBuilder()
-                                            .term(intProp, currentStage)
-                                            .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
-                                    new MultiVariant(WeightedList.of(new Variant(modelId)))
-                            );
+                            Identifier finalModelId = (layer > 0 && hasSnowyVariant) ? snowyModelId : modelId;
+
+                            if (finalModelId != null) {
+                                generator.with(
+                                        new ConditionBuilder()
+                                                .term(intProp, currentStage)
+                                                .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layer),
+                                        new MultiVariant(WeightedList.of(new Variant(finalModelId)))
+                                );
+                            }
                         }
                     }
                 }
@@ -256,21 +305,50 @@ public class SnowloggedBlockModelProvider {
 
     public static void generateSnowloggableTallVegetation(BlockModelGenerators blockModelGenerator) {
         for (Block block : SnowloggableBlocks.TALL_VEGETATION) {
+            boolean hasSnowyVariant = SnowloggableBlocks.SNOWY_BLOCKS.contains(block);
             UnsafeMultiPartGenerator generator = UnsafeMultiPartGenerator.multiPart(block);
             Identifier bottomModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_bottom");
             Identifier topModelId = Identifier.tryParse(ModelLocationUtils.getModelLocation(block) + "_top");
 
             if (bottomModelId != null && topModelId != null) {
-                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
-                    for (DoubleBlockHalf half : DoubleBlockHalf.values()) {
-                        Identifier modelId = half == DoubleBlockHalf.LOWER ? bottomModelId : topModelId;
+                Identifier snowyBottomModelId = hasSnowyVariant ? generateSnowyModelVariant(bottomModelId, "cross", blockModelGenerator) : null;
+                Identifier snowyTopModelId = hasSnowyVariant ? generateSnowyModelVariant(topModelId, "cross", blockModelGenerator) : null;
 
+                for (int i = 0; i < SnowloggableBlocks.MAX_LAYERS; i++) {
+                    Identifier lowerModel = (i > 0 && hasSnowyVariant) ? snowyBottomModelId : bottomModelId;
+
+                    if (lowerModel != null) {
                         generator.with(
                                 new ConditionBuilder()
-                                        .term(DoublePlantBlock.HALF, half)
+                                        .term(DoublePlantBlock.HALF, DoubleBlockHalf.LOWER)
                                         .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
-                                new MultiVariant(WeightedList.of(new Variant(modelId)))
+                                new MultiVariant(WeightedList.of(new Variant(lowerModel)))
                         );
+                    }
+
+                    if (i > 0) {
+                        Identifier upperModel = hasSnowyVariant ? snowyTopModelId : topModelId;
+                        if (upperModel != null) {
+                            generator.with(
+                                    new ConditionBuilder()
+                                            .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
+                                            .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, i),
+                                    new MultiVariant(WeightedList.of(new Variant(upperModel)))
+                            );
+                        }
+                    } else {
+                        for (boolean isBottomSnowlogged : new boolean[]{false, true}) {
+                            Identifier upperModel = (isBottomSnowlogged && hasSnowyVariant) ? snowyTopModelId : topModelId;
+                            if (upperModel != null) {
+                                generator.with(
+                                        new ConditionBuilder()
+                                                .term(DoublePlantBlock.HALF, DoubleBlockHalf.UPPER)
+                                                .term(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 0)
+                                                .term(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, isBottomSnowlogged),
+                                        new MultiVariant(WeightedList.of(new Variant(upperModel)))
+                                );
+                            }
+                        }
                     }
                 }
 
@@ -310,7 +388,7 @@ public class SnowloggedBlockModelProvider {
                                     default -> Quadrant.R0;
                                 };
 
-                                if (layer == 0) { // Still generate the snow layers, but don't render them to prevent Z-Fighting. I don't want to have to write this again.
+                                if (layer == 0) {
                                     switch (segmentCount.get(i)) {
                                         case Integer[] segmentValues -> generator.with(
                                                 new ConditionBuilder()
