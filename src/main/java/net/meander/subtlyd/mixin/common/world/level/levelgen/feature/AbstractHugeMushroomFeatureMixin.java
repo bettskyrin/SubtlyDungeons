@@ -1,6 +1,8 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
 import net.meander.subtlyd.tags.BiomeTagsSD;
+import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.levelgen.feature.HugeBlueGlowshroomFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.HugeBrownMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.HugeRedMushroomFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.HugeMushroomFeatureConfiguration;
+import org.jspecify.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class AbstractHugeMushroomFeatureMixin {
 
     @Inject(method = "place", at = @At("RETURN"))
-    private void placeSmallMushroomCircleInDarkForest(FeaturePlaceContext<HugeMushroomFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
+    private void placeCespitose(FeaturePlaceContext<HugeMushroomFeatureConfiguration> context, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) {
             WorldGenLevel level = context.level();
             BlockPos origin = context.origin();
@@ -28,17 +31,9 @@ public class AbstractHugeMushroomFeatureMixin {
             if (level.getBiome(origin).is(BiomeTagsSD.HAS_CESPITOSE)) {
                 AbstractHugeMushroomFeature feature = (AbstractHugeMushroomFeature) (Object) this;
                 RandomSource random = context.random();
-                BlockState smallMushroom;
+                BlockState mushroom = getMushroom(feature);
 
-                if (feature instanceof HugeRedMushroomFeature) {
-                    smallMushroom = Blocks.RED_MUSHROOM.defaultBlockState();
-                } else if (feature instanceof HugeBrownMushroomFeature) {
-                    smallMushroom = Blocks.BROWN_MUSHROOM.defaultBlockState();
-                } else {
-                    smallMushroom = null;
-                }
-
-                if (smallMushroom != null) {
+                if (mushroom != null) {
                     int patchCount = random.nextInt(4) + 3;
                     int radius = 4;
 
@@ -50,8 +45,8 @@ public class AbstractHugeMushroomFeatureMixin {
                         for (int y = 0; y < 5; y++) {
                             BlockPos placementPos = targetPos.below(y);
 
-                            if (level.isEmptyBlock(placementPos) && smallMushroom.canSurvive(level, placementPos)) {
-                                level.setBlock(placementPos, smallMushroom, 2);
+                            if (level.isEmptyBlock(placementPos) && mushroom.canSurvive(level, placementPos)) {
+                                level.setBlock(placementPos, mushroom, 2);
                                 break;
                             }
                         }
@@ -59,5 +54,14 @@ public class AbstractHugeMushroomFeatureMixin {
                 }
             }
         }
+    }
+
+    private static @Nullable BlockState getMushroom(AbstractHugeMushroomFeature feature) {
+        return switch (feature) {
+            case HugeRedMushroomFeature _ -> Blocks.RED_MUSHROOM.defaultBlockState();
+            case HugeBrownMushroomFeature _ -> Blocks.BROWN_MUSHROOM.defaultBlockState();
+            case HugeBlueGlowshroomFeature _ -> BlocksSD.BLUE_GLOWSHROOM.defaultBlockState();
+            case null, default -> null;
+        };
     }
 }

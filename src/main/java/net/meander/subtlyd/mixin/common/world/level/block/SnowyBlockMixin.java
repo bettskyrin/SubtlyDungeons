@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.common.world.level.block;
 
-import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.world.level.block.SnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -13,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class SnowyBlockMixin {
     @Inject(method = "isSnowySetting", at = @At("RETURN"), cancellable = true)
     private static void setSnowyWhenSnowlogged(BlockState aboveState, CallbackInfoReturnable<Boolean> cir) {
-        if (SimpleSnowloggedBlock.isSnowloggable(aboveState.getBlock()) && aboveState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+        if (aboveState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && aboveState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
             cir.setReturnValue(true);
         }
     }

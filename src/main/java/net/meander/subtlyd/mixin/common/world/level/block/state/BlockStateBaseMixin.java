@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.common.world.level.block.state;
 
-import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,7 +42,7 @@ public abstract class BlockStateBaseMixin {
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
-                if (layers == SnowloggableBlocks.MAX_LAYERS) {
+                if (layers == BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();
@@ -69,7 +68,7 @@ public abstract class BlockStateBaseMixin {
             int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
-                if (layers == SnowloggableBlocks.MAX_LAYERS) {
+                if (layers == BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();

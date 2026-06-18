@@ -6,6 +6,7 @@ import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import net.minecraft.client.data.models.MultiVariant;
@@ -16,6 +17,7 @@ import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
+import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.*;
 
 public class ModelProviderSD extends FabricModelProvider {
@@ -42,52 +44,6 @@ public class ModelProviderSD extends FabricModelProvider {
         MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerator.modelOutput));
 
         blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
-    }
-
-    /**
-     * Builds a stair model from a vanilla pillar block texture.
-     * @param vanillaBlock The original block to obtain a texture from.
-     * @param newBlock The custom stair block that the texture will be mapped to.
-     */
-    private static void generatePillarStairsFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
-        Identifier top = TextureMapping.getBlockTexture(vanillaBlock, "_top").sprite();
-        Identifier side = TextureMapping.getBlockTexture(vanillaBlock, "_side").sprite();
-
-        TextureMapping mapping = new TextureMapping()
-                .put(TextureSlot.BOTTOM, new Material(top))
-                .put(TextureSlot.TOP, new Material(top))
-                .put(TextureSlot.SIDE, new Material(side));
-
-        MultiVariant inner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(newBlock, mapping, blockModelGenerator.modelOutput));
-        MultiVariant straight = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(newBlock, mapping, blockModelGenerator.modelOutput));
-        MultiVariant outer = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(newBlock, mapping, blockModelGenerator.modelOutput));
-
-        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createStairs(newBlock, inner, straight, outer));
-    }
-
-    /**
-     * Separate from the rest of the block family generation to allow for snowlogging.
-     * @param vanillaBlock The original block to obtain a texture from.
-     * @param wallBlock The custom wall that the texture will be mapped to.
-     */
-    private static void generateCustomWallFromVanilla(Block vanillaBlock, Block wallBlock, BlockModelGenerators blockModelGenerator) {
-        if (BuiltInRegistries.BLOCK.getKey(wallBlock).toString().contains("subtlyd:")) {
-            TextureMapping mapping = new TextureMapping()
-                    .put(TextureSlot.WALL, TextureMapping.getBlockTexture(vanillaBlock))
-                    .put(TextureSlot.TEXTURE, TextureMapping.getBlockTexture(vanillaBlock))
-                    .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(vanillaBlock));
-
-            ModelTemplates.WALL_POST.create(wallBlock, mapping, blockModelGenerator.modelOutput);
-            ModelTemplates.WALL_LOW_SIDE.create(wallBlock, mapping, blockModelGenerator.modelOutput);
-            ModelTemplates.WALL_TALL_SIDE.create(wallBlock, mapping, blockModelGenerator.modelOutput);
-            ModelTemplates.WALL_INVENTORY.create(wallBlock, mapping, blockModelGenerator.modelOutput);
-        }
-    }
-
-    public static void generateCustomWalls(BlockModelGenerators blockModelGenerator) {
-        generateCustomWallFromVanilla(BlocksSD.POLISHED_DRIPSTONE, BlocksSD.POLISHED_DRIPSTONE_WALL, blockModelGenerator);
-        generateCustomWallFromVanilla(BlocksSD.STONE_TILES, BlocksSD.STONE_TILE_WALL, blockModelGenerator);
-        generateCustomWallFromVanilla(BlocksSD.SNOW_BRICKS, BlocksSD.SNOW_BRICK_WALL, blockModelGenerator);
     }
 
     /**
@@ -146,22 +102,6 @@ public class ModelProviderSD extends FabricModelProvider {
         );
     }
 
-    private void generateSnowloggableFlowerBedBlock(final Block flowerbed, BlockModelGenerators blockModelGenerator) {
-        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_1.create(flowerbed, blockModelGenerator.modelOutput));
-        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_2.create(flowerbed, blockModelGenerator.modelOutput));
-        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_3.create(flowerbed, blockModelGenerator.modelOutput));
-        BlockModelGenerators.plainVariant(TexturedModel.FLOWERBED_4.create(flowerbed, blockModelGenerator.modelOutput));
-    }
-
-    private void generateSnowloggablePlantWithDefaultItem(Block block, Block potted, BlockModelGenerators.PlantType plantType, BlockModelGenerators blockModelGenerator) {
-        ModelTemplates.CROSS.create(block, TextureMapping.cross(block), blockModelGenerator.modelOutput);
-
-        TextureMapping textures = plantType.getPlantTextureMapping(block);
-        MultiVariant model = BlockModelGenerators.plainVariant(plantType.getCrossPot().create(potted, textures, blockModelGenerator.modelOutput));
-
-        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(potted, model));
-    }
-
     private void generatePotionArchetypes(ItemModelGenerators itemModelGenerator) {
         Identifier conicalBottle = Util.identifier("item/potion/conical_overlay");
         Identifier sphericalBottle = Util.identifier("item/potion/spherical_overlay");
@@ -172,8 +112,24 @@ public class ModelProviderSD extends FabricModelProvider {
         ModelTemplates.FLAT_ITEM.create(vialBottle, TextureMapping.layer0(new Material(vialBottle)), itemModelGenerator.modelOutput);
     }
 
-    private void generateInventoryItemFromBlock(Block block, ItemModelGenerators itemModelGenerator) {
-        itemModelGenerator.itemModelOutput.accept(block.asItem(), ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(block, "_inventory")));
+    public static void generateRuntimeBlockModels(ResourceManager resourceManager) {
+        for (Block block : BuiltInRegistries.BLOCK) {
+            if (block.defaultBlockState().hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                Identifier blockId = BuiltInRegistries.BLOCK.getKey(block);
+
+                switch (block) {
+                    case WallBlock _ -> SnowloggedBlockModelProvider.generateWallState(block, blockId);
+                    case FenceBlock fence when fence == Blocks.BAMBOO_FENCE -> SnowloggedBlockModelProvider.generateAltFenceState(block, blockId);
+                    case FenceBlock _ -> SnowloggedBlockModelProvider.generateFenceState(block, blockId);
+                    case FenceGateBlock _ -> SnowloggedBlockModelProvider.generateFenceGateState(block, blockId);
+                    case CrossCollisionBlock _ -> SnowloggedBlockModelProvider.generateCrossState(blockId, resourceManager);
+                    case DoublePlantBlock _ -> SnowloggedBlockModelProvider.generateDoublePlantState(block, blockId, resourceManager);
+                    case SegmentableBlock _ -> SnowloggedBlockModelProvider.generateSegmentableState(block, blockId, resourceManager);
+                    case CropBlock _, SweetBerryBushBlock _, NetherWartBlock _, StemBlock _ -> SnowloggedBlockModelProvider.generateAgeableState(block, blockId, resourceManager);
+                    default -> SnowloggedBlockModelProvider.generatePlantState(block, blockId, resourceManager);
+                }
+            }
+        }
     }
 
     @Override
@@ -181,27 +137,30 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS)
                 .stairs(BlocksSD.SNOW_BRICK_STAIRS)
                 .slab(BlocksSD.SNOW_BRICK_SLAB)
+                .wall(BlocksSD.SNOW_BRICK_WALL)
                 .getFamily());
         blockModelGenerator.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(new BlockFamily.Builder(BlocksSD.POLISHED_DRIPSTONE)
                 .stairs(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
                 .slab(BlocksSD.POLISHED_DRIPSTONE_SLAB)
+                .wall(BlocksSD.POLISHED_DRIPSTONE_WALL)
                 .getFamily());
         blockModelGenerator.family(BlocksSD.STONE_TILES).generateFor(new BlockFamily.Builder(BlocksSD.STONE_TILES)
                 .stairs(BlocksSD.STONE_TILE_STAIRS)
                 .slab(BlocksSD.STONE_TILE_SLAB)
+                .wall(BlocksSD.STONE_TILE_WALL)
                 .getFamily());
         blockModelGenerator.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
+        blockModelGenerator.createTrivialCube(BlocksSD.BLUE_GLOWSHROOM_BLOCK);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
-        generateSnowloggableFlowerBedBlock(BlocksSD.PERSE_WILDFLOWERS, blockModelGenerator);
-        generateSnowloggablePlantWithDefaultItem(BlocksSD.BLUE_GLOWSHROOM, BlocksSD.POTTED_BLUE_GLOWSHROOM, BlockModelGenerators.PlantType.NOT_TINTED, blockModelGenerator);
-        SnowloggedBlockModelProvider.generateSnowloggables(blockModelGenerator);
+        blockModelGenerator.createFlowerBed(BlocksSD.PERSE_WILDFLOWERS);
+        blockModelGenerator.createPlantWithDefaultItem(BlocksSD.BLUE_GLOWSHROOM, BlocksSD.POTTED_BLUE_GLOWSHROOM, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
     @Override
@@ -217,11 +176,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.WARPED_OVERHANG, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.BLAST_FUNGUS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.COVEN_ELIXIR, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.PERSE_WILDFLOWERS, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
-        generateInventoryItemFromBlock(BlocksSD.POLISHED_DRIPSTONE_WALL, itemModelGenerator);
-        generateInventoryItemFromBlock(BlocksSD.STONE_TILE_WALL, itemModelGenerator);
-        generateInventoryItemFromBlock(BlocksSD.SNOW_BRICK_WALL, itemModelGenerator);
-        itemModelGenerator.generateFlatItem(ItemsSD.BLUE_GLOWSHROOM, ModelTemplates.FLAT_ITEM);
     }
 }

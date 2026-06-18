@@ -4,61 +4,76 @@
 - Added the Tailored World Generation system
 - During world creation, a "Default" world type can now be customized
 - Choosing the "Customize" option allows the player to modify sliders corresponding to world generation factors
-  - Added customizable options:
+  - Current customizable options:
     - Continent Scale
     - Biome Scale
     - Master World Generation Scale
+    
+    Developer's Note: Ocean Depth is planned, but for a future update. We tried it, and ultimately decided to wait because 
+  
+    1) It significantly harmed performance for various reasons
+    2) Leaks suggest Mojang intends to update the ocean relatively soon
+    3) What fun is a deep ocean with nothing new in it yet :)
 
 #### Blocks
 - Added Perse Wildflowers
   - Can be crafted into Purple Dye
   - Can be found in Birch Forests, Meadows, Swamps, and the Dappled Forest
-  - Developer Notes:
+
+    Developer Notes:
     - These are inspired by Forget-Me-Not flowers
-    - "Perse" is an archaic term for "blue-ish" :D
+    - "Perse" is an archaic term for "blue-ish"
+- Added Blue Glowshroom
+  - Can be found naturally in Old Growth Pine Taigas, Old Growth Spruce Taigas, Dark Forests, and Mushroom Fields
+  - Dark Forests can also rarely have their large variants.
+  - Gives off a light level of 8
+  - Can be placed inside flower pots
+- Added Blue Glowshroom Block
+  - Give off a light level of 8
 - Added snowlogging, like on Bedrock Edition
   - Only some blocks are now snow loggable:
-    - All flowers
-    - All grasses
-    - All bushes/ferns
-    - All tree saplings
-    - All mushrooms
-    - All fences
-    - All fence gates
-    - All walls
-    - Iron bars
-    - All glass panes
+    - Plants
+    - Fences
+    - Fence gates
+    - Walls
+    - Metal bars
+    - Glass panes
   - Snowlogged blocks may generate during world generation
-  - Blocks may be snowlogged during snowfall
-- Changed doors to be water loggable
-- Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
+  - Blocks may become snowlogged during snowfall
+  - Some snowlogged blocks have snowy texture variants
 
+#### Atmospherics
+- Added ambient fog to Swamp biomes
+- Added ambient fog to Mangrove Swamp biomes
+- Added ambient fog to Pale Garden biomes
+- Added ambient fog to Dark Forest biomes
+
+### Changes
 #### World Generation
 - Changed all biomes to be larger
 - Changed all continents to be larger
 - Changed Oak tree height
 - Changed Birch tree height
-- Changed grass placement rate
-- Changed bush placement rate
+- Changed grass placement chance
+- Changed bush placement chance
 - Changed snow to generate under trees in snowy biomes
 
 ##### Forest
-- Changed forests to have sparse rocks
-- Changed forests to have more grass
+- Changed understory to have sparse rocks
+- Changed understory to have more grass
 - Changed mob spawning to include rabbits
 - Changed fallen logs to potentially have moss carpet generate on top
 
 ##### Birch Forest
-- Changed forest to have more grass
 - Changed fallen logs to potentially have moss carpet generate on top
 
 ##### Dark Forest
-- Added sparse rocks to the understory
+- Changed understory to have sparse rocks
 - Changed canopys to be larger
 - Changed dark oak trees to be taller
 - Changed the sky to be darker
 - Changed the ratio of Dark Oaks trees to other vegetation and huge mushrooms
-- Changed red mushroom caps to be slightly shorter
+- Changed red mushroom caps to sometimes be slightly shorter
 - Added small mushroom rings around huge mushrooms
 
 ##### Swamp
@@ -68,20 +83,17 @@
 ##### Taiga
 - Changed vegetation to be more common
 
-#### Atmospherics
-- Added ambient fog to Swamp biomes
-- Added ambient fog to Mangrove Swamp biomes
-- Added ambient fog to Pale Garden biomes
-- Added ambient fog to Dark Forest biomes
+#### Blocks
+- Changed doors to be water loggable
+- Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
 
-### Changes
 #### Crafting
 - Changed map crafting recipe
   - Changed map crafting recipe to be a 9x9 of paper
     - This matches Bedrock Edition
 
 #### Loot
-- Swamp Hut cauldron potions are now Data Driven
+- Changed Swamp Hut cauldron potions to be a data-driven loot table
 
 #### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
@@ -105,4 +117,5 @@
 - Added `is_very_foggy` biome tag
 - Added `has_cespitose` biome tag
 - Added `triggers_ambient_bush_block_sounds` block tag
+- Added `huge_glowshroom_can_place_on` block tag
 - Removed `has_ambient_block_sounds` block tag

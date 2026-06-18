@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
+import net.meander.subtlyd.world.block.state.BlockStateSD;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -61,7 +62,7 @@ public class SnowAndFreezeFeatureMixin {
         if (biome.shouldSnow(level, pos)) {
             BlockState state = level.getBlockState(pos);
 
-            if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            if (BlockStateSD.canBeSnowlogged(state)) {
                 BlockState belowState = level.getBlockState(pos.below());
 
                 level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 1), 2);

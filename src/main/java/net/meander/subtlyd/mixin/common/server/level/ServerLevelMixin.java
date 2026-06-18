@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.common.server.level;
 
-import net.meander.subtlyd.data.models.blockstates.SnowloggableBlocks;
-import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
+import net.meander.subtlyd.world.block.state.BlockStateSD;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -13,6 +12,8 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ServerLevel.class)
 public class ServerLevelMixin {
+    private final int MAX_SNOWLOG_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().size();
+
     @Redirect(method = "tickPrecipitation", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z"))
     private boolean snowlogDuringDownfall(ServerLevel level, BlockPos pos, BlockState state) {
@@ -21,18 +22,18 @@ public class ServerLevelMixin {
             BlockPos belowPos = pos.below();
             BlockState belowState = level.getBlockState(belowPos);
 
-            if (currentTarget.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && SimpleSnowloggedBlock.isSnowloggable(currentTarget.getBlock())) {
+            if (BlockStateSD.canBeSnowlogged(currentTarget)) {
                 int currentLayers = currentTarget.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
-                if (currentLayers < SnowloggableBlocks.MAX_LAYERS) {
+                if (currentLayers < MAX_SNOWLOG_LAYERS) {
                     return level.setBlockAndUpdate(pos, currentTarget.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, currentLayers + 1));
                 } else {
                     BlockPos abovePos = pos.above();
                     BlockState aboveState = level.getBlockState(abovePos);
 
-                    if (aboveState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && SimpleSnowloggedBlock.isSnowloggable(aboveState.getBlock())) {
+                    if (aboveState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
                         int aboveLayers = aboveState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
-                        if (aboveLayers < SnowloggableBlocks.MAX_LAYERS) {
+                        if (aboveLayers < MAX_SNOWLOG_LAYERS) {
                             return level.setBlockAndUpdate(abovePos, aboveState.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, aboveLayers + 1));
                         }
                     } else if (aboveState.isAir() || aboveState.canBeReplaced()) {
@@ -42,10 +43,10 @@ public class ServerLevelMixin {
                 }
             }
 
-            if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && SimpleSnowloggedBlock.isSnowloggable(belowState.getBlock())) {
+            if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
                 int belowLayers = belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
-                if (belowLayers < SnowloggableBlocks.MAX_LAYERS) {
+                if (belowLayers < MAX_SNOWLOG_LAYERS) {
                     return level.setBlockAndUpdate(belowPos, belowState.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, belowLayers + 1));
                 } else {
                     return level.setBlockAndUpdate(pos, state);

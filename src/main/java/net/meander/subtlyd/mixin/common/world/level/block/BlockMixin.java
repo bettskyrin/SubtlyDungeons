@@ -16,16 +16,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Block.class)
 public class BlockMixin implements SimpleSnowloggedBlock {
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/StateDefinition$Builder;create(Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/StateDefinition$Factory;)Lnet/minecraft/world/level/block/state/StateDefinition;"))
-    private void addSnowloggedProperty(BlockBehaviour.Properties properties, CallbackInfo ci,@Local(name = "builder") StateDefinition.Builder<Block, BlockState> builder) {
+    private void addSnowloggedProperty(BlockBehaviour.Properties properties, CallbackInfo ci, @Local(name = "builder") StateDefinition.Builder<Block, BlockState> builder) {
         Block block = (Block) (Object) this;
 
-        if (block instanceof VegetationBlock || block instanceof CrossCollisionBlock ||
-                block instanceof FenceGateBlock || block instanceof WallBlock || block instanceof SegmentableBlock) {
-            builder.add(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
-
+        if (block instanceof VegetationBlock || block instanceof CrossCollisionBlock || block instanceof FenceGateBlock || block instanceof WallBlock || block instanceof SegmentableBlock) {
             if (block instanceof DoublePlantBlock) {
                 builder.add(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED);
             }
+            builder.add(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
         }
     }
 
@@ -33,6 +31,10 @@ public class BlockMixin implements SimpleSnowloggedBlock {
     private BlockState setDefaultStates(BlockState state) {
         if (state.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
             return state.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, false);
+        }
+
+        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+            state = state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 0);
         }
         return state;
     }
