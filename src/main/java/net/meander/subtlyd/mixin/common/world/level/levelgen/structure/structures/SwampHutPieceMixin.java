@@ -46,7 +46,7 @@ public class SwampHutPieceMixin {
             LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(LootTablesSD.SWAMP_HUT_CAULDRON);
             LootParams lootParams = new LootParams.Builder(serverLevel)
                     .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(cauldronPos))
-                    .create(LootContextParamSets.EMPTY);
+                    .create(LootContextParamSets.CHEST);
             ObjectArrayList<ItemStack> generatedLoot = lootTable.getRandomItems(lootParams, random.nextLong());
             Holder<Potion> potion = Potions.WATER;
             String potionTypeId = BuiltInRegistries.ITEM.getKey(Items.POTION).toString();
