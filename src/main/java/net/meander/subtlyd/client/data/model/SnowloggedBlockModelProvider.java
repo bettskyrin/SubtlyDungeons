@@ -15,7 +15,7 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SweetBerryBushBlock;
+import net.minecraft.world.level.block.CropBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
 
@@ -142,7 +142,7 @@ public class SnowloggedBlockModelProvider extends ModelProviderSD {
                 int modelAge = getAge(block, age);
 
                 String stageModel = blockId.getNamespace() + ":block/" + blockId.getPath() + "_stage" + modelAge;
-                String textureSlot = (block instanceof SweetBerryBushBlock) ? "cross" : "crop";
+                String textureSlot = (block instanceof CropBlock) ? "crop" : "cross";
                 String snowloggedModel;
 
                 Identifier stageId = Identifier.fromNamespaceAndPath(blockId.getNamespace(), blockId.getPath() + "_stage" + modelAge);
