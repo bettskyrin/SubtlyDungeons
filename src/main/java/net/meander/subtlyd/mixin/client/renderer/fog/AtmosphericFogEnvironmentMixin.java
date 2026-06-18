@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AtmosphericFogEnvironment.class)
-public class FogRendererMixin {
+public class AtmosphericFogEnvironmentMixin {
     private static float fogWeight = 0.0F;
 
     @Inject(method = "setupFog", at = @At("RETURN"))
