@@ -23,13 +23,6 @@
     Developer Notes:
     - These are inspired by Forget-Me-Not flowers
     - "Perse" is an archaic term for "blue-ish"
-- Added Blue Glowshroom
-  - Can be found naturally in Old Growth Pine Taigas, Old Growth Spruce Taigas, Dark Forests, and Mushroom Fields
-  - Dark Forests can also rarely have their large variants.
-  - Gives off a light level of 8
-  - Can be placed inside flower pots
-- Added Blue Glowshroom Block
-  - Give off a light level of 8
 - Added snowlogging, like on Bedrock Edition
   - Only some blocks are now snow loggable:
     - Plants
@@ -63,6 +56,9 @@
 - Changed understory to have more grass
 - Changed mob spawning to include rabbits
 - Changed fallen logs to potentially have moss carpet generate on top
+- Changed mushroom generation rate
+
+  Developer's Note: I didn't even know that mushroom patches could spawn
 
 ##### Birch Forest
 - Changed fallen logs to potentially have moss carpet generate on top
@@ -75,13 +71,18 @@
 - Changed the ratio of Dark Oaks trees to other vegetation and huge mushrooms
 - Changed red mushroom caps to sometimes be slightly shorter
 - Added small mushroom rings around huge mushrooms
+- Changed mushroom generation rate
 
 ##### Swamp
 - Added perse wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
+- Changed mushroom generation rate
 
 ##### Taiga
 - Changed vegetation to be more common
+
+##### Plains
+- Changed mushroom generation rate
 
 #### Blocks
 - Changed doors to be water loggable

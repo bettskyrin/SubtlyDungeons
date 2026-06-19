@@ -61,7 +61,10 @@ public class BlocksSD {
             .isViewBlocking(Blocks::never));
     public static final Block BASALT_SLAB = registerSlab(BlockItemIdsSD.BASALT_SLAB, Blocks.BASALT);
     public static final Block SOUL_JACK_O_LANTERN = register(BlockItemIdsSD.SOUL_JACK_O_LANTERN, CarvedPumpkinBlock::new,
-            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.0F).sound(SoundType.WOOD).lightLevel(_ -> 10)
+            BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
+                    .strength(1.0F)
+                    .sound(SoundType.WOOD)
+                    .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
@@ -70,16 +73,6 @@ public class BlocksSD {
             .noCollision()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY));
-    public static final Block BLUE_GLOWSHROOM = register(BlockItemIdsSD.BLUE_GLOWSHROOM, (p) -> new MushroomBlock(null, p), BlockBehaviour.Properties.of()
-            .mapColor(MapColor.COLOR_CYAN)
-            .noCollision()
-            .randomTicks()
-            .instabreak()
-            .sound(SoundType.GRASS)
-            .lightLevel((_) -> 8)
-            .postProcess(Blocks::postProcessSelf)
-            .pushReaction(PushReaction.DESTROY)); // TODO Big Mushroom + FIXME not placeable
-    public static final Block POTTED_BLUE_GLOWSHROOM = register(BlockItemIdsSD.POTTED_BLUE_GLOWSHROOM, (p) -> new FlowerPotBlock(BLUE_GLOWSHROOM, p), Blocks.flowerPotProperties());
 
     public static void registration() {}
 

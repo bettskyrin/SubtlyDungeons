@@ -52,7 +52,6 @@ public class CreativeModeTabsSD {
             entries.insertAfter(BASALT, BASALT_SLAB);
             entries.insertAfter(JACK_O_LANTERN, SOUL_JACK_O_LANTERN);
             entries.insertBefore(WILDFLOWERS, PERSE_WILDFLOWERS);
-            entries.insertAfter(RED_MUSHROOM, BLUE_GLOWSHROOM);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
@@ -72,10 +71,7 @@ public class CreativeModeTabsSD {
             entries.insertAfter(RABBIT_STEW, POTTAGE);
             entries.insertAfter(DRIED_KELP, BROWN_MUSHROOM);
             entries.insertAfter(BROWN_MUSHROOM, RED_MUSHROOM);
-            entries.insertAfter(RED_MUSHROOM, BLUE_GLOWSHROOM);
-            entries.getDisplayStacks().removeIf(stack ->
-                    stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(PotionsSD.DECAY)
-            );
+            entries.getDisplayStacks().removeIf(stack -> stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(PotionsSD.DECAY));
             entries.insertAfter(itemStack -> itemStack.is(POTION) && itemStack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY).is(Potions.STRONG_POISON),
                     List.of(PotionContents.createItemStack(POTION, PotionsSD.DECAY)),
                     CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);

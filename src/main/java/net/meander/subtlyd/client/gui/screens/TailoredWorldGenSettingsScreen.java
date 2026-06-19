@@ -43,7 +43,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         initialContinent = TailoredWorldGenSettings.continentScale;
         initialBiome = TailoredWorldGenSettings.biomeScale;
 
-        super(Component.translatable("createWorld.customize.tailored.title"));
+        super(Component.translatable("createWorld.tailored.title"));
     }
 
     @Override
@@ -59,18 +59,18 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         list = layout.addToContents(new SliderList());
 
         list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.customize.tailored.master_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.master_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.masterScale, (newValue) -> {
             TailoredWorldGenSettings.applyMasterScale(newValue);
             updateSliders();
         }));
 
         continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.customize.tailored.continent_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.continent_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
 
         biomeSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.customize.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
         list.addDouble(continentSlider, biomeSlider);

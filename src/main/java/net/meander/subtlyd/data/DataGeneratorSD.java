@@ -9,13 +9,14 @@ import net.meander.subtlyd.client.data.model.ModelProviderSD;
 import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.recipies.RecipeProviderSD;
+import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
+import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.tags.*;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
-import net.meander.subtlyd.world.level.levelgen.feature.ConfiguredFeaturesSD;
 import net.meander.subtlyd.world.level.levelgen.feature.FeatureProvider;
-import net.meander.subtlyd.world.level.levelgen.feature.PlacedFeaturesSD;
+import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
@@ -53,7 +54,8 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, ConfiguredFeaturesSD::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, PlacedFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.CONFIGURED_FEATURE, VegetationFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::bootstrap);
     }
 }

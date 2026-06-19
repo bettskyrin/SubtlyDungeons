@@ -1,8 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
 import net.meander.subtlyd.tags.BiomeTagsSD;
-import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.level.levelgen.feature.HugeBlueGlowshroomFeature;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -35,7 +33,7 @@ public class AbstractHugeMushroomFeatureMixin {
 
                 if (mushroom != null) {
                     int patchCount = random.nextInt(4) + 3;
-                    int radius = 4;
+                    int radius = 3;
 
                     for (int i = 0; i < patchCount; i++) {
                         int offsetX = random.nextInt(radius * 3) - radius;
@@ -60,7 +58,6 @@ public class AbstractHugeMushroomFeatureMixin {
         return switch (feature) {
             case HugeRedMushroomFeature _ -> Blocks.RED_MUSHROOM.defaultBlockState();
             case HugeBrownMushroomFeature _ -> Blocks.BROWN_MUSHROOM.defaultBlockState();
-            case HugeBlueGlowshroomFeature _ -> BlocksSD.BLUE_GLOWSHROOM.defaultBlockState();
             case null, default -> null;
         };
     }

@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Acts as the Data Generation provider for dynamic world generation registries.
- * This class reads the bootstraps defined in ConfiguredFeaturesSD and PlacedFeaturesSD
+ * This class reads the bootstraps defined in VegetationFeaturesSD and VegetationPlacementsSD
  * and exports them into JSON files for the classic data-driven architecture.
  */
 public class FeatureProvider extends FabricDynamicRegistryProvider {

@@ -100,8 +100,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
         tag(TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
                 .add(BlockItemIds.BUSH.block());
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)
-                .add(BlockItemIdsSD.REEDS.block())
-                .add(BlockItemIdsSD.BLUE_GLOWSHROOM.block());
+                .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.REPLACEABLE_BY_TREES)
                 .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.UNDERWATER_BONEMEALS)
@@ -125,10 +124,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
         tag(BlockTags.BEE_ATTRACTIVE)
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
-        tag(BlockTags.ENDERMAN_HOLDABLE)
-                .add(BlockItemIdsSD.BLUE_GLOWSHROOM.block());
-        tag(BlockTags.FLOWER_POTS)
-                .add(BlockItemIdsSD.POTTED_BLUE_GLOWSHROOM.block());
     }
     
     private static TagKey<Block> bind(String string) {

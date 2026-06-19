@@ -1,18 +1,22 @@
 package net.meander.subtlyd.world.level.levelgen;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.data.DataGeneratorSD;
+import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.world.level.levelgen.feature.PlacedFeaturesSD;
 import net.minecraft.SharedConstants;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
@@ -65,19 +69,22 @@ public class WorldGeneratorSD implements DataProvider {
             final Path packRoot = tempPackDir.resolve("tailored_worldgen");
             final Path densityFunctions = packRoot.resolve("data/minecraft/worldgen/density_function/overworld");
             final Path noiseSettings = packRoot.resolve("data/minecraft/worldgen/noise_settings");
+            final String continentalnessFile = "continents.json";
+            final String erosionFile = "erosion.json";
+            final String overworldFile = "overworld.json";
 
             Files.createDirectories(densityFunctions);
             Files.createDirectories(noiseSettings);
 
             if (!DataGeneratorSD.isDataGeneratorRunning) {
-                JsonObject metaRoot = buildMcMeta();
+                JsonObject metaRoot = buildPackMeta();
 
-                Files.writeString(packRoot.resolve("pack.mcmeta"), GSON.toJson(metaRoot));
+                Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(metaRoot));
             }
 
-            Files.writeString(densityFunctions.resolve("continents.json"), GSON.toJson(getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
-            Files.writeString(densityFunctions.resolve("erosion.json"), GSON.toJson(getModifiedSimpleDensityFunction("erosion.json", EROSION_SCALE)));
-            Files.writeString(noiseSettings.resolve("overworld.json"), GSON.toJson(getModifiedOverworldNoiseSettings()));
+            Files.writeString(densityFunctions.resolve(continentalnessFile), GSON.toJson(getModifiedSimpleDensityFunction(continentalnessFile, TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
+            Files.writeString(densityFunctions.resolve(erosionFile), GSON.toJson(getModifiedSimpleDensityFunction(erosionFile, EROSION_SCALE)));
+            Files.writeString(noiseSettings.resolve(overworldFile), GSON.toJson(getModifiedOverworldNoiseSettings()));
         } catch (Exception e) {
             Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
@@ -87,14 +94,14 @@ public class WorldGeneratorSD implements DataProvider {
      * Builds the pack.mcmeta file
      * @return pack.mcmeta as a JsonObject
      */
-    private static JsonObject buildMcMeta() {
+    private static JsonObject buildPackMeta() {
         final int packFormat = SharedConstants.getCurrentVersion().packVersion(PackType.SERVER_DATA).major();
         JsonObject metaRoot = new JsonObject();
         JsonObject packData = new JsonObject();
         JsonObject description = new JsonObject();
 
         packData.addProperty("pack_format", packFormat);
-        description.addProperty("translate", Component.translatable("createWorld.customize.tailored.pack").getString());
+        description.addProperty("translate", Component.translatable("createWorld.tailored.pack").getString());
         packData.addProperty("min_format", packFormat);
         packData.addProperty("max_format", packFormat);
         packData.add("description", description);
@@ -198,7 +205,7 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     public static void modifyBiomes() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, PlacedFeaturesSD.REEDS);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.REEDS);
     }
 
     @Override

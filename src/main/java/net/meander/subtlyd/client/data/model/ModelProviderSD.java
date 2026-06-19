@@ -153,14 +153,12 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
-        blockModelGenerator.createTrivialCube(BlocksSD.BLUE_GLOWSHROOM_BLOCK);
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
         blockModelGenerator.createFlowerBed(BlocksSD.PERSE_WILDFLOWERS);
-        blockModelGenerator.createPlantWithDefaultItem(BlocksSD.BLUE_GLOWSHROOM, BlocksSD.POTTED_BLUE_GLOWSHROOM, BlockModelGenerators.PlantType.NOT_TINTED);
     }
 
     @Override

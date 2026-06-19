@@ -15,7 +15,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProviderSD extends FabricLanguageProvider {
     public LanguageProviderSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(packOutput, "en_us", registryLookup);
+        final String englishUS = "en_us";
+
+        super(packOutput, englishUS, registryLookup);
     }
 
     @Override
@@ -49,12 +51,11 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.UNLIT_SOUL_CAMPFIRE, "Soul Campfire");
         translationBuilder.add(BlocksSD.WARPED_OVERHANG, "Warped Overhang");
 
-        translationBuilder.add("createWorld.customize.tailored.title", "Tailored World Generation");
-        translationBuilder.add("createWorld.customize.tailored.biome_scale", "Biome Scale");
-        translationBuilder.add("createWorld.customize.tailored.continent_scale", "Continent Scale");
-        translationBuilder.add("createWorld.customize.tailored.master_scale", "Master World Generation Scale");
-        translationBuilder.add("createWorld.customize.tailored.ocean_depth", "Ocean Depth");
-        translationBuilder.add("createWorld.customize.tailored.pack", "Custom World Generation");
+        translationBuilder.add("createWorld.tailored.biome_scale", "Biome Scale");
+        translationBuilder.add("createWorld.tailored.continent_scale", "Continent Scale");
+        translationBuilder.add("createWorld.tailored.master_scale", "Master World Generation Scale");
+        translationBuilder.add("createWorld.tailored.pack", "Tailored World Generation");
+        translationBuilder.add("createWorld.tailored.title", "Tailored World Generation");
 
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
@@ -99,7 +100,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.APPLE_PIE, "Apple Pie");
         translationBuilder.add(ItemsSD.TENT.black(), "Black Tent");
         translationBuilder.add(ItemsSD.BLAST_FUNGUS, "Blast Fungus");
-        translationBuilder.add(ItemsSD.BLUE_GLOWSHROOM, "Blue Glowshroom");
         translationBuilder.add(ItemsSD.TENT.blue(), "Blue Tent");
         translationBuilder.add(ItemsSD.TENT.brown(), "Brown Tent");
         translationBuilder.add(ItemsSD.CALAMARI, "Calamari");
