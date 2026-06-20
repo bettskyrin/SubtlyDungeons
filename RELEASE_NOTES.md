@@ -125,6 +125,9 @@
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 - Changed ambient cold wind sounds to be less common
 
+#### Advancements
+- Changed "Traveler" advancement name to "Tentative Accommodations"
+
 #### Splash Text
 - Added "Bigger! Better!" splash text
 - Added "Perse!" splash text

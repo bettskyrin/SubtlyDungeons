@@ -22,7 +22,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Traveler");
+        translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Tentative Accommodations");
         translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
 
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
