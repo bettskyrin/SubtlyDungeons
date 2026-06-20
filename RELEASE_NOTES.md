@@ -87,6 +87,7 @@
 - Added perse wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
 - Changed mushroom generation rate
+- Added mud to the bottom of Swamps
 
 ##### Taiga
 - Changed vegetation to be more common
