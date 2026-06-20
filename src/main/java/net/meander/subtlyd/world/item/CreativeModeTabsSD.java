@@ -82,6 +82,7 @@ public class CreativeModeTabsSD {
                     List.of(PotionContents.createItemStack(LINGERING_POTION, PotionsSD.DECAY)),
                     CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
             entries.insertBefore(POTION, COVEN_ELIXIR);
+            entries.insertAfter(POTTAGE, LIGHT_STEW);
         });
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {

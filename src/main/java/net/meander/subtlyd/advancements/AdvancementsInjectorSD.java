@@ -31,7 +31,8 @@ public class AdvancementsInjectorSD {
                 ItemsSD.COOKED_CALAMARI,
                 ItemsSD.POTTAGE,
                 Items.BROWN_MUSHROOM,
-                Items.RED_MUSHROOM
+                Items.RED_MUSHROOM,
+                ItemsSD.LIGHT_STEW
         };
 
         for (Item food : foods) {
