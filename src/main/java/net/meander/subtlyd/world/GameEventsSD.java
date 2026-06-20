@@ -11,9 +11,10 @@ import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.fabricmc.fabric.api.registry.FuelValueEvents;
 import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.commands.CommandsSD;
-import net.meander.subtlyd.core.CauldronInteractionsSD;
+import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
+import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -21,6 +22,7 @@ import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -126,7 +128,30 @@ public class GameEventsSD {
 
     private static void registerBlockEvents() {
         UseBlockCallback.EVENT.register(new UnlitCampfireFunction());
-        PlayerBlockBreakEvents.AFTER.register((level, _, pos, state, _) -> {
+
+        UseBlockCallback.EVENT.register(((player, level, hand, hitResult) -> { // Cauldron Stews
+            BlockPos pos = hitResult.getBlockPos();
+            BlockState state = level.getBlockState(pos);
+            ItemStack stack = player.getItemInHand(hand);
+
+            if (stack.is(ItemTagsSD.STEW_INGREDIENT)) {
+                if (state.is(Blocks.CAULDRON)) {
+                    InteractionResult result = CauldronInteractionsSD.fillEmptyCauldronWithStewIngredient(state, level, pos, player, stack);
+                    if (result.consumesAction()) {
+                        return result;
+                    }
+                } else if (state.is(BlocksSD.STEW_CAULDRON)) {
+                    InteractionResult result = CauldronInteractionsSD.fillStewCauldronWithStewIngredient(state, level, pos, player, stack);
+                    if (result.consumesAction()) {
+                        return result;
+                    }
+                }
+            }
+
+            return InteractionResult.PASS;
+        }));
+
+        PlayerBlockBreakEvents.AFTER.register((level, _, pos, state, _) -> { // Crop XP
             if (level.getServer() instanceof MinecraftServer server) {
                 if (server.getGameRules().get(GameRules.BLOCK_DROPS)) {
                     if (state.is(BlockTags.CROPS)) {
@@ -142,9 +167,7 @@ public class GameEventsSD {
                     int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
                     if (layers > 0) {
-                        BlockState snowState = (layers == 8)
-                                ? Blocks.SNOW_BLOCK.defaultBlockState()
-                                : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers);
+                        BlockState snowState = (layers == 8) ? Blocks.SNOW_BLOCK.defaultBlockState() : Blocks.SNOW.defaultBlockState().setValue(SnowLayerBlock.LAYERS, layers);
                         level.setBlock(pos, snowState, 3);
                     }
                 }

@@ -14,6 +14,7 @@ public class ItemIdsSD {
     public static final ColorCollection<ResourceKey<Item>> TENT = createSimpleColored("tent");
     public static final ResourceKey<Item> BLAST_FUNGUS = create("blast_fungus");
     public static final ResourceKey<Item> COVEN_ELIXIR = create("coven_elixir");
+    public static final ResourceKey<Item> LIGHT_STEW = create("light_stew");
 
     public static ResourceKey<Item> create(final String name) {
         return ResourceKey.create(Registries.ITEM, Util.identifier(name));

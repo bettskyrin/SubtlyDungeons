@@ -15,6 +15,16 @@
     2) Leaks suggest Mojang intends to update the ocean relatively soon
     3) What fun is a deep ocean with nothing new in it yet :)
 
+#### Cauldron Stews
+- Stews can now be made in cauldrons using their crafting ingredients
+- Once an ingredient is added, the cauldron's stew becomes a Light Stew
+  - These can also be eaten, though have half the nutrition as a full crafted stew
+- One cauldron can hold 3 bowls of stew
+- Light Stews made with flowers that would be used to make a suspicious stew, do not grant status effects
+
+#### Items
+- Added Light Stew
+
 #### Blocks
 - Added Perse Wildflowers
   - Can be crafted into Purple Dye
@@ -119,4 +129,5 @@
 - Added `has_cespitose` biome tag
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Added `huge_glowshroom_can_place_on` block tag
+- Added `stew_ingredient` block tag
 - Removed `has_ambient_block_sounds` block tag

@@ -9,6 +9,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.references.ItemIds;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
@@ -23,6 +24,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> LIQUID_CONSUMABLES = bind("liquid_consumables");
     public static final TagKey<Item> NON_HUMANOID_ARMOR = bind("non_humanoid_armor");
     public static final TagKey<Item> HAS_MAGIC_LIMIT = bind("has_magic_limit");
+    public static final TagKey<Item> STEW_INGREDIENT = bind("stew_ingredient");
     
     public ItemTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -87,6 +89,31 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(BlockItemIdsSD.SNOW_BRICKS.item());
         tag(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
                 .add(BlockItemIdsSD.IRON_GRATE.item());
+        tag(STEW_INGREDIENT)
+                .add(BlockItemIds.BROWN_MUSHROOM.item())
+                .add(BlockItemIds.RED_MUSHROOM.item())
+                .add(BlockItemIds.CARROT_CROP.item())
+                .add(ItemIds.BEETROOT)
+                .add(ItemIds.WHEAT)
+                .add(ItemIds.BAKED_POTATO)
+                .add(ItemIds.COOKED_RABBIT)
+                .add(BlockItemIds.ALLIUM.item())
+                .add(BlockItemIds.AZURE_BLUET.item())
+                .add(BlockItemIds.OPEN_EYEBLOSSOM.item())
+                .add(BlockItemIds.BLUE_ORCHID.item())
+                .add(BlockItemIds.DANDELION.item())
+                .add(BlockItemIds.GOLDEN_DANDELION.item())
+                .add(BlockItemIds.CLOSED_EYEBLOSSOM.item())
+                .add(BlockItemIds.CORNFLOWER.item())
+                .add(BlockItemIds.LILY_OF_THE_VALLEY.item())
+                .add(BlockItemIds.OXEYE_DAISY.item())
+                .add(BlockItemIds.POPPY.item())
+                .add(BlockItemIds.TORCHFLOWER.item())
+                .add(BlockItemIds.ORANGE_TULIP.item())
+                .add(BlockItemIds.PINK_TULIP.item())
+                .add(BlockItemIds.RED_TULIP.item())
+                .add(BlockItemIds.WHITE_TULIP.item())
+                .add(BlockItemIds.WITHER_ROSE.item());
     }
 
     private static TagKey<Item> bind(String string) {

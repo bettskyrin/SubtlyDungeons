@@ -1,6 +1,6 @@
 package net.meander.subtlyd.world.block;
 
-import net.meander.subtlyd.core.CauldronInteractionsSD;
+import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.references.BlockItemId;
@@ -73,6 +73,7 @@ public class BlocksSD {
             .noCollision()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY));
+    public static final Block STEW_CAULDRON = register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
 
     public static void registration() {}
 

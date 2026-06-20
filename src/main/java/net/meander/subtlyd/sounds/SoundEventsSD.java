@@ -10,6 +10,8 @@ import net.minecraft.sounds.SoundEvent;
 public class SoundEventsSD {
     public static final SoundEvent WIND = register("block.air.idle");
     public static final SoundEvent BUSH_IDLE = register("block.bush.idle");
+    public static final SoundEvent STEW_SERVED = register("block.cauldron.serve");
+    public static final SoundEvent STEW_STEWS = register("block.cauldron.stewing");
     public static final SoundEvent ICE_FREEZE = register("block.frosted_ice.freeze");
     public static final SoundEvent SNOW_BRICK_BREAK = register("block.snow_bricks.break");
     public static final SoundEvent SNOW_BRICK_FALL = register("block.snow_bricks.fall");

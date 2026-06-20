@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class BlockEntityTypeIdsSD {
     public static final ResourceKey<BlockEntityType<?>> POTION_CAULDRON = create("potion_cauldron");
+    public static final ResourceKey<BlockEntityType<?>> STEW_CAULDRON = create("stew_cauldron");
 
     private static ResourceKey<BlockEntityType<?>> create(final String name) {
         return ResourceKey.create(Registries.BLOCK_ENTITY_TYPE, Util.identifier(name));

@@ -46,18 +46,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block());
-        tag(BlockTags.WALLS)
-                .add(BlockItemIdsSD.SNOW_BRICK_WALL.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
-                .add(BlockItemIdsSD.STONE_TILE_WALL.block());
-        tag(BlockTags.STAIRS)
-                .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
-                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block());
-        tag(BlockTags.SLABS)
-                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
-                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
         tag(SKULL_BLOCK)
                 .add(BlockItemIds.SKELETON_SKULL.block())
                 .add(BlockIds.SKELETON_WALL_SKULL)
@@ -73,20 +61,18 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockIds.PLAYER_WALL_HEAD)
                 .add(BlockItemIds.PIGLIN_HEAD.block())
                 .add(BlockIds.PIGLIN_WALL_HEAD);
-        tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .addTag(SNOW_BRICKS)
-                .addTag(STONE_TILES)
-                .addTag(DRIPSTONE)
-                .add(BlockItemIdsSD.STONE_PILLAR.block())
-                .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
-                .add(BlockItemIdsSD.IRON_GRATE.block())
-                .add(BlockItemIdsSD.BASALT_SLAB.block());
-        tag(BlockTags.MINEABLE_WITH_AXE)
-                .addTag(SKULL_BLOCK);
-        tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
-                .add(BlockItemIdsSD.WARPED_OVERHANG.block());
-        tag(BlockTags.NEEDS_STONE_TOOL)
-                .add(BlockItemIdsSD.IRON_GRATE.block());
+        tag(BlockTags.WALLS)
+                .add(BlockItemIdsSD.SNOW_BRICK_WALL.block())
+                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
+                .add(BlockItemIdsSD.STONE_TILE_WALL.block());
+        tag(BlockTags.STAIRS)
+                .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
+                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
+                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block());
+        tag(BlockTags.SLABS)
+                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
+                .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
+                .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
         tag(TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)
                 .add(BlockItemIds.SNOW.block())
                 .add(BlockItemIds.SNOW_BLOCK.block())
@@ -124,6 +110,20 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
         tag(BlockTags.BEE_ATTRACTIVE)
                 .add(BlockItemIdsSD.PERSE_WILDFLOWERS.block());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .addTag(SNOW_BRICKS)
+                .addTag(STONE_TILES)
+                .addTag(DRIPSTONE)
+                .add(BlockItemIdsSD.STONE_PILLAR.block())
+                .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
+                .add(BlockItemIdsSD.IRON_GRATE.block())
+                .add(BlockItemIdsSD.BASALT_SLAB.block());
+        tag(BlockTags.MINEABLE_WITH_AXE)
+                .addTag(SKULL_BLOCK);
+        tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
+                .add(BlockItemIdsSD.WARPED_OVERHANG.block());
+        tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(BlockItemIdsSD.IRON_GRATE.block());
     }
     
     private static TagKey<Block> bind(String string) {

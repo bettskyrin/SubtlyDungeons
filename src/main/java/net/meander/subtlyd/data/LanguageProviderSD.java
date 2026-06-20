@@ -110,6 +110,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.TENT.green(), "Green Tent");
         translationBuilder.add(ItemsSD.TENT.lightBlue(), "Light Blue Tent");
         translationBuilder.add(ItemsSD.TENT.lightGray(), "Light Gray Tent");
+        translationBuilder.add(ItemsSD.LIGHT_STEW, "Light Stew");
         translationBuilder.add(ItemsSD.TENT.lime(), "Lime Tent");
         translationBuilder.add(ItemsSD.TENT.magenta(), "Magenta Tent");
         translationBuilder.add(ItemsSD.TENT.orange(), "Orange Tent");
@@ -139,6 +140,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
         translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
+        translationBuilder.add(SoundEventsSD.STEW_SERVED, "Stew is served");
+        translationBuilder.add(SoundEventsSD.STEW_STEWS, "Something stews");
         translationBuilder.add(SoundEventsSD.ICE_FREEZE, "Frosty noises");
         translationBuilder.add(SoundEventsSD.AREA_EFFECT_CLOUD_GAS, "Effect cloud hisses");
         translationBuilder.add(SoundEventsSD.FLAME_ARROW_HIT, "Flaming arrow hits");

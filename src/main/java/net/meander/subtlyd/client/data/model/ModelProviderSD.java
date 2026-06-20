@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
+import net.meander.subtlyd.world.block.StewCauldronBlock;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.client.data.models.BlockModelGenerators;
@@ -68,38 +69,60 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(overhangBlock, multiVariant));
     }
 
-    /**
-     * Creates a textured cauldron block
-     */
     @SuppressWarnings("DataFlowIssue")
-    private static void generateFilledCauldron(Block cauldronBlock, BlockModelGenerators blockModelGenerator) {
+    private static Identifier[] generateCauldronContentsModel(Identifier baseId, String nameSuffix, Identifier liquidTexture, BlockModelGenerators blockModelGenerator) {
         TextureMapping mapping = new TextureMapping()
-                .put(TextureSlot.CONTENT, new Material(Identifier.tryParse("minecraft:block/water_still")))
+                .put(TextureSlot.CONTENT, new Material(liquidTexture))
                 .put(TextureSlot.TOP, new Material(Identifier.tryParse("minecraft:block/cauldron_top")))
                 .put(TextureSlot.INSIDE, new Material(Identifier.tryParse("minecraft:block/cauldron_inner")))
                 .put(TextureSlot.BOTTOM, new Material(Identifier.tryParse("minecraft:block/cauldron_bottom")))
                 .put(TextureSlot.SIDE, new Material(Identifier.tryParse("minecraft:block/cauldron_side")))
                 .put(TextureSlot.PARTICLE, new Material(Identifier.tryParse("minecraft:block/cauldron_side")));
-        Identifier blockId = BuiltInRegistries.BLOCK.getKey(cauldronBlock);
 
-        Identifier level1Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_level1");
-        Identifier level2Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_level2");
-        Identifier level3Id = Identifier.tryParse(blockId.getNamespace() + ":block/" + blockId.getPath() + "_full");
+        Identifier level1Id = Identifier.tryParse(baseId.getNamespace() + ":block/" + baseId.getPath() + nameSuffix + "_level1");
+        Identifier level2Id = Identifier.tryParse(baseId.getNamespace() + ":block/" + baseId.getPath() + nameSuffix + "_level2");
+        Identifier level3Id = Identifier.tryParse(baseId.getNamespace() + ":block/" + baseId.getPath() + nameSuffix + "_full");
 
-        Identifier level1 = ModelTemplates.CAULDRON_LEVEL1.create(level1Id, mapping, blockModelGenerator.modelOutput);
-        Identifier level2 = ModelTemplates.CAULDRON_LEVEL2.create(level2Id, mapping, blockModelGenerator.modelOutput);
-        Identifier level3 = ModelTemplates.CAULDRON_FULL.create(level3Id, mapping, blockModelGenerator.modelOutput);
+        return new Identifier[]{
+                ModelTemplates.CAULDRON_LEVEL1.create(level1Id, mapping, blockModelGenerator.modelOutput),
+                ModelTemplates.CAULDRON_LEVEL2.create(level2Id, mapping, blockModelGenerator.modelOutput),
+                ModelTemplates.CAULDRON_FULL.create(level3Id, mapping, blockModelGenerator.modelOutput)
+        };
+    }
 
-        blockModelGenerator.blockStateOutput.accept(MultiVariantGenerator.dispatch(cauldronBlock)
+    private static void generatePotionCauldron(BlockModelGenerators blockModelGenerator) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(BlocksSD.POTION_CAULDRON);
+        Identifier[] waterModels = generateCauldronContentsModel(blockId, "", Identifier.tryParse("minecraft:block/water_still"), blockModelGenerator);
+
+        blockModelGenerator.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlocksSD.POTION_CAULDRON)
                 .with(PropertyDispatch.initial(PotionCauldronBlock.POTION_LEVEL)
-                        .select(1, BlockModelGenerators.plainVariant(level1))
-                        .select(2, BlockModelGenerators.plainVariant(level1))
-                        .select(3, BlockModelGenerators.plainVariant(level2))
-                        .select(4, BlockModelGenerators.plainVariant(level2))
-                        .select(5, BlockModelGenerators.plainVariant(level3))
-                        .select(6, BlockModelGenerators.plainVariant(level3))
+                        .select(1, BlockModelGenerators.plainVariant(waterModels[0]))
+                        .select(2, BlockModelGenerators.plainVariant(waterModels[0]))
+                        .select(3, BlockModelGenerators.plainVariant(waterModels[1]))
+                        .select(4, BlockModelGenerators.plainVariant(waterModels[1]))
+                        .select(5, BlockModelGenerators.plainVariant(waterModels[2]))
+                        .select(6, BlockModelGenerators.plainVariant(waterModels[2]))
                 )
         );
+    }
+
+    private static void generateStewCauldron(BlockModelGenerators blockModelGenerator) {
+        Identifier blockId = BuiltInRegistries.BLOCK.getKey(BlocksSD.STEW_CAULDRON);
+
+        Identifier lightTexture = Identifier.tryParse(blockId.getNamespace() + ":block/light_stew_still");
+        Identifier[] lightModels = generateCauldronContentsModel(blockId, "_light", lightTexture, blockModelGenerator);
+
+        Identifier finishedTexture = Identifier.tryParse(blockId.getNamespace() + ":block/heavy_stew_still");
+        Identifier[] finishedModels = generateCauldronContentsModel(blockId, "_heavy", finishedTexture, blockModelGenerator);
+
+        blockModelGenerator.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlocksSD.STEW_CAULDRON)
+                .with(PropertyDispatch.initial(StewCauldronBlock.LEVEL, StewCauldronBlock.IS_HEAVY_STEW)
+                        .select(1, false, BlockModelGenerators.plainVariant(lightModels[0]))
+                        .select(2, false, BlockModelGenerators.plainVariant(lightModels[1]))
+                        .select(3, false, BlockModelGenerators.plainVariant(lightModels[2]))
+                        .select(1, true, BlockModelGenerators.plainVariant(finishedModels[0]))
+                        .select(2, true, BlockModelGenerators.plainVariant(finishedModels[1]))
+                        .select(3, true, BlockModelGenerators.plainVariant(finishedModels[2]))));
     }
 
     private void generatePotionArchetypes(ItemModelGenerators itemModelGenerator) {
@@ -153,12 +176,13 @@ public class ModelProviderSD extends FabricModelProvider {
         blockModelGenerator.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerator.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerator.createTrivialCube(BlocksSD.IRON_GRATE);
+        blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         blockModelGenerator.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
+        blockModelGenerator.createFlowerBed(BlocksSD.PERSE_WILDFLOWERS);
         generateOverhangBlock(BlocksSD.WARPED_OVERHANG, blockModelGenerator);
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
-        blockModelGenerator.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
-        generateFilledCauldron(BlocksSD.POTION_CAULDRON, blockModelGenerator);
-        blockModelGenerator.createFlowerBed(BlocksSD.PERSE_WILDFLOWERS);
+        generatePotionCauldron(blockModelGenerator);
+        generateStewCauldron(blockModelGenerator);
     }
 
     @Override
@@ -174,6 +198,7 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.WARPED_OVERHANG, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.BLAST_FUNGUS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.COVEN_ELIXIR, ModelTemplates.FLAT_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.LIGHT_STEW, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
     }
 }

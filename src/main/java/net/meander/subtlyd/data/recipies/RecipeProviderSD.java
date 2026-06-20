@@ -54,12 +54,12 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern("A")
                         .pattern("B")
                         .unlockedBy(getHasName(Blocks.SOUL_TORCH), has(Blocks.SOUL_TORCH))
-                        .save(this.output);
+                        .save(output);
 
                 nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
                 twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
 
-                stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), this.has(ItemsSD.SNOW_BRICKS)).save(output);
+                stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), has(ItemsSD.SNOW_BRICKS)).save(output);
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
                 wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_WALL, ItemsSD.SNOW_BRICKS);
 
@@ -148,13 +148,13 @@ public class RecipeProviderSD extends FabricRecipeProvider {
             }
 
             private void cookRecipesSD(Item ingredient, float experience, Item result) {
-                this.simpleCookingRecipe("smelting", SmeltingRecipe::new, 200, ingredient, result, experience);
-                this.simpleCookingRecipe("smoking", SmokingRecipe::new, 100, ingredient, result, experience);
-                this.simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
+                simpleCookingRecipe("smelting", SmeltingRecipe::new, 200, ingredient, result, experience);
+                simpleCookingRecipe("smoking", SmokingRecipe::new, 100, ingredient, result, experience);
+                simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
             }
 
             private void tent(ItemLike tentOutput, ItemLike wool) {
-                this.shaped(RecipeCategory.MISC, tentOutput)
+                shaped(RecipeCategory.MISC, tentOutput)
                         .group("tent_wool")
                         .define('#', wool)
                         .define('X', Items.STICK)

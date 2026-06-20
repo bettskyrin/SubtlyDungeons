@@ -14,6 +14,8 @@ import java.util.Set;
 
 public class BlockEntityTypesSD {
     public static final BlockEntityType<PotionCauldronBlockEntity> POTION_CAULDRON = register(BlockEntityTypeIdsSD.POTION_CAULDRON, PotionCauldronBlockEntity::new, BlocksSD.POTION_CAULDRON);
+    public static final BlockEntityType<StewCauldronBlockEntity> STEW_CAULDRON = register(BlockEntityTypeIdsSD.STEW_CAULDRON, StewCauldronBlockEntity::new, BlocksSD.STEW_CAULDRON);
+
 
     public static void registration() {}
 

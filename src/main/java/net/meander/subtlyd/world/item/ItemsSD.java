@@ -67,6 +67,7 @@ public class ItemsSD {
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
     public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
+    public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties().food(FoodsSD.LIGHT_STEW).stacksTo(1));
 
     public static void registration() {
         CreativeModeTabsSD.registration();

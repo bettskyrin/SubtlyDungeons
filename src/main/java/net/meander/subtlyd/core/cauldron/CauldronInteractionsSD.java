@@ -1,10 +1,15 @@
-package net.meander.subtlyd.core;
+package net.meander.subtlyd.core.cauldron;
 
+import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
+import net.meander.subtlyd.world.block.StewCauldronBlock;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
+import net.meander.subtlyd.world.block.entity.StewCauldronBlockEntity;
+import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.core.component.DataComponents;
@@ -27,6 +32,10 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.CraftingInput;
+import net.minecraft.world.item.crafting.CraftingRecipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
@@ -38,6 +47,8 @@ import java.util.OptionalInt;
 
 public class CauldronInteractionsSD {
     public static CauldronInteraction.Dispatcher POTION = new CauldronInteraction.Dispatcher();
+    public static CauldronInteraction.Dispatcher INCOMPLETE_STEW = new CauldronInteraction.Dispatcher();
+    public static CauldronInteraction.Dispatcher STEW = new CauldronInteraction.Dispatcher();
 
     public static void bootstrap() {
         CauldronInteractions.EMPTY.put(Items.SPLASH_POTION, CauldronInteractionsSD::fillEmptyCauldronWithPotion);
@@ -53,6 +64,98 @@ public class CauldronInteractionsSD {
 
         POTION.put(Items.GLASS_BOTTLE, CauldronInteractionsSD::fillBottle);
         POTION.put(Items.ARROW, CauldronInteractionsSD::createTippedArrow);
+
+        INCOMPLETE_STEW.put(Items.BOWL, CauldronInteractionsSD::serveStew);
+        STEW.put(Items.BOWL, CauldronInteractionsSD::serveStew);
+    }
+
+    private static CraftingInput findStewRecipe(StewCauldronBlockEntity blockEntity) {
+        NonNullList<ItemStack> gridItems = NonNullList.withSize(9, ItemStack.EMPTY);
+
+        gridItems.set(0, new ItemStack(Items.BOWL));
+
+        int index = 1;
+        for (ItemStack ingredient : blockEntity.getIngredients()) {
+            if (!ingredient.isEmpty() && index < 9) {
+                gridItems.set(index++, ingredient);
+            }
+        }
+
+        return CraftingInput.of(3, 3, gridItems);
+    }
+
+    public static InteractionResult fillEmptyCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, ItemStack itemStack) {
+        if (!level.isClientSide()) {
+            level.setBlockAndUpdate(blockPos, BlocksSD.STEW_CAULDRON.defaultBlockState().setValue(StewCauldronBlock.LEVEL, 3));
+
+            if (level.getBlockEntity(blockPos) instanceof StewCauldronBlockEntity blockEntity) {
+                if (blockEntity.addIngredient(itemStack)) {
+                    CraftingInput input = findStewRecipe(blockEntity);
+                    Optional<RecipeHolder<CraftingRecipe>> recipe = level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
+
+                    if (!player.hasInfiniteMaterials()) {
+                        itemStack.shrink(1);
+                    }
+
+                    if (recipe.isPresent()) {
+                        level.setBlockAndUpdate(blockPos, blockState.setValue(StewCauldronBlock.IS_HEAVY_STEW, true));
+                    }
+
+                    level.playSound(null, blockPos, SoundEventsSD.STEW_STEWS, SoundSource.BLOCKS, 1.0F, 1.5F);
+                    return InteractionResult.SUCCESS_SERVER;
+                }
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    public static InteractionResult fillStewCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, ItemStack itemStack) {
+        if (level.getBlockEntity(blockPos) instanceof StewCauldronBlockEntity blockEntity) {
+            if (!blockState.getValue(StewCauldronBlock.IS_HEAVY_STEW)) {
+                if (!level.isClientSide()) {
+                    if (blockEntity.addIngredient(itemStack)) {
+                        CraftingInput input = findStewRecipe(blockEntity);
+                        Optional<RecipeHolder<CraftingRecipe>> recipe = level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
+
+                        if (!player.hasInfiniteMaterials()) {
+                            itemStack.shrink(1);
+                        }
+
+                        if (recipe.isPresent()) {
+                            level.setBlockAndUpdate(blockPos, blockState.setValue(StewCauldronBlock.IS_HEAVY_STEW, true));
+                        }
+
+                        level.playSound(null, blockPos, SoundEventsSD.STEW_STEWS, SoundSource.BLOCKS, 1.0F, 1.5F);
+                        return InteractionResult.SUCCESS_SERVER;
+                    }
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
+        return InteractionResult.PASS;
+    }
+
+    public static InteractionResult serveStew(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
+        if (level.getBlockEntity(blockPos) instanceof StewCauldronBlockEntity blockEntity) {
+            if (!level.isClientSide()) {
+                int currentLevel = blockState.getValue(StewCauldronBlock.LEVEL);
+                CraftingInput input = findStewRecipe(blockEntity);
+                Optional<RecipeHolder<CraftingRecipe>> recipe = level.recipeAccess().getSynchronizedRecipes().getFirstMatch(RecipeType.CRAFTING, input, level);
+                ItemStack resultStew = recipe.map(craftingRecipeRecipeHolder -> craftingRecipeRecipeHolder.value().assemble(input)).orElseGet(() -> new ItemStack(ItemsSD.LIGHT_STEW));
+
+                player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, resultStew));
+                level.playSound(null, blockPos, SoundEventsSD.STEW_SERVED, SoundSource.BLOCKS, 1.0F, 1.5F);
+
+                if (currentLevel > 1) {
+                    level.setBlockAndUpdate(blockPos, blockState.setValue(StewCauldronBlock.LEVEL, currentLevel - 1));
+                } else {
+                    level.setBlockAndUpdate(blockPos, Blocks.CAULDRON.defaultBlockState());
+                }
+                return InteractionResult.SUCCESS_SERVER;
+            }
+            return InteractionResult.SUCCESS;
+        }
+        return InteractionResult.PASS;
     }
 
     public static InteractionResult fillEmptyCauldronWithPotion(BlockState ignored, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {

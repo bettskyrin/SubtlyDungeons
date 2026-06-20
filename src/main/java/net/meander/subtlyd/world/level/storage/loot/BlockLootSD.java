@@ -15,7 +15,6 @@ import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.concurrent.CompletableFuture;
@@ -26,39 +25,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
     }
 
     @Override public void generate() {
-        LootItemCondition.Builder isLitCampfire = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE)
-                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true));
-        LootItemCondition.Builder isLitSoulCampfire = LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SOUL_CAMPFIRE)
-                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true));
-
-        LootTable.Builder campfireBuilder = LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
-                        .add(AlternativesEntry.alternatives(
-                                LootItem.lootTableItem(Items.CAMPFIRE)
-                                        .when(hasSilkTouch())
-                                        .when(isLitCampfire),
-                                LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE)
-                                        .when(hasSilkTouch()),
-                                LootItem.lootTableItem(Items.CHARCOAL)
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
-                        ))
-                );
-
-        LootTable.Builder soulCampfireBuilder = LootTable.lootTable()
-                .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
-                        .add(AlternativesEntry.alternatives(
-                                LootItem.lootTableItem(Items.SOUL_CAMPFIRE)
-                                        .when(hasSilkTouch())
-                                        .when(isLitSoulCampfire),
-                                LootItem.lootTableItem(ItemsSD.UNLIT_SOUL_CAMPFIRE)
-                                        .when(hasSilkTouch()),
-                                LootItem.lootTableItem(Items.SOUL_SOIL)
-                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                        ))
-                );
-
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);
@@ -79,8 +45,34 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
         dropSelf(BlocksSD.BASALT_SLAB);
         dropSelf(BlocksSD.SOUL_JACK_O_LANTERN);
-        add(Blocks.CAMPFIRE, campfireBuilder);
-        add(Blocks.SOUL_CAMPFIRE, soulCampfireBuilder);
+        add(Blocks.CAMPFIRE, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(Items.CAMPFIRE)
+                                        .when(hasSilkTouch())
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.CAMPFIRE)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
+                                LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE)
+                                        .when(hasSilkTouch()),
+                                LootItem.lootTableItem(Items.CHARCOAL)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
+                        ))
+                ));
+        add(Blocks.SOUL_CAMPFIRE, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(Items.SOUL_CAMPFIRE)
+                                        .when(hasSilkTouch())
+                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(Blocks.SOUL_CAMPFIRE)
+                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
+                                LootItem.lootTableItem(ItemsSD.UNLIT_SOUL_CAMPFIRE)
+                                        .when(hasSilkTouch()),
+                                LootItem.lootTableItem(Items.SOUL_SOIL)
+                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                        ))
+                ));
         dropSelf(BlocksSD.PERSE_WILDFLOWERS);
     }
 }

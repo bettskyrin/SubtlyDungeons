@@ -20,6 +20,22 @@
       "subtlyd:wind/lightwind4"
     ]
   },
+  "block.cauldron.serve": {
+    "subtitle": "subtitles.subtlyd.block.cauldron.serve",
+    "sounds": [
+      "minecraft:item/bucket/empty_lava1",
+      "minecraft:item/bucket/empty_lava2",
+      "minecraft:item/bucket/empty_lava3"
+    ]
+  },
+  "block.cauldron.stewing": {
+    "subtitle": "subtitles.subtlyd.block.cauldron.stewing",
+    "sounds": [
+      "minecraft:item/bucket/fill_lava1",
+      "minecraft:item/bucket/fill_lava2",
+      "minecraft:item/bucket/fill_lava3"
+    ]
+  },
   "block.frosted_ice.freeze": {
     "subtitle": "subtitles.subtlyd.block.frosted_ice.freeze",
     "sounds": [

@@ -1,9 +1,10 @@
 package net.meander.subtlyd.world.block;
 
 import com.mojang.serialization.MapCodec;
-import net.meander.subtlyd.core.CauldronInteractionsSD;
+import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
+import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.util.RandomSource;
@@ -24,14 +25,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 
 public class PotionCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
-    public static final MapCodec<PotionCauldronBlock> CODEC = simpleCodec(properties ->
-            new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION)
-    );
-    public static final IntegerProperty POTION_LEVEL = IntegerProperty.create("level", 1, 6);
+    public static final MapCodec<PotionCauldronBlock> CODEC = simpleCodec(properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION));
+    public static final IntegerProperty POTION_LEVEL = BlockStatePropertiesSD.POTION_LEVEL;
 
     public PotionCauldronBlock(Properties properties, CauldronInteraction.Dispatcher interactions) {
         super(properties, interactions);
-        this.registerDefaultState(this.stateDefinition.any().setValue(POTION_LEVEL, 1));
+        registerDefaultState(stateDefinition.any().setValue(POTION_LEVEL, 1));
     }
 
     @Override
