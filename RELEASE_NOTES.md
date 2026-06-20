@@ -95,6 +95,13 @@
 ##### Plains
 - Changed mushroom generation rate
 
+##### The End
+- Changed Chorus Flowers to have an 85% chance of being alive
+
+#### Structures
+##### End Spikes
+- Changed End Spikes to be more triangular
+
 #### Blocks
 - Changed doors to be water loggable
 - Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
