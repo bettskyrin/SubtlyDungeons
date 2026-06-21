@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.item.enchantment;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -37,7 +38,7 @@ public class EnchantmentHelperSD {
     public static int getEnchantmentCost(ItemStack itemStack) {
         int value = 0;
 
-        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getEnchantments().entrySet()) {
+        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, itemStack.getEnchantments()).entrySet()) {
             if (entry.getKey().unwrapKey().isPresent()) {
                 Enchantment enchantment = entry.getKey().value();
                 value += enchantment.getAnvilCost();

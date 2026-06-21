@@ -8,9 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ExtraCodecs;
 
 public class DataComponentsSD {
-    public static final DataComponentType<Integer> MAGIC_LEVEL = register(
-            "magic_level", DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT)
-    );
+    public static final DataComponentType<Integer> MAGIC_LEVEL = register("magic_level", DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
 
     public static void registration() {}
 

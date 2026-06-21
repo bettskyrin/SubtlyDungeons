@@ -18,7 +18,6 @@ import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.meander.subtlyd.world.level.block.SimpleSnowloggedBlock;
 import net.meander.subtlyd.world.level.block.UnlitCampfireFunction;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
@@ -82,7 +81,6 @@ public class GameEventsSD {
         registerCompostables();
     }
 
-
     /**
      * Modifies item components.
      */
@@ -108,16 +106,11 @@ public class GameEventsSD {
 
             listener.modify(ItemTagsSD.getItems(ItemTagsSD.HAS_MAGIC_LIMIT), (builder, item) -> {
                 ItemStack itemStack = item.getDefaultInstance();
-                int magicLevel = 0;
 
-                if (itemStack.isEnchanted() || itemStack.is(Items.ENCHANTED_BOOK)) {
-                    magicLevel = Mth.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantabilityFromMap(item))) / 3);
-
-                    if (itemStack.is(Items.ENCHANTED_BOOK)) {
-                        magicLevel =  EnchantmentHelperSD.getEnchantmentCost(itemStack);
-                    }
+                if (!itemStack.is(Items.ENCHANTED_BOOK)) {
+                    int magicLevel = Mth.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantabilityFromMap(item))) / 3);
+                    builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
                 }
-                builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
             });
         });
     }

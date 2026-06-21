@@ -29,7 +29,7 @@ loom {
     accessWidenerPath = file("src/main/resources/subtlyd.classtweaker")
 
     runConfigs.configureEach {
-        getJvmArguments()
+        jvmArguments.add("--enable-native-access=ALL-UNNAMED")
     }
 }
 
