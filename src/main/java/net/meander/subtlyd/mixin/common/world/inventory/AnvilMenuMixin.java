@@ -60,7 +60,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
                 resultSlots.setItem(0, ItemStack.EMPTY);
             }
             result.set(DataComponentsSD.MAGIC_LEVEL, magicLevel + magicLevelIncrease);
-            cost.set(result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0));
+            cost.set(Math.max(1, result.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0)));
         }
     }
 }
