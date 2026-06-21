@@ -29,7 +29,7 @@ loom {
     accessWidenerPath = file("src/main/resources/subtlyd.classtweaker")
 
     runConfigs.configureEach {
-        vmArg "--enable-native-access=ALL-UNNAMED"
+        jvmArguments.add("--enable-native-access=ALL-UNNAMED")
     }
 }
 
@@ -72,4 +72,14 @@ publishing {
 
 tasks.withType(AbstractCopyTask).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
+    }
 }
