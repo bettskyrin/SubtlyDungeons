@@ -23,7 +23,13 @@ public class LanguageProviderSD extends FabricLanguageProvider {
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
         translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Tentative Accommodations");
-        translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a tent over 1km away from your respawn point");
+        translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a Tent over 1km away from your respawn point");
+        translationBuilder.add("advancements.subtlyd.banner_marker.title", "Marking Territory");
+        translationBuilder.add("advancements.subtlyd.banner_marker.description", "Use a Map on a Banner");
+        translationBuilder.add("advancements.subtlyd.light_campfire.title", "Gather 'Round");
+        translationBuilder.add("advancements.subtlyd.light_campfire.description", "Use a Stick on an Unlit Campfire");
+        translationBuilder.add("advancements.subtlyd.make_stew.title", "Soup-er!");
+        translationBuilder.add("advancements.subtlyd.make_stew.description", "Add ingredients to a Cauldron");
 
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
         translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");

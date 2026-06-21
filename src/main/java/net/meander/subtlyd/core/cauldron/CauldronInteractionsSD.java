@@ -7,6 +7,7 @@ import net.meander.subtlyd.world.block.StewCauldronBlock;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.meander.subtlyd.world.block.entity.StewCauldronBlockEntity;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.NonNullList;
@@ -18,6 +19,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -101,6 +103,10 @@ public class CauldronInteractionsSD {
                         level.setBlockAndUpdate(blockPos, blockState.setValue(StewCauldronBlock.IS_HEAVY_STEW, true));
                     }
 
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, blockPos, itemStack);
+                    }
+
                     level.playSound(null, blockPos, SoundEventsSD.STEW_STEWS, SoundSource.BLOCKS, 1.0F, 1.5F);
                     return InteractionResult.SUCCESS_SERVER;
                 }
@@ -123,6 +129,10 @@ public class CauldronInteractionsSD {
 
                         if (recipe.isPresent()) {
                             level.setBlockAndUpdate(blockPos, blockState.setValue(StewCauldronBlock.IS_HEAVY_STEW, true));
+                        }
+
+                        if (player instanceof ServerPlayer serverPlayer) {
+                            CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, blockPos, itemStack);
                         }
 
                         level.playSound(null, blockPos, SoundEventsSD.STEW_STEWS, SoundSource.BLOCKS, 1.0F, 1.5F);

@@ -73,6 +73,9 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
+        tag(BlockTags.CAULDRONS)
+                .add(BlockItemIdsSD.POTION_CAULDRON.block())
+                .add(BlockItemIdsSD.STEW_CAULDRON.block());
         tag(TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS)
                 .add(BlockItemIds.SNOW.block())
                 .add(BlockItemIds.SNOW_BLOCK.block())

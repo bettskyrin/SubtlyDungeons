@@ -51,6 +51,14 @@
 - Added ambient fog to Pale Garden biomes
 - Added ambient fog to Dark Forest biomes
 
+#### Advancements
+- Added Marking Territory advancement
+  - Is granted by using a map on a banner, to create a banner marker
+- Added Gather 'Round advancement
+  - Is granted by to light a campfire with a stick
+- Added Soup-er! advancement
+  - Is granted by adding stew ingredients to a cauldron
+
 ### Changes
 #### World Generation
 - Changed all biomes to be larger
