@@ -95,7 +95,7 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
                 this.getZ(),
                 4.0F,
                 false,
-                Level.ExplosionInteraction.MOB,
+                Level.ExplosionInteraction.NONE,
                 ParticleTypes.WARPED_SPORE,
                 ParticleTypes.CRIMSON_SPORE,
                 LevelSD.DEFAULT_EXPLOSION_SPORE_PARTICLES,
