@@ -37,7 +37,9 @@ public class ArthropodAnimationMixin implements ClimberAccessor {
 
         if (isClimbing) {
             tickRotation(livingEntity.yBodyRot);
+        }
 
+        if (isClimbing || (livingEntity.onGround() && (livingEntity.getDeltaMovement().x() > 0.0F || livingEntity.getDeltaMovement().z() > 0.0F))) {
             if (livingEntity.tickCount % 8 == 0) {
                 livingEntity.playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
             }
