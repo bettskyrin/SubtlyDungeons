@@ -4,11 +4,12 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
 import net.meander.subtlyd.world.entity.EntitySD;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,6 +26,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
     private double yOld;
     
     @Shadow public abstract boolean isClimbing();
+    @Shadow protected abstract void playStepSound(BlockPos pos, BlockState blockState);
 
     /**
      * Animates the transition between crawling on the ground and wall. Also calls the walk animation and sound while climbing on walls.
@@ -48,7 +50,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
 
                 livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
                 if (livingEntity.tickCount % 8 == 0) {
-                    livingEntity.playSound(SoundEvents.SPIDER_STEP, 0.15F, 1.0F);
+                    this.playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
                 }
             }
         } else {

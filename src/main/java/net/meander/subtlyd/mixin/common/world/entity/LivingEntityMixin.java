@@ -20,6 +20,8 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
@@ -171,6 +173,17 @@ public abstract class LivingEntityMixin extends Entity {
 
             if (isPlayerObvious) {
                 cir.setReturnValue(1.0);
+            }
+        }
+    }
+
+    @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
+    private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (entity instanceof Silverfish || entity instanceof Endermite) {
+            if (entity.horizontalCollision) {
+                cir.setReturnValue(true);
             }
         }
     }

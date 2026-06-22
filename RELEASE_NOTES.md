@@ -22,6 +22,10 @@
 - One cauldron can hold 3 bowls of stew
 - Light Stews made with flowers that would be used to make a suspicious stew, do not grant status effects
 
+#### More Creepy Bugs
+- Added wall climbing to Silverfish AI
+- Added wall climbing to Endermite AI
+
 #### Items
 - Added Light Stew
 - Added Dagger

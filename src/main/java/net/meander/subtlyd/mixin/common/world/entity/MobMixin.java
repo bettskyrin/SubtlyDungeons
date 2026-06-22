@@ -7,8 +7,12 @@ import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -17,6 +21,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Mob.class)
 public class MobMixin implements MobSD {
@@ -98,6 +103,15 @@ public class MobMixin implements MobSD {
             if (target instanceof WitherBoss) {
                 ci.cancel();
             }
+        }
+    }
+
+    @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
+    private void setArthropodWallClimberNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
+        Mob mob = (Mob) (Object) this;
+
+        if (mob instanceof Silverfish || mob instanceof Endermite) {
+            cir.setReturnValue(new WallClimberNavigation(mob, level));
         }
     }
 }
