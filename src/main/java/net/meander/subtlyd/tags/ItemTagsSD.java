@@ -65,11 +65,14 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
         tag(ItemTags.ARMOR_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.DURABILITY_ENCHANTABLE)
-                .add(ItemIds.WOLF_ARMOR);
+                .add(ItemIds.WOLF_ARMOR)
+                .add(ItemIdsSD.DAGGER);
         tag(ItemTags.EQUIPPABLE_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
+        tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+                .add(ItemIdsSD.DAGGER);
         tag(HAS_MAGIC_LIMIT)
                 .forceAddTag(ItemTags.ARMOR_ENCHANTABLE)
                 .forceAddTag(ItemTags.EQUIPPABLE_ENCHANTABLE)

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayer.class)
@@ -25,5 +26,10 @@ public class ServerPlayerMixin {
         } else {
             ci.cancel();
         }
+    }
+
+    @Redirect(method = "updatePlayerAttributes", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;isCrouching()Z"))
+    private boolean setCrawlingToDiscrete(ServerPlayer player) {
+        return player.isCrouching() || player.isVisuallyCrawling();
     }
 }

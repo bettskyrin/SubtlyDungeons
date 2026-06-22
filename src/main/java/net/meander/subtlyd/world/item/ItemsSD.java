@@ -8,10 +8,7 @@ import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.references.BlockItemId;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.level.block.Block;
@@ -68,6 +65,7 @@ public class ItemsSD {
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
     public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
     public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties().food(FoodsSD.LIGHT_STEW).stacksTo(1));
+    public static final Item DAGGER = Items.registerItem(ItemIdsSD.DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.IRON, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
 
     public static void registration() {
         CreativeModeTabsSD.registration();

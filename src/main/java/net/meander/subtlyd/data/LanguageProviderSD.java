@@ -111,6 +111,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.CALAMARI, "Calamari");
         translationBuilder.add(ItemsSD.COOKED_CALAMARI, "Cooked Calamari");
         translationBuilder.add(ItemsSD.TENT.cyan(), "Cyan Tent");
+        translationBuilder.add(ItemsSD.DAGGER, "Dagger");
         translationBuilder.add(ItemsSD.COVEN_ELIXIR, "Elixir of the Coven");
         translationBuilder.add(ItemsSD.TENT.gray(), "Gray Tent");
         translationBuilder.add(ItemsSD.TENT.green(), "Green Tent");

@@ -3,6 +3,7 @@ package net.meander.subtlyd.mixin.common.world.entity;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
+import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -12,11 +13,14 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -144,6 +148,30 @@ public abstract class LivingEntityMixin extends Entity {
                 maxHealth = 450.0F;
             }
             cir.setReturnValue(maxHealth);
+        }
+    }
+
+    @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
+    private void modifyStealthSystem(Entity targetingEntity, CallbackInfoReturnable<Double> cir) {
+        if (((LivingEntity) (Object) this) instanceof Player player && targetingEntity != null) {
+            boolean isPlayerObvious = player.hasEffect(MobEffects.GLOWING);
+            boolean isPlayerStealthy = (player.isDiscrete() || player.isInvisible() || player.isVisuallyCrawling()) && !isPlayerObvious;
+            boolean isTargetBlind = targetingEntity.asLivingEntity().hasEffect(MobEffects.BLINDNESS);
+            boolean recentlyAttacked = (player.tickCount - player.getLastHurtMobTimestamp()) < 100;
+
+            if ((isPlayerStealthy && !recentlyAttacked) || isTargetBlind) {
+                Vec3 directionToPlayer = player.position().subtract(targetingEntity.position()).normalize();
+                Vec3 observerLookVector = targetingEntity.getLookAngle();
+                double alignment = observerLookVector.dot(directionToPlayer);
+
+                if (alignment < 0.45) {
+                    cir.setReturnValue(0.0);
+                }
+            }
+
+            if (isPlayerObvious) {
+                cir.setReturnValue(1.0);
+            }
         }
     }
 }

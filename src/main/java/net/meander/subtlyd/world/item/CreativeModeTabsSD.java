@@ -87,6 +87,7 @@ public class CreativeModeTabsSD {
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
             entries.insertAfter(END_CRYSTAL, BLAST_FUNGUS);
+            entries.insertBefore(TRIDENT, DAGGER);
         });
     }
 }

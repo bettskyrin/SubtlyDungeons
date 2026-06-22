@@ -24,6 +24,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
+    public static final TagKey<Block> DAGGER_EFFICIENT = bind("dagger_efficient");
 
     public BlockTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -125,6 +126,19 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .addTag(SKULL_BLOCK);
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
                 .add(BlockItemIdsSD.WARPED_OVERHANG.block());
+        tag(DAGGER_EFFICIENT)
+                .forceAddTag(BlockTags.LEAVES)
+                .add(BlockItemIds.VINE.block())
+                .add(BlockItemIds.GLOW_LICHEN.block())
+                .add(BlockItemIds.PUMPKIN.block())
+                .add(BlockItemIds.CARVED_PUMPKIN.block())
+                .add(BlockItemIds.JACK_O_LANTERN.block())
+                .add(BlockItemIds.MELON.block())
+                .add(BlockItemIds.COCOA_CROP.block())
+                .add(BlockItemIds.BIG_DRIPLEAF.block())
+                .add(BlockIds.BIG_DRIPLEAF_STEM)
+                .add(BlockItemIds.CHORUS_PLANT.block())
+                .add(BlockItemIds.CHORUS_FLOWER.block());
         tag(BlockTags.NEEDS_STONE_TOOL)
                 .add(BlockItemIdsSD.IRON_GRATE.block());
     }

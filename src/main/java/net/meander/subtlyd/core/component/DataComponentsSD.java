@@ -1,6 +1,7 @@
 package net.meander.subtlyd.core.component;
 
 import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.item.component.StealthAttack;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -9,6 +10,7 @@ import net.minecraft.util.ExtraCodecs;
 
 public class DataComponentsSD {
     public static final DataComponentType<Integer> MAGIC_LEVEL = register("magic_level", DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DataComponentType<StealthAttack> STEALTH_ATTACK = register("stealth_attack", DataComponentType.<StealthAttack>builder().persistent(StealthAttack.CODEC).networkSynchronized(StealthAttack.STREAM_CODEC));
 
     public static void registration() {}
 

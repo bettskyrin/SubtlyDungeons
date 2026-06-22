@@ -24,6 +24,10 @@
 
 #### Items
 - Added Light Stew
+- Added Dagger
+  - Deals 4 attack damage by default
+  - Can deal up to an extra 4 damage depending on how discrete the user is being
+  - Can be obtained from Pillager Outpost chests
 
 #### Blocks
 - Added Perse Wildflowers
@@ -60,6 +64,13 @@
   - Is granted by adding stew ingredients to a cauldron
 
 ### Changes
+#### Discrete Actions
+- Discrete actions, like sneaking, crawling, or being invisible, now conceal a player's location better
+  - Being discrete now allows you to get fully behind creatures without them detecting you, so long as you are not within their line of sight
+- Having the glowing effect negates discrete actions
+- Attacking a creature triggers a 5-second cooldown, in which you are no longer considered discrete
+- Crawling now also affects the Locator Bar waypoint transmit range, like crouching
+
 #### World Generation
 - Changed all biomes to be larger
 - Changed all continents to be larger
