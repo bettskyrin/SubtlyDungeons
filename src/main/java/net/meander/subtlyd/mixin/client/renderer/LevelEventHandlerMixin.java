@@ -21,7 +21,7 @@ public class LevelEventHandlerMixin {
     @Shadow @Final private ClientLevel level;
 
     @Inject(method = "levelEvent", at = @At("HEAD"), cancellable = true)
-    private void boostChorusSoundDistance(int eventType, BlockPos pos, int data, CallbackInfo ci) {
+    private void modifyChorusSoundDistance(int eventType, BlockPos pos, int data, CallbackInfo ci) {
         if (eventType == 1033 || eventType == 1034) { // CHORUS_FLOWER_GROW and CHORUS_FLOWER_DEATH
             SoundEvent sound = (eventType == 1033) ? SoundEvents.CHORUS_FLOWER_GROW : SoundEvents.CHORUS_FLOWER_DEATH;
             level.playLocalSound(pos, sound, SoundSource.BLOCKS, 3.0F, 1.0F, false);
