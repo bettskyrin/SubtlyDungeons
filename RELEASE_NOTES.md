@@ -120,6 +120,7 @@
 
 ##### The End
 - Changed Chorus Flowers to have an 85% chance of being alive
+- Increased Chorus Flower growth and death volume
 
 #### Structures
 ##### End Spikes
