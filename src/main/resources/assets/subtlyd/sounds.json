@@ -161,6 +161,26 @@
       "subtlyd:stick/stick_light4"
     ]
   },
+  "random.blade.clash": {
+    "subtitle": "subtitles.subtlyd.random.blade.clash",
+    "sounds": [
+      "minecraft:random/anvil_land"
+    ]
+  },
+  "random.blade_wood.clash": {
+    "subtitle": "subtitles.subtlyd.random.blade_wood.clash",
+    "sounds": [
+      "minecraft:item/spear/wood/hit1",
+      "minecraft:item/spear/wood/hit2",
+      "minecraft:item/spear/wood/hit3"
+    ]
+  },
+  "item.dagger.clash": {
+    "subtitle": "subtitles.subtlyd.item.dagger.clash",
+    "sounds": [
+      "minecraft:random/anvil_land"
+    ]
+  },
   "item.trident.charged": {
     "subtitle": "subtitles.subtlyd.item.trident.charged",
     "sounds": [

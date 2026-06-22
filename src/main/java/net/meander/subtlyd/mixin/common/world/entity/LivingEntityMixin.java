@@ -1,6 +1,9 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
@@ -8,6 +11,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,6 +30,7 @@ import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -154,14 +161,15 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
+    @SuppressWarnings("DataFlowIssue")
     private void modifyStealthSystem(Entity targetingEntity, CallbackInfoReturnable<Double> cir) {
         if (((LivingEntity) (Object) this) instanceof Player player && targetingEntity != null) {
             boolean isPlayerObvious = player.hasEffect(MobEffects.GLOWING);
-            boolean isPlayerStealthy = (player.isDiscrete() || player.isInvisible() || player.isVisuallyCrawling()) && !isPlayerObvious;
+            boolean isPlayerSuperDiscrete = (player.isDiscrete() || player.isInvisible() || player.isVisuallyCrawling()) && !isPlayerObvious;
             boolean isTargetBlind = targetingEntity.asLivingEntity().hasEffect(MobEffects.BLINDNESS);
             boolean recentlyAttacked = (player.tickCount - player.getLastHurtMobTimestamp()) < 100;
 
-            if ((isPlayerStealthy && !recentlyAttacked) || isTargetBlind) {
+            if ((isPlayerSuperDiscrete && !recentlyAttacked) || isTargetBlind) {
                 Vec3 directionToPlayer = player.position().subtract(targetingEntity.position()).normalize();
                 Vec3 observerLookVector = targetingEntity.getLookAngle();
                 double alignment = observerLookVector.dot(directionToPlayer);
@@ -186,5 +194,71 @@ public abstract class LivingEntityMixin extends Entity {
                 cir.setReturnValue(true);
             }
         }
+    }
+
+    @Inject(method = "createLivingAttributes", at = @At("RETURN"))
+    private static void createLivingAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
+        cir.getReturnValue().add(AttributesSD.SHIELD_STRENGTH);
+    }
+
+    @Inject(method = "applyItemBlocking", at = @At("RETURN"), cancellable = true)
+    private void applyShieldPassthrough(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Float> cir) {
+        float blockedAmount = cir.getReturnValue();
+
+        if (blockedAmount > 0.0F && !source.is(DamageTypeTags.IS_PROJECTILE)) {
+            LivingEntity entity = (LivingEntity) (Object) this;
+            float shieldStrength = (float) entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
+
+            if (blockedAmount > shieldStrength) {
+                cir.setReturnValue(shieldStrength);
+            }
+        }
+    }
+
+    @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
+    private void interceptForParry(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity defender = (LivingEntity) (Object) this;
+
+        if (source.getDirectEntity() instanceof LivingEntity attacker) {
+            Vec3 look = defender.getLookAngle();
+            Vec3 viewVector = new Vec3(look.x, 0.0, look.z).normalize();
+            Vec3 attackVector = attacker.position().subtract(defender.position());
+            Vec3 directionToAttacker = new Vec3(attackVector.x, 0.0, attackVector.z).normalize();
+            ItemStack attackerItem = attacker.getMainHandItem();
+            ItemStack defenderItem = defender.getMainHandItem();
+            boolean isFacingAttacker = viewVector.dot(directionToAttacker) > 0.0;
+            boolean isSwordFight = attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS) && defenderItem.is(ItemTagsSD.CAN_PARRY_SWORDS);
+            boolean isKnifeFIght = attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
+
+            if (isFacingAttacker && (isSwordFight || isKnifeFIght)) {
+                if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= 10) {
+                    boolean hasWoodenWeapon = hasWoodenWeapon(attackerItem, defenderItem);
+                    float pitch = hasWoodenWeapon ? 0.7F : 1.5F + (level.getRandom().nextFloat() * 0.2F);
+                    SoundEvent soundEffect = hasWoodenWeapon ? SoundEventsSD.BLADE_WOOD_CLASH : SoundEventsSD.BLADE_CLASH;
+
+                    level.playSound(null, defender.getX(), defender.getY(), defender.getZ(), soundEffect, SoundSource.PLAYERS, 0.5F, pitch);
+                    level.sendParticles(ParticleTypes.ELECTRIC_SPARK, defender.getX(), defender.getY(0.5), defender.getZ(), 2, 0, 0, 0, 0);
+                    attackerItem.hurtAndBreak(1, level, attacker instanceof ServerPlayer p ? p : null, (item) -> attacker.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+                    defenderItem.hurtAndBreak(1, level, defender instanceof ServerPlayer p ? p : null, (item) -> defender.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
+
+                    if (defender instanceof ServerPlayer player) {
+                        player.awardStat(StatsSD.DAMAGE_BLOCKED_BY_WEAPON, Math.round(damage * 10.0F));
+                    }
+
+                    cir.setReturnValue(false);
+                }
+            }
+        }
+    }
+
+    private boolean hasWoodenWeapon(ItemStack attackerItem, ItemStack defenderItem) {
+        for (ItemStack weapon : List.of(attackerItem, defenderItem)) {
+            for (Item material : ItemTagsSD.getItems(ItemTags.WOODEN_TOOL_MATERIALS)) {
+                if (weapon.isValidRepairItem(material.getDefaultInstance())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

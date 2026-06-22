@@ -9,11 +9,13 @@ import net.minecraft.stats.Stats;
 
 public class StatsSD {
     public static final Identifier SLEEP_IN_TENT = makeCustomStat("sleep_in_tent", StatFormatter.DEFAULT);
+    public static final Identifier DAMAGE_BLOCKED_BY_WEAPON = makeCustomStat("damaged_blocked_by_weapon", StatFormatter.DIVIDE_BY_TEN);
 
     public static void registration() {}
 
     private static Identifier makeCustomStat(final String id, final StatFormatter formatter) {
         Identifier location = Util.identifier(id);
+
         Registry.register(BuiltInRegistries.CUSTOM_STAT, location, location);
         Stats.CUSTOM.get(location, formatter);
         return location;

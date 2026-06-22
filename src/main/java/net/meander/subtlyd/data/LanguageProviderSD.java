@@ -144,6 +144,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("selectWorld.select", "Play");
 
         translationBuilder.add("stat.subtlyd.sleep_in_tent", "Times Slept in a Tent");
+        translationBuilder.add("stat.subtlyd.damage_blocked_by_weapon", "Damage Blocked by Weapon");
 
         translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
         translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
@@ -161,6 +162,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(SoundEventsSD.STICK_LIGHT, "Stick rubs against log");
         translationBuilder.add(SoundEventsSD.TRIDENT_CHARGED, "Trident crackles");
         translationBuilder.add(SoundEventsSD.TRIDENT_CHARGING, "Trident crackles");
+        translationBuilder.add(SoundEventsSD.BLADE_CLASH, "Blades clang");
+        translationBuilder.add(SoundEventsSD.BLADE_WOOD_CLASH, "Blades clack");
 
         translationBuilder.add("subtlyd.music.alone_with_the_sky", "Crispin Hands - Alone With the Sky");
         translationBuilder.add("subtlyd.music.ashes", "Peter Hont - Ashes");
@@ -203,9 +206,12 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("subtlyd.music.warped_forest", "Eugnosis - Warped Forest");
         translationBuilder.add("subtlyd.music.windswept_peaks", "Peter Hont - Windswept Peaks");
 
+        translationBuilder.add(ItemTagsSD.CAN_PARRY_DAGGERS, "Can Parry Daggers");
+        translationBuilder.add(ItemTagsSD.CAN_PARRY_SWORDS, "Can Parry Swords");
         translationBuilder.add(ItemTagsSD.HAS_MAGIC_LIMIT, "Has Magic Limit");
         translationBuilder.add(ItemTagsSD.LIQUID_CONSUMABLES, "Liquid Consumables");
         translationBuilder.add(ItemTagsSD.NON_HUMANOID_ARMOR, "Non Humanoid Armor");
+        translationBuilder.add(ItemTagsSD.STEW_INGREDIENT, "Stew Ingredient");
         translationBuilder.add(ItemTagsSD.TENTS, "Tents");
     }
 }

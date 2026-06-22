@@ -26,6 +26,11 @@
 - Added wall climbing to Silverfish AI
 - Added wall climbing to Endermite AI
 
+#### Combat
+- Added weapon clashes
+  - When two attackers attack each other simultaneously (within 10 ticks), if they are weilding the same weapon, their weapons may clash, and do no damage to either of them
+  - This currently only applies to swords and daggers
+
 #### Items
 - Added Light Stew
 - Added Dagger
@@ -158,6 +163,9 @@
 - Added "Any shape and size!" splash text
 
 ### Technical Changes
+#### Statistics
+- Added `damage_blocked_by_weapon` statistic
+
 #### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag

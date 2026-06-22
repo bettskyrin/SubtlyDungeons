@@ -25,6 +25,8 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> NON_HUMANOID_ARMOR = bind("non_humanoid_armor");
     public static final TagKey<Item> HAS_MAGIC_LIMIT = bind("has_magic_limit");
     public static final TagKey<Item> STEW_INGREDIENT = bind("stew_ingredient");
+    public static final TagKey<Item> CAN_PARRY_SWORDS = bind("can_parry_swords");
+    public static final TagKey<Item> CAN_PARRY_DAGGERS = bind("can_parry_daggers");
     
     public ItemTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -72,6 +74,10 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+                .add(ItemIdsSD.DAGGER);
+        tag(CAN_PARRY_SWORDS)
+                .forceAddTag(ItemTags.SWORDS);
+        tag(CAN_PARRY_DAGGERS)
                 .add(ItemIdsSD.DAGGER);
         tag(HAS_MAGIC_LIMIT)
                 .forceAddTag(ItemTags.ARMOR_ENCHANTABLE)
