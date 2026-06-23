@@ -7,12 +7,6 @@ import net.minecraft.core.registries.Registries;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-
-/**
- * Acts as the Data Generation provider for dynamic world generation registries.
- * This class reads the bootstraps defined in VegetationFeaturesSD and VegetationPlacementsSD
- * and exports them into JSON files for the classic data-driven architecture.
- */
 public class FeatureProvider extends FabricDynamicRegistryProvider {
     public FeatureProvider(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -20,7 +14,7 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.@NotNull Provider registries, Entries entries) {
-        entries.addAll(registries.lookupOrThrow(Registries.CONFIGURED_FEATURE));
+        entries.addAll(registries.lookupOrThrow(Registries.FEATURE));
         entries.addAll(registries.lookupOrThrow(Registries.PLACED_FEATURE));
     }
 

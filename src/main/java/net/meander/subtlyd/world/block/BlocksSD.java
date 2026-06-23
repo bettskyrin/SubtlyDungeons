@@ -67,8 +67,8 @@ public class BlocksSD {
                     .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
-    public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
-    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, FlowerBedBlock::new, BlockBehaviour.Properties.of()
+    public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, (p) -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
             .sound(SoundType.PINK_PETALS)

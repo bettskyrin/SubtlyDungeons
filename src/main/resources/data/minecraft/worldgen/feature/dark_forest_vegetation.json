@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:random_selector",
+  "default": "minecraft:dark_oak_leaf_litter",
+  "features": [
+    {
+      "chance": 0.00625,
+      "feature": {
+        "feature": "minecraft:huge_brown_mushroom",
+        "placement": []
+      }
+    },
+    {
+      "chance": 0.00625,
+      "feature": {
+        "feature": "minecraft:huge_red_mushroom",
+        "placement": []
+      }
+    },
+    {
+      "chance": 0.025,
+      "feature": "minecraft:oak_leaf_litter"
+    },
+    {
+      "chance": 0.00625,
+      "feature": "minecraft:fallen_oak_tree"
+    },
+    {
+      "chance": 0.025,
+      "feature": "minecraft:fancy_oak_leaf_litter"
+    }
+  ]
+}

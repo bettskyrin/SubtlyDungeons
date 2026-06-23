@@ -13,16 +13,23 @@ import net.minecraft.world.level.block.FireBlock;
 import net.minecraft.world.level.block.IronBarsBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.EndSpikeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.EndSpikeConfiguration;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Optional;
+
 @Mixin(EndSpikeFeature.class)
-public class EndSpikeFeatureMixin {
+public abstract class EndSpikeFeatureMixin {
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    @Shadow @Final private Optional<BlockPos> crystalBeamTarget;
+    @Shadow @Final private boolean crystalInvulnerable;
+
     @Inject(method = "placeSpike", at = @At("HEAD"), cancellable = true)
-    private void modifySpike(ServerLevelAccessor level, RandomSource random, EndSpikeConfiguration config, EndSpikeFeature.EndSpike spike, CallbackInfo ci) {
+    private void modifySpike(ServerLevelAccessor level, RandomSource random, EndSpikeFeature.EndSpike spike, CallbackInfo ci) {
         int baseRadius = spike.getRadius();
         int topY = spike.getHeight();
         int centerX = spike.getCenterX();
@@ -97,8 +104,8 @@ public class EndSpikeFeatureMixin {
         EndCrystal endCrystal = EntityTypes.END_CRYSTAL.create(level.getLevel(), EntitySpawnReason.STRUCTURE);
 
         if (endCrystal != null) {
-            endCrystal.setBeamTarget(config.getCrystalBeamTarget());
-            endCrystal.setInvulnerable(config.isCrystalInvulnerable());
+            endCrystal.setBeamTarget(crystalBeamTarget.orElse(null));
+            endCrystal.setInvulnerable(crystalInvulnerable);
             endCrystal.snapTo(centerX + 0.5, topY + 2, centerZ + 0.5, random.nextFloat() * 360.0F, 0.0F);
             level.addFreshEntity(endCrystal);
 

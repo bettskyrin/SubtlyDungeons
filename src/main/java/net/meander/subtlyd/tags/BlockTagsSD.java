@@ -19,7 +19,6 @@ import java.util.concurrent.CompletableFuture;
 
 public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> SNOW_BRICKS = bind("snow_bricks");
-    public static final TagKey<Block> SKULL_BLOCK = bind("skull_block");
     public static final TagKey<Block> STONE_TILES = bind("stone_tiles");
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
@@ -47,21 +46,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block());
-        tag(SKULL_BLOCK)
-                .add(BlockItemIds.SKELETON_SKULL.block())
-                .add(BlockIds.SKELETON_WALL_SKULL)
-                .add(BlockItemIds.CREEPER_HEAD.block())
-                .add(BlockIds.CREEPER_WALL_HEAD)
-                .add(BlockItemIds.DRAGON_HEAD.block())
-                .add(BlockIds.DRAGON_WALL_HEAD)
-                .add(BlockItemIds.ZOMBIE_HEAD.block())
-                .add(BlockIds.ZOMBIE_WALL_HEAD)
-                .add(BlockItemIds.WITHER_SKELETON_SKULL.block())
-                .add(BlockIds.WITHER_SKELETON_WALL_SKULL)
-                .add(BlockItemIds.PLAYER_HEAD.block())
-                .add(BlockIds.PLAYER_WALL_HEAD)
-                .add(BlockItemIds.PIGLIN_HEAD.block())
-                .add(BlockIds.PIGLIN_WALL_HEAD);
         tag(BlockTags.WALLS)
                 .add(BlockItemIdsSD.SNOW_BRICK_WALL.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL.block())
@@ -123,7 +107,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.IRON_GRATE.block())
                 .add(BlockItemIdsSD.BASALT_SLAB.block());
         tag(BlockTags.MINEABLE_WITH_AXE)
-                .addTag(SKULL_BLOCK);
+                .forceAddTag(BlockTags.SKULLS);
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
                 .add(BlockItemIdsSD.WARPED_OVERHANG.block());
         tag(DAGGER_EFFICIENT)

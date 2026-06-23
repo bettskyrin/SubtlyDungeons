@@ -15,9 +15,10 @@ import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
-import net.meander.subtlyd.world.level.levelgen.feature.FeatureSD;
+import net.meander.subtlyd.world.level.levelgen.feature.FeatureTypesSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.meander.subtlyd.world.level.storage.loot.predicates.LootItemConditionsSD;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 public class InitializerSD implements ModInitializer {
     @Override public void onInitialize() {
@@ -38,7 +39,7 @@ public class InitializerSD implements ModInitializer {
         // World Events
         GameEventsSD.registration();
         CameraShakeEvents.registration();
-        FeatureSD.registration();
+        FeatureTypesSD.bootstrap(BuiltInRegistries.FEATURE_TYPE);
         WorldGeneratorSD.modifyBiomes();
         LootTablesSD.registration();
         CriteriaTriggersSD.registration();
