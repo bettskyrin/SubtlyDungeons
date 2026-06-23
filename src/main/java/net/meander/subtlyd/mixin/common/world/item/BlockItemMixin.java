@@ -32,6 +32,9 @@ public class BlockItemMixin {
         } else if (block == Blocks.RED_MUSHROOM) {
             properties.food(FoodsSD.RED_MUSHROOM);
             properties.component(DataComponents.CONSUMABLE, ConsumablesSD.RED_MUSHROOM);
+        } else if (block == Blocks.SHELF_MUSHROOM) {
+            properties.food(FoodsSD.SHELF_MUSHROOM);
+            properties.component(DataComponents.CONSUMABLE, Consumables.DEFAULT_FOOD);
         }
     }
 

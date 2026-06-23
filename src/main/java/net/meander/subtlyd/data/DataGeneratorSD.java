@@ -10,7 +10,7 @@ import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.recipies.RecipeProviderSD;
 import net.meander.subtlyd.data.worldgen.features.MiscOverworldFeaturesSD;
-import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
+import net.meander.subtlyd.data.worldgen.features.AquaticFeaturesSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.tags.*;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
@@ -55,8 +55,8 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, VegetationFeaturesSD::bootstrap);
-        registryBuilder.add(Registries.CONFIGURED_FEATURE, MiscOverworldFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.FEATURE, AquaticFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.FEATURE, MiscOverworldFeaturesSD::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::bootstrap);
     }
