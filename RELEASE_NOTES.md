@@ -38,6 +38,8 @@
 - Added weapon clashes
   - When two attackers attack each other simultaneously (within 10 ticks), if they are weilding the same weapon, their weapons may clash, and do no damage to either of them
   - This currently only applies to swords and daggers
+- Added Shield Strength
+  - Determines how much damage a shield can block
 
 #### Enchantments
 - Added Enervation enchantment
@@ -172,6 +174,9 @@
 ### Technical Changes
 #### Statistics
 - Added `damage_blocked_by_weapon` statistic
+
+#### Attributes
+- Added `shield_strength` attribute
 
 #### Data Tags
 - Added `is_foggy` biome tag

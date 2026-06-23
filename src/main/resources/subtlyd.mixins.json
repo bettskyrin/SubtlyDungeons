@@ -32,6 +32,7 @@
     "common.world.item.ItemMixin",
     "common.world.item.ItemStackMixin",
     "common.world.item.PotionItemMixin",
+    "common.world.item.ShieldItemMixin",
     "common.world.item.TridentItemMixin",
     "common.world.level.ServerExplosionMixin",
     "common.world.level.biome.BiomeMixin",
