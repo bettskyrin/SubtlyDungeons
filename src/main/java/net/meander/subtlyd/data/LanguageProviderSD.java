@@ -73,6 +73,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.addEnchantment(EnchantmentsSD.ABRADING_CURSE, "Curse of Abrading");
         translationBuilder.addEnchantment(EnchantmentsSD.ENERVATION, "Enervation");
+        translationBuilder.addEnchantment(EnchantmentsSD.CLEAVING, "Cleaving");
         translationBuilder.addEnchantment(EnchantmentsSD.GLYPH_AFFINITY, "Glyph Affinity");
         translationBuilder.addEnchantment(EnchantmentsSD.ILLAGERS_BANE, "Illager's Bane");
         translationBuilder.addEnchantment(EnchantmentsSD.OCCULT_PROTECTION, "Occult Protection");

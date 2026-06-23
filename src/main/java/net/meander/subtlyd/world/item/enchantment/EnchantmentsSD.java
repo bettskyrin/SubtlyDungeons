@@ -41,6 +41,7 @@ public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> GLYPH_AFFINITY = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("glyph_affinity"));
     public static final ResourceKey<Enchantment> ILLAGERS_BANE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("illagers_bane"));
     public static final ResourceKey<Enchantment> ENERVATION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("enervation"));
+    public static final ResourceKey<Enchantment> CLEAVING = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("cleaving"));
 
     /**
      * Registeres new enchantments.
@@ -157,6 +158,28 @@ public class EnchantmentsSD {
             );
         } catch (Exception e) {
             Util.LOGGER.error("Failed to get tag for: {}: {}", ENERVATION.identifier(), e.getMessage());
+        }
+
+        try {
+            context.register(CLEAVING, Enchantment.enchantment(
+                            Enchantment.definition(
+                                    items.getOrThrow(ItemTags.AXES),
+                                    items.getOrThrow(ItemTags.AXES),
+                                    2,
+                                    3,
+                                    Enchantment.dynamicCost(15, 9),
+                                    Enchantment.dynamicCost(65, 9),
+                                    4,
+                                    EquipmentSlotGroup.MAINHAND
+                            ))
+                    .withEffect(
+                            EnchantmentEffectComponents.DAMAGE,
+                            new AddValue(LevelBasedValue.perLevel(1.0F))
+                    )
+                    .build(CLEAVING.identifier())
+            );
+        } catch (Exception e) {
+            Util.LOGGER.error("Failed to register: {}: {}", CLEAVING.identifier(), e.getMessage());
         }
     }
 }

@@ -25,12 +25,14 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -151,6 +153,18 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
+    @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
+    private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (entity instanceof Silverfish || entity instanceof Endermite) {
+            if (entity.horizontalCollision) {
+                cir.setReturnValue(true);
+            }
+        }
+    }
+
+    // COMBAT
     /**
      * Alter the maximum health of an entity based on difficulty.
      */
@@ -240,18 +254,6 @@ public abstract class LivingEntityMixin extends Entity {
         return damage;
     }
 
-
-    @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
-    private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
-
-        if (entity instanceof Silverfish || entity instanceof Endermite) {
-            if (entity.horizontalCollision) {
-                cir.setReturnValue(true);
-            }
-        }
-    }
-
     @Inject(method = "createLivingAttributes", at = @At("RETURN"))
     private static void createLivingAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
         cir.getReturnValue().add(AttributesSD.SHIELD_STRENGTH);
@@ -309,6 +311,29 @@ public abstract class LivingEntityMixin extends Entity {
                     }
 
                     cir.setReturnValue(false);
+                }
+            }
+        }
+    }
+
+    @Inject(method = "hurtServer", at = @At("RETURN"))
+    private void modifyIFrames(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValue()) {
+            if (source.getDirectEntity() instanceof AbstractArrow arrow) {
+                if (arrow.getWeaponItem() != null) {
+                    invulnerableTime = 0;
+                    return;
+                }
+            }
+
+            if (source.getEntity() instanceof LivingEntity attacker) {
+                if (attacker.getAttributes().hasAttribute(Attributes.ATTACK_SPEED)) {
+                    double attackSpeed = attacker.getAttributeValue(Attributes.ATTACK_SPEED);
+                    int cooldownTicks = (int) (20.0 / attackSpeed);
+
+                    if (cooldownTicks < 10) {
+                        invulnerableTime = 10 + cooldownTicks;
+                    }
                 }
             }
         }

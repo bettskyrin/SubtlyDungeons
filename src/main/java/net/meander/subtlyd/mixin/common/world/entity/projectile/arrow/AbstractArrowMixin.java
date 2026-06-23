@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.common.world.entity.projectile;
+package net.meander.subtlyd.mixin.common.world.entity.projectile.arrow;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
@@ -33,7 +33,6 @@ public abstract class AbstractArrowMixin {
             playFlameShootSound(arrow);
         }
     }
-
 
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     private void onHitBlock(final BlockHitResult hitResult, CallbackInfo ci) {

@@ -40,12 +40,26 @@
   - This currently only applies to swords and daggers
 - Added Shield Strength
   - Determines how much damage a shield can block
+  - By default, Shields have a Shield Strength of 5
+- Changed natural regeneration to be twice as fast
+- Changed starvation to be twice as fast
+- Changed natural regeneration to continue to 7 food points
+- Changed arrows to not trigger invincibility frames
+- Changed fast weapons to trigger less invincibility frame time
+- Changed saturation to no longer be related to fast healing
+- Changed saturation to drain before hunger
+- Changed consuming to be interrupted by attacks
+- Changed projectiles to no longer be affected by vertical inertia of the shooter
+- Changed bow and crossbow uncertainty to be lower
+- Changed critical hits to be possible while sprinting
 
 #### Enchantments
 - Added Enervation enchantment
   - Can be applied to daggers
   - Applies 2 seconds of Mining Fatigue to victims
     - For each level, this time increases by 1 second
+- Added Cleaving enchantment
+  - This is to match the Combat Test Snapshots
 
 #### Blocks
 - Added Perse Wildflowers

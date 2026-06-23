@@ -29,14 +29,16 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
         getOrCreateRawBuilder(EnchantmentTags.NON_TREASURE)
                 .addOptionalElement(EnchantmentsSD.OCCULT_PROTECTION.identifier())
                 .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier())
-                .addOptionalElement(EnchantmentsSD.ENERVATION.identifier());
+                .addOptionalElement(EnchantmentsSD.ENERVATION.identifier())
+                .addOptionalElement(EnchantmentsSD.CLEAVING.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ON_RANDOM_LOOT)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ON_TRADED_EQUIPMENT)
                 .addOptionalElement(EnchantmentsSD.ILLAGERS_BANE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.TRADEABLE)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier())
-                .addOptionalElement(EnchantmentsSD.ILLAGERS_BANE.identifier());
+                .addOptionalElement(EnchantmentsSD.ILLAGERS_BANE.identifier())
+                .addOptionalElement(EnchantmentsSD.CLEAVING.identifier());
         getOrCreateRawBuilder(EnchantmentTags.CURSE)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ARMOR_EXCLUSIVE)

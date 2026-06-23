@@ -77,15 +77,21 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ItemIds.WOLF_ARMOR)
-                .forceAddTag(DAGGERS);
+                .addTag(DAGGERS);
         tag(ItemTags.EQUIPPABLE_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.MELEE_WEAPON_ENCHANTABLE)
-                .forceAddTag(DAGGERS);
+                .addTag(DAGGERS);
         tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
-                .forceAddTag(DAGGERS);
+                .addTag(DAGGERS);
+        tag(ItemTags.SWEEPING_ENCHANTABLE)
+                .forceAddTag(ItemTags.AXES);
+        tag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
+                .forceAddTag(ItemTags.AXES);
+        tag(ItemTags.MINING_LOOT_ENCHANTABLE)
+                .addTag(DAGGERS);
         tag(CAN_PARRY_SWORDS)
                 .forceAddTag(ItemTags.SWORDS);
         tag(CAN_PARRY_DAGGERS)
