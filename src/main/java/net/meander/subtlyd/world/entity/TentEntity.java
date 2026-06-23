@@ -1,8 +1,8 @@
 package net.meander.subtlyd.world.entity;
 
-import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
+import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -246,7 +246,7 @@ public class TentEntity extends Entity {
     @Override
     public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
         if (!player.level().isClientSide()) {
-            ServerPlayerSD.startSleepInTent(blockPosition(), this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
+            ServerPlayerSD.startSleepInTent(this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.message() != null) {
                     player.sendOverlayMessage(tentSleepingProblem.message());
                 }

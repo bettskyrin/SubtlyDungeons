@@ -14,19 +14,19 @@ public class VillageLootSD {
     public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, _, _) -> {
             if (BuiltInLootTables.VILLAGE_PLAINS_HOUSE.equals(resourceKey)) {
-                LootPool.Builder chestPool = LootPool.lootPool()
+                tableBuilder.pool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(ItemsSD.APPLE_PIE).setWeight(97))
-                        .add(EmptyLootItem.emptyItem()
-                                .setWeight(903))  // Simulate Pumpkin Pie's 9.7% chest loot weight
-                        .setRolls(ConstantValue.exactly(1));
-                tableBuilder.pool(chestPool.build());
+                        .add(EmptyLootItem.emptyItem().setWeight(903))  // Simulate Pumpkin Pie's 9.7% chest loot weight
+                        .setRolls(ConstantValue.exactly(1)).build());
             } else if (resourceKey.equals(BuiltInLootTables.VILLAGE_FISHER)) {
-                tableBuilder.modifyPools(poolBuilder -> {
-                    poolBuilder.add(LootItem.lootTableItem(ItemsSD.CALAMARI)
-                            .setWeight(2)
-                            .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
-                            .build();
-                });
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder
+                        .add(LootItem.lootTableItem(ItemsSD.CALAMARI).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                        .build());
+            } else if (resourceKey.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)) {
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder
+                        .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                        .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(3)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                        .build();
             }
         });
     }

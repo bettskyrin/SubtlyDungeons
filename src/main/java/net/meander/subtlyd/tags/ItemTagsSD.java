@@ -25,6 +25,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> NON_HUMANOID_ARMOR = bind("non_humanoid_armor");
     public static final TagKey<Item> HAS_MAGIC_LIMIT = bind("has_magic_limit");
     public static final TagKey<Item> STEW_INGREDIENT = bind("stew_ingredient");
+    public static final TagKey<Item> DAGGERS = bind("daggers");
     public static final TagKey<Item> CAN_PARRY_SWORDS = bind("can_parry_swords");
     public static final TagKey<Item> CAN_PARRY_DAGGERS = bind("can_parry_daggers");
     
@@ -64,21 +65,31 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIds.DIAMOND_NAUTILUS_ARMOR)
                 .add(ItemIds.NETHERITE_NAUTILUS_ARMOR)
                 .add(ItemIds.WOLF_ARMOR);
+        tag(DAGGERS)
+                .add(ItemIdsSD.WOODEN_DAGGER)
+                .add(ItemIdsSD.STONE_DAGGER)
+                .add(ItemIdsSD.COPPER_DAGGER)
+                .add(ItemIdsSD.IRON_DAGGER)
+                .add(ItemIdsSD.GOLDEN_DAGGER)
+                .add(ItemIdsSD.DIAMOND_DAGGER)
+                .add(ItemIdsSD.NETHERITE_DAGGER);
         tag(ItemTags.ARMOR_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.DURABILITY_ENCHANTABLE)
                 .add(ItemIds.WOLF_ARMOR)
-                .add(ItemIdsSD.DAGGER);
+                .forceAddTag(DAGGERS);
         tag(ItemTags.EQUIPPABLE_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.VANISHING_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
+        tag(ItemTags.MELEE_WEAPON_ENCHANTABLE)
+                .forceAddTag(DAGGERS);
         tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
-                .add(ItemIdsSD.DAGGER);
+                .forceAddTag(DAGGERS);
         tag(CAN_PARRY_SWORDS)
                 .forceAddTag(ItemTags.SWORDS);
         tag(CAN_PARRY_DAGGERS)
-                .add(ItemIdsSD.DAGGER);
+                .forceAddTag(DAGGERS);
         tag(HAS_MAGIC_LIMIT)
                 .forceAddTag(ItemTags.ARMOR_ENCHANTABLE)
                 .forceAddTag(ItemTags.EQUIPPABLE_ENCHANTABLE)

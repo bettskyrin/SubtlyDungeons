@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
@@ -139,12 +140,25 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 colorItemWithDye(Items.DYE.asList(), ItemsSD.TENT.asList(), "tent_dye", RecipeCategory.MISC);
                 oneToOneConversionRecipe(Items.DYE.purple(), BlocksSD.PERSE_WILDFLOWERS, "purple_dye");
 
+                /* COMBAT */
                 shapeless(RecipeCategory.COMBAT, ItemsSD.BLAST_FUNGUS, 2)
                         .requires(Items.WARPED_FUNGUS)
                         .requires(Items.CRIMSON_FUNGUS)
                         .unlockedBy(getHasName(Items.CRIMSON_FUNGUS), has(Items.CRIMSON_FUNGUS))
                         .unlockedBy(getHasName(Items.WARPED_FUNGUS), has(Items.WARPED_FUNGUS))
                         .save(output);
+
+                dagger(ItemsSD.WOODEN_DAGGER, ItemTags.WOODEN_TOOL_MATERIALS);
+                dagger(ItemsSD.STONE_DAGGER, ItemTags.STONE_TOOL_MATERIALS);
+                dagger(ItemsSD.COPPER_DAGGER, ItemTags.COPPER_TOOL_MATERIALS);
+                dagger(ItemsSD.IRON_DAGGER, ItemTags.IRON_TOOL_MATERIALS);
+                dagger(ItemsSD.GOLDEN_DAGGER, ItemTags.GOLD_TOOL_MATERIALS);
+                dagger(ItemsSD.DIAMOND_DAGGER, ItemTags.DIAMOND_TOOL_MATERIALS);
+                netheriteSmithing(ItemsSD.DIAMOND_DAGGER, RecipeCategory.COMBAT, ItemsSD.NETHERITE_DAGGER);
+            }
+
+            private String getHasName(TagKey<Item> material) {
+                return "has_" + material.location().getPath();
             }
 
             private void cookRecipesSD(Item ingredient, float experience, Item result) {
@@ -161,7 +175,18 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern(" # ")
                         .pattern("#X#")
                         .pattern("#X#")
-                        .unlockedBy(has(wool.asItem()).toString(), has(wool.asItem()))
+                        .unlockedBy(getHasName(wool.asItem()), has(wool.asItem()))
+                        .save(output);
+            }
+
+            private void dagger(ItemLike daggerOutput, TagKey<Item> material) {
+                shaped(RecipeCategory.COMBAT, daggerOutput)
+                        .group("dagger")
+                        .define('#', material)
+                        .define('X', Items.STICK)
+                        .pattern(" # ")
+                        .pattern("X  ")
+                        .unlockedBy(getHasName(material), has(material))
                         .save(output);
             }
         };

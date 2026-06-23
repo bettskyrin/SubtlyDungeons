@@ -28,7 +28,8 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
                 .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier());
         getOrCreateRawBuilder(EnchantmentTags.NON_TREASURE)
                 .addOptionalElement(EnchantmentsSD.OCCULT_PROTECTION.identifier())
-                .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier());
+                .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier())
+                .addOptionalElement(EnchantmentsSD.ENERVATION.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ON_RANDOM_LOOT)
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ON_TRADED_EQUIPMENT)

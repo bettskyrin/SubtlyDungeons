@@ -26,17 +26,24 @@
 - Added wall climbing to Silverfish AI
 - Added wall climbing to Endermite AI
 
+#### Items
+- Added Light Stew
+- Added Daggers
+  - Deals 4 attack damage by default
+  - Can deal up to an extra 4 damage depending on how discrete the user is being
+  - Can be crafted with one stick and one tool material
+  - Can be found as loot in any chest that may give a sword
+
 #### Combat
 - Added weapon clashes
   - When two attackers attack each other simultaneously (within 10 ticks), if they are weilding the same weapon, their weapons may clash, and do no damage to either of them
   - This currently only applies to swords and daggers
 
-#### Items
-- Added Light Stew
-- Added Dagger
-  - Deals 4 attack damage by default
-  - Can deal up to an extra 4 damage depending on how discrete the user is being
-  - Can be obtained from Pillager Outpost chests
+#### Enchantments
+- Added Enervation enchantment
+  - Can be applied to daggers
+  - Applies 2 seconds of Mining Fatigue to victims
+    - For each level, this time increases by 1 second
 
 #### Blocks
 - Added Perse Wildflowers
@@ -74,8 +81,8 @@
 
 ### Changes
 #### Discrete Actions
-- Discrete actions, like sneaking, crawling, or being invisible, now conceal a player's location better
-  - Being discrete now allows you to get fully behind creatures without them detecting you, so long as you are not within their line of sight
+- Discrete actions, like sneaking, crawling, being invisible, or hiding in foliage, now conceal a player's location better
+  - Being discrete now allows you to get close behind creatures without them detecting you, so long as you are not within their line of sight
 - Having the glowing effect negates discrete actions
 - Attacking a creature triggers a 5-second cooldown, in which you are no longer considered discrete
 - Crawling now also affects the Locator Bar waypoint transmit range, like crouching
@@ -173,4 +180,7 @@
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Added `huge_glowshroom_can_place_on` block tag
 - Added `stew_ingredient` block tag
+- Added `daggers` item tag
+- Added `can_parry_swords` item tag
+- Added `can_parry_daggers` item tag
 - Removed `has_ambient_block_sounds` block tag

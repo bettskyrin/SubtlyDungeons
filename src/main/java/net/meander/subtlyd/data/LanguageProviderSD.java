@@ -72,6 +72,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("commands.camerashake.success.stop.single", "Stopping camera shake for %s");
 
         translationBuilder.addEnchantment(EnchantmentsSD.ABRADING_CURSE, "Curse of Abrading");
+        translationBuilder.addEnchantment(EnchantmentsSD.ENERVATION, "Enervation");
         translationBuilder.addEnchantment(EnchantmentsSD.GLYPH_AFFINITY, "Glyph Affinity");
         translationBuilder.addEnchantment(EnchantmentsSD.ILLAGERS_BANE, "Illager's Bane");
         translationBuilder.addEnchantment(EnchantmentsSD.OCCULT_PROTECTION, "Occult Protection");
@@ -111,8 +112,10 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.CALAMARI, "Calamari");
         translationBuilder.add(ItemsSD.COOKED_CALAMARI, "Cooked Calamari");
         translationBuilder.add(ItemsSD.TENT.cyan(), "Cyan Tent");
-        translationBuilder.add(ItemsSD.DAGGER, "Dagger");
+        translationBuilder.add(ItemsSD.DIAMOND_DAGGER, "Diamond Dagger");
+        translationBuilder.add(ItemsSD.IRON_DAGGER, "Iron Dagger");
         translationBuilder.add(ItemsSD.COVEN_ELIXIR, "Elixir of the Coven");
+        translationBuilder.add(ItemsSD.GOLDEN_DAGGER, "Golden Dagger");
         translationBuilder.add(ItemsSD.TENT.gray(), "Gray Tent");
         translationBuilder.add(ItemsSD.TENT.green(), "Green Tent");
         translationBuilder.add(ItemsSD.TENT.lightBlue(), "Light Blue Tent");
@@ -120,6 +123,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.LIGHT_STEW, "Light Stew");
         translationBuilder.add(ItemsSD.TENT.lime(), "Lime Tent");
         translationBuilder.add(ItemsSD.TENT.magenta(), "Magenta Tent");
+        translationBuilder.add(ItemsSD.NETHERITE_DAGGER, "Netherite Dagger");
         translationBuilder.add(ItemsSD.TENT.orange(), "Orange Tent");
         translationBuilder.add(ItemsSD.TENT.pink(), "Pink Tent");
         translationBuilder.add("item.subtlyd.potion.long_potion", "Long %s");
@@ -127,6 +131,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.POTTAGE, "Pottage");
         translationBuilder.add(ItemsSD.TENT.purple(), "Purple Tent");
         translationBuilder.add(ItemsSD.TENT.red(), "Red Tent");
+        translationBuilder.add(ItemsSD.STONE_DAGGER, "Stone Dagger");
+        translationBuilder.add(ItemsSD.WOODEN_DAGGER, "Wooden Dagger");
         translationBuilder.add(ItemsSD.TENT.white(), "White Tent");
         translationBuilder.add(ItemsSD.TENT.yellow(), "Yellow Tent");
 
@@ -208,6 +214,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add(ItemTagsSD.CAN_PARRY_DAGGERS, "Can Parry Daggers");
         translationBuilder.add(ItemTagsSD.CAN_PARRY_SWORDS, "Can Parry Swords");
+        translationBuilder.add(ItemTagsSD.DAGGERS, "Daggers");
         translationBuilder.add(ItemTagsSD.HAS_MAGIC_LIMIT, "Has Magic Limit");
         translationBuilder.add(ItemTagsSD.LIQUID_CONSUMABLES, "Liquid Consumables");
         translationBuilder.add(ItemTagsSD.NON_HUMANOID_ARMOR, "Non Humanoid Armor");

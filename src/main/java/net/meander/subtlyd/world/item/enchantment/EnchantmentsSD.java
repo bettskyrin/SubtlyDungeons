@@ -10,6 +10,7 @@ import net.minecraft.advancements.predicates.TagPredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.predicates.entity.EntityTypePredicate;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
@@ -17,13 +18,16 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
+import net.minecraft.world.item.enchantment.EnchantmentTarget;
 import net.minecraft.world.item.enchantment.LevelBasedValue;
 import net.minecraft.world.item.enchantment.effects.AddValue;
+import net.minecraft.world.item.enchantment.effects.ApplyMobEffect;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
@@ -36,6 +40,7 @@ public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("abrading_curse"));
     public static final ResourceKey<Enchantment> GLYPH_AFFINITY = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("glyph_affinity"));
     public static final ResourceKey<Enchantment> ILLAGERS_BANE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("illagers_bane"));
+    public static final ResourceKey<Enchantment> ENERVATION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("enervation"));
 
     /**
      * Registeres new enchantments.
@@ -48,7 +53,8 @@ public class EnchantmentsSD {
 
         try {
             context.register(OCCULT_PROTECTION, Enchantment.enchantment(
-                Enchantment.definition(items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
+                Enchantment.definition(
+                        items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                         5,
                         4,
                         Enchantment.dynamicCost(5, 8),
@@ -56,7 +62,8 @@ public class EnchantmentsSD {
                         4,
                         EquipmentSlotGroup.ARMOR))
                     .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.ARMOR_EXCLUSIVE))
-                    .withEffect(EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
+                    .withEffect(
+                            EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
                             DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
                                     .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
                 .build(OCCULT_PROTECTION.identifier())
@@ -122,6 +129,34 @@ public class EnchantmentsSD {
             );
         } catch (Exception e) {
             Util.LOGGER.error("Failed to get tag for: {}: {}", ILLAGERS_BANE.identifier(), e.getMessage());
+        }
+
+        try {
+            context.register(ENERVATION, Enchantment.enchantment(
+                            Enchantment.definition(
+                                    items.getOrThrow(ItemTagsSD.DAGGERS),
+                                    items.getOrThrow(ItemTagsSD.DAGGERS),
+                                    2,
+                                    3,
+                                    Enchantment.dynamicCost(5, 8),
+                                    Enchantment.dynamicCost(25, 8),
+                                    4,
+                                    EquipmentSlotGroup.MAINHAND))
+                    .withEffect(
+                            EnchantmentEffectComponents.POST_ATTACK,
+                                    EnchantmentTarget.VICTIM,
+                                    EnchantmentTarget.ATTACKER,
+                                    new ApplyMobEffect(
+                                            HolderSet.direct(MobEffects.MINING_FATIGUE),
+                                            LevelBasedValue.perLevel(40.0F, 20.0F),
+                                            LevelBasedValue.perLevel(40.0F, 20.0F),
+                                            LevelBasedValue.perLevel(0.0F, 1.0F),
+                                            LevelBasedValue.perLevel(0.0F, 1.0F)
+                                    ))
+                    .build(ENERVATION.identifier())
+            );
+        } catch (Exception e) {
+            Util.LOGGER.error("Failed to get tag for: {}: {}", ENERVATION.identifier(), e.getMessage());
         }
     }
 }

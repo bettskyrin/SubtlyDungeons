@@ -19,11 +19,10 @@ public abstract class LivingEntitySD extends LivingEntity {
 
     /**
      * Handles a tent sleep attempt. Searches for players that are sleeping within the specified tent.
-     * @param blockPos Tent location
      * @param tent Tent to test
      * @param player Sleeping player
      */
-    public static void startSleepingInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
+    public static void startSleepingInTent(final TentEntity tent, final ServerPlayer player) {
         boolean foundSleepingPlayer = false;
 
         if (player.isPassenger()) {
@@ -41,8 +40,8 @@ public abstract class LivingEntitySD extends LivingEntity {
         player.setPose(Pose.SLEEPING);
         player.setYRot(tent.getYRot());
         player.setXRot(0.0F);
-        setPosToTent(blockPos, player);
-        player.setSleepingPos(blockPos);
+        setPosToTent(tent.blockPosition(), player);
+        player.setSleepingPos(tent.blockPosition());
     }
 
     /**

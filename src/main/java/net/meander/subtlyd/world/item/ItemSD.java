@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.item;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.world.item.component.StealthAttack;
+import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -10,6 +10,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.component.*;
+
+import java.util.List;
 
 public abstract class ItemSD extends Item {
     public ItemSD(Properties properties) {
@@ -27,8 +29,9 @@ public abstract class ItemSD extends Item {
                             .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamageBaseline + material.attackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                             .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeedBaseline, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                             .build())
-                    .component(DataComponentsSD.STEALTH_ATTACK, new StealthAttack(stealthDamageBonus, -0.5F))
+                    .component(DataComponentsSD.STEALTH_WEAPON, new StealthWeapon(stealthDamageBonus, stealthDamageBonus * 0.625F, stealthDamageBonus * 0.25F, 0.2F, 0.7F))
                     .component(DataComponents.USE_EFFECTS, new UseEffects(true, false, 1.0F))
+                    .component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 2, false))
                     .component(DataComponents.WEAPON, new Weapon(1));
         }
     }

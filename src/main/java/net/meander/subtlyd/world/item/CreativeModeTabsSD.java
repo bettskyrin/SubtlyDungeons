@@ -87,7 +87,13 @@ public class CreativeModeTabsSD {
 
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
             entries.insertAfter(END_CRYSTAL, BLAST_FUNGUS);
-            entries.insertBefore(TRIDENT, DAGGER);
+            entries.insertAfter(NETHERITE_AXE, WOODEN_DAGGER);
+            entries.insertAfter(WOODEN_DAGGER, STONE_DAGGER);
+            entries.insertAfter(STONE_DAGGER, COPPER_DAGGER);
+            entries.insertAfter(COPPER_DAGGER, IRON_DAGGER);
+            entries.insertAfter(IRON_DAGGER, GOLDEN_DAGGER);
+            entries.insertAfter(GOLDEN_DAGGER, DIAMOND_DAGGER);
+            entries.insertAfter(DIAMOND_DAGGER, NETHERITE_DAGGER);
         });
     }
 }

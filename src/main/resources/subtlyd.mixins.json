@@ -20,6 +20,7 @@
     "common.world.entity.animal.PolarBearMixin",
     "common.world.entity.animal.SquidMixin",
     "common.world.entity.boss.WitherBossMixin",
+    "common.world.entity.monster.PiglinMixin",
     "common.world.entity.monster.RaiderMixin",
     "common.world.entity.monster.ZombieMixin",
     "common.world.entity.projectile.AbstractArrowMixin",

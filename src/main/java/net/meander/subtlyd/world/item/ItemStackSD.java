@@ -1,10 +1,13 @@
 package net.meander.subtlyd.world.item;
 
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+import java.util.List;
 import java.util.Map;
 
 public class ItemStackSD {
@@ -40,5 +43,16 @@ public class ItemStackSD {
             return getEnchantabilityFromMap(itemStack.getItem());
         }
         return 0;
+    }
+
+    public static boolean hasWoodenWeapon(ItemStack attackerItem, ItemStack defenderItem) {
+        for (ItemStack weapon : List.of(attackerItem, defenderItem)) {
+            for (Item material : ItemTagsSD.getItems(ItemTags.WOODEN_TOOL_MATERIALS)) {
+                if (weapon.isValidRepairItem(material.getDefaultInstance())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

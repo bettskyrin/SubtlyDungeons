@@ -199,7 +199,13 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.BLAST_FUNGUS, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.COVEN_ELIXIR, ModelTemplates.FLAT_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.LIGHT_STEW, ModelTemplates.FLAT_ITEM);
-        itemModelGenerator.generateFlatItem(ItemsSD.DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.WOODEN_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.STONE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.COPPER_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.IRON_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.GOLDEN_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.DIAMOND_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.NETHERITE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         generatePotionArchetypes(itemModelGenerator);
     }
 }

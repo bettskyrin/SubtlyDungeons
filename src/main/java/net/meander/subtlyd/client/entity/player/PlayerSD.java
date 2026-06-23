@@ -1,39 +1,30 @@
 package net.meander.subtlyd.client.entity.player;
 
-import net.meander.subtlyd.world.entity.TentEntity;
-import net.meander.subtlyd.world.entity.LivingEntitySD;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
-import net.minecraft.core.BlockPos;
+import net.meander.subtlyd.world.entity.LivingEntitySD;
+import net.meander.subtlyd.world.entity.TentEntity;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-public class PlayerSD extends Player {
-
+public abstract class PlayerSD extends Player {
     public PlayerSD(Level level, GameProfile gameProfile) {
         super(level, gameProfile);
     }
 
     /**
      * Client handling for player tent sleep.
-     * @param blockPos Tent position
      * @param tent Tent the player is attempting to sleep in
      * @param player Sleeping player
      */
-    public static Either<TentSleepingProblem, Unit> startSleepInTent(BlockPos blockPos, TentEntity tent, ServerPlayer player) {
+    public static Either<TentSleepingProblem, Unit> startSleepInTent(TentEntity tent, ServerPlayer player) {
         player.setRespawnPosition(null, false);
-        LivingEntitySD.startSleepingInTent(blockPos, tent, player);
-        player.level().updateSleepingPlayerList();
+        LivingEntitySD.startSleepingInTent(tent, player);
         return Either.right(Unit.INSTANCE);
-    }
-
-    @Override public @Nullable GameType gameMode() {
-        return null;
     }
 
     public enum TentSleepingProblem {
@@ -47,15 +38,15 @@ public class PlayerSD extends Player {
         @Nullable private final Component message;
 
         TentSleepingProblem() {
-            this.message = null;
+            message = null;
         }
 
         TentSleepingProblem(final @Nullable Component component) {
-            this.message = component;
+            message = component;
         }
 
         @Nullable public Component message() {
-            return this.message;
+            return message;
         }
     }
 }

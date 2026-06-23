@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.level.storage.loot;
 
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.world.level.storage.loot.chests.GenericChestLootSD;
+import net.meander.subtlyd.world.level.storage.loot.chests.DungeonChestLootSD;
 import net.meander.subtlyd.world.level.storage.loot.chests.VillageLootSD;
 import net.meander.subtlyd.world.level.storage.loot.entities.EntityLootSD;
 import net.meander.subtlyd.world.level.storage.loot.gameplay.FishingLootSD;
@@ -38,7 +38,7 @@ public class LootTablesSD {
         VillageHeroLootSD.register();
         EntityLootSD.register();
         FishingLootSD.register();
-        GenericChestLootSD.register();
+        DungeonChestLootSD.register();
     }
 
     public static class GameplayLootTables implements LootTableSubProvider {

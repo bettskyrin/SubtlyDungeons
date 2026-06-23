@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.client.entity.player.PlayerSD;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
@@ -25,14 +24,13 @@ public class ServerPlayerSD extends ServerPlayer {
 
     /**
      * Server handling for player tent sleep
-     * @param pos Tent position
      * @param tent Tent the player is attempting to sleep in
      * @param player Player trying to sleep
      * @return Either a TentSleepingProblem or Unit if successful
      */
-    public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(BlockPos pos, TentEntity tent, ServerPlayer player) {
+    public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(final TentEntity tent, final ServerPlayer player) {
         if (!player.isSleeping() && player.isAlive()) {
-            BedRule rule = player.level().environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, pos);
+            BedRule rule = player.level().environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tent.blockPosition());
             boolean canSleep = rule.canSleep(player.level());
 
             if (!canSleep) {
@@ -49,21 +47,20 @@ public class ServerPlayerSD extends ServerPlayer {
                         double hRange = 8.0;
                         double vRange = 5.0;
                         Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
-                        List<Monster> list = player.level()
+                        List<Monster> monsters = player.level()
                                 .getEntitiesOfClass(
                                         Monster.class,
                                         new AABB(vec3.x() - hRange, vec3.y() - vRange, vec3.z() - hRange, vec3.x() + hRange, vec3.y() + vRange, vec3.z() + hRange),
-                                        monster -> monster.isPreventingPlayerRest(player.level(), player)
-                                );
-                        if (!list.isEmpty()) {
+                                        monster -> monster.isPreventingPlayerRest(player.level(), player));
+                        if (!monsters.isEmpty()) {
                             return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                         }
                     }
-                    Either<PlayerSD.TentSleepingProblem, Unit> either = PlayerSD.startSleepInTent(pos, tent, player);
+                    Either<PlayerSD.TentSleepingProblem, Unit> result = PlayerSD.startSleepInTent(tent, player);
                     player.level().updateSleepingPlayerList();
 
-                    either.ifRight(_ -> CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player));
-                    return either;
+                    result.ifRight(_ -> CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player));
+                    return result;
                 }
             }
         }

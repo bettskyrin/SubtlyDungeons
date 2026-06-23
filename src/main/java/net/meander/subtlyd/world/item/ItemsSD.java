@@ -30,11 +30,13 @@ public class ItemsSD {
             .food(FoodsSD.POTTAGE)
             .stacksTo(1));
     public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT,
-            (id, color) -> Items.registerItem(id, properties -> new TentItem(EntityTypesSD.TENT.pick(color), properties), new Item.Properties()
+            (id, color) -> Items.registerItem(id, p -> new TentItem(EntityTypesSD.TENT.pick(color), p), new Item.Properties()
                     .stacksTo(1)));
-    public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+    public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (p -> p
+            .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
-    public static final Item UNLIT_SOUL_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_SOUL_CAMPFIRE, Blocks.SOUL_CAMPFIRE, (properties -> properties.component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
+    public static final Item UNLIT_SOUL_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_SOUL_CAMPFIRE, Blocks.SOUL_CAMPFIRE, (p -> p
+            .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
     public static final Item SNOW_BRICKS = Items.registerBlock(BlockItemIdsSD.SNOW_BRICKS, BlocksSD.SNOW_BRICKS);
     public static final Item SNOW_BRICK_STAIRS = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_STAIRS, BlocksSD.SNOW_BRICK_STAIRS);
@@ -65,7 +67,13 @@ public class ItemsSD {
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
     public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
     public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties().food(FoodsSD.LIGHT_STEW).stacksTo(1));
-    public static final Item DAGGER = Items.registerItem(ItemIdsSD.DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.IRON, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
+    public static final Item WOODEN_DAGGER = Items.registerItem(ItemIdsSD.WOODEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.WOOD, 1.0F, -2.3F, 4.0F));
+    public static final Item STONE_DAGGER = Items.registerItem(ItemIdsSD.STONE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.STONE, 1.0F, -2.3F, 4.0F));
+    public static final Item COPPER_DAGGER = Items.registerItem(ItemIdsSD.COPPER_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.COPPER, 1.0F, -2.3F, 4.0F));
+    public static final Item IRON_DAGGER = Items.registerItem(ItemIdsSD.IRON_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.IRON, 1.0F, -2.3F, 4.0F));
+    public static final Item GOLDEN_DAGGER = Items.registerItem(ItemIdsSD.GOLDEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.GOLD, 1.0F, -2.3F, 4.0F));
+    public static final Item DIAMOND_DAGGER = Items.registerItem(ItemIdsSD.DIAMOND_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.DIAMOND, 1.0F, -2.3F, 4.0F));
+    public static final Item NETHERITE_DAGGER = Items.registerItem(ItemIdsSD.NETHERITE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.NETHERITE, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
 
     public static void registration() {
         CreativeModeTabsSD.registration();

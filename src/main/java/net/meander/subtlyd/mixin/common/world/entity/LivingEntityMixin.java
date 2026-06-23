@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
@@ -7,6 +8,8 @@ import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
+import net.meander.subtlyd.world.item.ItemStackSD;
+import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -28,9 +31,7 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -48,6 +49,14 @@ import java.util.List;
 public abstract class LivingEntityMixin extends Entity {
     private LivingEntityMixin(EntityType<?> type, Level level) {
         super(type, level);
+    }
+
+    public boolean hasRecentlyAttacked(LivingEntity livingEntity) {
+        return (livingEntity.tickCount - livingEntity.getLastHurtMobTimestamp()) < 100;
+    }
+
+    public boolean canStealthAttack(final LivingEntity attacker, final LivingEntity victim) {
+        return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(victim) < 1;
     }
 
     /**
@@ -163,27 +172,74 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
     @SuppressWarnings("DataFlowIssue")
     private void modifyStealthSystem(Entity targetingEntity, CallbackInfoReturnable<Double> cir) {
-        if (((LivingEntity) (Object) this) instanceof Player player && targetingEntity != null) {
-            boolean isPlayerObvious = player.hasEffect(MobEffects.GLOWING);
-            boolean isPlayerSuperDiscrete = (player.isDiscrete() || player.isInvisible() || player.isVisuallyCrawling()) && !isPlayerObvious;
-            boolean isTargetBlind = targetingEntity.asLivingEntity().hasEffect(MobEffects.BLINDNESS);
-            boolean recentlyAttacked = (player.tickCount - player.getLastHurtMobTimestamp()) < 100;
+        if (targetingEntity != null) {
+            LivingEntity attacker = (LivingEntity) (Object) this;
+            double visibilityPercent = cir.getReturnValue();
+            boolean isTargetingEntityBlind = targetingEntity.asLivingEntity().hasEffect(MobEffects.BLINDNESS);
 
-            if ((isPlayerSuperDiscrete && !recentlyAttacked) || isTargetBlind) {
-                Vec3 directionToPlayer = player.position().subtract(targetingEntity.position()).normalize();
-                Vec3 observerLookVector = targetingEntity.getLookAngle();
-                double alignment = observerLookVector.dot(directionToPlayer);
+            Vec3 directionToEntity = attacker.position().subtract(targetingEntity.position()).normalize();
+            Vec3 targetingEntityLookAngle = targetingEntity.getLookAngle();
+            double lineOfSight = targetingEntityLookAngle.dot(directionToEntity);
 
-                if (alignment < 0.45) {
-                    cir.setReturnValue(0.0);
+            if (attacker.isVisuallyCrawling()) {
+                visibilityPercent *= 0.8;
+            }
+
+            if (!getInBlockState().isAir()) {
+                visibilityPercent *= 0.8;
+            }
+
+            if (isTargetingEntityBlind) {
+                if (distanceTo(targetingEntity) <= 5.0F) {
+                    visibilityPercent *= 0.5;
+                } else {
+                    visibilityPercent *= 0.0;
                 }
             }
 
-            if (isPlayerObvious) {
-                cir.setReturnValue(1.0);
+            if (lineOfSight < 0.45) {
+                if (visibilityPercent < 1.0) {
+                    visibilityPercent *= 0;
+                } else {
+                    visibilityPercent *= 0.7;
+                }
+            } else {
+                if (attacker.isCurrentlyGlowing()) {
+                    visibilityPercent += 0.4;
+                }
             }
+
+            if (hasRecentlyAttacked(attacker)) {
+                visibilityPercent += 0.3;
+            }
+
+            cir.setReturnValue(Math.min(1.0, visibilityPercent));
         }
     }
+
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "damage")
+    private float applyStealthDamage(float damage, ServerLevel level, DamageSource source) {
+
+        if (source.getDirectEntity() instanceof LivingEntity attacker) {
+            LivingEntity victim = (LivingEntity) (Object) this;
+            ItemStack weapon = attacker.getMainHandItem();
+            StealthWeapon stealth = weapon.get(DataComponentsSD.STEALTH_WEAPON);
+
+            if (stealth != null && canStealthAttack(attacker, victim)) {
+                double stealthLevel = attacker.getVisibilityPercent(victim);
+
+                if (stealthLevel <= stealth.hiddenThreshold()) { // 0.2
+                    return damage + stealth.hiddenDamageBonus();
+                } else if (stealthLevel <= stealth.obscuredThreshold()) { // 0.7
+                    return damage + stealth.obscuredDamageBonus();
+                } else if (stealthLevel < 1.0) {
+                    return damage + stealth.discreteDamageBonus();
+                }
+            }
+        }
+        return damage;
+    }
+
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
     private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
@@ -221,23 +277,30 @@ public abstract class LivingEntityMixin extends Entity {
 
         if (source.getDirectEntity() instanceof LivingEntity attacker) {
             Vec3 look = defender.getLookAngle();
-            Vec3 viewVector = new Vec3(look.x, 0.0, look.z).normalize();
+            Vec3 viewVector = new Vec3(look.x(), 0.0, look.z()).normalize();
             Vec3 attackVector = attacker.position().subtract(defender.position());
-            Vec3 directionToAttacker = new Vec3(attackVector.x, 0.0, attackVector.z).normalize();
+            Vec3 directionToAttacker = new Vec3(attackVector.x(), 0.0, attackVector.z()).normalize();
+
             ItemStack attackerItem = attacker.getMainHandItem();
             ItemStack defenderItem = defender.getMainHandItem();
+
             boolean isFacingAttacker = viewVector.dot(directionToAttacker) > 0.0;
             boolean isSwordFight = attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS) && defenderItem.is(ItemTagsSD.CAN_PARRY_SWORDS);
             boolean isKnifeFIght = attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
 
             if (isFacingAttacker && (isSwordFight || isKnifeFIght)) {
                 if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= 10) {
-                    boolean hasWoodenWeapon = hasWoodenWeapon(attackerItem, defenderItem);
-                    float pitch = hasWoodenWeapon ? 0.7F : 1.5F + (level.getRandom().nextFloat() * 0.2F);
-                    SoundEvent soundEffect = hasWoodenWeapon ? SoundEventsSD.BLADE_WOOD_CLASH : SoundEventsSD.BLADE_CLASH;
+                    boolean hasWoodenWeapon = ItemStackSD.hasWoodenWeapon(attackerItem, defenderItem);
+                    float pitch = 0.7F;
+                    SoundEvent soundEffect = SoundEventsSD.BLADE_WOOD_CLASH;
+
+                    if (!hasWoodenWeapon) {
+                        pitch = 1.5F + (level.getRandom().nextFloat() * 0.2F);
+                        soundEffect = SoundEventsSD.BLADE_CLASH;
+                        level.sendParticles(ParticleTypes.ELECTRIC_SPARK, defender.getX(), defender.getY(0.6), defender.getZ(), 2, 0, 0, 0, 0);
+                    }
 
                     level.playSound(null, defender.getX(), defender.getY(), defender.getZ(), soundEffect, SoundSource.PLAYERS, 0.5F, pitch);
-                    level.sendParticles(ParticleTypes.ELECTRIC_SPARK, defender.getX(), defender.getY(0.5), defender.getZ(), 2, 0, 0, 0, 0);
                     attackerItem.hurtAndBreak(1, level, attacker instanceof ServerPlayer p ? p : null, (item) -> attacker.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
                     defenderItem.hurtAndBreak(1, level, defender instanceof ServerPlayer p ? p : null, (item) -> defender.onEquippedItemBroken(item, EquipmentSlot.MAINHAND));
 
@@ -249,16 +312,5 @@ public abstract class LivingEntityMixin extends Entity {
                 }
             }
         }
-    }
-
-    private boolean hasWoodenWeapon(ItemStack attackerItem, ItemStack defenderItem) {
-        for (ItemStack weapon : List.of(attackerItem, defenderItem)) {
-            for (Item material : ItemTagsSD.getItems(ItemTags.WOODEN_TOOL_MATERIALS)) {
-                if (weapon.isValidRepairItem(material.getDefaultInstance())) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
