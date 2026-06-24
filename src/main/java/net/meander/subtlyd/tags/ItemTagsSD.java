@@ -97,6 +97,8 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .forceAddTag(ItemTags.AXES);
         tag(ItemTags.MINING_LOOT_ENCHANTABLE)
                 .addTag(DAGGERS);
+        tag(ItemTags.LUNGE_ENCHANTABLE)
+                .addTag(DAGGERS);
         tag(CAN_PARRY_SWORDS)
                 .forceAddTag(ItemTags.SWORDS);
         tag(CAN_PARRY_DAGGERS)
