@@ -79,6 +79,7 @@
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.OptionsMixin",
     "client.options.VideoSettingsScreenMixin",
+    "client.player.LocalPlayerPickMixin",
     "client.renderer.GameRendererMixin",
     "client.renderer.LevelEventHandlerMixin",
     "client.renderer.ScreenEffectRendererMixin",

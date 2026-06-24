@@ -18,10 +18,10 @@ accessible method net/minecraft/client/gui/screens/worldselection/WorldCreationU
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getOrCreateTempDataPackDir ()Ljava/nio/file/Path;
 accessible field net/minecraft/client/gui/screens/worldselection/CreateWorldScreen tempDataPackRepository Lnet/minecraft/server/packs/repository/PackRepository;
 
-# Options
+## Options
 accessible class net/minecraft/client/Options$FieldAccess
 
-# AI
+# Mobs
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/ai/goal/PanicGoal speedModifier D
@@ -43,7 +43,11 @@ accessible method net/minecraft/world/level/levelgen/structure/StructurePiece ge
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen applyNewPackConfig (Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/world/level/WorldDataConfiguration;Ljava/util/function/Consumer;)V
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getDataPackSelectionSettings (Lnet/minecraft/world/level/WorldDataConfiguration;)Lcom/mojang/datafixers/util/Pair;
+accessible method net/minecraft/data/worldgen/features/VegetationFeatures flowerBedPatchBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/util/random/WeightedList$Builder;
 
 # Blocks
 accessible method net/minecraft/world/level/block/state/BlockBehaviour getShape (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
 accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
+
+# Textures
+accessible method net/minecraft/client/particle/CritParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V

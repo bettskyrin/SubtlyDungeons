@@ -2,6 +2,7 @@ package net.meander.subtlyd.core.particles;
 
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
+import net.meander.subtlyd.client.particle.BladeClashParticle;
 import net.meander.subtlyd.client.particle.SporeCloudParticle;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.Minecraft;
@@ -18,9 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class ParticleTypesSD {
     public static final SimpleParticleType SPORE_CLOUD = register("spore_cloud", false);
+    public static final SimpleParticleType BLADE_CLASH = register("blade_clash", false);
 
     public static void registration() {
         ParticleProviderRegistry.getInstance().register(SPORE_CLOUD, SporeCloudParticle.Provider::new);
+        ParticleProviderRegistry.getInstance().register(BLADE_CLASH, BladeClashParticle.Provider::new);
     }
 
     private static SimpleParticleType register(final String name, final boolean overrideLimiter) {

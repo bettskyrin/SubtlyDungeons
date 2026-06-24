@@ -126,9 +126,10 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .requires(Items.BOWL)
                         .requires(Items.CARROT)
                         .requires(Items.WHEAT)
-                        .requires(Items.BROWN_MUSHROOM)
+                        .requires(ItemTags.MUSHROOMS)
                         .unlockedBy(getHasName(Items.CARROT), has(Items.CARROT))
                         .unlockedBy(getHasName(Items.WHEAT), has(Items.WHEAT))
+                        .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
                         .unlockedBy(getHasName(Items.BROWN_MUSHROOM), has(Items.BROWN_MUSHROOM))
                         .unlockedBy(getHasName(Items.BOWL), has(Items.BOWL))
                         .save(output);

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemInHandRenderer;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,9 +22,10 @@ public class ItemInHandRendererMixin {
             float timeHeld = itemStack.getUseDuration(player) - (player.getUseItemRemainingTicks() - frameInterp + 1.0F);
 
             if (timeHeld >= 60.0F) {
-                float shakeMagnitude = Math.min((timeHeld - 60.0F) * 0.0015F, 0.05F);
+                float progress = Mth.clamp((timeHeld - 60.0F) / 140.0F, 0.0F, 1.0F);
+                float shakeMagnitude = 0.04F * progress;
 
-                poseStack.translate(0, (player.getRandom().nextFloat() - 0.5F) * shakeMagnitude, 0);
+                poseStack.translate(0, Mth.sin(timeHeld * 0.5F) * shakeMagnitude, 0);
             }
         }
     }

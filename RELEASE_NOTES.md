@@ -22,17 +22,13 @@
 - One cauldron can hold 3 bowls of stew
 - Light Stews made with flowers that would be used to make a suspicious stew, do not grant status effects
 
-#### More Creepy Bugs
-- Added wall climbing to Silverfish AI
-- Added wall climbing to Endermite AI
-
 #### Items
 - Added Light Stew
 - Added Daggers
   - Deals 4 attack damage by default
   - Can deal up to an extra 4 damage depending on how discrete the user is being
   - Can be crafted with one stick and one tool material
-  - Can be found as loot in any chest that may give a sword
+  - Can be found as loot in any chest that may give a sword and in most chests that can give spears
 
 #### Combat
 - Added weapon clashes
@@ -41,17 +37,6 @@
 - Added Shield Strength
   - Determines how much damage a shield can block
   - By default, Shields have a Shield Strength of 5
-- Changed natural regeneration to be twice as fast
-- Changed starvation to be twice as fast
-- Changed natural regeneration to continue to 7 food points
-- Changed arrows to not trigger invincibility frames
-- Changed fast weapons to trigger less invincibility frame time
-- Changed saturation to no longer be related to fast healing
-- Changed saturation to drain before hunger
-- Changed consuming to be interrupted by attacks
-- Changed projectiles to no longer be affected by vertical inertia of the shooter
-- Changed bow and crossbow uncertainty to be lower
-- Changed critical hits to be possible while sprinting
 
 #### Enchantments
 - Added Enervation enchantment
@@ -96,6 +81,25 @@
   - Is granted by adding stew ingredients to a cauldron
 
 ### Changes
+#### Combat
+- Changed natural regeneration to be twice as fast
+- Changed starvation to be twice as fast
+- Changed natural regeneration to continue to 7 food points
+- Changed natural regeneration to be a 1:1 transaction with food points
+- Changed Arrows to not trigger invincibility frames
+- Changed Arrows to not inherit the Y-axis inertia of their shooter
+- Changed Tipped Arrows to scale consistently with their potion effect
+- Changed fast weapons to trigger less invincibility frame time
+- Changed saturation to no longer be related to fast healing
+- Changed saturation to drain before hunger
+- Changed consuming to be interrupted by attacks
+- Changed Bow and Crossbow uncertainty to be lower
+- Changed critical hits to be possible while sprinting
+- Changed critical hits to be impossible for arrows that have been notched for longer than 3 seconds
+- Changed Axes to accept Sweeping Edge, Looting, and Fire Aspect
+- Changed Maces to accept Sweeping Edge
+- Changed attacking with weapons to prioritize entities over blocks, such as grass
+
 #### Discrete Actions
 - Discrete actions, like sneaking, crawling, being invisible, or hiding in foliage, now conceal a player's location better
   - Being discrete now allows you to get close behind creatures without them detecting you, so long as you are not within their line of sight
@@ -134,6 +138,9 @@
 - Added small mushroom rings around huge mushrooms
 - Changed mushroom generation rate
 
+##### Dappled Forest
+- Changed understory to have Perse Wildflowers
+
 ##### Swamp
 - Added perse wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
@@ -154,9 +161,19 @@
 ##### End Spikes
 - Changed End Spikes to be more triangular
 
+#### Arthropod Pathfinding
+- Added wall climbing to Silverfish AI
+- Added wall climbing to Endermite AI
+
+
+#### Items
+- Changed Pottage to accept any type of edible mushroom
+
 #### Blocks
 - Changed doors to be water loggable
 - Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
+- Changed Shelf Mushroom to be edible
+- Changed Powder Snow to decrease mining speed
 
 #### Crafting
 - Changed map crafting recipe
@@ -203,3 +220,4 @@
 - Added `can_parry_swords` item tag
 - Added `can_parry_daggers` item tag
 - Removed `has_ambient_block_sounds` block tag
+- Removed `skull_block` block tag

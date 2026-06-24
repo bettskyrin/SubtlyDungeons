@@ -116,8 +116,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
         tag(ItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
                 .add(BlockItemIdsSD.IRON_GRATE.item());
         tag(STEW_INGREDIENT)
-                .add(BlockItemIds.BROWN_MUSHROOM.item())
-                .add(BlockItemIds.RED_MUSHROOM.item())
+                .forceAddTag(ItemTags.MUSHROOMS)
                 .add(BlockItemIds.CARROT_CROP.item())
                 .add(ItemIds.BEETROOT)
                 .add(ItemIds.WHEAT)

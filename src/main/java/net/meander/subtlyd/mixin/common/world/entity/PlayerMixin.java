@@ -1,14 +1,20 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -61,11 +67,40 @@ public class PlayerMixin {
         }
     }
 
+    @ModifyReturnValue(method = "getDestroySpeed", at = @At("RETURN"))
+    private float slowPowderSnowMining(float destroySpeed, BlockState state) {
+        Player player = (Player) (Object) this;
+
+        if (player.isInPowderSnow) {
+            return destroySpeed / 5.0F;
+        }
+
+        return destroySpeed;
+    }
+
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
     private void disableItemCooldown(Player instance) {}
 
     @Redirect(method = "canCriticalAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;isSprinting()Z"))
     private boolean modifyCrits(Player player) {
         return false;
+    }
+
+    @Inject(method = "isSweepAttack", at = @At("RETURN"), cancellable = true)
+    private void allowSweepAttacks(boolean fullStrengthAttack, boolean criticalAttack, boolean knockbackAttack, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValue()) {
+            Player player = (Player) (Object) this;
+            boolean canSweep = fullStrengthAttack && !criticalAttack && !knockbackAttack && player.onGround() && player.getDeltaMovement().horizontalDistanceSqr() < 0.1D;
+
+            if (canSweep) {
+                ItemStack weapon = player.getMainHandItem();
+
+                if (weapon.is(ItemTags.AXES) || weapon.is(Items.MACE)) {
+                    if (EnchantmentHelperSD.checkEnchantment(weapon, Enchantments.SWEEPING_EDGE)) {
+                        cir.setReturnValue(true);
+                    }
+                }
+            }
+        }
     }
 }

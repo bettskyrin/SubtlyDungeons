@@ -145,12 +145,12 @@ public class EnchantmentsSD {
                                     EquipmentSlotGroup.MAINHAND))
                     .withEffect(
                             EnchantmentEffectComponents.POST_ATTACK,
-                                    EnchantmentTarget.VICTIM,
                                     EnchantmentTarget.ATTACKER,
+                                    EnchantmentTarget.VICTIM,
                                     new ApplyMobEffect(
                                             HolderSet.direct(MobEffects.MINING_FATIGUE),
-                                            LevelBasedValue.perLevel(40.0F, 20.0F),
-                                            LevelBasedValue.perLevel(40.0F, 20.0F),
+                                            LevelBasedValue.perLevel(2.0F, 1.0F),
+                                            LevelBasedValue.perLevel(2.0F, 1.0F),
                                             LevelBasedValue.perLevel(0.0F, 1.0F),
                                             LevelBasedValue.perLevel(0.0F, 1.0F)
                                     ))
@@ -172,6 +172,7 @@ public class EnchantmentsSD {
                                     4,
                                     EquipmentSlotGroup.MAINHAND
                             ))
+                    .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
                     .withEffect(
                             EnchantmentEffectComponents.DAMAGE,
                             new AddValue(LevelBasedValue.perLevel(1.0F))

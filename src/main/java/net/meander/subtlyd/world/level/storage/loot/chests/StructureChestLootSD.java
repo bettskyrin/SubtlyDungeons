@@ -10,7 +10,7 @@ import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-public class DungeonChestLootSD {
+public class StructureChestLootSD {
     public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, _, _) -> {
             if (BuiltInLootTables.ANCIENT_CITY.equals(resourceKey)) {

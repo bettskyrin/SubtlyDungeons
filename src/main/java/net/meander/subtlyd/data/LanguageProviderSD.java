@@ -112,6 +112,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.TENT.brown(), "Brown Tent");
         translationBuilder.add(ItemsSD.CALAMARI, "Calamari");
         translationBuilder.add(ItemsSD.COOKED_CALAMARI, "Cooked Calamari");
+        translationBuilder.add(ItemsSD.COPPER_DAGGER, "Copper Dagger");
         translationBuilder.add(ItemsSD.TENT.cyan(), "Cyan Tent");
         translationBuilder.add(ItemsSD.DIAMOND_DAGGER, "Diamond Dagger");
         translationBuilder.add(ItemsSD.IRON_DAGGER, "Iron Dagger");

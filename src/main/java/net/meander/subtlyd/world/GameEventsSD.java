@@ -39,6 +39,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.Consumable;
+import net.minecraft.world.item.component.Weapon;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
@@ -112,11 +113,20 @@ public class GameEventsSD {
                     builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
                 }
             });
+
+            listener.modify(ItemTagsSD.getItems(ItemTags.AXES), (builder, item) -> {
+                ItemStack itemStack = item.getDefaultInstance();
+
+                if (itemStack.is(ItemTags.AXES)) {
+                    builder.set(DataComponents.WEAPON, new Weapon(1, 1.6F));
+                }
+            });
         });
     }
 
     private static void registerCompostables() {
         CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
+        CompostableRegistry.INSTANCE.add(ItemsSD.PERSE_WILDFLOWERS, 1.0F);
     }
 
     private static void registerBlockEvents() {

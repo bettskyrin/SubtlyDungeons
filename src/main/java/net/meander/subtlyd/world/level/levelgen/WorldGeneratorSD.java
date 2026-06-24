@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.data.DataGeneratorSD;
-import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
+import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
@@ -38,6 +38,11 @@ public class WorldGeneratorSD implements DataProvider {
 
     public WorldGeneratorSD(PackOutput output) {
         packOutput = output;
+    }
+
+    public static void modifyBiomes() {
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
     }
 
     @Override
@@ -203,11 +208,6 @@ public class WorldGeneratorSD implements DataProvider {
                 noiseRouter.add(key, flatCache);
             }
         }
-    }
-
-    public static void modifyBiomes() {
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.REEDS);
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.MUD_PATCH);
     }
 
     @Override

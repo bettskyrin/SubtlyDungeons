@@ -9,15 +9,16 @@ import net.meander.subtlyd.client.data.model.ModelProviderSD;
 import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.recipies.RecipeProviderSD;
-import net.meander.subtlyd.data.worldgen.features.MiscOverworldFeaturesSD;
 import net.meander.subtlyd.data.worldgen.features.AquaticFeaturesSD;
+import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
+import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
+import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.tags.*;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
 import net.meander.subtlyd.world.level.levelgen.feature.FeatureProvider;
-import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
@@ -56,8 +57,9 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
         registryBuilder.add(Registries.FEATURE, AquaticFeaturesSD::bootstrap);
-        registryBuilder.add(Registries.FEATURE, MiscOverworldFeaturesSD::bootstrap);
-        registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::bootstrap);
+        registryBuilder.add(Registries.FEATURE, VegetationFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, AquaticPlacementsSD::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::bootstrap);
     }
 }

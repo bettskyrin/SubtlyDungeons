@@ -1,6 +1,7 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
 import net.meander.subtlyd.core.component.DataComponentsSD;
+import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
@@ -10,9 +11,11 @@ import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
+import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -35,6 +38,7 @@ import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -233,7 +237,6 @@ public abstract class LivingEntityMixin extends Entity {
 
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "damage")
     private float applyStealthDamage(float damage, ServerLevel level, DamageSource source) {
-
         if (source.getDirectEntity() instanceof LivingEntity attacker) {
             LivingEntity victim = (LivingEntity) (Object) this;
             ItemStack weapon = attacker.getMainHandItem();
@@ -274,7 +277,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
-    private void interceptForParry(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+    private void weaponClash(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity defender = (LivingEntity) (Object) this;
 
         if (source.getDirectEntity() instanceof LivingEntity attacker) {
@@ -299,7 +302,8 @@ public abstract class LivingEntityMixin extends Entity {
                     if (!hasWoodenWeapon) {
                         pitch = 1.5F + (level.getRandom().nextFloat() * 0.2F);
                         soundEffect = SoundEventsSD.BLADE_CLASH;
-                        level.sendParticles(ParticleTypes.ELECTRIC_SPARK, defender.getX(), defender.getY(0.6), defender.getZ(), 2, 0, 0, 0, 0);
+
+                        level.sendParticles(ParticleTypesSD.BLADE_CLASH, defender.getX(), defender.getY(0.9), defender.getZ(), 5, 1, 1, 1, 0);
                     }
 
                     level.playSound(null, defender.getX(), defender.getY(), defender.getZ(), soundEffect, SoundSource.PLAYERS, 0.5F, pitch);
@@ -336,6 +340,25 @@ public abstract class LivingEntityMixin extends Entity {
                     }
                 }
             }
+        }
+    }
+
+    @Inject(method = "getSecondsToDisableBlocking", at = @At("RETURN"), cancellable = true)
+    private void modifySecondsToDisableBlocking(CallbackInfoReturnable<Float> cir) {
+        LivingEntity attacker = (LivingEntity) (Object) this;
+        ItemStack weapon = attacker.getWeaponItem();
+        int cleavingLevel = EnchantmentHelper.getItemEnchantmentLevel(attacker.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(EnchantmentsSD.CLEAVING), weapon);
+        float stunSeconds = cir.getReturnValue();
+        
+        if (cleavingLevel > 0) {
+            if (stunSeconds == 0.0F) {
+                stunSeconds = 1.6F;
+            }
+            stunSeconds += (cleavingLevel * 0.5F);
+        }
+
+        if (stunSeconds != cir.getReturnValue()) {
+            cir.setReturnValue(stunSeconds);
         }
     }
 }

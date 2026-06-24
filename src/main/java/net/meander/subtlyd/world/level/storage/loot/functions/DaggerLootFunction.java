@@ -48,6 +48,23 @@ public class DaggerLootFunction extends LootItemConditionalFunction {
                     newStack = ItemsSD.NETHERITE_DAGGER.getDefaultInstance();
                 }
                 newStack.applyComponents(itemStack.getComponentsPatch());
+            } else if (itemStack.is(ItemTags.SPEARS)) {
+                if (itemStack.is(Items.WOODEN_SPEAR)) {
+                    newStack = ItemsSD.WOODEN_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.STONE_SPEAR)) {
+                    newStack = ItemsSD.STONE_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.COPPER_SPEAR)) {
+                    newStack = ItemsSD.COPPER_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.IRON_SPEAR)) {
+                    newStack = ItemsSD.IRON_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.GOLDEN_SPEAR)) {
+                    newStack = ItemsSD.GOLDEN_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.DIAMOND_SPEAR)) {
+                    newStack = ItemsSD.DIAMOND_DAGGER.getDefaultInstance();
+                } else if (itemStack.is(Items.NETHERITE_SPEAR)) {
+                    newStack = ItemsSD.NETHERITE_DAGGER.getDefaultInstance();
+                }
+                newStack.applyComponents(itemStack.getComponentsPatch());
             }
         }
         return newStack;

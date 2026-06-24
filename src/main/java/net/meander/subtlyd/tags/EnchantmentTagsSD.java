@@ -43,6 +43,8 @@ public class EnchantmentTagsSD extends FabricTagsProvider<Enchantment> {
                 .addOptionalElement(EnchantmentsSD.ABRADING_CURSE.identifier());
         getOrCreateRawBuilder(EnchantmentTags.ARMOR_EXCLUSIVE)
                 .addOptionalElement(EnchantmentsSD.OCCULT_PROTECTION.identifier());
+        getOrCreateRawBuilder(EnchantmentTags.DAMAGE_EXCLUSIVE)
+                .addOptionalElement(EnchantmentsSD.CLEAVING.identifier());
         getOrCreateRawBuilder(INCREASES_MAGIC_LIMIT)
                 .addOptionalElement(EnchantmentsSD.GLYPH_AFFINITY.identifier());
         getOrCreateRawBuilder(REPAIRS_EQUIPMENT)
