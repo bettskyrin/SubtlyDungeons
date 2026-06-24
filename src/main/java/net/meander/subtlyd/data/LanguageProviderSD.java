@@ -146,7 +146,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
         translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
-        translationBuilder.add("options.accessibility.shield_crouch", "Crouch to Block");
+        translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
         translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
         translationBuilder.add("options.experimental.gui", "Experimental GUI");
         translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");

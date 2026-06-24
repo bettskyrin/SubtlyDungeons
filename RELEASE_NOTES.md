@@ -35,7 +35,7 @@
   - When two attackers attack each other simultaneously (within 10 ticks), if they are weilding the same weapon, their weapons may clash, and do no damage to either of them
   - This currently only applies to swords and daggers
 - Added Shield Strength
-  - Determines how much damage a shield can block
+  - Determines how much damage and knockback a shield can absorb
   - By default, Shields have a Shield Strength of 5
 
 #### Enchantments

@@ -23,6 +23,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -56,6 +57,8 @@ import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+    private boolean wasBlocked = false;
+
     private LivingEntityMixin(EntityType<?> type, Level level) {
         super(type, level);
     }
@@ -267,17 +270,38 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "applyItemBlocking", at = @At("RETURN"), cancellable = true)
-    private void applyShieldPassthrough(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Float> cir) {
+    private void modifyItemBlocking(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Float> cir) {
         float blockedAmount = cir.getReturnValue();
 
-        if (blockedAmount > 0.0F && !source.is(DamageTypeTags.IS_PROJECTILE)) {
-            LivingEntity entity = (LivingEntity) (Object) this;
-            float shieldStrength = (float) entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
+        if (blockedAmount > 0.0F) {
+            wasBlocked = true;
 
-            if (blockedAmount > shieldStrength) {
-                cir.setReturnValue(shieldStrength);
+            if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
+                LivingEntity entity = (LivingEntity) (Object) this;
+                float shieldStrength = (float) entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
+
+                if (blockedAmount > shieldStrength) {
+                    cir.setReturnValue(shieldStrength);
+                }
             }
         }
+    }
+
+    @ModifyVariable(method = "knockback(DDDLnet/minecraft/world/damagesource/DamageSource;FZ)V", at = @At("HEAD"), argsOnly = true, name = "power")
+    private double modifyShieldKnockback(double power) {
+        if (wasBlocked) {
+            LivingEntity entity = (LivingEntity) (Object) this;
+            double shieldStrength = entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
+            double reduction = Mth.clamp(shieldStrength * 0.1, 0.0, 1.0);
+
+            power *= (1.0 - reduction);
+        }
+        return power;
+    }
+
+    @Inject(method = "hurtServer", at = @At("RETURN"))
+    private void resetWasBlockedFlag(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        wasBlocked = false;
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
@@ -365,6 +389,7 @@ public abstract class LivingEntityMixin extends Entity {
             cir.setReturnValue(stunSeconds);
         }
     }
+
 
     @Inject(method = "releaseUsingItem", at = @At("HEAD"), cancellable = true)
     private void allowShieldCrouching(CallbackInfo ci) {
