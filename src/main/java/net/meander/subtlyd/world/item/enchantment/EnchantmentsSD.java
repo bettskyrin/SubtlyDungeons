@@ -148,7 +148,7 @@ public class EnchantmentsSD {
                                     EnchantmentTarget.ATTACKER,
                                     EnchantmentTarget.VICTIM,
                                     new ApplyMobEffect(
-                                            HolderSet.direct(MobEffects.MINING_FATIGUE),
+                                            HolderSet.direct(MobEffects.WEAKNESS),
                                             LevelBasedValue.perLevel(2.0F, 1.0F),
                                             LevelBasedValue.perLevel(2.0F, 1.0F),
                                             LevelBasedValue.perLevel(0.0F, 1.0F),

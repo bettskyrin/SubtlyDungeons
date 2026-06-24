@@ -1,18 +1,22 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,9 +28,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Player.class)
 public class PlayerMixin {
+    private boolean wasCrouching = false;
+
     @Inject(method = "tick", at = @At("HEAD"))
     private void tick(CallbackInfo ci) {
         tickTentSleep();
+        activateShieldFromCrouch();
     }
 
     /**
@@ -53,6 +60,24 @@ public class PlayerMixin {
         }
     }
 
+    private void activateShieldFromCrouch() {
+        if (OptionsSD.SHIELD_CROUCH.get()) {
+            Player player = (Player) (Object) this;
+            boolean isCrouching = player.isCrouching();
+
+            if (isCrouching != wasCrouching) {
+                if (player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof ShieldItem) {
+                    if (isCrouching && !player.isUsingItem()) {
+                        player.startUsingItem(InteractionHand.OFF_HAND);
+                    } else if (player.isUsingItem() && player.getUseItem().getItem() instanceof ShieldItem) {
+                        player.stopUsingItem();
+                    }
+                }
+                wasCrouching = isCrouching;
+            }
+        }
+    }
+
     @Inject(method = "hurtServer", at = @At("HEAD"))
     private void interruptMeal(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         Player player = (Player) (Object) this;
@@ -74,7 +99,6 @@ public class PlayerMixin {
         if (player.isInPowderSnow) {
             return destroySpeed / 5.0F;
         }
-
         return destroySpeed;
     }
 
@@ -86,21 +110,8 @@ public class PlayerMixin {
         return false;
     }
 
-    @Inject(method = "isSweepAttack", at = @At("RETURN"), cancellable = true)
-    private void allowSweepAttacks(boolean fullStrengthAttack, boolean criticalAttack, boolean knockbackAttack, CallbackInfoReturnable<Boolean> cir) {
-        if (!cir.getReturnValue()) {
-            Player player = (Player) (Object) this;
-            boolean canSweep = fullStrengthAttack && !criticalAttack && !knockbackAttack && player.onGround() && player.getDeltaMovement().horizontalDistanceSqr() < 0.1D;
-
-            if (canSweep) {
-                ItemStack weapon = player.getMainHandItem();
-
-                if (weapon.is(ItemTags.AXES) || weapon.is(Items.MACE)) {
-                    if (EnchantmentHelperSD.checkEnchantment(weapon, Enchantments.SWEEPING_EDGE)) {
-                        cir.setReturnValue(true);
-                    }
-                }
-            }
-        }
+    @Redirect(method = "isSweepAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/tags/TagKey;)Z"))
+    private boolean getItemInHand(ItemStack instance, TagKey<Item> tagKey) {
+        return instance.is(ItemTagsSD.SWEEPING_WEAPON) && EnchantmentHelperSD.checkEnchantment(instance, Enchantments.SWEEPING_EDGE);
     }
 }

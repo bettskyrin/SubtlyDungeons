@@ -22,10 +22,10 @@ public class ItemInHandRendererMixin {
             float timeHeld = itemStack.getUseDuration(player) - (player.getUseItemRemainingTicks() - frameInterp + 1.0F);
 
             if (timeHeld >= 60.0F) {
-                float progress = Mth.clamp((timeHeld - 60.0F) / 140.0F, 0.0F, 1.0F);
+                float progress = Mth.clamp((timeHeld - 60.0F) / 180.0F, 0.0F, 1.0F);
                 float shakeMagnitude = 0.04F * progress;
 
-                poseStack.translate(0, Mth.sin(timeHeld * 0.5F) * shakeMagnitude, 0);
+                poseStack.translate(0, Mth.sin(timeHeld) * shakeMagnitude, 0);
             }
         }
     }

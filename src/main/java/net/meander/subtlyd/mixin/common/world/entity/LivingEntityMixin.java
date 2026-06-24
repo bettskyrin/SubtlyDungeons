@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
@@ -35,9 +36,11 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -63,34 +66,6 @@ public abstract class LivingEntityMixin extends Entity {
 
     public boolean canStealthAttack(final LivingEntity attacker, final LivingEntity victim) {
         return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(victim) < 1;
-    }
-
-    /**
-     * Runs when an entity takes damage.
-     */
-    @Inject(method = "hurtServer", at = @At("RETURN"))
-    private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
-
-        if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
-            if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES)
-            || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
-                shareHerdPanic(livingEntity, attacker);
-            }
-        }
-    }
-
-    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "source")
-    private DamageSource roastedByDragon(DamageSource source) {
-        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
-            if (cloud.getParticle().getType() == ParticleTypes.DRAGON_BREATH) {
-                LivingEntity livingEntity = (LivingEntity) (Object) this;
-                Holder<DamageType> holder = livingEntity.damageSources().dragonBreath().typeHolder();
-
-                return new DamageSource(holder, source.getDirectEntity(), source.getEntity());
-            }
-        }
-        return source;
     }
 
     /**
@@ -121,6 +96,35 @@ public abstract class LivingEntityMixin extends Entity {
             }
         }
     }
+
+    /**
+     * Runs when an entity takes damage.
+     */
+    @Inject(method = "hurtServer", at = @At("RETURN"))
+    private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+
+        if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
+            if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES)
+            || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
+                shareHerdPanic(livingEntity, attacker);
+            }
+        }
+    }
+
+    @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "source")
+    private DamageSource roastedByDragon(DamageSource source) {
+        if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
+            if (cloud.getParticle().getType() == ParticleTypes.DRAGON_BREATH) {
+                LivingEntity livingEntity = (LivingEntity) (Object) this;
+                Holder<DamageType> holder = livingEntity.damageSources().dragonBreath().typeHolder();
+
+                return new DamageSource(holder, source.getDirectEntity(), source.getEntity());
+            }
+        }
+        return source;
+    }
+
 
     @Inject(method = "die", at = @At("HEAD"))
     private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
@@ -359,6 +363,19 @@ public abstract class LivingEntityMixin extends Entity {
 
         if (stunSeconds != cir.getReturnValue()) {
             cir.setReturnValue(stunSeconds);
+        }
+    }
+
+    @Inject(method = "releaseUsingItem", at = @At("HEAD"), cancellable = true)
+    private void allowShieldCrouching(CallbackInfo ci) {
+        if (OptionsSD.SHIELD_CROUCH.get()) {
+            LivingEntity entity = (LivingEntity) (Object) this;
+
+            if (entity instanceof Player player) {
+                if (player.isCrouching() && player.getUseItem().getItem() instanceof ShieldItem) {
+                    ci.cancel();
+                }
+            }
         }
     }
 }

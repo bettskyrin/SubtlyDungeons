@@ -41,7 +41,7 @@
 #### Enchantments
 - Added Enervation enchantment
   - Can be applied to daggers
-  - Applies 2 seconds of Mining Fatigue to victims
+  - Applies 2 seconds of Weakness to victims
     - For each level, this time increases by 1 second
 - Added Cleaving enchantment
   - This is to match the Combat Test Snapshots
@@ -98,6 +98,8 @@
 - Changed critical hits to be impossible for arrows that have been notched for longer than 3 seconds
 - Changed Axes to accept Sweeping Edge, Looting, and Fire Aspect
 - Changed Maces to accept Sweeping Edge
+- Changed Swords to require Sweeping Edge for sweeping attacks
+- Changed Axes to no longer take increased durability damage when attacking
 - Changed attacking with weapons to prioritize entities over blocks, such as grass
 
 #### Discrete Actions
@@ -203,6 +205,9 @@
 - Added "Any shape and size!" splash text
 
 ### Technical Changes
+#### Particles
+- Added `blade_clash` particle
+
 #### Statistics
 - Added `damage_blocked_by_weapon` statistic
 
@@ -219,5 +224,6 @@
 - Added `daggers` item tag
 - Added `can_parry_swords` item tag
 - Added `can_parry_daggers` item tag
+- Added `sweeping_weapon` item tag
 - Removed `has_ambient_block_sounds` block tag
 - Removed `skull_block` block tag

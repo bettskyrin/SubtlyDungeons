@@ -2,10 +2,12 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
+import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.HolderLookup;
@@ -30,6 +32,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("advancements.subtlyd.light_campfire.description", "Use a Stick on an Unlit Campfire");
         translationBuilder.add("advancements.subtlyd.make_stew.title", "Soup-er!");
         translationBuilder.add("advancements.subtlyd.make_stew.description", "Add ingredients to a Cauldron");
+
+        translationBuilder.add(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
 
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
         translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");
@@ -142,6 +146,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
         translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
+        translationBuilder.add("options.accessibility.shield_crouch", "Crouch to Block");
+        translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
         translationBuilder.add("options.experimental.gui", "Experimental GUI");
         translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
         translationBuilder.add("options.difficulty.easy.info", "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.");
@@ -151,8 +157,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("selectWorld.select", "Play");
 
-        translationBuilder.add("stat.subtlyd.sleep_in_tent", "Times Slept in a Tent");
-        translationBuilder.add("stat.subtlyd.damage_blocked_by_weapon", "Damage Blocked by Weapon");
+        translationBuilder.add(StatsSD.SLEEP_IN_TENT, "Times Slept in a Tent");
+        translationBuilder.add(StatsSD.DAMAGE_BLOCKED_BY_WEAPON, "Damage Blocked by Weapon");
 
         translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
         translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
@@ -221,6 +227,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemTagsSD.LIQUID_CONSUMABLES, "Liquid Consumables");
         translationBuilder.add(ItemTagsSD.NON_HUMANOID_ARMOR, "Non Humanoid Armor");
         translationBuilder.add(ItemTagsSD.STEW_INGREDIENT, "Stew Ingredient");
+        translationBuilder.add(ItemTagsSD.SWEEPING_WEAPON, "Sweeping Weapon");
         translationBuilder.add(ItemTagsSD.TENTS, "Tents");
     }
 }

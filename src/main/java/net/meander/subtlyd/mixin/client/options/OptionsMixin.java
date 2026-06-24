@@ -16,5 +16,6 @@ public class OptionsMixin {
     private void saveOptions(Options.FieldAccess access, CallbackInfo ci) {
         access.process("camera_shake", OptionsSD.CAMERA_SHAKE);
         access.process("experimental_gui", OptionsSD.EXPERIMENTAL_GUI);
+        access.process("shield_crouch", OptionsSD.SHIELD_CROUCH);
     }
 }

@@ -28,6 +28,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
     public static final TagKey<Item> DAGGERS = bind("daggers");
     public static final TagKey<Item> CAN_PARRY_SWORDS = bind("can_parry_swords");
     public static final TagKey<Item> CAN_PARRY_DAGGERS = bind("can_parry_daggers");
+    public static final TagKey<Item> SWEEPING_WEAPON = bind("sweeping_weapon");
     
     public ItemTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -73,6 +74,10 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIdsSD.GOLDEN_DAGGER)
                 .add(ItemIdsSD.DIAMOND_DAGGER)
                 .add(ItemIdsSD.NETHERITE_DAGGER);
+        tag(SWEEPING_WEAPON)
+                .forceAddTag(ItemTags.AXES)
+                .forceAddTag(ItemTags.SWORDS)
+                .add(ItemIds.MACE);
         tag(ItemTags.ARMOR_ENCHANTABLE)
                 .addTag(NON_HUMANOID_ARMOR);
         tag(ItemTags.DURABILITY_ENCHANTABLE)
@@ -87,7 +92,7 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
         tag(ItemTags.SHARP_WEAPON_ENCHANTABLE)
                 .addTag(DAGGERS);
         tag(ItemTags.SWEEPING_ENCHANTABLE)
-                .forceAddTag(ItemTags.AXES);
+                .addTag(SWEEPING_WEAPON);
         tag(ItemTags.FIRE_ASPECT_ENCHANTABLE)
                 .forceAddTag(ItemTags.AXES);
         tag(ItemTags.MINING_LOOT_ENCHANTABLE)
