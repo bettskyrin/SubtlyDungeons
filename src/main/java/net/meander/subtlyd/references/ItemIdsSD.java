@@ -22,6 +22,7 @@ public class ItemIdsSD {
     public static final ResourceKey<Item> GOLDEN_DAGGER = create("golden_dagger");
     public static final ResourceKey<Item> DIAMOND_DAGGER = create("diamond_dagger");
     public static final ResourceKey<Item> NETHERITE_DAGGER = create("netherite_dagger");
+    public static final ResourceKey<Item> QUIVER = create("quiver");
 
     public static ResourceKey<Item> create(final String name) {
         return ResourceKey.create(Registries.ITEM, Util.identifier(name));

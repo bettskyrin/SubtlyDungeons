@@ -8,9 +8,12 @@ import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.ItemContainerContents;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
@@ -74,6 +77,9 @@ public class ItemsSD {
     public static final Item GOLDEN_DAGGER = Items.registerItem(ItemIdsSD.GOLDEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.GOLD, 1.0F, -2.3F, 4.0F));
     public static final Item DIAMOND_DAGGER = Items.registerItem(ItemIdsSD.DIAMOND_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.DIAMOND, 1.0F, -2.3F, 4.0F));
     public static final Item NETHERITE_DAGGER = Items.registerItem(ItemIdsSD.NETHERITE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.NETHERITE, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
+    public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItemSD::new, new Item.Properties()
+            .stacksTo(1)
+            .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()));
 
     public static void registration() {
         CreativeModeTabsSD.registration();

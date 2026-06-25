@@ -206,6 +206,7 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.GOLDEN_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.DIAMOND_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.NETHERITE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
+        itemModelGenerator.generateFlatItem(ItemsSD.QUIVER, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
     }
 }

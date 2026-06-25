@@ -149,6 +149,15 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .unlockedBy(getHasName(Items.WARPED_FUNGUS), has(Items.WARPED_FUNGUS))
                         .save(output);
 
+                shaped(RecipeCategory.COMBAT, ItemsSD.QUIVER)
+                        .define('#', Items.STRING)
+                        .define('X', Items.LEATHER)
+                        .pattern("X X")
+                        .pattern("X#X")
+                        .pattern("XXX")
+                        .unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
+                        .save(output);
+
                 dagger(ItemsSD.WOODEN_DAGGER, ItemTags.WOODEN_TOOL_MATERIALS);
                 dagger(ItemsSD.STONE_DAGGER, ItemTags.STONE_TOOL_MATERIALS);
                 dagger(ItemsSD.COPPER_DAGGER, ItemTags.COPPER_TOOL_MATERIALS);
@@ -182,7 +191,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
             private void dagger(ItemLike daggerOutput, TagKey<Item> material) {
                 shaped(RecipeCategory.COMBAT, daggerOutput)
-                        .group("dagger")
                         .define('#', material)
                         .define('X', Items.STICK)
                         .pattern(" # ")

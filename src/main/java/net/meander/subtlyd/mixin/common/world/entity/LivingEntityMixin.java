@@ -11,6 +11,7 @@ import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
+import net.meander.subtlyd.world.item.QuiverItemSD;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.Holder;
@@ -42,6 +43,7 @@ import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -390,7 +392,6 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-
     @Inject(method = "releaseUsingItem", at = @At("HEAD"), cancellable = true)
     private void allowShieldCrouching(CallbackInfo ci) {
         if (OptionsSD.SHIELD_CROUCH.get()) {
@@ -400,6 +401,19 @@ public abstract class LivingEntityMixin extends Entity {
                 if (player.isCrouching() && player.getUseItem().getItem() instanceof ShieldItem) {
                     ci.cancel();
                 }
+            }
+        }
+    }
+
+    @Inject(method = "getProjectile", at = @At("HEAD"), cancellable = true)
+    private void checkQuiver(ItemStack heldWeapon, CallbackInfoReturnable<ItemStack> cir) {
+        ItemStack legItem = ((LivingEntity) (Object) this).getItemBySlot(EquipmentSlot.LEGS);
+
+        if (legItem.getItem() instanceof QuiverItemSD) {
+            BundleContents arrows = legItem.get(DataComponents.BUNDLE_CONTENTS);
+
+            if (arrows != null && !arrows.isEmpty()) {
+                cir.setReturnValue(arrows.items().getFirst().create());
             }
         }
     }

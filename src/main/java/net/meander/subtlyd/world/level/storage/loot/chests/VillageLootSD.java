@@ -25,7 +25,8 @@ public class VillageLootSD {
             } else if (resourceKey.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)) {
                 tableBuilder.modifyPools(poolBuilder -> poolBuilder
                         .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                        .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(3)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                        .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(3)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                        .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .build();
             }
         });

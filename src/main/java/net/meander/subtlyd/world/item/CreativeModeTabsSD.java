@@ -95,6 +95,7 @@ public class CreativeModeTabsSD {
             entries.insertAfter(IRON_DAGGER, GOLDEN_DAGGER);
             entries.insertAfter(GOLDEN_DAGGER, DIAMOND_DAGGER);
             entries.insertAfter(DIAMOND_DAGGER, NETHERITE_DAGGER);
+            entries.insertBefore(ARROW, QUIVER);
         });
     }
 }

@@ -5,6 +5,7 @@ import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.item.QuiverItemSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -12,11 +13,14 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.ShieldItem;
+import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -25,6 +29,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.function.Predicate;
 
 @Mixin(Player.class)
 public class PlayerMixin {
@@ -113,5 +119,27 @@ public class PlayerMixin {
     @Redirect(method = "isSweepAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/tags/TagKey;)Z"))
     private boolean getItemInHand(ItemStack instance, TagKey<Item> tagKey) {
         return instance.is(ItemTagsSD.SWEEPING_WEAPON) && EnchantmentHelperSD.checkEnchantment(instance, Enchantments.SWEEPING_EDGE);
+    }
+
+    @Inject(method = "getProjectile", at = @At("HEAD"), cancellable = true)
+    private void checkQuiverAmmo(ItemStack heldWeapon, CallbackInfoReturnable<ItemStack> cir) {
+        Player player = (Player) (Object) this;
+        ItemStack legItem = player.getItemBySlot(EquipmentSlot.LEGS);
+
+        if (legItem.getItem() instanceof QuiverItemSD) {
+            BundleContents contents = legItem.get(DataComponents.BUNDLE_CONTENTS);
+
+            if (contents != null && !contents.isEmpty()) {
+                ItemStack activeArrow = contents.items().getFirst().create();
+
+                if (heldWeapon.getItem() instanceof ProjectileWeaponItem projectileWeapon) {
+                    Predicate<ItemStack> predicate = projectileWeapon.getSupportedHeldProjectiles();
+
+                    if (predicate.test(activeArrow)) {
+                        cir.setReturnValue(activeArrow);
+                    }
+                }
+            }
+        }
     }
 }

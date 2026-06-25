@@ -29,6 +29,9 @@
   - Can deal up to an extra 4 damage depending on how discrete the user is being
   - Can be crafted with one stick and one tool material
   - Can be found as loot in any chest that may give a sword and in most chests that can give spears
+- Added Quiver
+  - Can hold up to 4 stacks of arrows
+  - Automatically cycles through each arrow stack
 
 #### Combat
 - Added weapon clashes

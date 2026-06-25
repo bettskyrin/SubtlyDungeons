@@ -108,6 +108,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("item.minecraft.potion.effect.decay", "Potion of Decay");
         translationBuilder.add("item.minecraft.splash_potion.effect.decay", "Splash Potion of Decay");
         translationBuilder.add("item.minecraft.tipped_arrow.effect.decay", "Arrow of Decay");
+        translationBuilder.add("item.subtlyd.quiver.empty.description", "Can hold 4 stacks of any arrow type");
 
         translationBuilder.add(ItemsSD.APPLE_PIE, "Apple Pie");
         translationBuilder.add(ItemsSD.TENT.black(), "Black Tent");
@@ -136,6 +137,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("item.subtlyd.potion.strong_potion", "Strong %s");
         translationBuilder.add(ItemsSD.POTTAGE, "Pottage");
         translationBuilder.add(ItemsSD.TENT.purple(), "Purple Tent");
+        translationBuilder.add(ItemsSD.QUIVER, "Quiver");
         translationBuilder.add(ItemsSD.TENT.red(), "Red Tent");
         translationBuilder.add(ItemsSD.STONE_DAGGER, "Stone Dagger");
         translationBuilder.add(ItemsSD.WOODEN_DAGGER, "Wooden Dagger");
