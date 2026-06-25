@@ -162,20 +162,9 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .forceAddTag(BlockTags.SKULLS);
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)
                 .add(BlockItemIdsSD.WARPED_OVERHANG.block());
-        tag(DAGGER_EFFICIENT)
-                .forceAddTag(BlockTags.LEAVES)
-                .add(BlockItemIds.VINE.block())
-                .add(BlockItemIds.GLOW_LICHEN.block())
-                .add(BlockItemIds.PUMPKIN.block())
-                .add(BlockItemIds.CARVED_PUMPKIN.block())
-                .add(BlockItemIds.JACK_O_LANTERN.block())
-                .add(BlockItemIds.MELON.block())
-                .add(BlockItemIds.COCOA_CROP.block())
-                .add(BlockItemIds.BIG_DRIPLEAF.block())
-                .add(BlockIds.BIG_DRIPLEAF_STEM)
-                .add(BlockItemIds.CHORUS_PLANT.block())
-                .add(BlockItemIds.CHORUS_FLOWER.block());
         tag(BlockTags.NEEDS_STONE_TOOL)
+                .add(BlockItemIdsSD.IRON_GRATE.block());
+        tag(BlockTags.DRAGON_IMMUNE)
                 .add(BlockItemIdsSD.IRON_GRATE.block());
     }
     
