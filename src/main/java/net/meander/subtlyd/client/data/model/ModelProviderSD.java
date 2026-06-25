@@ -28,13 +28,13 @@ public class ModelProviderSD extends FabricModelProvider {
 
     /**
      * Builds a slab model from a vanilla pillar block texture.
-     * @param vanillaBlock The original block to obtain a texture from.
+     * @param baseBlock The original block to obtain a texture from.
      * @param newBlock The custom block that the texture will be mapped to.
      */
-    private static void generatePillarSlabFromVanilla(Block vanillaBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
-        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(vanillaBlock));
-        Identifier top = TextureMapping.getBlockTexture(vanillaBlock, "_top").sprite();
-        Identifier side = TextureMapping.getBlockTexture(vanillaBlock, "_side").sprite();
+    private static void generatePillarSlabFromVanilla(Block baseBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
+        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(baseBlock));
+        Identifier top = TextureMapping.getBlockTexture(baseBlock, "_top").sprite();
+        Identifier side = TextureMapping.getBlockTexture(baseBlock, "_side").sprite();
 
         TextureMapping slabTextures = new TextureMapping()
                 .put(TextureSlot.BOTTOM, new Material(top))
@@ -45,6 +45,36 @@ public class ModelProviderSD extends FabricModelProvider {
         MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerator.modelOutput));
 
         blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
+    }
+
+    private static void generateWoodSlabFromVanilla(Block logBlock, Block doubleSlabBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
+        Identifier barkTexture = TextureMapping.getBlockTexture(logBlock).sprite();
+
+        TextureMapping slabTextures = new TextureMapping()
+                .put(TextureSlot.BOTTOM, new Material(barkTexture))
+                .put(TextureSlot.TOP, new Material(barkTexture))
+                .put(TextureSlot.SIDE, new Material(barkTexture));
+
+        MultiVariant blockBottom = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_BOTTOM.create(newBlock, slabTextures, blockModelGenerator.modelOutput));
+        MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerator.modelOutput));
+        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(doubleSlabBlock));
+
+        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
+    }
+
+    private static void generateWoodStairsFromVanilla(Block logBlock, Block newBlock, BlockModelGenerators blockModelGenerator) {
+        Identifier barkTexture = TextureMapping.getBlockTexture(logBlock).sprite();
+
+        TextureMapping stairTextures = new TextureMapping()
+                .put(TextureSlot.BOTTOM, new Material(barkTexture))
+                .put(TextureSlot.TOP, new Material(barkTexture))
+                .put(TextureSlot.SIDE, new Material(barkTexture));
+
+        MultiVariant blockStraight = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(newBlock, stairTextures, blockModelGenerator.modelOutput));
+        MultiVariant blockInner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(newBlock, stairTextures, blockModelGenerator.modelOutput));
+        MultiVariant blockOuter = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(newBlock, stairTextures, blockModelGenerator.modelOutput));
+
+        blockModelGenerator.blockStateOutput.accept(BlockModelGenerators.createStairs(newBlock, blockInner, blockStraight, blockOuter));
     }
 
     /**
@@ -183,6 +213,55 @@ public class ModelProviderSD extends FabricModelProvider {
         generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB, blockModelGenerator);
         generatePotionCauldron(blockModelGenerator);
         generateStewCauldron(blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.OAK_LOG, Blocks.OAK_WOOD, BlocksSD.OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.OAK_LOG, BlocksSD.OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD, BlocksSD.SPRUCE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.SPRUCE_LOG, BlocksSD.SPRUCE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.BIRCH_LOG, Blocks.BIRCH_WOOD, BlocksSD.BIRCH_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.BIRCH_LOG, BlocksSD.BIRCH_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.JUNGLE_LOG, Blocks.JUNGLE_WOOD, BlocksSD.JUNGLE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.JUNGLE_LOG, BlocksSD.JUNGLE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.ACACIA_LOG, Blocks.ACACIA_WOOD, BlocksSD.ACACIA_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.ACACIA_LOG, BlocksSD.ACACIA_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD, BlocksSD.DARK_OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.DARK_OAK_LOG, BlocksSD.DARK_OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.MANGROVE_LOG, Blocks.MANGROVE_WOOD, BlocksSD.MANGROVE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.MANGROVE_LOG, BlocksSD.MANGROVE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.CHERRY_LOG, Blocks.CHERRY_WOOD, BlocksSD.CHERRY_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.CHERRY_LOG, BlocksSD.CHERRY_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_WOOD, BlocksSD.PALE_OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.PALE_OAK_LOG, BlocksSD.PALE_OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.POPLAR_LOG, Blocks.POPLAR_WOOD, BlocksSD.POPLAR_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.POPLAR_LOG, BlocksSD.POPLAR_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.CRIMSON_STEM, Blocks.CRIMSON_HYPHAE, BlocksSD.CRIMSON_HYPHAE_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.CRIMSON_STEM, BlocksSD.CRIMSON_HYPHAE_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.WARPED_STEM, Blocks.WARPED_HYPHAE, BlocksSD.WARPED_HYPHAE_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.WARPED_STEM, BlocksSD.WARPED_HYPHAE_STAIRS, blockModelGenerator);
+
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_OAK_LOG, Blocks.STRIPPED_OAK_WOOD, BlocksSD.STRIPPED_OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_OAK_LOG, BlocksSD.STRIPPED_OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_WOOD, BlocksSD.STRIPPED_SPRUCE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_SPRUCE_LOG, BlocksSD.STRIPPED_SPRUCE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_BIRCH_LOG, Blocks.STRIPPED_BIRCH_WOOD, BlocksSD.STRIPPED_BIRCH_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_BIRCH_LOG, BlocksSD.STRIPPED_BIRCH_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_WOOD, BlocksSD.STRIPPED_JUNGLE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_JUNGLE_LOG, BlocksSD.STRIPPED_JUNGLE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_ACACIA_LOG, Blocks.STRIPPED_ACACIA_WOOD, BlocksSD.STRIPPED_ACACIA_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_ACACIA_LOG, BlocksSD.STRIPPED_ACACIA_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_WOOD, BlocksSD.STRIPPED_DARK_OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_DARK_OAK_LOG, BlocksSD.STRIPPED_DARK_OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_WOOD, BlocksSD.STRIPPED_MANGROVE_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_MANGROVE_LOG, BlocksSD.STRIPPED_MANGROVE_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_CHERRY_LOG, Blocks.STRIPPED_CHERRY_WOOD, BlocksSD.STRIPPED_CHERRY_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_CHERRY_LOG, BlocksSD.STRIPPED_CHERRY_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_WOOD, BlocksSD.STRIPPED_PALE_OAK_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_PALE_OAK_LOG, BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_POPLAR_LOG, Blocks.STRIPPED_POPLAR_WOOD, BlocksSD.STRIPPED_POPLAR_WOOD_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_POPLAR_LOG, BlocksSD.STRIPPED_POPLAR_WOOD_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_WARPED_STEM, Blocks.STRIPPED_CRIMSON_HYPHAE, BlocksSD.STRIPPED_CRIMSON_HYPHAE_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_WARPED_STEM, BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, blockModelGenerator);
+        generateWoodSlabFromVanilla(Blocks.STRIPPED_WARPED_STEM, Blocks.STRIPPED_WARPED_HYPHAE, BlocksSD.STRIPPED_WARPED_HYPHAE_SLAB, blockModelGenerator);
+        generateWoodStairsFromVanilla(Blocks.STRIPPED_WARPED_STEM, BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS, blockModelGenerator);
     }
 
     @Override

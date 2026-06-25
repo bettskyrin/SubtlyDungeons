@@ -57,6 +57,7 @@
     Developer Notes:
     - These are inspired by Forget-Me-Not flowers
     - "Perse" is an archaic term for "blue-ish"
+- Added Wood and Stripped Wood stair and slab variants
 - Added snowlogging, like on Bedrock Edition
   - Only some blocks are now snow loggable:
     - Plants

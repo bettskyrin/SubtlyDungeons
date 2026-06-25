@@ -80,6 +80,54 @@ public class ItemsSD {
     public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItemSD::new, new Item.Properties()
             .stacksTo(1)
             .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()));
+    public static final Item OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.OAK_WOOD_SLAB, BlocksSD.OAK_WOOD_SLAB);
+    public static final Item SPRUCE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.SPRUCE_WOOD_SLAB, BlocksSD.SPRUCE_WOOD_SLAB);
+    public static final Item BIRCH_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.BIRCH_WOOD_SLAB, BlocksSD.BIRCH_WOOD_SLAB);
+    public static final Item JUNGLE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.JUNGLE_WOOD_SLAB, BlocksSD.JUNGLE_WOOD_SLAB);
+    public static final Item ACACIA_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.ACACIA_WOOD_SLAB, BlocksSD.ACACIA_WOOD_SLAB);
+    public static final Item DARK_OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.DARK_OAK_WOOD_SLAB, BlocksSD.DARK_OAK_WOOD_SLAB);
+    public static final Item MANGROVE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.MANGROVE_WOOD_SLAB, BlocksSD.MANGROVE_WOOD_SLAB);
+    public static final Item POPLAR_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.POPLAR_WOOD_SLAB, BlocksSD.POPLAR_WOOD_SLAB);
+    public static final Item CHERRY_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.CHERRY_WOOD_SLAB, BlocksSD.CHERRY_WOOD_SLAB);
+    public static final Item PALE_OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.PALE_OAK_WOOD_SLAB, BlocksSD.PALE_OAK_WOOD_SLAB);
+    public static final Item CRIMSON_HYPHAE_SLAB = Items.registerBlock(BlockItemIdsSD.CRIMSON_HYPHAE_SLAB, BlocksSD.CRIMSON_HYPHAE_SLAB);
+    public static final Item WARPED_HYPHAE_SLAB = Items.registerBlock(BlockItemIdsSD.WARPED_HYPHAE_SLAB, BlocksSD.WARPED_HYPHAE_SLAB);
+    public static final Item OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.OAK_WOOD_STAIRS, BlocksSD.OAK_WOOD_STAIRS);
+    public static final Item SPRUCE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.SPRUCE_WOOD_STAIRS, BlocksSD.SPRUCE_WOOD_STAIRS);
+    public static final Item BIRCH_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.BIRCH_WOOD_STAIRS, BlocksSD.BIRCH_WOOD_STAIRS);
+    public static final Item JUNGLE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.JUNGLE_WOOD_STAIRS, BlocksSD.JUNGLE_WOOD_STAIRS);
+    public static final Item ACACIA_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.ACACIA_WOOD_STAIRS, BlocksSD.ACACIA_WOOD_STAIRS);
+    public static final Item DARK_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.DARK_OAK_WOOD_STAIRS, BlocksSD.DARK_OAK_WOOD_STAIRS);
+    public static final Item MANGROVE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.MANGROVE_WOOD_STAIRS, BlocksSD.MANGROVE_WOOD_STAIRS);
+    public static final Item POPLAR_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.POPLAR_WOOD_STAIRS, BlocksSD.POPLAR_WOOD_STAIRS);
+    public static final Item CHERRY_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.CHERRY_WOOD_STAIRS, BlocksSD.CHERRY_WOOD_STAIRS);
+    public static final Item PALE_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.PALE_OAK_WOOD_STAIRS, BlocksSD.PALE_OAK_WOOD_STAIRS);
+    public static final Item CRIMSON_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.CRIMSON_HYPHAE_STAIRS, BlocksSD.CRIMSON_HYPHAE_STAIRS);
+    public static final Item WARPED_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.WARPED_HYPHAE_STAIRS, BlocksSD.WARPED_HYPHAE_STAIRS);
+    public static final Item STRIPPED_OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_OAK_WOOD_SLAB, BlocksSD.STRIPPED_OAK_WOOD_SLAB);
+    public static final Item STRIPPED_SPRUCE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_SPRUCE_WOOD_SLAB, BlocksSD.STRIPPED_SPRUCE_WOOD_SLAB);
+    public static final Item STRIPPED_BIRCH_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_BIRCH_WOOD_SLAB, BlocksSD.STRIPPED_BIRCH_WOOD_SLAB);
+    public static final Item STRIPPED_JUNGLE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_JUNGLE_WOOD_SLAB, BlocksSD.STRIPPED_JUNGLE_WOOD_SLAB);
+    public static final Item STRIPPED_ACACIA_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_ACACIA_WOOD_SLAB, BlocksSD.STRIPPED_ACACIA_WOOD_SLAB);
+    public static final Item STRIPPED_DARK_OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_DARK_OAK_WOOD_SLAB, BlocksSD.STRIPPED_DARK_OAK_WOOD_SLAB);
+    public static final Item STRIPPED_MANGROVE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_MANGROVE_WOOD_SLAB, BlocksSD.STRIPPED_MANGROVE_WOOD_SLAB);
+    public static final Item STRIPPED_POPLAR_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_POPLAR_WOOD_SLAB, BlocksSD.STRIPPED_POPLAR_WOOD_SLAB);
+    public static final Item STRIPPED_CHERRY_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_CHERRY_WOOD_SLAB, BlocksSD.STRIPPED_CHERRY_WOOD_SLAB);
+    public static final Item STRIPPED_PALE_OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_SLAB, BlocksSD.STRIPPED_PALE_OAK_WOOD_SLAB);
+    public static final Item STRIPPED_CRIMSON_HYPHAE_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, BlocksSD.STRIPPED_CRIMSON_HYPHAE_SLAB);
+    public static final Item STRIPPED_WARPED_HYPHAE_SLAB = Items.registerBlock(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_SLAB, BlocksSD.STRIPPED_WARPED_HYPHAE_SLAB);
+    public static final Item STRIPPED_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_OAK_WOOD_STAIRS, BlocksSD.STRIPPED_OAK_WOOD_STAIRS);
+    public static final Item STRIPPED_SPRUCE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_SPRUCE_WOOD_STAIRS, BlocksSD.STRIPPED_SPRUCE_WOOD_STAIRS);
+    public static final Item STRIPPED_BIRCH_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_BIRCH_WOOD_STAIRS, BlocksSD.STRIPPED_BIRCH_WOOD_STAIRS);
+    public static final Item STRIPPED_JUNGLE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_JUNGLE_WOOD_STAIRS, BlocksSD.STRIPPED_JUNGLE_WOOD_STAIRS);
+    public static final Item STRIPPED_ACACIA_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_ACACIA_WOOD_STAIRS, BlocksSD.STRIPPED_ACACIA_WOOD_STAIRS);
+    public static final Item STRIPPED_DARK_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_DARK_OAK_WOOD_STAIRS, BlocksSD.STRIPPED_DARK_OAK_WOOD_STAIRS);
+    public static final Item STRIPPED_MANGROVE_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_MANGROVE_WOOD_STAIRS, BlocksSD.STRIPPED_MANGROVE_WOOD_STAIRS);
+    public static final Item STRIPPED_POPLAR_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_POPLAR_WOOD_STAIRS, BlocksSD.STRIPPED_POPLAR_WOOD_STAIRS);
+    public static final Item STRIPPED_CHERRY_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_CHERRY_WOOD_STAIRS, BlocksSD.STRIPPED_CHERRY_WOOD_STAIRS);
+    public static final Item STRIPPED_PALE_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS);
+    public static final Item STRIPPED_CRIMSON_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS);
+    public static final Item STRIPPED_WARPED_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_STAIRS, BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS);
 
     public static void registration() {
         CreativeModeTabsSD.registration();

@@ -68,12 +68,60 @@ public class BlocksSD {
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
-    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, (p) -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
+    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY));
     public static final Block STEW_CAULDRON = register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    public static final Block OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.OAK_WOOD_STAIRS, Blocks.OAK_WOOD);
+    public static final Block SPRUCE_WOOD_STAIRS = registerStair(BlockItemIdsSD.SPRUCE_WOOD_STAIRS, Blocks.SPRUCE_WOOD);
+    public static final Block BIRCH_WOOD_STAIRS = registerStair(BlockItemIdsSD.BIRCH_WOOD_STAIRS, Blocks.BIRCH_WOOD);
+    public static final Block JUNGLE_WOOD_STAIRS = registerStair(BlockItemIdsSD.JUNGLE_WOOD_STAIRS, Blocks.JUNGLE_WOOD);
+    public static final Block ACACIA_WOOD_STAIRS = registerStair(BlockItemIdsSD.ACACIA_WOOD_STAIRS, Blocks.ACACIA_WOOD);
+    public static final Block DARK_OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.DARK_OAK_WOOD_STAIRS, Blocks.DARK_OAK_WOOD);
+    public static final Block MANGROVE_WOOD_STAIRS = registerStair(BlockItemIdsSD.MANGROVE_WOOD_STAIRS, Blocks.MANGROVE_WOOD);
+    public static final Block POPLAR_WOOD_STAIRS = registerStair(BlockItemIdsSD.POPLAR_WOOD_STAIRS, Blocks.POPLAR_WOOD);
+    public static final Block CHERRY_WOOD_STAIRS = registerStair(BlockItemIdsSD.CHERRY_WOOD_STAIRS, Blocks.CHERRY_WOOD);
+    public static final Block PALE_OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.PALE_OAK_WOOD_STAIRS, Blocks.PALE_OAK_WOOD);
+    public static final Block CRIMSON_HYPHAE_STAIRS = registerStair(BlockItemIdsSD.CRIMSON_HYPHAE_STAIRS, Blocks.CRIMSON_HYPHAE);
+    public static final Block WARPED_HYPHAE_STAIRS = registerStair(BlockItemIdsSD.WARPED_HYPHAE_STAIRS, Blocks.WARPED_HYPHAE);
+    public static final Block OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.OAK_WOOD_SLAB, Blocks.OAK_WOOD);
+    public static final Block SPRUCE_WOOD_SLAB = registerSlab(BlockItemIdsSD.SPRUCE_WOOD_SLAB, Blocks.SPRUCE_WOOD);
+    public static final Block BIRCH_WOOD_SLAB = registerSlab(BlockItemIdsSD.BIRCH_WOOD_SLAB, Blocks.BIRCH_WOOD);
+    public static final Block JUNGLE_WOOD_SLAB = registerSlab(BlockItemIdsSD.JUNGLE_WOOD_SLAB, Blocks.JUNGLE_WOOD);
+    public static final Block ACACIA_WOOD_SLAB = registerSlab(BlockItemIdsSD.ACACIA_WOOD_SLAB, Blocks.ACACIA_WOOD);
+    public static final Block DARK_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.DARK_OAK_WOOD_SLAB, Blocks.DARK_OAK_WOOD);
+    public static final Block MANGROVE_WOOD_SLAB = registerSlab(BlockItemIdsSD.MANGROVE_WOOD_SLAB, Blocks.MANGROVE_WOOD);
+    public static final Block POPLAR_WOOD_SLAB = registerSlab(BlockItemIdsSD.POPLAR_WOOD_SLAB, Blocks.POPLAR_WOOD);
+    public static final Block CHERRY_WOOD_SLAB = registerSlab(BlockItemIdsSD.CHERRY_WOOD_SLAB, Blocks.CHERRY_WOOD);
+    public static final Block PALE_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.PALE_OAK_WOOD_SLAB, Blocks.PALE_OAK_WOOD);
+    public static final Block CRIMSON_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.CRIMSON_HYPHAE_SLAB, Blocks.CRIMSON_HYPHAE);
+    public static final Block WARPED_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.WARPED_HYPHAE_SLAB, Blocks.WARPED_HYPHAE);
+    public static final Block STRIPPED_OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_OAK_WOOD_STAIRS, Blocks.STRIPPED_OAK_WOOD);
+    public static final Block STRIPPED_SPRUCE_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_SPRUCE_WOOD_STAIRS, Blocks.STRIPPED_SPRUCE_WOOD);
+    public static final Block STRIPPED_BIRCH_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_BIRCH_WOOD_STAIRS, Blocks.STRIPPED_BIRCH_WOOD);
+    public static final Block STRIPPED_JUNGLE_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_JUNGLE_WOOD_STAIRS, Blocks.STRIPPED_JUNGLE_WOOD);
+    public static final Block STRIPPED_ACACIA_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_ACACIA_WOOD_STAIRS, Blocks.STRIPPED_ACACIA_WOOD);
+    public static final Block STRIPPED_DARK_OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_DARK_OAK_WOOD_STAIRS, Blocks.STRIPPED_DARK_OAK_WOOD);
+    public static final Block STRIPPED_MANGROVE_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_MANGROVE_WOOD_STAIRS, Blocks.STRIPPED_MANGROVE_WOOD);
+    public static final Block STRIPPED_POPLAR_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_POPLAR_WOOD_STAIRS, Blocks.STRIPPED_POPLAR_WOOD);
+    public static final Block STRIPPED_CHERRY_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_CHERRY_WOOD_STAIRS, Blocks.STRIPPED_CHERRY_WOOD);
+    public static final Block STRIPPED_PALE_OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, Blocks.STRIPPED_PALE_OAK_WOOD);
+    public static final Block STRIPPED_CRIMSON_HYPHAE_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, Blocks.STRIPPED_CRIMSON_HYPHAE);
+    public static final Block STRIPPED_WARPED_HYPHAE_STAIRS = registerStair(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_STAIRS, Blocks.STRIPPED_WARPED_HYPHAE);
+    public static final Block STRIPPED_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_OAK_WOOD_SLAB, Blocks.STRIPPED_OAK_WOOD);
+    public static final Block STRIPPED_SPRUCE_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_SPRUCE_WOOD_SLAB, Blocks.STRIPPED_SPRUCE_WOOD);
+    public static final Block STRIPPED_BIRCH_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_BIRCH_WOOD_SLAB, Blocks.STRIPPED_BIRCH_WOOD);
+    public static final Block STRIPPED_JUNGLE_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_JUNGLE_WOOD_SLAB, Blocks.STRIPPED_JUNGLE_WOOD);
+    public static final Block STRIPPED_ACACIA_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_ACACIA_WOOD_SLAB, Blocks.STRIPPED_ACACIA_WOOD);
+    public static final Block STRIPPED_DARK_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_DARK_OAK_WOOD_SLAB, Blocks.STRIPPED_DARK_OAK_WOOD);
+    public static final Block STRIPPED_MANGROVE_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_MANGROVE_WOOD_SLAB, Blocks.STRIPPED_MANGROVE_WOOD);
+    public static final Block STRIPPED_POPLAR_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_POPLAR_WOOD_SLAB, Blocks.STRIPPED_POPLAR_WOOD);
+    public static final Block STRIPPED_CHERRY_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CHERRY_WOOD_SLAB, Blocks.STRIPPED_CHERRY_WOOD);
+    public static final Block STRIPPED_PALE_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_SLAB, Blocks.STRIPPED_PALE_OAK_WOOD);
+    public static final Block STRIPPED_CRIMSON_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, Blocks.STRIPPED_CRIMSON_HYPHAE);
+    public static final Block STRIPPED_WARPED_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_SLAB, Blocks.STRIPPED_WARPED_HYPHAE);
 
     public static void registration() {}
 
@@ -86,14 +134,20 @@ public class BlocksSD {
     }
 
     private static Block registerStair(final BlockItemId id, final Block baseBlock) {
-        return register(id, properties -> new StairBlock(baseBlock.defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(baseBlock));
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
+
+        return register(id, p -> new StairBlock(baseBlock.defaultBlockState(), p), properties);
     }
 
     private static Block registerSlab(final BlockItemId id, final Block baseBlock) {
-        return register(id, SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(baseBlock));
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
+
+        return register(id, SlabBlock::new, properties);
     }
 
     private static Block registerWall(final BlockItemId id, final Block baseBlock) {
-        return register(id, WallBlock::new, BlockBehaviour.Properties.ofFullCopy(baseBlock));
+        BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
+
+        return register(id, WallBlock::new, properties);
     }
 }
