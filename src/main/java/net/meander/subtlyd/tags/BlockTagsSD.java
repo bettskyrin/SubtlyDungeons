@@ -23,7 +23,6 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
-    public static final TagKey<Block> DAGGER_EFFICIENT = bind("dagger_efficient");
 
     public BlockTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
