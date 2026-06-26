@@ -5,7 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 public class CriteriaTriggersSD {
-    public static final PlayerTriggerSD SLEPT_IN_TENT = register("slept_in_tent", new PlayerTriggerSD());
+    public static final SleptInTentTrigger SLEPT_IN_TENT = register("slept_in_tent", new SleptInTentTrigger());
 
     public static void registration() {}
 

@@ -12,7 +12,7 @@ import net.minecraft.world.level.storage.LevelData;
 
 import java.util.Optional;
 
-public class PlayerTriggerSD extends SimpleCriterionTrigger<PlayerTriggerSD.TriggerInstance> {
+public class SleptInTentTrigger extends SimpleCriterionTrigger<SleptInTentTrigger.TriggerInstance> {
     @Override
     public Codec<TriggerInstance> codec() {
         return TriggerInstance.CODEC;
@@ -23,10 +23,9 @@ public class PlayerTriggerSD extends SimpleCriterionTrigger<PlayerTriggerSD.Trig
     }
 
     public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Integer> minDistanceFromBed) implements SimpleCriterionTrigger.SimpleInstance {
-        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-                Codec.INT.optionalFieldOf("min_distance").forGetter(TriggerInstance::minDistanceFromBed)
-        ).apply(instance, TriggerInstance::new));
+        public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
+                instance -> instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), Codec.INT.optionalFieldOf("min_distance").forGetter(TriggerInstance::minDistanceFromBed)).apply(instance, TriggerInstance::new)
+        );
 
         public boolean matches(ServerPlayer player) {
             if (minDistanceFromBed.isPresent()) {
@@ -47,9 +46,7 @@ public class PlayerTriggerSD extends SimpleCriterionTrigger<PlayerTriggerSD.Trig
         }
 
         public static Criterion<TriggerInstance> campedFarAway(int minimumDistance) {
-            return CriteriaTriggersSD.SLEPT_IN_TENT.createCriterion(
-                    new TriggerInstance(Optional.empty(), Optional.of(minimumDistance))
-            );
+            return CriteriaTriggersSD.SLEPT_IN_TENT.createCriterion(new TriggerInstance(Optional.empty(), Optional.of(minimumDistance)));
         }
     }
 }

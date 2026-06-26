@@ -2,7 +2,7 @@ package net.meander.subtlyd.advancements;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
-import net.meander.subtlyd.advancements.triggers.PlayerTriggerSD;
+import net.meander.subtlyd.advancements.triggers.SleptInTentTrigger;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -44,7 +44,7 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
                         false
 
                 )
-                .addCriterion("camped_far_away", PlayerTriggerSD.TriggerInstance.campedFarAway(1000))
+                .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
                 .save(consumer, Util.identifier("adventure/camp_far_away").toString());
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
