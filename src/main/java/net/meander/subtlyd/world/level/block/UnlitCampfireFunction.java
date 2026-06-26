@@ -25,16 +25,20 @@ public class UnlitCampfireFunction implements UseBlockCallback {
         ItemStack itemStack = player.getItemInHand(interactionHand);
 
         if (blockState.getBlock() instanceof CampfireBlock && !blockState.getValue(CampfireBlock.LIT) && itemStack.getItem() == Items.STICK) {
-            if (level.getRandom().nextFloat() > 0.7F) {
-                level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
-            }
-
-            if (player instanceof ServerPlayer serverPlayer) {
-                CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, blockPos, itemStack);
-            }
-
             itemStack.consume(1, player);
             level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);
+
+            if (!level.isClientSide()) {
+                if (level.getRandom().nextFloat() > 0.7F) {
+                    level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
+                }
+
+                if (player instanceof ServerPlayer serverPlayer) {
+                    CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, blockPos, itemStack);
+                }
+
+                return InteractionResult.SUCCESS_SERVER;
+            }
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;

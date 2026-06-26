@@ -9,3 +9,4 @@
 
 #### Bug Fixes
 - Fixed bug allowing the Ender Dragon to destroy Iron Grates
+- Fixed bug causing a client/server de-sync when lighting a campfire with sticks
