@@ -312,7 +312,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
-    private void weaponClash(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+    private void bladeClash(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity defender = (LivingEntity) (Object) this;
 
         if (source.getDirectEntity() instanceof LivingEntity attacker) {
@@ -325,10 +325,10 @@ public abstract class LivingEntityMixin extends Entity {
             ItemStack defenderItem = defender.getMainHandItem();
 
             boolean isFacingAttacker = viewVector.dot(directionToAttacker) > 0.0;
-            boolean isSwordFight = attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS) && defenderItem.is(ItemTagsSD.CAN_PARRY_SWORDS);
-            boolean isKnifeFIght = attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
+            boolean isDuel = attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS) && defenderItem.is(ItemTagsSD.CAN_PARRY_SWORDS);
+            boolean canDaggerParry = (attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) || attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS)) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
 
-            if (isFacingAttacker && (isSwordFight || isKnifeFIght)) {
+            if (isFacingAttacker && (isDuel || canDaggerParry)) {
                 if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= 10) {
                     boolean hasWoodenWeapon = ItemStackSD.hasWoodenWeapon(attackerItem, defenderItem);
                     float pitch = 0.7F;
