@@ -150,9 +150,9 @@ public class EnchantmentsSD {
                                     new ApplyMobEffect(
                                             HolderSet.direct(MobEffects.WEAKNESS),
                                             LevelBasedValue.perLevel(2.0F, 1.0F),
-                                            LevelBasedValue.perLevel(2.0F, 1.0F),
-                                            LevelBasedValue.perLevel(0.0F, 1.0F),
-                                            LevelBasedValue.perLevel(0.0F, 1.0F)
+                                            LevelBasedValue.perLevel(2.0F, 2.0F),
+                                            LevelBasedValue.constant(0.0F),
+                                            LevelBasedValue.constant(1.0F)
                                     ))
                     .build(ENERVATION.identifier())
             );
