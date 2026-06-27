@@ -22,7 +22,7 @@ import java.util.List;
 public class VegetationPlacementsSD {
     public static final ResourceKey<PlacedFeature> PERSE_WILDFLOWERS_DAPPLED_FOREST = PlacementUtilsSD.createKey("perse_wildflower_dappled_forest");
     public static final ResourceKey<PlacedFeature> PERSE_WILDFLOWERS_SWAMP = PlacementUtilsSD.createKey("perse_wildflower_swamp");
-    public static final ResourceKey<PlacedFeature> PERSE_WILDFLOWER = PlacementUtilsSD.createKey("perse_wildflower");
+    public static final ResourceKey<PlacedFeature> PATCH_PERSE_WILDFLOWER = PlacementUtilsSD.createKey("patch_perse_wildflower");
     public static final ResourceKey<PlacedFeature> PATCH_GRASS_BIRCH_FOREST = PlacementUtilsSD.createKey("patch_grass_birch_forest");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
@@ -41,7 +41,7 @@ public class VegetationPlacementsSD {
                 )
         );
 
-        context.register(PERSE_WILDFLOWER, new PlacedFeature(
+        context.register(PERSE_WILDFLOWERS_SWAMP, new PlacedFeature(
                 configuredFeatures.getOrThrow(VegetationFeaturesSD.PERSE_WILDFLOWER),
                 List.of(
                         CountPlacement.of(2),
@@ -51,7 +51,7 @@ public class VegetationPlacementsSD {
                 )
         );
 
-        context.register(PERSE_WILDFLOWERS_DAPPLED_FOREST, new PlacedFeature(
+        context.register(PATCH_PERSE_WILDFLOWER, new PlacedFeature(
                 configuredFeatures.getOrThrow(VegetationFeaturesSD.PERSE_WILDFLOWER),
                 List.of(
                         RarityFilter.onAverageOnceEvery(8),
