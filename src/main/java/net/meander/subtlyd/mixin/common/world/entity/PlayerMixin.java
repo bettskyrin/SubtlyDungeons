@@ -117,7 +117,7 @@ public class PlayerMixin {
     }
 
     @Redirect(method = "isSweepAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/tags/TagKey;)Z"))
-    private boolean getItemInHand(ItemStack instance, TagKey<Item> tagKey) {
+    private boolean isSweepAttack(ItemStack instance, TagKey<Item> tagKey) {
         return instance.is(ItemTagsSD.SWEEPING_WEAPON) && EnchantmentHelperSD.checkEnchantment(instance, Enchantments.SWEEPING_EDGE);
     }
 
