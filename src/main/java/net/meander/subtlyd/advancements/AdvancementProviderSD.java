@@ -94,5 +94,7 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
                         LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTags.CAULDRONS)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ItemTagsSD.STEW_INGREDIENT)))
                 .save(consumer, Util.identifier("husbandry/make_stew").toString());
+
+        // TODO Sneak Attack
     }
 }

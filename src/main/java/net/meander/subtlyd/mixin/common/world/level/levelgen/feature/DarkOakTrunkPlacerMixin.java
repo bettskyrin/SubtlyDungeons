@@ -10,6 +10,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 public class DarkOakTrunkPlacerMixin {
     @ModifyArgs(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacer;<init>(III)V"))
     private static void increaseHeight(Args args) {
-        args.set(1, (int) args.get(1) + 1);
+        args.set(1, (int) args.get(1) + 1); // TODO Test
     }
 }

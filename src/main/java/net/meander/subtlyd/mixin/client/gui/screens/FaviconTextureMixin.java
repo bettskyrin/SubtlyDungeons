@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.client.gui.screens;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.meander.subtlyd.client.OptionsSD;
+import net.meander.subtlyd.util.Util;
 import net.minecraft.client.gui.screens.FaviconTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -28,27 +29,27 @@ public class FaviconTextureMixin {
      * @param image The saved thumbnail
      */
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
-    private void upload(NativeImage image, CallbackInfo ci) {
+    private void upload(NativeImage image, CallbackInfo ci) { // TODO Replace pack.png with the higher quality one
         if (canChangeUi) {
             if (image.getWidth() == 455 && image.getHeight() == 256) {
                 try {
-                    this.checkOpen();
-                    if (this.texture == null) {
-                        this.texture = new DynamicTexture(() -> "Favicon " + this.textureLocation, image);
+                    checkOpen();
+                    if (texture == null) {
+                        texture = new DynamicTexture(() -> "Favicon " + textureLocation, image);
                     } else {
-                        this.texture.setPixels(image);
-                        this.texture.upload();
+                        texture.setPixels(image);
+                        texture.upload();
                     }
 
-                    this.textureManager.register(this.textureLocation, this.texture);
-                } catch (Throwable var3) {
+                    textureManager.register(textureLocation, texture);
+                } catch (Throwable e) {
                     image.close();
-                    this.clear();
-                    throw var3;
+                    clear();
+                    Util.LOGGER.error(e.getMessage());
                 }
             } else {
                 image.close();
-                throw new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight());
+                Util.LOGGER.error(new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight()).getMessage());
             }
             ci.cancel();
         }

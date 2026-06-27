@@ -8,19 +8,22 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
-import net.meander.subtlyd.data.DataGeneratorSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.SharedConstants;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -29,6 +32,9 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
+import net.minecraft.world.level.levelgen.feature.Feature;
+import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NonNull;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -48,6 +54,118 @@ public class WorldGeneratorSD implements DataProvider {
         packOutput = output;
     }
 
+    public static Path resolveRegistryPath(Path datapackRoot, ResourceKey<? extends Registry<?>> registryKey, Identifier identifier) {
+        return datapackRoot.resolve("data")
+                .resolve(identifier.getNamespace())
+                .resolve(registryKey.identifier().getPath())
+                .resolve(identifier.getPath() + ".json");
+    }
+
+    public static void modifyTreesForTailoredWorld(final Path root) throws Exception {
+        modifyTrees(root, null, null);
+    }
+
+    public static void modifyTrees(final Path root, @Nullable CachedOutput cache, @Nullable List<CompletableFuture<?>> futures) throws Exception {
+        final Path featurePath = root.resolve("data/minecraft/worldgen/feature");
+
+        final int BIRCH_BASE_HEIGHT = 7;
+        final int BIRCH_RAND_HEIGHT_A = 2;
+        final int BIRCH_RAND_HEIGHT_B = 1;
+        final int OAK_BASE_HEIGHT = 6;
+        final int OAK_RAND_HEIGHT_A = 2;
+        final int OAK_RAND_HEIGHT_B = 2;
+        final int SUPER_BIRCH_RAND_HEIGHT_B = 6;
+
+        List<ResourceKey<Feature>> birchTrees = getBirchTrees();
+        List<ResourceKey<Feature>> oakTrees = getOakTrees();
+        List<ResourceKey<Feature>> superBirchTrees = getSuperBirchTrees();
+        List<List<ResourceKey<Feature>>> treeTypes = List.of(birchTrees, oakTrees, superBirchTrees);
+        List<ResourceKey<Feature>> fallenTreeTypes = List.of(TreeFeatures.FALLEN_BIRCH_TREE, TreeFeatures.FALLEN_OAK_TREE, TreeFeatures.FALLEN_SUPER_BIRCH_TREE);
+
+        for (List<ResourceKey<Feature>> treeType : treeTypes) {
+            int baseHeight = -1;
+            int randHeightA = -1;
+            int randHeightB = -1;
+
+            if (treeType.equals(birchTrees)) {
+                baseHeight = BIRCH_BASE_HEIGHT;
+                randHeightA = BIRCH_RAND_HEIGHT_A;
+                randHeightB = BIRCH_RAND_HEIGHT_B;
+            } else if (treeType.equals(oakTrees)) {
+                baseHeight = OAK_BASE_HEIGHT;
+                randHeightA = OAK_RAND_HEIGHT_A;
+                randHeightB = OAK_RAND_HEIGHT_B;
+            } else if (treeType.equals(superBirchTrees)) {
+                baseHeight = BIRCH_BASE_HEIGHT;
+                randHeightA = BIRCH_RAND_HEIGHT_A;
+                randHeightB = SUPER_BIRCH_RAND_HEIGHT_B;
+            }
+
+            for (ResourceKey<Feature> feature : treeType) {
+                String file = feature.identifier().getPath() + ".json";
+                JsonObject storedModification = getModifiedTrunkHeight(file, baseHeight, randHeightA, randHeightB);
+
+                if (cache != null && futures != null) {
+                    futures.add(DataProvider.saveStable(cache, storedModification, featurePath.resolve(file)));
+                } else {
+                    Files.writeString(featurePath.resolve(file), GSON.toJson(storedModification));
+                }
+            }
+        }
+
+        for (ResourceKey<Feature> fallenTreeType : fallenTreeTypes) {
+            int minLength = -1;
+            int maxLength = -1;
+
+            if (fallenTreeType.equals(TreeFeatures.FALLEN_BIRCH_TREE)) {
+                minLength = BIRCH_BASE_HEIGHT;
+                maxLength = BIRCH_BASE_HEIGHT + BIRCH_RAND_HEIGHT_A + BIRCH_RAND_HEIGHT_B;
+            } else if (fallenTreeType.equals(TreeFeatures.FALLEN_OAK_TREE)) {
+                minLength = OAK_BASE_HEIGHT;
+                maxLength = OAK_BASE_HEIGHT + OAK_RAND_HEIGHT_A + OAK_RAND_HEIGHT_B;
+            } if (fallenTreeType.equals(TreeFeatures.FALLEN_SUPER_BIRCH_TREE)) {
+                minLength = BIRCH_BASE_HEIGHT;
+                maxLength = BIRCH_BASE_HEIGHT + BIRCH_RAND_HEIGHT_A + SUPER_BIRCH_RAND_HEIGHT_B;
+            }
+
+            String file = fallenTreeType.identifier().getPath() + ".json";
+            JsonObject storedModification = getModifiedFallenLogHeight(file, maxLength, minLength);
+
+            if (cache != null && futures != null) {
+                futures.add(DataProvider.saveStable(cache, storedModification, featurePath.resolve(file)));
+            } else {
+                Files.writeString(featurePath.resolve(file), GSON.toJson(storedModification));
+            }
+        }
+    }
+
+    private static @NonNull List<ResourceKey<Feature>> getBirchTrees() {
+        final ResourceKey<Feature> birch = TreeFeatures.BIRCH;
+        final ResourceKey<Feature> birchBees002 = TreeFeatures.BIRCH_BEES_002;
+        final ResourceKey<Feature> birchBees0002 = TreeFeatures.BIRCH_BEES_0002;
+        final ResourceKey<Feature> birchBees0002LeafLitter = TreeFeatures.BIRCH_BEES_0002_LEAF_LITTER;
+        final ResourceKey<Feature> birchBees005 = TreeFeatures.BIRCH_BEES_005;
+
+        return List.of(birch, birchBees002, birchBees0002, birchBees0002LeafLitter, birchBees005);
+    }
+
+    private static @NonNull List<ResourceKey<Feature>> getSuperBirchTrees() {
+        final ResourceKey<Feature> superBirchBees = TreeFeatures.SUPER_BIRCH_BEES;
+        final ResourceKey<Feature> superBirchBees0002 = TreeFeatures.SUPER_BIRCH_BEES_0002;
+
+        return List.of(superBirchBees, superBirchBees0002);
+    }
+
+    private static @NonNull List<ResourceKey<Feature>> getOakTrees() {
+        final ResourceKey<Feature> oak = TreeFeatures.OAK;
+        final ResourceKey<Feature> oakBees002 = TreeFeatures.OAK_BEES_002;
+        final ResourceKey<Feature> oakBeesLeafLitter = TreeFeatures.OAK_LEAF_LITTER;
+        final ResourceKey<Feature> oakBees0002LeafLitter = TreeFeatures.OAK_BEES_0002_LEAF_LITTER;
+        final ResourceKey<Feature> oakBees005 = TreeFeatures.OAK_BEES_005;
+
+        return List.of(oak, oakBees002, oakBeesLeafLitter, oakBees0002LeafLitter,  oakBees005);
+    }
+
     public static void modifyBiomes() {
         Identifier PATCH_BIRCH_GRASS = Util.identifier("patch_birch_grass");
         Identifier DARK_FOREST_ATMOSPHERE = Util.identifier("dark_forest_atmosphere");
@@ -56,33 +174,35 @@ public class WorldGeneratorSD implements DataProvider {
         Identifier SWAMP_FROG_WEIGHT = Util.identifier("swamp_frog_weight");
 
         BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
-        BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
-                    biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PATCH_BIRCH_FOREST);
-                });
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DARK_FOREST, Biomes.FOREST), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.FOREST_ROCK_SPARSE);
-        BiomeModifications.create(DARK_FOREST_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.FOREST),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0x677AA1);
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, 0x8495B8);
-                });
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST), MobCategory.CREATURE, EntityTypes.RABBIT, 6, 3, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
-        BiomeModifications.create(MANGROVE_SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
-                (_, biomeModificationContext) ->
-                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0xD4E2FA));
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_SWAMP);
         BiomeModifications.create(SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
                 (_, biomeModificationContext) -> {
                     biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0xD4E2FA);
                     biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, 0xCAE8E6);
+
                 });
         BiomeModifications.create(SWAMP_FROG_WEIGHT).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
                 (_, biomeModificationContext) -> {
                     biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.FROG);
                     biomeModificationContext.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 2, 5), 14);
                 });
+        BiomeModifications.create(MANGROVE_SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
+                (_, biomeModificationContext) ->
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0xD4E2FA));
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
+        BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
+                (_, biomeModificationContext) -> {
+                    biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
+                    biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PATCH_GRASS_BIRCH_FOREST);
+                });
+        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DARK_FOREST, Biomes.FOREST), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.FOREST_ROCK_SPARSE);
+        BiomeModifications.create(DARK_FOREST_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.DARK_FOREST),
+                (_, biomeModificationContext) -> {
+                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0x677AA1);
+                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, 0x8495B8);
+                });
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST), MobCategory.CREATURE, EntityTypes.RABBIT, 6, 3, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
 
         // TODO FOGGY Biomes
     }
@@ -98,13 +218,14 @@ public class WorldGeneratorSD implements DataProvider {
             JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", EROSION_SCALE);
             JsonObject biomes = getModifiedOverworldNoiseSettings();
 
-            Path continentsPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/continents.json");
-            Path erosionPath = outputFolder.resolve("data/minecraft/worldgen/density_function/overworld/erosion.json");
-            Path noisePath = outputFolder.resolve("data/minecraft/worldgen/noise_settings/overworld.json");
+            Path continentsPath = resolveRegistryPath(outputFolder, Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/continents"));
+            Path erosionPath = resolveRegistryPath(outputFolder, Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/erosion"));
+            Path noisePath = resolveRegistryPath(outputFolder, Registries.NOISE_SETTINGS, Identifier.withDefaultNamespace("overworld"));
 
             futures.add(DataProvider.saveStable(cache, continents, continentsPath));
             futures.add(DataProvider.saveStable(cache, erosion, erosionPath));
             futures.add(DataProvider.saveStable(cache, biomes, noisePath));
+            modifyTrees(outputFolder, cache, futures);
         } catch (Exception e) {
             Util.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
@@ -117,22 +238,23 @@ public class WorldGeneratorSD implements DataProvider {
             final Path packRoot = tempPackDir.resolve("tailored_worldgen");
             final Path densityFunctions = packRoot.resolve("data/minecraft/worldgen/density_function/overworld");
             final Path noiseSettings = packRoot.resolve("data/minecraft/worldgen/noise_settings");
+            final Path feature = packRoot.resolve("data/minecraft/worldgen/feature");
+
             final String continentalnessFile = "continents.json";
             final String erosionFile = "erosion.json";
             final String overworldFile = "overworld.json";
+            JsonObject packMeta = buildPackMeta();
 
             Files.createDirectories(densityFunctions);
             Files.createDirectories(noiseSettings);
+            Files.createDirectories(feature);
 
-            if (!DataGeneratorSD.isDataGeneratorRunning) {
-                JsonObject metaRoot = buildPackMeta();
-
-                Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(metaRoot));
-            }
+            Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(packMeta));
 
             Files.writeString(densityFunctions.resolve(continentalnessFile), GSON.toJson(getModifiedSimpleDensityFunction(continentalnessFile, TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
             Files.writeString(densityFunctions.resolve(erosionFile), GSON.toJson(getModifiedSimpleDensityFunction(erosionFile, EROSION_SCALE)));
             Files.writeString(noiseSettings.resolve(overworldFile), GSON.toJson(getModifiedOverworldNoiseSettings()));
+            modifyTreesForTailoredWorld(packRoot);
         } catch (Exception e) {
             Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
@@ -214,6 +336,63 @@ public class WorldGeneratorSD implements DataProvider {
                 return overworld;
             } else {
                 throw new IllegalStateException("Unable to resolve overworld.json");
+            }
+        }
+    }
+
+    private static JsonObject getModifiedTrunkHeight(String fileName, final int baseHeight, final int randHeightA, final int randHeightB) throws Exception {
+        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/feature/" + fileName)) {
+            if (fileStream != null) {
+                JsonObject feature = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
+
+                if (feature.has("trunk_placer")) {
+                    JsonObject trunkPlacer = feature.getAsJsonObject("trunk_placer");
+
+                    if (trunkPlacer.has("base_height")) {
+                        trunkPlacer.addProperty("base_height", baseHeight);
+                    }
+
+                    if (trunkPlacer.has("height_rand_a")) {
+                        trunkPlacer.addProperty("height_rand_a", randHeightA);
+                    }
+
+                    if (trunkPlacer.has("height_rand_b")) {
+                        trunkPlacer.addProperty("height_rand_b", randHeightB);
+                    }
+
+                    feature.add("trunk_placer", trunkPlacer);
+                    return feature;
+                } else {
+                    throw new IllegalStateException("Unable to resolve trunk placer at: " + fileName);
+                }
+            } else {
+                throw new IllegalStateException("Unable to resolve " + fileName);
+            }
+        }
+    }
+
+    private static JsonObject getModifiedFallenLogHeight(String fileName, final int maxInclusive, final int minInclusive) throws Exception {
+        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream("/data/minecraft/worldgen/feature/" + fileName)) {
+            if (fileStream != null) {
+                JsonObject feature = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
+
+                if (feature.has("log_length")) {
+                    JsonObject logLength = feature.getAsJsonObject("log_length");
+
+                    if (logLength.has("max_inclusive")) {
+                        logLength.addProperty("max_inclusive", maxInclusive);
+                    }
+                    if (logLength.has("min_inclusive")) {
+                        logLength.addProperty("min_inclusive", minInclusive);
+                    }
+
+                    feature.add("log_length", logLength);
+                    return feature;
+                } else {
+                    throw new IllegalStateException("Unable to resolve log length at: " + fileName);
+                }
+            } else {
+                throw new IllegalStateException("Unable to resolve " + fileName);
             }
         }
     }
