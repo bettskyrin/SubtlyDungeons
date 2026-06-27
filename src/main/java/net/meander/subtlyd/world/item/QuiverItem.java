@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class QuiverItem extends BundleItem { // FIXME
+public class QuiverItem extends BundleItem {
     private static final int FULL_BAR_COLOR = ARGB.colorFromFloat(1.0F, 1.0F, 0.33F, 0.33F);
     private static final int BAR_COLOR = ARGB.colorFromFloat(1.0F, 0.44F, 0.53F, 1.0F);
     public static boolean renderingQuiverTooltip = false;
@@ -52,7 +52,6 @@ public class QuiverItem extends BundleItem { // FIXME
             int amountToInsert = Math.min(arrowStack.getCount(), spaceLeft);
             int remainingToInsert = amountToInsert;
             ItemStack stackToInsert = arrowStack.copyWithCount(amountToInsert);
-            boolean merged = false;
             List<ItemStackTemplate> newTemplates = new ArrayList<>();
 
             for (ItemStack quiverArrows : items) {
