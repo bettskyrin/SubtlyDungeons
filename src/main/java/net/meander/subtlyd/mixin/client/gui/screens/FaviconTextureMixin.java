@@ -29,11 +29,12 @@ public class FaviconTextureMixin {
      * @param image The saved thumbnail
      */
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
-    private void upload(NativeImage image, CallbackInfo ci) { // TODO Replace pack.png with the higher quality one
+    private void upload(NativeImage image, CallbackInfo ci) {
         if (canChangeUi) {
             if (image.getWidth() == 455 && image.getHeight() == 256) {
                 try {
                     checkOpen();
+
                     if (texture == null) {
                         texture = new DynamicTexture(() -> "Favicon " + textureLocation, image);
                     } else {
