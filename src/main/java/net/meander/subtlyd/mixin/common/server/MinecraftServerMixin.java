@@ -24,8 +24,8 @@ public class MinecraftServerMixin {
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
 
     @Inject(method = "loadStatusIcon", at = @At("RETURN"), cancellable = true)
-    private void changeIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci, @Local(name = "iconPath") Optional<Path> optional) {
-        ci.setReturnValue(newLoadStatusIcon(optional));
+    private void changeIcon(CallbackInfoReturnable<Optional<ServerStatus.Favicon>> ci, @Local(name = "iconPath") Optional<Path> iconPath) {
+        ci.setReturnValue(newLoadStatusIcon(iconPath));
     }
 
     /**
@@ -41,8 +41,8 @@ public class MinecraftServerMixin {
                 } else {
                     throw new IllegalArgumentException("Invalid world icon size [" + pngInfo.width() + ", " + pngInfo.height() + "], but expected [455, 256]");
                 }
-            } catch (Exception var3) {
-                Util.LOGGER.error("Couldn't load common icon", var3);
+            } catch (Exception e) {
+                Util.LOGGER.error("Couldn't load common icon: ", e);
                 return Optional.empty();
             }
         });
@@ -53,7 +53,7 @@ public class MinecraftServerMixin {
      */
     @Inject(method = "saveEverything", at = @At("RETURN"))
     private void saveWorldScreenshot(boolean silent, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
-        this.storageSource.getIconFile().ifPresent(path -> {
+        storageSource.getIconFile().ifPresent(path -> {
             synchronized (WorldIconState.class) {
                 WorldIconState.pathHolder = path;
             }
