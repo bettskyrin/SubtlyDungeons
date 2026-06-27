@@ -1,4 +1,4 @@
-## [5.0 Snapshot 1] - 6/25/26
+## [5.0 Snapshot 2] - 6/25/26
 ### New Features
 #### Advancements
 - Added I Am Bush advancement
