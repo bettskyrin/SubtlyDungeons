@@ -32,6 +32,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("advancements.subtlyd.light_campfire.description", "Use a Stick on an Unlit Campfire");
         translationBuilder.add("advancements.subtlyd.make_stew.title", "Soup-er!");
         translationBuilder.add("advancements.subtlyd.make_stew.description", "Add ingredients to a Cauldron");
+        translationBuilder.add("advancements.subtlyd.stealth_attack.title", "I Am Bush");
+        translationBuilder.add("advancements.subtlyd.stealth_attack.description", "Perform a sneak attack while hiding in foliage");
 
         translationBuilder.add(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
 

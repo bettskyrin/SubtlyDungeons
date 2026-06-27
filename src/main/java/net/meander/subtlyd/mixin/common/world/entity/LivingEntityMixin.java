@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
@@ -245,7 +246,7 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @ModifyVariable(method = "hurtServer", at = @At("HEAD"), argsOnly = true, name = "damage")
-    private float applyStealthDamage(float damage, ServerLevel level, DamageSource source) {
+    private float handleStealthAttack(float damage, ServerLevel level, DamageSource source) {
         if (source.getDirectEntity() instanceof LivingEntity attacker) {
             LivingEntity victim = (LivingEntity) (Object) this;
             ItemStack weapon = attacker.getMainHandItem();
@@ -253,6 +254,10 @@ public abstract class LivingEntityMixin extends Entity {
 
             if (stealth != null && canStealthAttack(attacker, victim)) {
                 double stealthLevel = attacker.getVisibilityPercent(victim);
+
+                if (attacker instanceof ServerPlayer serverPlayer) {
+                    CriteriaTriggersSD.STEALTH_ATTACK.trigger(serverPlayer, victim);
+                }
 
                 if (stealthLevel <= stealth.hiddenThreshold()) { // 0.2
                     return damage + stealth.hiddenDamageBonus();

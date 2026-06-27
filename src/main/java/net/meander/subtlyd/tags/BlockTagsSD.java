@@ -13,6 +13,7 @@ import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,6 +24,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
+    public static final TagKey<Block> TALL_PLANTS = bind("tall_plants");
 
     public BlockTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -124,6 +126,8 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.CALCITE.block());
         tag(TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
                 .add(BlockItemIds.BUSH.block());
+        tag(TALL_PLANTS)
+                .addAll(registries.lookupOrThrow(Registries.BLOCK).listElements().filter(b -> b.value() instanceof DoublePlantBlock).map(Holder.Reference::key));
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)
                 .add(BlockItemIdsSD.REEDS.block());
         tag(BlockTags.REPLACEABLE_BY_TREES)

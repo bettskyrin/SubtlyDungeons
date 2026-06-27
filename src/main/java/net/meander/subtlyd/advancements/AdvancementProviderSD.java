@@ -3,6 +3,8 @@ package net.meander.subtlyd.advancements;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.meander.subtlyd.advancements.triggers.SleptInTentTrigger;
+import net.meander.subtlyd.advancements.triggers.StealthAttackTrigger;
+import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -12,6 +14,7 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.BlockPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.ItemUsedOnLocationTrigger;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
@@ -95,6 +98,28 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ItemTagsSD.STEW_INGREDIENT)))
                 .save(consumer, Util.identifier("husbandry/make_stew").toString());
 
-        // TODO Sneak Attack
+        Advancement.Builder.advancement()
+                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
+                .display(
+                        ItemsSD.IRON_DAGGER,
+                        Component.translatable("advancements.subtlyd.stealth_attack.title"),
+                        Component.translatable("advancements.subtlyd.stealth_attack.description"),
+                        null,
+                        AdvancementType.GOAL,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("do_stealth_attack", StealthAttackTrigger.TriggerInstance.stealthAttack(
+                        EntityPredicate.Builder.entity().located(
+                                LocationPredicate.Builder.location().setBlock(
+                                        BlockPredicate.Builder.block().of(
+                                                registryLookup.lookupOrThrow(Registries.BLOCK),
+                                                BlockTagsSD.TALL_PLANTS
+                                        )
+                                )
+                        )
+                ))
+                .save(consumer, Util.identifier("adventure/stealth_attack").toString());
     }
 }
