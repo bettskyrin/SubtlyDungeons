@@ -5,7 +5,7 @@ import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.TentEntity;
-import net.meander.subtlyd.world.item.QuiverItemSD;
+import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
@@ -126,7 +126,7 @@ public class PlayerMixin {
         Player player = (Player) (Object) this;
         ItemStack legItem = player.getItemBySlot(EquipmentSlot.LEGS);
 
-        if (legItem.getItem() instanceof QuiverItemSD) {
+        if (legItem.getItem() instanceof QuiverItem) {
             BundleContents contents = legItem.get(DataComponents.BUNDLE_CONTENTS);
 
             if (contents != null && !contents.isEmpty()) {

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.world.item.QuiverItemSD;
+import net.meander.subtlyd.world.item.QuiverItem;
 import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BundleItemMixin {
 @Inject(method = "getFullnessDisplay", at = @At("HEAD"), cancellable = true)
     private static void adjustQuiverFullness(ItemStack itemStack, CallbackInfoReturnable<Float> cir) {
-        if (itemStack.getItem() instanceof QuiverItemSD) {
-            cir.setReturnValue(QuiverItemSD.getFullnessDisplay(itemStack));
+        if (itemStack.getItem() instanceof QuiverItem) {
+            cir.setReturnValue(QuiverItem.getFullnessDisplay(itemStack));
         }
     }
 }

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.inventory.tooltip;
 
-import net.meander.subtlyd.world.item.QuiverItemSD;
+import net.meander.subtlyd.world.item.QuiverItem;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientBundleTooltip;
@@ -28,9 +28,9 @@ public abstract class ClientBundleTooltipMixin {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void catchQuiverFlag(BundleContents contents, CallbackInfo ci) {
-        if (QuiverItemSD.renderingQuiverTooltip) {
+        if (QuiverItem.renderingQuiverTooltip) {
             isQuiver = true;
-            QuiverItemSD.renderingQuiverTooltip = false;
+            QuiverItem.renderingQuiverTooltip = false;
         }
     }
 

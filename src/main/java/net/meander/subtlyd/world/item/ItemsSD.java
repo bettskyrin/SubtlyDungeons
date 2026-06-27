@@ -77,7 +77,7 @@ public class ItemsSD {
     public static final Item GOLDEN_DAGGER = Items.registerItem(ItemIdsSD.GOLDEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.GOLD, 1.0F, -2.3F, 4.0F));
     public static final Item DIAMOND_DAGGER = Items.registerItem(ItemIdsSD.DIAMOND_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.DIAMOND, 1.0F, -2.3F, 4.0F));
     public static final Item NETHERITE_DAGGER = Items.registerItem(ItemIdsSD.NETHERITE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.NETHERITE, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
-    public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItemSD::new, new Item.Properties()
+    public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItem::new, new Item.Properties()
             .stacksTo(1)
             .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()));
     public static final Item OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.OAK_WOOD_SLAB, BlocksSD.OAK_WOOD_SLAB);

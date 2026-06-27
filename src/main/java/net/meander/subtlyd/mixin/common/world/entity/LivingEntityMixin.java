@@ -11,7 +11,7 @@ import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
-import net.meander.subtlyd.world.item.QuiverItemSD;
+import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.Holder;
@@ -409,7 +409,7 @@ public abstract class LivingEntityMixin extends Entity {
     private void checkQuiver(ItemStack heldWeapon, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack legItem = ((LivingEntity) (Object) this).getItemBySlot(EquipmentSlot.LEGS);
 
-        if (legItem.getItem() instanceof QuiverItemSD) {
+        if (legItem.getItem() instanceof QuiverItem) {
             BundleContents arrows = legItem.get(DataComponents.BUNDLE_CONTENTS);
 
             if (arrows != null && !arrows.isEmpty()) {

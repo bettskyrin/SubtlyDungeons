@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.world.item.QuiverItemSD;
+import net.meander.subtlyd.world.item.QuiverItem;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +16,8 @@ public abstract class ProjectileWeaponItemMixin {
     private static void prioritizeQuiver(ItemStack weapon, ItemStack projectile, LivingEntity holder, boolean forceInfinite, CallbackInfoReturnable<ItemStack> cir) {
         ItemStack legItem = holder.getItemBySlot(EquipmentSlot.LEGS);
 
-        if (legItem.getItem() instanceof QuiverItemSD) {
-            ItemStack selectedArrow = QuiverItemSD.getActiveArrowAndCycle(legItem, weapon, holder, forceInfinite);
+        if (legItem.getItem() instanceof QuiverItem) {
+            ItemStack selectedArrow = QuiverItem.getActiveArrowAndCycle(legItem, weapon, holder, forceInfinite);
             
             if (!selectedArrow.isEmpty()) {
                 cir.setReturnValue(selectedArrow);

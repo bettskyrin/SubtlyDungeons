@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.math.Fraction;
 
@@ -29,12 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class QuiverItemSD extends BundleItem {
+public class QuiverItem extends BundleItem { // FIXME
     private static final int FULL_BAR_COLOR = ARGB.colorFromFloat(1.0F, 1.0F, 0.33F, 0.33F);
     private static final int BAR_COLOR = ARGB.colorFromFloat(1.0F, 0.44F, 0.53F, 1.0F);
     public static boolean renderingQuiverTooltip = false;
 
-    public QuiverItemSD(Properties properties) {
+    public QuiverItem(Properties properties) {
         super(properties);
     }
 
@@ -49,26 +50,40 @@ public class QuiverItemSD extends BundleItem {
 
         if (spaceLeft > 0) {
             int amountToInsert = Math.min(arrowStack.getCount(), spaceLeft);
+            int remainingToInsert = amountToInsert;
             ItemStack stackToInsert = arrowStack.copyWithCount(amountToInsert);
             boolean merged = false;
             List<ItemStackTemplate> newTemplates = new ArrayList<>();
 
-            for (ItemStack existing : items) {
-                if (ItemStack.isSameItemSameComponents(existing, stackToInsert)) {
-                    existing.grow(amountToInsert);
-                    merged = true;
-                    break;
+            for (ItemStack quiverArrows : items) {
+                if (ItemStack.isSameItemSameComponents(quiverArrows, stackToInsert)) {
+                    int stackSpace = quiverArrows.getMaxStackSize() - quiverArrows.getCount();
+                    int transferAmount = Math.min(remainingToInsert, stackSpace);
+
+                    if (transferAmount > 0) {
+                        quiverArrows.grow(transferAmount);
+                        remainingToInsert -= transferAmount;
+                    }
+
+                    if (remainingToInsert <= 0) {
+                        break;
+                    }
                 }
             }
 
-            if (!merged) {
-                items.addFirst(stackToInsert);
+            while (remainingToInsert > 0) {
+                int toCreate = Math.min(remainingToInsert, arrowStack.getMaxStackSize());
+
+                items.addFirst(arrowStack.copyWithCount(toCreate));
+                remainingToInsert -= toCreate;
             }
 
             arrowStack.shrink(amountToInsert);
 
             for (ItemStack item : items) {
-                newTemplates.add(ItemStackTemplate.fromNonEmptyStack(item));
+                if (!item.isEmpty()) {
+                    newTemplates.add(ItemStackTemplate.fromNonEmptyStack(item));
+                }
             }
 
             quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newTemplates));
@@ -103,7 +118,7 @@ public class QuiverItemSD extends BundleItem {
     }
 
     public static ItemStack getActiveArrowAndCycle(ItemStack quiver, ItemStack weapon, LivingEntity holder, boolean forceInfinite) {
-        if (quiver.getItem() instanceof QuiverItemSD) {
+        if (quiver.getItem() instanceof QuiverItem) {
             BundleContents arrows = quiver.getOrDefault(DataComponents.BUNDLE_CONTENTS,  BundleContents.EMPTY);
 
             if (!arrows.isEmpty()) {
@@ -216,16 +231,16 @@ public class QuiverItemSD extends BundleItem {
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack quiver = player.getItemInHand(hand);
-        ItemStack removedArrow = removeOneArrowType(quiver);
+        Equippable equippable = quiver.get(DataComponents.EQUIPPABLE);
 
-        if (!removedArrow.isEmpty()) {
-            player.playSound(SoundEvents.BUNDLE_DROP_CONTENTS, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
-            if (!player.getInventory().add(removedArrow)) {
-                player.drop(removedArrow, false);
+        if (equippable != null && equippable.swappable()) {
+            InteractionResult swapResult = equippable.swapWithEquipmentSlot(quiver, player);
+
+            if (swapResult instanceof InteractionResult.Success) {
+                return swapResult;
             }
-            return InteractionResult.SUCCESS;
         }
-        return InteractionResult.FAIL;
+        return InteractionResult.PASS;
     }
 
     @Override
