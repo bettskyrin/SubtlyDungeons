@@ -25,3 +25,4 @@
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 - Fixed bug causing arrows to disappear if a stack was added onto them
+- Fixed bug preventing daggers from attacking through foliage

@@ -83,7 +83,7 @@
     "client.options.OptionsMixin",
     "client.options.VideoSettingsScreenMixin",
     "client.options.controls.ControlsScreenMixin",
-    "client.player.LocalPlayerPickMixin",
+    "client.player.LocalPlayerMixin",
     "client.renderer.GameRendererMixin",
     "client.renderer.LevelEventHandlerMixin",
     "client.renderer.ScreenEffectRendererMixin",
