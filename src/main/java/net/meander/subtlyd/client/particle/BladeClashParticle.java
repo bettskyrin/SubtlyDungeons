@@ -13,9 +13,9 @@ public class BladeClashParticle extends CritParticle {
     protected BladeClashParticle(ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, TextureAtlasSprite textureAtlasSprite) {
         super(level, x, y, z, xSpeed, ySpeed, zSpeed, textureAtlasSprite);
 
-        rCol = 1.0F;
-        gCol = 1.0F;
-        bCol = 1.0F;
+        rCol = 0.98F;
+        gCol = 0.83F;
+        bCol = 0.01F;
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {

@@ -17,6 +17,9 @@
 #### Blocks
 - Changed Iron Grates to have the `dragon_immune` block tag
 
+#### Textures
+- Changed `blade_clash` particle texture
+
 ### Technical Changes
 #### Data Tags
 - Added `tall_plants` block tag
