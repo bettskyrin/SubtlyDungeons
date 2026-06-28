@@ -12,12 +12,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+/**
+ * @see AmbientDesertBlockSoundsPlayer
+ */
 @Environment(EnvType.CLIENT)
 public class AmbientAirBlockSoundsPlayer {
-    private static final int IDLE_SOUND_CHANCE = 12000;
+    private static final int IDLE_SOUND_CHANCE = 4200;
     private static final int SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD = 3;
     private static final int SURROUNDING_BLOCKS_DISTANCE_HORIZONTAL_CHECK = 4;
     private static final int SURROUNDING_BLOCKS_DISTANCE_VERTICAL_CHECK = 5;

@@ -20,6 +20,9 @@
 #### Textures
 - Changed `blade_clash` particle texture
 
+#### Sounds
+- Increased the chance of cold wind sounds playing
+
 ### Technical Changes
 #### Data Tags
 - Added `tall_plants` block tag
