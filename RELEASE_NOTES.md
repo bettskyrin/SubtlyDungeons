@@ -31,3 +31,4 @@
 - Fixed bug causing arrows to disappear if a stack was added onto them
 - Fixed bug preventing daggers from attacking through foliage
 - Fixed bug preventing the Max Snow Accumulation Height GameRule from affecting snowlogged blocks
+- Fixed bug causing Piglins to not be distracted by Golden Daggers

@@ -146,6 +146,8 @@ public class ItemTagsSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(BlockItemIds.RED_TULIP.item())
                 .add(BlockItemIds.WHITE_TULIP.item())
                 .add(BlockItemIds.WITHER_ROSE.item());
+        tag(ItemTags.PIGLIN_LOVED)
+                .add(ItemIdsSD.GOLDEN_DAGGER);
     }
 
     private static TagKey<Item> bind(String string) {
