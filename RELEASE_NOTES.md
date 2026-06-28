@@ -19,6 +19,7 @@
 
 #### Textures
 - Changed `blade_clash` particle texture
+- Changed Illusioner texture to match Minecraft Dungeons
 
 #### Sounds
 - Increased the chance of cold wind sounds playing
