@@ -78,6 +78,7 @@
     "client.level.ClientLevelMixin",
     "client.level.LevelMixin",
     "client.level.block.BlockMixin",
+    "client.model.monster.zombie.DrownedModelMixin",
     "client.multiplayer.ClientPacketListenerMixin",
     "client.options.AccessibilityOptionsScreenMixin",
     "client.options.OptionsMixin",

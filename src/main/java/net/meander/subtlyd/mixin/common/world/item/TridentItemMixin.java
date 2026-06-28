@@ -2,10 +2,16 @@ package net.meander.subtlyd.mixin.common.world.item;
 
 import net.meander.subtlyd.client.renderer.ChargedTridentState;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,5 +34,24 @@ public class TridentItemMixin {
             }
         }
         return trident;
+    }
+
+    @ModifyVariable(method = "<init>", at = @At("HEAD"), argsOnly = true, name = "properties")
+    private static Item.Properties modifyUseAnimation(Item.Properties properties) {
+        ItemAttributeModifiers modifiers = TridentItem.createAttributes();
+        double attackSpeedModifier = 0.0;
+
+        for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+            if (entry.attribute().equals(Attributes.ATTACK_SPEED)) {
+                attackSpeedModifier = entry.modifier().amount();
+
+                break;
+            }
+        }
+
+        float finalAttackSpeed = (float) (Attributes.ATTACK_SPEED.value().getDefaultValue() + (float) attackSpeedModifier);
+        int animationDuration = (int) (20.0F / finalAttackSpeed);
+
+        return properties.component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, animationDuration));
     }
 }
