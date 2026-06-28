@@ -11,6 +11,7 @@ import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
+import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.SharedConstants;
@@ -164,47 +165,6 @@ public class WorldGeneratorSD implements DataProvider {
         final ResourceKey<Feature> oakBees005 = TreeFeatures.OAK_BEES_005;
 
         return List.of(oak, oakBees002, oakBeesLeafLitter, oakBees0002LeafLitter,  oakBees005);
-    }
-
-    public static void modifyBiomes() {
-        Identifier PATCH_BIRCH_GRASS = Util.identifier("patch_birch_grass");
-        Identifier DARK_FOREST_ATMOSPHERE = Util.identifier("dark_forest_atmosphere");
-        Identifier MANGROVE_SWAMP_ATMOSPHERE = Util.identifier("mangrove_swamp_atmosphere");
-        Identifier SWAMP_ATMOSPHERE = Util.identifier("swamp_atmosphere");
-        Identifier SWAMP_FROG_WEIGHT = Util.identifier("swamp_frog_weight");
-
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_SWAMP);
-        BiomeModifications.create(SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0xD4E2FA);
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, 0xCAE8E6);
-
-                });
-        BiomeModifications.create(SWAMP_FROG_WEIGHT).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.FROG);
-                    biomeModificationContext.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 2, 5), 14);
-                });
-        BiomeModifications.create(MANGROVE_SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
-                (_, biomeModificationContext) ->
-                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0xD4E2FA));
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
-        BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
-                    biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PATCH_GRASS_BIRCH_FOREST);
-                });
-        BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DARK_FOREST, Biomes.FOREST), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.FOREST_ROCK_SPARSE);
-        BiomeModifications.create(DARK_FOREST_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.DARK_FOREST),
-                (_, biomeModificationContext) -> {
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, 0x677AA1);
-                    biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, 0x8495B8);
-                });
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST), MobCategory.CREATURE, EntityTypes.RABBIT, 6, 3, 4);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
-
-        // TODO FOGGY Biomes
     }
 
     @Override
@@ -434,5 +394,91 @@ public class WorldGeneratorSD implements DataProvider {
     @Override
     public String getName() {
         return "Modified Terrain Data Generator";
+    }
+
+    public static class Modifier {
+        private static final int SKY_COLOR_DARK = 0x677AA1;
+        private static final int FOG_COLOR_DARK = 0x8495B8;
+        private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
+
+        public static void run() {
+            fog();
+            swamp();
+            forest();
+            plains();
+        }
+
+        private static void swamp() {
+            final int SKY_COLOR = 0xD4E2FA;
+
+            Identifier MANGROVE_SWAMP_ATMOSPHERE = Util.identifier("mangrove_swamp_atmosphere");
+            Identifier SWAMP_ATMOSPHERE = Util.identifier("swamp_atmosphere");
+            Identifier SWAMP_FROG_WEIGHT = Util.identifier("swamp_frog_weight");
+
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_SWAMP);
+            BiomeModifications.create(SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
+                    (_, biomeModificationContext) -> {
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, FOG_COLOR_SOGGY);
+
+                    });
+            BiomeModifications.create(SWAMP_FROG_WEIGHT).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
+                    (_, biomeModificationContext) -> {
+                        biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.FROG);
+                        biomeModificationContext.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, 2, 5), 14);
+                    });
+            BiomeModifications.create(MANGROVE_SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
+                    (_, biomeModificationContext) ->
+                            biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR));
+        }
+
+        private static void forest() {
+            Identifier PATCH_BIRCH_GRASS = Util.identifier("patch_birch_grass");
+            Identifier DARK_FOREST_ATMOSPHERE = Util.identifier("dark_forest_atmosphere");
+
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
+            BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
+                    (_, biomeModificationContext) -> {
+                        biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
+                        biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
+                        biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PATCH_GRASS_BIRCH_FOREST);
+                        biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.WILDFLOWERS_BIRCH_FOREST);
+                    });
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DARK_FOREST, Biomes.FOREST), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.FOREST_ROCK_SPARSE);
+            BiomeModifications.create(DARK_FOREST_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.DARK_FOREST),
+                    (_, biomeModificationContext) -> {
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR_DARK);
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, FOG_COLOR_DARK);
+                    });
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST), MobCategory.CREATURE, EntityTypes.RABBIT, 6, 3, 4);
+        }
+
+        private static void plains() {
+            Identifier wildflowersMeadow =  Util.identifier("wildflowers_meadow");
+
+            BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
+            BiomeModifications.create(wildflowersMeadow).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MEADOW),
+                    (_, biomeModificationContext) -> {
+                        biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.WILDFLOWERS_MEADOW);
+                        biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.WILDFLOWERS_MEADOW);
+                    });
+        }
+
+        private static void fog() {
+            final Identifier FOG_DISTANCE = Util.identifier("fog_distance");
+
+            BiomeModifications.create(FOG_DISTANCE)
+                    .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_FOGGY),
+                        ((_, biomeModificationContext) -> {
+                            biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 16.0F);
+                            biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 64.0F);
+                        }))
+            .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_VERY_FOGGY),
+                    ((_, biomeModificationContext) -> {
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 8.0F);
+                        biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 32.0F);
+                    }));
+        }
     }
 }

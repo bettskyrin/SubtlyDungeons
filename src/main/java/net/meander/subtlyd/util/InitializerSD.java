@@ -40,7 +40,7 @@ public class InitializerSD implements ModInitializer {
         GameEventsSD.registration();
         CameraShakeEvents.registration();
         FeatureTypesSD.bootstrap(BuiltInRegistries.FEATURE_TYPE);
-        WorldGeneratorSD.modifyBiomes();
+        WorldGeneratorSD.Modifier.run();
         LootTablesSD.registration();
         CriteriaTriggersSD.registration();
         StatsSD.registration();
