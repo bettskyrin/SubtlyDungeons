@@ -41,6 +41,7 @@
     "common.world.item.ProjectileWeaponItemMixin",
     "common.world.item.ShieldItemMixin",
     "common.world.item.TridentItemMixin",
+    "common.world.item.enchantment.EnchantmentMixin",
     "common.world.level.ServerExplosionMixin",
     "common.world.level.biome.BiomeMixin",
     "common.world.level.block.BlockMixin",

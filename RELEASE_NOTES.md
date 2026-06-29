@@ -8,6 +8,7 @@
 #### Enchantments
 - Changed Enervation to induce up to 4 seconds of Weakness
 - Changed Enervation to only ever induce Weakness I
+- Changed Mace to accept Knockback and Looting
 
 #### Items
 - Changed Quiver use action to equip it, rather than empty its contents
