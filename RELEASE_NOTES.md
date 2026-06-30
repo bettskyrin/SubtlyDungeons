@@ -17,6 +17,7 @@
 - Changed Quiver use action to equip it, rather than empty its contents
 - Changed Dagger to be able to parry swords in blade clashes
 - Changed Trident animation to use the Stab animation
+- Changed Wheat to be a Llama tempting item
 
 #### Blocks
 - Changed Iron Grates to have the `dragon_immune` block tag
