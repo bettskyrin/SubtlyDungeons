@@ -29,6 +29,7 @@
     "common.world.entity.projectile.arrow.AbstractArrowMixin",
     "common.world.entity.projectile.arrow.ArrowMixin",
     "common.world.entity.projectile.hurtingprojectile.WitherSkullMixin",
+    "common.world.entity.projectile.hurtingprojectile.windcharge.AbstractWindChargeMixin",
     "common.world.food.FoodDataMixin",
     "common.world.inventory.AnvilMenuMixin",
     "common.world.item.BlockItemMixin",

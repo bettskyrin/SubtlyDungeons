@@ -1,5 +1,8 @@
 ## [5.0 Snapshot 2] - 6/25/26
 ### New Features
+#### Wind Charge Buff
+- Wind Charges now disperse Area Effect Clouds
+
 #### Advancements
 - Added I Am Bush advancement
   - Is awarded for performing a stealth attack from within a tall plant
