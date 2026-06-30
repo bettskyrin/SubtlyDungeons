@@ -1,7 +1,5 @@
 package net.meander.subtlyd.world.block;
 
-import com.mojang.serialization.MapCodec;
-import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
@@ -25,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 
 public class PotionCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
-    public static final MapCodec<PotionCauldronBlock> CODEC = simpleCodec(properties -> new PotionCauldronBlock(properties, CauldronInteractionsSD.POTION));
     public static final IntegerProperty POTION_LEVEL = BlockStatePropertiesSD.POTION_LEVEL;
 
     public PotionCauldronBlock(Properties properties, CauldronInteraction.Dispatcher interactions) {
@@ -41,11 +38,6 @@ public class PotionCauldronBlock extends AbstractCauldronBlock implements Entity
     @Override
     public boolean isFull(BlockState state) {
         return state.getValue(POTION_LEVEL) == 6;
-    }
-
-    @Override
-    protected MapCodec<? extends AbstractCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

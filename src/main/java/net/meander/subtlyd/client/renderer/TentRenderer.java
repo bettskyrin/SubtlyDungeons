@@ -31,13 +31,13 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
 
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
-        this.model = new TentModel(context.bakeLayer(modelLayerLocation));
-        this.texture = modelLayerLocation.model().withPath(tent -> "textures/entity/tent/" + tent + ".png");
-        this.shadowRadius = 1.8F;
+        model = new TentModel(context.bakeLayer(modelLayerLocation));
+        texture = modelLayerLocation.model().withPath(tent -> "textures/entity/tent/" + tent + ".png");
+        shadowRadius = 1.8F;
     }
 
     @Override public @NotNull TentModel getModel() {
-        return this.model;
+        return model;
     }
 
     @Override public @NotNull TentRenderState createRenderState() {
@@ -60,15 +60,16 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
     }
 
     @Nullable protected RenderType getRenderType(boolean bl3) {
-        Identifier resourceLocation = this.texture;
-        return bl3 ? RenderTypes.outline(resourceLocation) : this.model.renderType(resourceLocation);
+        Identifier resourceLocation = texture;
+        return bl3 ? RenderTypes.outline(resourceLocation) : model.renderType(resourceLocation);
     }
 
     public void submit(TentRenderState renderState, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState cameraRenderState) {
+        float damage = renderState.damage;
+
         poseStack.pushPose();
         poseStack.mulPose(Axis.YP.rotationDegrees(270.0F - renderState.yRot));
 
-        float damage = renderState.damage;
         if (damage < 0) {
             damage = 0;
         }
@@ -77,24 +78,22 @@ public class TentRenderer extends EntityRenderer<TentEntity, TentRenderState> im
             poseStack.mulPose(Axis.XP.rotationDegrees(((Mth.sin(renderState.hurtTime) * renderState.hurtTime * damage) / 10F) * (float) renderState.hurtDir));
         }
 
-        float g = renderState.scale;
-        poseStack.scale(g, g, g);
+        float scale = renderState.scale;
+        poseStack.scale(scale, scale, scale);
         poseStack.scale(-1.0F, -1.0F, 1.0F);
         poseStack.translate(0.0F, -1.501F, 0.0F);
-        RenderType renderType = this.getRenderType(renderState.appearsGlowing());
+        RenderType renderType = getRenderType(renderState.appearsGlowing());
         if (renderType != null) {
-            int i = getOverlayCoords(renderState, this.getWhiteOverlayProgress());
+            int overlayCoords = getOverlayCoords(renderState, getWhiteOverlayProgress());
             int j =  -1;
-            int k = ARGB.multiply(j, this.getModelTint());
-            submitNodeCollector.submitModel(
-                    this.model, renderState, poseStack, renderType, renderState.lightCoords, i, k, null, renderState.outlineColor, null
-            );
+            int tintedColor = ARGB.multiply(j, getModelTint());
+            submitNodeCollector.submitModel(model, renderState, poseStack, renderType, renderState.lightCoords, overlayCoords, tintedColor, null, renderState.outlineColor);
         }
 
-        if (this.shouldRenderLayers() && !this.layers.isEmpty()) {
-            this.model.setupAnim(renderState);
+        if (shouldRenderLayers() && !layers.isEmpty()) {
+            model.setupAnim(renderState);
 
-            for (RenderLayer<TentRenderState, TentModel> renderLayer : this.layers) {
+            for (RenderLayer<TentRenderState, TentModel> renderLayer : layers) {
                 renderLayer.submit(
                         poseStack, submitNodeCollector, renderState.lightCoords, renderState, renderState.yRot, renderState.xRot
                 );

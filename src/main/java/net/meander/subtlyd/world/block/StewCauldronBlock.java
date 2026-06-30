@@ -1,6 +1,5 @@
 package net.meander.subtlyd.world.block;
 
-import com.mojang.serialization.MapCodec;
 import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.world.block.entity.StewCauldronBlockEntity;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
@@ -21,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.Nullable;
 
 public class StewCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
-    public static final MapCodec<StewCauldronBlock> CODEC = simpleCodec(StewCauldronBlock::new);
     public static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_CAULDRON;
     public static final BooleanProperty IS_HEAVY_STEW = BlockStatePropertiesSD.IS_HEAVY_STEW;
 
@@ -33,11 +31,6 @@ public class StewCauldronBlock extends AbstractCauldronBlock implements EntityBl
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(LEVEL, IS_HEAVY_STEW);
-    }
-
-    @Override
-    protected MapCodec<? extends AbstractCauldronBlock> codec() {
-        return CODEC;
     }
 
     @Override

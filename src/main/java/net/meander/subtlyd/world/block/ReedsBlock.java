@@ -1,6 +1,5 @@
 package net.meander.subtlyd.world.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -13,7 +12,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BonemealableBlock;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -23,11 +25,7 @@ import net.minecraft.world.level.material.Fluids;
 import org.jspecify.annotations.Nullable;
 
 public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, BonemealableAquaticPlant, LiquidBlockContainer {
-    public static final MapCodec<ReedsBlock> CODEC = simpleCodec(ReedsBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = DoublePlantBlock.HALF;
-
-    @Override
-    public MapCodec<ReedsBlock> codec() { return CODEC; }
 
     protected ReedsBlock(Properties properties) { super(properties); }
 
@@ -98,9 +96,9 @@ public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, B
     @Override
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
         BonemealableAquaticPlant.findSpreadableNeighbourPos(serverLevel, blockPos, blockState)
-                .ifPresent(blockPosx -> {
-                    serverLevel.setBlockAndUpdate(blockPosx, this.defaultBlockState());
-                    serverLevel.setBlockAndUpdate(blockPosx.above(), serverLevel.getBlockState(blockPos.above()));
+                .ifPresent(blockPosX -> {
+                    serverLevel.setBlockAndUpdate(blockPosX, defaultBlockState());
+                    serverLevel.setBlockAndUpdate(blockPosX.above(), serverLevel.getBlockState(blockPos.above()));
                 });
     }
 }

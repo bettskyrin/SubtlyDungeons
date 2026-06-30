@@ -33,13 +33,11 @@ public class ThrownTridentRendererMixin  {
     }
 
     @Inject(method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/resources/Identifier;IIILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
-                    shift = At.Shift.AFTER))
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V", ordinal = 1, shift = At.Shift.AFTER))
     private void renderAura(ThrownTridentRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (((ChargedTridentState.Accessor) state).isCharged() && minecraft.player != null) {
 
+        if (((ChargedTridentState.Accessor) state).isCharged() && minecraft.player != null) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
             RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
                     scrollTime * 0.01F,

@@ -38,7 +38,7 @@ public class VegetationPlacementsSD {
                             InSquarePlacement.spread(),
                             PlacementUtils.HEIGHTMAP,
                             CountPlacement.of(32),
-                            RandomOffsetPlacement.ofTriangle(6, 2),
+                            OffsetPlacement.ofTriangle(6, 2),
                             BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE),
                             BiomeFilter.biome()
                     )
@@ -65,7 +65,7 @@ public class VegetationPlacementsSD {
                             PlacementUtils.HEIGHTMAP,
                             BiomeFilter.biome(),
                             CountPlacement.of(64),
-                            RandomOffsetPlacement.ofTriangle(6, 2),
+                            OffsetPlacement.ofTriangle(6, 2),
                             BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
                     )
                 )
@@ -80,7 +80,7 @@ public class VegetationPlacementsSD {
                         PlacementUtils.HEIGHTMAP,
                         BiomeFilter.biome(),
                         CountPlacement.of(64),
-                        RandomOffsetPlacement.ofTriangle(6, 2),
+                        OffsetPlacement.ofTriangle(6, 2),
                         BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE))
                 )
         );
@@ -90,7 +90,7 @@ public class VegetationPlacementsSD {
                     Util.copyAndAdd(
                             VegetationPlacements.worldSurfaceSquaredWithCount(4),
                             CountPlacement.of(16),
-                            RandomOffsetPlacement.ofTriangle(7, 3),
+                            OffsetPlacement.ofTriangle(7, 3),
                             BlockPredicateFilter.forPredicate(BlockPredicate.ONLY_IN_AIR_PREDICATE)
                     )
                 )
