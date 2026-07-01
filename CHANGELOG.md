@@ -40,18 +40,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Automatically cycles through each arrow stack
 
 #### Combat
-- Added weapon clashes
-  - When two attackers attack each other simultaneously (within 10 ticks), if they are weilding the same weapon, their weapons may clash, and do no damage to either of them
+- Added Blade Clash
+  - When two attackers attack each other simultaneously (within 10 ticks), their weapons may clash, and do no damage to either of them
   - This currently only applies to swords and daggers
 - Added Shield Strength
+- Changed Iron Grates to have the `dragon_immune` block tag
   - Determines how much damage and knockback a shield can absorb
   - By default, Shields have a Shield Strength of 5
 
 #### Enchantments
 - Added Enervation enchantment
   - Can be applied to daggers
-  - Applies 2 seconds of Weakness to victims
-    - For each level, this time increases by 1 second
+  - Applies up to 4 seconds of Weakness to victims at Level III
 - Added Cleaving enchantment
   - This is to match the Combat Test Snapshots
 
@@ -107,7 +107,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed critical hits to be possible while sprinting
 - Changed critical hits to be impossible for arrows that have been notched for longer than 3 seconds
 - Changed Axes to accept Sweeping Edge, Looting, and Fire Aspect
-- Changed Maces to accept Sweeping Edge
+- Changed Mace to accept Sweeping Edge, Knockback, and Looting
 - Changed Swords to require Sweeping Edge for sweeping attacks
 - Changed Axes to no longer take increased durability damage when attacking
 - Changed attacking with weapons to prioritize entities over blocks, such as grass
@@ -122,11 +122,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### World Generation
 - Changed all biomes to be larger
 - Changed all continents to be larger
-- Changed Oak tree height
-- Changed Birch tree height
-- Changed grass placement chance
-- Changed bush placement chance
-- Changed snow to generate under trees in snowy biomes
+- Changed Oak Tree height
+- Changed Birch Tree height
+- Changed Short Grass placement chance
+- Changed Bush placement chance
+- Changed Snow to generate under trees in snowy biomes
+- Changed Super Birch Trees to have Shelf Mushrooms generate on their trunks
 
 ##### Forest
 - Changed understory to have sparse rocks
@@ -173,10 +174,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ##### End Spikes
 - Changed End Spikes to be more triangular
 
-#### Arthropod Pathfinding
+#### Mobs
 - Added wall climbing to Silverfish AI
 - Added wall climbing to Endermite AI
-
 
 #### Items
 - Changed Pottage to accept any type of edible mushroom
@@ -186,6 +186,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
 - Changed Shelf Mushroom to be edible
 - Changed Powder Snow to decrease mining speed
+- Changed Iron Grates to have the `dragon_immune` block tag
 
 #### Crafting
 - Changed map crafting recipe
@@ -197,11 +198,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 #### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
+- Changed Illusioner texture to match Minecraft Dungeons
 
 #### Sounds
 - Changed Bush ambient sound to be louder
 - Changed Sand ambient sound to be louder
 - Changed dry vegetation ambient sound to be louder
+- Changed ambient leaf block ambient sounds to be louder
 - Changed Dead Bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 - Changed ambient cold wind sounds to be less common
@@ -235,8 +238,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added `can_parry_swords` item tag
 - Added `can_parry_daggers` item tag
 - Added `sweeping_weapon` item tag
+- Added `tall_plants` block tag
 - Removed `has_ambient_block_sounds` block tag
 - Removed `skull_block` block tag
+
+#### Bug Fixes
+- Fixed bug causing a client/server de-sync when lighting a campfire with sticks
+- Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 
 ## [4.0 Magical Madness Update] - 6/16/26
 ### New Features
