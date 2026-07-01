@@ -29,6 +29,7 @@
 
 #### Sounds
 - Increased the chance of cold wind sounds playing
+- Increased the volume of ambient leaf block sounds
 
 ### Technical Changes
 #### Data Tags
@@ -42,3 +43,4 @@
 - Fixed bug preventing daggers from attacking through foliage
 - Fixed bug preventing the Max Snow Accumulation Height GameRule from affecting snowlogged blocks
 - Fixed bug causing Piglins to not be distracted by Golden Daggers
+- Fixed bug causing Quivers to only allow the top item to be removed
