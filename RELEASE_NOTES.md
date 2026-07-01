@@ -8,6 +8,10 @@
   - Is awarded for performing a stealth attack from within a tall plant
 
 ### Changes
+#### World Generation
+##### Birch Trees
+- Changed Super Birch Trees to have Shelf Mushrooms generate on their trunks
+
 #### Enchantments
 - Changed Enervation to induce up to 4 seconds of Weakness
 - Changed Enervation to only ever induce Weakness I

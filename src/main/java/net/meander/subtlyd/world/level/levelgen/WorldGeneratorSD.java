@@ -1,9 +1,6 @@
 package net.meander.subtlyd.world.level.levelgen;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
@@ -23,6 +20,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.network.chat.Component;
+import net.minecraft.references.BlockItemIds;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.packs.PackResources;
@@ -105,6 +103,7 @@ public class WorldGeneratorSD implements DataProvider {
             for (ResourceKey<Feature> feature : treeType) {
                 String file = feature.identifier().getPath() + ".json";
                 JsonObject storedModification = getModifiedTrunkHeight(file, baseHeight, randHeightA, randHeightB);
+                storedModification = modifyTreeDecorators(feature, storedModification);
 
                 if (cache != null && futures != null) {
                     futures.add(DataProvider.saveStable(cache, storedModification, featurePath.resolve(file)));
@@ -138,6 +137,18 @@ public class WorldGeneratorSD implements DataProvider {
                 Files.writeString(featurePath.resolve(file), GSON.toJson(storedModification));
             }
         }
+    }
+
+    private static JsonObject modifyTreeDecorators(ResourceKey<Feature> treeType, JsonObject storedModification) {
+        if (getBirchTrees().contains(treeType)) {
+            JsonObject shelfMushroom = new JsonObject();
+
+            shelfMushroom.addProperty("type", BlockItemIds.SHELF_MUSHROOM.block().identifier().toString());
+            shelfMushroom.addProperty("probability", 0.8F);
+
+            return modifyDecorators(storedModification, shelfMushroom);
+        }
+        return storedModification;
     }
 
     private static @NonNull List<ResourceKey<Feature>> getBirchTrees() {
@@ -252,7 +263,7 @@ public class WorldGeneratorSD implements DataProvider {
                 JsonObject densityFunction = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
                 JsonObject targetNode = densityFunction;
 
-                while (targetNode.has("argument")) {
+                while (targetNode.has("argument") && targetNode.get("argument").isJsonObject()) {
                     targetNode = targetNode.getAsJsonObject("argument");
                 }
 
@@ -337,16 +348,27 @@ public class WorldGeneratorSD implements DataProvider {
                 JsonObject feature = JsonParser.parseReader(new InputStreamReader(fileStream)).getAsJsonObject();
 
                 if (feature.has("log_length")) {
-                    JsonObject logLength = feature.getAsJsonObject("log_length");
+                    JsonElement logLengthElement = feature.get("log_length");
 
-                    if (logLength.has("max_inclusive")) {
+                    if (logLengthElement.isJsonObject()) {
+                        JsonObject logLength = logLengthElement.getAsJsonObject();
+
+                        if (logLength.has("max_inclusive")) {
+                            logLength.addProperty("max_inclusive", maxInclusive);
+                        }
+                        if (logLength.has("min_inclusive")) {
+                            logLength.addProperty("min_inclusive", minInclusive);
+                        }
+
+                        feature.add("log_length", logLength);
+                    } else if (logLengthElement.isJsonPrimitive()) {
+                        JsonObject logLength = new JsonObject();
+                        logLength.addProperty("type", "minecraft:uniform");
                         logLength.addProperty("max_inclusive", maxInclusive);
-                    }
-                    if (logLength.has("min_inclusive")) {
                         logLength.addProperty("min_inclusive", minInclusive);
-                    }
 
-                    feature.add("log_length", logLength);
+                        feature.add("log_length", logLength);
+                    }
                     return feature;
                 } else {
                     throw new IllegalStateException("Unable to resolve log length at: " + fileName);
@@ -357,16 +379,25 @@ public class WorldGeneratorSD implements DataProvider {
         }
     }
 
+    private static JsonObject modifyDecorators(JsonObject feature, JsonObject decorator) {
+        JsonArray decorators = feature.has("decorators") ? feature.getAsJsonArray("decorators") : new JsonArray();
+
+        decorators.add(decorator);
+        feature.add("decorators", decorators);
+
+        return feature;
+    }
+
     /**
      * Adds a 2D cache to the noise router argument and modifies its value.
      * @param noiseRouter The noise router object
      * @param key The key to search for within the noise router
      */
     private static void modifyNoiseRouterArgument(JsonObject noiseRouter, String key) {
-        if (noiseRouter.has(key)) {
+        if (noiseRouter.has(key) && noiseRouter.get(key).isJsonObject()) {
             JsonObject node = noiseRouter.getAsJsonObject(key);
 
-            while (node.has("argument")) {
+            while (node.has("argument") && node.get("argument").isJsonObject()) {
                 node = node.getAsJsonObject("argument");
             }
 
