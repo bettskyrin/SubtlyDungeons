@@ -140,7 +140,7 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     private static JsonObject modifyTreeDecorators(ResourceKey<Feature> treeType, JsonObject storedModification) {
-        if (getBirchTrees().contains(treeType)) {
+        if (getSuperBirchTrees().contains(treeType)) {
             JsonObject shelfMushroom = new JsonObject();
 
             shelfMushroom.addProperty("type", BlockItemIds.SHELF_MUSHROOM.block().identifier().toString());
