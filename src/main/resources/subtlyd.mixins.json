@@ -67,6 +67,7 @@
   "client": [
     "client.entity.EntityMixin",
     "client.entity.monster.SpiderMixin",
+    "client.gui.BundleMouseActionsMixin",
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
     "client.gui.screens.WinScreenMixin",

@@ -85,7 +85,11 @@ public class QuiverItem extends BundleItem {
                 }
             }
 
+            int selectedIndex = Math.max(0, getSelectedItemIndex(quiver));
+
             quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newTemplates));
+            toggleSelectedItem(quiver, selectedIndex);
+
             return amountToInsert;
         }
         return 0;
@@ -95,22 +99,24 @@ public class QuiverItem extends BundleItem {
         BundleContents contents = quiver.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
 
         if (!contents.isEmpty()) {
-            List<ItemStack> items = new ArrayList<>();
-            contents.items().forEach(template -> items.add(template.create()));
+            List<ItemStackTemplate> templates = new ArrayList<>(contents.items());
+            int selectedIndex = getSelectedItemIndex(quiver);
 
-            ItemStack removedStack = items.removeFirst();
-
-            List<ItemStackTemplate> newTemplates = new ArrayList<>();
-            for (ItemStack item : items) {
-                newTemplates.add(ItemStackTemplate.fromNonEmptyStack(item));
+            if (selectedIndex < 0 || selectedIndex >= templates.size()) {
+                selectedIndex = 0;
             }
 
-            if (newTemplates.isEmpty()) {
+            ItemStackTemplate removedTemplate = templates.remove(selectedIndex);
+            ItemStack removedStack = removedTemplate.create();
+
+            if (templates.isEmpty()) {
                 quiver.remove(DataComponents.BUNDLE_CONTENTS);
             } else {
-                quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newTemplates));
-            }
+                int newIndex = Math.clamp(selectedIndex, 0, templates.size() - 1);
 
+                quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(templates));
+                toggleSelectedItem(quiver, newIndex);
+            }
             return removedStack;
         }
         return ItemStack.EMPTY;
@@ -169,6 +175,7 @@ public class QuiverItem extends BundleItem {
         if (action == ClickAction.PRIMARY && !slotItem.isEmpty()) {
             if (slotItem.is(ItemTags.ARROWS)) {
                 int inserted = insertArrow(quiver, slotItem);
+
                 if (inserted > 0) {
                     player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
                 }
@@ -196,7 +203,10 @@ public class QuiverItem extends BundleItem {
      */
     @Override
     public boolean overrideOtherStackedOnMe(ItemStack quiver, ItemStack cursor, Slot slot, ClickAction action, Player player, SlotAccess access) {
-        if (slot.allowModification(player)) {
+        if (action == ClickAction.PRIMARY && cursor.isEmpty()) {
+            toggleSelectedItem(quiver, -1);
+            return false;
+        } else if (slot.allowModification(player)) {
             if (action == ClickAction.PRIMARY && !cursor.isEmpty()) {
                 if (cursor.is(ItemTags.ARROWS)) {
                     int inserted = insertArrow(quiver, cursor);
