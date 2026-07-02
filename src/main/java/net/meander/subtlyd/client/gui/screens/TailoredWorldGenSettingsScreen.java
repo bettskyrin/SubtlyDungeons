@@ -30,11 +30,13 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private final double initialMaster;
     private final double initialContinent;
     private final double initialBiome;
+    private final double initialErosion;
     private final Screen lastScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 50, 50);
     private SliderList list;
     private AbstractSliderButton continentSlider;
     private AbstractSliderButton biomeSlider;
+    private AbstractSliderButton erosionSlider;
 
 
     public TailoredWorldGenSettingsScreen(Screen parent) {
@@ -42,6 +44,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         initialMaster = TailoredWorldGenSettings.masterScale;
         initialContinent = TailoredWorldGenSettings.continentScale;
         initialBiome = TailoredWorldGenSettings.biomeScale;
+        initialErosion = TailoredWorldGenSettings.erosionScale;
 
         super(Component.translatable("createWorld.tailored.title"));
     }
@@ -73,7 +76,12 @@ public class TailoredWorldGenSettingsScreen extends Screen {
                 Component.translatable("createWorld.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
+        erosionSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+                Component.translatable("createWorld.tailored.erosion_scale").getString(), MIN_VALUE, MAX_VALUE,
+                TailoredWorldGenSettings.erosionScale, v -> TailoredWorldGenSettings.erosionScale = v);
+
         list.addDouble(continentSlider, biomeSlider);
+        list.addDouble(erosionSlider, null);
         createFooterButtons();
         layout.visitWidgets(this::addRenderableWidget);
         repositionElements();
@@ -102,8 +110,13 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         if (continentSlider instanceof RatioSliderButton button) {
             button.setRatioValue(TailoredWorldGenSettings.continentScale);
         }
+
         if (biomeSlider instanceof RatioSliderButton button) {
             button.setRatioValue(TailoredWorldGenSettings.biomeScale);
+        }
+
+        if (erosionSlider instanceof RatioSliderButton button) {
+            button.setRatioValue(TailoredWorldGenSettings.erosionScale);
         }
     }
 
@@ -150,6 +163,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         TailoredWorldGenSettings.masterScale = initialMaster;
         TailoredWorldGenSettings.continentScale = initialContinent;
         TailoredWorldGenSettings.biomeScale = initialBiome;
+        TailoredWorldGenSettings.erosionScale = initialErosion;
 
         minecraft.gui.setScreen(lastScreen);
     }

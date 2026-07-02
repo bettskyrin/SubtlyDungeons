@@ -45,7 +45,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
     private static final double BIOME_SCALER = 1.5;
-    private static final double EROSION_ELASTICITY = 0.15;
+    public static final double EROSION_ELASTICITY = 0.15;
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private final PackOutput packOutput;
 
@@ -144,7 +144,7 @@ public class WorldGeneratorSD implements DataProvider {
             JsonObject shelfMushroom = new JsonObject();
 
             shelfMushroom.addProperty("type", BlockItemIds.SHELF_MUSHROOM.block().identifier().toString());
-            shelfMushroom.addProperty("probability", 0.8F);
+            shelfMushroom.addProperty("probability", 1.0F);
 
             return modifyDecorators(storedModification, shelfMushroom);
         }
@@ -180,13 +180,13 @@ public class WorldGeneratorSD implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        double EROSION_SCALE = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
+        double EROSION_SCALER = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
         Path outputFolder = packOutput.getOutputFolder();
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
         try {
             JsonObject continents = getModifiedSimpleDensityFunction("continents.json", TailoredWorldGenSettings.continentScale * BIOME_SCALER);
-            JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", EROSION_SCALE);
+            JsonObject erosion = getModifiedSimpleDensityFunction("erosion.json", TailoredWorldGenSettings.erosionScale * EROSION_SCALER);
             JsonObject biomes = getModifiedOverworldNoiseSettings();
 
             Path continentsPath = resolveRegistryPath(outputFolder, Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/continents"));
@@ -205,7 +205,7 @@ public class WorldGeneratorSD implements DataProvider {
 
     public static void modifyWorldGeneration(Path tempPackDir) {
         try {
-            double EROSION_SCALE = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
+            double EROSION_SCALER = 1.0 + ((TailoredWorldGenSettings.biomeScale - 1.0) * EROSION_ELASTICITY);
             final Path packRoot = tempPackDir.resolve("tailored_worldgen");
             final Path densityFunctions = packRoot.resolve("data/minecraft/worldgen/density_function/overworld");
             final Path noiseSettings = packRoot.resolve("data/minecraft/worldgen/noise_settings");
@@ -223,7 +223,7 @@ public class WorldGeneratorSD implements DataProvider {
             Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(packMeta));
 
             Files.writeString(densityFunctions.resolve(continentalnessFile), GSON.toJson(getModifiedSimpleDensityFunction(continentalnessFile, TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
-            Files.writeString(densityFunctions.resolve(erosionFile), GSON.toJson(getModifiedSimpleDensityFunction(erosionFile, EROSION_SCALE)));
+            Files.writeString(densityFunctions.resolve(erosionFile), GSON.toJson(getModifiedSimpleDensityFunction(erosionFile, TailoredWorldGenSettings.erosionScale * EROSION_SCALER)));
             Files.writeString(noiseSettings.resolve(overworldFile), GSON.toJson(getModifiedOverworldNoiseSettings()));
             modifyTreesForTailoredWorld(packRoot);
         } catch (Exception e) {
