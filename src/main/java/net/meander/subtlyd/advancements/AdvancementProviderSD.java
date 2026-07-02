@@ -99,7 +99,7 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
                 .save(consumer, Util.identifier("husbandry/make_stew").toString());
 
         Advancement.Builder.advancement()
-                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
+                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/kill_a_mob")))
                 .display(
                         ItemsSD.IRON_DAGGER,
                         Component.translatable("advancements.subtlyd.stealth_attack.title"),
