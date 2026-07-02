@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
  */
 public class AmbientGrassyBlockSoundsPlayer {
     private static final int IDLE_SOUND_CHANCE_NIGHT = 250;
-    private static final int IDLE_SOUND_CHANCE_DAY = 300;
+    private static final int IDLE_SOUND_CHANCE_DAY = 400;
 
     public static void playAmbientGrassSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
         if (shouldPlayInsectSounds(level, blockPos, randomSource) && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {

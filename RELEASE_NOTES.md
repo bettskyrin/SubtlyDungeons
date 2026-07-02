@@ -3,6 +3,11 @@
 #### Tailored World Generation
 - Added Erosion slider
 
+#### Sounds
+- Added ambient Leaves block sounds
+- Added ambient Short Grass block sounds
+- Added ambient Red Shrub sounds
+
 ### Changes
 #### World Generation
 ##### Birch Trees
@@ -10,11 +15,6 @@
 
 #### Advancement
 - Changed I Am Bush advancement to have Monster Hunter as its parent
-
-#### Sounds
-- Added ambient Leaves block sounds
-- Added ambient Short Grass block sounds
-- Added ambient Red Shrub sounds
 
 ### Technical Changes
 #### Data Tags
