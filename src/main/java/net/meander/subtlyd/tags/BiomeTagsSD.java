@@ -39,6 +39,7 @@ public class BiomeTagsSD extends FabricTagsProvider<Biome> {
         tag(IS_FOGGY)
                 .add(Biomes.DARK_FOREST)
                 .add(Biomes.JUNGLE)
+                .add(Biomes.BAMBOO_JUNGLE)
                 .add(Biomes.SWAMP)
                 .add(Biomes.MANGROVE_SWAMP);
         tag(HAS_CESPITOSE)

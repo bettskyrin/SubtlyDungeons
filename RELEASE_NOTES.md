@@ -3,6 +3,9 @@
 #### Wind Charge Buff
 - Wind Charges now disperse Area Effect Clouds
 
+#### Atmospherics
+- Added ambient fog to Bamboo Jungle biomes
+
 #### Advancements
 - Added I Am Bush advancement
   - Is awarded for performing a stealth attack from within a tall plant

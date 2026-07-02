@@ -81,6 +81,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added ambient fog to Mangrove Swamp biomes
 - Added ambient fog to Pale Garden biomes
 - Added ambient fog to Dark Forest biomes
+- Added ambient fog to Jungle biomes
+- Added ambient fog to Bamboo Jungle biomes
 
 #### Advancements
 - Added Marking Territory advancement
