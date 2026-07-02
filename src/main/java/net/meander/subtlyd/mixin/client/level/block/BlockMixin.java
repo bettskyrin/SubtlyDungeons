@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.world.level.block.sounds.AmbientAirBlockSoundsPlayer;
 import net.meander.subtlyd.world.level.block.sounds.AmbientBushBlockSoundsPlayer;
+import net.meander.subtlyd.world.level.block.sounds.AmbientGrassyBlockSoundsPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -37,6 +38,10 @@ public class BlockMixin {
 
         if (block.defaultBlockState().is(BlockTagsSD.TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)) {
             AmbientBushBlockSoundsPlayer.playAmbientBushSounds(level, blockPos, randomSource);
+        }
+
+        if (block.defaultBlockState().is(BlockTagsSD.TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS)) {
+            AmbientGrassyBlockSoundsPlayer.playAmbientGrassSounds(level, blockPos, randomSource);
         }
     }
 }

@@ -230,6 +230,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(SoundEventsSD.TRIDENT_CHARGING, "Trident crackles");
         translationBuilder.add(SoundEventsSD.BLADE_CLASH, "Blades clang");
         translationBuilder.add(SoundEventsSD.BLADE_WOOD_CLASH, "Blades clack");
+        translationBuilder.add(SoundEventsSD.LEAVES_AMBIENT.value(), "Leaves stir");
+        translationBuilder.add(SoundEventsSD.GRASS_AMBIENT, "Crickets chirp");
 
         translationBuilder.add("subtlyd.music.alone_with_the_sky", "Crispin Hands - Alone With the Sky");
         translationBuilder.add("subtlyd.music.ashes", "Peter Hont - Ashes");

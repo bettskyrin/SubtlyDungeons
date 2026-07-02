@@ -206,7 +206,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Bush ambient sound to be louder
 - Changed Sand ambient sound to be louder
 - Changed dry vegetation ambient sound to be louder
-- Changed ambient leaf block ambient sounds to be louder
+- Changed ambient leaves block ambient sounds to be louder
 - Changed Dead Bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 - Changed ambient cold wind sounds to be less common

@@ -24,6 +24,7 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
     public static final TagKey<Block> DRIPSTONE = bind("dripstone");
     public static final TagKey<Block> TRIGGERS_AMBIENT_WIND_BLOCK_SOUNDS = bind("triggers_ambient_wind_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = bind("triggers_ambient_bush_block_sounds");
+    public static final TagKey<Block> TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS = bind("triggers_ambient_grass_block_sounds");
     public static final TagKey<Block> TALL_PLANTS = bind("tall_plants");
 
     public BlockTagsSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
@@ -125,7 +126,11 @@ public class BlockTagsSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.STONE.block())
                 .add(BlockItemIds.CALCITE.block());
         tag(TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
-                .add(BlockItemIds.BUSH.block());
+                .add(BlockItemIds.BUSH.block())
+                .add(BlockItemIds.RED_SHRUB.block());
+        tag(TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS)
+                .add(BlockItemIds.TALL_GRASS.block())
+                .add(BlockItemIds.LARGE_FERN.block());
         tag(TALL_PLANTS)
                 .addAll(registries.lookupOrThrow(Registries.BLOCK).listElements().filter(b -> b.value() instanceof DoublePlantBlock).map(Holder.Reference::key));
         tag(BlockTags.REPLACEABLE_BY_MUSHROOMS)

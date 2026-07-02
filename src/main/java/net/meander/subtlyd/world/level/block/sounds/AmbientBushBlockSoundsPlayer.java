@@ -7,6 +7,9 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 
+/**
+ * @see net.minecraft.world.level.block.sounds.AmbientDesertBlockSoundsPlayer
+ */
 public class AmbientBushBlockSoundsPlayer {
     private static final int IDLE_SOUND_CHANCE = 70;
 

@@ -8,41 +8,41 @@
   "entity.blaze.shoot": {
     "replace": false,
     "sounds": [
-      "subtlyd:blaze/blaze_shoot1",
-      "subtlyd:blaze/blaze_shoot2",
-      "subtlyd:blaze/blaze_shoot3"
+      "subtlyd:entity/blaze/blaze_shoot1",
+      "subtlyd:entity/blaze/blaze_shoot2",
+      "subtlyd:entity/blaze/blaze_shoot3"
     ]
   },
   "entity.ender_dragon.shoot": {
     "replace": false,
     "sounds": [
-      "subtlyd:fireball/large_fireball1",
-      "subtlyd:fireball/large_fireball2",
-      "subtlyd:fireball/large_fireball3"
+      "subtlyd:entity/fireball/large_fireball1",
+      "subtlyd:entity/fireball/large_fireball2",
+      "subtlyd:entity/fireball/large_fireball3"
     ]
   },
   "entity.ghast.shoot": {
     "replace": false,
     "sounds": [
-      "subtlyd:ghast/ghast_shoot1",
-      "subtlyd:ghast/ghast_shoot2"
+      "subtlyd:entity/ghast/ghast_shoot1",
+      "subtlyd:entity/ghast/ghast_shoot2"
     ]
   },
   "entity.ravager.roar": {
     "replace": true,
     "sounds": [
-      "subtlyd:ravager/ravager_roar1",
-      "subtlyd:ravager/ravager_roar2",
-      "subtlyd:ravager/ravager_roar3",
-      "subtlyd:ravager/ravager_roar4"
+      "subtlyd:entity/ravager/ravager_roar1",
+      "subtlyd:entity/ravager/ravager_roar2",
+      "subtlyd:entity/ravager/ravager_roar3",
+      "subtlyd:entity/ravager/ravager_roar4"
     ]
   },
   "entity.ravager.attack": {
     "replace": true,
     "sounds": [
-      "subtlyd:ravager/ravager_bite1",
-      "subtlyd:ravager/ravager_bite2",
-      "subtlyd:ravager/ravager_bite3"
+      "subtlyd:entity/ravager/ravager_bite1",
+      "subtlyd:entity/ravager/ravager_bite2",
+      "subtlyd:entity/ravager/ravager_bite3"
     ]
   },
   "music.menu": {

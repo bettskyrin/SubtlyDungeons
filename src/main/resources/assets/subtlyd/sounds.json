@@ -1,23 +1,23 @@
 {
-  "block.air.idle": {
-    "subtitle": "subtitles.subtlyd.block.air.idle",
+  "block.air.ambient": {
+    "subtitle": "subtitles.subtlyd.block.air.ambient",
     "stream": true,
     "sounds": [
-      "subtlyd:wind/howlingwind1",
-      "subtlyd:wind/lightwind1",
-      "subtlyd:wind/lightwind2",
-      "subtlyd:wind/lightwind3",
-      "subtlyd:wind/lightwind4"
+      "subtlyd:block/air/howlingwind1",
+      "subtlyd:block/air/lightwind1",
+      "subtlyd:block/air/lightwind2",
+      "subtlyd:block/air/lightwind3",
+      "subtlyd:block/air/lightwind4"
     ]
   },
-  "block.bush.idle": {
-    "subtitle": "subtitles.subtlyd.block.bush.idle",
+  "block.bush.ambient": {
+    "subtitle": "subtitles.subtlyd.block.bush.ambient",
     "stream": true,
     "sounds": [
-      "subtlyd:wind/lightwind1",
-      "subtlyd:wind/lightwind2",
-      "subtlyd:wind/lightwind3",
-      "subtlyd:wind/lightwind4"
+      "subtlyd:block/air/lightwind1",
+      "subtlyd:block/air/lightwind2",
+      "subtlyd:block/air/lightwind3",
+      "subtlyd:block/air/lightwind4"
     ]
   },
   "block.cauldron.serve": {
@@ -39,126 +39,158 @@
   "block.frosted_ice.freeze": {
     "subtitle": "subtitles.subtlyd.block.frosted_ice.freeze",
     "sounds": [
-      "subtlyd:frosted_ice/freeze1",
-      "subtlyd:frosted_ice/freeze2",
-      "subtlyd:frosted_ice/freeze3"
+      "subtlyd:block/frosted_ice/freeze1",
+      "subtlyd:block/frosted_ice/freeze2",
+      "subtlyd:block/frosted_ice/freeze3"
+    ]
+  },
+  "block.oak_leaves.ambient": {
+    "subtitle": "subtitles.subtlyd.block.oak_leaves.ambient",
+    "stream": true,
+    "sounds": [
+      "subtlyd:block/air/lightwind1",
+      "subtlyd:block/air/lightwind2",
+      "subtlyd:block/air/lightwind3",
+      "subtlyd:block/air/lightwind4",
+      "subtlyd:block/oak_leaves/leaves1",
+      "subtlyd:block/oak_leaves/leaves2",
+      "subtlyd:block/oak_leaves/leaves3",
+      "subtlyd:block/oak_leaves/leaves4",
+      "subtlyd:block/oak_leaves/leaves5",
+      "minecraft:block/poplar_leaves/ambient1",
+      "minecraft:block/poplar_leaves/ambient2",
+      "minecraft:block/poplar_leaves/ambient3",
+      "minecraft:block/poplar_leaves/ambient4",
+      "minecraft:block/poplar_leaves/ambient5",
+      "minecraft:block/poplar_leaves/ambient6",
+      "minecraft:block/poplar_leaves/ambient7",
+      "minecraft:block/poplar_leaves/ambient8"
+    ]
+  },
+  "block.short_grass.ambient": {
+    "subtitle": "subtitles.subtlyd.block.short_grass.ambient",
+    "stream": true,
+    "sounds": [
+      "subtlyd:block/short_grass/grass1",
+      "subtlyd:block/short_grass/grass2",
+      "subtlyd:block/short_grass/grass3"
     ]
   },
   "block.snow_bricks.break": {
     "subtitle": "subtitles.block.generic.break",
     "sounds": [
-      "subtlyd:snow_bricks/snow_bricks_dig1",
-      "subtlyd:snow_bricks/snow_bricks_dig2",
-      "subtlyd:snow_bricks/snow_bricks_dig3",
-      "subtlyd:snow_bricks/snow_bricks_dig4"
+      "subtlyd:block/snow_bricks/snow_bricks_dig1",
+      "subtlyd:block/snow_bricks/snow_bricks_dig2",
+      "subtlyd:block/snow_bricks/snow_bricks_dig3",
+      "subtlyd:block/snow_bricks/snow_bricks_dig4"
     ]
   },
   "block.snow_bricks.step": {
     "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
-      "subtlyd:snow_bricks/snow_bricks_dig1",
-      "subtlyd:snow_bricks/snow_bricks_dig2",
-      "subtlyd:snow_bricks/snow_bricks_dig3",
-      "subtlyd:snow_bricks/snow_bricks_dig4"
+      "subtlyd:block.snow_bricks/snow_bricks_dig1",
+      "subtlyd:block.snow_bricks/snow_bricks_dig2",
+      "subtlyd:block.snow_bricks/snow_bricks_dig3",
+      "subtlyd:block.snow_bricks/snow_bricks_dig4"
     ]
   },
   "block.snow_bricks.place": {
     "subtitle": "subtitles.block.generic.place",
     "sounds": [
-      "subtlyd:snow_bricks/snow_bricks_dig1",
-      "subtlyd:snow_bricks/snow_bricks_dig2",
-      "subtlyd:snow_bricks/snow_bricks_dig3",
-      "subtlyd:snow_bricks/snow_bricks_dig4"
+      "subtlyd:block/snow_bricks/snow_bricks_dig1",
+      "subtlyd:block/snow_bricks/snow_bricks_dig2",
+      "subtlyd:block/snow_bricks/snow_bricks_dig3",
+      "subtlyd:block/snow_bricks/snow_bricks_dig4"
     ]
   },
   "block.snow_bricks.hit": {
     "subtitle": "subtitles.block.generic.hit",
     "sounds": [
-      "subtlyd:snow_bricks/snow_bricks_dig1",
-      "subtlyd:snow_bricks/snow_bricks_dig2",
-      "subtlyd:snow_bricks/snow_bricks_dig3",
-      "subtlyd:snow_bricks/snow_bricks_dig4"
+      "subtlyd:block/snow_bricks/snow_bricks_dig1",
+      "subtlyd:block/snow_bricks/snow_bricks_dig2",
+      "subtlyd:block/snow_bricks/snow_bricks_dig3",
+      "subtlyd:block/snow_bricks/snow_bricks_dig4"
     ]
   },
   "block.snow_bricks.fall": {
     "subtitle": "subtitles.block.generic.fall",
     "sounds": [
-      "subtlyd:snow_bricks/snow_bricks_dig1",
-      "subtlyd:snow_bricks/snow_bricks_dig2",
-      "subtlyd:snow_bricks/snow_bricks_dig3",
-      "subtlyd:snow_bricks/snow_bricks_dig4"
+      "subtlyd:block/snow_bricks/snow_bricks_dig1",
+      "subtlyd:block/snow_bricks/snow_bricks_dig2",
+      "subtlyd:block/snow_bricks/snow_bricks_dig3",
+      "subtlyd:block/snow_bricks/snow_bricks_dig4"
     ]
   },
   "entity.area_effect_cloud.gas": {
     "subtitle": "subtitles.subtlyd.entity.area_effect_cloud.gas",
     "sounds": [
-      "subtlyd:area_effect_cloud/effect_cloud1",
-      "subtlyd:area_effect_cloud/effect_cloud2",
-      "subtlyd:area_effect_cloud/effect_cloud3"
+      "subtlyd:entity/area_effect_cloud/effect_cloud1",
+      "subtlyd:entity/area_effect_cloud/effect_cloud2",
+      "subtlyd:entity/area_effect_cloud/effect_cloud3"
     ]
   },
   "entity.arrow.hit_flame": {
     "subtitle": "subtitles.subtlyd.entity.arrow.hit_flame",
     "sounds": [
-      "subtlyd:arrow/hit_flame1",
-      "subtlyd:arrow/hit_flame2",
-      "subtlyd:arrow/hit_flame3",
-      "subtlyd:arrow/hit_flame4"
+      "subtlyd:item/arrow/hit_flame1",
+      "subtlyd:item/arrow/hit_flame2",
+      "subtlyd:item/arrow/hit_flame3",
+      "subtlyd:item/arrow/hit_flame4"
     ]
   },
   "entity.arrow.shoot_flame": {
     "subtitle": "subtitles.subtlyd.entity.arrow.shoot_flame",
     "sounds": [
-      "subtlyd:arrow/shoot_flame1",
-      "subtlyd:arrow/shoot_flame2",
-      "subtlyd:arrow/shoot_flame3"
+      "subtlyd:item/arrow/shoot_flame1",
+      "subtlyd:item/arrow/shoot_flame2",
+      "subtlyd:item/arrow/shoot_flame3"
     ]
   },
   "entity.blast_fungus.explode": {
     "subtitle": "subtitles.subtlyd.entity.blast_fungus.explode",
     "sounds": [
-      "subtlyd:blast_fungus/blast_fungus_explode1",
-      "subtlyd:blast_fungus/blast_fungus_explode2",
-      "subtlyd:blast_fungus/blast_fungus_explode3"
+      "subtlyd:item/blast_fungus/blast_fungus_explode1",
+      "subtlyd:item/blast_fungus/blast_fungus_explode2",
+      "subtlyd:item/blast_fungus/blast_fungus_explode3"
     ]
   },
   "entity.ender_dragon.breath": {
     "subtitle": "subtitles.subtlyd.entity.ender_dragon.breath",
     "sounds": [
-      "subtlyd:area_effect_cloud/effect_cloud1",
-      "subtlyd:area_effect_cloud/effect_cloud2",
-      "subtlyd:area_effect_cloud/effect_cloud3"
+      "subtlyd:entity/area_effect_cloud/effect_cloud1",
+      "subtlyd:entity/area_effect_cloud/effect_cloud2",
+      "subtlyd:entity/area_effect_cloud/effect_cloud3"
     ]
   },
   "entity.evoker_fangs.appear": {
     "subtitle": "subtitles.subtlyd.entity.evoker_fangs.appear",
     "sounds": [
-      "subtlyd:evoker_fangs/fangs_appear1",
-      "subtlyd:evoker_fangs/fangs_appear2",
-      "subtlyd:evoker_fangs/fangs_appear3"
+      "subtlyd:entity/evoker_fangs/fangs_appear1",
+      "subtlyd:entity/evoker_fangs/fangs_appear2",
+      "subtlyd:entity/evoker_fangs/fangs_appear3"
     ]
   },
   "entity.wither_skeleton.summon": {
     "subtitle": "subtitles.subtlyd.entity.wither_skeleton.summon",
     "sounds": [
-      "subtlyd:wither_skeleton/wither_skeleton_summoned"
+      "subtlyd:entity/wither_skeleton/wither_skeleton_summoned"
     ]
   },
   "item.blast_fungus.throw": {
     "subtitle": "subtitles.subtlyd.item.blast_fungus.throw",
     "sounds": [
-      "subtlyd:blast_fungus/blast_fungus_throw1",
-      "subtlyd:blast_fungus/blast_fungus_throw2",
-      "subtlyd:blast_fungus/blast_fungus_throw3"
+      "subtlyd:item/blast_fungus/blast_fungus_throw1",
+      "subtlyd:item/blast_fungus/blast_fungus_throw2",
+      "subtlyd:item/blast_fungus/blast_fungus_throw3"
     ]
   },
   "item.stick.light": {
     "subtitle": "subtitles.subtlyd.item.stick.light",
     "sounds": [
-      "subtlyd:stick/stick_light1",
-      "subtlyd:stick/stick_light2",
-      "subtlyd:stick/stick_light3",
-      "subtlyd:stick/stick_light4"
+      "subtlyd:item/stick/stick_light1",
+      "subtlyd:item/stick/stick_light2",
+      "subtlyd:item/stick/stick_light3",
+      "subtlyd:item/stick/stick_light4"
     ]
   },
   "random.blade.clash": {
@@ -184,14 +216,14 @@
   "item.trident.charged": {
     "subtitle": "subtitles.subtlyd.item.trident.charged",
     "sounds": [
-      "subtlyd:trident/charged"
+      "subtlyd:item/trident/charged"
     ]
   },
   "item.trident.charging": {
     "subtitle": "subtitles.subtlyd.item.trident.charging",
     "sounds": [
-      "subtlyd:trident/charging1",
-      "subtlyd:trident/charging2"
+      "subtlyd:item/trident/charging1",
+      "subtlyd:item/trident/charging2"
     ]
   }
 }

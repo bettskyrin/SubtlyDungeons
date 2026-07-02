@@ -7,9 +7,12 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 
+/**
+ * @see net.minecraft.sounds.SoundEvents
+ */
 public class SoundEventsSD {
-    public static final SoundEvent WIND = register("block.air.idle");
-    public static final SoundEvent BUSH_IDLE = register("block.bush.idle");
+    public static final SoundEvent WIND = register("block.air.ambient");
+    public static final SoundEvent BUSH_IDLE = register("block.bush.ambient");
     public static final SoundEvent STEW_SERVED = register("block.cauldron.serve");
     public static final SoundEvent STEW_STEWS = register("block.cauldron.stewing");
     public static final SoundEvent ICE_FREEZE = register("block.frosted_ice.freeze");
@@ -31,6 +34,8 @@ public class SoundEventsSD {
     public static final SoundEvent STICK_LIGHT = register("item.stick.light");
     public static final SoundEvent TRIDENT_CHARGING = register("item.trident.charging");
     public static final SoundEvent TRIDENT_CHARGED = register("item.trident.charged");
+    public static final Holder.Reference<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
+    public static final SoundEvent GRASS_AMBIENT = register("block.short_grass.ambient");
 
     public static void registration() {}
 

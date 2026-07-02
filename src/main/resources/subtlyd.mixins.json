@@ -50,6 +50,7 @@
     "common.world.level.block.FrostedIceBlockMixin",
     "common.world.level.block.SnowLayerBlockMixin",
     "common.world.level.block.SnowyBlockMixin",
+    "common.world.level.block.LeavesBlockMixin",
     "common.world.level.block.WaterLoggableBlocksMixin",
     "common.world.level.block.entity.BeaconBlockEntityMixin",
     "common.world.level.block.sounds.AmbientDesertBlockSoundsPlayerMixin",
