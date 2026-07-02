@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.level.storage.loot.gameplay;
+package net.meander.subtlyd.data.loot.packs;
 
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -17,6 +17,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 
+/**
+ * @see net.minecraft.data.loot.packs.VanillaFishingLoot
+ */
 public class FishingLootSD {
     public static void register() {
         LootTableEvents.REPLACE.register(((key, _, _, provider) -> {

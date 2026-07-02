@@ -19,7 +19,7 @@ import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
 import net.meander.subtlyd.world.level.levelgen.feature.FeatureProvider;
-import net.meander.subtlyd.world.level.storage.loot.BlockLootSD;
+import net.meander.subtlyd.data.loot.packs.BlockLootSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;

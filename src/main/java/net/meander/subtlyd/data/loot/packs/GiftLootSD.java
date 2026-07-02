@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.level.storage.loot.gameplay;
+package net.meander.subtlyd.data.loot.packs;
 
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
@@ -6,7 +6,10 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
-public class VillageHeroLootSD {
+/**
+ * @see net.minecraft.data.loot.packs.VanillaGiftLoot
+ */
+public class GiftLootSD {
     public static void register() {
         LootTableEvents.MODIFY.register((resourceKey, tableBuilder, _, _) -> {
             if (BuiltInLootTables.FARMER_GIFT.equals(resourceKey)) {

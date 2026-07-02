@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.level.storage.loot.gameplay;
+package net.meander.subtlyd.data.loot.packs;
 
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.resources.ResourceKey;
@@ -12,12 +12,11 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.function.BiConsumer;
 
-public class SwampHutLoot {
+public class BlockEntityLoot {
     public static void register(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> writer) {
         LootTable.Builder cauldronLoot = LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(25).apply(SetPotionFunction.setPotion(Potions.HEALING)))
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(25).apply(SetPotionFunction.setPotion(Potions.POISON)))
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(15).apply(SetPotionFunction.setPotion(Potions.SWIFTNESS)))

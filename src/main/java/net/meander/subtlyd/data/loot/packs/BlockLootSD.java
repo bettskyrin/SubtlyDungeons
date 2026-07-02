@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.level.storage.loot;
+package net.meander.subtlyd.data.loot.packs;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
@@ -19,6 +19,9 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * @see net.minecraft.data.loot.packs.VanillaBlockLoot
+ */
 public class BlockLootSD extends FabricBlockLootSubProvider {
     public BlockLootSD(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
         super(dataOutput, registryLookup);
