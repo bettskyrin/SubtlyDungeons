@@ -88,10 +88,10 @@
   "block.snow_bricks.step": {
     "subtitle": "subtitles.block.generic.footsteps",
     "sounds": [
-      "subtlyd:block.snow_bricks/snow_bricks_dig1",
-      "subtlyd:block.snow_bricks/snow_bricks_dig2",
-      "subtlyd:block.snow_bricks/snow_bricks_dig3",
-      "subtlyd:block.snow_bricks/snow_bricks_dig4"
+      "subtlyd:block/snow_bricks/snow_bricks_dig1",
+      "subtlyd:block/snow_bricks/snow_bricks_dig2",
+      "subtlyd:block/snow_bricks/snow_bricks_dig3",
+      "subtlyd:block/snow_bricks/snow_bricks_dig4"
     ]
   },
   "block.snow_bricks.place": {
