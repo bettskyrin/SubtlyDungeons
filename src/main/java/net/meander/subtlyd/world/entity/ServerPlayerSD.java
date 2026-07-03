@@ -33,35 +33,33 @@ public class ServerPlayerSD extends ServerPlayer {
             BedRule rule = player.level().environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tent.blockPosition());
             boolean canSleep = rule.canSleep(player.level());
 
-            if (!canSleep) {
-                return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_HERE);
-            } else if (tent.isOccupied()) {
+            if (tent.isOccupied()) {
                 return Either.left(PlayerSD.TentSleepingProblem.OCCUPIED);
             } else if (!player.isWithinEntityInteractionRange(tent, -2)) {
                 return Either.left(PlayerSD.TentSleepingProblem.TOO_FAR_AWAY);
+            } else if (player.level().isBrightOutside()) {
+                return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_NOW);
+            } else if (!canSleep) {
+                return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_HERE);
             } else {
-                if (player.level().isBrightOutside()) {
-                    return Either.left(PlayerSD.TentSleepingProblem.NOT_POSSIBLE_NOW);
-                } else {
-                    if (!player.isCreative()) {
-                        double hRange = 8.0;
-                        double vRange = 5.0;
-                        Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
-                        List<Monster> monsters = player.level()
-                                .getEntitiesOfClass(
-                                        Monster.class,
-                                        new AABB(vec3.x() - hRange, vec3.y() - vRange, vec3.z() - hRange, vec3.x() + hRange, vec3.y() + vRange, vec3.z() + hRange),
-                                        monster -> monster.isPreventingPlayerRest(player.level(), player));
-                        if (!monsters.isEmpty()) {
-                            return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
-                        }
+                if (!player.isCreative()) {
+                    double hRange = 8.0;
+                    double vRange = 5.0;
+                    Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
+                    List<Monster> monsters = player.level()
+                            .getEntitiesOfClass(
+                                    Monster.class,
+                                    new AABB(vec3.x() - hRange, vec3.y() - vRange, vec3.z() - hRange, vec3.x() + hRange, vec3.y() + vRange, vec3.z() + hRange),
+                                    monster -> monster.isPreventingPlayerRest(player.level(), player));
+                    if (!monsters.isEmpty()) {
+                        return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                     }
-                    Either<PlayerSD.TentSleepingProblem, Unit> result = PlayerSD.startSleepInTent(tent, player);
-                    player.level().updateSleepingPlayerList();
-
-                    result.ifRight(_ -> CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player));
-                    return result;
                 }
+                Either<PlayerSD.TentSleepingProblem, Unit> result = PlayerSD.startSleepInTent(tent, player);
+                player.level().updateSleepingPlayerList();
+
+                result.ifRight(_ -> CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player));
+                return result;
             }
         }
         return Either.left(PlayerSD.TentSleepingProblem.OTHER_PROBLEM);
