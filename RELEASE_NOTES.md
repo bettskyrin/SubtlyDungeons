@@ -16,6 +16,9 @@
 ##### Birch Trees
 - Changed Super Birch Trees to have more shelf mushrooms
 
+#### Textures
+- Changed Quiver texture
+
 #### Advancement
 - Changed I Am Bush advancement to have Monster Hunter as its parent
 
