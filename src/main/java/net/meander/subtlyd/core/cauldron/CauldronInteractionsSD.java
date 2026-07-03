@@ -1,6 +1,9 @@
 package net.meander.subtlyd.core.cauldron;
 
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.meander.subtlyd.server.level.ServerLevelSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.block.StewCauldronBlock;
@@ -16,8 +19,6 @@ import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -40,7 +41,6 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -56,6 +56,8 @@ public class CauldronInteractionsSD {
     public static CauldronInteraction.Dispatcher STEW = new CauldronInteraction.Dispatcher();
 
     public static void bootstrap() {
+        CauldronInteractions.addDefaultInteractions(POTION);
+        CauldronInteractions.addDefaultInteractions(INCOMPLETE_STEW);
         CauldronInteractions.EMPTY.put(Items.SPLASH_POTION, CauldronInteractionsSD::fillEmptyCauldronWithPotion);
         CauldronInteractions.EMPTY.put(Items.LINGERING_POTION, CauldronInteractionsSD::fillEmptyCauldronWithPotion);
         CauldronInteractions.EMPTY.put(Items.POTION, CauldronInteractionsSD::fillEmptyCauldronWithPotion);
@@ -68,6 +70,16 @@ public class CauldronInteractionsSD {
 
         INCOMPLETE_STEW.put(Items.BOWL, CauldronInteractionsSD::serveStew);
         STEW.put(Items.BOWL, CauldronInteractionsSD::serveStew);
+        ServerLevelSD.registerEvent(putStewIngredients());
+    }
+
+    private static ServerLifecycleEvents.ServerStarting putStewIngredients() {
+        return (_) -> {
+            for (Item ingredient : ItemTagsSD.getItems(ItemTagsSD.STEW_INGREDIENT)) {
+                CauldronInteractionsSD.INCOMPLETE_STEW.put(ingredient, CauldronInteractionsSD::fillStewCauldronWithStewIngredient);
+                CauldronInteractions.EMPTY.put(ingredient, CauldronInteractionsSD::fillEmptyCauldronWithStewIngredient);
+            }
+        };
     }
 
     private static CraftingInput findStewRecipe(StewCauldronBlockEntity blockEntity) {
@@ -85,7 +97,7 @@ public class CauldronInteractionsSD {
         return CraftingInput.of(3, 3, gridItems);
     }
 
-    public static InteractionResult fillEmptyCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, ItemStack itemStack) {
+    public static InteractionResult fillEmptyCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
         if (!level.isClientSide()) {
             level.setBlockAndUpdate(blockPos, BlocksSD.STEW_CAULDRON.defaultBlockState().setValue(StewCauldronBlock.LEVEL, 3));
 
@@ -114,7 +126,7 @@ public class CauldronInteractionsSD {
         return InteractionResult.SUCCESS;
     }
 
-    public static InteractionResult fillStewCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, ItemStack itemStack) {
+    public static InteractionResult fillStewCauldronWithStewIngredient(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
         if (level.getBlockEntity(blockPos) instanceof StewCauldronBlockEntity blockEntity) {
             if (!blockState.getValue(StewCauldronBlock.IS_HEAVY_STEW)) {
                 if (!level.isClientSide()) {
@@ -168,18 +180,17 @@ public class CauldronInteractionsSD {
     }
 
     public static InteractionResult fillEmptyCauldronWithPotion(BlockState ignored, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
-        Identifier potionTypeResource = Identifier.tryParse(itemStack.getItem().toString());
         PotionContents potionContents = itemStack.get(DataComponents.POTION_CONTENTS);
 
-        if (potionTypeResource != null && potionContents != null) {
+        if (potionContents != null) {
             Optional<Holder<Potion>> potionHolder = potionContents.potion();
 
             if (potionHolder.isPresent()) {
                 Holder<Potion> potion = potionHolder.get();
-                String potionType = potionTypeResource.toString();
+                Item potionType = itemStack.getItem();
 
                 if (potion != Potions.WATER && potion != Potions.AWKWARD && potion != Potions.MUNDANE && potion != Potions.THICK) {
-                    level.setBlockAndUpdate(blockPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.POTION_LEVEL, 2));
+                    level.setBlockAndUpdate(blockPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.LEVEL, 2));
                     PotionCauldronBlockEntity blockEntity = (PotionCauldronBlockEntity) level.getBlockEntity(blockPos);
 
                     if (blockEntity != null) {
@@ -202,9 +213,9 @@ public class CauldronInteractionsSD {
                     }
                 } else if (potion == Potions.WATER) {
                     if (!level.isClientSide()) {
-                        level.setBlockAndUpdate(blockPos, Blocks.WATER_CAULDRON.defaultBlockState().setValue(LayeredCauldronBlock.LEVEL, 3));
                         player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE)));
-                        level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0f, 1.0f);
+                        level.setBlockAndUpdate(blockPos, Blocks.WATER_CAULDRON.defaultBlockState());
+                        level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
 
                         return InteractionResult.SUCCESS_SERVER;
@@ -217,16 +228,15 @@ public class CauldronInteractionsSD {
     }
 
     public static InteractionResult fillPotionCauldronWithPotion(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
-        Identifier potionTypeResource = Identifier.tryParse(itemStack.getItem().toString());
         PotionContents potionContents = itemStack.get(DataComponents.POTION_CONTENTS);
 
-        if (potionTypeResource != null && potionContents != null) {
+        if (potionContents != null) {
             Optional<Holder<Potion>> potionHolder = potionContents.potion();
 
             if (potionHolder.isPresent()) {
                 Holder<Potion> potionInHand = potionHolder.get();
-                String potionTypeInHand = potionTypeResource.toString();
-                int currentLevel = blockState.getValue(PotionCauldronBlock.POTION_LEVEL);
+                Item potionTypeInHand = itemStack.getItem();
+                int currentLevel = blockState.getValue(PotionCauldronBlock.LEVEL);
 
                 if (potionInHand != Potions.WATER && potionInHand != Potions.AWKWARD && potionInHand != Potions.MUNDANE && potionInHand != Potions.THICK) {
                     if (currentLevel < 6) {
@@ -234,10 +244,10 @@ public class CauldronInteractionsSD {
 
                         if (blockEntity != null) {
                             Holder<Potion> potionInCauldron = blockEntity.getPotion();
-                            String potionTypeInCauldron = blockEntity.getPotionType();
+                            Item potionTypeInCauldron = blockEntity.getPotionType();
 
                             if (potionInCauldron == potionInHand) {
-                                if (!potionTypeInCauldron.equals(potionTypeInHand)) {
+                                if (potionTypeInCauldron != potionTypeInHand) {
                                     blockEntity.setPotionType(potionTypeInHand);
                                 }
 
@@ -245,7 +255,7 @@ public class CauldronInteractionsSD {
                                     if (currentLevel <= 4) {
                                         OptionalInt particleColor = PotionContents.getColorOptional(potionInCauldron.value().getEffects());
 
-                                        level.setBlockAndUpdate(blockPos, blockState.setValue(PotionCauldronBlock.POTION_LEVEL, currentLevel + 2));
+                                        level.setBlockAndUpdate(blockPos, blockState.setValue(PotionCauldronBlock.LEVEL, currentLevel + 2));
 
                                         if (particleColor.isPresent()) {
                                             ((ServerLevel) level).sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
@@ -268,41 +278,37 @@ public class CauldronInteractionsSD {
     }
 
     public static InteractionResult fillBottle(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
-        int currentLevel = blockState.getValue(PotionCauldronBlock.POTION_LEVEL);
+        if (blockState.hasProperty(PotionCauldronBlock.LEVEL)) {
+            int currentLevel = blockState.getValue(PotionCauldronBlock.LEVEL);
 
-        if (currentLevel > 0) {
-            PotionCauldronBlockEntity blockEntity = (PotionCauldronBlockEntity) level.getBlockEntity(blockPos);
+            if (currentLevel > 0) {
+                if (level.getBlockEntity(blockPos) instanceof PotionCauldronBlockEntity blockEntity) {
+                    Holder<Potion> potion = blockEntity.getPotion();
+                    Item potionType = blockEntity.getPotionType();
 
-            if (blockEntity != null) {
-                Holder<Potion> potion = blockEntity.getPotion();
-                Identifier potionTypeIdentifier = Identifier.tryParse(blockEntity.getPotionType());
+                    if (potion != null) {
+                        if (!level.isClientSide()) {
+                            OptionalInt particleColor = PotionContents.getColorOptional(potion.value().getEffects());
 
-                if (potion != null && potionTypeIdentifier != null) {
-                    if (!level.isClientSide()) {
-                        OptionalInt particleColor = PotionContents.getColorOptional(potion.value().getEffects());
-                        Optional<Holder.Reference<Item>> potionTypeHolder = BuiltInRegistries.ITEM.get(potionTypeIdentifier);
-
-                        if (particleColor.isPresent()) {
-                            ((ServerLevel) level).sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
-                        }
-
-                        if (potionTypeHolder.isPresent()) {
-                            Item potionType = potionTypeHolder.get().value();
+                            if (particleColor.isPresent()) {
+                                ((ServerLevel) level).sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
+                            }
 
                             player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, PotionContents.createItemStack(potionType, potion)));
 
                             if (currentLevel > 2) {
-                                level.setBlockAndUpdate(blockPos, blockState.setValue(PotionCauldronBlock.POTION_LEVEL, currentLevel - 2));
+                                level.setBlockAndUpdate(blockPos, blockState.setValue(PotionCauldronBlock.LEVEL, currentLevel - 2));
                             } else {
                                 level.setBlockAndUpdate(blockPos, Blocks.CAULDRON.defaultBlockState());
                             }
 
                             level.playSound(null, blockPos, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.gameEvent(null, GameEvent.FLUID_PICKUP, blockPos);
+
+                            return InteractionResult.SUCCESS_SERVER;
                         }
-                        return InteractionResult.SUCCESS_SERVER;
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -310,7 +316,7 @@ public class CauldronInteractionsSD {
     }
 
     public static InteractionResult createTippedArrow(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand ignored, ItemStack stack) {
-        int currentLevel = blockState.getValue(PotionCauldronBlock.POTION_LEVEL);
+        int currentLevel = blockState.getValue(PotionCauldronBlock.LEVEL);
 
         if (currentLevel > 0) {
             if (!level.isClientSide()) {
@@ -334,7 +340,7 @@ public class CauldronInteractionsSD {
                             ((ServerLevel) level).sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
                         }
 
-                        level.setBlockAndUpdate(blockPos, remainingCauldronLevels == 0 ? Blocks.CAULDRON.defaultBlockState() : blockState.setValue(PotionCauldronBlock.POTION_LEVEL, remainingCauldronLevels));
+                        level.setBlockAndUpdate(blockPos, remainingCauldronLevels == 0 ? Blocks.CAULDRON.defaultBlockState() : blockState.setValue(PotionCauldronBlock.LEVEL, remainingCauldronLevels));
 
                         if (!player.isCreative()) {
                             stack.shrink(tippedArrowCount);

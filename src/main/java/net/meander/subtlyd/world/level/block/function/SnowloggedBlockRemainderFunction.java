@@ -10,11 +10,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jspecify.annotations.Nullable;
 
-public class SnowloggedBlockLayerFunction implements PlayerBlockBreakEvents.After {
+public class SnowloggedBlockRemainderFunction implements PlayerBlockBreakEvents.After {
     @Override
-    public void afterBlockBreak(Level level, Player player, BlockPos blockPos, BlockState blockState, @Nullable BlockEntity blockEntity) {
+    public void afterBlockBreak(Level level, Player player, BlockPos blockPos, BlockState blockState, BlockEntity blockEntity) {
         MinecraftServer server = level.getServer();
 
         if (server != null) {

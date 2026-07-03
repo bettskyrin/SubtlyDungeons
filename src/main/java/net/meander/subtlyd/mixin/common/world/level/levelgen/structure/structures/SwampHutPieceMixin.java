@@ -8,9 +8,9 @@ import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
@@ -49,7 +49,7 @@ public class SwampHutPieceMixin {
                     .create(LootContextParamSets.CHEST);
             ObjectArrayList<ItemStack> generatedLoot = lootTable.getRandomItems(lootParams, random.nextLong());
             Holder<Potion> potion = Potions.WATER;
-            String potionTypeId = BuiltInRegistries.ITEM.getKey(Items.POTION).toString();
+            Item potionType = Items.POTION;
 
             if (!generatedLoot.isEmpty()) {
                 ItemStack itemStack = generatedLoot.getFirst();
@@ -58,14 +58,14 @@ public class SwampHutPieceMixin {
                 if (potionContents.potion().isPresent()) {
                     potion = potionContents.potion().get();
                 }
-                potionTypeId = BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString();
+                potionType = itemStack.getItem();
             }
 
-            level.setBlock(cauldronPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.POTION_LEVEL, levels), 2);
+            level.setBlock(cauldronPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.LEVEL, levels), 2);
 
             if (level.getBlockEntity(cauldronPos) instanceof PotionCauldronBlockEntity cauldron) {
                 cauldron.setPotion(potion);
-                cauldron.setPotionType(potionTypeId);
+                cauldron.setPotionType(potionType);
             }
         }
     }

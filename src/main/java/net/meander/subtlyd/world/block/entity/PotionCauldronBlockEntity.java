@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
@@ -22,12 +23,12 @@ import java.util.Optional;
 
 public class PotionCauldronBlockEntity extends BlockEntity {
     private Holder<Potion> potion;
-    private String potionType;
+    private Item potionType;
 
     public PotionCauldronBlockEntity(BlockPos pos, BlockState state) {
         super(BlockEntityTypesSD.POTION_CAULDRON, pos, state);
-        potion = Potions.FIRE_RESISTANCE;
-        potionType = BuiltInRegistries.ITEM.getKey(Items.POTION).toString();
+        potion = Potions.HEALING;
+        potionType = Items.POTION;
     }
 
     public Holder<Potion> getPotion() {
@@ -38,11 +39,11 @@ public class PotionCauldronBlockEntity extends BlockEntity {
         this.potion = potion;
     }
 
-    public @NotNull String getPotionType() {
+    public @NotNull Item getPotionType() {
         return potionType;
     }
 
-    public void setPotionType(String potionType) {
+    public void setPotionType(Item potionType) {
         this.potionType = potionType;
     }
 
@@ -50,14 +51,15 @@ public class PotionCauldronBlockEntity extends BlockEntity {
     public void loadAdditional(ValueInput valueInput) {
         if (valueInput.getString("PotionName").isPresent() && valueInput.getString("PotionType").isPresent()) {
             Identifier id = Identifier.tryParse(valueInput.getString("PotionName").get());
-            String type = valueInput.getString("PotionType").get();
+            Identifier typeId = Identifier.tryParse(valueInput.getString("PotionType").get());
 
-            if (id != null) {
+            if (id != null && typeId != null) {
                 Optional<Holder.Reference<Potion>> holder = BuiltInRegistries.POTION.get(id);
+                Optional<Holder.Reference<Item>> itemHolder = BuiltInRegistries.ITEM.get(typeId);
 
-                if (holder.isPresent()) {
+                if (holder.isPresent() && itemHolder.isPresent()) {
                     potion = holder.get();
-                    potionType = type;
+                    potionType = itemHolder.get().value();
                 }
             }
         }
@@ -65,14 +67,13 @@ public class PotionCauldronBlockEntity extends BlockEntity {
 
     @Override
     protected void saveAdditional(ValueOutput valueOutput) {
-        if (potion != null) {
+        if (potion != null && potionType != null) {
             Identifier potionResource = BuiltInRegistries.POTION.getKey(potion.value());
+            Identifier typeResource = BuiltInRegistries.ITEM.getKey(potionType);
 
             if (potionResource != null) {
-                String potionName = potionResource.toString();
-
-                valueOutput.putString("PotionName", potionName);
-                valueOutput.putString("PotionType", potionType);
+                valueOutput.putString("PotionName", potionResource.toString());
+                valueOutput.putString("PotionType", typeResource.toString());
             }
         }
     }

@@ -4,6 +4,7 @@ import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -23,26 +24,26 @@ import org.jetbrains.annotations.NotNull;
 import java.util.OptionalInt;
 
 public class PotionCauldronBlock extends AbstractCauldronBlock implements EntityBlock {
-    public static final IntegerProperty POTION_LEVEL = BlockStatePropertiesSD.POTION_LEVEL;
+    public static final IntegerProperty LEVEL = BlockStatePropertiesSD.POTION_LEVEL;
 
-    public PotionCauldronBlock(Properties properties, CauldronInteraction.Dispatcher interactions) {
-        super(properties, interactions);
-        registerDefaultState(stateDefinition.any().setValue(POTION_LEVEL, 1));
+    public PotionCauldronBlock(final Properties properties, final CauldronInteraction.Dispatcher interactionMap) {
+        super(properties, interactionMap);
+        registerDefaultState(stateDefinition.any().setValue(LEVEL, 1));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(POTION_LEVEL);
+        builder.add(LEVEL);
     }
 
     @Override
-    public boolean isFull(BlockState state) {
-        return state.getValue(POTION_LEVEL) == 6;
+    public boolean isFull(final BlockState state) {
+        return state.getValue(LEVEL) == 6;
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(BlockState state) {
-        return true;
+    protected int getAnalogOutputSignal(final BlockState state, final Level level, final BlockPos pos, final Direction direction) {
+        return state.getValue(LEVEL);
     }
 
     @Override

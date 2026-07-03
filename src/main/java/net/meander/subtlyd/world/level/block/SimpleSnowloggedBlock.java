@@ -16,6 +16,9 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 
+/**
+ * @see SimpleWaterloggedBlock
+ */
 public interface SimpleSnowloggedBlock {
     default InteractionResult trySnowlog(BlockState state, LevelAccessor level, BlockPos pos, Player player, InteractionHand hand) {
         if (BlockStateSD.canBeSnowlogged(state)) {

@@ -4,8 +4,10 @@ import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.world.block.entity.StewCauldronBlockEntity;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.AbstractCauldronBlock;
 import net.minecraft.world.level.block.Block;
@@ -36,6 +38,11 @@ public class StewCauldronBlock extends AbstractCauldronBlock implements EntityBl
     @Override
     public boolean isFull(BlockState state) {
         return state.getValue(LEVEL) == 3;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(final BlockState state, final Level level, final BlockPos pos, final Direction direction) {
+        return state.getValue(LEVEL);
     }
 
     @Override

@@ -128,7 +128,7 @@ public class ModelProviderSD extends FabricModelProvider {
         Identifier[] waterModels = generateCauldronContentsModel(blockId, "", Identifier.tryParse("minecraft:block/water_still"), blockModelGenerator);
 
         blockModelGenerator.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlocksSD.POTION_CAULDRON)
-                .with(PropertyDispatch.initial(PotionCauldronBlock.POTION_LEVEL)
+                .with(PropertyDispatch.initial(PotionCauldronBlock.LEVEL)
                         .select(1, BlockModelGenerators.plainVariant(waterModels[0]))
                         .select(2, BlockModelGenerators.plainVariant(waterModels[0]))
                         .select(3, BlockModelGenerators.plainVariant(waterModels[1]))
