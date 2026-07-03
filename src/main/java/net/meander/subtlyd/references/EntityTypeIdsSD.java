@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.ColorCollection;
 public class EntityTypeIdsSD {
     public static final ColorCollection<ResourceKey<EntityType<?>>> TENT = ColorCollection.prefixWithColor(ColorCollection.create("tent_entity")).map(EntityTypeIdsSD::create);
 
-    public static ResourceKey<EntityType<?>> create(final String name) {
+    private static ResourceKey<EntityType<?>> create(final String name) {
         return ResourceKey.create(Registries.ENTITY_TYPE, Util.identifier(name));
     }
 }

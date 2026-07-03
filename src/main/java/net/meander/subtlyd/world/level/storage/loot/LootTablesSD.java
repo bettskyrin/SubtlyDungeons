@@ -27,12 +27,7 @@ public class LootTablesSD {
     public static final ResourceKey<LootTable> SWAMP_HUT_CAULDRON = ResourceKey.create(Registries.LOOT_TABLE, Util.identifier("gameplay/swamp_hut_cauldron"));
 
     public static LootTableProvider create(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
-        return new LootTableProvider(
-                output,
-                Set.of(),
-                List.of(new LootTableProvider.SubProviderEntry(GameplayLootTables::new, LootContextParamSets.EMPTY)),
-                registries
-        );
+        return new LootTableProvider(output, Set.of(), List.of(new LootTableProvider.SubProviderEntry(GameplayLootTables::new, LootContextParamSets.EMPTY)), registries);
     }
 
     public static void registration() {

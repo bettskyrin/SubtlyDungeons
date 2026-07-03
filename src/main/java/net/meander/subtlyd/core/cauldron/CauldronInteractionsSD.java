@@ -47,6 +47,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+/**
+ * @see CauldronInteractions
+ */
 public class CauldronInteractionsSD {
     public static CauldronInteraction.Dispatcher POTION = new CauldronInteraction.Dispatcher();
     public static CauldronInteraction.Dispatcher INCOMPLETE_STEW = new CauldronInteraction.Dispatcher();
@@ -60,10 +63,6 @@ public class CauldronInteractionsSD {
         POTION.put(Items.POTION, CauldronInteractionsSD::fillPotionCauldronWithPotion);
         POTION.put(Items.SPLASH_POTION, CauldronInteractionsSD::fillPotionCauldronWithPotion);
         POTION.put(Items.LINGERING_POTION, CauldronInteractionsSD::fillPotionCauldronWithPotion);
-
-        POTION.put(Items.WATER_BUCKET, CauldronInteractionsSD::fillWithBucketContents);
-        POTION.put(Items.LAVA_BUCKET, CauldronInteractionsSD::fillWithBucketContents);
-
         POTION.put(Items.GLASS_BOTTLE, CauldronInteractionsSD::fillBottle);
         POTION.put(Items.ARROW, CauldronInteractionsSD::createTippedArrow);
 
@@ -72,11 +71,11 @@ public class CauldronInteractionsSD {
     }
 
     private static CraftingInput findStewRecipe(StewCauldronBlockEntity blockEntity) {
+        int index = 1;
         NonNullList<ItemStack> gridItems = NonNullList.withSize(9, ItemStack.EMPTY);
 
         gridItems.set(0, new ItemStack(Items.BOWL));
 
-        int index = 1;
         for (ItemStack ingredient : blockEntity.getIngredients()) {
             if (!ingredient.isEmpty() && index < 9) {
                 gridItems.set(index++, ingredient);
@@ -217,7 +216,7 @@ public class CauldronInteractionsSD {
         return InteractionResult.PASS;
     }
 
-    private static InteractionResult fillPotionCauldronWithPotion(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
+    public static InteractionResult fillPotionCauldronWithPotion(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
         Identifier potionTypeResource = Identifier.tryParse(itemStack.getItem().toString());
         PotionContents potionContents = itemStack.get(DataComponents.POTION_CONTENTS);
 
@@ -268,11 +267,7 @@ public class CauldronInteractionsSD {
         return InteractionResult.PASS;
     }
 
-    private static InteractionResult fillWithBucketContents(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
-        return nonPotionInteractions(level, blockPos, player, interactionHand, itemStack);
-    }
-
-    private static InteractionResult fillBottle(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
+    public static InteractionResult fillBottle(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
         int currentLevel = blockState.getValue(PotionCauldronBlock.POTION_LEVEL);
 
         if (currentLevel > 0) {
@@ -314,7 +309,7 @@ public class CauldronInteractionsSD {
         return InteractionResult.PASS;
     }
 
-    private static InteractionResult createTippedArrow(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand ignored, ItemStack stack) {
+    public static InteractionResult createTippedArrow(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand ignored, ItemStack stack) {
         int currentLevel = blockState.getValue(PotionCauldronBlock.POTION_LEVEL);
 
         if (currentLevel > 0) {
@@ -357,29 +352,5 @@ public class CauldronInteractionsSD {
             return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
-    }
-
-    private static InteractionResult nonPotionInteractions(Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, ItemStack itemStack) {
-        if (!level.isClientSide()) {
-            ItemStack itemResult;
-
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.sendParticles(ParticleTypes.POOF, blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
-            }
-            level.setBlockAndUpdate(blockPos, Blocks.CAULDRON.defaultBlockState());
-
-            if (itemStack.is(Items.WATER_BUCKET) || itemStack.is(Items.LAVA_BUCKET)) {
-                itemResult = new ItemStack(Items.BUCKET);
-            } else {
-                itemResult = new ItemStack(Items.GLASS_BOTTLE);
-            }
-
-            player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, itemResult));
-            level.playSound(null, blockPos, SoundEvents.GENERIC_EXTINGUISH_FIRE, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
-
-            return InteractionResult.SUCCESS_SERVER;
-        }
-        return InteractionResult.SUCCESS;
     }
 }

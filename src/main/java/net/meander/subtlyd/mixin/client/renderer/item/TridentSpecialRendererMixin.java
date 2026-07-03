@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.projectile.TridentModel;

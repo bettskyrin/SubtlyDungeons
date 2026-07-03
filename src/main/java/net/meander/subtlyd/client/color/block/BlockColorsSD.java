@@ -7,10 +7,14 @@ import net.minecraft.client.color.block.BlockTintSources;
 
 import java.util.List;
 
+/**
+ * @see net.minecraft.client.color.block.BlockColors
+ */
 public class BlockColorsSD {
     private static final BlockTintSource BLANK_LAYER = BlockTintSources.constant(-1);
 
     public static void registration() {
         BlockColorRegistry.register(List.of(BLANK_LAYER, BlockTintSources.grass()), BlocksSD.PERSE_WILDFLOWERS);
+        BlockColorRegistry.register(BlockTintSourcesSD.potionCauldron(), BlocksSD.POTION_CAULDRON);
     }
 }

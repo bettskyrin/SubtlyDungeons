@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.renderer;
+package net.meander.subtlyd.client.renderer.entity;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;

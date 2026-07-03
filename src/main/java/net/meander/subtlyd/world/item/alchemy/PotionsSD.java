@@ -11,10 +11,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.Potions;
 
+/**
+ * @see Potions
+ */
 public class PotionsSD {
-    public static final Holder<Potion> DECAY = register(PotionIdsSD.DECAY,
-            new Potion("decay", new MobEffectInstance(MobEffects.WITHER, 800, 1))
-    );
+    public static final Holder<Potion> DECAY = register(PotionIdsSD.DECAY, new Potion("decay", new MobEffectInstance(MobEffects.WITHER, 800, 1)));
 
     public static void registration() {
         FabricPotionBrewingBuilder.BUILD.register(builder -> {

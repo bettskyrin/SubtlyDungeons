@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
 import net.meander.subtlyd.tags.PotionTagsSD;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemHelperSD;

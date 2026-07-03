@@ -22,3 +22,4 @@
 
 #### Bug Fixes
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
+- Fixed bug preventing Powder Snow from replacing potions in a Cauldron

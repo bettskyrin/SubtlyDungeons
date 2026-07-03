@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.renderer;
+package net.meander.subtlyd.client.renderer.state;
 
 public class ChargedTridentState {
     public static final ThreadLocal<Boolean> CHANNELING_CHARGE = ThreadLocal.withInitial(() -> false);

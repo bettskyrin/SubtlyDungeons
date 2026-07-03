@@ -12,6 +12,9 @@ import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Function;
 
+/**
+ * @see Blocks
+ */
 public class BlocksSD {
     public static final Block SNOW_BRICKS = register(BlockItemIdsSD.SNOW_BRICKS, BlockBehaviour.Properties.of()
             .mapColor(MapColor.SNOW)
@@ -123,7 +126,9 @@ public class BlocksSD {
     public static final Block STRIPPED_CRIMSON_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, Blocks.STRIPPED_CRIMSON_HYPHAE);
     public static final Block STRIPPED_WARPED_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_SLAB, Blocks.STRIPPED_WARPED_HYPHAE);
 
-    public static void registration() {}
+    public static void registration() {
+        BlockSD.registerEvents();
+    }
 
     private static Block register(final BlockItemId id, final BlockBehaviour.Properties properties) {
         return Blocks.register(id.block(), properties);

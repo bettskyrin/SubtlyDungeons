@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.layers;
 
-import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
 import net.meander.subtlyd.util.Util;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;

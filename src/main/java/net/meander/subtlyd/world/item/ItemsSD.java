@@ -1,27 +1,43 @@
 package net.meander.subtlyd.world.item;
 
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
+import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
+import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
+import net.meander.subtlyd.world.level.block.entity.FuelValuesSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
+import net.minecraft.world.item.component.BlocksAttacks;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.ColorCollection;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.UnaryOperator;
 
+/**
+ * @see Items
+ */
 public class ItemsSD {
     public static final Item APPLE_PIE = Items.registerItem(ItemIdsSD.APPLE_PIE, Item::new, new Item.Properties()
             .food(FoodsSD.APPLE_PIE));
@@ -128,9 +144,37 @@ public class ItemsSD {
     public static final Item STRIPPED_PALE_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS);
     public static final Item STRIPPED_CRIMSON_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS);
     public static final Item STRIPPED_WARPED_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_STAIRS, BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS);
+    public static final Item HEAVY_SHIELD = Items.registerItem(
+            ItemIdsSD.HEAVY_SHIELD,
+            ShieldItem::new,
+            new Item.Properties()
+                    .durability(412)
+                    .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
+                    .repairable(ItemTags.IRON_TOOL_MATERIALS)
+                    .equippableUnswappable(EquipmentSlot.OFFHAND)
+                    .delayedComponent(
+                            DataComponents.BLOCKS_ATTACKS,
+                            context -> new BlocksAttacks(
+                                    0.3F,
+                                    0.0F,
+                                    List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                                    new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                                    Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                                    Optional.of(SoundEvents.SHIELD_BLOCK),
+                                    Optional.of(SoundEvents.SHIELD_BREAK)))
+                    .attributes(ItemAttributeModifiers.builder()
+                            .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE),
+                            EquipmentSlotGroup.ANY).build())
+                    .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
+    );
 
     public static void registration() {
         CreativeModeTabsSD.registration();
+        ItemSD.modifyComponents();
+        FuelValuesSD.registerFuelValues();
+        CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
+        CompostableRegistry.INSTANCE.add(ItemsSD.PERSE_WILDFLOWERS, 1.0F);
+        PotionsSD.registration();
     }
 
     private static Item registerBlockSD(final BlockItemId id, final Block block, final UnaryOperator<Item.Properties> propertiesFunction) {

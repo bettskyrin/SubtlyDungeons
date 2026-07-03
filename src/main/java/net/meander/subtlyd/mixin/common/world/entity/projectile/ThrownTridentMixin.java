@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile;
 
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataSerializers;

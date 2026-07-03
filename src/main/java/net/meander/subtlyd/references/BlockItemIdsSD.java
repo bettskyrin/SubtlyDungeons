@@ -79,7 +79,7 @@ public class BlockItemIdsSD {
     public static final BlockItemId STRIPPED_CRIMSON_HYPHAE_STAIRS = create("stripped_crimson_hyphae_stairs");
     public static final BlockItemId STRIPPED_WARPED_HYPHAE_STAIRS = create("stripped_warped_hyphae_stairs");
 
-    public static BlockItemId create(final String name) {
+    private static BlockItemId create(final String name) {
         Identifier id = Util.identifier(name);
 
         return BlockItemId.create(id, id);

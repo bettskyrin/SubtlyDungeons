@@ -11,8 +11,10 @@ import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.level.levelgen.feature.FeatureTypesSD;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -433,6 +435,7 @@ public class WorldGeneratorSD implements DataProvider {
         private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
 
         public static void run() {
+            FeatureTypesSD.bootstrap(BuiltInRegistries.FEATURE_TYPE);
             fog();
             swamp();
             forest();

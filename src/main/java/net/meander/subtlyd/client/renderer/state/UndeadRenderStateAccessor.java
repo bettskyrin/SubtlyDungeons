@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.renderer;
+package net.meander.subtlyd.client.renderer.state;
 
 public interface UndeadRenderStateAccessor {
     /**

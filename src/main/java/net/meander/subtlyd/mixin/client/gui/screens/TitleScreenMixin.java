@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.client.renderer.GuiPlayerRenderer;
+import net.meander.subtlyd.client.renderer.gui.GuiPlayerRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;

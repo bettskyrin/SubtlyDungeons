@@ -2,47 +2,52 @@ package net.meander.subtlyd.util;
 
 import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
-import net.meander.subtlyd.client.camera.shake.CameraShakeEvents;
+import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
-import net.meander.subtlyd.world.GameEventsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.entity.BlockEntityTypesSD;
 import net.meander.subtlyd.world.effect.MobEffectsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
+import net.meander.subtlyd.world.level.LevelSD;
 import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
-import net.meander.subtlyd.world.level.levelgen.feature.FeatureTypesSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.meander.subtlyd.world.level.storage.loot.predicates.LootItemConditionsSD;
-import net.minecraft.core.registries.BuiltInRegistries;
 
+@SuppressWarnings("unused")
 public class InitializerSD implements ModInitializer {
-    @Override public void onInitialize() {
+    @Override
+    public void onInitialize() {
         Util.LOGGER.info("Initializing Subtly Dungeons");
-        GameRulesSD.registration();
-        DataComponentsSD.registration();
+        server();
+        gameplay();
+        level();
+    }
+
+    private void server() {
         SynchedEntityDataSD.registration();
         PacketNetworking.registerCommon();
+    }
 
-        // Blocks & Items
+    private void gameplay() {
+        CriteriaTriggersSD.registration();
+        StatsSD.registration();
+        LootItemConditionsSD.registration();
+        LootTablesSD.registration();
+        CommandsSD.registration();
+        GameRulesSD.registration();
+        LevelSD.registerEvents();
+    }
+
+    private void level() {
+        WorldGeneratorSD.Modifier.run();
+        DataComponentsSD.registration();
         MobEffectsSD.init();
-        PotionsSD.registration();
         BlocksSD.registration();
         BlockEntityTypesSD.registration();
         ItemsSD.registration();
-        LootItemConditionsSD.registration();
-
-        // World Events
-        GameEventsSD.registration();
-        CameraShakeEvents.registration();
-        FeatureTypesSD.bootstrap(BuiltInRegistries.FEATURE_TYPE);
-        WorldGeneratorSD.Modifier.run();
-        LootTablesSD.registration();
-        CriteriaTriggersSD.registration();
-        StatsSD.registration();
     }
 }

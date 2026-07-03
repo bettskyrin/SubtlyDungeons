@@ -21,6 +21,9 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.*;
 
+/**
+ * @see net.minecraft.client.data.models.ModelProvider
+ */
 public class ModelProviderSD extends FabricModelProvider {
     public ModelProviderSD(FabricPackOutput output) {
         super(output);
@@ -287,5 +290,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.NETHERITE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.QUIVER, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
+        itemModelGenerator.generateShield(ItemsSD.HEAVY_SHIELD);
     }
 }

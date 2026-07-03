@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;

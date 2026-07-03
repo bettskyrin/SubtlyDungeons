@@ -15,6 +15,9 @@ import java.util.List;
 import static net.meander.subtlyd.world.item.ItemsSD.*;
 import static net.minecraft.world.item.Items.*;
 
+/**
+ * @see CreativeModeTabs
+ */
 public class CreativeModeTabsSD {
     public static void registration() {
         List<DyeColor> gameplayColorOrder = List.of(
@@ -144,6 +147,7 @@ public class CreativeModeTabsSD {
             entries.insertAfter(GOLDEN_DAGGER, DIAMOND_DAGGER);
             entries.insertAfter(DIAMOND_DAGGER, NETHERITE_DAGGER);
             entries.insertBefore(ARROW, QUIVER);
+            entries.insertAfter(SHIELD, HEAVY_SHIELD);
         });
     }
 }

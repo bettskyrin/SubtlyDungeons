@@ -6,6 +6,9 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.ColorCollection;
 
+/**
+ * @see net.minecraft.references.ItemIds
+ */
 public class ItemIdsSD {
     public static final ResourceKey<Item> APPLE_PIE = create("apple_pie");
     public static final ResourceKey<Item> CALAMARI = create("calamari");
@@ -23,12 +26,13 @@ public class ItemIdsSD {
     public static final ResourceKey<Item> DIAMOND_DAGGER = create("diamond_dagger");
     public static final ResourceKey<Item> NETHERITE_DAGGER = create("netherite_dagger");
     public static final ResourceKey<Item> QUIVER = create("quiver");
+    public static final ResourceKey<Item> HEAVY_SHIELD = create("heavy_shield");
 
-    public static ResourceKey<Item> create(final String name) {
+    private static ResourceKey<Item> create(final String name) {
         return ResourceKey.create(Registries.ITEM, Util.identifier(name));
     }
 
-    public static ColorCollection<ResourceKey<Item>> createSimpleColored(final String baseName) {
+    private static ColorCollection<ResourceKey<Item>> createSimpleColored(final String baseName) {
         return ColorCollection.prefixWithColor(ColorCollection.create(baseName)).map(ItemIdsSD::create);
     }
 }

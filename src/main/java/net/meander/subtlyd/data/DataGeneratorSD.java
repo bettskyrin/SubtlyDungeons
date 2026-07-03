@@ -26,25 +26,23 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 
 public class DataGeneratorSD implements DataGeneratorEntrypoint {
-    public static boolean isDataGeneratorRunning = System.getProperty("fabric-api.datagen") != null;
-
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
         pack.addProvider(ModelProviderSD::new);
         pack.addProvider((PackOutput output) -> new PotionModelProviderSD(output));
-        pack.addProvider(BiomeTagsSD::new);
+        pack.addProvider(BiomeTagsProviderSD::new);
         pack.addProvider((PackOutput output) -> new WorldGeneratorSD(output));
-        pack.addProvider(ItemTagsSD::new);
-        pack.addProvider(PotionTagsSD::new);
-        pack.addProvider(EnchantmentTagsSD::new);
-        pack.addProvider(BlockTagsSD::new);
-        pack.addProvider(EntityTypeTagsSD::new);
+        pack.addProvider(ItemTagsProviderSD::new);
+        pack.addProvider(PotionTagsProviderSD::new);
+        pack.addProvider(EnchantmentTagsProviderSD::new);
+        pack.addProvider(BlockTagsProviderSD::new);
+        pack.addProvider(EntityTypeTagsProviderSD::new);
         pack.addProvider(RecipeProviderSD::new);
         pack.addProvider(LootTablesSD::create);
         pack.addProvider(BlockLootSD::new);
-        pack.addProvider(DamageTypeTagsSD::new);
+        pack.addProvider(DamageTypeTagsProviderSD::new);
         pack.addProvider(FeatureProvider::new);
         pack.addProvider(AdvancementProviderSD::new);
         pack.addProvider(LanguageProviderSD::new);

@@ -171,6 +171,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.COPPER_DAGGER, "Copper Dagger");
         translationBuilder.add(ItemsSD.TENT.cyan(), "Cyan Tent");
         translationBuilder.add(ItemsSD.DIAMOND_DAGGER, "Diamond Dagger");
+        translationBuilder.add(ItemsSD.HEAVY_SHIELD, "Heavy Shield");
         translationBuilder.add(ItemsSD.IRON_DAGGER, "Iron Dagger");
         translationBuilder.add(ItemsSD.COVEN_ELIXIR, "Elixir of the Coven");
         translationBuilder.add(ItemsSD.GOLDEN_DAGGER, "Golden Dagger");

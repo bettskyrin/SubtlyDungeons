@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
-import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;

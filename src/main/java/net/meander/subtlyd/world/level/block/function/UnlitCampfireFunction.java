@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.level.block;
+package net.meander.subtlyd.world.level.block.function;
 
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.meander.subtlyd.sounds.SoundEventsSD;

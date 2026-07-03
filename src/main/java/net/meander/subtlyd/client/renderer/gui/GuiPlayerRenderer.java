@@ -1,4 +1,4 @@
-package net.meander.subtlyd.client.renderer;
+package net.meander.subtlyd.client.renderer.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;

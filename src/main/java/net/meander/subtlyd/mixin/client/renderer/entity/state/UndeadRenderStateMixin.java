@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
-import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.UndeadRenderState;
