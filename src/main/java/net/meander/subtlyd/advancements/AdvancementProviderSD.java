@@ -7,6 +7,7 @@ import net.meander.subtlyd.advancements.triggers.StealthAttackTrigger;
 import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -94,7 +95,7 @@ public class AdvancementProviderSD extends FabricAdvancementProvider {
                         false
                 )
                 .addCriterion("add_stew_ingredient", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(
-                        LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTags.CAULDRONS)),
+                        LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), Blocks.CAULDRON, BlocksSD.STEW_CAULDRON)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ItemTagsSD.STEW_INGREDIENT)))
                 .save(consumer, Util.identifier("husbandry/make_stew").toString());
 

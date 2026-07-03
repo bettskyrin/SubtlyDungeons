@@ -29,3 +29,4 @@
 #### Bug Fixes
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
 - Fixed bug preventing Powder Snow from replacing potions in a Cauldron
+- Fixed bug that would grant the Soup-er advancement for trying to put stew ingredients in cauldrons that cannot receive them
