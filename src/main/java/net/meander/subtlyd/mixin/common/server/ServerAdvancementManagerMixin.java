@@ -51,7 +51,7 @@ public class ServerAdvancementManagerMixin {
     }
 
     private void modifyBalancedDiet(Map<String, Criterion<?>> criteria, List<List<String>> requirements) {
-        Item[] foods = {
+        List<Item> foods = List.of(
                 ItemsSD.APPLE_PIE,
                 ItemsSD.CALAMARI,
                 ItemsSD.COOKED_CALAMARI,
@@ -59,7 +59,7 @@ public class ServerAdvancementManagerMixin {
                 Items.BROWN_MUSHROOM,
                 Items.RED_MUSHROOM,
                 ItemsSD.LIGHT_STEW
-        };
+        );
 
         for (Item food : foods) {
             Identifier foodID = BuiltInRegistries.ITEM.getKey(food);
