@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
@@ -108,10 +109,12 @@ public class MobMixin implements MobSD {
 
     @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
     private void setArthropodWallClimberNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
-        Mob mob = (Mob) (Object) this;
+        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+            Mob mob = (Mob) (Object) this;
 
-        if (mob instanceof Silverfish || mob instanceof Endermite) {
-            cir.setReturnValue(new WallClimberNavigation(mob, level));
+            if (mob instanceof Silverfish || mob instanceof Endermite) {
+                cir.setReturnValue(new WallClimberNavigation(mob, level));
+            }
         }
     }
 }

@@ -16,14 +16,17 @@ import java.util.List;
 
 @Environment(EnvType.CLIENT)
 @Mixin(VideoSettingsScreen.class)
-public class VideoSettingsScreenMixin {
-    /**
-     * Adds new video options.
-     */
-    @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
+public class VideoSettingsScreenMixin { @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
     private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
         optionInstanceList.add(8, new OptionsSD().ui());
+        cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
+    }
+
+    @Inject(method = "qualityOptions", at = @At("RETURN"), cancellable = true)
+    private static void qualityOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
+        List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
+        optionInstanceList.add(10, new OptionsSD().advancedEntityAnimations());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }

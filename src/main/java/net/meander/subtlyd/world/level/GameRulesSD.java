@@ -17,7 +17,6 @@ import java.util.function.ToIntFunction;
  */
 public class GameRulesSD {
     public static final GameRule<Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
-    public static final GameRule<Boolean> ADVANCED_ARTHROPODS = registerBoolean("advanced_arthropods", GameRuleCategory.MOBS, true);
 
     public static void registration() {}
 

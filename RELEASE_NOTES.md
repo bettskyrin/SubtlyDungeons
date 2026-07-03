@@ -8,6 +8,9 @@
 - Added ambient Short Grass block sounds
 - Added ambient Red Shrub sounds
 
+#### Settings
+- Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
+
 ### Changes
 #### World Generation
 ##### Birch Trees

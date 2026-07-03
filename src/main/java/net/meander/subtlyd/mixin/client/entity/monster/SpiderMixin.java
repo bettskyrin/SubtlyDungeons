@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.client.entity.monster;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.core.BlockPos;
@@ -34,30 +35,32 @@ public abstract class SpiderMixin implements ClimberAccessor {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnim(CallbackInfo ci) {
-        LivingEntity livingEntity = ((LivingEntity) (Object) this);
-        final float ANIM_RATE = 0.2F;
-        final float SPEED_MULTIPLIER = 8.0F;
-        float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
-        Direction nearestWall = EntitySD.getNearestWall(livingEntity);
-        float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
-        progOld = progNew;
+        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+            LivingEntity livingEntity = ((LivingEntity) (Object) this);
+            final float ANIM_RATE = 0.2F;
+            final float SPEED_MULTIPLIER = 8.0F;
+            float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
+            Direction nearestWall = EntitySD.getNearestWall(livingEntity);
+            float targetRot = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
+            progOld = progNew;
 
-        if (isClimbing()) {
-            progNew = Math.min(1.0F, progNew + ANIM_RATE);
+            if (isClimbing()) {
+                progNew = Math.min(1.0F, progNew + ANIM_RATE);
 
-            if (isChangingHeight()) {
-                float animationSpeed = ySpeed * SPEED_MULTIPLIER;
+                if (isChangingHeight()) {
+                    float animationSpeed = ySpeed * SPEED_MULTIPLIER;
 
-                livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-                if (livingEntity.tickCount % 8 == 0) {
-                    this.playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
+                    livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
+                    if (livingEntity.tickCount % 8 == 0) {
+                        this.playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
+                    }
                 }
+            } else {
+                progNew = Math.max(0.0F, progNew - ANIM_RATE);
             }
-        } else {
-            progNew = Math.max(0.0F, progNew - ANIM_RATE);
+            yOld = livingEntity.getY();
+            tickRotation(targetRot);
         }
-        yOld = livingEntity.getY();
-        tickRotation(targetRot);
     }
 
     public boolean isChangingHeight() {

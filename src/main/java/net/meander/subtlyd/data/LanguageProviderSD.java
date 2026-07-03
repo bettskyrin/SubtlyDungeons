@@ -202,6 +202,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
         translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
         translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
+        translationBuilder.add("options.advanced_entity_animations", "Advanced Entity Animations");
+        translationBuilder.add("options.advanced_entity_animations.tooltip", "Toggles advanced entity animations.");
         translationBuilder.add("options.experimental.gui", "Experimental GUI");
         translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
         translationBuilder.add("options.difficulty.easy.info", "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.");

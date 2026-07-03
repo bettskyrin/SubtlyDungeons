@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
 import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
 import net.meander.subtlyd.world.entity.EntitySD;
@@ -32,11 +33,13 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V",
             at = @At("TAIL"))
     private void determineRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
-            if (entity instanceof ClimberAccessor climberAccessor) {
-                extractClimberState(entity, climberAccessor, state, stateAccessor, partialTicks);
-            } else if (entity.getVehicle() instanceof ClimberAccessor arthropod) {
-                extractClimberJockeyState(entity.getVehicle(), arthropod, state, stateAccessor, partialTicks);
+        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+            if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
+                if (entity instanceof ClimberAccessor climberAccessor) {
+                    extractClimberState(entity, climberAccessor, state, stateAccessor, partialTicks);
+                } else if (entity.getVehicle() instanceof ClimberAccessor arthropod) {
+                    extractClimberJockeyState(entity.getVehicle(), arthropod, state, stateAccessor, partialTicks);
+                }
             }
         }
     }
@@ -48,8 +51,10 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     @Inject(method = "setupRotations", at = @At("TAIL"))
     private  void determineRotations(S state, PoseStack poseStack, float bodyRot, float entityScale, CallbackInfo ci) {
-        if (state instanceof LivingEntityRenderStateAccessor accessor) {
-            setupClimberRotations(accessor, poseStack, state.boundingBoxHeight);
+        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+            if (state instanceof LivingEntityRenderStateAccessor accessor) {
+                setupClimberRotations(accessor, poseStack, state.boundingBoxHeight);
+            }
         }
     }
 

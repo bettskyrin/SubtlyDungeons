@@ -169,11 +169,13 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
     private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity entity = (LivingEntity) (Object) this;
+        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+            LivingEntity entity = (LivingEntity) (Object) this;
 
-        if (entity instanceof Silverfish || entity instanceof Endermite) {
-            if (entity.horizontalCollision) {
-                cir.setReturnValue(true);
+            if (entity instanceof Silverfish || entity instanceof Endermite) {
+                if (entity.horizontalCollision) {
+                    cir.setReturnValue(true);
+                }
             }
         }
     }
