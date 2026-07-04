@@ -40,12 +40,11 @@ public class ChestLootSD {
             } else if (BuiltInLootTables.BURIED_TREASURE.equals(resourceKey)) {
                 tableBuilder.apply(DaggerLootFunction.builder());
             } else if (BuiltInLootTables.PILLAGER_OUTPOST.equals(resourceKey)) {
-                LootPool.Builder chestPool = LootPool.lootPool()
-                        .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(1))
-                        .add(EmptyLootItem.emptyItem()
-                                .setWeight(19)) // 5% Chance
-                        .setRolls(ConstantValue.exactly(1));
-                tableBuilder.pool(chestPool.build());
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder
+                                .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                        .build();
             } else if (BuiltInLootTables.VILLAGE_PLAINS_HOUSE.equals(resourceKey)) {
                 tableBuilder.pool(LootPool.lootPool()
                         .add(LootItem.lootTableItem(ItemsSD.APPLE_PIE).setWeight(97))
@@ -59,7 +58,15 @@ public class ChestLootSD {
                 tableBuilder.modifyPools(poolBuilder -> poolBuilder
                                 .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
                                 .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(3)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                        .build();
+            } else if (resourceKey.equals(BuiltInLootTables.VILLAGE_FLETCHER)) {
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder
+                                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(2)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                        .build();
+            } else if (BuiltInLootTables.WOODLAND_MANSION.equals(resourceKey)) {
+                tableBuilder.modifyPools(poolBuilder -> poolBuilder
+                                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1)).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .build();
             }
         });

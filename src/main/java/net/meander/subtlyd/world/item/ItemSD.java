@@ -1,9 +1,11 @@
 package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
+import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -17,7 +19,9 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.*;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -58,7 +62,7 @@ public abstract class ItemSD extends Item {
     }
 
     private static void modifyStackSize() {
-        modifyComponent(() -> List.of(Items.POTION), (builder, _) -> builder.set(DataComponents.MAX_STACK_SIZE, 16));
+        modifyComponent(() -> Collections.singleton(Items.POTION), (builder, _) -> builder.set(DataComponents.MAX_STACK_SIZE, 16));
     }
 
     private static void modifyConsumable() {
@@ -85,12 +89,50 @@ public abstract class ItemSD extends Item {
         modifyComponent(() -> RARE_ITEMS, (builder, _) -> builder.set(DataComponents.RARITY, Rarity.RARE));
     }
 
+    private static void modifyShield() {
+        modifyComponent(() -> Collections.singleton(Items.SHIELD), ((builder, item) -> {
+            ItemAttributeModifiers existingModifiers = item.getDefaultInstance().getOrDefault(DataComponents.ATTRIBUTE_MODIFIERS, ItemAttributeModifiers.EMPTY);
+            ItemAttributeModifiers newModifiers = existingModifiers.withModifierAdded(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 5.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.ANY);
+
+            BlocksAttacks fallback = new BlocksAttacks(
+                    0.25F,
+                    1.0F,
+                    List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                    new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                    Optional.empty(),
+                    Optional.empty(),
+                    Optional.empty()
+            );
+
+            BlocksAttacks existing = builder.getOrDefault(DataComponents.BLOCKS_ATTACKS, fallback);
+
+            builder.set(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(
+                    0.0F,
+                    existing.disableCooldownScale(),
+                    existing.damageReductions(),
+                    existing.itemDamage(),
+                    existing.bypassedBy(),
+                    existing.blockSound(),
+                    existing.disableSound()
+            ));
+
+            builder.set(DataComponents.ATTRIBUTE_MODIFIERS, newModifiers);
+        }));
+    }
+
+    private static void registerCompostables() {
+        CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
+        CompostableRegistry.INSTANCE.add(ItemsSD.PERSE_WILDFLOWERS, 1.0F);
+    }
+
     public static void modifyComponents() {
         modifyRarity();
         modifyConsumable();
         modifyStackSize();
         modifyEnchantablity();
         modifyWeapons();
+        modifyShield();
+        registerCompostables();
     }
 
     public static class PropertiesSD extends Properties {

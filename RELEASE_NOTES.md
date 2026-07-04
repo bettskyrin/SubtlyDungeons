@@ -3,6 +3,12 @@
 #### Tailored World Generation
 - Added Erosion slider
 
+#### Items
+- Added Heavy Shield
+  - Has a Shield Strength of 10
+  - Has a blocking delay of 5 ticks
+  - Cannot be disabled
+
 #### Sounds
 - Added ambient Leaves block sounds
 - Added ambient Short Grass block sounds
@@ -12,12 +18,22 @@
 - Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
 
 ### Changes
+#### Items
+- Changed Shield to no longer have a blocking delay
+
 #### World Generation
 ##### Birch Trees
 - Changed Super Birch Trees to have more shelf mushrooms
 
 #### Textures
 - Changed Quiver texture
+
+#### Loot
+- Changed Quivers to no longer be found in Weaponsmith House Chests
+- Changed Quivers to be found in Fletcher House Chests
+- Changed Pillager Outpost Chests to possibly have Heavy Shields and Quivers
+- Changed Weaponsmith House Chests to possibly have Heavy Shields
+- Changed Woodland Mansion Chests to possibly have Heavy Shields
 
 #### Advancement
 - Changed I Am Bush advancement to have Monster Hunter as its parent

@@ -8,14 +8,13 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.SmeltingRecipe;
-import net.minecraft.world.item.crafting.SmokingRecipe;
+import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ColorCollection;
@@ -24,7 +23,10 @@ import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * @see RecipeProvider
+ * @see net.minecraft.data.recipes.packs.VanillaRecipeProvider
+ */
 public class RecipeProviderSD extends FabricRecipeProvider {
     public RecipeProviderSD(FabricPackOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
         super(output, registriesFuture);
@@ -276,6 +278,8 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 dagger(ItemsSD.GOLDEN_DAGGER, ItemTags.GOLD_TOOL_MATERIALS);
                 dagger(ItemsSD.DIAMOND_DAGGER, ItemTags.DIAMOND_TOOL_MATERIALS);
                 netheriteSmithing(ItemsSD.DIAMOND_DAGGER, RecipeCategory.COMBAT, ItemsSD.NETHERITE_DAGGER);
+                SpecialRecipeBuilder.special(() -> new ShieldDecorationRecipe(tag(ItemTags.BANNERS), Ingredient.of(ItemsSD.HEAVY_SHIELD), new ItemStackTemplate(ItemsSD.HEAVY_SHIELD)))
+                        .save(output, "heavy_shield_decoration");
             }
 
             private String getHasName(TagKey<Item> material) {

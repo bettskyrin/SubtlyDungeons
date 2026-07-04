@@ -1,0 +1,8 @@
+{
+  "sources": [
+    {
+      "type": "minecraft:single",
+      "resource": "subtlyd:entity/shield/heavy_shield_base"
+    }
+  ]
+}

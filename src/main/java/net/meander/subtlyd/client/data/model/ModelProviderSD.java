@@ -2,6 +2,7 @@ package net.meander.subtlyd.client.data.model;
 
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.meander.subtlyd.client.renderer.special.HeavyShieldSpecialRenderer;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
@@ -14,11 +15,13 @@ import net.minecraft.client.data.models.MultiVariant;
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator;
 import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
+import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 
 /**
@@ -168,6 +171,13 @@ public class ModelProviderSD extends FabricModelProvider {
         ModelTemplates.FLAT_ITEM.create(vialBottle, TextureMapping.layer0(new Material(vialBottle)), itemModelGenerator.modelOutput);
     }
 
+    private void generateShield(final Item item, ItemModelGenerators itemModelGenerator) {
+        ItemModel.Unbaked normal = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item), new HeavyShieldSpecialRenderer.Unbaked());
+        ItemModel.Unbaked blocking = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item, "_blocking"), new HeavyShieldSpecialRenderer.Unbaked());
+
+        itemModelGenerator.itemModelOutput.accept(item, ItemModelUtils.conditional(HeavyShieldSpecialRenderer.DEFAULT_TRANSFORMATION, ItemModelUtils.isUsingItem(), blocking, normal));
+    }
+
     public static void generateRuntimeBlockModels(ResourceManager resourceManager) {
         for (Block block : BuiltInRegistries.BLOCK) {
             if (block.defaultBlockState().hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
@@ -290,6 +300,6 @@ public class ModelProviderSD extends FabricModelProvider {
         itemModelGenerator.generateFlatItem(ItemsSD.NETHERITE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerator.generateFlatItem(ItemsSD.QUIVER, ModelTemplates.FLAT_ITEM);
         generatePotionArchetypes(itemModelGenerator);
-        itemModelGenerator.generateShield(ItemsSD.HEAVY_SHIELD);
+        generateShield(ItemsSD.HEAVY_SHIELD, itemModelGenerator);
     }
 }

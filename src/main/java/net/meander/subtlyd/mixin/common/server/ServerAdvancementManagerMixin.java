@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.server;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.Advancement;
@@ -32,7 +33,7 @@ public class ServerAdvancementManagerMixin {
         for (Identifier advancementId : ADVANCEMENTS) {
             if (preparations.containsKey(advancementId)) {
                 Advancement advancement = preparations.get(advancementId);
-                Map<String, Criterion<?>> newCriteria = new HashMap<>(advancement.criteria());
+                Map<String, Criterion<?>> newCriteria = new Object2ObjectOpenHashMap<>(advancement.criteria());
                 List<List<String>> newRequirements = new ArrayList<>(advancement.requirements().requirements());
                 Optional<Identifier> parent = getParent(advancementId, advancement);
 

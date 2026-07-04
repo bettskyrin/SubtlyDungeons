@@ -1,6 +1,5 @@
 package net.meander.subtlyd.world.item;
 
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
@@ -148,14 +147,15 @@ public class ItemsSD {
             ItemIdsSD.HEAVY_SHIELD,
             ShieldItem::new,
             new Item.Properties()
-                    .durability(412)
+                    .durability(428)
+                    .rarity(Rarity.UNCOMMON)
                     .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
                     .repairable(ItemTags.IRON_TOOL_MATERIALS)
                     .equippableUnswappable(EquipmentSlot.OFFHAND)
                     .delayedComponent(
                             DataComponents.BLOCKS_ATTACKS,
                             context -> new BlocksAttacks(
-                                    0.3F,
+                                    0.25F,
                                     0.0F,
                                     List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
                                     new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
@@ -172,8 +172,6 @@ public class ItemsSD {
         CreativeModeTabsSD.registration();
         ItemSD.modifyComponents();
         FuelValuesSD.registerFuelValues();
-        CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
-        CompostableRegistry.INSTANCE.add(ItemsSD.PERSE_WILDFLOWERS, 1.0F);
         PotionsSD.registration();
     }
 

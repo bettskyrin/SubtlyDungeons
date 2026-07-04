@@ -6,6 +6,9 @@ import net.minecraft.client.data.models.model.TextureSlot;
 
 import java.util.Optional;
 
+/**
+ * @see net.minecraft.client.data.models.model.ModelTemplates
+ */
 public class ModelTemplatesSD {
     public static final ModelTemplate OVERHANG_BLOCK = new ModelTemplate(
             Optional.of(Util.identifier("block/overhang_block")),
