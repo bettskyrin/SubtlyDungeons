@@ -16,9 +16,6 @@ public class CameraShake {
     private static float intensity = 0.0F;
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    /**
-     * Ticks the camera shake event and decreases the remaining duration.
-     */
     public static void tick() {
         if (remainingDuration > 0.0F) {
             remainingDuration--;
@@ -27,9 +24,7 @@ public class CameraShake {
         }
     }
 
-    /**
-     * @return The intensity value of the camera shake.
-     */
+
     public static float getShakeIntensity() {
         if (remainingDuration <= 0 || intensity <= 0) {
             return 0.0F;
@@ -107,9 +102,6 @@ public class CameraShake {
         }
     }
 
-    /**
-     * Stops the camera shake effect
-     */
     public static void stop() {
         remainingDuration = 0;
         intensity = 0.0F;

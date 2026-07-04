@@ -4,6 +4,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockTintsFactory;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.minecraft.world.item.alchemy.PotionContents;
 
+/**
+ * @see net.minecraft.client.color.block.BlockTintSources
+ */
 public class BlockTintSourcesSD {
     public static BlockTintsFactory potionCauldron() {
         return (_, view, pos, tintValues) -> {

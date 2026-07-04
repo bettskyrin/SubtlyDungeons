@@ -19,9 +19,6 @@ public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTr
         return TriggerInstance.CODEC;
     }
 
-    /**
-     * Called from your damage calculation method to evaluate if the player meets the advancement conditions.
-     */
     public void trigger(ServerPlayer player, Entity victim) {
         LootContext victimContext = EntityPredicate.createContext(player, victim);
 

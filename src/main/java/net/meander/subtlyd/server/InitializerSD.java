@@ -1,4 +1,4 @@
-package net.meander.subtlyd.util;
+package net.meander.subtlyd.server;
 
 import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
@@ -7,6 +7,7 @@ import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
+import net.meander.subtlyd.util.Util;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.entity.BlockEntityTypesSD;
 import net.meander.subtlyd.world.effect.MobEffectsSD;

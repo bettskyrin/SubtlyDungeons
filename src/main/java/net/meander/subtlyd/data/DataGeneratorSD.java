@@ -2,7 +2,7 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.meander.subtlyd.advancements.AdvancementProviderSD;
+import net.meander.subtlyd.data.advancements.AdvancementProviderSD;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEventData;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEventProvider;
 import net.meander.subtlyd.client.data.model.ModelProviderSD;
