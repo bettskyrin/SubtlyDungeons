@@ -148,6 +148,7 @@ public class CreativeModeTabsSD {
             entries.insertAfter(DIAMOND_DAGGER, NETHERITE_DAGGER);
             entries.insertBefore(ARROW, QUIVER);
             entries.insertAfter(SHIELD, HEAVY_SHIELD);
+            gameplayColorOrder.forEach(color -> entries.insertAfter(QUIVER, DYED_QUIVER.pick(color)));
         });
     }
 }

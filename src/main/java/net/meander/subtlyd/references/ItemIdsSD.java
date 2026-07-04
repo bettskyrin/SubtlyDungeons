@@ -26,6 +26,7 @@ public class ItemIdsSD {
     public static final ResourceKey<Item> DIAMOND_DAGGER = create("diamond_dagger");
     public static final ResourceKey<Item> NETHERITE_DAGGER = create("netherite_dagger");
     public static final ResourceKey<Item> QUIVER = create("quiver");
+    public static final ColorCollection<ResourceKey<Item>> DYED_QUIVER = createSimpleColored("dyed_quiver");
     public static final ResourceKey<Item> HEAVY_SHIELD = create("heavy_shield");
 
     private static ResourceKey<Item> create(final String name) {

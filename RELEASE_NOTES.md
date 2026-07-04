@@ -8,6 +8,8 @@
   - Has a Shield Strength of 10
   - Has a blocking delay of 5 ticks
   - Cannot be disabled
+- Added Dyed Quivers
+  - Can be crafted by combining a quiver with any dye
 
 #### Sounds
 - Added ambient Leaves block sounds
@@ -41,6 +43,7 @@
 ### Technical Changes
 #### Data Tags
 - Added `triggers_ambient_grass_block_sounds` block tag
+- Added `quivers` item tag
 
 #### Bug Fixes
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day

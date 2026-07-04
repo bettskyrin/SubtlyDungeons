@@ -136,5 +136,8 @@ public class ItemTagsProviderSD extends FabricTagsProvider.ItemTagsProvider {
                 .add(ItemIdsSD.GOLDEN_DAGGER);
         tag(ItemTags.LLAMA_TEMPT_ITEMS)
                 .add(ItemIds.WHEAT);
+        tag(ItemTagsSD.QUIVERS)
+                .add(ItemIdsSD.QUIVER)
+                .addAll(ItemIdsSD.DYED_QUIVER.asList());
     }
 }

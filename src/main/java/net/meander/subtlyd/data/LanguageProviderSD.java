@@ -212,6 +212,22 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.HEAVY_SHIELD.getDescriptionId() + "." + DyeColor.WHITE.getName(), "White Heavy Shield");
         translationBuilder.add(ItemsSD.TENT.yellow(), "Yellow Tent");
         translationBuilder.add(ItemsSD.HEAVY_SHIELD.getDescriptionId() + "." + DyeColor.YELLOW.getName(), "Yellow Heavy Shield");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.black(), "Black Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.blue(), "Blue Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.brown(), "Brown Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.cyan(), "Cyan Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.gray(), "Gray Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.green(), "Green Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.lightBlue(), "Light Blue Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.lightGray(), "Light Gray Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.lime(), "Lime Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.magenta(), "Magenta Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.orange(), "Orange Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.pink(), "Pink Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.purple(), "Purple Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.red(), "Red Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.white(), "White Quiver");
+        translationBuilder.add(ItemsSD.DYED_QUIVER.yellow(), "Yellow Quiver");
 
         translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
 

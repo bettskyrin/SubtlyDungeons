@@ -2,13 +2,11 @@ package net.meander.subtlyd.data.recipies;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -48,7 +46,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
             }
 
-            private void tent(ItemLike tentOutput, ItemLike wool) {
+            private void tentRecipe(ItemLike tentOutput, ItemLike wool) {
                 shaped(RecipeCategory.MISC, tentOutput)
                         .group("tent_wool")
                         .define('#', wool)
@@ -60,7 +58,14 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .save(output);
             }
 
-            private void dagger(ItemLike daggerOutput, TagKey<Item> material) {
+            public void dyedQuiverRecipe(final Item dye, final Item dyedResult) {
+                TransmuteRecipeBuilder.transmute(RecipeCategory.COMBAT, tag(ItemTagsSD.QUIVERS), Ingredient.of(dye), dyedResult)
+                        .group("quiver_dye")
+                        .unlockedBy(getHasName(dye), has(dye))
+                        .save(output);
+            }
+
+            private void daggerRecipe(ItemLike daggerOutput, TagKey<Item> material) {
                 shaped(RecipeCategory.COMBAT, daggerOutput)
                         .define('#', material)
                         .define('X', Items.STICK)
@@ -249,7 +254,7 @@ public class RecipeProviderSD extends FabricRecipeProvider {
             }
 
             private void misc() {
-                ColorCollection.zipApply(ItemsSD.TENT, Blocks.WOOL, this::tent);
+                ColorCollection.zipApply(ItemsSD.TENT, Blocks.WOOL, this::tentRecipe);
                 colorItemWithDye(Items.DYE.asList(), ItemsSD.TENT.asList(), "tent_dye", RecipeCategory.MISC);
                 oneToOneConversionRecipe(Items.DYE.purple(), BlocksSD.PERSE_WILDFLOWERS, "purple_dye");
             }
@@ -270,13 +275,14 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                         .pattern("XXX")
                         .unlockedBy(getHasName(Items.ARROW), has(Items.ARROW))
                         .save(output);
+                ColorCollection.zipApply(Items.DYE, ItemsSD.DYED_QUIVER, this::dyedQuiverRecipe);
 
-                dagger(ItemsSD.WOODEN_DAGGER, ItemTags.WOODEN_TOOL_MATERIALS);
-                dagger(ItemsSD.STONE_DAGGER, ItemTags.STONE_TOOL_MATERIALS);
-                dagger(ItemsSD.COPPER_DAGGER, ItemTags.COPPER_TOOL_MATERIALS);
-                dagger(ItemsSD.IRON_DAGGER, ItemTags.IRON_TOOL_MATERIALS);
-                dagger(ItemsSD.GOLDEN_DAGGER, ItemTags.GOLD_TOOL_MATERIALS);
-                dagger(ItemsSD.DIAMOND_DAGGER, ItemTags.DIAMOND_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.WOODEN_DAGGER, ItemTags.WOODEN_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.STONE_DAGGER, ItemTags.STONE_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.COPPER_DAGGER, ItemTags.COPPER_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.IRON_DAGGER, ItemTags.IRON_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.GOLDEN_DAGGER, ItemTags.GOLD_TOOL_MATERIALS);
+                daggerRecipe(ItemsSD.DIAMOND_DAGGER, ItemTags.DIAMOND_TOOL_MATERIALS);
                 netheriteSmithing(ItemsSD.DIAMOND_DAGGER, RecipeCategory.COMBAT, ItemsSD.NETHERITE_DAGGER);
                 SpecialRecipeBuilder.special(() -> new ShieldDecorationRecipe(tag(ItemTags.BANNERS), Ingredient.of(ItemsSD.HEAVY_SHIELD), new ItemStackTemplate(ItemsSD.HEAVY_SHIELD)))
                         .save(output, "heavy_shield_decoration");
