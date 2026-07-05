@@ -169,7 +169,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
     private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
-        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+        if (OptionsSD.advancedEntityAnimations().get()) {
             LivingEntity entity = (LivingEntity) (Object) this;
 
             if (entity instanceof Silverfish || entity instanceof Endermite) {
@@ -401,7 +401,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "releaseUsingItem", at = @At("HEAD"), cancellable = true)
     private void allowShieldCrouching(CallbackInfo ci) {
-        if (OptionsSD.SHIELD_CROUCH.get()) {
+        if (OptionsSD.shieldCrouch().get()) {
             LivingEntity entity = (LivingEntity) (Object) this;
 
             if (entity instanceof Player player) {

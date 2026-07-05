@@ -67,7 +67,7 @@ public class PlayerMixin {
     }
 
     private void activateShieldFromCrouch() {
-        if (OptionsSD.SHIELD_CROUCH.get()) {
+        if (OptionsSD.shieldCrouch().get()) {
             Player player = (Player) (Object) this;
             boolean isCrouching = player.isCrouching();
 

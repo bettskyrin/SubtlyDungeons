@@ -18,7 +18,7 @@ public class TitleScreenMixin extends Screen {
     @Shadow private boolean fading;
     private final int BUTTON_HEIGHT = 20;
     private final int SPRITE_XPOS = 4;
-    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.gui().get();
 
     protected TitleScreenMixin(Component component) {
         super(component);

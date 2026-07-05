@@ -139,5 +139,8 @@ public class ItemTagsProviderSD extends FabricTagsProvider.ItemTagsProvider {
         tag(ItemTagsSD.QUIVERS)
                 .add(ItemIdsSD.QUIVER)
                 .addAll(ItemIdsSD.DYED_QUIVER.asList());
+        tag(ItemTagsSD.SHIELDS)
+                .add(ItemIds.SHIELD)
+                .add(ItemIdsSD.HEAVY_SHIELD);
     }
 }

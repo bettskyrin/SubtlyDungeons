@@ -17,13 +17,12 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 @Mixin(AccessibilityOptionsScreen.class)
 public class AccessibilityOptionsScreenMixin {
-    /**
-     * Adds new accessibility options.
-     */
     @Inject(method = "options", at = @At("RETURN"), cancellable = true)
     private static void options(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-        optionInstanceList.add(18, new OptionsSD().screenShake());
+
+        optionInstanceList.add(18, OptionsSD.cameraShake());
+        optionInstanceList.add(22, OptionsSD.shieldAnimation());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }

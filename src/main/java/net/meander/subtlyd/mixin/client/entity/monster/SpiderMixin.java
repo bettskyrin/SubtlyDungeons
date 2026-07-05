@@ -35,7 +35,7 @@ public abstract class SpiderMixin implements ClimberAccessor {
      */
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnim(CallbackInfo ci) {
-        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+        if (OptionsSD.advancedEntityAnimations().get()) {
             LivingEntity livingEntity = ((LivingEntity) (Object) this);
             final float ANIM_RATE = 0.2F;
             final float SPEED_MULTIPLIER = 8.0F;

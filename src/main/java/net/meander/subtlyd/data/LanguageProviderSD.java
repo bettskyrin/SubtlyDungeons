@@ -233,6 +233,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
         translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
+        translationBuilder.add("options.accessibility.shield_animation", "Shield Animation");
+        translationBuilder.add("options.accessibility.shield_animation.tooltip", "Toggles the visibility of active shields in the First Person view.");
         translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
         translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
         translationBuilder.add("options.advanced_entity_animations", "Advanced Entity Animations");
@@ -321,5 +323,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemTagsSD.SWEEPING_WEAPON, "Sweeping Weapon");
         translationBuilder.add(ItemTagsSD.TENTS, "Tents");
         translationBuilder.add(ItemTagsSD.QUIVERS, "Quivers");
+        translationBuilder.add(ItemTagsSD.SHIELDS, "Shields");
     }
 }

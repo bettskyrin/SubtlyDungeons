@@ -27,7 +27,7 @@ public class ArthropodAnimationMixin implements ClimberAccessor {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tickClimbingAnimation(CallbackInfo ci) {
-        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+        if (OptionsSD.advancedEntityAnimations().get()) {
             LivingEntity livingEntity = (LivingEntity) (Object) this;
             boolean touchingWall = EntitySD.getNearestWall(livingEntity) != null;
             boolean isMovingUp = livingEntity.getY() > yOld;

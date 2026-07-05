@@ -109,7 +109,7 @@ public class MobMixin implements MobSD {
 
     @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
     private void setArthropodWallClimberNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
-        if (OptionsSD.ADVANCED_ENTITY_ANIMATIONS.get()) {
+        if (OptionsSD.advancedEntityAnimations().get()) {
             Mob mob = (Mob) (Object) this;
 
             if (mob instanceof Silverfish || mob instanceof Endermite) {

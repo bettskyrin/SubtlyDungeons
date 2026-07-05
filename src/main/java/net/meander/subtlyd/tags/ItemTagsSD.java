@@ -25,6 +25,7 @@ public class ItemTagsSD {
     public static final TagKey<Item> CAN_PARRY_DAGGERS = bind("can_parry_daggers");
     public static final TagKey<Item> SWEEPING_WEAPON = bind("sweeping_weapon");
     public static final TagKey<Item> QUIVERS = bind("quivers");
+    public static final TagKey<Item> SHIELDS = bind("shields");
 
     private static TagKey<Item> bind(String string) {
         return TagKey.create(Registries.ITEM, Util.identifier(string));

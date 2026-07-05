@@ -25,7 +25,7 @@ import java.nio.file.Path;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
+    private static final boolean canChangeUi = OptionsSD.gui().get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
@@ -39,7 +39,7 @@ public class WorldSelectionListMixin {
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         @Shadow @Final private LevelSummary summary;
-        private static final boolean canChangeUi = OptionsSD.EXPERIMENTAL_GUI.get();
+        private static final boolean canChangeUi = OptionsSD.gui().get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 

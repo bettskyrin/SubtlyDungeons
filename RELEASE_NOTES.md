@@ -18,6 +18,7 @@
 
 #### Settings
 - Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
+- Added Accessibility Settings option for toggling a blocking shield's visibility
 
 ### Changes
 #### Items
@@ -48,6 +49,7 @@
 #### Data Tags
 - Added `triggers_ambient_grass_block_sounds` block tag
 - Added `quivers` item tag
+- Added `shields` item tag
 
 #### Bug Fixes
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day

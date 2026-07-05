@@ -19,14 +19,16 @@ import java.util.List;
 public class VideoSettingsScreenMixin { @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
     private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-        optionInstanceList.add(8, new OptionsSD().ui());
+
+        optionInstanceList.add(8, OptionsSD.gui());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 
     @Inject(method = "qualityOptions", at = @At("RETURN"), cancellable = true)
     private static void qualityOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
-        optionInstanceList.add(10, new OptionsSD().advancedEntityAnimations());
+
+        optionInstanceList.add(10, OptionsSD.advancedEntityAnimations());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 }
