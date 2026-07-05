@@ -32,10 +32,11 @@
 
 #### Loot
 - Changed Quivers to no longer be found in Weaponsmith House Chests
-- Changed Quivers to be found in Fletcher House Chests
+- Changed Quivers to be found in Tannery Chests
 - Changed Pillager Outpost Chests to possibly have Heavy Shields and Quivers
 - Changed Weaponsmith House Chests to possibly have Heavy Shields
 - Changed Woodland Mansion Chests to possibly have Heavy Shields
+- Changed Leatherworkers to gift Bundles and Quivers
 
 #### Advancement
 - Changed I Am Bush advancement to have Monster Hunter as its parent
