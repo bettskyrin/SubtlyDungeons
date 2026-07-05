@@ -7,7 +7,7 @@
 - Added Heavy Shield
   - Has a Shield Strength of 10
   - Has a blocking delay of 5 ticks
-  - Cannot be disabled
+  - Can become disabled for 1.6 seconds, instead of 5 seconds
 - Added Dyed Quivers
   - Can be crafted by combining a quiver with any dye
 
