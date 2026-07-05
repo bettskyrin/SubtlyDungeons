@@ -147,7 +147,7 @@ public class ItemsSD {
                     .durability(428)
                     .rarity(Rarity.UNCOMMON)
                     .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
-                    .repairable(ItemTags.IRON_TOOL_MATERIALS)
+                    .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
                     .equippableUnswappable(EquipmentSlot.OFFHAND)
                     .delayedComponent(
                             DataComponents.BLOCKS_ATTACKS,
@@ -162,8 +162,7 @@ public class ItemsSD {
                     .attributes(ItemAttributeModifiers.builder()
                             .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE),
                             EquipmentSlotGroup.ANY).build())
-                    .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
-    );
+                    .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK));
 
     public static void registration() {
         CreativeModeTabsSD.registration();
