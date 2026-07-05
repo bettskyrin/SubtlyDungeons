@@ -66,14 +66,18 @@ public class HeavyShieldSpecialRenderer implements SpecialModelRenderer<DataComp
         }
 
         if (hasPatterns) {
-            BannerRenderer.submitPatterns(sprites, poseStack, submitNodeCollector, lightCoords, overlayCoords, model, Unit.INSTANCE, false, Objects.requireNonNullElse(baseColor, DyeColor.WHITE), patterns);
-
             int orderOffset = patterns.layers().size() + 2;
 
+            BannerRenderer.submitPatterns(sprites, poseStack, submitNodeCollector, lightCoords, overlayCoords, model, Unit.INSTANCE, hasFoil, Objects.requireNonNullElse(baseColor, DyeColor.WHITE), patterns);
+            poseStack.pushPose();
+
             if (hasFoil) {
-                submitNodeCollector.order(orderOffset++).submitModel(model, Unit.INSTANCE, poseStack, RenderTypes.patternedShieldGlint(), lightCoords, overlayCoords, -1, sprites.get(base), 0);
+                submitNodeCollector.order(orderOffset).submitModel(model, Unit.INSTANCE, poseStack, RenderTypes.itemCutoutGlint(HEAVY_SHIELD_OVERLAY.atlasLocation()), lightCoords, overlayCoords, -1, sprites.get(HEAVY_SHIELD_OVERLAY), outlineColor);
+            } else {
+                submitNodeCollector.order(orderOffset).submitModel(model, Unit.INSTANCE, poseStack, RenderTypes.entityCutout(HEAVY_SHIELD_OVERLAY.atlasLocation()), lightCoords, overlayCoords, -1, sprites.get(HEAVY_SHIELD_OVERLAY), outlineColor);
             }
-            submitNodeCollector.order(orderOffset).submitModel(model, Unit.INSTANCE, poseStack, RenderTypes.entityCutoutZOffset(HEAVY_SHIELD_OVERLAY.atlasLocation()), lightCoords, overlayCoords, -1, sprites.get(HEAVY_SHIELD_OVERLAY), outlineColor);
+
+            poseStack.popPose();
         }
     }
 
