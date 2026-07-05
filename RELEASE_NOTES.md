@@ -42,6 +42,9 @@
 - Changed I Am Bush advancement to have Monster Hunter as its parent
 
 ### Technical Changes
+#### Attributes
+- Changed `attribute.name.subtlyd.shield_strength` to `attribute.name.generic.shield_strength`
+
 #### Data Tags
 - Added `triggers_ambient_grass_block_sounds` block tag
 - Added `quivers` item tag
