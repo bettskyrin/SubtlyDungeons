@@ -320,5 +320,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemTagsSD.STEW_INGREDIENT, "Stew Ingredient");
         translationBuilder.add(ItemTagsSD.SWEEPING_WEAPON, "Sweeping Weapon");
         translationBuilder.add(ItemTagsSD.TENTS, "Tents");
+        translationBuilder.add(ItemTagsSD.QUIVERS, "Quivers");
     }
 }
