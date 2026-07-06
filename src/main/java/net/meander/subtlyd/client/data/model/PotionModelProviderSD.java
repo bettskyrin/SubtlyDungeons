@@ -52,8 +52,8 @@ public class PotionModelProviderSD implements DataProvider {
     }
 
     private void modifyUncraftablePotion(CachedOutput writer, List<CompletableFuture<?>> futures, List<Item> potionTypes) {
-        final int MAGENTA = 16253176;
-        final int BLUE = 3694022;
+        final int MAGENTA = 0xF800F8;
+        final int BLUE = 0x385DC6;
 
         List<Potion> blankPotions = List.of(Potions.WATER.value(), Potions.MUNDANE.value(), Potions.AWKWARD.value(), Potions.THICK.value());
         Identifier selectType = Identifier.withDefaultNamespace("select");
