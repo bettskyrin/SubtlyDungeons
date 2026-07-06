@@ -372,7 +372,7 @@ public class WorldGeneratorSD implements DataProvider {
         return "Modified World Generation Data Generator";
     }
 
-    public static class Modifier {
+    public static class BiomeModifier {
         private static final int SKY_COLOR_DARK = 0x677AA1;
         private static final int FOG_COLOR_DARK = 0x8495B8;
         private static final int FOG_COLOR_SOGGY = 0xCAE8E6;

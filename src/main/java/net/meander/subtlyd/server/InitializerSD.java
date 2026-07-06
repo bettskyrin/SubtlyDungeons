@@ -44,7 +44,7 @@ public class InitializerSD implements ModInitializer {
     }
 
     private void level() {
-        WorldGeneratorSD.Modifier.run();
+        WorldGeneratorSD.BiomeModifier.run();
         DataComponentsSD.registration();
         MobEffectsSD.init();
         BlocksSD.registration();
