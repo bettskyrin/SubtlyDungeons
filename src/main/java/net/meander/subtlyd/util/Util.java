@@ -8,10 +8,6 @@ public class Util {
     public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
     public static final String NAMESPACE = "subtlyd";
 
-    /**
-     * @param string The path.
-     * @return An identifier within the mod namespace
-     */
     public static Identifier identifier(String string) {
         return Identifier.fromNamespaceAndPath(NAMESPACE, string);
     }

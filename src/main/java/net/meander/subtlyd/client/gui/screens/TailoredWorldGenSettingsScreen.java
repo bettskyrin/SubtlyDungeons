@@ -2,7 +2,7 @@ package net.meander.subtlyd.client.gui.screens;
 
 import com.mojang.datafixers.util.Pair;
 import net.meander.subtlyd.client.gui.components.RatioSliderButton;
-import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
+import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.Util;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
@@ -16,6 +16,7 @@ import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.worldselection.CreateWorldScreen;
 import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.repository.PackRepository;
@@ -62,22 +63,22 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         list = layout.addToContents(new SliderList());
 
         list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.master_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.master_scale"), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.masterScale, (newValue) -> {
             TailoredWorldGenSettings.applyMasterScale(newValue);
             updateSliders();
         }));
 
         continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.continent_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.continent_scale"), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
 
         biomeSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.biome_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.biome_scale"), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
 
         erosionSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.erosion_scale").getString(), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.tailored.erosion_scale"), MIN_VALUE, MAX_VALUE,
                 TailoredWorldGenSettings.erosionScale, v -> TailoredWorldGenSettings.erosionScale = v);
 
         list.addDouble(continentSlider, biomeSlider);
@@ -123,17 +124,15 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private void onDone() {
         if (lastScreen instanceof CreateWorldScreen createScreen) {
             Path tempDataPackDir = createScreen.getOrCreateTempDataPackDir();
-            WorldGeneratorSD.modifyWorldGeneration(tempDataPackDir);
             WorldDataConfiguration config = createScreen.getUiState().getSettings().dataConfiguration();
-
             Pair<Path, PackRepository> settings = createScreen.getDataPackSelectionSettings(config);
+            HolderLookup.Provider registries = createScreen.getUiState().getSettings().worldgenLoadContext();
 
             if (settings != null) {
                 PackRepository tempRepo = settings.getSecond();
 
-                WorldGeneratorSD.modifyWorldGeneration(tempDataPackDir);
+                WorldGeneratorSD.customizeWorldGeneration(tempDataPackDir, registries);
                 tempRepo.reload();
-
                 createScreen.applyNewPackConfig(
                         tempRepo,
                         getWorldDataConfiguration(config),

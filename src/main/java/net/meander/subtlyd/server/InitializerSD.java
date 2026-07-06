@@ -14,7 +14,7 @@ import net.meander.subtlyd.world.effect.MobEffectsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.meander.subtlyd.world.level.LevelSD;
-import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
+import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.meander.subtlyd.world.level.storage.loot.predicates.LootItemConditionsSD;
 

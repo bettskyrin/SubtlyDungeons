@@ -3,7 +3,7 @@ package net.meander.subtlyd.client.gui.screens;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.meander.subtlyd.util.Util;
-import net.meander.subtlyd.world.level.levelgen.WorldGeneratorSD;
+import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -5,12 +5,12 @@ import net.minecraft.network.chat.Component;
 import java.util.function.Consumer;
 
 public class RatioSliderButton extends AbstractSliderButton {
-    private final String prefix;
+    private final Component prefix;
     private final double min;
     private final double max;
     private final Consumer<Double> onValueChanged;
 
-    public RatioSliderButton(int x, int y, int width, int height, String prefix, double min, double max, double currentValue, Consumer<Double> onValueChanged) {
+    public RatioSliderButton(int x, int y, int width, int height, Component prefix, double min, double max, double currentValue, Consumer<Double> onValueChanged) {
         super(x, y, width, height, Component.empty(), (currentValue - min) / (max - min));
         this.prefix = prefix;
         this.min = min;
@@ -25,7 +25,7 @@ public class RatioSliderButton extends AbstractSliderButton {
         double realValue = min + (value * (max - min));
         long level = Math.round(realValue * 10.0);
 
-        setMessage(Component.literal(String.format("%s: %d", prefix, level)));
+        setMessage(Component.literal(String.format("%s: %d", prefix.getString(), level)));
     }
 
     @Override

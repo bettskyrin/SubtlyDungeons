@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class PotionModelProviderSD implements DataProvider {
+public class PotionModelProviderSD implements DataProvider { // TODO Refactor
     private final PackOutput.PathProvider itemsPath;
     private final PackOutput.PathProvider modelsPath;
 
@@ -34,9 +34,7 @@ public class PotionModelProviderSD implements DataProvider {
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
-    /**
-     * Modifies the uncraftable potion's texture
-     */
+
     private void modifyUncraftablePotion(CachedOutput writer, List<CompletableFuture<?>> futures) {
         final int MAGENTA = 16253176;
         final int BLUE = 3694022;
@@ -45,6 +43,7 @@ public class PotionModelProviderSD implements DataProvider {
 
         for (String potionTypeId : potionTypes) {
             List<PotionCase> cases = new ArrayList<>();
+
             for (String potion : blankPotions) {
                 cases.add(new PotionCase(
                         Map.of("potion", potion),
@@ -61,9 +60,9 @@ public class PotionModelProviderSD implements DataProvider {
             );
 
             ItemDef<SelectModel> itemDef = new ItemDef<>(selectModel);
-            Path vanillaPath = this.itemsPath.json(Identifier.withDefaultNamespace(potionTypeId));
-
+            Path vanillaPath = itemsPath.json(Identifier.withDefaultNamespace(potionTypeId));
             JsonElement encodedJson = ItemDef.codec(SelectModel.CODEC).encodeStart(JsonOps.INSTANCE, itemDef).getOrThrow();
+
             futures.add(DataProvider.saveStable(writer, encodedJson, vanillaPath));
         }
     }
@@ -84,16 +83,12 @@ public class PotionModelProviderSD implements DataProvider {
                         )
                 );
 
-                ItemDef<SimpleModel> itemDef = new ItemDef<>(new SimpleModel(
-                        "minecraft:model",
-                        "subtlyd:item/potion/" + fileName,
-                        List.of(new Tint("minecraft:potion", 16253176))
-                ));
+                ItemDef<SimpleModel> itemDef = new ItemDef<>(new SimpleModel("minecraft:model", "subtlyd:item/potion/" + fileName, List.of(new Tint("minecraft:potion", 16253176))));
 
-                Path modelFilePath = this.modelsPath.json(Util.identifier(fileName));
+                Path modelFilePath = modelsPath.json(Util.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, TextureModel.CODEC.encodeStart(JsonOps.INSTANCE, model).getOrThrow(), modelFilePath));
 
-                Path itemFilePath = this.itemsPath.json(Util.identifier(fileName));
+                Path itemFilePath = itemsPath.json(Util.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, ItemDef.codec(SimpleModel.CODEC).encodeStart(JsonOps.INSTANCE, itemDef).getOrThrow(), itemFilePath));
             }
         }

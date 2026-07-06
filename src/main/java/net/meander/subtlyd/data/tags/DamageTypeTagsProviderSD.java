@@ -1,7 +1,8 @@
-package net.meander.subtlyd.tags;
+package net.meander.subtlyd.data.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
+import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageType;

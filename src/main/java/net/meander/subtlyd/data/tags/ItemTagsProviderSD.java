@@ -1,9 +1,10 @@
-package net.meander.subtlyd.tags;
+package net.meander.subtlyd.data.tags;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
+import net.meander.subtlyd.tags.ItemTagsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.references.ItemIds;
