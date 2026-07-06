@@ -11,6 +11,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -102,7 +103,7 @@ public class PlayerMixin {
     private float slowPowderSnowMining(float destroySpeed, BlockState state) {
         Player player = (Player) (Object) this;
 
-        if (player.isInPowderSnow) {
+        if (player.isInPowderSnow && player.level().getDifficulty().getId() >= Difficulty.HARD.getId()) {
             return destroySpeed / 5.0F;
         }
         return destroySpeed;

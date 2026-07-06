@@ -24,6 +24,9 @@
 #### Items
 - Changed Shield to no longer have a blocking delay
 
+#### Blocks
+- Changed Powder Snow to decrease mining speed on hard difficulty
+
 #### World Generation
 ##### Birch Trees
 - Changed Super Birch Trees to have more shelf mushrooms
