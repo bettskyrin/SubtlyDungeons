@@ -1,4 +1,4 @@
-## [5.0 Snapshot 2] - UNRELEASED
+## [5.0 Snapshot 3] - UNRELEASED
 ### New Features
 #### Tailored World Generation
 - Added Erosion slider
