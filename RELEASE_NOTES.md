@@ -60,3 +60,5 @@
 - Fixed bug that would grant the Soup-er advancement for trying to put stew ingredients in cauldrons that cannot receive them
 - Fixed bug preventing Redstone comparisions to work with Potion & Stew Cauldrons
 - Fixed bug that caused Water Bottles to completely fill Cauldrons
+- Fixed bug causing snowfall to replace foliage
+- Fixed bug preventing snowfall from snowlogging blocks
