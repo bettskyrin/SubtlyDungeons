@@ -71,10 +71,10 @@ public class SnowAndFreezeFeatureMixin {
             if (BlockStateSD.canBeSnowlogged(state)) {
                 BlockState belowState = level.getBlockState(pos.below());
 
-                level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 1), 2);
-
-                if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-                    level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+                if (level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 1), 2)) {
+                    if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
+                        level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+                    }
                 }
 
                 if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
@@ -86,13 +86,14 @@ public class SnowAndFreezeFeatureMixin {
                     }
                 }
                 return true;
-            } else if (state.isAir()) {
+            } else
+                if (state.isAir()) {
                 BlockState belowState = level.getBlockState(pos.below());
 
-                level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 3);
+                level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
 
                 if (belowState.hasProperty(SnowyBlock.SNOWY)) {
-                    level.setBlock(pos.below(), belowState.setValue(SnowyBlock.SNOWY, true), 3);
+                    level.setBlock(pos.below(), belowState.setValue(SnowyBlock.SNOWY, true), 2);
                 }
                 return true;
             }
