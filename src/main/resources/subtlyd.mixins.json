@@ -63,6 +63,7 @@
     "common.world.level.levelgen.feature.HugeFungusFeatureMixin",
     "common.world.level.levelgen.feature.HugeRedMushroomFeatureMixin",
     "common.world.level.levelgen.feature.SnowAndFreezeFeatureMixin",
+    "common.world.level.levelgen.feature.treedecorators.ShelfMushroomDecoratorMixin",
     "common.world.level.levelgen.structure.structures.SwampHutPieceMixin"
   ],
   "client": [

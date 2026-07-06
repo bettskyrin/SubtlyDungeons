@@ -29,7 +29,7 @@
 
 #### World Generation
 ##### Birch Trees
-- Changed Super Birch Trees to have more shelf mushrooms
+- Changed Super Birch Trees to be able to have shelf mushrooms generate higher on their trunks
 
 #### Textures
 - Changed Quiver texture

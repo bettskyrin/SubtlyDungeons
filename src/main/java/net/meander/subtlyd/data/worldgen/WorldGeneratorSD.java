@@ -231,7 +231,7 @@ public class WorldGeneratorSD implements DataProvider {
         List<TreeDecorator> modifiedDecorators = new ArrayList<>(decorators);
 
         if (getSuperBirchTrees().contains(featureKey)) {
-            modifiedDecorators.add(new ShelfMushroomDecorator(1.0F));
+            modifiedDecorators.add(new ShelfMushroomDecorator(0.8F));
         }
 
         return modifiedDecorators;

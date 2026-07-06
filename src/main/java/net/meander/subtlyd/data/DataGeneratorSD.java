@@ -23,7 +23,6 @@ import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 
 public class DataGeneratorSD implements DataGeneratorEntrypoint {
 	@Override
@@ -33,13 +32,13 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         assets(pack);
         tags(pack);
         level(pack);
-        advancement(pack);
+        advancements(pack);
         items(pack);
 	}
 
     private void assets(FabricDataGenerator.Pack pack) {
         pack.addProvider(ModelProviderSD::new);
-        pack.addProvider((PackOutput output) -> new PotionModelProviderSD(output));
+        pack.addProvider(PotionModelProviderSD::new);
         pack.addProvider(CameraShakeEventProvider::new);
         pack.addProvider(LanguageProviderSD::new);
     }
@@ -59,7 +58,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTypeTagsProviderSD::new);
     }
 
-    private void advancement(FabricDataGenerator.Pack pack) {
+    private void advancements(FabricDataGenerator.Pack pack) {
         pack.addProvider(RecipeProviderSD::new);
         pack.addProvider(AdvancementProviderSD::new);
     }
