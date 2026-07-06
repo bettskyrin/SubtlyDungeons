@@ -64,7 +64,10 @@
       "minecraft:block/poplar_leaves/ambient5",
       "minecraft:block/poplar_leaves/ambient6",
       "minecraft:block/poplar_leaves/ambient7",
-      "minecraft:block/poplar_leaves/ambient8"
+      "minecraft:block/poplar_leaves/ambient8",
+      "minecraft:block/poplar_leaves/ambient9",
+      "minecraft:block/poplar_leaves/ambient10",
+      "minecraft:block/poplar_leaves/ambient10"
     ]
   },
   "block.short_grass.ambient": {
