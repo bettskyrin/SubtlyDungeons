@@ -60,7 +60,7 @@ import java.util.List;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
-    private boolean wasBlocked = false;
+    private boolean wasAttackBlocked = false;
 
     private LivingEntityMixin(EntityType<?> type, Level level) {
         super(type, level);
@@ -103,16 +103,12 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-    /**
-     * Runs when an entity takes damage.
-     */
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
         LivingEntity livingEntity = (LivingEntity) (Object) this;
 
         if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
-            if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES)
-            || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
+            if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
                 shareHerdPanic(livingEntity, attacker);
             }
         }
@@ -283,7 +279,7 @@ public abstract class LivingEntityMixin extends Entity {
         float blockedAmount = cir.getReturnValue();
 
         if (blockedAmount > 0.0F) {
-            wasBlocked = true;
+            wasAttackBlocked = true;
 
             if (!source.is(DamageTypeTags.IS_PROJECTILE)) {
                 LivingEntity entity = (LivingEntity) (Object) this;
@@ -298,7 +294,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @ModifyVariable(method = "knockback(DDDLnet/minecraft/world/damagesource/DamageSource;FZ)V", at = @At("HEAD"), argsOnly = true, name = "power")
     private double modifyShieldKnockback(double power) {
-        if (wasBlocked) {
+        if (wasAttackBlocked) {
             LivingEntity entity = (LivingEntity) (Object) this;
             double shieldStrength = entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
             double reduction = Mth.clamp(shieldStrength * 0.1, 0.0, 1.0);
@@ -310,7 +306,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void resetWasBlockedFlag(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        wasBlocked = false;
+        wasAttackBlocked = false;
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"), cancellable = true)
