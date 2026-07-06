@@ -62,3 +62,4 @@
 - Fixed bug that caused Water Bottles to completely fill Cauldrons
 - Fixed bug causing snowfall to replace foliage
 - Fixed bug preventing snowfall from snowlogging blocks
+- Fixed bug causing Frozen Rivers to not be fully frozen after world generation

@@ -24,6 +24,7 @@ public class SnowAndFreezeFeatureMixin {
     @Inject(method = "place", at = @At("HEAD"), cancellable = true)
     private void placeDriplineSnow(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin, CallbackInfoReturnable<Boolean> cir) {
         BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        BlockPos.MutableBlockPos belowPos = new BlockPos.MutableBlockPos();
         boolean wasSnowPlaced = false;
 
         for (int dx = 0; dx < 16; dx++) {
@@ -33,6 +34,13 @@ public class SnowAndFreezeFeatureMixin {
 
                 int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
                 pos.set(x, groundY, z);
+                belowPos.set(x, groundY - 1, z);
+
+                Biome biome = level.getBiome(pos).value();
+
+                if (biome.shouldFreeze(level, belowPos, false)) {
+                    level.setBlock(belowPos, Blocks.ICE.defaultBlockState(), 2);
+                }
 
                 if (tryPlaceSnowAt(level, pos)) {
                     wasSnowPlaced = true;
