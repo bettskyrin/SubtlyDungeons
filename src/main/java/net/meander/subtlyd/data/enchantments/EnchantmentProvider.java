@@ -1,4 +1,4 @@
-package net.meander.subtlyd.world.item.enchantment;
+package net.meander.subtlyd.data.enchantments;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;

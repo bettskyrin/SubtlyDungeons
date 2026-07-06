@@ -18,7 +18,7 @@ import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
-import net.meander.subtlyd.world.item.enchantment.EnchantmentProvider;
+import net.meander.subtlyd.data.enchantments.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;

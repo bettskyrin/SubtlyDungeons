@@ -43,17 +43,15 @@ public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> ENERVATION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("enervation"));
     public static final ResourceKey<Enchantment> CLEAVING = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("cleaving"));
 
-    /**
-     * Registeres new enchantments.
-     */
-    @SuppressWarnings("LoggingSimilarMessage")
     public static void bootstrap(@NonNull BootstrapContext<Enchantment> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
         HolderGetter<Enchantment> enchantments = context.lookup(Registries.ENCHANTMENT);
         HolderGetter<EntityType<?>> entityTypes = context.lookup(Registries.ENTITY_TYPE);
 
+        ResourceKey<Enchantment> currentEnchantment = OCCULT_PROTECTION;
+
         try {
-            context.register(OCCULT_PROTECTION, Enchantment.enchantment(
+            context.register(currentEnchantment, Enchantment.enchantment(
                 Enchantment.definition(
                         items.getOrThrow(ItemTags.ARMOR_ENCHANTABLE),
                         5,
@@ -67,14 +65,12 @@ public class EnchantmentsSD {
                             EnchantmentEffectComponents.DAMAGE_PROTECTION, new AddValue(LevelBasedValue.perLevel(2.0F)),
                             DamageSourceCondition.hasDamageSource(DamageSourcePredicate.Builder.damageType().tag(TagPredicate.is(DamageTypeTagsSD.IS_OCCULT))
                                     .tag(TagPredicate.isNot(DamageTypeTags.BYPASSES_INVULNERABILITY))))
-                .build(OCCULT_PROTECTION.identifier())
+                .build(currentEnchantment.identifier())
             );
-        } catch (Exception e) {
-            Util.LOGGER.error("Failed to get tag for: {}: {}", OCCULT_PROTECTION.identifier(), e.getMessage());
-        }
 
-        try {
-            context.register(ABRADING_CURSE, Enchantment.enchantment(
+            currentEnchantment = ABRADING_CURSE;
+
+            context.register(currentEnchantment, Enchantment.enchantment(
                     Enchantment.definition(
                             items.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),
                             1,
@@ -88,14 +84,12 @@ public class EnchantmentsSD {
                             MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE)))
                     .withEffect(EnchantmentEffectComponents.ITEM_DAMAGE, new AddValue(LevelBasedValue.constant(1.0F)),
                             InvertedLootItemCondition.invert(MatchTool.toolMatches(ItemPredicate.Builder.item().of(items, ItemTags.ARMOR_ENCHANTABLE))))
-                .build(ABRADING_CURSE.identifier())
+                .build(currentEnchantment.identifier())
             );
-        } catch (Exception e) {
-            Util.LOGGER.error("Failed to get tag for: {}: {}", ABRADING_CURSE.identifier(), e.getMessage());
-        }
 
-        try {
-            context.register(GLYPH_AFFINITY, Enchantment.enchantment(
+            currentEnchantment = GLYPH_AFFINITY;
+
+            context.register(currentEnchantment, Enchantment.enchantment(
                             Enchantment.definition(items.getOrThrow(ItemTagsSD.HAS_MAGIC_LIMIT),
                                     1,
                                     1,
@@ -103,14 +97,12 @@ public class EnchantmentsSD {
                                     Enchantment.constantCost(65),
                                     8,
                                     EquipmentSlotGroup.ANY))
-                    .build(GLYPH_AFFINITY.identifier())
+                    .build(currentEnchantment.identifier())
             );
-        } catch (Exception e) {
-            Util.LOGGER.error("Failed to get tag for: {}: {}", GLYPH_AFFINITY.identifier(), e.getMessage());
-        }
 
-        try {
-            context.register(ILLAGERS_BANE, Enchantment.enchantment(
+            currentEnchantment = ILLAGERS_BANE;
+
+            context.register(currentEnchantment, Enchantment.enchantment(
                     Enchantment.definition(
                                     items.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
                                     items.getOrThrow(ItemTags.MELEE_WEAPON_ENCHANTABLE),
@@ -126,14 +118,12 @@ public class EnchantmentsSD {
                             new AddValue(LevelBasedValue.perLevel(2.5F)),
                             LootItemEntityPropertyCondition.hasProperties(
                                             LootContext.EntityTarget.THIS, EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityTypes, EntityTypeTags.ILLAGER))))
-                    .build(ILLAGERS_BANE.identifier())
+                    .build(currentEnchantment.identifier())
             );
-        } catch (Exception e) {
-            Util.LOGGER.error("Failed to get tag for: {}: {}", ILLAGERS_BANE.identifier(), e.getMessage());
-        }
 
-        try {
-            context.register(ENERVATION, Enchantment.enchantment(
+            currentEnchantment = ENERVATION;
+
+            context.register(currentEnchantment, Enchantment.enchantment(
                             Enchantment.definition(
                                     items.getOrThrow(ItemTagsSD.DAGGERS),
                                     items.getOrThrow(ItemTagsSD.DAGGERS),
@@ -154,14 +144,12 @@ public class EnchantmentsSD {
                                             LevelBasedValue.constant(0.0F),
                                             LevelBasedValue.constant(1.0F)
                                     ))
-                    .build(ENERVATION.identifier())
+                    .build(currentEnchantment.identifier())
             );
-        } catch (Exception e) {
-            Util.LOGGER.error("Failed to get tag for: {}: {}", ENERVATION.identifier(), e.getMessage());
-        }
 
-        try {
-            context.register(CLEAVING, Enchantment.enchantment(
+            currentEnchantment = CLEAVING;
+
+            context.register(currentEnchantment, Enchantment.enchantment(
                             Enchantment.definition(
                                     items.getOrThrow(ItemTags.AXES),
                                     items.getOrThrow(ItemTags.AXES),
@@ -177,10 +165,10 @@ public class EnchantmentsSD {
                             EnchantmentEffectComponents.DAMAGE,
                             new AddValue(LevelBasedValue.perLevel(1.0F))
                     )
-                    .build(CLEAVING.identifier())
+                    .build(currentEnchantment.identifier())
             );
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to register: {}: {}", CLEAVING.identifier(), e.getMessage());
+            Util.LOGGER.error("Failed to register: {}: {}", currentEnchantment.identifier(), e.getMessage());
         }
     }
 }
