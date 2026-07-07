@@ -286,7 +286,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
-- Fixed bug preventing Powder Snow from replacing potions in a Cauldron
 
 ## [4.0 Magical Madness Update] - 6/16/26
 ### New Features
