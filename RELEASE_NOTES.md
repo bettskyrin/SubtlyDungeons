@@ -3,6 +3,12 @@
 #### Tailored World Generation
 - Added Erosion slider
 
+#### Command Macros
+- Added Command Macros
+- Can be accessed from the Key Binds options screen
+- Up to 10 commands can be saved (with a maximum of 1024 characters each) and activated by pressing Left Alt + A Number Key from 0-9
+- The secondary key can be re-bound
+
 #### Items
 - Added Heavy Shield
   - Has a Shield Strength of 10

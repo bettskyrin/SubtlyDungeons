@@ -1,4 +1,4 @@
-package net.meander.subtlyd.mixin.client.options;
+package net.meander.subtlyd.mixin.client.gui.screens.options;
 
 import net.meander.subtlyd.client.OptionsSD;
 import net.fabricmc.api.EnvType;

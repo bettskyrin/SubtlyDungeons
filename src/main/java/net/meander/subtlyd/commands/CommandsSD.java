@@ -10,4 +10,8 @@ public class CommandsSD {
     public static void registration() {
         CommandRegistrationCallback.EVENT.register(((dispatcher, _, _) -> CameraShakeCommand.register(dispatcher)));
     }
+
+    public static void initClient() {
+        CommandMacroManager.load();
+    }
 }

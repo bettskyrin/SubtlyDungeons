@@ -33,7 +33,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private final double initialBiome;
     private final double initialErosion;
     private final Screen lastScreen;
-    private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 50, 50);
+    private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
     private SliderList list;
     private AbstractSliderButton continentSlider;
     private AbstractSliderButton biomeSlider;

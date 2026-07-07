@@ -2,9 +2,14 @@ package net.meander.subtlyd.client;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+import org.lwjgl.glfw.GLFW;
+
+import java.util.Arrays;
 
 /**
  * @see net.minecraft.client.Options
@@ -21,6 +26,7 @@ public class OptionsSD {
     private static final OptionInstance<Boolean> SHIELD_CROUCH = OptionInstance.createBoolean("options.accessibility.shield_crouch", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_SHIELD_CROUCH), true);
     private static final OptionInstance<Boolean> ADVANCED_ENTITY_ANIMATIONS = OptionInstance.createBoolean("options.advanced_entity_animations", OptionInstance.cachedConstantTooltip(VIDEO_TOOLTIP_ADVANCED_ENTITY_ANIMATIONS), true);
     private static final OptionInstance<Boolean> SHIELD_ANIMATION = OptionInstance.createBoolean("options.accessibility.shield_animation", OptionInstance.cachedConstantTooltip(ACCESSIBILITY_TOOLTIP_SHIELD_ANIMATION), true);
+    public static final KeyMapping[] MACRO_KEYS = new KeyMapping[10];
 
     public static OptionInstance<Boolean> cameraShake() {
         return CAMERA_SHAKE;
@@ -40,5 +46,18 @@ public class OptionsSD {
 
     public static OptionInstance<Boolean> shieldAnimation() {
         return SHIELD_ANIMATION;
+    }
+
+    public static void registration() {
+        commandMacroBindings();
+    }
+
+    private static void commandMacroBindings() {
+        for (int i = 0; i < 10; i++) {
+            int displayNum = (i == 9) ? 0 : (i + 1);
+            int defaultKey = (i == 9) ? GLFW.GLFW_KEY_0 : GLFW.GLFW_KEY_1 + i;
+            MACRO_KEYS[i] = new KeyMapping("key.command_macros." + displayNum, defaultKey, KeyMappingSD.Category.COMMAND_MACROS);
+        }
+        Arrays.stream(MACRO_KEYS).toList().forEach(KeyMappingHelper::registerKeyMapping);
     }
 }

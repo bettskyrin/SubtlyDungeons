@@ -245,6 +245,21 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.difficulty.hard.info", "Hostile creatures spawn and deal more damage. Hunger bar depletes and drains all health.");
         translationBuilder.add("options.difficulty.normal.info", "Hostile creatures spawn and deal standard damage. Hunger bar depletes and drains health down to half a heart.");
         translationBuilder.add("options.difficulty.peaceful.info", "No hostile creatures and only some neutral creatures spawn. Hunger bar doesn't deplete and health replenishes over time.");
+        translationBuilder.add("options.command_macros", "Command Macros..." );
+        translationBuilder.add("options.command_macros.title", "Command Macros" );
+        translationBuilder.add("options.command_macros.entry", "Command Macro %s");
+
+        translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
+        translationBuilder.add("key.command_macros.0", "Command Macro 0");
+        translationBuilder.add("key.command_macros.1", "Command Macro 1");
+        translationBuilder.add("key.command_macros.2", "Command Macro 2");
+        translationBuilder.add("key.command_macros.3", "Command Macro 3");
+        translationBuilder.add("key.command_macros.4", "Command Macro 4");
+        translationBuilder.add("key.command_macros.5", "Command Macro 5");
+        translationBuilder.add("key.command_macros.6", "Command Macro 6");
+        translationBuilder.add("key.command_macros.7", "Command Macro 7");
+        translationBuilder.add("key.command_macros.8", "Command Macro 8");
+        translationBuilder.add("key.command_macros.9", "Command Macro 9");
 
         translationBuilder.add("selectWorld.select", "Play");
 
