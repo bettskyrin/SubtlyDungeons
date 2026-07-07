@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Current customizable options:
     - Continent Scale
     - Biome Scale
+    - Erosion Scale
     - Master World Generation Scale
 
     Developer's Note: Ocean Depth is planned, but for a future update. We tried it, and ultimately decided to wait because
@@ -38,6 +39,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Quiver
   - Can hold up to 4 stacks of arrows
   - Automatically cycles through each arrow stack
+- Added Dyed Quivers
+  - Can be crafted by combining a quiver with any dye
+- Added Heavy Shield
+  - Has a Shield Strength of 10
+  - Has a blocking delay of 5 ticks
+  - Can become disabled for 1.6 seconds, instead of 5 seconds
 
 #### Combat
 - Added Blade Clash
@@ -47,6 +54,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Iron Grates to have the `dragon_immune` block tag
   - Determines how much damage and knockback a shield can absorb
   - By default, Shields have a Shield Strength of 5
+- Changed Shields to no longer have a blocking delay
 
 #### Enchantments
 - Added Enervation enchantment
@@ -75,14 +83,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Snowlogged blocks may generate during world generation
   - Blocks may become snowlogged during snowfall
   - Some snowlogged blocks have snowy texture variants
+- Changed Powder Snow to decrease mining speed on Hard difficulty
 
-#### Atmospherics
-- Added ambient fog to Swamp biomes
-- Added ambient fog to Mangrove Swamp biomes
-- Added ambient fog to Pale Garden biomes
-- Added ambient fog to Dark Forest biomes
-- Added ambient fog to Jungle biomes
-- Added ambient fog to Bamboo Jungle biomes
+#### Sounds
+- Added ambient Leaves block sounds
+- Added ambient Short Grass block sounds
+- Added ambient Red Shrub sounds
+
+
+#### Settings
+- Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
+- Added Accessibility Settings option for toggling a blocking shield's visibility
 
 #### Advancements
 - Added Marking Territory advancement
@@ -121,6 +132,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Attacking a creature triggers a 5-second cooldown, in which you are no longer considered discrete
 - Crawling now also affects the Locator Bar waypoint transmit range, like crouching
 
+#### Command Macros
+- Added Command Macros
+- Can be accessed from the Key Binds options screen
+- Up to 10 commands can be saved (with a maximum of 1024 characters each) and activated by pressing Left Alt + A Number Key from 0-9
+- The secondary key can be re-bound
+
 #### World Generation
 - Changed all biomes to be larger
 - Changed all continents to be larger
@@ -152,15 +169,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed red mushroom caps to sometimes be slightly shorter
 - Added small mushroom rings around huge mushrooms
 - Changed mushroom generation rate
+- Changed ambient fog distance in Dark Forest biomes
+
+##### Pale Garden
+- Changed ambient fog distance in Pale Garden biomes
 
 ##### Dappled Forest
 - Changed understory to have Perse Wildflowers
 
+##### Bamboo Forest
+- Changed ambient fog distance in Bamboo Jungle biomes
+
+##### Jungle
+- Changed ambient fog distance in Jungle biomes
+
 ##### Swamp
-- Added perse wildflowers
+- Added Perse Wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
 - Changed mushroom generation rate
-- Added mud to the bottom of Swamps
+- Changed ambient fog distance in Swamp biomes
+
+##### Mangrove Swamp
+- Changed ambient fog distance in Mangrove Swamp biomes
 
 ##### Taiga
 - Changed vegetation to be more common
@@ -197,6 +227,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 #### Loot
 - Changed Swamp Hut cauldron potions to be a data-driven loot table
+- Changed Tannery Chests to possibly generate Quivers
+- Changed Pillager Outpost Chests to possibly generate Heavy Shields and Quivers
+- Changed Weaponsmith House Chests to possibly generate Heavy Shields
+- Changed Woodland Mansion Chests to possibly generate Heavy Shields
+- Changed Leatherworkers to gift Bundles and Quivers
 
 #### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
@@ -236,17 +271,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Added `huge_glowshroom_can_place_on` block tag
 - Added `stew_ingredient` block tag
+- Added `tall_plants` block tag
+- Added `triggers_ambient_grass_block_sounds` block tag
 - Added `daggers` item tag
 - Added `can_parry_swords` item tag
 - Added `can_parry_daggers` item tag
 - Added `sweeping_weapon` item tag
-- Added `tall_plants` block tag
+- Added `quivers` item tag
+- Added `shields` item tag
 - Removed `has_ambient_block_sounds` block tag
 - Removed `skull_block` block tag
 
 #### Bug Fixes
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
+- Fixed bug causing Tents to display the wrong error when trying to sleep during the day
+- Fixed bug preventing Powder Snow from replacing potions in a Cauldron
 
 ## [4.0 Magical Madness Update] - 6/16/26
 ### New Features

@@ -27,11 +27,11 @@
 - Added Accessibility Settings option for toggling a blocking shield's visibility
 
 ### Changes
-#### Items
-- Changed Shield to no longer have a blocking delay
+#### Combat
+- Changed Shields to no longer have a blocking delay
 
 #### Blocks
-- Changed Powder Snow to decrease mining speed on hard difficulty
+- Changed Powder Snow to decrease mining speed on Hard difficulty
 
 #### World Generation
 ##### Birch Trees
@@ -41,11 +41,11 @@
 - Changed Quiver texture
 
 #### Loot
-- Changed Quivers to no longer be found in Weaponsmith House Chests
-- Changed Quivers to be found in Tannery Chests
-- Changed Pillager Outpost Chests to possibly have Heavy Shields and Quivers
-- Changed Weaponsmith House Chests to possibly have Heavy Shields
-- Changed Woodland Mansion Chests to possibly have Heavy Shields
+- Changed Weaponsmith House Chests to no longer generate Quivers 
+- Changed Tannery Chests to possibly have Quivers
+- Changed Pillager Outpost Chests to possibly generate Heavy Shields and Quivers
+- Changed Weaponsmith House Chests to possibly generate Heavy Shields
+- Changed Woodland Mansion Chests to possibly generate Heavy Shields
 - Changed Leatherworkers to gift Bundles and Quivers
 
 #### Advancement
