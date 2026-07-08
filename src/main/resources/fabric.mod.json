@@ -16,7 +16,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.meander.subtlyd.server.InitializerSD"
+          "net.meander.subtlyd.core.InitializerSD"
 		],
 		"fabric-datagen": [
 			"net.meander.subtlyd.data.DataGeneratorSD"

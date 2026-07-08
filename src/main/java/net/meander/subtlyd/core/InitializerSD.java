@@ -1,4 +1,4 @@
-package net.meander.subtlyd.server;
+package net.meander.subtlyd.core;
 
 import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;

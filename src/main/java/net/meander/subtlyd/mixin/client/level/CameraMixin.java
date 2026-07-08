@@ -29,14 +29,14 @@ public abstract class CameraMixin {
 
     @Inject(method = "update", at = @At("TAIL"))
     private void setup(DeltaTracker deltaTracker, CallbackInfo ci) {
-        applyScreenShake();
+        applyCameraShake();
         setCampingPlayerCamera(entity(), xRot());
     }
 
     /**
-     * Determines if screen shake is enabled and if so, handles the math for placing the camera to create the screen shake effect.
+     * Determines if camera shake is enabled and if so, handles the math for placing the camera to create the camera shake effect.
      */
-    private void applyScreenShake() {
+    private void applyCameraShake() {
         if (OptionsSD.cameraShake().get()) {
             float intensity = CameraShake.getShakeIntensity() * 0.5F;
 
