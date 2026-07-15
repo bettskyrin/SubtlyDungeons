@@ -16,6 +16,6 @@ public class ClientInitializerSD implements ClientModInitializer {
         SoundEventsSD.registration();
         ClientEventsSD.registration();
         PacketNetworking.registerClient();
-        ParticleTypesSD.registration();
+        ParticleTypesSD.registerClient();
     }
 }

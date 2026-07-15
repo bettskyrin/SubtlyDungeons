@@ -1,5 +1,4 @@
-## [4.1] - 6/21/26
+## [4.1.1] - 7/15/26
 ### Technical Changes
 #### Bug Fixes
-- Fixed bug allowing Blast Fungi to damage blocks
-- Fixed bug preventing Anvil enchanting
+- Fixed a crash causing servers to crash when using a Blast Fungus

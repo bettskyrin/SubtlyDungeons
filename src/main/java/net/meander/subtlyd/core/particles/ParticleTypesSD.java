@@ -19,9 +19,11 @@ import net.minecraft.world.level.block.state.BlockState;
 public class ParticleTypesSD {
     public static final SimpleParticleType SPORE_CLOUD = register("spore_cloud", false);
 
-    public static void registration() {
+    public static void registerClient() {
         ParticleProviderRegistry.getInstance().register(SPORE_CLOUD, SporeCloudParticle.Provider::new);
     }
+
+    public static void registerServer() {}
 
     private static SimpleParticleType register(final String name, final boolean overrideLimiter) {
         return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Util.identifier(name), FabricParticleTypes.simple(overrideLimiter));
