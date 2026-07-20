@@ -12,6 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.PositionPath;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.ValueInput;
@@ -81,7 +82,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
             LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(trident.level(), EntitySpawnReason.TRIGGERED);
 
             if (bolt != null && bolt.level().canHaveWeather()) {
-                bolt.moveOrInterpolateTo(Vec3.atBottomCenterOf(hitPos));
+                bolt.moveOrInterpolateTo(PositionPath.of(Vec3.atBottomCenterOf(hitPos)));
                 bolt.setCause(trident.getOwner() instanceof ServerPlayer player ? player : null);
                 trident.level().addFreshEntity(bolt);
                 trident.level().playSound(null, hitPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);

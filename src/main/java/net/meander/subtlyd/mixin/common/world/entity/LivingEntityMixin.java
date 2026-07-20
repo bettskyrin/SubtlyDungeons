@@ -70,8 +70,8 @@ public abstract class LivingEntityMixin extends Entity {
         return (livingEntity.tickCount - livingEntity.getLastHurtMobTimestamp()) < 100;
     }
 
-    public boolean canStealthAttack(final LivingEntity attacker, final LivingEntity victim) {
-        return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(victim) < 1;
+    public boolean canStealthAttack(ServerLevel level, final LivingEntity attacker, final LivingEntity victim) {
+        return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(level, victim) < 1;
     }
 
     /**
@@ -197,7 +197,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getVisibilityPercent", at = @At("RETURN"), cancellable = true)
     @SuppressWarnings("DataFlowIssue")
-    private void modifyStealthSystem(Entity targetingEntity, CallbackInfoReturnable<Double> cir) {
+    private void modifyStealthSystem(ServerLevel serverLevel, Entity targetingEntity, CallbackInfoReturnable<Double> cir) {
         if (targetingEntity != null) {
             LivingEntity attacker = (LivingEntity) (Object) this;
             double visibilityPercent = cir.getReturnValue();
@@ -250,8 +250,8 @@ public abstract class LivingEntityMixin extends Entity {
             ItemStack weapon = attacker.getMainHandItem();
             StealthWeapon stealth = weapon.get(DataComponentsSD.STEALTH_WEAPON);
 
-            if (stealth != null && canStealthAttack(attacker, victim)) {
-                double stealthLevel = attacker.getVisibilityPercent(victim);
+            if (stealth != null && canStealthAttack(level, attacker, victim)) {
+                double stealthLevel = attacker.getVisibilityPercent(level, victim);
 
                 if (attacker instanceof ServerPlayer serverPlayer) {
                     CriteriaTriggersSD.STEALTH_ATTACK.trigger(serverPlayer, victim);

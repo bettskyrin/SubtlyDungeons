@@ -51,12 +51,12 @@ public class BlocksSD {
             .instabreak()
             .sound(SoundType.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
-            .pushReaction(PushReaction.DESTROY));
+            .pushReaction(PushReaction.POPPED));
     public static final Block WARPED_OVERHANG = register(BlockItemIdsSD.WARPED_OVERHANG, WarpedOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK)
             .noCollision()
             .noOcclusion()
             .instabreak()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.POPPED)
             .replaceable()
             .isValidSpawn(Blocks::never)
             .isRedstoneConductor(Blocks::never)
@@ -69,13 +69,13 @@ public class BlocksSD {
                     .sound(SoundType.WOOD)
                     .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
-                    .pushReaction(PushReaction.DESTROY));
+                    .pushReaction(PushReaction.POPPED));
     public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
     public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
             .sound(SoundType.PINK_PETALS)
-            .pushReaction(PushReaction.DESTROY));
+            .pushReaction(PushReaction.POPPED));
     public static final Block STEW_CAULDRON = register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
     public static final Block OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.OAK_WOOD_STAIRS, Blocks.OAK_WOOD);
     public static final Block SPRUCE_WOOD_STAIRS = registerStair(BlockItemIdsSD.SPRUCE_WOOD_STAIRS, Blocks.SPRUCE_WOOD);

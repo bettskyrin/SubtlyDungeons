@@ -2,13 +2,13 @@ package net.meander.subtlyd.advancements.triggers;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.LevelData;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -22,9 +22,9 @@ public class SleptInTentTrigger extends SimpleCriterionTrigger<SleptInTentTrigge
         trigger(player, instance -> instance.matches(player));
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<Integer> minDistanceFromBed) implements SimpleCriterionTrigger.SimpleInstance {
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<Integer> minDistanceFromBed) implements SimpleCriterionTrigger.SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(
-                instance -> instance.group(EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), Codec.INT.optionalFieldOf("min_distance").forGetter(TriggerInstance::minDistanceFromBed)).apply(instance, TriggerInstance::new)
+                instance -> instance.group(LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player), Codec.INT.optionalFieldOf("min_distance").forGetter(TriggerInstance::minDistanceFromBed)).apply(instance, TriggerInstance::new)
         );
 
         public boolean matches(ServerPlayer player) {

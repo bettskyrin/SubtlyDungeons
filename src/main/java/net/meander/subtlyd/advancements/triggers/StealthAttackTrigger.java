@@ -2,13 +2,14 @@ package net.meander.subtlyd.advancements.triggers;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.Criterion;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -25,10 +26,10 @@ public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTr
         trigger(player, instance -> instance.matches(victimContext));
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player, Optional<ContextAwarePredicate> victim) implements SimpleCriterionTrigger.SimpleInstance {
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<Holder<LootItemCondition>> victim) implements SimpleCriterionTrigger.SimpleInstance {
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
+                LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player),
+                LootItemCondition.CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
         ).apply(instance, TriggerInstance::new));
 
         public static Criterion<TriggerInstance> stealthAttack(EntityPredicate.Builder playerPredicate) {
@@ -38,7 +39,7 @@ public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTr
         }
 
         public boolean matches(LootContext victimContext) {
-            return this.victim.isEmpty() || this.victim.get().matches(victimContext);
+            return victim.isEmpty() || victim.get().value().test(victimContext);
         }
     }
 }

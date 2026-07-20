@@ -42,7 +42,7 @@ public class HusbandryAdvancementsSD {
                 .addCriterion("try_light_campfire_with_stick", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), Blocks.CAMPFIRE)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), Items.STICK)))
-                .save(consumer, Util.identifier("husbandry/light_campfire").toString());
+                .save(consumer, Util.identifier("husbandry/light_campfire"));
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Util.identifier("husbandry/light_campfire")))
                 .display(
@@ -58,6 +58,6 @@ public class HusbandryAdvancementsSD {
                 .addCriterion("add_stew_ingredient", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), Blocks.CAULDRON, BlocksSD.STEW_CAULDRON)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), ItemTagsSD.STEW_INGREDIENT)))
-                .save(consumer, Util.identifier("husbandry/make_stew").toString());
+                .save(consumer, Util.identifier("husbandry/make_stew"));
     }
 }

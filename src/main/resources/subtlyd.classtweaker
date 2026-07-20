@@ -29,6 +29,11 @@ accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put
 accessible method net/minecraft/world/level/block/state/BlockBehaviour getShape (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/phys/shapes/CollisionContext;)Lnet/minecraft/world/phys/shapes/VoxelShape;
 accessible method net/minecraft/world/level/block/Blocks postProcessSelf (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/BlockGetter;Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/BlockPos;
 accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/List;
+mutable field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/List;
+mutable field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
+accessible field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
 
 ## Mobs
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;

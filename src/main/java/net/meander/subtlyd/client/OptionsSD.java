@@ -1,5 +1,6 @@
 package net.meander.subtlyd.client;
 
+import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
@@ -7,7 +8,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
 
@@ -55,7 +55,7 @@ public class OptionsSD {
     private static void commandMacroBindings() {
         for (int i = 0; i < 10; i++) {
             int displayNum = (i == 9) ? 0 : (i + 1);
-            int defaultKey = (i == 9) ? GLFW.GLFW_KEY_0 : GLFW.GLFW_KEY_1 + i;
+            int defaultKey = (i == 9) ? InputConstants.KEY_0 : InputConstants.KEY_1 + i;
             MACRO_KEYS[i] = new KeyMapping("key.command_macros." + displayNum, defaultKey, KeyMappingSD.Category.COMMAND_MACROS);
         }
         Arrays.stream(MACRO_KEYS).toList().forEach(KeyMappingHelper::registerKeyMapping);

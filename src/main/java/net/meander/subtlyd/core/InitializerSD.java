@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
+import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.stats.StatsSD;
@@ -14,9 +15,9 @@ import net.meander.subtlyd.world.effect.MobEffectsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.meander.subtlyd.world.level.LevelSD;
-import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
-import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
+import net.meander.subtlyd.world.level.storage.loot.functions.LootItemFunctionsSD;
 import net.meander.subtlyd.world.level.storage.loot.predicates.LootItemConditionsSD;
+import net.minecraft.core.registries.BuiltInRegistries;
 
 @SuppressWarnings("unused")
 public class InitializerSD implements ModInitializer {
@@ -37,7 +38,7 @@ public class InitializerSD implements ModInitializer {
         CriteriaTriggersSD.registration();
         StatsSD.registration();
         LootItemConditionsSD.registration();
-        LootTablesSD.registration();
+        LootItemFunctionsSD.bootstrap(BuiltInRegistries.LOOT_FUNCTION_TYPE);
         CommandsSD.registration();
         GameRulesSD.registration();
         LevelSD.registerEvents();

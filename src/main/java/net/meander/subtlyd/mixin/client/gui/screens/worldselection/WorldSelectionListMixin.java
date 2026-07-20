@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
@@ -52,8 +52,7 @@ public class WorldSelectionListMixin {
             TailoredWorldGenSettings.loadSettingsFromFile(oldWorldDir);
         }
 
-        @ModifyArgs(method = "extractContent",
-                    at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
+        @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void modifyWorldIconWidth(Args args) {
             if (canChangeUi) {
                 args.set(6, ICON_WIDTH);
@@ -61,8 +60,7 @@ public class WorldSelectionListMixin {
             }
         }
 
-        @ModifyArg(method = "extractContent",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
+        @ModifyArg(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
         private int modifyWorldIconFillWidth(int x0) {
             if (canChangeUi) {
                 return this.getContentX() + ICON_WIDTH;
@@ -73,9 +71,7 @@ public class WorldSelectionListMixin {
         /**
          * Replaces the isMouseOver with isMouseWithin
          */
-        @Redirect(method = "extractContent",
-                    at = @At(value = "INVOKE",
-                            target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
+        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
             if (canChangeUi) {
                 return isMouseWithin(mouseX, mouseY, this.getContentX() + ICON_WIDTH, this.getContentY() + size);
@@ -83,9 +79,7 @@ public class WorldSelectionListMixin {
             return instance.mouseOverIcon(relX, relY, size);
         }
 
-        @Redirect(method = "extractContent",
-                at = @At(value = "INVOKE",
-                        target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
+        @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
         private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
             if (canChangeUi) {
                 int MID_ICON = this.getContentX() + ICON_WIDTH / 4;
@@ -104,9 +98,7 @@ public class WorldSelectionListMixin {
         /**
          * Replaces isMouseOver with isMouseWithin based on a mouseButtonEvent.
          */
-        @Redirect(method = "mouseClicked",
-                at = @At(value = "INVOKE",
-                        target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
+        @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsClickedIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final MouseButtonEvent event, final boolean doubleClick) {
             if (canChangeUi) {
                 return isMouseWithin((int) event.x(), (int) event.y(), this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT);

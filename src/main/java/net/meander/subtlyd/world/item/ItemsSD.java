@@ -6,9 +6,7 @@ import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
-import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
-import net.meander.subtlyd.world.level.block.entity.FuelValuesSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.sounds.SoundEvents;
@@ -28,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.ColorCollection;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +38,8 @@ import java.util.function.UnaryOperator;
  */
 public class ItemsSD {
     public static final Item APPLE_PIE = Items.registerItem(ItemIdsSD.APPLE_PIE, Item::new, new Item.Properties()
-            .food(FoodsSD.APPLE_PIE));
+            .food(FoodsSD.APPLE_PIE)
+            .compostable(NumberProviders.COMPOSTABLE_ALWAYS_ADD_ONE));
     public static final Item CALAMARI = Items.registerItem(ItemIdsSD.CALAMARI, Item::new, new Item.Properties()
             .food(FoodsSD.CALAMARI));
     public static final Item COOKED_CALAMARI = Items.registerItem(ItemIdsSD.COOKED_CALAMARI, Item::new, new Item.Properties()
@@ -47,7 +47,8 @@ public class ItemsSD {
     public static final Item POTTAGE = Items.registerItem(ItemIdsSD.POTTAGE, Item::new, new Item.Properties()
             .food(FoodsSD.POTTAGE)
             .stacksTo(1));
-    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, p -> new TentItem(EntityTypesSD.TENT.pick(color), p), new Item.Properties().stacksTo(1)));
+    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, p -> new TentItem(EntityTypesSD.TENT.pick(color), p),
+            new Item.Properties().stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
     public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (p -> p
             .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
@@ -58,7 +59,7 @@ public class ItemsSD {
     public static final Item SNOW_BRICK_STAIRS = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_STAIRS, BlocksSD.SNOW_BRICK_STAIRS);
     public static final Item SNOW_BRICK_SLAB = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_SLAB, BlocksSD.SNOW_BRICK_SLAB);
     public static final Item SNOW_BRICK_WALL = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_WALL, BlocksSD.SNOW_BRICK_WALL);
-    public static final Item CHARCOAL_BLOCK = Items.registerBlock(BlockItemIdsSD.CHARCOAL_BLOCK, BlocksSD.CHARCOAL_BLOCK);
+    public static final Item CHARCOAL_BLOCK = Items.registerBlock(BlockItemIdsSD.CHARCOAL_BLOCK, BlocksSD.CHARCOAL_BLOCK, new Item.Properties().cookingFuel(NumberProviders.COOKING_TIME_COAL_BLOCK));
     public static final Item IRON_GRATE = Items.registerBlock(BlockItemIdsSD.IRON_GRATE, BlocksSD.IRON_GRATE);
     public static final Item CHISELED_POLISHED_DRIPSTONE = Items.registerBlock(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE, BlocksSD.CHISELED_POLISHED_DRIPSTONE);
     public static final Item POLISHED_DRIPSTONE = Items.registerBlock(BlockItemIdsSD.POLISHED_DRIPSTONE, BlocksSD.POLISHED_DRIPSTONE);
@@ -81,7 +82,7 @@ public class ItemsSD {
             .component(DataComponents.CONSUMABLE, ConsumablesSD.COVEN_ELIXIR)
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
-    public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS);
+    public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS, (new Item.Properties()).compostable(NumberProviders.COMPOSTABLE_LOW));
     public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties().food(FoodsSD.LIGHT_STEW).stacksTo(1));
     public static final Item WOODEN_DAGGER = Items.registerItem(ItemIdsSD.WOODEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.WOOD, 1.0F, -2.3F, 4.0F));
     public static final Item STONE_DAGGER = Items.registerItem(ItemIdsSD.STONE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.STONE, 1.0F, -2.3F, 4.0F));
@@ -167,8 +168,6 @@ public class ItemsSD {
     public static void registration() {
         CreativeModeTabsSD.registration();
         ItemSD.modifyComponents();
-        FuelValuesSD.registerFuelValues();
-        PotionsSD.registration();
     }
 
     private static Item registerBlockSD(final BlockItemId id, final Block block, final UnaryOperator<Item.Properties> propertiesFunction) {

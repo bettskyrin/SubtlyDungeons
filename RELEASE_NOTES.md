@@ -1,4 +1,9 @@
-## [5.0 Snapshot 3] - UNRELEASED
+## [5.0 Snapshot 3] - 7/19/26
+### Known Issues
+Minecraft's source code and Fabric API are both undergoing some under the hood changes. This means that currently, shear and silk touch drops currently do not work properly. So, for now, unlit campfires when silk touched will drop their lit variants and other drops that require silk touch or shears, will now drop from any tool.
+
+These changes are also part of the reason for the snapshot delay. To help prevent this in the future, we have taken steps to make Subtly Dungeons somewhat less dependent on Fabric API.
+
 ### New Features
 #### Tailored World Generation
 - Added Erosion slider

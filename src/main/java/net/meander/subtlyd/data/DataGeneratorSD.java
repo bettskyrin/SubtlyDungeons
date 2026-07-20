@@ -8,7 +8,9 @@ import net.meander.subtlyd.client.data.model.ModelProviderSD;
 import net.meander.subtlyd.client.data.model.PotionModelProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
 import net.meander.subtlyd.data.advancements.AdvancementProviderSD;
+import net.meander.subtlyd.data.enchantments.EnchantmentProvider;
 import net.meander.subtlyd.data.loot.packs.BlockLootSD;
+import net.meander.subtlyd.data.loot.packs.GameplayLootSD;
 import net.meander.subtlyd.data.recipies.RecipeProviderSD;
 import net.meander.subtlyd.data.tags.*;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
@@ -18,9 +20,7 @@ import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
-import net.meander.subtlyd.data.enchantments.EnchantmentProvider;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
-import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 
@@ -64,7 +64,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
     }
 
     private void items(FabricDataGenerator.Pack pack) {
-        pack.addProvider(LootTablesSD::create);
+        pack.addProvider(GameplayLootSD::new);
         pack.addProvider(BlockLootSD::new);
         pack.addProvider(EnchantmentProvider::new);
     }

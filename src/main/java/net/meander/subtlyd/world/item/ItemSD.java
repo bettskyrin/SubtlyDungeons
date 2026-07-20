@@ -1,7 +1,6 @@
 package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
-import net.fabricmc.fabric.api.registry.CompostableRegistry;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.Util;
@@ -120,11 +119,6 @@ public abstract class ItemSD extends Item {
         }));
     }
 
-    private static void registerCompostables() {
-        CompostableRegistry.INSTANCE.add(ItemsSD.APPLE_PIE, 1.0F);
-        CompostableRegistry.INSTANCE.add(ItemsSD.PERSE_WILDFLOWERS, 1.0F);
-    }
-
     public static void modifyComponents() {
         modifyRarity();
         modifyConsumable();
@@ -132,7 +126,6 @@ public abstract class ItemSD extends Item {
         modifyEnchantablity();
         modifyWeapons();
         modifyShield();
-        registerCompostables();
     }
 
     public static class PropertiesSD extends Properties {

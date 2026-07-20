@@ -3,6 +3,7 @@ package net.meander.subtlyd.world.level.storage.loot.functions;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.minecraft.core.Holder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -10,20 +11,19 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-import java.util.List;
+import java.util.Optional;
 
-public class DaggerLootFunction extends LootItemConditionalFunction {
-    public static final MapCodec<DaggerLootFunction> CODEC = RecordCodecBuilder.mapCodec(instance ->
-            commonFields(instance).apply(instance, DaggerLootFunction::new)
-    );
+public class SetDaggerFunction extends LootItemConditionalFunction {
+    public static final MapCodec<SetDaggerFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, SetDaggerFunction::new));
 
-    protected DaggerLootFunction(List<LootItemCondition> predicates) {
-        super(predicates);
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public SetDaggerFunction(Optional<Holder<LootItemCondition>> condition) {
+        super(condition);
     }
 
     @Override
-    public MapCodec<? extends LootItemConditionalFunction> codec() {
-        return CODEC;
+    public MapCodec<SetDaggerFunction> codec() {
+        return MAP_CODEC;
     }
 
     @Override
@@ -70,7 +70,7 @@ public class DaggerLootFunction extends LootItemConditionalFunction {
         return newStack;
     }
 
-    public static LootItemConditionalFunction.Builder<?> builder() {
-        return simpleBuilder(DaggerLootFunction::new);
+    public static LootItemConditionalFunction.Builder<?> setDagger() {
+        return simpleBuilder(SetDaggerFunction::new);
     }
 }

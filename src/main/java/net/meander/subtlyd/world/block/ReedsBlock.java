@@ -12,10 +12,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.LiquidBlockContainer;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
@@ -84,21 +81,22 @@ public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, B
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState blockState) {
-        return BonemealableAquaticPlant.hasSpreadableNeighbourPos(levelReader, blockPos, blockState);
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, BonemealSource source) {
+        return BonemealableAquaticPlant.hasSpreadableNeighbourPos(level, pos, state);
+
     }
 
     @Override
-    public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
+    public boolean isBonemealSuccess(Level level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
         return true;
     }
 
     @Override
-    public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-        BonemealableAquaticPlant.findSpreadableNeighbourPos(serverLevel, blockPos, blockState)
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state, BonemealSource source) {
+        BonemealableAquaticPlant.findSpreadableNeighbourPos(level, pos, state)
                 .ifPresent(blockPosX -> {
-                    serverLevel.setBlockAndUpdate(blockPosX, defaultBlockState());
-                    serverLevel.setBlockAndUpdate(blockPosX.above(), serverLevel.getBlockState(blockPos.above()));
+                    level.setBlockAndUpdate(blockPosX, defaultBlockState());
+                    level.setBlockAndUpdate(blockPosX.above(), level.getBlockState(pos.above()));
                 });
     }
 }

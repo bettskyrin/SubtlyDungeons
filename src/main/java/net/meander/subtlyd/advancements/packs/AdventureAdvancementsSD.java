@@ -43,7 +43,7 @@ public class AdventureAdvancementsSD {
 
                 )
                 .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
-                .save(consumer, Util.identifier("adventure/camp_far_away").toString());
+                .save(consumer, Util.identifier("adventure/camp_far_away"));
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
                 .display(
@@ -59,7 +59,7 @@ public class AdventureAdvancementsSD {
                 .addCriterion("created_banner_marker", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTags.BANNERS)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), Items.FILLED_MAP)))
-                .save(consumer, Util.identifier("adventure/banner_marker").toString());
+                .save(consumer, Util.identifier("adventure/banner_marker"));
 
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/kill_a_mob")))
@@ -83,6 +83,6 @@ public class AdventureAdvancementsSD {
                                 )
                         )
                 ))
-                .save(consumer, Util.identifier("adventure/stealth_attack").toString());
+                .save(consumer, Util.identifier("adventure/stealth_attack"));
     }
 }
