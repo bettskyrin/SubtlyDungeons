@@ -50,6 +50,7 @@
 
 #### Advancement
 - Changed I Am Bush advancement to have Monster Hunter as its parent
+- Changed A Balanced Diet to include Shelf Mushrooms
 
 ### Technical Changes
 #### Attributes
