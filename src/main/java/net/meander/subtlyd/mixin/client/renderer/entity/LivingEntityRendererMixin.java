@@ -5,7 +5,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
+import net.meander.subtlyd.client.entity.monster.ScansorialEntityAccessor;
 import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -35,10 +35,10 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
     private void determineRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         if (OptionsSD.advancedEntityAnimations().get()) {
             if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
-                if (entity instanceof ClimberAccessor climberAccessor) {
-                    extractClimberState(entity, climberAccessor, state, stateAccessor, partialTicks);
-                } else if (entity.getVehicle() instanceof ClimberAccessor arthropod) {
-                    extractClimberJockeyState(entity.getVehicle(), arthropod, state, stateAccessor, partialTicks);
+                if (entity instanceof ScansorialEntityAccessor scansorialEntityAccessor) {
+                    extractScansorialEntityRenderState(entity, scansorialEntityAccessor, state, stateAccessor, partialTicks);
+                } else if (entity.getVehicle() instanceof ScansorialEntityAccessor arthropod) {
+                    extractScansorialEntityJockeyState(entity.getVehicle(), arthropod, state, stateAccessor, partialTicks);
                 }
             }
         }
@@ -52,8 +52,8 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
     @Inject(method = "setupRotations", at = @At("TAIL"))
     private  void determineRotations(S state, PoseStack poseStack, float bodyRot, float entityScale, CallbackInfo ci) {
         if (OptionsSD.advancedEntityAnimations().get()) {
-            if (state instanceof LivingEntityRenderStateAccessor accessor) {
-                setupClimberRotations(accessor, poseStack, state.boundingBoxHeight);
+            if (state instanceof LivingEntityRenderStateAccessor stateAccessor) {
+                setupScansorialEntityRotations(stateAccessor, poseStack, state.boundingBoxHeight);
             }
         }
     }
@@ -61,37 +61,39 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
     /**
      * Extracts the render state for climbing entities (e.g. spiders).
      * @param entity The climbing entity.
-     * @param climberAccessor Interface for obtaining climber data.
+     * @param scansorialEntityAccessor Interface for obtaining scansorialEntity data.
      * @param state The render state.
      * @param partialTicks The partial ticks.
      */
-    private void extractClimberState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.getClimbTransition(partialTicks);
+    private void extractScansorialEntityRenderState(Entity entity, ScansorialEntityAccessor scansorialEntityAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
+        float progress = scansorialEntityAccessor.getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.setClimbProgress(progress);
+
         if (progress > climbProgressThreshold && nearestWall != null) {
             float oldYaw = stateAccessor.getClimbRotation();
-            float yaw = EntitySD.getClimberRotation(entity, nearestWall, oldYaw);
+            float yaw = EntitySD.getScansorialEntityRotation(entity, nearestWall, oldYaw);
 
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.getRotation(partialTicks));
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, scansorialEntityAccessor.getRotation(partialTicks));
             state.yRot = Mth.rotLerp(progress, state.yRot, 0.0F);
             state.xRot = Mth.rotLerp(progress, state.xRot, yaw);
+
             stateAccessor.setClimbRotation(yaw);
-            climberAccessor.tickRotation(climberAccessor.getRotation(partialTicks));
+            scansorialEntityAccessor.tickRotation(scansorialEntityAccessor.getRotation(partialTicks));
         }
     }
 
     /**
      * Extracts the render state for jockeys.
      * @param entity The entity being ridden.
-     * @param climberAccessor Interface for obtaining climber data.
+     * @param scansorialEntityAccessor Interface for obtaining scansorialEntity data.
      * @param state The render state.
      * @param stateAccessor Interface for obtaining render state data.
      * @param partialTicks The partial ticks.
      */
-    private void extractClimberJockeyState(Entity entity, ClimberAccessor climberAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
-        float progress = climberAccessor.getClimbTransition(partialTicks);
+    private void extractScansorialEntityJockeyState(Entity entity, ScansorialEntityAccessor scansorialEntityAccessor, S state, LivingEntityRenderStateAccessor stateAccessor, float partialTicks) {
+        float progress = scansorialEntityAccessor.getClimbTransition(partialTicks);
         Direction nearestWall = EntitySD.getNearestWall(entity);
 
         stateAccessor.setIsJockey(true);
@@ -99,34 +101,33 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
 
         if (progress > climbProgressThreshold && nearestWall != null) {
             float oldYaw = stateAccessor.getClimbRotation();
-            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, climberAccessor.getRotation(partialTicks));
-            state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getClimberRotation(entity, nearestWall, oldYaw));
+            state.bodyRot = Mth.rotLerp(progress, state.bodyRot, scansorialEntityAccessor.getRotation(partialTicks));
+            state.xRot = Mth.rotLerp(progress, state.xRot, EntitySD.getScansorialEntityRotation(entity, nearestWall, oldYaw));
         }
     }
 
     /**
      * Sets up visual rotations and offsets for climbing entities.
-     *
-     * @param accessor Interface for arthropod render state information.
+     * @param stateAccessor Interface for arthropod render state information.
      * @param poseStack The pose stack of the climbing entity.
      * @param bBHeight The bounding box height of the entity. Used for relative translations.
      */
-    private void setupClimberRotations(LivingEntityRenderStateAccessor accessor, PoseStack poseStack, float bBHeight) {
-        float progress = accessor.getClimbProgress();
+    private void setupScansorialEntityRotations(LivingEntityRenderStateAccessor stateAccessor, PoseStack poseStack, float bBHeight) {
+        float progress = stateAccessor.getClimbProgress();
         float yOffset;
         float zOffset;
 
         if (progress > climbProgressThreshold) {
-            if (!accessor.isJockey()) {
-                yOffset = 0.2F * progress;
-                zOffset = (-1.06F * bBHeight + 0.2F) * progress; // Linear function to prevent cave spiders from clipping into walls.
+            if (!stateAccessor.isJockey()) {
+                yOffset = 0.8F * progress;
+                zOffset = ((-1.06F * bBHeight + 0.2F) * 0.25F) * progress; // Linear function to prevent cave spiders from clipping into walls.
             } else {
-                yOffset = 0.5F * progress;
-                zOffset = -1.6F * progress;
+                yOffset = 0;
+                zOffset = -1.25F * progress;
             }
             poseStack.translate(0, yOffset, zOffset);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
-            poseStack.mulPose(Axis.YP.rotationDegrees(accessor.getClimbRotation() * progress));
+            poseStack.mulPose(Axis.YP.rotationDegrees(stateAccessor.getClimbRotation() * progress));
         }
     }
 }

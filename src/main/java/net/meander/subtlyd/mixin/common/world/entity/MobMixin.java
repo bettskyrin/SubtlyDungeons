@@ -108,7 +108,7 @@ public class MobMixin implements MobSD {
     }
 
     @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
-    private void setArthropodWallClimberNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
+    private void setScansorialArthropodNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
         if (OptionsSD.advancedEntityAnimations().get()) {
             Mob mob = (Mob) (Object) this;
 

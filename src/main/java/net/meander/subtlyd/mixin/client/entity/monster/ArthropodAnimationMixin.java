@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.entity.monster;
 
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.client.entity.monster.ClimberAccessor;
+import net.meander.subtlyd.client.entity.monster.ScansorialEntityAccessor;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,12 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Implements your ClimberAccessor Duck Interface onto the target bugs, 
- * calculating a smooth X-axis pitch rotation when they scale walls.
- */
 @Mixin({Silverfish.class, Endermite.class})
-public class ArthropodAnimationMixin implements ClimberAccessor {
+public class ArthropodAnimationMixin implements ScansorialEntityAccessor {
     private static final float ANIM_RATE = 0.2F;
     private float progOld;
     private float progNew;

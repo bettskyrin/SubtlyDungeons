@@ -16,6 +16,7 @@ public class EntityTypeTagsSD {
     public static final TagKey<EntityType<?>> CAN_BE_FULL = create("can_be_full");
     public static final TagKey<EntityType<?>> NOCTURNAL = create("nocturnal");
     public static final TagKey<EntityType<?>> FEAST_OR_FAMINE_HUNTER = create("feast_or_famine_hunter");
+    public static final TagKey<EntityType<?>> SCANSORIAL = create("scansorial");
 
     private static TagKey<EntityType<?>> create(String string) {
         return TagKey.create(Registries.ENTITY_TYPE, Util.identifier(string));

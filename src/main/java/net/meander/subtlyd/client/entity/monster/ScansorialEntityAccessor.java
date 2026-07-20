@@ -1,20 +1,20 @@
 package net.meander.subtlyd.client.entity.monster;
 
-public interface ClimberAccessor {
+public interface ScansorialEntityAccessor {
      /**
-     * Used for smoothing climber animations.
+     * Used for smoothing climbing animations.
      * @param partialTicks The partial ticks.
      * @return Value from 0.0 to 1.0 Representing the animation's completion.
      */
     float getClimbTransition(float partialTicks);
 
     /**
-     * @return The rotation angle of the climber entity.
+     * @return The rotation angle of the climbing entity.
      */
     float getRotation(float partialTicks);
 
     /**
-     * Used to move the targeted climber angle based on the targeted angle.
+     * Used to move the targeted climbing angle based on the targeted angle.
      * @param targetRot The target rotation.
      */
     void tickRotation(float targetRot);

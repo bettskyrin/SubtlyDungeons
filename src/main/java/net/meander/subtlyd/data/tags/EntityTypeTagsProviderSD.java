@@ -107,5 +107,10 @@ public class EntityTypeTagsProviderSD extends FabricTagsProvider.EntityTypeTagsP
         tag(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER)
                 .add(EntityTypeIds.WOLF)
                 .add(EntityTypeIds.POLAR_BEAR);
+        tag(EntityTypeTagsSD.SCANSORIAL)
+                .add(EntityTypeIds.SPIDER)
+                .add(EntityTypeIds.CAVE_SPIDER)
+                .add(EntityTypeIds.SILVERFISH)
+                .add(EntityTypeIds.ENDERMITE);
     }
 }

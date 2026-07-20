@@ -37,15 +37,15 @@ public class EntitySD {
 
     /**
      * Used for finding the rotation angle of a climbing entity.
-     * @param climber The climbing entity.
+     * @param scansorialEntity The climbing entity.
      * @param nearestWall The nearest climbable wall.
      * @return The angle of the climbing entity relative to the wall (yaw) in degrees.
      */
     @SuppressWarnings("SuspiciousNameCombination")
-    public static float getClimberRotation(Entity climber, Direction nearestWall, float oldYaw) {
+    public static float getScansorialEntityRotation(Entity scansorialEntity, Direction nearestWall, float oldYaw) {
         float yaw = oldYaw;
-        if (climber != null && nearestWall != null) {
-            Vec3 vel = climber.getDeltaMovement();
+        if (scansorialEntity != null && nearestWall != null) {
+            Vec3 vel = scansorialEntity.getDeltaMovement();
 
             if (vel.lengthSqr() > 0.0F) {
                 switch (nearestWall) {

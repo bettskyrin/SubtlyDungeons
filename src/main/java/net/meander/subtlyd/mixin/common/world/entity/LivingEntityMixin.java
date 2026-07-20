@@ -8,6 +8,7 @@ import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
+import net.meander.subtlyd.world.entity.EntitySD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
@@ -15,6 +16,7 @@ import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
@@ -37,8 +39,7 @@ import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Endermite;
-import net.minecraft.world.entity.monster.Silverfish;
+import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.food.FoodProperties;
@@ -61,6 +62,7 @@ import java.util.List;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
     private boolean wasAttackBlocked = false;
+    private boolean wasOnWall = false;
 
     private LivingEntityMixin(EntityType<?> type, Level level) {
         super(type, level);
@@ -164,14 +166,77 @@ public abstract class LivingEntityMixin extends Entity {
     }
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
-    private void applyArthropodWallClimbing(CallbackInfoReturnable<Boolean> cir) {
-        if (OptionsSD.advancedEntityAnimations().get()) {
-            LivingEntity entity = (LivingEntity) (Object) this;
+    private void setScansoriality(CallbackInfoReturnable<Boolean> cir) {
+        LivingEntity entity = (LivingEntity) (Object) this;
 
-            if (entity instanceof Silverfish || entity instanceof Endermite) {
-                if (entity.horizontalCollision) {
-                    cir.setReturnValue(true);
-                }
+        if (entity.is(EntityTypeTagsSD.SCANSORIAL) && !(entity instanceof Spider)) {
+            if (entity.horizontalCollision) {
+                cir.setReturnValue(true);
+            }
+        }
+    }
+
+    @Inject(method = "rideTick", at = @At("TAIL"))
+    private void updateJockeyClimbingDimensions(CallbackInfo ci) {
+        Entity vehicle = getVehicle();
+
+        if (vehicle != null && vehicle.is(EntityTypeTagsSD.SCANSORIAL)) {
+            Direction nearestWall = EntitySD.getNearestWall(vehicle);
+            boolean isOnWall = (nearestWall != null);
+
+            if (wasOnWall != isOnWall) {
+                wasOnWall = isOnWall;
+
+                refreshDimensions();
+            }
+        } else if (wasOnWall) {
+            wasOnWall = false;
+
+            refreshDimensions();
+        }
+    }
+
+    @Inject(method = "stopRiding", at = @At("TAIL"))
+    private void resetDimensionsOnDismount(CallbackInfo ci) {
+        if (wasOnWall) {
+            wasOnWall = false;
+
+            refreshDimensions();
+        }
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void updateClimbingDimensions(CallbackInfo ci) {
+        LivingEntity self = (LivingEntity) (Object) this;
+
+        if (self.is(EntityTypeTagsSD.SCANSORIAL)) {
+            Direction nearestWall = EntitySD.getNearestWall(self);
+            boolean isOnWall = (nearestWall != null);
+
+            if (wasOnWall != isOnWall) {
+                wasOnWall = isOnWall;
+
+                refreshDimensions();
+            }
+        }
+    }
+
+    @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
+    private void getClimbingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> cir) {
+        LivingEntity self = (LivingEntity) (Object) this;
+        Entity vehicle = self.getVehicle();
+        EntityDimensions original = cir.getReturnValue();
+
+        if (vehicle != null && vehicle.is(EntityTypeTagsSD.SCANSORIAL)) {
+            if (EntitySD.getNearestWall(vehicle) != null) {
+                cir.setReturnValue(EntityDimensions.scalable(original.width(), original.width()));
+                return;
+            }
+        }
+
+        if (self.is(EntityTypeTagsSD.SCANSORIAL)) {
+            if (EntitySD.getNearestWall(self) != null) {
+                cir.setReturnValue(EntityDimensions.scalable(original.height(), original.width()));
             }
         }
     }
