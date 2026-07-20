@@ -286,6 +286,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
+- Fixed bug preventing Redstone comparisions to work with Potion Cauldrons
+- Fixed bug that caused Water Bottles to completely fill Cauldrons
 
 ## [4.0 Magical Madness Update] - 6/16/26
 ### New Features
