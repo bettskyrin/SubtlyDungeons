@@ -70,3 +70,4 @@
 - Fixed bug preventing snowfall from snowlogging blocks
 - Fixed bug causing Frozen Rivers to not be fully frozen after world generation
 - Fixed bug causing empty snow patches in snowy biomes
+- Fixed bug causing a crash after attempting to spectate non-player entities

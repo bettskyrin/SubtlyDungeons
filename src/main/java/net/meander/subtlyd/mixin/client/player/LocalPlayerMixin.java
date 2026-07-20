@@ -18,13 +18,12 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class LocalPlayerMixin {
     @ModifyReturnValue(method = "raycastHitResult", at = @At("RETURN"))
     private HitResult swingThroughFoliage(HitResult hitResult, float a, Entity cameraEntity) {
-        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHit) {
-            LocalPlayer player = (LocalPlayer) cameraEntity;
+        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHit && cameraEntity instanceof LocalPlayer player) {
             ItemStack mainHand = player.getMainHandItem();
 
             if (mainHand.has(DataComponents.WEAPON)) {
-
                 double actualReach = player.entityInteractionRange();
+
                 if (mainHand.has(DataComponents.ATTACK_RANGE)) {
                     AttackRange attackRange = mainHand.get(DataComponents.ATTACK_RANGE);
                     if (attackRange != null) {
