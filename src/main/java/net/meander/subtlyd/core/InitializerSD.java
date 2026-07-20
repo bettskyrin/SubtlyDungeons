@@ -4,6 +4,7 @@ import net.fabricmc.api.ModInitializer;
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
+import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
@@ -32,6 +33,7 @@ public class InitializerSD implements ModInitializer {
     private void server() {
         SynchedEntityDataSD.registration();
         PacketNetworking.registerCommon();
+        ParticleTypesSD.registerServer();
     }
 
     private void gameplay() {

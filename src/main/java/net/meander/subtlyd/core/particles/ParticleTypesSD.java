@@ -21,10 +21,12 @@ public class ParticleTypesSD {
     public static final SimpleParticleType SPORE_CLOUD = register("spore_cloud", false);
     public static final SimpleParticleType BLADE_CLASH = register("blade_clash", false);
 
-    public static void registration() {
+    public static void registerClient() {
         ParticleProviderRegistry.getInstance().register(SPORE_CLOUD, SporeCloudParticle.Provider::new);
         ParticleProviderRegistry.getInstance().register(BLADE_CLASH, BladeClashParticle.Provider::new);
     }
+
+    public static void registerServer() {}
 
     private static SimpleParticleType register(final String name, final boolean overrideLimiter) {
         return Registry.register(BuiltInRegistries.PARTICLE_TYPE, Util.identifier(name), FabricParticleTypes.simple(overrideLimiter));

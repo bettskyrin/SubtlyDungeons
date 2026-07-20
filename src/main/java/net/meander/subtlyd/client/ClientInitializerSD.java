@@ -24,7 +24,7 @@ public class ClientInitializerSD implements ClientModInitializer {
         ModelLayersSD.registration();
         SpecialModelRenderersSD.bootstrap();
         BlockColorsSD.registration();
-        ParticleTypesSD.registration();
+        ParticleTypesSD.registerClient();
         EntityRenderersSD.registration();
     }
 
