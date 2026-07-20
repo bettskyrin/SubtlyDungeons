@@ -7,6 +7,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 /**
@@ -23,7 +24,7 @@ public class AmbientGrassyBlockSoundsPlayer {
     }
 
     public static boolean shouldPlayInsectSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (!level.isRaining() && BiomeSD.getTemperatureAsVariantType(level, blockPos) != TemperatureVariants.COLD) {
+        if (!level.isRaining() && BiomeSD.getTemperatureAsVariantType(level, blockPos) != TemperatureVariants.COLD && !level.getBiome(blockPos).is(Biomes.PALE_GARDEN)) {
             if (level.isDarkOutside() && randomSource.nextInt(IDLE_SOUND_CHANCE_NIGHT) == 0) {
                 return true;
             } else {

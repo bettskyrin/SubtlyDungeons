@@ -2,6 +2,9 @@
 
 ### New Features
 ### Changes
+#### Sounds
+- Removed ambient Tall Grass block sounds from Pale Gardens
+
 #### Settings
 - Added a warning for disabling advanced entity animations
 

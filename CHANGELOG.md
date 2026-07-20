@@ -87,7 +87,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 #### Sounds
 - Added ambient Leaves block sounds
-- Added ambient Short Grass block sounds
+- Added ambient Tall Grass block sounds
 - Added ambient Red Shrub sounds
 
 
