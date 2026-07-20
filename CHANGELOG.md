@@ -289,6 +289,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed bug preventing Redstone comparisions to work with Potion Cauldrons
 - Fixed bug that caused Water Bottles to completely fill Cauldrons
 
+## [4.2 Hotfix] - 7/15/26
+- Fixed a crash causing servers to crash when using a Blast Fungus
+
+## [4.1 Hotfix] - 6/21/26
+- Fixed bug allowing Blast Fungi to damage blocks
+- Fixed bug preventing Anvil enchanting
+
 ## [4.0 Magical Madness Update] - 6/16/26
 ### New Features
 #### Enchantments
