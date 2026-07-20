@@ -383,6 +383,7 @@ public class WorldGeneratorSD implements DataProvider {
             swamp();
             forest();
             plains();
+            savanna();
         }
 
         private static void swamp() {
@@ -440,6 +441,10 @@ public class WorldGeneratorSD implements DataProvider {
                         biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.WILDFLOWERS_MEADOW);
                         biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.WILDFLOWERS_MEADOW);
                     });
+        }
+
+        private static void savanna() {
+            BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.BAOBAB);
         }
 
         private static void fog() {

@@ -1,6 +1,12 @@
 ## [5.0 Snapshot 4] - UNRELEASED
 
 ### New Features
+#### World Generation
+##### Savanna
+- Added Baobab trees
+  - Similarly to Pine trees, these trees do not have a unique wood type, but are a special type of Acacia tree
+  - Can be grown from a 2x2 of Acacia saplings
+
 ### Changes
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens

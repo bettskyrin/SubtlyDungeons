@@ -16,6 +16,7 @@ import net.meander.subtlyd.data.tags.*;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.data.worldgen.features.AquaticFeaturesSD;
 import net.meander.subtlyd.data.worldgen.features.FeatureProvider;
+import net.meander.subtlyd.data.worldgen.features.TreeFeaturesSD;
 import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
@@ -73,6 +74,7 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
+        registryBuilder.add(Registries.FEATURE, TreeFeaturesSD::bootstrap);
         registryBuilder.add(Registries.FEATURE, AquaticFeaturesSD::bootstrap);
         registryBuilder.add(Registries.FEATURE, VegetationFeaturesSD::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, AquaticPlacementsSD::bootstrap);

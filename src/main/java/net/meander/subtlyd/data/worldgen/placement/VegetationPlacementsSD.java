@@ -1,5 +1,6 @@
 package net.meander.subtlyd.data.worldgen.placement;
 
+import net.meander.subtlyd.data.worldgen.features.TreeFeaturesSD;
 import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
@@ -9,6 +10,7 @@ import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.Util;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.Feature;
@@ -26,6 +28,7 @@ public class VegetationPlacementsSD {
     public static final ResourceKey<PlacedFeature> WILDFLOWERS_BIRCH_FOREST = PlacementUtilsSD.createKey("wildflowers_birch_forest");
     public static final ResourceKey<PlacedFeature> WILDFLOWERS_MEADOW = PlacementUtilsSD.createKey("wildflowers_meadow");
     public static final ResourceKey<PlacedFeature> DARK_FOREST_VEGETATION = PlacementUtilsSD.createKey("dark_forest_vegetation");
+    public static final ResourceKey<PlacedFeature> BAOBAB = PlacementUtilsSD.createKey("baobab");
 
     public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<Feature> configuredFeatures = context.lookup(Registries.FEATURE);
@@ -104,6 +107,16 @@ public class VegetationPlacementsSD {
                             treeThreshold,
                             PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
                             BiomeFilter.biome()
+                    )
+                )
+        );
+
+        context.register(BAOBAB,
+                new PlacedFeature(
+                    configuredFeatures.getOrThrow(TreeFeaturesSD.BAOBAB),
+                    VegetationPlacements.treePlacement(
+                            PlacementUtils.countExtra(0, 0.05F, 1),
+                            Blocks.ACACIA_SAPLING
                     )
                 )
         );
