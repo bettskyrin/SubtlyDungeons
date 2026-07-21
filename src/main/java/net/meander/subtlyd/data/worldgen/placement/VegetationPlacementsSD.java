@@ -115,7 +115,7 @@ public class VegetationPlacementsSD {
                 new PlacedFeature(
                     configuredFeatures.getOrThrow(TreeFeaturesSD.BAOBAB),
                     VegetationPlacements.treePlacement(
-                            PlacementUtils.countExtra(0, 0.05F, 1),
+                            PlacementUtils.countExtra(0, 0.02F, 1),
                             Blocks.ACACIA_SAPLING
                     )
                 )
