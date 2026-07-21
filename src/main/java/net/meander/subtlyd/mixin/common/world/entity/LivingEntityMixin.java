@@ -16,6 +16,7 @@ import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
+import net.meander.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -81,7 +82,7 @@ public abstract class LivingEntityMixin extends Entity {
      * @param victim The animal being attacked.
      * @param attacker The attacking entity.
      */
-    private void shareHerdPanic(LivingEntity victim, LivingEntity attacker) {
+    private void shareFlockPanic(LivingEntity victim, LivingEntity attacker) {
         final double RADIUS = 16.0F;
         AABB searchAabb = victim.getBoundingBox().inflate(RADIUS);
         List<? extends LivingEntity> herd = victim.level().getEntitiesOfClass(Animal.class, searchAabb);
@@ -107,11 +108,13 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        LivingEntity livingEntity = (LivingEntity) (Object) this;
+        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+            LivingEntity livingEntity = (LivingEntity) (Object) this;
 
-        if (!livingEntity.level().isClientSide() && cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
-            if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
-                shareHerdPanic(livingEntity, attacker);
+            if (cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
+                if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
+                    shareFlockPanic(livingEntity, attacker);
+                }
             }
         }
     }
@@ -132,10 +135,14 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "die", at = @At("HEAD"))
     private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
-        if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
-            long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
+        if (level() instanceof ServerLevel level) {
+            if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+                if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+                    long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
 
-            ((MobSD) predator).setHuntingCooldownTicks(predator.level().getGameTime() + cooldownTicks);
+                    ((MobSD) predator).setHuntingCooldownTicks(predator.level().getGameTime() + cooldownTicks);
+                }
+            }
         }
     }
 
@@ -144,21 +151,23 @@ public abstract class LivingEntityMixin extends Entity {
      */
     @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
     private void consumePrey(ServerLevel level, DamageSource source, CallbackInfo ci) {
-        if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
-            if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
-                LivingEntity livingEntity = (LivingEntity) (Object) this;
-                List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));
+        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+            if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+                if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
+                    LivingEntity livingEntity = (LivingEntity) (Object) this;
+                    List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));
 
-                for (ItemEntity droppedItem : drops) {
-                    ItemStack stack = droppedItem.getItem();
+                    for (ItemEntity droppedItem : drops) {
+                        ItemStack stack = droppedItem.getItem();
 
-                    if (stack.has(DataComponents.FOOD) && (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES))) {
-                        FoodProperties food = stack.get(DataComponents.FOOD);
+                        if (stack.has(DataComponents.FOOD) && (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES))) {
+                            FoodProperties food = stack.get(DataComponents.FOOD);
 
-                        if (food != null) {
-                            predator.heal(food.nutrition() * stack.getCount());
+                            if (food != null) {
+                                predator.heal(food.nutrition() * stack.getCount());
+                            }
+                            droppedItem.discard();
                         }
-                        droppedItem.discard();
                     }
                 }
             }

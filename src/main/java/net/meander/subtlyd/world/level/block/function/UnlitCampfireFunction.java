@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +29,7 @@ public class UnlitCampfireFunction implements UseBlockCallback {
             itemStack.consume(1, player);
             level.playSound(null, blockPos, SoundEventsSD.STICK_LIGHT, SoundSource.BLOCKS);
 
-            if (!level.isClientSide()) {
+            if (level instanceof ServerLevel) {
                 if (level.getRandom().nextFloat() > 0.7F) {
                     level.setBlock(blockPos, blockState.setValue(CampfireBlock.LIT, true), 3);
                 }

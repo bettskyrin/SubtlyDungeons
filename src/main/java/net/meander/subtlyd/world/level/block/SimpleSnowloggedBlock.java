@@ -3,6 +3,7 @@ package net.meander.subtlyd.world.level.block;
 import net.meander.subtlyd.world.block.state.BlockStateSD;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -51,7 +52,7 @@ public interface SimpleSnowloggedBlock {
                 }
 
                 if (layers < MAX_LAYERS) {
-                    if (!level.isClientSide()) {
+                    if (level instanceof ServerLevel) {
                         BlockState snowloggedState = state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layers == 0 ? 1 : layers + 1);
 
                         if (snowloggedState.hasProperty(BlockStateProperties.SNOWY)) {

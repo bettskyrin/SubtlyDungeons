@@ -155,6 +155,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
+        translationBuilder.add("gamerule.subtlyd.smart_mobs", "Allow advanced mob behaviors");
 
         translationBuilder.add("item.minecraft.lingering_potion.effect.decay", "Lingering Potion of Decay");
         translationBuilder.add("item.minecraft.potion.effect.decay", "Potion of Decay");

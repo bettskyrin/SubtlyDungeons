@@ -4,6 +4,7 @@ import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
@@ -27,9 +28,8 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
-        final Level level = arrow.level();
 
-        if (!level.isClientSide() && arrow.isOnFire() && arrow.tickCount == 1) {
+        if (arrow.level() instanceof ServerLevel && arrow.isOnFire() && arrow.tickCount == 1) {
             playFlameShootSound(arrow);
         }
     }
@@ -37,9 +37,8 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "onHitBlock", at = @At("RETURN"))
     private void onHitBlock(final BlockHitResult hitResult, CallbackInfo ci) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
-        final Level level = arrow.level();
 
-        if (!level.isClientSide() && arrow.isOnFire()) {
+        if (arrow.level() instanceof ServerLevel && arrow.isOnFire()) {
             playFlameHitSound(arrow);
         }
         trySetFire(hitResult);
@@ -48,9 +47,8 @@ public abstract class AbstractArrowMixin {
     @Inject(method = "onHitEntity", at = @At("RETURN"))
     private void onHitEntity(EntityHitResult hitResult, CallbackInfo ci) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
-        final Level level = arrow.level();
 
-        if (!level.isClientSide() && arrow.isOnFire()) {
+        if (arrow.level() instanceof ServerLevel && arrow.isOnFire()) {
             playFlameHitSound(arrow);
         }
     }

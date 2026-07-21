@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.ItemTags;
@@ -25,7 +26,7 @@ public class SnowloggedBlockAttackFunction implements AttackBlockCallback {
             int layers = blockState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
-                if (!level.isClientSide()) {
+                if (level instanceof ServerLevel) {
                     ItemStack tool = player.getItemInHand(interactionHand);
 
                     if (tool.is(ItemTags.SHOVELS) && !player.hasInfiniteMaterials()) {

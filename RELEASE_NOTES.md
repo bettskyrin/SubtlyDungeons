@@ -7,6 +7,11 @@
   - Similarly to Pine trees, these trees do not have a unique wood type, but are a special type of Acacia tree
   - Can be grown from a 2x2 of Acacia saplings
 
+#### Game Rules
+- Added Smart Mobs gamerule
+  - Toggles advanced mob behavior (like flock panicking)
+  - Does not include wall climbing hitbox adjustments
+
 ### Changes
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
