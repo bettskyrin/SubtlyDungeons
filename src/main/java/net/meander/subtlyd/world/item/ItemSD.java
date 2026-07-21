@@ -130,7 +130,7 @@ public abstract class ItemSD extends Item {
 
     public static class PropertiesSD extends Properties {
         public Item.Properties dagger(final ToolMaterial material, final float attackDamageBaseline, final float attackSpeedBaseline, final float stealthDamageBonus) {
-            return this.durability(material.durability())
+            return durability(material.durability())
                     .repairable(material.repairItems())
                     .enchantable(material.enchantmentValue())
                     .component(DataComponents.ATTACK_RANGE, new AttackRange(0.0F, 2.5F, 0.0F, 3.0F, 0.1F, 0.2F))

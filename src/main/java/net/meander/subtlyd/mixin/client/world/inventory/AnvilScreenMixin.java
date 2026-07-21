@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(AnvilScreen.class)
 public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
     @Shadow @Final private Player player;
-    private int color = -8323296;
+    private int textColor = -8323296;
 
     public AnvilScreenMixin(AnvilMenu menu, Inventory inventory, Component title, Identifier menuResource) {
         super(menu, inventory, title, menuResource);
@@ -48,18 +48,18 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
 
             if (magicLevel > magicLimit) {
                 if (isEnchanting) {
-                    color = -40864;
+                    textColor = -40864;
                     return Component.translatable("container.repair.unenchantable");
                 }
             }
 
             if (repairCost >= repairLimit) {
-                color = -40864;
+                textColor = -40864;
                 return Component.translatable("container.repair.unfixable");
             }
 
-            if (!menu.getSlot(2).mayPickup(this.player)) {
-                color = -40864;
+            if (!menu.getSlot(2).mayPickup(player)) {
+                textColor = -40864;
             }
             return Component.translatable("container.repair.cost", menu.getCost());
         }
@@ -68,6 +68,6 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
 
     @ModifyVariable(method = "extractLabels", at = @At(value = "STORE"), name = "color")
     private int modifyColor(int color) {
-        return this.color;
+        return textColor;
     }
 }

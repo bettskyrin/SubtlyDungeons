@@ -6,6 +6,7 @@ import net.meander.subtlyd.world.level.LevelSD;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -40,17 +41,17 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
     }
 
     private ParticleOptions getParticle() {
-        ItemStack item = this.getItem();
+        ItemStack item = getItem();
         return item.isEmpty() ? ParticleTypes.CRIMSON_SPORE : new ItemParticleOption(ParticleTypes.ITEM, ItemStackTemplate.fromNonEmptyStack(item));
     }
 
     @Override
     public void handleEntityEvent(final byte id) {
         if (id == 3) {
-            ParticleOptions particle = this.getParticle();
+            ParticleOptions particle = getParticle();
 
             for (int i = 0; i < 8; i++) {
-                this.level().addParticle(particle, this.getX(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+                level().addParticle(particle, getX(), getY(), getZ(), 0.0, 0.0, 0.0);
             }
         }
     }
@@ -64,16 +65,16 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(final HitResult hitResult) {
         super.onHit(hitResult);
-        if (!this.level().isClientSide()) {
-            this.level().broadcastEntityEvent(this, (byte)3);
+        if (level() instanceof ServerLevel) {
+            level().broadcastEntityEvent(this, (byte)3);
             explodeFungus();
-            this.discard();
+            discard();
         }
     }
 
     private void explodeFungus() {
-        this.level().explode(this,
-                Explosion.getDefaultDamageSource(this.level(), this.getOwner()),
+        level().explode(this,
+                Explosion.getDefaultDamageSource(level(), getOwner()),
                 new ExplosionDamageCalculator() {
                     @Override
                     public float getKnockbackMultiplier(Entity entity) {
@@ -90,9 +91,9 @@ public class BlastFungusEntity extends ThrowableItemProjectile {
                         return (pow * pow + pow) / 2.0F * 7.0F * diameter + 1.0F;
                     }
                 },
-                this.getX(),
-                this.getY(),
-                this.getZ(),
+                getX(),
+                getY(),
+                getZ(),
                 4.0F,
                 false,
                 Level.ExplosionInteraction.NONE,

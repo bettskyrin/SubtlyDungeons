@@ -29,12 +29,12 @@ public abstract class PolarBearMixin extends Animal {
 
                 @Override
                 public boolean canUse() {
-                    return this.mob.isInWater() && super.canUse();
+                    return mob.isInWater() && super.canUse();
                 }
 
                 @Override
                 public boolean canContinueToUse() {
-                    return this.mob.isInWater() && super.canContinueToUse();
+                    return mob.isInWater() && super.canContinueToUse();
                 }
             });
 
@@ -42,12 +42,12 @@ public abstract class PolarBearMixin extends Animal {
 
                 @Override
                 public boolean canUse() {
-                    return this.mob.isInWater() && super.canUse();
+                    return mob.isInWater() && super.canUse();
                 }
 
                 @Override
                 public boolean canContinueToUse() {
-                    return this.mob.isInWater() && super.canContinueToUse();
+                    return mob.isInWater() && super.canContinueToUse();
                 }
             });
         }

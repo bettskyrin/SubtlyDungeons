@@ -76,7 +76,7 @@ public abstract class AbstractArrowMixin {
         boolean bl = !arrow.isNoPhysics();
         if (level.getServer() != null && level.getServer().getGameRules().get(GameRulesSD.ARROW_ARSON)) {
             if (!(!level.getServer().getGameRules().get(GameRules.MOB_GRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
-                if ((arrow.isOnFire() && this.isInGround()) && bl) {
+                if ((arrow.isOnFire() && isInGround()) && bl) {
                     setFire(hitResult);
                 }
             }

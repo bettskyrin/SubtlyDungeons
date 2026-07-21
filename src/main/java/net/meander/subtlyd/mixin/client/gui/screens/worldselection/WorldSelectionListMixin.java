@@ -47,7 +47,7 @@ public class WorldSelectionListMixin {
         private void loadRecreateSettings(CallbackInfo ci) {
             Path oldWorldDir = Minecraft.getInstance().gameDirectory.toPath()
                     .resolve("saves")
-                    .resolve(this.summary.getLevelId());
+                    .resolve(summary.getLevelId());
 
             TailoredWorldGenSettings.loadSettingsFromFile(oldWorldDir);
         }
@@ -63,7 +63,7 @@ public class WorldSelectionListMixin {
         @ModifyArg(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
         private int modifyWorldIconFillWidth(int x0) {
             if (canChangeUi) {
-                return this.getContentX() + ICON_WIDTH;
+                return getContentX() + ICON_WIDTH;
             }
             return x0;
         }
@@ -74,7 +74,7 @@ public class WorldSelectionListMixin {
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
             if (canChangeUi) {
-                return isMouseWithin(mouseX, mouseY, this.getContentX() + ICON_WIDTH, this.getContentY() + size);
+                return isMouseWithin(mouseX, mouseY, getContentX() + ICON_WIDTH, getContentY() + size);
             }
             return instance.mouseOverIcon(relX, relY, size);
         }
@@ -82,16 +82,16 @@ public class WorldSelectionListMixin {
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
         private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
             if (canChangeUi) {
-                int MID_ICON = this.getContentX() + ICON_WIDTH / 4;
+                int MID_ICON = getContentX() + ICON_WIDTH / 4;
 
-                instance.blitSprite(renderPipeline, location, MID_ICON, this.getContentY(), width, height);
+                instance.blitSprite(renderPipeline, location, MID_ICON, getContentY(), width, height);
             }
         }
 
         @Inject(method = "getTextX", at = @At("RETURN"), cancellable = true)
         private void extendTextWidth(CallbackInfoReturnable<Integer> cir) {
             if (canChangeUi) {
-                cir.setReturnValue(this.getContentX() + ICON_WIDTH + 3);
+                cir.setReturnValue(getContentX() + ICON_WIDTH + 3);
             }
         }
 
@@ -101,7 +101,7 @@ public class WorldSelectionListMixin {
         @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsClickedIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final MouseButtonEvent event, final boolean doubleClick) {
             if (canChangeUi) {
-                return isMouseWithin((int) event.x(), (int) event.y(), this.getContentX() + ICON_WIDTH, this.getContentY() + ICON_HEIGHT);
+                return isMouseWithin((int) event.x(), (int) event.y(), getContentX() + ICON_WIDTH, getContentY() + ICON_HEIGHT);
             }
             return instance.mouseOverIcon(relX, relY, size);
         }
@@ -115,9 +115,9 @@ public class WorldSelectionListMixin {
          * @return Whether the mouse is within this rectangle or not.
          */
         private boolean isMouseWithin(int mouseX, int mouseY, int right, int top) {
-            return mouseX >= this.getContentX()
+            return mouseX >= getContentX()
                     && mouseX < right
-                    && mouseY >= this.getContentY()
+                    && mouseY >= getContentY()
                     && mouseY < top;
         }
     }

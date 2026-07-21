@@ -6,15 +6,15 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(EntityRenderState.class)
 public class EntityRenderStateMixin implements EntityRenderStateAccessor {
-    private boolean isWitherSkull;
+    private boolean isOnSoulFire;
 
     @Override
     public boolean isOnSoulFire() {
-        return isWitherSkull;
+        return isOnSoulFire;
     }
 
     @Override
     public void setSoulFire(boolean isOnSoulFire) {
-        this.isWitherSkull = isOnSoulFire;
+        this.isOnSoulFire = isOnSoulFire;
     }
 }

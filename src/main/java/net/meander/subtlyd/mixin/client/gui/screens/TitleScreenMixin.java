@@ -103,8 +103,8 @@ public class TitleScreenMixin extends Screen {
         if (canChangeUi) {
             int AVATAR_SCALE = 40;
 
-            if (!this.fading) {
-                GuiPlayerRenderer.renderPlayer(graphics, this.width / 2 + 170, this.height / 4 + 132, AVATAR_SCALE, mouseX, mouseY);
+            if (!fading) {
+                GuiPlayerRenderer.renderPlayer(graphics, width / 2 + 170, height / 4 + 132, AVATAR_SCALE, mouseX, mouseY);
             }
         }
     }

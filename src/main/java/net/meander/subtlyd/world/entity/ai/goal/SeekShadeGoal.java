@@ -25,7 +25,7 @@ public class SeekShadeGoal extends Goal {
     public SeekShadeGoal(PathfinderMob mob, double speedModifier) {
         this.mob = mob;
         this.speedModifier = speedModifier;
-        this.setFlags(EnumSet.of(Flag.MOVE));
+        setFlags(EnumSet.of(Flag.MOVE));
     }
 
     /**
@@ -39,6 +39,7 @@ public class SeekShadeGoal extends Goal {
             shadeX = foundShadePos.x;
             shadeY = foundShadePos.y;
             shadeZ = foundShadePos.z;
+
             return true;
         }
         return false;

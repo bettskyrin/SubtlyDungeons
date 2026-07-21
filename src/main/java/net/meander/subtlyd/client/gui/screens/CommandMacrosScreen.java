@@ -19,13 +19,13 @@ import net.minecraft.network.chat.Component;
 import java.util.List;
 
 public class CommandMacrosScreen extends Screen {
-    private final Screen parent;
+    private final Screen lastScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
     private MacroList list;
 
-    public CommandMacrosScreen(Screen parent) {
+    public CommandMacrosScreen(Screen lastScreen) {
         super(Component.translatable("options.command_macros.title"));
-        this.parent = parent;
+        this.lastScreen = lastScreen;
     }
 
     @Override
@@ -55,11 +55,11 @@ public class CommandMacrosScreen extends Screen {
             CommandMacroManager.macros.set(i, list.children().get(i).getValue());
         }
         CommandMacroManager.save();
-        minecraft.setScreenAndShow(parent);
+        minecraft.setScreenAndShow(lastScreen);
     }
 
     private void onCancel() {
-        minecraft.setScreenAndShow(parent);
+        minecraft.setScreenAndShow(lastScreen);
     }
 
     @Override
@@ -84,7 +84,7 @@ public class CommandMacrosScreen extends Screen {
             Component altKey = Component.translatable("key.keyboard.left.alt");
 
             for (int i = 0; i < 10; i++) {
-                this.addEntry(new MacroEntry(i, altKey));
+                addEntry(new MacroEntry(i, altKey));
             }
         }
 

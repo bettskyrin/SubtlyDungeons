@@ -22,7 +22,7 @@ public class WarpedOverhangBlock extends Block {
 
     @Override
     public BlockState updateShape(final BlockState state, final LevelReader level, final ScheduledTickAccess ticks, final BlockPos pos, final Direction directionToNeighbour, final BlockPos neighbourPos, final BlockState neighbourState, final RandomSource random) {
-        if (directionToNeighbour == Direction.UP && !this.canSurvive(state, level, pos)) {
+        if (directionToNeighbour == Direction.UP && !canSurvive(state, level, pos)) {
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(state, level, ticks, pos, directionToNeighbour, neighbourPos, neighbourState, random);

@@ -17,14 +17,14 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * @return The progress of the climb animation.
      */
     @Override public float getClimbProgress() {
-        return this.climbProgress;
+        return climbProgress;
     }
 
     /**
      * @return The desired rotation angle.
      */
     @Override public float getClimbRotation() {
-        return this.climbRotation;
+        return climbRotation;
     }
 
     /**
@@ -39,7 +39,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * @param progress The desired progress value.
      */
     @Override public void setClimbProgress(float progress) {
-        this.climbProgress = progress;
+        climbProgress = progress;
     }
 
     /**
@@ -47,7 +47,7 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * @param rotation The desired rotation angle.
      */
     @Override public void setClimbRotation(float rotation) {
-        this.climbRotation = rotation;
+        climbRotation = rotation;
     }
 
     /**
@@ -55,6 +55,6 @@ public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAcce
      * @param bl The isJockey status.
      */
     @Override public void setIsJockey(boolean bl) {
-        this.isJockey = bl;
+        isJockey = bl;
     }
 }

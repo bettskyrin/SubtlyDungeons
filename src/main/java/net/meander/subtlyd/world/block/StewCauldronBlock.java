@@ -27,7 +27,7 @@ public class StewCauldronBlock extends AbstractCauldronBlock implements EntityBl
 
     public StewCauldronBlock(Properties properties) {
         super(properties, CauldronInteractionsSD.INCOMPLETE_STEW);
-        this.registerDefaultState(this.stateDefinition.any().setValue(LEVEL, 3).setValue(IS_HEAVY_STEW, false));
+        registerDefaultState(stateDefinition.any().setValue(LEVEL, 3).setValue(IS_HEAVY_STEW, false));
     }
 
     @Override

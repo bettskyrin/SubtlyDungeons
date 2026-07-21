@@ -40,8 +40,8 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private AbstractSliderButton erosionSlider;
 
 
-    public TailoredWorldGenSettingsScreen(Screen parent) {
-        lastScreen = parent;
+    public TailoredWorldGenSettingsScreen(Screen lastScreen) {
+        this.lastScreen = lastScreen;
         initialMaster = TailoredWorldGenSettings.masterScale;
         initialContinent = TailoredWorldGenSettings.continentScale;
         initialBiome = TailoredWorldGenSettings.biomeScale;

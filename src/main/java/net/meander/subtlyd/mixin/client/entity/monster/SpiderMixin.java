@@ -52,7 +52,7 @@ public abstract class SpiderMixin implements ScansorialEntityAccessor {
 
                     livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
                     if (livingEntity.tickCount % 8 == 0) {
-                        this.playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
+                        playStepSound(livingEntity.blockPosition(), livingEntity.level().getBlockState(livingEntity.blockPosition().offset(livingEntity.getDirection().getUnitVec3i())));
                     }
                 }
             } else {
@@ -64,8 +64,7 @@ public abstract class SpiderMixin implements ScansorialEntityAccessor {
     }
 
     public boolean isChangingHeight() {
-        LivingEntity livingEntity = ((LivingEntity) (Object) this);
-        return livingEntity.getY() != yOld;
+        return ((LivingEntity) (Object) this).getY() != yOld;
     }
 
     /**

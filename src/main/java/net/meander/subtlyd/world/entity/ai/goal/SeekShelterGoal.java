@@ -20,7 +20,7 @@ public class SeekShelterGoal extends Goal {
     public SeekShelterGoal(PathfinderMob mob, double speedModifier) {
         this.mob = mob;
         this.speedModifier = speedModifier;
-        this.setFlags(EnumSet.of(Flag.MOVE));
+        setFlags(EnumSet.of(Flag.MOVE));
     }
 
     /**
