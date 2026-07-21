@@ -21,6 +21,7 @@ public class BlockTagsSD {
     public static final TagKey<Block> TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS = create("triggers_ambient_bush_block_sounds");
     public static final TagKey<Block> TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS = create("triggers_ambient_grass_block_sounds");
     public static final TagKey<Block> TALL_PLANTS = create("tall_plants");
+    public static final TagKey<Block> SILENT_FOLIAGE = create("silent_foliage");
 
     private static TagKey<Block> create(String string) {
         return TagKey.create(Registries.BLOCK, Util.identifier(string));

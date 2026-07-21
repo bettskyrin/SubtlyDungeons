@@ -165,5 +165,7 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.IRON_GRATE.block());
         tag(BlockTags.DRAGON_IMMUNE)
                 .add(BlockItemIdsSD.IRON_GRATE.block());
+        tag(BlockTagsSD.SILENT_FOLIAGE)
+                .add(BlockItemIds.PALE_OAK_LEAVES.block());
     }
 }

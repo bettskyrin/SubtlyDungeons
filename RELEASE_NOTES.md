@@ -10,6 +10,7 @@
 ### Changes
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
+- Removed ambient Pale Oak Leaves block sounds
 
 #### Settings
 - Added a warning for disabling advanced entity animations
@@ -21,3 +22,4 @@
 
 #### Data Tags
 - Added `scansorial` entity type tag
+- Added `silent_foliage` block tag
