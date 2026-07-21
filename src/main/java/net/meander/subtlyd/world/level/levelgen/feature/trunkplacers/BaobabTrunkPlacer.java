@@ -41,7 +41,16 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 		for (int dx = -1; dx <= 2; dx++) {
 			for (int dz = -1; dz <= 2; dz++) {
-				placeBelowTrunkBlock(level, trunkSetter, random, below.offset(dx, 0, dz), tree);
+				BlockPos.MutableBlockPos basePos = below.offset(dx, 0, dz).mutable();
+
+				for (int drop = 0; drop < 5; drop++) {
+					boolean placed = placeLog(level, trunkSetter, random, basePos, tree);
+					if (placed) {
+						basePos.move(Direction.DOWN);
+					} else {
+						break;
+					}
+				}
 			}
 		}
 
@@ -55,9 +64,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 					BlockPos pos = new BlockPos(x + dx, y + dy, z + dz);
 
-					if (TreeFeature.isAirOrLeaves(level, pos)) {
-						placeLog(level, trunkSetter, random, pos, tree);
-					}
+					placeLog(level, trunkSetter, random, pos, tree);
 				}
 			}
 		}
