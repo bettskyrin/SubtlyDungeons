@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
+import net.meander.subtlyd.network.syncher.EntityDataAccessors;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.entity.ZombieSD;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.DrownedRenderer;
@@ -42,7 +42,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
     private void extractLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        boolean isLeader = entity.getEntityData().get(ZombieSD.DATA_ID_ZOMBIE_LEADER);
+        boolean isLeader = entity.getEntityData().get(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER);
 
         ((UndeadRenderStateAccessor) state).setLeader(isLeader);
     }

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.monster;
 
-import net.meander.subtlyd.world.entity.ZombieSD;
+import net.meander.subtlyd.network.syncher.EntityDataAccessors;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.level.storage.ValueInput;
@@ -16,19 +16,19 @@ public abstract class ZombieMixin {
     private void setLeader(CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
 
-        zombie.getEntityData().set(ZombieSD.DATA_ID_ZOMBIE_LEADER, true);
+        zombie.getEntityData().set(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER, true);
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineLeaderData(SynchedEntityData.Builder entityData, CallbackInfo ci) {
-        entityData.define(ZombieSD.DATA_ID_ZOMBIE_LEADER, false);
+        entityData.define(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void saveLeaderData(ValueOutput output, CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
 
-        output.putBoolean("IsLeader", zombie.getEntityData().get(ZombieSD.DATA_ID_ZOMBIE_LEADER));
+        output.putBoolean("IsLeader", zombie.getEntityData().get(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
@@ -36,7 +36,7 @@ public abstract class ZombieMixin {
         Zombie zombie = (Zombie) (Object) this;
 
         if (input.contains("IsLeader")) {
-            zombie.getEntityData().set(ZombieSD.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("IsLeader", false));
+            zombie.getEntityData().set(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("IsLeader", false));
         }
     }
 }
