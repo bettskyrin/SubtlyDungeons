@@ -54,9 +54,6 @@ public class PlayerMixin {
         itemStack.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
     }
 
-    /**
-     * Wakes up the player once it's daytime
-     */
     private void tickTentSleep() {
         final Player player = (Player) (Object) this;
 

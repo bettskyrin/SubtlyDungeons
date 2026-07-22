@@ -11,6 +11,7 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 public abstract class LivingEntitySD extends LivingEntity {
     protected LivingEntitySD(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -42,6 +43,8 @@ public abstract class LivingEntitySD extends LivingEntity {
         player.setXRot(0.0F);
         setPosToTent(tent.blockPosition(), player);
         player.setSleepingPos(tent.blockPosition());
+        player.setDeltaMovement(Vec3.ZERO);
+        player.needsSync = true;
     }
 
     /**

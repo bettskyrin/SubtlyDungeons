@@ -95,24 +95,21 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		BlockPos.MutableBlockPos currentPos = startPos.mutable();
 
 		int offset = (dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
-
 		currentPos.move(dir, offset);
 
 		Function<BlockState, BlockState> axisSetter = state -> state.hasProperty(BlockStateProperties.AXIS) ? state.setValue(BlockStateProperties.AXIS, dir.getAxis()) : state;
 
-		for (int i = 0; i < length; i++) {
-			currentPos.move(dir);
-
+		for (int i = 0; i < height; i++) {
+			currentPos.move(Direction.UP);
 			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree, axisSetter);
+				placeLog(level, trunkSetter, random, currentPos, tree);
 			}
 		}
 
-		for (int i = 0; i < height; i++) {
-			currentPos.move(Direction.UP);
-
+		for (int i = 0; i < length; i++) {
+			currentPos.move(dir);
 			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree);
+				placeLog(level, trunkSetter, random, currentPos, tree, axisSetter);
 			}
 		}
 

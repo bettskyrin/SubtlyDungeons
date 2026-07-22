@@ -2,7 +2,6 @@ package net.meander.subtlyd.world.entity;
 
 import com.mojang.serialization.Codec;
 import net.meander.subtlyd.core.component.DataComponentsSD;
-import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.core.component.DataComponentGetter;
@@ -19,6 +18,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.attribute.BedRule;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -276,11 +276,11 @@ public class Tent extends Entity {
     @Override
     public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
         if (!player.level().isClientSide()) {
-            ServerPlayerSD.startSleepInTent(this, (ServerPlayer) player).ifLeft(tentSleepingProblem -> {
+            ServerPlayerSD.startSleepInTent(this, (ServerPlayer) player, BedRule.CAN_SLEEP_WHEN_DARK).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.message() != null) {
                     player.sendOverlayMessage(tentSleepingProblem.message());
                 }
-            }).ifRight(_ -> player.awardStat(StatsSD.SLEEP_IN_TENT));
+            });
         }
         return InteractionResult.SUCCESS_SERVER;
     }

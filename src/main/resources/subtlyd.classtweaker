@@ -47,6 +47,7 @@ accessible field net/minecraft/world/entity/animal/fox/Fox STALKABLE_PREY Ljava/
 accessible field net/minecraft/world/entity/ai/goal/target/TargetGoal mob Lnet/minecraft/world/entity/Mob;
 accessible method net/minecraft/world/entity/Entity playStepSound (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/EntityType$Builder;)Lnet/minecraft/world/entity/EntityType;
+accessible field net/minecraft/world/entity/player/Player sleepCounter I
 
 ## Server
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
