@@ -73,3 +73,11 @@ publishing {
 tasks.withType(AbstractCopyTask).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+tasks.named('runDatagen') {
+    doFirst {
+        def generatedDir = file('src/main/generated')
+
+        delete generatedDir
+    }
+}
