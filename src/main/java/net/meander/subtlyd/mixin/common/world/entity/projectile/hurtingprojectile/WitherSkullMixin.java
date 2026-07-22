@@ -14,10 +14,7 @@ public class WitherSkullMixin {
         cir.setReturnValue(true);
     }
 
-    @ModifyArg(method = {"onHit"},
-            at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;)V"),
-            index = 5)
+    @ModifyArg(method = {"onHit"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;)V"), index = 5)
     private boolean setFire(boolean originalFire) {
         return true;
     }
