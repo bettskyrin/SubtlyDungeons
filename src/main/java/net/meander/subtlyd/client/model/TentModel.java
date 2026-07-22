@@ -40,19 +40,19 @@ public class TentModel extends EntityModel<TentRenderState> {
                 PartPose.offsetAndRotation(6.0F, 2.0F, -3.75F, 0.0F, -1.5708F, 0.0F));
         Stakes.addOrReplaceChild("stake_r1",
                 CubeListBuilder.create().texOffs(12, 0)
-                        .addBox(-1.0F, -5.0F, -1.0F, 3.0F, 5.0F, 3.0F),
+                        .addBox(-1.0F, -5.0F, -0.95F, 3.0F, 5.0F, 3.0F),
                 PartPose.offsetAndRotation(-49.0F, 2.0F, -56.0F, 0.0F, -1.5708F, 0.0F));
         Stakes.addOrReplaceChild("stake_r2",
                 CubeListBuilder.create().texOffs(12, 0)
-                        .addBox(-1.0F, -5.0F, -1.0F, 3.0F, 5.0F, 3.0F),
+                        .addBox(-1.0F, -5.0F, -0.95F, 3.0F, 5.0F, 3.0F),
                 PartPose.offsetAndRotation(-49.0F, 2.0F, -2.0F, 0.0F, -1.5708F, 0.0F));
         Stakes.addOrReplaceChild("stake_r3",
                 CubeListBuilder.create().texOffs(12, 0)
-                        .addBox(-1.0F, -5.0F, -1.0F, 3.0F, 5.0F, 3.0F),
+                        .addBox(-1.0F, -5.0F, -1.05F, 3.0F, 5.0F, 3.0F),
                 PartPose.offsetAndRotation(10.0F, 2.0F, -56.0F, 0.0F, -1.5708F, 0.0F));
         Stakes.addOrReplaceChild("stake_r4",
                 CubeListBuilder.create().texOffs(12, 0)
-                        .addBox(-1.0F, -5.0F, -1.0F, 3.0F, 5.0F, 3.0F),
+                        .addBox(-1.0F, -5.0F, -1.05F, 3.0F, 5.0F, 3.0F),
                 PartPose.offsetAndRotation(10.0F, 2.0F, -2.0F, 0.0F, -1.5708F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 128, 128);
