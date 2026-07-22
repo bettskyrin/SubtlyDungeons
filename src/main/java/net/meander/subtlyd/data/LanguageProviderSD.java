@@ -141,6 +141,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(EntityTypesSD.TENT, "Tent");
         translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".occupied", "This tent is occupied");
         translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".too_far_away", "You may not rest now; the tent is too far away");
+        translationBuilder.add(EntityTypesSD.BLAST_FUNGUS, "Blast Fungus");
 
         translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");

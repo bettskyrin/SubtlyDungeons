@@ -29,6 +29,7 @@
 - Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
 - Fixed bug that could crash servers when players try to disable advanced entity animations
 - Fixed [BUG #76] Tents Z-Fight with their pegs
+- Fixed missing Blast Fungus entity translation
 
 #### Data Components
 - Added `tent/color` data component
