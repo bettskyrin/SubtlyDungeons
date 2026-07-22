@@ -51,7 +51,6 @@ accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraf
 ## Server
 accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
 accessible field net/minecraft/server/level/ChunkMap entityMap Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
-accessible method net/minecraft/world/level/pathfinder/Path setDebug ([Lnet/minecraft/world/level/pathfinder/Node;[Lnet/minecraft/world/level/pathfinder/Node;Ljava/util/Set;)V
 
 ## World Generation
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I

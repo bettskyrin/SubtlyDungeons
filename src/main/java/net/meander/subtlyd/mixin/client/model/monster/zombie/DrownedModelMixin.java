@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DrownedModel.class)
 public abstract class DrownedModelMixin {
-    @Inject(method = "setupAnim(Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;)V", at = @At("HEAD"))
+    @Inject(method = "setupAttackAnimation(Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;)V", at = @At("HEAD"))
     private void unsetSwingAnimationForThrow(ZombieRenderState state, CallbackInfo ci) {
         if (state.rightArmPose == HumanoidModel.ArmPose.THROW_TRIDENT || state.leftArmPose == HumanoidModel.ArmPose.THROW_TRIDENT) {
             state.swingAnimationType = SwingAnimationType.NONE;
