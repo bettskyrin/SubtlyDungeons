@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.item;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
-import net.meander.subtlyd.world.entity.BlastFungusEntity;
+import net.meander.subtlyd.world.entity.BlastFungus;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.server.level.ServerLevel;
@@ -35,7 +35,7 @@ public class BlastFungusItem extends Item implements ProjectileItem {
                 1
         );
         if (level instanceof ServerLevel serverLevel) {
-            Projectile.spawnProjectileFromRotation(BlastFungusEntity::new, serverLevel, itemStack, player, 0.0F, 1F, 1.0F);
+            Projectile.spawnProjectileFromRotation(BlastFungus::new, serverLevel, itemStack, player, 0.0F, 1F, 1.0F);
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));
@@ -45,6 +45,6 @@ public class BlastFungusItem extends Item implements ProjectileItem {
 
     @Override
     public Projectile asProjectile(Level level, Position position, ItemStack itemStack, Direction direction) {
-        return new BlastFungusEntity(level, position.x(), position.y(), position.z(), itemStack);
+        return new BlastFungus(level, position.x(), position.y(), position.z(), itemStack);
     }
 }

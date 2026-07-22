@@ -1,7 +1,7 @@
 package net.meander.subtlyd.client.camera.shake;
 
 import net.meander.subtlyd.core.registries.RegistriesSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Registry;
 import net.minecraft.sounds.SoundEvent;
@@ -97,7 +97,7 @@ public class CameraShake {
                     }
                 }
             } catch (Exception e) {
-                Util.LOGGER.error("Failed to load shake event", e);
+                UtilSD.LOGGER.error("Failed to load shake event", e);
             }
         }
     }

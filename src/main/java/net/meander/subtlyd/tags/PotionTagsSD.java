@@ -1,6 +1,6 @@
 package net.meander.subtlyd.tags;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.alchemy.Potion;
@@ -14,6 +14,6 @@ public class PotionTagsSD {
     public static final TagKey<Potion> VIAL = create("vial");
 
     private static TagKey<Potion> create(String name) {
-        return TagKey.create(Registries.POTION, Util.identifier(name));
+        return TagKey.create(Registries.POTION, UtilSD.identifier(name));
     }
 }

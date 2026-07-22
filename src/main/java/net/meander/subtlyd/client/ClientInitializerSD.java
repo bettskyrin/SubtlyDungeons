@@ -3,11 +3,11 @@ package net.meander.subtlyd.client;
 import net.fabricmc.api.ClientModInitializer;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEvents;
 import net.meander.subtlyd.client.color.block.BlockColorsSD;
-import net.meander.subtlyd.client.model.geom.ModelLayersSD;
-import net.meander.subtlyd.client.renderer.EntityRenderersSD;
+import net.meander.subtlyd.client.model.geom.LayerDefinitionsSD;
+import net.meander.subtlyd.client.particle.ParticleResourcesSD;
+import net.meander.subtlyd.client.renderer.entity.EntityRenderersSD;
 import net.meander.subtlyd.client.renderer.special.SpecialModelRenderersSD;
 import net.meander.subtlyd.commands.CommandsSD;
-import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.level.LevelSD;
@@ -21,10 +21,10 @@ public class ClientInitializerSD implements ClientModInitializer {
     }
 
     private void render() {
-        ModelLayersSD.registration();
-        SpecialModelRenderersSD.bootstrap();
         BlockColorsSD.registration();
-        ParticleTypesSD.registerClient();
+        ParticleResourcesSD.registerProviders();
+        SpecialModelRenderersSD.bootstrap();
+        LayerDefinitionsSD.registration();
         EntityRenderersSD.registration();
     }
 

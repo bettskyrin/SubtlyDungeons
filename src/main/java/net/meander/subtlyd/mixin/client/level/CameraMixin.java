@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.entity.Tent;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.util.Mth;
@@ -56,7 +56,7 @@ public abstract class CameraMixin {
      */
     private void setCampingPlayerCamera(Entity entity, float heatRot) {
         if (entity instanceof LivingEntity livingEntity) {
-            if (TentEntity.getTent(livingEntity, true) != null) {
+            if (Tent.getTent(livingEntity, true) != null) {
                 setRotation(livingEntity.getViewYRot(heatRot), -90F);
                 setPosition(livingEntity.getX(), livingEntity.getY() + 0.2, livingEntity.getZ());
             }

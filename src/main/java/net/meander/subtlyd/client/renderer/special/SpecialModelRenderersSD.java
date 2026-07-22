@@ -1,6 +1,6 @@
 package net.meander.subtlyd.client.renderer.special;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 
 /**
@@ -8,6 +8,6 @@ import net.minecraft.client.renderer.special.SpecialModelRenderers;
  */
 public class SpecialModelRenderersSD {
     public static void bootstrap() {
-        SpecialModelRenderers.ID_MAPPER.put(Util.identifier("heavy_shield"), HeavyShieldSpecialRenderer.Unbaked.MAP_CODEC);
+        SpecialModelRenderers.ID_MAPPER.put(UtilSD.identifier("heavy_shield"), HeavyShieldSpecialRenderer.Unbaked.MAP_CODEC);
     }
 }

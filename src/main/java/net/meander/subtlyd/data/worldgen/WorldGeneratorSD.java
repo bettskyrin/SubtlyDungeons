@@ -12,7 +12,7 @@ import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.meander.subtlyd.util.MthSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -332,7 +332,7 @@ public class WorldGeneratorSD implements DataProvider {
 
             modifyTrees(packRoot, ops);
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
     }
 
@@ -362,7 +362,7 @@ public class WorldGeneratorSD implements DataProvider {
             futures.add(DataProvider.saveStable(cache, vegetation, vegetationPath));
             modifyTrees(outputFolder, ops, cache, futures);
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
@@ -389,9 +389,9 @@ public class WorldGeneratorSD implements DataProvider {
         private static void swamp() {
             final int SKY_COLOR = 0xD4E2FA;
 
-            Identifier MANGROVE_SWAMP_ATMOSPHERE = Util.identifier("mangrove_swamp_atmosphere");
-            Identifier SWAMP_ATMOSPHERE = Util.identifier("swamp_atmosphere");
-            Identifier SWAMP_FROG_WEIGHT = Util.identifier("swamp_frog_weight");
+            Identifier MANGROVE_SWAMP_ATMOSPHERE = UtilSD.identifier("mangrove_swamp_atmosphere");
+            Identifier SWAMP_ATMOSPHERE = UtilSD.identifier("swamp_atmosphere");
+            Identifier SWAMP_FROG_WEIGHT = UtilSD.identifier("swamp_frog_weight");
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_SWAMP);
@@ -412,8 +412,8 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         private static void forest() {
-            Identifier PATCH_BIRCH_GRASS = Util.identifier("patch_birch_grass");
-            Identifier DARK_FOREST_ATMOSPHERE = Util.identifier("dark_forest_atmosphere");
+            Identifier PATCH_BIRCH_GRASS = UtilSD.identifier("patch_birch_grass");
+            Identifier DARK_FOREST_ATMOSPHERE = UtilSD.identifier("dark_forest_atmosphere");
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
             BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
@@ -433,7 +433,7 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         private static void plains() {
-            Identifier wildflowersMeadow =  Util.identifier("wildflowers_meadow");
+            Identifier wildflowersMeadow =  UtilSD.identifier("wildflowers_meadow");
 
             BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
             BiomeModifications.create(wildflowersMeadow).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MEADOW),
@@ -448,7 +448,7 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         private static void fog() {
-            final Identifier FOG_DISTANCE = Util.identifier("fog_distance");
+            final Identifier FOG_DISTANCE = UtilSD.identifier("fog_distance");
 
             BiomeModifications.create(FOG_DISTANCE)
                     .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_FOGGY),

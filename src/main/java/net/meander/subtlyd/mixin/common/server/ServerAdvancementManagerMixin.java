@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.server;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.predicates.ItemPredicate;
@@ -88,7 +88,7 @@ public class ServerAdvancementManagerMixin {
 
     private Optional<Identifier> getParent(Identifier advancementId, Advancement advancement) {
         if (advancementId.equals(COUNTRY_LODE)) {
-            return Optional.of(Util.identifier("adventure/banner_marker"));
+            return Optional.of(UtilSD.identifier("adventure/banner_marker"));
         }
         return advancement.parent();
     }

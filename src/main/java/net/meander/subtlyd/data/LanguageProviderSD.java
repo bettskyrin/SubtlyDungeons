@@ -2,6 +2,8 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
+import net.meander.subtlyd.advancements.packs.AdventureAdvancementsSD;
+import net.meander.subtlyd.advancements.packs.HusbandryAdvancementsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
@@ -12,6 +14,7 @@ import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,16 +28,16 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
-        translationBuilder.add("advancements.subtlyd.camp_far_away.title", "Tentative Accommodations");
-        translationBuilder.add("advancements.subtlyd.camp_far_away.description", "Sleep in a Tent over 1km away from your respawn point");
-        translationBuilder.add("advancements.subtlyd.banner_marker.title", "Marking Territory");
-        translationBuilder.add("advancements.subtlyd.banner_marker.description", "Use a Map on a Banner");
-        translationBuilder.add("advancements.subtlyd.light_campfire.title", "Gather 'Round");
-        translationBuilder.add("advancements.subtlyd.light_campfire.description", "Use a Stick on an Unlit Campfire");
-        translationBuilder.add("advancements.subtlyd.make_stew.title", "Soup-er!");
-        translationBuilder.add("advancements.subtlyd.make_stew.description", "Add ingredients to a Cauldron");
-        translationBuilder.add("advancements.subtlyd.stealth_attack.title", "I Am Bush");
-        translationBuilder.add("advancements.subtlyd.stealth_attack.description", "Perform a sneak attack while hiding in foliage");
+        translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_TITLE.getString(), "Tentative Accommodations");
+        translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_DESC.getString(), "Sleep in a Tent over 1km away from your respawn point");
+        translationBuilder.add(AdventureAdvancementsSD.BANNER_MARKER_TITLE.getString(), "Marking Territory");
+        translationBuilder.add(AdventureAdvancementsSD.BANNER_MARKER_DESC.getString(), "Use a Map on a Banner");
+        translationBuilder.add(HusbandryAdvancementsSD.LIGHT_CAMPFIRE_TITLE.getString(), "Gather 'Round");
+        translationBuilder.add(HusbandryAdvancementsSD.LIGHT_CAMPFIRE_DESC.getString(), "Use a Stick on an Unlit Campfire");
+        translationBuilder.add(HusbandryAdvancementsSD.MAKE_STEW_TITLE.getString(), "Soup-er!");
+        translationBuilder.add(HusbandryAdvancementsSD.MAKE_STEW_DESC.getString(), "Add ingredients to a Cauldron");
+        translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_TITLE.getString(), "I Am Bush");
+        translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_DESC.getString(), "Perform a sneak attack while hiding in foliage");
 
         translationBuilder.add(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
 
@@ -134,34 +137,19 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.addEnchantment(EnchantmentsSD.ILLAGERS_BANE, "Illager's Bane");
         translationBuilder.addEnchantment(EnchantmentsSD.OCCULT_PROTECTION, "Occult Protection");
 
-        translationBuilder.add(EntityTypesSD.TENT.black(), "Black Tent");
-        translationBuilder.add(EntityTypesSD.TENT.blue(), "Blue Tent");
-        translationBuilder.add(EntityTypesSD.TENT.brown(), "Brown Tent");
-        translationBuilder.add(EntityTypesSD.TENT.cyan(), "Cyan Tent");
-        translationBuilder.add(EntityTypesSD.TENT.gray(), "Gray Tent");
-        translationBuilder.add(EntityTypesSD.TENT.green(), "Green Tent");
-        translationBuilder.add(EntityTypesSD.TENT.lightBlue(), "Light Blue Tent");
-        translationBuilder.add(EntityTypesSD.TENT.lightGray(), "Light Gray Tent");
-        translationBuilder.add(EntityTypesSD.TENT.lime(), "Lime Tent");
-        translationBuilder.add(EntityTypesSD.TENT.magenta(), "Magenta Tent");
-        translationBuilder.add(EntityTypesSD.TENT.orange(), "Orange Tent");
-        translationBuilder.add(EntityTypesSD.TENT.pink(), "Pink Tent");
-        translationBuilder.add(EntityTypesSD.TENT.purple(), "Purple Tent");
-        translationBuilder.add(EntityTypesSD.TENT.red(), "Red Tent");
-        translationBuilder.add(EntityTypesSD.TENT.white(), "White Tent");
-        translationBuilder.add(EntityTypesSD.TENT.yellow(), "Yellow Tent");
-        translationBuilder.add("entity.subtlyd.tent.occupied", "This tent is occupied");
-        translationBuilder.add("entity.subtlyd.tent.too_far_away", "You may not rest now; the tent is too far away");
+        translationBuilder.add(EntityTypesSD.TENT, "Tent");
+        translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".occupied", "This tent is occupied");
+        translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".too_far_away", "You may not rest now; the tent is too far away");
 
         translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
         translationBuilder.add("gamerule.subtlyd.smart_mobs", "Allow advanced mob behaviors");
 
-        translationBuilder.add("item.minecraft.lingering_potion.effect.decay", "Lingering Potion of Decay");
-        translationBuilder.add("item.minecraft.potion.effect.decay", "Potion of Decay");
-        translationBuilder.add("item.minecraft.splash_potion.effect.decay", "Splash Potion of Decay");
-        translationBuilder.add("item.minecraft.tipped_arrow.effect.decay", "Arrow of Decay");
-        translationBuilder.add("item.subtlyd.quiver.empty.description", "Can hold 4 stacks of any arrow type");
+        translationBuilder.add(Items.LINGERING_POTION.getDescriptionId() + ".effect.decay", "Lingering Potion of Decay");
+        translationBuilder.add(Items.POTION.getDescriptionId() + ".effect.decay", "Potion of Decay");
+        translationBuilder.add(Items.SPLASH_POTION.getDescriptionId() + ".effect.decay", "Splash Potion of Decay");
+        translationBuilder.add(Items.TIPPED_ARROW.getDescriptionId() + ".effect.decay", "Arrow of Decay");
+        translationBuilder.add(ItemsSD.QUIVER.getDescriptionId() + ".empty.description", "Can hold 4 stacks of any arrow type");
 
         translationBuilder.add(ItemsSD.APPLE_PIE, "Apple Pie");
         translationBuilder.add(ItemsSD.BLAST_FUNGUS, "Blast Fungus");
@@ -242,10 +230,6 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.advanced_entity_animations.tooltip", "Toggles advanced entity animations. Turning this off can cause entity hitboxes to line up incorrectly with their models.");
         translationBuilder.add("options.experimental.gui", "Experimental GUI");
         translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
-        translationBuilder.add("options.difficulty.easy.info", "Hostile creatures spawn but deal less damage. Hunger bar depletes and drains health down to 5 hearts.");
-        translationBuilder.add("options.difficulty.hard.info", "Hostile creatures spawn and deal more damage. Hunger bar depletes and drains all health.");
-        translationBuilder.add("options.difficulty.normal.info", "Hostile creatures spawn and deal standard damage. Hunger bar depletes and drains health down to half a heart.");
-        translationBuilder.add("options.difficulty.peaceful.info", "No hostile creatures and only some neutral creatures spawn. Hunger bar doesn't deplete and health replenishes over time.");
         translationBuilder.add("options.command_macros", "Command Macros..." );
         translationBuilder.add("options.command_macros.title", "Command Macros" );
         translationBuilder.add("options.command_macros.entry", "Command Macro %s");

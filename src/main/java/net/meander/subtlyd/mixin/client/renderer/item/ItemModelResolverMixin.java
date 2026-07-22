@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.renderer.item;
 
 import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
 import net.meander.subtlyd.tags.PotionTagsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemHelperSD;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -55,11 +55,11 @@ public class ItemModelResolverMixin {
                 }
 
                 if (potion.is(PotionTagsSD.CONICAL)) {
-                    modelId = Util.identifier(prefix + "conical_bottle");
+                    modelId = UtilSD.identifier(prefix + "conical_bottle");
                 } else if (potion.is(PotionTagsSD.SPHERICAL)) {
-                    modelId = Util.identifier(prefix + "spherical_bottle");
+                    modelId = UtilSD.identifier(prefix + "spherical_bottle");
                 } else if (potion.is(PotionTagsSD.VIAL)) {
-                    modelId = Util.identifier(prefix + "vial_bottle");
+                    modelId = UtilSD.identifier(prefix + "vial_bottle");
                 }
 
                 if (modelId != null && !modelId.equals(item.get(DataComponents.ITEM_MODEL))) {

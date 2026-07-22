@@ -69,7 +69,7 @@ public class SeekShadeGoal extends Goal {
     @Override
     public boolean canUse() {
         Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
-        Identifier biomeTemp = BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition());
+        Identifier biomeTemp = BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition());
 
         if (biomeTemp != TemperatureVariants.WARM || variant == TemperatureVariants.WARM || !mob.level().canSeeSky(mob.blockPosition()) ||
                 mob.level().dimension() == Level.NETHER || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
@@ -80,7 +80,7 @@ public class SeekShadeGoal extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        Identifier biomeTemp = BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition());
+        Identifier biomeTemp = BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition());
         if (biomeTemp != TemperatureVariants.WARM || !mob.level().canSeeSky(mob.blockPosition()) || mob.level().dimension() == Level.NETHER || TamableAnimalSD.shouldFollowOwner(mob) || mob.getTarget() != null) {
             return false;
         }
@@ -94,7 +94,7 @@ public class SeekShadeGoal extends Goal {
 
     @Override
     public void tick() {
-        if (mob.getNavigation().isDone() && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.WARM && setCoolPos()) {
+        if (mob.getNavigation().isDone() && BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition()) == TemperatureVariants.WARM && setCoolPos()) {
             start();
         }
     }

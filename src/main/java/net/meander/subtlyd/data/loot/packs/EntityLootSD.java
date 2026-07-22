@@ -1,6 +1,6 @@
 package net.meander.subtlyd.data.loot.packs;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.advancements.predicates.entity.EntityFlagsPredicate;
@@ -57,7 +57,7 @@ public class EntityLootSD {
             modify(registry, getLootTable(EntityTypes.TRADER_LLAMA), EntityLootSD::bonusLeather);
 
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to register entity loot table {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed to register entity loot table {}", e.getMessage());
         }
     }
 

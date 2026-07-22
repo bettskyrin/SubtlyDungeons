@@ -24,7 +24,7 @@ public class AmbientGrassyBlockSoundsPlayer {
     }
 
     public static boolean shouldPlayInsectSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (!level.isRaining() && BiomeSD.getTemperatureAsVariantType(level, blockPos) != TemperatureVariants.COLD && !level.getBiome(blockPos).is(Biomes.PALE_GARDEN)) {
+        if (!level.isRaining() && BiomeSD.getBiomeAsTemperatureVariant(level, blockPos) != TemperatureVariants.COLD && !level.getBiome(blockPos).is(Biomes.PALE_GARDEN)) {
             if (level.isDarkOutside() && randomSource.nextInt(IDLE_SOUND_CHANCE_NIGHT) == 0) {
                 return true;
             } else {

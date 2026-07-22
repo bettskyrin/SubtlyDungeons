@@ -146,11 +146,8 @@ public abstract class LivingEntityMixin extends Entity {
         }
     }
 
-    /**
-     * Makes predators consume meat from their prey.
-     */
     @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
-    private void consumePrey(ServerLevel level, DamageSource source, CallbackInfo ci) {
+    private void consumePreyDrops(ServerLevel level, DamageSource source, CallbackInfo ci) {
         if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
             if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
                 if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {

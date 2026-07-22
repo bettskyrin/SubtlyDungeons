@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.data.models.model.TextureSlot;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -100,17 +100,17 @@ public class PotionModelProviderSD implements DataProvider {
                 TextureModel model = new TextureModel(
                         generatedParent,
                         Map.of(
-                                TextureSlot.LAYER0.getId(), Util.identifier("item/potion/" + archetype.replace("_bottle", "_overlay")),
-                                TextureSlot.LAYER1.getId(), Util.identifier("item/potion/" + fileName)
+                                TextureSlot.LAYER0.getId(), UtilSD.identifier("item/potion/" + archetype.replace("_bottle", "_overlay")),
+                                TextureSlot.LAYER1.getId(), UtilSD.identifier("item/potion/" + fileName)
                         )
                 );
 
-                ItemDef<SimpleModel> itemDef = new ItemDef<>(new SimpleModel(modelType, Util.identifier("item/potion/" + fileName), List.of(new Tint(potionTint, 16253176))));
+                ItemDef<SimpleModel> itemDef = new ItemDef<>(new SimpleModel(modelType, UtilSD.identifier("item/potion/" + fileName), List.of(new Tint(potionTint, 16253176))));
 
-                Path modelFilePath = modelsPath.json(Util.identifier(fileName));
+                Path modelFilePath = modelsPath.json(UtilSD.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, TextureModel.CODEC.encodeStart(JsonOps.INSTANCE, model).getOrThrow(IllegalStateException::new), modelFilePath));
 
-                Path itemFilePath = itemsPath.json(Util.identifier(fileName));
+                Path itemFilePath = itemsPath.json(UtilSD.identifier(fileName));
                 futures.add(DataProvider.saveStable(writer, ItemDef.codec(SimpleModel.CODEC).encodeStart(JsonOps.INSTANCE, itemDef).getOrThrow(IllegalStateException::new), itemFilePath));
             }
         }

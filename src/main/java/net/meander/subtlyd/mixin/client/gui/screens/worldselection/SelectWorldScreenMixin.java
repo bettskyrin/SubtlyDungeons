@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
@@ -139,10 +139,10 @@ public abstract class SelectWorldScreenMixin extends Screen {
                             .build()
             );
 
-            rowHelper.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X + (Util.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+            rowHelper.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X + (UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
             rowHelper.addChild(
                     Button.builder(CommonComponents.GUI_BACK, _ -> minecraft.setScreenAndShow(lastScreen))
-                            .width(Util.GUI_COMMON.BACK_BUTTON_WIDTH)
+                            .width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH)
                             .build()
             );
             ci.cancel();

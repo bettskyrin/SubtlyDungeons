@@ -5,7 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.server.packs.VirtualResourceRegistry;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.client.data.models.model.ModelLocationUtils;
 import net.minecraft.core.Direction;
@@ -507,7 +507,7 @@ public class SnowloggedBlockModelProvider extends ModelProviderSD {
      */
     private static String generateAoModel(String targetModelPath) {
         String modelName = "snowlogged_" + targetModelPath.substring(targetModelPath.lastIndexOf('/') + 1);
-        Identifier modelPath = Util.identifier("models/block/" + modelName + ".json");
+        Identifier modelPath = UtilSD.identifier("models/block/" + modelName + ".json");
 
         JsonObject json = new JsonObject();
 

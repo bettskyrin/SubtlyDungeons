@@ -8,7 +8,7 @@
   - Can be grown from a 2x2 of Acacia saplings
 
 #### Game Rules
-- Added Smart Mobs gamerule
+- Added Smart Mobs game rule
   - Toggles advanced mob behavior (like flock panicking)
   - Does not include wall climbing hitbox adjustments
 
@@ -25,6 +25,13 @@
 - Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
 - Fixed bug that could crash servers when players try to disable advanced entity animations
 
+#### Data Components
+- Added `tent/color` data component
+
 #### Data Tags
 - Added `scansorial` entity type tag
 - Added `silent_foliage` block tag
+- Removed `can_break_tents` damage type tag
+- Removed `always_kills_tent` damage type tag
+- Removed `ignites_tents` damage type tag
+- Removed `burns_tents` damage type tag

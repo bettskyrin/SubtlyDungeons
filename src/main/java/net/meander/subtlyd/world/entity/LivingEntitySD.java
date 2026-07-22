@@ -22,7 +22,7 @@ public abstract class LivingEntitySD extends LivingEntity {
      * @param tent Tent to test
      * @param player Sleeping player
      */
-    public static void startSleepingInTent(final TentEntity tent, final ServerPlayer player) {
+    public static void startSleepingInTent(final Tent tent, final ServerPlayer player) {
         boolean foundSleepingPlayer = false;
 
         if (player.isPassenger()) {
@@ -30,13 +30,13 @@ public abstract class LivingEntitySD extends LivingEntity {
         }
 
         for (Player anyplayer : PlayerLookup.tracking(tent)) {
-            if (TentEntity.getTent(anyplayer, true) != null) {
+            if (Tent.getTent(anyplayer, true) != null) {
                 foundSleepingPlayer = true;
                 break;
             }
         }
 
-        tent.occupied = foundSleepingPlayer;
+        tent.isOccupied = foundSleepingPlayer;
         player.setPose(Pose.SLEEPING);
         player.setYRot(tent.getYRot());
         player.setXRot(0.0F);

@@ -2,7 +2,7 @@ package net.meander.subtlyd.client.gui.screens;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 
 import java.nio.file.Files;
@@ -43,7 +43,7 @@ public class TailoredWorldGenSettings {
             settings.addProperty("erosionScale", erosionScale);
             Files.writeString(worldRoot.resolve("tailored_worldgen_settings.json"), settings.toString());
         } catch (Exception e) {
-            Util.LOGGER.error("Error saving tailored world generation settings to file: {}", e.getMessage());
+            UtilSD.LOGGER.error("Error saving tailored world generation settings to file: {}", e.getMessage());
         }
     }
 
@@ -62,7 +62,7 @@ public class TailoredWorldGenSettings {
                 shouldAlterSettings = true;
             }
         } catch (Exception e) {
-            Util.LOGGER.error("Error loading tailored world generation settings from file: {}", e.getMessage());
+            UtilSD.LOGGER.error("Error loading tailored world generation settings from file: {}", e.getMessage());
         }
     }
 }

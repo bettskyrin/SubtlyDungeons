@@ -3,7 +3,7 @@ package net.meander.subtlyd.world.item;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.minecraft.core.component.DataComponentMap;
@@ -28,7 +28,7 @@ import java.util.function.Supplier;
  * @see Item
  */
 public abstract class ItemSD extends Item {
-    public static final Identifier SHIELD_STRENGTH = Util.identifier("shield_strength");
+    public static final Identifier SHIELD_STRENGTH = UtilSD.identifier("shield_strength");
 
     public ItemSD(Properties properties) {
         super(properties);

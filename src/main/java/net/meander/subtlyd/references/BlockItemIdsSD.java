@@ -1,6 +1,6 @@
 package net.meander.subtlyd.references;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 
@@ -80,7 +80,7 @@ public class BlockItemIdsSD {
     public static final BlockItemId STRIPPED_WARPED_HYPHAE_STAIRS = create("stripped_warped_hyphae_stairs");
 
     private static BlockItemId create(final String name) {
-        Identifier id = Util.identifier(name);
+        Identifier id = UtilSD.identifier(name);
 
         return BlockItemId.create(id, id);
     }

@@ -3,7 +3,7 @@ package net.meander.subtlyd.world.item.enchantment;
 import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.tags.EnchantmentTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.advancements.predicates.DamageSourcePredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.TagPredicate;
@@ -37,12 +37,12 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import org.jspecify.annotations.NonNull;
 
 public class EnchantmentsSD {
-    public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("occult_protection"));
-    public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("abrading_curse"));
-    public static final ResourceKey<Enchantment> GLYPH_AFFINITY = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("glyph_affinity"));
-    public static final ResourceKey<Enchantment> ILLAGERS_BANE = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("illagers_bane"));
-    public static final ResourceKey<Enchantment> ENERVATION = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("enervation"));
-    public static final ResourceKey<Enchantment> CLEAVING = ResourceKey.create(Registries.ENCHANTMENT, Util.identifier("cleaving"));
+    public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("occult_protection"));
+    public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("abrading_curse"));
+    public static final ResourceKey<Enchantment> GLYPH_AFFINITY = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("glyph_affinity"));
+    public static final ResourceKey<Enchantment> ILLAGERS_BANE = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("illagers_bane"));
+    public static final ResourceKey<Enchantment> ENERVATION = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("enervation"));
+    public static final ResourceKey<Enchantment> CLEAVING = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("cleaving"));
 
     public static void bootstrap(@NonNull BootstrapContext<Enchantment> context) {
         HolderGetter<Item> items = context.lookup(Registries.ITEM);
@@ -170,7 +170,7 @@ public class EnchantmentsSD {
                     .build(currentEnchantment.identifier())
             );
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to register: {}: {}", currentEnchantment.identifier(), e.getMessage());
+            UtilSD.LOGGER.error("Failed to register: {}: {}", currentEnchantment.identifier(), e.getMessage());
         }
     }
 }

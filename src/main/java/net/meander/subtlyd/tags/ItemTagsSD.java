@@ -1,6 +1,6 @@
 package net.meander.subtlyd.tags;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -28,7 +28,7 @@ public class ItemTagsSD {
     public static final TagKey<Item> SHIELDS = bind("shields");
 
     private static TagKey<Item> bind(String string) {
-        return TagKey.create(Registries.ITEM, Util.identifier(string));
+        return TagKey.create(Registries.ITEM, UtilSD.identifier(string));
     }
 
     /**

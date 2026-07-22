@@ -4,7 +4,8 @@ import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Util {
+public class UtilSD {
+    public static final int DATA_VERSION = 1;
     public static final Logger LOGGER = LoggerFactory.getLogger("Subtly Dungeons");
     public static final String NAMESPACE = "subtlyd";
 

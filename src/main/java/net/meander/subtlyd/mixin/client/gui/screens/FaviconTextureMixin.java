@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.gui.screens;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.gui.screens.FaviconTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -46,11 +46,11 @@ public class FaviconTextureMixin {
                 } catch (Throwable e) {
                     image.close();
                     clear();
-                    Util.LOGGER.error(e.getMessage());
+                    UtilSD.LOGGER.error(e.getMessage());
                 }
             } else {
                 image.close();
-                Util.LOGGER.error(new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight()).getMessage());
+                UtilSD.LOGGER.error(new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight()).getMessage());
             }
             ci.cancel();
         }

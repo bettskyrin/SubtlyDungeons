@@ -1,6 +1,6 @@
 package net.meander.subtlyd.stats;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -17,7 +17,7 @@ public class StatsSD {
     public static void registration() {}
 
     private static Identifier makeCustomStat(final String id, final StatFormatter formatter) {
-        Identifier location = Util.identifier(id);
+        Identifier location = UtilSD.identifier(id);
 
         Registry.register(BuiltInRegistries.CUSTOM_STAT, location, location);
         Stats.CUSTOM.get(location, formatter);

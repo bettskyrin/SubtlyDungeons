@@ -22,16 +22,16 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-public class BlastFungusEntity extends ThrowableItemProjectile {
-    public BlastFungusEntity(final EntityType<? extends BlastFungusEntity> type, final Level level) {
+public class BlastFungus extends ThrowableItemProjectile {
+    public BlastFungus(final EntityType<? extends BlastFungus> type, final Level level) {
         super(type, level);
     }
 
-    public BlastFungusEntity(final Level level, final LivingEntity mob, final ItemStack itemStack) {
+    public BlastFungus(final Level level, final LivingEntity mob, final ItemStack itemStack) {
         super(EntityTypesSD.BLAST_FUNGUS, mob, level, itemStack);
     }
 
-    public BlastFungusEntity(final Level level, final double x, final double y, final double z, final ItemStack itemStack) {
+    public BlastFungus(final Level level, final double x, final double y, final double z, final ItemStack itemStack) {
         super(EntityTypesSD.BLAST_FUNGUS, x, y, z, level, itemStack);
     }
 

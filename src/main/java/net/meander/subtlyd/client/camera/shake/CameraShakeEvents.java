@@ -2,7 +2,7 @@ package net.meander.subtlyd.client.camera.shake;
 
 import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.meander.subtlyd.core.registries.RegistriesSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.resources.ResourceKey;
 
 public class CameraShakeEvents {
@@ -23,7 +23,7 @@ public class CameraShakeEvents {
     public static final ResourceKey<CameraShakeEvent> EVOKER_FANGS_APPEAR = register("evoker_fangs_appear");
 
     public static ResourceKey<CameraShakeEvent> register(String id) {
-        return ResourceKey.create(RegistriesSD.CAMERA_SHAKE_EVENT, Util.identifier(id));
+        return ResourceKey.create(RegistriesSD.CAMERA_SHAKE_EVENT, UtilSD.identifier(id));
     }
 
     public static void registration() {

@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.entity.Tent;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
@@ -61,7 +61,7 @@ public class PlayerMixin {
         final Player player = (Player) (Object) this;
 
         if (player.level() instanceof ServerLevel && player.level().isBrightOutside()) {
-            if (TentEntity.getTent(player, true) != null) {
+            if (Tent.getTent(player, true) != null) {
                 player.stopSleepInBed(false, true);
             }
         }

@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile;
 
 import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
-import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -27,28 +27,30 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ThrownTrident.class)
 public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor {
+    private static EntityDataAccessor<Boolean> DATA_ID_CHARGED_TRIDENT;
+    
     @Override
     public boolean isCharged() {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        return trident.getEntityData().get(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT);
+        return trident.getEntityData().get(DATA_ID_CHARGED_TRIDENT);
     }
 
     @Override
     public void setCharged(boolean charged) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        trident.getEntityData().set(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, charged);
+        trident.getEntityData().set(DATA_ID_CHARGED_TRIDENT, charged);
     }
 
     @Inject(method = "<clinit>", at = @At("TAIL"))
     private static void registerId(CallbackInfo ci) {
-        SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT = SynchedEntityData.defineId(ThrownTrident.class, EntityDataSerializers.BOOLEAN);
+        DATA_ID_CHARGED_TRIDENT = SynchedEntityData.defineId(ThrownTrident.class, EntityDataSerializers.BOOLEAN);
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynchedData(SynchedEntityData.Builder entityData, CallbackInfo ci) {
-        entityData.define(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, false);
+        entityData.define(DATA_ID_CHARGED_TRIDENT, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
@@ -61,7 +63,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
         if (input.contains("IsCharged")) {
-            trident.getEntityData().set(SynchedEntityDataSD.DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("IsCharged", false));
+            trident.getEntityData().set(DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("IsCharged", false));
         }
     }
 

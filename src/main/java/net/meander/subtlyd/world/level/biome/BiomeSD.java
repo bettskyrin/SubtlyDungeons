@@ -7,10 +7,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 
 public class BiomeSD {
-    /**
-     * @return A biome as a temperature variant by location.
-     */
-    public static Identifier getTemperatureAsVariantType(Level level, BlockPos blockPos) {
+    public static Identifier getBiomeAsTemperatureVariant(Level level, BlockPos blockPos) {
         if (level.precipitationAt(blockPos) == Biome.Precipitation.SNOW || level.getBiome(blockPos).value().coldEnoughToSnow(blockPos, level.getSeaLevel())) {
             return TemperatureVariants.COLD;
         } else if (level.getBiome(blockPos).value().getBaseTemperature() >= 2.0) {

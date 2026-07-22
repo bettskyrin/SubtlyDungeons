@@ -11,6 +11,7 @@
     "common.server.packs.resources.MultiPackResourceManagerMixin",
     "common.world.entity.AreaEffectCloudMixin",
     "common.world.entity.EntityMixin",
+    "common.world.entity.EntityTypeMixin",
     "common.world.entity.LivingEntityMixin",
     "common.world.entity.MobMixin",
     "common.world.entity.PlayerMixin",

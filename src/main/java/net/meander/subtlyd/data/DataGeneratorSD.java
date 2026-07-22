@@ -30,12 +30,12 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-        assets(pack);
         tags(pack);
         level(pack);
         advancements(pack);
         items(pack);
-	}
+        assets(pack);
+    }
 
     private void assets(FabricDataGenerator.Pack pack) {
         pack.addProvider(ModelProviderSD::new);

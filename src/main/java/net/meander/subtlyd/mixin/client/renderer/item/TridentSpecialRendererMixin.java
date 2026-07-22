@@ -2,7 +2,7 @@ package net.meander.subtlyd.mixin.client.renderer.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -26,7 +26,7 @@ public class TridentSpecialRendererMixin {
 
         if (minecraft.player != null && ChargedTridentState.CHANNELING_CHARGE.get()) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
-            RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
+            RenderType auraRenderType = RenderTypes.energySwirl(UtilSD.identifier("textures/item/electric_charge.png"),
                     scrollTime * 0.01F,
                     scrollTime * 0.01F
             );

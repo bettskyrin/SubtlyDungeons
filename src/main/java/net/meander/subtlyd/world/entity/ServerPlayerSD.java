@@ -28,7 +28,7 @@ public class ServerPlayerSD extends ServerPlayer {
      * @param player Player trying to sleep
      * @return Either a TentSleepingProblem or Unit if successful
      */
-    public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(final TentEntity tent, final ServerPlayer player) {
+    public static Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(final Tent tent, final ServerPlayer player) {
         if (!player.isSleeping() && player.isAlive()) {
             BedRule rule = player.level().environmentAttributes().getValue(EnvironmentAttributes.BED_RULE, tent.blockPosition());
             boolean canSleep = rule.canSleep(player.level());
@@ -46,11 +46,10 @@ public class ServerPlayerSD extends ServerPlayer {
                     double hRange = 8.0;
                     double vRange = 5.0;
                     Vec3 vec3 = Vec3.atCenterOf(player.blockPosition());
-                    List<Monster> monsters = player.level()
-                            .getEntitiesOfClass(
-                                    Monster.class,
-                                    new AABB(vec3.x() - hRange, vec3.y() - vRange, vec3.z() - hRange, vec3.x() + hRange, vec3.y() + vRange, vec3.z() + hRange),
-                                    monster -> monster.isPreventingPlayerRest(player.level(), player));
+                    List<Monster> monsters = player.level().getEntitiesOfClass(
+                            Monster.class,
+                            new AABB(vec3.x() - hRange, vec3.y() - vRange, vec3.z() - hRange, vec3.x() + hRange, vec3.y() + vRange, vec3.z() + hRange),
+                            monster -> monster.isPreventingPlayerRest(player.level(), player));
                     if (!monsters.isEmpty()) {
                         return Either.left(PlayerSD.TentSleepingProblem.NOT_SAFE);
                     }

@@ -2,7 +2,7 @@ package net.meander.subtlyd.data.enchantments;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 
@@ -18,7 +18,7 @@ public class EnchantmentProvider extends FabricDynamicRegistryProvider {
         try {
             entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to configure dynamic registries: {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed to configure dynamic registries: {}", e.getMessage());
         }
     }
 

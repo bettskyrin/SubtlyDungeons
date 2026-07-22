@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
-import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.entity.Tent;
 import net.minecraft.core.particles.ExplosionParticleInfo;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.random.WeightedList;
@@ -29,7 +29,7 @@ public class LevelSD {
 
     private static void registerSleepEvents() {
         EntitySleepEvents.ALLOW_BED.register((livingEntity, _, _, _) -> {
-            if (TentEntity.getTent(livingEntity, false) != null) {
+            if (Tent.getTent(livingEntity, false) != null) {
                 return EventResult.ALLOW;
             }
             return EventResult.PASS;

@@ -4,7 +4,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.fabricmc.loader.api.FabricLoader;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 
 import java.io.Reader;
@@ -29,7 +29,7 @@ public class CommandMacroManager {
                     macros = loaded;
                 }
             } catch (Exception e) {
-                Util.LOGGER.error("Error while loading command macros", e);
+                UtilSD.LOGGER.error("Error while loading command macros", e);
             }
         }
     }
@@ -39,10 +39,10 @@ public class CommandMacroManager {
             GSON.toJson(macros, writer);
 
             for (String command : macros) {
-                Util.LOGGER.info("Saved command macro: {}", command);
+                UtilSD.LOGGER.info("Saved command macro: {}", command);
             }
         } catch (Exception e) {
-            Util.LOGGER.error("Error while saving command macros", e);
+            UtilSD.LOGGER.error("Error while saving command macros", e);
         }
     }
 

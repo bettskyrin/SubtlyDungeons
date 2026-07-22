@@ -1,6 +1,6 @@
 package net.meander.subtlyd.tags;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -19,6 +19,6 @@ public class EntityTypeTagsSD {
     public static final TagKey<EntityType<?>> SCANSORIAL = create("scansorial");
 
     private static TagKey<EntityType<?>> create(String string) {
-        return TagKey.create(Registries.ENTITY_TYPE, Util.identifier(string));
+        return TagKey.create(Registries.ENTITY_TYPE, UtilSD.identifier(string));
     }
 }

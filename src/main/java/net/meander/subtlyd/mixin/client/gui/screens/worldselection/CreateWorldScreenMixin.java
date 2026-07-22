@@ -5,7 +5,7 @@ import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.components.GameTabButton;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettingsScreen;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.*;
@@ -79,12 +79,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
                             .build()
             );
 
-            rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X + (Util.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+            rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X + (UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
 
             rowHelper.addChild(
                     Button.builder(
                                     CommonComponents.GUI_CANCEL, (_) -> createWorldScreen.popScreen())
-                            .width(Util.GUI_COMMON.BACK_BUTTON_WIDTH)
+                            .width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH)
                             .build());
             layout.visitWidgets((button) -> {
                 button.setTabOrderGroup(1);
@@ -168,9 +168,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                         uiState.setGameMode(WorldCreationUiState.SelectedGameMode.SURVIVAL);
                                     }
                                 },
-                                Util.identifier("textures/gui/sprites/widget/game_mode/survival.png"),
-                                Util.identifier("textures/gui/sprites/widget/game_mode/survival_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/game_mode/survival_locked.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/survival.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/survival_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/survival_locked.png"),
                                 GAME_MODE_BUTTON_TEXTURE_WIDTH, GAME_MODE_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
@@ -186,9 +186,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                     uiState.setGameMode(WorldCreationUiState.SelectedGameMode.CREATIVE);
                                     uiState.setAllowCommands(true);
                                 },
-                                Util.identifier("textures/gui/sprites/widget/game_mode/creative.png"),
-                                Util.identifier("textures/gui/sprites/widget/game_mode/creative_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/game_mode/creative_disabled.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/creative.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/creative_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/game_mode/creative_disabled.png"),
                                 GAME_MODE_BUTTON_TEXTURE_WIDTH, GAME_MODE_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
@@ -226,9 +226,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.peaceful"),
                                 _ -> uiState.setDifficulty(Difficulty.PEACEFUL),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/peaceful.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/peaceful_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/peaceful_locked.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/peaceful.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/peaceful_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/peaceful_locked.png"),
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
@@ -240,9 +240,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.easy"),
                                 _ -> uiState.setDifficulty(Difficulty.EASY),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/easy.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/easy_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/easy_locked.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/easy.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/easy_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/easy_locked.png"),
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
@@ -254,9 +254,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.normal"),
                                 _ -> uiState.setDifficulty(Difficulty.NORMAL),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/normal.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/normal_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/normal_locked.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/normal.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/normal_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/normal_locked.png"),
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
@@ -268,9 +268,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.hard"),
                                 _ -> uiState.setDifficulty(Difficulty.HARD),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/hard.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/hard_highlighted.png"),
-                                Util.identifier("textures/gui/sprites/widget/difficulty/hard_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/hard.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/hard_highlighted.png"),
+                                UtilSD.identifier("textures/gui/sprites/widget/difficulty/hard_highlighted.png"),
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.data.worldgen.features;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.level.levelgen.feature.FeatureTypesSD;
 import net.meander.subtlyd.world.level.levelgen.feature.trunkplacers.TrunkPlacerTypeSD;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -18,6 +18,6 @@ public class FeatureUtilsSD {
     }
 
     public static ResourceKey<Feature> createKey(final String name) {
-        return ResourceKey.create(Registries.FEATURE, Util.identifier(name));
+        return ResourceKey.create(Registries.FEATURE, UtilSD.identifier(name));
     }
 }

@@ -3,7 +3,7 @@ package net.meander.subtlyd.client.data.model;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.meander.subtlyd.client.renderer.special.HeavyShieldSpecialRenderer;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.block.BlocksSD;
 import net.meander.subtlyd.world.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.block.StewCauldronBlock;
@@ -162,9 +162,9 @@ public class ModelProviderSD extends FabricModelProvider {
     }
 
     private void generatePotionArchetypes(ItemModelGenerators itemModelGenerator) {
-        Identifier conicalBottle = Util.identifier("item/potion/conical_overlay");
-        Identifier sphericalBottle = Util.identifier("item/potion/spherical_overlay");
-        Identifier vialBottle = Util.identifier("item/potion/vial_overlay");
+        Identifier conicalBottle = UtilSD.identifier("item/potion/conical_overlay");
+        Identifier sphericalBottle = UtilSD.identifier("item/potion/spherical_overlay");
+        Identifier vialBottle = UtilSD.identifier("item/potion/vial_overlay");
 
         ModelTemplates.FLAT_ITEM.create(conicalBottle, TextureMapping.layer0(new Material(conicalBottle)), itemModelGenerator.modelOutput);
         ModelTemplates.FLAT_ITEM.create(sphericalBottle, TextureMapping.layer0(new Material(sphericalBottle)), itemModelGenerator.modelOutput);

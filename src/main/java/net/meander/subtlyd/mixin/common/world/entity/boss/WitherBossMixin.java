@@ -1,7 +1,8 @@
 package net.meander.subtlyd.mixin.common.world.entity.boss;
 
-import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
@@ -21,31 +22,26 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(WitherBoss.class)
 public class WitherBossMixin {
-    /**
-     * Determines that the maximum amount of health a wither can have naturally, is 600 health points.
-     * @param health The orignal amount of health.
-     * @return 600 health points
-     */
+    private static final EntityDataAccessor<Boolean> DATA_ID_WITHER_DIVE = SynchedEntityData.defineId(WitherBoss.class, EntityDataSerializers.BOOLEAN);
+
     @ModifyConstant(method = "createAttributes", constant = @Constant(doubleValue = 300.0))
-    private static double updatedHealth(double health) {
+    private static double setBaseHealth(double health) {
         return 600.0;
     }
 
-    /**
-     * Adds new Wither Boss behavior.
-     */
     @Inject(method = "customServerAiStep", at = @At("TAIL"))
-    private void alteredBossBehavior(ServerLevel level, CallbackInfo ci) {
+    private void modifyAiStep(ServerLevel level, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
-        int difficultyLevel = wither.level().getDifficulty().getId();
 
         if (wither.getInvulnerableTicks() <= 0) {
-            boolean shouldDoDiveBomb = wither.getEntityData().get(SynchedEntityDataSD.DATA_ID_WITHER_DIVE);
+            boolean shouldDoDiveBomb = wither.getEntityData().get(DATA_ID_WITHER_DIVE);
+
             if (wither.isPowered()) {
-                if (difficultyLevel > 1 && shouldDoDiveBomb) {
+                if (level.getDifficulty().getId() > 1 && shouldDoDiveBomb) {
                     Vec3 movement = wither.getDeltaMovement();
 
                     wither.setDeltaMovement(new Vec3(movement.x(), -1.0, movement.z()));
+
                     if (!wither.getBlockStateOn().is(BlockTags.REPLACEABLE)) {
                         wither.playSound(SoundEventsSD.WITHER_SKELETONS_SUMMONED);
                         level.explode(wither, wither.getX(), wither.getY(), wither.getZ(), 7.0F, Level.ExplosionInteraction.MOB);
@@ -53,11 +49,11 @@ public class WitherBossMixin {
                         for (int i = 0; i < 3; i++) {
                             EntityTypes.WITHER_SKELETON.spawn(level, wither.blockPosition(), EntitySpawnReason.MOB_SUMMONED);
                         }
-                        wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, false);
+                        wither.getEntityData().set(DATA_ID_WITHER_DIVE, false);
                     }
                 }
             } else if (!shouldDoDiveBomb) {
-                wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, true);
+                wither.getEntityData().set(DATA_ID_WITHER_DIVE, true);
             }
         }
     }
@@ -67,19 +63,19 @@ public class WitherBossMixin {
      * @return The amount of health to heal per second (?)
      */
     @ModifyConstant(method = "customServerAiStep", constant = @Constant(floatValue = 10.0F))
-    private float updatedHealingRate(float health) {
+    private float modifyHealingRate(float health) {
         return ((WitherBoss) (Object) this).getMaxHealth() / 30.0F;
     }
 
     @Inject(method = "defineSynchedData", at = @At("TAIL"))
     private void defineSynchedData(SynchedEntityData.Builder entityData, CallbackInfo ci) {
-        entityData.define(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, false);
+        entityData.define(DATA_ID_WITHER_DIVE, false);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
-        output.putBoolean("ShouldDiveBomb", wither.getEntityData().get(SynchedEntityDataSD.DATA_ID_WITHER_DIVE));
+        output.putBoolean("ShouldDiveBomb", wither.getEntityData().get(DATA_ID_WITHER_DIVE));
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
@@ -87,7 +83,7 @@ public class WitherBossMixin {
         WitherBoss wither = (WitherBoss) (Object) this;
 
         if (input.contains("ShouldDiveBomb")) {
-            wither.getEntityData().set(SynchedEntityDataSD.DATA_ID_WITHER_DIVE, input.getBooleanOr("ShouldDiveBomb", false));
+            wither.getEntityData().set(DATA_ID_WITHER_DIVE, input.getBooleanOr("ShouldDiveBomb", false));
         }
     }
 }

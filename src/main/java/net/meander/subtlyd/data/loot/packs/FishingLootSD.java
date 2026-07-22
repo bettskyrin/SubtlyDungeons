@@ -1,6 +1,6 @@
 package net.meander.subtlyd.data.loot.packs;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.predicates.LocationPredicate;
 import net.minecraft.core.HolderLookup;
@@ -29,7 +29,7 @@ public class FishingLootSD {
         try {
             modify(registry, table -> overwriteFishPool(table, lookupProvider));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed registry lookup: {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed registry lookup: {}", e.getMessage());
         }
     }
 

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.world.entity.ai.attributes;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -13,6 +13,6 @@ public class AttributesSD {
     public static void registration() {}
 
     private static Holder<Attribute> register(final String id, final Attribute attribute) {
-        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, Util.identifier(id), attribute);
+        return Registry.registerForHolder(BuiltInRegistries.ATTRIBUTE, UtilSD.identifier(id), attribute);
     }
 }

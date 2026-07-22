@@ -7,7 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.model.HeavyShieldModel;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.blockentity.BannerRenderer;
@@ -34,9 +34,9 @@ import java.util.function.Consumer;
 @Environment(EnvType.CLIENT)
 public class HeavyShieldSpecialRenderer implements SpecialModelRenderer<DataComponentMap> {
     public static final Transformation DEFAULT_TRANSFORMATION = new Transformation(null, null, new Vector3f(1.0F, -1.0F, -1.0F), null);
-    public static final SpriteId HEAVY_SHIELD_BASE = new SpriteId(Sheets.SHIELD_SHEET, Util.identifier("entity/shield/heavy_shield_base"));
-    public static final SpriteId HEAVY_SHIELD_BASE_NO_PATTERN = new SpriteId(Sheets.SHIELD_SHEET, Util.identifier("entity/shield/heavy_shield_base_nopattern"));
-    public static final SpriteId HEAVY_SHIELD_OVERLAY = new SpriteId(Sheets.SHIELD_SHEET, Util.identifier("entity/shield/heavy_shield_overlay"));
+    public static final SpriteId HEAVY_SHIELD_BASE = new SpriteId(Sheets.SHIELD_SHEET, UtilSD.identifier("entity/shield/heavy_shield_base"));
+    public static final SpriteId HEAVY_SHIELD_BASE_NO_PATTERN = new SpriteId(Sheets.SHIELD_SHEET, UtilSD.identifier("entity/shield/heavy_shield_base_nopattern"));
+    public static final SpriteId HEAVY_SHIELD_OVERLAY = new SpriteId(Sheets.SHIELD_SHEET, UtilSD.identifier("entity/shield/heavy_shield_overlay"));
 
     private final SpriteGetter sprites;
     private final HeavyShieldModel model;

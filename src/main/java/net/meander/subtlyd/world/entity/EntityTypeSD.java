@@ -1,13 +1,8 @@
 package net.meander.subtlyd.world.entity;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.TemperatureVariants;
@@ -24,17 +19,17 @@ import net.minecraft.world.entity.animal.rabbit.Rabbit;
 import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.animal.wolf.WolfVariant;
 import net.minecraft.world.entity.animal.wolf.WolfVariants;
-import net.minecraft.world.item.Item;
 
 import java.util.Map;
-import java.util.function.Supplier;
 
+/**
+ * @see EntityType
+ */
 public class EntityTypeSD {
     /**
-     * As of this comment, only Wolf Variants are actual Data Components. Once they're Data Components, we can implement this better.
-     * My suggestion would be to create a new Data Tag type and give each variant the proper tag
+     * Would be better if Data Driven, though currently Rabbit Variants are not yet ResourceKeys like the rest of the variants.
      */
-    public static Map<?, Identifier> variantMap = Map.ofEntries(
+    public static Map<?, Identifier> tempVariantMap = Map.ofEntries(
             Map.entry((Object) PigVariants.WARM, TemperatureVariants.WARM),
             Map.entry((Object) CowVariants.WARM, TemperatureVariants.WARM),
             Map.entry((Object) ChickenVariants.WARM, TemperatureVariants.WARM),
@@ -77,36 +72,24 @@ public class EntityTypeSD {
         Object variant;
 
         switch (mob) {
-            case Pig p -> variant = p.getVariant();
-            case Cow c -> variant = c.getVariant();
-            case Chicken c -> variant = c.getVariant();
-            case Frog f -> variant = f.getVariant();
-            case Rabbit r -> variant = r.getVariant();
-            case Wolf w -> {
-                Holder<WolfVariant> holder = w.get(DataComponents.WOLF_VARIANT);
+            case Pig pig -> variant = pig.getVariant();
+            case Cow cow -> variant = cow.getVariant();
+            case Chicken chicken -> variant = chicken.getVariant();
+            case Frog frog -> variant = frog.getVariant();
+            case Rabbit rabbit -> variant = rabbit.getVariant();
+            case Wolf wolf -> {
+                Holder<WolfVariant> holder = wolf.get(DataComponents.WOLF_VARIANT);
                 variant = holder != null ? holder.unwrapKey().orElse(null) : null;
             }
-            case Fox f -> variant = f.getVariant();
+            case Fox fox -> variant = fox.getVariant();
             case null, default -> {
                 return null;
             }
         }
 
-        if (variantMap.containsKey(variant)) {
-            return variantMap.get(variant);
+        if (tempVariantMap.containsKey(variant)) {
+            return tempVariantMap.get(variant);
         }
         return null;
-    }
-
-    public static <T extends Entity> EntityType<T> register(Item item, EntityType.Builder<T> builder) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item), builder.build(ResourceKey.create(Registries.ENTITY_TYPE, BuiltInRegistries.ITEM.getKey(item))));
-    }
-
-    public static <T extends Entity> EntityType<T> register(Identifier key, EntityType.Builder<T> builder) {
-        return Registry.register(BuiltInRegistries.ENTITY_TYPE, key, builder.build(ResourceKey.create(Registries.ENTITY_TYPE, key)));
-    }
-
-    public static EntityType.EntityFactory<TentEntity> tentFactory(Supplier<Item> supplier) {
-        return (entityType, level) -> new TentEntity(entityType, level, supplier);
     }
 }

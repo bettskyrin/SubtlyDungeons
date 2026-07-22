@@ -1,6 +1,6 @@
 package net.meander.subtlyd.tags;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -24,7 +24,7 @@ public class BlockTagsSD {
     public static final TagKey<Block> SILENT_FOLIAGE = create("silent_foliage");
 
     private static TagKey<Block> create(String string) {
-        return TagKey.create(Registries.BLOCK, Util.identifier(string));
+        return TagKey.create(Registries.BLOCK, UtilSD.identifier(string));
     }
 
     /**

@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
-import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
+import net.meander.subtlyd.world.entity.ZombieSD;
 import net.minecraft.client.model.monster.zombie.ZombieModel;
 import net.minecraft.client.renderer.entity.AbstractZombieRenderer;
 import net.minecraft.client.renderer.entity.DrownedRenderer;
@@ -17,10 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractZombieRenderer.class)
 public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRenderState, M extends ZombieModel<S>> {
-    private final Identifier ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader.png");
-    private final Identifier BABY_ZOMBIE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/zombie_leader_baby.png");
-    private final Identifier DROWNED_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader.png");
-    private final Identifier GURGLE_LEADER_LOCATION = Util.identifier("textures/entity/zombie/drowned_leader_baby.png");
+    private final Identifier ZOMBIE_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/zombie_leader.png");
+    private final Identifier BABY_ZOMBIE_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/zombie_leader_baby.png");
+    private final Identifier DROWNED_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/drowned_leader.png");
+    private final Identifier GURGLE_LEADER_LOCATION = UtilSD.identifier("textures/entity/zombie/drowned_leader_baby.png");
 
     /**
      * Changes the zombie leader texture to their unique design.
@@ -46,7 +46,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
             at = @At("TAIL"))
     private void setLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        boolean isLeader = entity.getEntityData().get(SynchedEntityDataSD.DATA_ID_ZOMBIE_LEADER);
+        boolean isLeader = entity.getEntityData().get(ZombieSD.DATA_ID_ZOMBIE_LEADER);
             ((UndeadRenderStateAccessor) state).setLeader(isLeader);
     }
 }

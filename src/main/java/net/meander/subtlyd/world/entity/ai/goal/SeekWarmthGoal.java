@@ -23,7 +23,7 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
     public boolean canUse() {
         Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
 
-        if (!isValidTarget(mob.level(), mob.blockPosition()) && variant != TemperatureVariants.COLD && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
+        if (!isValidTarget(mob.level(), mob.blockPosition()) && variant != TemperatureVariants.COLD && BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
             if (variant != TemperatureVariants.TEMPERATE || mob.level().precipitationAt(mob.blockPosition()) == Biome.Precipitation.SNOW) { // Warm, No Variant, or snowing
                 return super.canUse();
             }
@@ -34,7 +34,7 @@ public class SeekWarmthGoal extends MoveToBlockGoal {
 
     @Override
     public boolean canContinueToUse() {
-        if (isValidTarget(mob.level(), mob.blockPosition()) && BiomeSD.getTemperatureAsVariantType(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
+        if (isValidTarget(mob.level(), mob.blockPosition()) && BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
             return false;
         }
         return super.canContinueToUse();

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.sounds;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -40,7 +40,7 @@ public class SoundEventsSD {
     public static void registration() {}
 
     private static SoundEvent register(String string) {
-        return register(Util.identifier(string));
+        return register(UtilSD.identifier(string));
     }
 
     private static SoundEvent register(Identifier resourceLocation) { return register(resourceLocation, resourceLocation); }
@@ -50,7 +50,7 @@ public class SoundEventsSD {
     }
 
     private static Holder.Reference<SoundEvent> registerForHolder(final String id) {
-        return registerForHolder(Util.identifier(id));
+        return registerForHolder(UtilSD.identifier(id));
     }
 
     private static Holder.Reference<SoundEvent> registerForHolder(final Identifier id) {

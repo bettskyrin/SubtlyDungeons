@@ -2,7 +2,7 @@ package net.meander.subtlyd.data.worldgen.features;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
@@ -48,7 +48,7 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
 
             entries.add(featureKey, new PlacedFeature(placedFeature.feature(), modifiers));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to override {}", featureKey.identifier(), e);
+            UtilSD.LOGGER.error("Failed to override {}", featureKey.identifier(), e);
         }
     }
 
@@ -115,7 +115,7 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
 
             entries.add(placedFeature, new PlacedFeature(original.feature(), modifiers));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
+            UtilSD.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
         }
     }
 
@@ -135,7 +135,7 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
 
             entries.add(placedFeature, new PlacedFeature(original.feature(), modifiers));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
+            UtilSD.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
         }
     }
 
@@ -155,7 +155,7 @@ public class FeatureProvider extends FabricDynamicRegistryProvider {
 
             entries.add(placedFeature, new PlacedFeature(original.feature(), modifiers));
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
+            UtilSD.LOGGER.error("Failed to override {}", placedFeature.identifier(), e);
         }
     }
     @Override

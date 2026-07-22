@@ -1,6 +1,6 @@
 package net.meander.subtlyd.references;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Item;
@@ -30,7 +30,7 @@ public class ItemIdsSD {
     public static final ResourceKey<Item> HEAVY_SHIELD = create("heavy_shield");
 
     private static ResourceKey<Item> create(final String name) {
-        return ResourceKey.create(Registries.ITEM, Util.identifier(name));
+        return ResourceKey.create(Registries.ITEM, UtilSD.identifier(name));
     }
 
     private static ColorCollection<ResourceKey<Item>> createSimpleColored(final String baseName) {

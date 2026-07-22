@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.level;
 
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -16,6 +16,6 @@ public class GameRulesSD {
     public static void registration() {}
 
     private static GameRule<Boolean> registerBoolean(String id, GameRuleCategory category, boolean defaultValue) {
-        return GameRules.registerBoolean(Util.identifier(id).toString(), category, defaultValue);
+        return GameRules.registerBoolean(UtilSD.identifier(id).toString(), category, defaultValue);
     }
 }

@@ -3,7 +3,7 @@ package net.meander.subtlyd.advancements.packs;
 import net.meander.subtlyd.advancements.triggers.SleptInTentTrigger;
 import net.meander.subtlyd.advancements.triggers.StealthAttackTrigger;
 import net.meander.subtlyd.tags.BlockTagsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;
@@ -28,13 +28,20 @@ import static net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvi
  * @see net.minecraft.data.advancements.packs.VanillaAdventureAdvancements
  */
 public class AdventureAdvancementsSD {
+    public static final Component CAMP_FAR_AWAY_TITLE = Component.translatable("advancements.subtlyd.camp_far_away.title");
+    public static final Component CAMP_FAR_AWAY_DESC = Component.translatable("advancements.subtlyd.camp_far_away.description");
+    public static final Component BANNER_MARKER_TITLE = Component.translatable("advancements.subtlyd.banner_marker.title");
+    public static final Component BANNER_MARKER_DESC = Component.translatable("advancements.subtlyd.banner_marker.description");
+    public static final Component STEALTH_ATTACK_TITLE = Component.translatable("advancements.subtlyd.stealth_attack.title");
+    public static final Component STEALTH_ATTACK_DESC = Component.translatable("advancements.subtlyd.stealth_attack.description");
+
     public static void register(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/sleep_in_bed")))
                 .display(
                         ItemsSD.TENT.red(),
-                        Component.translatable("advancements.subtlyd.camp_far_away.title"),
-                        Component.translatable("advancements.subtlyd.camp_far_away.description"),
+                        CAMP_FAR_AWAY_TITLE,
+                        CAMP_FAR_AWAY_DESC,
                         null,
                         AdvancementType.CHALLENGE,
                         true,
@@ -43,13 +50,13 @@ public class AdventureAdvancementsSD {
 
                 )
                 .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
-                .save(consumer, Util.identifier("adventure/camp_far_away"));
+                .save(consumer, UtilSD.identifier("adventure/camp_far_away"));
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
                 .display(
                         Items.FILLED_MAP,
-                        Component.translatable("advancements.subtlyd.banner_marker.title"),
-                        Component.translatable("advancements.subtlyd.banner_marker.description"),
+                        BANNER_MARKER_TITLE,
+                        BANNER_MARKER_DESC,
                         null,
                         AdvancementType.TASK,
                         true,
@@ -59,14 +66,13 @@ public class AdventureAdvancementsSD {
                 .addCriterion("created_banner_marker", ItemUsedOnLocationTrigger.TriggerInstance.itemUsedOnBlock(
                         LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTags.BANNERS)),
                         ItemPredicate.Builder.item().of(registryLookup.lookupOrThrow(Registries.ITEM), Items.FILLED_MAP)))
-                .save(consumer, Util.identifier("adventure/banner_marker"));
-
+                .save(consumer, UtilSD.identifier("adventure/banner_marker"));
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/kill_a_mob")))
                 .display(
                         ItemsSD.IRON_DAGGER,
-                        Component.translatable("advancements.subtlyd.stealth_attack.title"),
-                        Component.translatable("advancements.subtlyd.stealth_attack.description"),
+                        STEALTH_ATTACK_TITLE,
+                        STEALTH_ATTACK_DESC,
                         null,
                         AdvancementType.GOAL,
                         true,
@@ -74,15 +80,7 @@ public class AdventureAdvancementsSD {
                         false
                 )
                 .addCriterion("do_stealth_attack", StealthAttackTrigger.TriggerInstance.stealthAttack(
-                        EntityPredicate.Builder.entity().located(
-                                LocationPredicate.Builder.location().setBlock(
-                                        BlockPredicate.Builder.block().of(
-                                                registryLookup.lookupOrThrow(Registries.BLOCK),
-                                                BlockTagsSD.TALL_PLANTS
-                                        )
-                                )
-                        )
-                ))
-                .save(consumer, Util.identifier("adventure/stealth_attack"));
+                        EntityPredicate.Builder.entity().located(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTagsSD.TALL_PLANTS)))))
+                .save(consumer, UtilSD.identifier("adventure/stealth_attack"));
     }
 }

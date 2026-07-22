@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.monster;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -55,7 +55,7 @@ public class RaiderMixin {
                         mainHandItem.enchant(level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).wrapAsHolder(flameEnchantment.get()), 1);
                     }
                 } catch (Exception e) {
-                    Util.LOGGER.error("Failed to set enchantment: {}", e.getMessage());
+                    UtilSD.LOGGER.error("Failed to set enchantment: {}", e.getMessage());
                 }
             }
             setBoost();

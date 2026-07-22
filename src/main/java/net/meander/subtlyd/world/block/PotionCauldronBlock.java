@@ -1,6 +1,6 @@
 package net.meander.subtlyd.world.block;
 
-import net.meander.subtlyd.core.particles.ParticleTypesSD;
+import net.meander.subtlyd.client.particle.ParticleResourcesSD;
 import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
 import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
@@ -59,7 +59,7 @@ public class PotionCauldronBlock extends AbstractCauldronBlock implements Entity
             OptionalInt particleColor = PotionContents.getColorOptional(blockEntity.getPotion().value().getEffects());
 
             if (particleColor.isPresent()) {
-                ParticleTypesSD.generatePotionParticles(level, pos, particleColor.getAsInt(), false);
+                ParticleResourcesSD.generatePotionParticles(level, pos, particleColor.getAsInt(), false);
             }
         }
     }

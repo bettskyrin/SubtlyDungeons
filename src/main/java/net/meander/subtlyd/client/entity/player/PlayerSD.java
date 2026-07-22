@@ -3,7 +3,7 @@ package net.meander.subtlyd.client.entity.player;
 import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
-import net.meander.subtlyd.world.entity.TentEntity;
+import net.meander.subtlyd.world.entity.Tent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
@@ -21,7 +21,7 @@ public abstract class PlayerSD extends Player {
      * @param tent Tent the player is attempting to sleep in
      * @param player Sleeping player
      */
-    public static Either<TentSleepingProblem, Unit> startSleepInTent(TentEntity tent, ServerPlayer player) {
+    public static Either<TentSleepingProblem, Unit> startSleepInTent(Tent tent, ServerPlayer player) {
         player.setRespawnPosition(null, false);
         LivingEntitySD.startSleepingInTent(tent, player);
         return Either.right(Unit.INSTANCE);

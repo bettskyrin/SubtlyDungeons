@@ -1,24 +1,26 @@
 package net.meander.subtlyd.core.component;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
-import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.item.DyeColor;
+
+import java.util.function.UnaryOperator;
 
 /**
  * @see net.minecraft.core.component.DataComponents
  */
 public class DataComponentsSD {
-    public static final DataComponentType<Integer> MAGIC_LEVEL = register("magic_level", DataComponentType.<Integer>builder().persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
-    public static final DataComponentType<StealthWeapon> STEALTH_WEAPON = register("stealth_attack", DataComponentType.<StealthWeapon>builder().persistent(StealthWeapon.CODEC).networkSynchronized(StealthWeapon.STREAM_CODEC));
+    public static final DataComponentType<Integer> MAGIC_LEVEL = register("magic_level", (b) -> b.persistent(ExtraCodecs.NON_NEGATIVE_INT).networkSynchronized(ByteBufCodecs.VAR_INT));
+    public static final DataComponentType<StealthWeapon> STEALTH_WEAPON = register("stealth_attack", (b) -> b.persistent(StealthWeapon.CODEC).networkSynchronized(StealthWeapon.STREAM_CODEC));
+    public static final DataComponentType<DyeColor> TENT_COLOR = register("tent/color", (b) -> b.persistent(DyeColor.CODEC).networkSynchronized(DyeColor.STREAM_CODEC));
 
     public static void registration() {}
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    private static <T> DataComponentType<T> register(final String id, final DataComponentType.Builder builder) {
-        return Registry.register(BuiltInRegistries.DATA_COMPONENT_TYPE, Util.identifier(id), builder.build());
+    private static <T> DataComponentType<T> register(final String id, final UnaryOperator<DataComponentType.Builder<T>> builder) {
+        return DataComponents.register(UtilSD.identifier(id).toString(), builder);
     }
 }

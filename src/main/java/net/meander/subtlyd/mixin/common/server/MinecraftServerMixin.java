@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.common.server;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.level.storage.WorldIconState;
 import net.minecraft.network.protocol.status.ServerStatus;
 import net.minecraft.server.MinecraftServer;
@@ -42,7 +42,7 @@ public class MinecraftServerMixin {
                     throw new IllegalArgumentException("Invalid world icon size [" + pngInfo.width() + ", " + pngInfo.height() + "], but expected [455, 256]");
                 }
             } catch (Exception e) {
-                Util.LOGGER.error("Couldn't load common icon: ", e);
+                UtilSD.LOGGER.error("Couldn't load common icon: ", e);
                 return Optional.empty();
             }
         });

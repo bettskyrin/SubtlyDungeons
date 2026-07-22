@@ -7,6 +7,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 public class MobEffectsSD {
     public static void init() {
+        modifyJumpBoost();
+    }
+
+    private static void modifyJumpBoost() {
         MobEffects.JUMP_BOOST.value().addAttributeModifier(
                 Attributes.JUMP_STRENGTH,
                 Identifier.withDefaultNamespace("effect.jump_boost"),

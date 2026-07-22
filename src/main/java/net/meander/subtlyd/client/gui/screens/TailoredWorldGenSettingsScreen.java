@@ -3,7 +3,7 @@ package net.meander.subtlyd.client.gui.screens;
 import com.mojang.datafixers.util.Pair;
 import net.meander.subtlyd.client.gui.components.RatioSliderButton;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -136,7 +136,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
                 createScreen.applyNewPackConfig(
                         tempRepo,
                         getWorldDataConfiguration(config),
-                        (_) -> Util.LOGGER.error("Minecraft aborted datapack reload! Malformed JSON syntax.")
+                        (_) -> UtilSD.LOGGER.error("Minecraft aborted datapack reload! Malformed JSON syntax.")
                 );
             }
         } else {

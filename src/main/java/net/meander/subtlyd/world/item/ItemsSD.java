@@ -1,9 +1,9 @@
 package net.meander.subtlyd.world.item;
 
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
@@ -47,8 +47,7 @@ public class ItemsSD {
     public static final Item POTTAGE = Items.registerItem(ItemIdsSD.POTTAGE, Item::new, new Item.Properties()
             .food(FoodsSD.POTTAGE)
             .stacksTo(1));
-    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, p -> new TentItem(EntityTypesSD.TENT.pick(color), p),
-            new Item.Properties().stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
+    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, TentItem::new, new Item.Properties().component(DataComponentsSD.TENT_COLOR, color).stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
     public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (p -> p
             .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));

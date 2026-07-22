@@ -1,11 +1,17 @@
 package net.meander.subtlyd.world.entity;
 
-import net.meander.subtlyd.network.syncher.SynchedEntityDataSD;
+import com.mojang.serialization.Codec;
+import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.stats.StatsSD;
-import net.meander.subtlyd.tags.DamageTypeTagsSD;
+import net.meander.subtlyd.util.UtilSD;
+import net.meander.subtlyd.world.item.ItemsSD;
+import net.minecraft.core.component.DataComponentGetter;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -14,16 +20,13 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gamerules.GameRules;
@@ -32,30 +35,65 @@ import net.minecraft.world.level.storage.ValueOutput;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
-import java.util.function.Supplier;
 
-public class TentEntity extends Entity {
+public class Tent extends Entity {
     public long lastHit;
-    public boolean occupied;
-    private final Supplier<Item> dropItem;
+    public boolean isOccupied;
+    private static final DyeColor DEFAULT_COLOR;
+    private static final EntityDataAccessor<DyeColor> DATA_COLOR;
+    private static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.FLOAT);
 
-    public TentEntity(EntityType<?> entityType, Level level, Supplier<Item> supplier) {
+    public Tent(final EntityType<Tent> entityType, final Level level) {
         super(entityType, level);
-        dropItem = supplier;
-        occupied = false;
+
+        isOccupied = false;
     }
 
     public boolean isOccupied() {
-        return occupied;
+        return isOccupied;
+    }
+
+    public DyeColor getColor() {
+        return entityData.get(DATA_COLOR);
+    }
+
+    public void setColor(final DyeColor color) {
+        entityData.set(DATA_COLOR, color);
+    }
+
+    public void dropItem(final ServerLevel level, final @Nullable Entity causedBy) {
+        playBrokenSound();
+        showBreakingParticles();
+
+        if (level.getGameRules().get(GameRules.ENTITY_DROPS)) {
+            if (causedBy instanceof Player player) {
+                if (player.hasInfiniteMaterials()) {
+                    kill(level);
+                    return;
+                }
+            }
+
+            ItemEntity itemEntity = spawnAtLocation(level, getTentItemStackWithData());
+
+            if (itemEntity != null && causedBy instanceof LightningBolt) {
+                itemEntity.setInvulnerableFor(20);
+            }
+        }
+
+        kill(level);
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(SynchedEntityDataSD.DATA_ID_HURT, 0);
-        builder.define(SynchedEntityDataSD.DATA_ID_HURTDIR, 1);
-        builder.define(SynchedEntityDataSD.DATA_ID_DAMAGE, 0.0F);
+        builder.define(DATA_ID_HURT, 0);
+        builder.define(DATA_ID_HURTDIR, 1);
+        builder.define(DATA_ID_DAMAGE, 0.0F);
+        builder.define(DATA_COLOR, DEFAULT_COLOR);
     }
 
     @Override
@@ -82,27 +120,27 @@ public class TentEntity extends Entity {
     }
 
     public void setHurtDir(int hurtDir) {
-        entityData.set(SynchedEntityDataSD.DATA_ID_HURTDIR, hurtDir);
+        entityData.set(DATA_ID_HURTDIR, hurtDir);
     }
 
     public void setHurtTime(int hurtTime) {
-        entityData.set(SynchedEntityDataSD.DATA_ID_HURT, hurtTime);
+        entityData.set(DATA_ID_HURT, hurtTime);
     }
 
     public void setDamage(float damage) {
-        entityData.set(SynchedEntityDataSD.DATA_ID_DAMAGE, damage);
+        entityData.set(DATA_ID_DAMAGE, damage);
     }
 
     public float getDamage() {
-        return entityData.get(SynchedEntityDataSD.DATA_ID_DAMAGE);
+        return entityData.get(DATA_ID_DAMAGE);
     }
 
     public int getHurtDir() {
-        return entityData.get(SynchedEntityDataSD.DATA_ID_HURTDIR);
+        return entityData.get(DATA_ID_HURTDIR);
     }
 
     public int getHurtTime() {
-        return entityData.get(SynchedEntityDataSD.DATA_ID_HURT);
+        return entityData.get(DATA_ID_HURT);
     }
 
     @Override
@@ -112,39 +150,33 @@ public class TentEntity extends Entity {
         } else if (!serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && damageSource.getEntity() instanceof Mob) {
             return false;
         } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
-            kill(serverLevel);
+            dropItem(serverLevel, damageSource.getEntity());
             return false;
         } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
-            broken();
-            showBreakingParticles();
-            kill(serverLevel);
+            dropItem(serverLevel, damageSource.getEntity());
             return false;
-        } else if (damageSource.is(DamageTypeTagsSD.IGNITES_TENTS)) {
+        } else if (damageSource.is(DamageTypeTags.IS_FIRE)) {
             if (isOnFire()) {
                 setDamage(0.15F);
             } else {
                 igniteForSeconds(5.0F);
             }
             return false;
-        } else if (damageSource.is(DamageTypeTagsSD.BURNS_TENTS)) {
-            setDamage(4.0F);
-            return false;
         } else {
-            boolean canBreak = damageSource.is(DamageTypeTagsSD.CAN_BREAK_TENT);
-            boolean alwaysKills = damageSource.is(DamageTypeTagsSD.ALWAYS_KILLS_TENT);
-            if (!(canBreak || alwaysKills)) {
+            boolean sourceCanBreakTent = damageSource.is(DamageTypeTags.IS_PLAYER_ATTACK) || damageSource.is(DamageTypeTags.IS_EXPLOSION);
+            boolean sourceIsProjectile = damageSource.is(DamageTypeTags.IS_PROJECTILE);
+
+            if (!(sourceCanBreakTent || sourceIsProjectile)) {
                 return false;
             } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
                 return false;
             } else if (damageSource.isCreativePlayer()) {
-                playBrokenSound();
-                showBreakingParticles();
-                kill(serverLevel);
+                dropItem(serverLevel, damageSource.getEntity());
                 return true;
             } else {
                 long time = serverLevel.getGameTime();
 
-                if (time - lastHit > 5L && !alwaysKills) {
+                if (time - lastHit > 5L && !sourceIsProjectile) {
                     if (damageSource.getEntity() != null) {
                         setHurtDir(1);
                     }
@@ -157,18 +189,23 @@ public class TentEntity extends Entity {
                     lastHit = time;
                     showBreakingParticles();
                 } else {
-                    broken();
-                    showBreakingParticles();
-                    kill(serverLevel);
+                    dropItem(serverLevel, damageSource.getEntity());
                 }
                 return true;
             }
         }
     }
 
-    @Override protected void readAdditionalSaveData(@NotNull ValueInput valueInput) { }
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        setColor(input.read("color", DyeColor.CODEC).orElse(DEFAULT_COLOR));
+    }
 
-    @Override protected void addAdditionalSaveData(@NotNull ValueOutput valueOutput) { }
+    @Override
+    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
+        output.store("color", DyeColor.CODEC, getColor());
+        output.store("DataVersionSD", Codec.INT, UtilSD.DATA_VERSION);
+    }
 
     protected void pushEntities() {
         List<Entity> list = level().getPushableEntities(this, getBoundingBox());
@@ -200,13 +237,6 @@ public class TentEntity extends Entity {
 
     protected void doPush(Entity entity) {
         entity.push(this);
-    }
-
-    private void broken() {
-        ItemStack itemStack = new ItemStack(dropItem.get());
-        itemStack.set(DataComponents.CUSTOM_NAME, getCustomName());
-        Block.popResource(level(), blockPosition(), itemStack);
-        playBrokenSound();
     }
 
     private void showBreakingParticles() {
@@ -261,9 +291,9 @@ public class TentEntity extends Entity {
      * @param livingEntity The entity to check.
      * @return The tent the entity is actively using.
      */
-    public static TentEntity getTent(LivingEntity livingEntity, boolean isSleeping) {
+    public static Tent getTent(LivingEntity livingEntity, boolean isSleeping) {
         int bB = isSleeping ? -1 : 2;
-        TentEntity tent = livingEntity.level().getEntitiesOfClass(TentEntity.class, livingEntity.getBoundingBox().inflate(bB)).stream().findFirst().orElse(null);
+        Tent tent = livingEntity.level().getEntitiesOfClass(Tent.class, livingEntity.getBoundingBox().inflate(bB)).stream().findFirst().orElse(null);
 
         if (isSleeping && !livingEntity.isSleeping()) {
             return null;
@@ -302,11 +332,44 @@ public class TentEntity extends Entity {
 
     @Override
     public ItemStack getPickResult() {
-        return new ItemStack(dropItem.get());
+        return new ItemStack(ItemsSD.TENT.pick(getColor()));
     }
 
     @Override
     public boolean isPushedByFluid() {
         return false;
+    }
+
+    @Override
+    public <T> @Nullable T get(final DataComponentType<? extends T> type) {
+        return type == DataComponentsSD.TENT_COLOR ? castComponentValue(type, getColor()) : get(type);
+    }
+
+    @Override
+    protected void applyImplicitComponents(final DataComponentGetter components) {
+        this.applyImplicitComponentIfPresent(components, DataComponentsSD.TENT_COLOR);
+        super.applyImplicitComponents(components);
+    }
+
+    @Override
+    protected <T> boolean applyImplicitComponent(final DataComponentType<T> type, final T value) {
+        if (type == DataComponentsSD.TENT_COLOR) {
+            setColor(castComponentValue(DataComponentsSD.TENT_COLOR, value));
+            return true;
+        } else {
+            return super.applyImplicitComponent(type, value);
+        }
+    }
+
+    private ItemStack getTentItemStackWithData() {
+        ItemStack itemStack = new ItemStack(ItemsSD.TENT.pick(getColor()));
+
+        itemStack.set(DataComponents.CUSTOM_NAME, getCustomName());
+        return itemStack;
+    }
+
+    static {
+        DEFAULT_COLOR = DyeColor.WHITE;
+        DATA_COLOR = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.DYE_COLOR);
     }
 }

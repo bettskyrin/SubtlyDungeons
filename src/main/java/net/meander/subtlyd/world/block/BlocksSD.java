@@ -10,13 +10,11 @@ import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-import java.util.function.Function;
-
 /**
  * @see Blocks
  */
 public class BlocksSD {
-    public static final Block SNOW_BRICKS = register(BlockItemIdsSD.SNOW_BRICKS, BlockBehaviour.Properties.of()
+    public static final Block SNOW_BRICKS = Blocks.register(BlockItemIdsSD.SNOW_BRICKS, BlockBehaviour.Properties.of()
             .mapColor(MapColor.SNOW)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .strength(1.0F, 0.5F)
@@ -24,8 +22,8 @@ public class BlocksSD {
     public static final Block SNOW_BRICK_STAIRS = registerStair(BlockItemIdsSD.SNOW_BRICK_STAIRS, SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(BlockItemIdsSD.SNOW_BRICK_SLAB, SNOW_BRICKS);
     public static final Block SNOW_BRICK_WALL = registerWall(BlockItemIdsSD.SNOW_BRICK_WALL, SNOW_BRICKS);
-    public static final Block CHARCOAL_BLOCK = register(BlockItemIdsSD.CHARCOAL_BLOCK, BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
-    public static final Block IRON_GRATE = register(BlockItemIdsSD.IRON_GRATE, IronGrateBlock::new, BlockBehaviour.Properties.of()
+    public static final Block CHARCOAL_BLOCK = Blocks.register(BlockItemIdsSD.CHARCOAL_BLOCK, BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
+    public static final Block IRON_GRATE = Blocks.register(BlockItemIdsSD.IRON_GRATE, IronGrateBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL)
             .requiresCorrectToolForDrops().strength(5.0F, 6.0F)
             .sound(SoundType.IRON)
@@ -34,17 +32,17 @@ public class BlocksSD {
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never));
-    public static final Block STONE_PILLAR = register(BlockItemIdsSD.STONE_PILLAR, RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
-    public static final Block STONE_TILES = register(BlockItemIdsSD.STONE_TILES, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
+    public static final Block STONE_PILLAR = Blocks.register(BlockItemIdsSD.STONE_PILLAR, RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
+    public static final Block STONE_TILES = Blocks.register(BlockItemIdsSD.STONE_TILES, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final Block STONE_TILE_STAIRS = registerStair(BlockItemIdsSD.STONE_TILE_STAIRS, STONE_TILES);
     public static final Block STONE_TILE_SLAB = registerSlab(BlockItemIdsSD.STONE_TILE_SLAB, STONE_TILES);
     public static final Block STONE_TILE_WALL = registerWall(BlockItemIdsSD.STONE_TILE_WALL, STONE_TILES);
-    public static final Block POLISHED_DRIPSTONE = register(BlockItemIdsSD.POLISHED_DRIPSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
+    public static final Block POLISHED_DRIPSTONE = Blocks.register(BlockItemIdsSD.POLISHED_DRIPSTONE, BlockBehaviour.Properties.ofFullCopy(Blocks.DRIPSTONE_BLOCK));
     public static final Block POLISHED_DRIPSTONE_STAIRS = registerStair(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_SLAB = registerSlab(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE);
     public static final Block POLISHED_DRIPSTONE_WALL = registerWall(BlockItemIdsSD.POLISHED_DRIPSTONE_WALL, POLISHED_DRIPSTONE);
-    public static final Block CHISELED_POLISHED_DRIPSTONE = register(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE, BlockBehaviour.Properties.ofFullCopy(POLISHED_DRIPSTONE));
-    public static final Block REEDS = register(BlockItemIdsSD.REEDS, ReedsBlock::new, BlockBehaviour.Properties.of()
+    public static final Block CHISELED_POLISHED_DRIPSTONE = Blocks.register(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE, BlockBehaviour.Properties.ofFullCopy(POLISHED_DRIPSTONE));
+    public static final Block REEDS = Blocks.register(BlockItemIdsSD.REEDS, ReedsBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.WATER)
             .replaceable()
             .noCollision()
@@ -52,7 +50,7 @@ public class BlocksSD {
             .sound(SoundType.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
             .pushReaction(PushReaction.POPPED));
-    public static final Block WARPED_OVERHANG = register(BlockItemIdsSD.WARPED_OVERHANG, WarpedOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK)
+    public static final Block WARPED_OVERHANG = Blocks.register(BlockItemIdsSD.WARPED_OVERHANG, WarpedOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK)
             .noCollision()
             .noOcclusion()
             .instabreak()
@@ -63,20 +61,20 @@ public class BlocksSD {
             .isSuffocating(Blocks::never)
             .isViewBlocking(Blocks::never));
     public static final Block BASALT_SLAB = registerSlab(BlockItemIdsSD.BASALT_SLAB, Blocks.BASALT);
-    public static final Block SOUL_JACK_O_LANTERN = register(BlockItemIdsSD.SOUL_JACK_O_LANTERN, CarvedPumpkinBlock::new,
+    public static final Block SOUL_JACK_O_LANTERN = Blocks.register(BlockItemIdsSD.SOUL_JACK_O_LANTERN, CarvedPumpkinBlock::new,
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
                     .strength(1.0F)
                     .sound(SoundType.WOOD)
                     .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.POPPED));
-    public static final Block POTION_CAULDRON = register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
-    public static final Block PERSE_WILDFLOWERS = register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
+    public static final Block POTION_CAULDRON = Blocks.register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    public static final Block PERSE_WILDFLOWERS = Blocks.register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.POPPED));
-    public static final Block STEW_CAULDRON = register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
+    public static final Block STEW_CAULDRON = Blocks.register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
     public static final Block OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.OAK_WOOD_STAIRS, Blocks.OAK_WOOD);
     public static final Block SPRUCE_WOOD_STAIRS = registerStair(BlockItemIdsSD.SPRUCE_WOOD_STAIRS, Blocks.SPRUCE_WOOD);
     public static final Block BIRCH_WOOD_STAIRS = registerStair(BlockItemIdsSD.BIRCH_WOOD_STAIRS, Blocks.BIRCH_WOOD);
@@ -130,29 +128,21 @@ public class BlocksSD {
         BlockSD.registerEvents();
     }
 
-    private static Block register(final BlockItemId id, final BlockBehaviour.Properties properties) {
-        return Blocks.register(id.block(), properties);
-    }
-
-    private static Block register(final BlockItemId id, final Function<BlockBehaviour.Properties, Block> factory, final BlockBehaviour.Properties properties) {
-        return Blocks.register(id.block(), factory, properties);
-    }
-
     private static Block registerStair(final BlockItemId id, final Block baseBlock) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
 
-        return register(id, p -> new StairBlock(baseBlock.defaultBlockState(), p), properties);
+        return Blocks.register(id, p -> new StairBlock(baseBlock.defaultBlockState(), p), properties);
     }
 
     private static Block registerSlab(final BlockItemId id, final Block baseBlock) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
 
-        return register(id, SlabBlock::new, properties);
+        return Blocks.register(id, SlabBlock::new, properties);
     }
 
     private static Block registerWall(final BlockItemId id, final Block baseBlock) {
         BlockBehaviour.Properties properties = BlockBehaviour.Properties.ofFullCopy(baseBlock).mapColor(baseBlock.defaultMapColor());
 
-        return register(id, WallBlock::new, properties);
+        return Blocks.register(id, WallBlock::new, properties);
     }
 }
