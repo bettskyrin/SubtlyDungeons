@@ -1,0 +1,96 @@
+name: Bug report
+description: Report an issue in Subtly Dungeons
+title: '[Bug]: '
+labels: ["bug", "unconfirmed"]
+assignees:
+  - bettskyrin
+body:
+  - type: textarea
+    id: description
+    attributes:
+    label: Description
+    description: A clear and concise description of the bug. What is happening?
+    validations:
+    required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+    label: Steps to Reproduce
+    description: How do we replicate the behavior?
+    value: |
+      1. Load into a world with...
+      2. Obtain item/block...
+      3. Perform action...
+      4. Observe the bug...
+    validations:
+    required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+    label: Expected Behavior
+    description: A clear and concise description of what you expected to happen instead.
+    validations:
+    required: true
+
+  - type: input
+    id: mc-version
+    attributes:
+    label: Minecraft Version
+    placeholder: e.g., 26.3
+    validations:
+    required: true
+
+  - type: input
+    id: fabric-version
+    attributes:
+    label: Fabric Loader Version
+    placeholder: e.g., 0.16.0
+    validations:
+    required: true
+
+  - type: input
+    id: mod-version
+    attributes:
+    label: Subtly Dungeons Version
+    placeholder: e.g., 4.1.2
+    validations:
+    required: true
+
+  - type: dropdown
+    id: environment
+    attributes:
+    label: Environment
+    description: Select the environment where the bug occurred.
+    options:
+    - Singleplayer
+    - Dedicated Server
+    - LAN
+    - Peer-to-Peer (P2P)
+    validations:
+    required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+    label: Crash Report or Logs
+    description: If the game crashed, or if there is an error in the console, please upload the `latest.log` or `crash-report.txt` to a service like mclo.gs or Pastebin and link it here. Do NOT paste full crash logs directly in the issue body.
+    validations:
+    required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+    label: Screenshots / Video
+    description: If the bug is visual or hard to describe, add screenshots or a short video clip.
+    validations:
+    required: false
+
+  - type: textarea
+    id: context
+    attributes:
+    label: Additional Context
+    description: Add any other context about the problem here (e.g., specific hardware, using shaders, occurs only in specific dimensions).
+    validations:
+    required: false
