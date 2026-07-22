@@ -45,6 +45,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 				for (int drop = 0; drop < 5; drop++) {
 					boolean placed = placeLog(level, trunkSetter, random, basePos, tree);
+
 					if (placed) {
 						basePos.move(Direction.DOWN);
 					} else {
@@ -70,49 +71,80 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		}
 
 		int topBranchY = y + treeHeight - 1;
-		int targetBranches = random.nextInt(3) + 2;
 		List<Direction> availableDirs = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
+		int horizontalBranch = 2;
 
-		for (int i = 0; i < targetBranches; i++) {
+		for (int i = 0; i < horizontalBranch && !availableDirs.isEmpty(); i++) {
 			int index = random.nextInt(availableDirs.size());
 			Direction dir = availableDirs.remove(index);
 
-			generateBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), dir, tree, attachments);
+			generateStandardBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), dir, tree, attachments);
+		}
+
+		while (!availableDirs.isEmpty()) {
+			int index = random.nextInt(availableDirs.size());
+			Direction dir = availableDirs.remove(index);
+
+			generateDiagonalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), dir, tree, attachments);
 		}
 
 		if (random.nextFloat() < 0.1F) {
 			int lowBranchY = y + 4;
 			Direction dir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-			generateBranch(level, trunkSetter, random, new BlockPos(x, lowBranchY, z), dir, tree, attachments);
+
+			generateStandardBranch(level, trunkSetter, random, new BlockPos(x, lowBranchY, z), dir, tree, attachments);
 		}
 
 		return attachments;
 	}
 
-	private void generateBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos startPos, Direction dir, TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
-		int length = random.nextInt(3) + 3;
-		int height = random.nextInt(3) + 1;
+	private void generateStandardBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos startPos, Direction dir, TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
+		int length = random.nextInt(3) + 4;
+		int height = random.nextInt(2) + 1;
 		BlockPos.MutableBlockPos currentPos = startPos.mutable();
-
 		int offset = (dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
+
 		currentPos.move(dir, offset);
 
 		Function<BlockState, BlockState> axisSetter = state -> state.hasProperty(BlockStateProperties.AXIS) ? state.setValue(BlockStateProperties.AXIS, dir.getAxis()) : state;
 
-		for (int i = 0; i < height; i++) {
-			currentPos.move(Direction.UP);
-			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree);
-			}
-		}
-
 		for (int i = 0; i < length; i++) {
 			currentPos.move(dir);
+
 			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
 				placeLog(level, trunkSetter, random, currentPos, tree, axisSetter);
 			}
 		}
 
-		attachments.add(new FoliagePlacer.FoliageAttachment(currentPos.above(), 0, false));
+		for (int i = 0; i < height; i++) {
+			currentPos.move(Direction.UP);
+
+			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
+				placeLog(level, trunkSetter, random, currentPos, tree);
+			}
+		}
+
+		attachments.add(new FoliagePlacer.FoliageAttachment(currentPos.above(2), 0, false));
+	}
+
+	/**
+	 * @see	net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer
+	 */
+	private void generateDiagonalBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos startPos, Direction dir, TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
+		int steps = random.nextInt(2) + 2;
+		int offset = (dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
+
+		BlockPos.MutableBlockPos currentPos = startPos.mutable();
+		currentPos.move(dir, offset);
+
+		for (int i = 0; i < steps; i++) {
+			currentPos.move(Direction.UP).move(dir);
+
+			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
+				placeLog(level, trunkSetter, random, currentPos, tree);
+			}
+		}
+
+		attachments.add(new FoliagePlacer.FoliageAttachment(currentPos.above(2), 0, false));
 	}
 }
