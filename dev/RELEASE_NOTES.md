@@ -21,6 +21,9 @@
 #### Settings
 - Added a warning for disabling advanced entity animations
 
+#### Advancements
+- Changed Adventure root advancement to use the Filled Map texture
+
 ### Technical Changes
 #### Bug Fixes
 - Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
