@@ -12,13 +12,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(KeyboardHandler.class)
 public class KeyboardHandlerMixin {
-    @Inject(method = "keyPress", at = @At("HEAD"))
+    @Inject(method = "keyPress", at = @At("HEAD"), cancellable = true)
     private void listenForCmdMacro(long handle, int action, KeyEvent event, CallbackInfo ci) {
         if (action == 1) {
             if ((event.modifiers() & InputConstants.MOD_ALT) != 0) {
                 for (int i = 0; i < 10; i++) {
                     if (OptionsSD.MACRO_KEYS[i].matches(event)) {
                         CommandMacroManager.execute(i);
+                        ci.cancel();
                         break;
                     }
                 }
