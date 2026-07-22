@@ -13,6 +13,7 @@ import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -248,8 +249,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
         translationBuilder.add("selectWorld.select", "Play");
 
-        translationBuilder.add(StatsSD.SLEEP_IN_TENT, "Times Slept in a Tent");
-        translationBuilder.add(StatsSD.DAMAGE_BLOCKED_BY_WEAPON, "Damage Blocked by Weapon");
+        addStat(translationBuilder, StatsSD.SLEEP_IN_TENT, "Times Slept in a Tent");
+        addStat(translationBuilder, StatsSD.DAMAGE_BLOCKED_BY_WEAPON, "Damage Blocked by Weapon");
 
         translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
         translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
@@ -324,5 +325,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemTagsSD.TENTS, "Tents");
         translationBuilder.add(ItemTagsSD.QUIVERS, "Quivers");
         translationBuilder.add(ItemTagsSD.SHIELDS, "Shields");
+    }
+
+    private void addStat(TranslationBuilder translationBuilder, Identifier statId, String value) {
+        translationBuilder.add("stat." + statId.toString().replace(':', '.'), value);
     }
 }

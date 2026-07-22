@@ -20,6 +20,7 @@ public class StatsSD {
         Identifier location = UtilSD.identifier(id);
 
         Registry.register(BuiltInRegistries.CUSTOM_STAT, location, location);
-        return Stats.CUSTOM.get(location, formatter).getValue();
+        Stats.CUSTOM.get(location, formatter);
+        return location;
     }
 }
