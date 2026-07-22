@@ -1,9 +1,11 @@
 package net.meander.subtlyd.mixin.common.world.level.block;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.world.level.biome.BiomeSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,8 +28,12 @@ public class LeavesBlockMixin {
 
     @Redirect(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/sounds/AmbientLeavesBlockSoundPlayer;playAmbientLeavesSounds(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/util/RandomSource;)V"))
     private void cancelSounds(AmbientLeavesBlockSoundPlayer instance, Level level, BlockPos pos, Block block, RandomSource random) {
-        if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
-            instance.playAmbientLeavesSounds(level, pos, block, random);
+        if (instance.ambientSound().isPresent()) {
+            if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
+                if (!instance.ambientSound().get().is(SoundEventsSD.LEAVES_AMBIENT.key()) || !BiomeSD.getBiomeAsTemperatureVariant(level, pos).equals(TemperatureVariants.COLD)) {
+                    instance.playAmbientLeavesSounds(level, pos, block, random);
+                }
+            }
         }
     }
 }

@@ -16,6 +16,7 @@
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
 - Removed ambient Pale Oak Leaves block sounds
+- Removed ambient Leaves block sounds from cold biomes
 
 #### Settings
 - Added a warning for disabling advanced entity animations
