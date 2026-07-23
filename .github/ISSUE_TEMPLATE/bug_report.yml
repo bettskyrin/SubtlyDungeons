@@ -1,7 +1,8 @@
 name: Bug report
 description: Report an issue in Subtly Dungeons
 title: '[Bug]: '
-labels: ["bug", "unconfirmed"]
+labels: ["unconfirmed"]
+type: bug
 assignees:
   - bettskyrin
 body:
@@ -30,7 +31,7 @@ body:
     id: expected
     attributes:
     label: Expected Behavior
-    description: A clear and concise description of what you expected to happen instead.
+    description: "A clear and concise description of what you expected to happen instead."
     validations:
     required: true
 
@@ -62,7 +63,7 @@ body:
     id: environment
     attributes:
     label: Environment
-    description: Select the environment where the bug occurred.
+    description: "Select the environment where the bug occurred."
     options:
     - Singleplayer
     - Dedicated Server
@@ -75,7 +76,7 @@ body:
     id: logs
     attributes:
     label: Crash Report or Logs
-    description: If the game crashed, or if there is an error in the console, please upload the `latest.log` or `crash-report.txt` to a service like mclo.gs or Pastebin and link it here. Do NOT paste full crash logs directly in the issue body.
+    description: "If the game crashed, or if there is an error in the console, please upload the `latest.log` or `crash-report.txt` to a service like mclo.gs or Pastebin and link it here. Do NOT paste full crash logs directly in the issue body."
     validations:
     required: false
 
@@ -83,7 +84,7 @@ body:
     id: screenshots
     attributes:
     label: Screenshots / Video
-    description: If the bug is visual or hard to describe, add screenshots or a short video clip.
+    description: "If the bug is visual or hard to describe, add screenshots or a short video clip."
     validations:
     required: false
 
@@ -91,6 +92,6 @@ body:
     id: context
     attributes:
     label: Additional Context
-    description: Add any other context about the problem here (e.g., specific hardware, using shaders, occurs only in specific dimensions).
+    description: "Add any other context about the problem here (e.g., specific hardware, using shaders, occurs only in specific dimensions). For developers: If this was reported elsewhere, please provide a link as well as the name of who reported this bug."
     validations:
     required: false
