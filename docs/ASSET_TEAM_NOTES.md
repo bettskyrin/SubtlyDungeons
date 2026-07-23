@@ -1,5 +1,6 @@
 # Asset Team Notes
 This file contains notes and other references for the asset team.
+When leaving notes, please leave a signature with your initials.
 
 ## Repository Guide
 `/assets` - Folder to store raw asset files that may recieve updates and need to be tracked. (e.g. entity models (Entity models must be stored as .bbmodel files, but are not used in that format for the actual code), etc.)
@@ -23,7 +24,7 @@ This file contains notes and other references for the asset team.
 [Audacity](https://www.audacityteam.org/next/) - Audio editing software. All audios must be saved in the OGG (.ogg) file format 
 [Pixabay]([https://pixabay.com/](https://pixabay.com/sound-effects/)) - Royalty free sound effects. See notes below.
 
-## Subtly Dungeons Resources
+### Subtly Dungeons Resources
 [Soundtrack](https://www.youtube.com/playlist?list=PLF4UTbnOOeMY) - All music featured within Subtly Dungeons.
 [Saved Audio](https://www.youtube.com/playlist?list=PLkg3oeBK2SDKA04SEyeih9VzGEx8tEgMy) - Audio Tracks that we find interesting/useful. Some tracks can be sampled for sound effects.
 
