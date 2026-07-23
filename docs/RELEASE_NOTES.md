@@ -29,12 +29,8 @@
 - Changed Adventure root advancement to use the Filled Map texture
 
 ### Technical Changes
-#### Bug Fixes
-- Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
-- Fixed bug that could crash servers when players try to disable advanced entity animations
-- Fixed [BUG #76] Tents Z-Fight with their pegs
-- Fixed missing Blast Fungus entity translation
-- Fixed bug causing command macro buttons to activate their primary key press action
+#### Camera Shake Events
+- Changed `range` field to accept an integer value
 
 #### Data Components
 - Added `tent/color` data component
