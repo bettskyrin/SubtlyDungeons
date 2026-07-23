@@ -13,6 +13,10 @@
   - Does not include wall climbing hitbox adjustments
 
 ### Changes
+#### Tents
+- Tents now continuously check to see if there are sturdy blocks below it
+  - The check for this includes the 4 corners of the hitbox.
+
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
 - Removed ambient Pale Oak Leaves block sounds

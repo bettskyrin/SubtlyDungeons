@@ -196,6 +196,23 @@ public class Tent extends Entity {
         }
     }
 
+    public boolean canSurvive() {
+        AABB boundingBox = getBoundingBox();
+        double[] cornersX = new double[]{boundingBox.maxX, boundingBox.minX};
+        double[] cornersZ = new double[]{boundingBox.maxZ, boundingBox.minZ};
+
+        for (double cornerX : cornersX) {
+            for (double cornerZ : cornersZ) {
+                BlockPos cornerPos = BlockPos.containing(cornerX, boundingBox.minY, cornerZ).below();
+
+                if (!level().getBlockState(cornerPos).isFaceSturdy(level(), cornerPos, Direction.UP)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     @Override
     protected void readAdditionalSaveData(ValueInput input) {
         setColor(input.read("color", DyeColor.CODEC).orElse(DEFAULT_COLOR));
