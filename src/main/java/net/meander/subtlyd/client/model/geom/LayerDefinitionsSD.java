@@ -2,8 +2,8 @@ package net.meander.subtlyd.client.model.geom;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
-import net.meander.subtlyd.client.model.HeavyShieldModel;
-import net.meander.subtlyd.client.model.TentModel;
+import net.meander.subtlyd.client.model.object.equipment.HeavyShieldModel;
+import net.meander.subtlyd.client.model.object.tent.TentModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
 import java.util.Map;

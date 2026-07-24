@@ -17,7 +17,7 @@ import java.util.List;
 public class MiscOverworldPlacementsSD {
     public static final ResourceKey<PlacedFeature> FOREST_ROCK_SPARSE = PlacementUtilsSD.createKey("forest_rock_sparse");
 
-    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+    public static void registration(BootstrapContext<PlacedFeature> context) {
         HolderGetter<Feature> configuredFeatures = context.lookup(Registries.FEATURE);
 
         context.register(FOREST_ROCK_SPARSE, new PlacedFeature(
@@ -27,6 +27,7 @@ public class MiscOverworldPlacementsSD {
                         InSquarePlacement.spread(),
                         HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING),
                         BiomeFilter.biome()
-                )));
+                )
+        ));
     }
 }

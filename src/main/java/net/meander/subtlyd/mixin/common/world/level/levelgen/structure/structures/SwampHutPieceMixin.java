@@ -1,9 +1,9 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.structure.structures;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.block.PotionCauldronBlock;
-import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
+import net.meander.subtlyd.world.level.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.PotionCauldronBlock;
+import net.meander.subtlyd.world.level.block.entity.PotionCauldronBlockEntity;
 import net.meander.subtlyd.world.level.storage.loot.LootTablesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -41,13 +41,13 @@ public class SwampHutPieceMixin {
         BlockPos cauldronPos = new BlockPos(piece.getWorldX(4, 6), piece.getWorldY(2), piece.getWorldZ(4, 6));
 
         if (chunkBB.isInside(cauldronPos) && level.getBlockState(cauldronPos).is(Blocks.CAULDRON)) {
-            int levels = (random.nextInt(3) + 1) * 2;
+            int cauldronLevel = (random.nextInt(3) + 1) * 2;
             ServerLevel serverLevel = level.getLevel();
+
             LootTable lootTable = serverLevel.getServer().reloadableRegistries().getLootTable(LootTablesSD.SWAMP_HUT_CAULDRON);
-            LootParams lootParams = new LootParams.Builder(serverLevel)
-                    .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(cauldronPos))
-                    .create(LootContextParamSets.CHEST);
+            LootParams lootParams = new LootParams.Builder(serverLevel).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(cauldronPos)).create(LootContextParamSets.CHEST);
             ObjectArrayList<ItemStack> generatedLoot = lootTable.getRandomItems(lootParams, random.nextLong());
+
             Holder<Potion> potion = Potions.WATER;
             Item potionType = Items.POTION;
 
@@ -58,10 +58,11 @@ public class SwampHutPieceMixin {
                 if (potionContents.potion().isPresent()) {
                     potion = potionContents.potion().get();
                 }
+
                 potionType = itemStack.getItem();
             }
 
-            level.setBlock(cauldronPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.LEVEL, levels), 2);
+            level.setBlock(cauldronPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.LEVEL, cauldronLevel), 2);
 
             if (level.getBlockEntity(cauldronPos) instanceof PotionCauldronBlockEntity cauldron) {
                 cauldron.setPotion(potion);

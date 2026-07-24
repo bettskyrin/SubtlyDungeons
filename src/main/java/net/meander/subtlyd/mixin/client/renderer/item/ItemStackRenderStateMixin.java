@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +19,8 @@ public class ItemStackRenderStateMixin implements ChargedTridentState.Accessor {
     }
 
     @Override
-    public void setCharged(boolean charged) {
-        isCharged = charged;
+    public void setCharged(boolean isCharged) {
+        this.isCharged = isCharged;
     }
 
     @Inject(method = "submit", at = @At("HEAD"))

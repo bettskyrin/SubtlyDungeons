@@ -35,7 +35,7 @@ public abstract class ItemSD extends Item {
     }
 
     private static void modifyComponent(Supplier<Collection<Item>> itemsSupplier, BiConsumer<DataComponentMap.Builder, Item> builderConsumer) {
-        DefaultItemComponentEvents.MODIFY.register(listener -> listener.modify(itemsSupplier.get(), builderConsumer));
+        DefaultItemComponentEvents.MODIFY.register(context -> context.modify(itemsSupplier.get(), builderConsumer));
     }
 
     private static void modifyWeapons() {
@@ -53,7 +53,7 @@ public abstract class ItemSD extends Item {
             ItemStack itemStack = item.getDefaultInstance();
 
             if (!itemStack.is(Items.ENCHANTED_BOOK)) {
-                int magicLevel = Mth.ceil((double) (25 - Math.max(ItemStackSD.getEnchantability(itemStack), ItemStackSD.getEnchantabilityFromMap(item))) / 3);
+                int magicLevel = Mth.ceil((25.0 - Math.max(itemStack.getEnchantability(), itemStack.getEnchantabilityFromMap())) / 3.0);
 
                 builder.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
             }
@@ -102,7 +102,6 @@ public abstract class ItemSD extends Item {
                     Optional.empty(),
                     Optional.empty()
             );
-
             BlocksAttacks existing = builder.getOrDefault(DataComponents.BLOCKS_ATTACKS, fallback);
 
             builder.set(DataComponents.BLOCKS_ATTACKS, new BlocksAttacks(
@@ -114,7 +113,6 @@ public abstract class ItemSD extends Item {
                     existing.blockSound(),
                     existing.disableSound()
             ));
-
             builder.set(DataComponents.ATTRIBUTE_MODIFIERS, newModifiers);
         }));
     }
@@ -138,7 +136,8 @@ public abstract class ItemSD extends Item {
                     .attributes(ItemAttributeModifiers.builder()
                             .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamageBaseline + material.attackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                             .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeedBaseline, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
-                            .build())
+                            .build()
+                    )
                     .component(DataComponentsSD.STEALTH_WEAPON, new StealthWeapon(stealthDamageBonus, stealthDamageBonus * 0.625F, stealthDamageBonus * 0.25F, 0.2F, 0.7F))
                     .component(DataComponents.USE_EFFECTS, new UseEffects(true, false, 1.0F))
                     .component(DataComponents.TOOL, new Tool(List.of(), 1.0F, 2, false))

@@ -17,6 +17,9 @@
 - Tents now continuously check to see if there are sturdy blocks below it
   - The check for this includes the 4 corners of the hitbox.
 
+#### Wither
+- Wither Skull explosions can now only convert `dirt` block tag blocks to Soul Soil 
+
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
 - Removed ambient Pale Oak Leaves block sounds
@@ -29,6 +32,9 @@
 - Changed Adventure root advancement to use the Filled Map texture
 
 ### Technical Changes
+#### Mobs
+- Improved mob environment detection AI
+
 #### Camera Shake Events
 - Changed `range` field to accept an integer value
 
@@ -38,7 +44,18 @@
 #### Data Tags
 - Added `scansorial` entity type tag
 - Added `silent_foliage` block tag
+- Added `arrow_flammable` block tag
+- Added `causes_flock_panic` damage type tag
 - Removed `can_break_tents` damage type tag
 - Removed `always_kills_tent` damage type tag
 - Removed `ignites_tents` damage type tag
 - Removed `burns_tents` damage type tag
+
+#### Bug Fixes
+- Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
+- Fixed bug that could crash servers when players try to disable advanced entity animations
+- Fixed [BUG #76] Tents Z-Fight with their pegs
+- Fixed missing Blast Fungus entity translation
+- Fixed bug causing command macro buttons to activate their primary key press action
+- Fixed bug causing sleeping in Tents to cause Minecraft to freeze
+- Fixed bug causing Tentative Accomodations to be granted to those who have yet to sleep in beds

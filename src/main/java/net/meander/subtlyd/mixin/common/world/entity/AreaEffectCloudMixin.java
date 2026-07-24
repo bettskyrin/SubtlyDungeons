@@ -3,6 +3,7 @@ package net.meander.subtlyd.mixin.common.world.entity;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.AreaEffectCloud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -15,15 +16,13 @@ public class AreaEffectCloudMixin {
     private void playSounds(CallbackInfo ci) {
         AreaEffectCloud cloud = (AreaEffectCloud) (Object) this;
 
-        if (!cloud.level().isClientSide()) {
-            ParticleType<?> particle = cloud.getParticle().getType();
+        if (cloud.level() instanceof ServerLevel) {
+            ParticleType<?> particleType = cloud.getParticle().getType();
 
-            if (particle == ParticleTypes.DRAGON_BREATH) {
-                if (cloud.tickCount == 1) {
+            if (cloud.tickCount == 1) {
+                if (particleType == ParticleTypes.DRAGON_BREATH) {
                     cloud.playSound(SoundEventsSD.ENDER_DRAGON_BREATH, 1.0F, 1.0F);
-                }
-            } else if (particle == ParticleTypes.ENTITY_EFFECT) {
-                if (cloud.tickCount == 1) {
+                } else if (particleType == ParticleTypes.ENTITY_EFFECT) {
                     cloud.playSound(SoundEventsSD.AREA_EFFECT_CLOUD_GAS, 0.5F, 1.0F);
                 }
             }

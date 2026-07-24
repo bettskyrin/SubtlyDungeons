@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.common.world.level.block.state;
 
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;
@@ -9,6 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FenceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -38,20 +38,20 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
-            int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+        if (state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
+            int layers = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
-                if (layers == BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
+                if (layers == BlockStateProperties.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();
-
                     VoxelShape[] cachedShapes = SHAPE_CACHE.computeIfAbsent(baseShape, _ -> new VoxelShape[9]);
 
                     if (cachedShapes[layers] == null) {
                         cachedShapes[layers] = Shapes.or(baseShape, SNOW_SHAPES[layers]);
                     }
+
                     cir.setReturnValue(cachedShapes[layers]);
                 }
             }
@@ -64,21 +64,21 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
-            int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+        if (state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
+            int layers = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS);
 
             if (layers > 0) {
-                if (layers == BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
+                if (layers == BlockStateProperties.SNOWLOGGED_LAYERS.getPossibleValues().size()) {
                     cir.setReturnValue(Shapes.block());
                 } else {
                     VoxelShape baseShape = cir.getReturnValue();
-
                     VoxelShape[] cachedCollisions = COLLISION_CACHE.computeIfAbsent(baseShape, _ -> new VoxelShape[9]);
 
                     if (cachedCollisions[layers] == null) {
                         VoxelShape snowCollision = Block.box(0.0D, 0.0D, 0.0D, 16.0D, (layers - 1) * 2.0D, 16.0D);
                         cachedCollisions[layers] = Shapes.or(baseShape, snowCollision);
                     }
+
                     cir.setReturnValue(cachedCollisions[layers]);
                 }
             }
@@ -90,7 +90,7 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+        if (state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS) && state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0) {
             if (state.getBlock() instanceof FenceBlock) {
                 cir.setReturnValue(Shapes.empty());
             }
@@ -102,7 +102,7 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+        if (state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS) && state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0) {
             cir.setReturnValue(false);
         }
     }
@@ -112,9 +112,9 @@ public abstract class BlockStateBaseMixin {
         @SuppressWarnings("DataFlowIssue")
         BlockState state = (BlockState) (Object) this;
 
-        if (state.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0) {
+        if (state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS) && state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0) {
             cir.setReturnValue(Vec3.ZERO);
-        } else if (state.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED) && state.getValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
+        } else if (state.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED) && state.getValue(BlockStateProperties.BOTTOM_SNOWLOGGED)) {
             cir.setReturnValue(Vec3.ZERO);
         }
     }

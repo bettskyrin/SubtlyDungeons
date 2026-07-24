@@ -13,10 +13,10 @@ import org.jspecify.annotations.Nullable;
 public class SporeCloudParticle extends SingleQuadParticle {
     private final TextureAtlasSprite sprite;
 
-    protected SporeCloudParticle(ClientLevel level, double x, double y, double z, double xa, double ya, double za, TextureAtlasSprite textureAtlasSprite) {
-        super(level, x, y, z, xa, ya, za, textureAtlasSprite);
+    protected SporeCloudParticle(ClientLevel level, double x, double y, double z, double xa, double ya, double za, TextureAtlasSprite sprite) {
+        super(level, x, y, z, xa, ya, za, sprite);
 
-        sprite = textureAtlasSprite;
+        this.sprite = sprite;
 
         xd = xa + (random.nextDouble() * 2.0 - 1.0) * 0.01 ;
         yd = ya + (random.nextDouble() * 2.0 - 1.5) * 0.01 ;
@@ -36,7 +36,7 @@ public class SporeCloudParticle extends SingleQuadParticle {
         quadSize *= 1.5F + random.nextFloat() * 0.5F; // Thickness
         lifetime = (int) (20.0 / (random.nextDouble() * 0.2 + 0.3));
 
-        setSprite(sprite);
+        setSprite(this.sprite);
     }
 
     @Override
@@ -59,8 +59,8 @@ public class SporeCloudParticle extends SingleQuadParticle {
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 
-        public Provider(SpriteSet spriteSet) {
-            sprites = spriteSet;
+        public Provider(SpriteSet sprites) {
+            this.sprites = sprites;
         }
 
         @Override

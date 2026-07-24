@@ -13,8 +13,8 @@ import net.minecraft.world.level.levelgen.Heightmap;
 public class AmbientBushBlockSoundsPlayer {
     private static final int IDLE_SOUND_CHANCE = 70;
 
-    public static void playAmbientBushSounds(Level level, BlockPos blockPos, RandomSource randomSource) {
-        if (randomSource.nextInt(IDLE_SOUND_CHANCE) == 0 && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {
+    public static void playAmbientBushSounds(Level level, BlockPos blockPos, RandomSource random) {
+        if (random.nextInt(IDLE_SOUND_CHANCE) == 0 && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos) <= blockPos.getY()) {
             level.playPlayerSound(SoundEventsSD.BUSH_IDLE, SoundSource.AMBIENT, 0.7F, 1.0F);
         }
     }

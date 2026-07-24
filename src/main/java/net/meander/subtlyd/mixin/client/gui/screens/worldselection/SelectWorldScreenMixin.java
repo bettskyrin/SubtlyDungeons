@@ -66,16 +66,20 @@ public abstract class SelectWorldScreenMixin extends Screen {
             final int BUTTON_WIDTH = 48;
 
             layout.setFooterHeight(35);
-            LinearLayout linearLayout = layout.addToHeader(LinearLayout.vertical().spacing(ROW_SPACING));
-            linearLayout.defaultCellSetting().alignHorizontallyCenter();
-            linearLayout.addChild(new StringWidget(title, font));
-            LinearLayout linearLayout2 = linearLayout.addChild(LinearLayout.horizontal().spacing(ROW_SPACING));
+
+            LinearLayout screenLayout = layout.addToHeader(LinearLayout.vertical().spacing(ROW_SPACING));
+
+            screenLayout.defaultCellSetting().alignHorizontallyCenter();
+            screenLayout.addChild(new StringWidget(title, font));
+
+            LinearLayout worldOptionsLayout = screenLayout.addChild(LinearLayout.horizontal().spacing(ROW_SPACING));
+
             if (SharedConstants.DEBUG_WORLD_RECREATE) {
-                linearLayout2.addChild(createDebugWorldRecreateButton());
+                worldOptionsLayout.addChild(createDebugWorldRecreateButton());
             }
 
-            searchBox = linearLayout2.addChild(
-                    new EditBox(font, width, 22, (int) (width / 2.5), 20, searchBox, Component.translatable("selectWorld.search")));
+            searchBox = worldOptionsLayout.addChild(new EditBox(font, width, 22, (int) (width / 2.5), 20, searchBox, Component.translatable("selectWorld.search")));
+
             searchBox.setResponder(string -> {
                 if (list != null) {
                     list.updateFilter(string);
@@ -83,35 +87,31 @@ public abstract class SelectWorldScreenMixin extends Screen {
             });
             searchBox.setHint(Component.translatable("gui.selectWorld.search").setStyle(EditBox.SEARCH_HINT_STYLE));
 
-            Consumer<WorldSelectionList.WorldListEntry> consumer = WorldSelectionList.WorldListEntry::joinWorld;
+            Consumer<WorldSelectionList.WorldListEntry> joinWorld = WorldSelectionList.WorldListEntry::joinWorld;
             list = layout.addToContents(new WorldSelectionList.Builder(minecraft, selectWorldScreen)
                     .width(width)
                     .height(layout.getContentHeight())
                     .filter(searchBox.getValue())
                     .oldList(list)
                     .onEntrySelect(selectWorldScreen::updateButtonStatus)
-                    .onEntryInteract(consumer)
-                    .build());
-            playWorldButton = linearLayout2.addChild(
-                    Button.builder(LevelSummary.PLAY_WORLD, _ -> list.getSelectedOpt().ifPresent(consumer))
-                            .width(BUTTON_WIDTH)
-                            .build());
-            editButton = linearLayout2.addChild(
-                    Button.builder(Component.translatable("selectWorld.edit"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld))
-                            .width(BUTTON_WIDTH)
-                            .build());
-            recreateButton = linearLayout2.addChild(
-                    Button.builder(Component.translatable("selectWorld.recreate"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld))
-                            .width(LARGE_BUTTON_WIDTH)
-                            .build());
+                    .onEntryInteract(joinWorld)
+                    .build()
+            );
+            playWorldButton = worldOptionsLayout.addChild(
+                    Button.builder(LevelSummary.PLAY_WORLD, _ -> list.getSelectedOpt().ifPresent(joinWorld)).width(BUTTON_WIDTH).build()
+            );
+            editButton = worldOptionsLayout.addChild(
+                    Button.builder(Component.translatable("selectWorld.edit"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::editWorld)).width(BUTTON_WIDTH).build()
+            );
+            recreateButton = worldOptionsLayout.addChild(
+                    Button.builder(Component.translatable("selectWorld.recreate"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::recreateWorld)).width(LARGE_BUTTON_WIDTH).build()
+            );
 
-            linearLayout2.addChild(new SpacerElement(width - (searchBox.getWidth() + LARGE_BUTTON_WIDTH + (BUTTON_WIDTH * 3) + (ROW_SPACING * 7)), 0));
+            worldOptionsLayout.addChild(new SpacerElement(width - (searchBox.getWidth() + LARGE_BUTTON_WIDTH + (BUTTON_WIDTH * 3) + (ROW_SPACING * 7)), 0));
 
-            deleteButton = linearLayout2.addChild(
-                    Button.builder(Component.translatable("selectWorld.delete"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld))
-                            .width(BUTTON_WIDTH)
-                            .build());
-            Consumer<WorldSelectionList.WorldListEntry> joinWorld = WorldSelectionList.WorldListEntry::joinWorld;
+            deleteButton = worldOptionsLayout.addChild(
+                    Button.builder(Component.translatable("selectWorld.delete"), _ -> list.getSelectedOpt().ifPresent(WorldSelectionList.WorldListEntry::deleteWorld)).width(BUTTON_WIDTH).build()
+            );
 
             createFooterButtons(joinWorld, list);
             layout.visitWidgets(this::addRenderableWidget);
@@ -121,30 +121,21 @@ public abstract class SelectWorldScreenMixin extends Screen {
         }
     }
 
-    /**
-     * Modify footer button design
-     */
     @Inject(method = "createFooterButtons", at = @At("HEAD"), cancellable = true)
     private void createFooterButtons(Consumer<WorldSelectionList.WorldListEntry> joinWorld, WorldSelectionList list, CallbackInfo ci) {
         if (canChangeUi) {
             int BUTTON_MIDDLE_X = 100;
 
-            GridLayout gridLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
-            gridLayout.defaultCellSetting().alignHorizontallyCenter();
-            GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(width);
+            GridLayout footerLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
+            
+            footerLayout.defaultCellSetting().alignHorizontallyCenter();
+            
+            GridLayout.RowHelper footerRow = footerLayout.createRowHelper(width);
 
-            rowHelper.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X - (ROW_SPACING * 3)), 0));
-            rowHelper.addChild(
-                    Button.builder(Component.translatable("selectWorld.create"), _ -> CreateWorldScreen.openFresh(minecraft, list::returnToScreen))
-                            .build()
-            );
-
-            rowHelper.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X + (UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
-            rowHelper.addChild(
-                    Button.builder(CommonComponents.GUI_BACK, _ -> minecraft.setScreenAndShow(lastScreen))
-                            .width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH)
-                            .build()
-            );
+            footerRow.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X - (ROW_SPACING * 3)), 0));
+            footerRow.addChild(Button.builder(Component.translatable("selectWorld.create"), _ -> CreateWorldScreen.openFresh(minecraft, list::returnToScreen)).build());
+            footerRow.addChild(new SpacerElement(width / 2 - (BUTTON_MIDDLE_X + (UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
+            footerRow.addChild(Button.builder(CommonComponents.GUI_BACK, _ -> minecraft.setScreenAndShow(lastScreen)).width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH).build());
             ci.cancel();
         }
     }

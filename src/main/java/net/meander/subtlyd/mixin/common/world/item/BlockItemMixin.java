@@ -2,7 +2,6 @@ package net.meander.subtlyd.mixin.common.world.item;
 
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BlockItem;
@@ -13,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -42,14 +42,14 @@ public class BlockItemMixin {
     private void acceptSnowLayers(BlockPlaceContext context, CallbackInfoReturnable<BlockState> cir) {
         BlockState placementState = cir.getReturnValue();
 
-        if (placementState != null && placementState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+        if (placementState != null && placementState.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
             BlockPos pos = context.getClickedPos();
             BlockState worldState = context.getLevel().getBlockState(pos);
 
             if (worldState.is(Blocks.SNOW)) {
                 int layers = worldState.getValue(SnowLayerBlock.LAYERS);
 
-                cir.setReturnValue(placementState.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layers));
+                cir.setReturnValue(placementState.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, layers));
             }
         }
     }

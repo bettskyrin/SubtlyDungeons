@@ -6,11 +6,11 @@ import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
+import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
-import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.QuiverItem;
@@ -31,7 +31,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -83,23 +82,25 @@ public abstract class LivingEntityMixin extends Entity {
      * @param attacker The attacking entity.
      */
     private void shareFlockPanic(LivingEntity victim, LivingEntity attacker) {
-        final double RADIUS = 16.0F;
-        AABB searchAabb = victim.getBoundingBox().inflate(RADIUS);
-        List<? extends LivingEntity> herd = victim.level().getEntitiesOfClass(Animal.class, searchAabb);
+        final double radius = 16.0F;
+        AABB flockRange = victim.getBoundingBox().inflate(radius);
+        List<? extends LivingEntity> flock = victim.level().getEntitiesOfClass(Animal.class, flockRange);
 
-        for (LivingEntity animal : herd) {
+        for (LivingEntity animal : flock) {
             if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
                 if (animal instanceof PathfinderMob mob) {
-                    Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                    Vec3 attackerPos = attacker.position();
+                    Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attackerPos);
                     int tries = 0;
 
-                    while (tries < 10 && (pos == null || (pos.x == mob.getX() && pos.z == mob.getZ()))) {
-                        pos = DefaultRandomPos.getPosAway(mob, 16, 4, attacker.position());
+                    while (tries < 10 && (pos == null || (pos.x() == mob.getX() && pos.z() == mob.getZ()))) {
+                        pos = DefaultRandomPos.getPosAway(mob, 16, 4, attackerPos);
+
                         tries++;
                     }
 
                     if (pos != null) {
-                        mob.getNavigation().moveTo(pos.x, pos.y, pos.z, LivingEntitySD.getPanicSpeed(mob));
+                        mob.getNavigation().moveTo(pos.x(), pos.y(), pos.z(), LivingEntitySD.getPanicSpeed(mob));
                     }
                 }
             }
@@ -112,7 +113,7 @@ public abstract class LivingEntityMixin extends Entity {
             LivingEntity livingEntity = (LivingEntity) (Object) this;
 
             if (cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
-                if (source.is(DamageTypeTags.PANIC_CAUSES) && (!source.is(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES) || source.is(DamageTypes.LIGHTNING_BOLT)) && source.getEntity() instanceof LivingEntity attacker) {
+                if (source.is(DamageTypeTagsSD.CAUSES_FLOCK_PANIC) && source.getEntity() instanceof LivingEntity attacker) {
                     shareFlockPanic(livingEntity, attacker);
                 }
             }
@@ -124,9 +125,9 @@ public abstract class LivingEntityMixin extends Entity {
         if (source.getDirectEntity() instanceof AreaEffectCloud cloud) {
             if (cloud.getParticle().getType() == ParticleTypes.DRAGON_BREATH) {
                 LivingEntity livingEntity = (LivingEntity) (Object) this;
-                Holder<DamageType> holder = livingEntity.damageSources().dragonBreath().typeHolder();
+                Holder<DamageType> damageType = livingEntity.damageSources().dragonBreath().typeHolder();
 
-                return new DamageSource(holder, source.getDirectEntity(), source.getEntity());
+                return new DamageSource(damageType, cloud, source.getEntity());
             }
         }
         return source;
@@ -140,7 +141,7 @@ public abstract class LivingEntityMixin extends Entity {
                 if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
                     long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
 
-                    ((MobSD) predator).setHuntingCooldownTicks(predator.level().getGameTime() + cooldownTicks);
+                    predator.setHuntingCooldownTicks(level.getGameTime() + cooldownTicks);
                 }
             }
         }
@@ -157,12 +158,13 @@ public abstract class LivingEntityMixin extends Entity {
                     for (ItemEntity droppedItem : drops) {
                         ItemStack stack = droppedItem.getItem();
 
-                        if (stack.has(DataComponents.FOOD) && (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES))) {
+                        if (stack.is(ItemTags.MEAT) || stack.is(ItemTags.FISHES)) {
                             FoodProperties food = stack.get(DataComponents.FOOD);
 
                             if (food != null) {
                                 predator.heal(food.nutrition() * stack.getCount());
                             }
+
                             droppedItem.discard();
                         }
                     }
@@ -187,8 +189,8 @@ public abstract class LivingEntityMixin extends Entity {
         Entity vehicle = getVehicle();
 
         if (vehicle != null && vehicle.is(EntityTypeTagsSD.SCANSORIAL)) {
-            Direction nearestWall = EntitySD.getNearestWall(vehicle);
-            boolean isOnWall = (nearestWall != null);
+            Direction wallDirection = EntitySD.getNearestWallDirection(vehicle);
+            boolean isOnWall = (wallDirection != null);
 
             if (wasOnWall != isOnWall) {
                 wasOnWall = isOnWall;
@@ -213,10 +215,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void updateClimbingDimensions(CallbackInfo ci) {
-        LivingEntity self = (LivingEntity) (Object) this;
+        LivingEntity entity = (LivingEntity) (Object) this;
 
-        if (self.is(EntityTypeTagsSD.SCANSORIAL)) {
-            Direction nearestWall = EntitySD.getNearestWall(self);
+        if (entity.is(EntityTypeTagsSD.SCANSORIAL)) {
+            Direction nearestWall = EntitySD.getNearestWallDirection(entity);
             boolean isOnWall = (nearestWall != null);
 
             if (wasOnWall != isOnWall) {
@@ -229,19 +231,19 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getDimensions", at = @At("RETURN"), cancellable = true)
     private void getClimbingDimensions(Pose pose, CallbackInfoReturnable<EntityDimensions> cir) {
-        LivingEntity self = (LivingEntity) (Object) this;
-        Entity vehicle = self.getVehicle();
+        LivingEntity entity = (LivingEntity) (Object) this;
+        Entity vehicle = entity.getVehicle();
         EntityDimensions original = cir.getReturnValue();
 
         if (vehicle != null && vehicle.is(EntityTypeTagsSD.SCANSORIAL)) {
-            if (EntitySD.getNearestWall(vehicle) != null) {
+            if (EntitySD.getNearestWallDirection(vehicle) != null) {
                 cir.setReturnValue(EntityDimensions.scalable(original.width(), original.width()));
                 return;
             }
         }
 
-        if (self.is(EntityTypeTagsSD.SCANSORIAL)) {
-            if (EntitySD.getNearestWall(self) != null) {
+        if (entity.is(EntityTypeTagsSD.SCANSORIAL)) {
+            if (EntitySD.getNearestWallDirection(entity) != null) {
                 cir.setReturnValue(EntityDimensions.scalable(original.height(), original.width()));
             }
         }
@@ -262,6 +264,7 @@ public abstract class LivingEntityMixin extends Entity {
             } else if (difficultyLevel == 2) {
                 maxHealth = 450.0F;
             }
+
             cir.setReturnValue(maxHealth);
         }
     }
@@ -370,7 +373,7 @@ public abstract class LivingEntityMixin extends Entity {
             double shieldStrength = entity.getAttributeValue(AttributesSD.SHIELD_STRENGTH);
             double reduction = Mth.clamp(shieldStrength * 0.1, 0.0, 1.0);
 
-            power *= (1.0 - reduction);
+            power *= 1.0 - reduction;
         }
         return power;
     }
@@ -430,6 +433,7 @@ public abstract class LivingEntityMixin extends Entity {
             if (source.getDirectEntity() instanceof AbstractArrow arrow) {
                 if (arrow.getWeaponItem() != null) {
                     invulnerableTime = 0;
+
                     return;
                 }
             }

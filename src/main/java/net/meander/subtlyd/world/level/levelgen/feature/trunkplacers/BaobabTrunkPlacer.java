@@ -34,6 +34,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 	@Override
 	public List<FoliagePlacer.FoliageAttachment> placeTrunk(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final int treeHeight, final BlockPos origin, final TreeFeature tree) {
 		List<FoliagePlacer.FoliageAttachment> attachments = Lists.newArrayList();
+
 		BlockPos below = origin.below();
 		int x = origin.getX();
 		int y = origin.getY();
@@ -44,9 +45,9 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 				BlockPos.MutableBlockPos basePos = below.offset(dx, 0, dz).mutable();
 
 				for (int drop = 0; drop < 5; drop++) {
-					boolean placed = placeLog(level, trunkSetter, random, basePos, tree);
+					boolean wasPlaced = placeLog(level, trunkSetter, random, basePos, tree);
 
-					if (placed) {
+					if (wasPlaced) {
 						basePos.move(Direction.DOWN);
 					} else {
 						break;
@@ -57,6 +58,7 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 
 		for (int dy = 0; dy < treeHeight; dy++) {
 			boolean isTop = (dy == treeHeight - 1);
+
 			for (int dx = -1; dx <= 2; dx++) {
 				for (int dz = -1; dz <= 2; dz++) {
 					if (isTop && (dx == -1 || dx == 2) && (dz == -1 || dz == 2)) { // Skip corners
@@ -71,74 +73,74 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		}
 
 		int topBranchY = y + treeHeight - 1;
-		List<Direction> availableDirs = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
+		List<Direction> remainingDirections = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
 		int horizontalBranch = 2;
 
-		for (int i = 0; i < horizontalBranch && !availableDirs.isEmpty(); i++) {
-			int index = random.nextInt(availableDirs.size());
-			Direction dir = availableDirs.remove(index);
+		for (int i = 0; i < horizontalBranch && !remainingDirections.isEmpty(); i++) {
+			int index = random.nextInt(remainingDirections.size());
+			Direction direction = remainingDirections.remove(index);
 
-			generateStandardBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), dir, tree, attachments);
+			generateHorizontalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), direction, tree, attachments);
 		}
 
-		while (!availableDirs.isEmpty()) {
-			int index = random.nextInt(availableDirs.size());
-			Direction dir = availableDirs.remove(index);
+		while (!remainingDirections.isEmpty()) {
+			int index = random.nextInt(remainingDirections.size());
+			Direction direction = remainingDirections.remove(index);
 
-			generateDiagonalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), dir, tree, attachments);
+			generateDiagonalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), direction, tree, attachments);
 		}
 
 		if (random.nextFloat() < 0.1F) {
 			int lowBranchY = y + 4;
-			Direction dir = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+			Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
 
-			generateStandardBranch(level, trunkSetter, random, new BlockPos(x, lowBranchY, z), dir, tree, attachments);
+			generateHorizontalBranch(level, trunkSetter, random, new BlockPos(x, lowBranchY, z), direction, tree, attachments);
 		}
 
 		return attachments;
 	}
 
-	private void generateStandardBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos startPos, Direction dir, TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
+	private void generateHorizontalBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
 		int length = random.nextInt(3) + 4;
 		int height = random.nextInt(2) + 1;
-		BlockPos.MutableBlockPos currentPos = startPos.mutable();
-		int offset = (dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
+		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
+		int offset = (direction.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
 
-		currentPos.move(dir, offset);
+		mutableBlockPos.move(direction, offset);
 
-		Function<BlockState, BlockState> axisSetter = state -> state.hasProperty(BlockStateProperties.AXIS) ? state.setValue(BlockStateProperties.AXIS, dir.getAxis()) : state;
+		Function<BlockState, BlockState> axisSetter = state -> state.hasProperty(BlockStateProperties.AXIS) ? state.setValue(BlockStateProperties.AXIS, direction.getAxis()) : state;
 
 		for (int i = 0; i < length; i++) {
-			currentPos.move(dir);
+			mutableBlockPos.move(direction);
 
-			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree, axisSetter);
+			if (TreeFeature.isAirOrLeaves(level, mutableBlockPos)) {
+				placeLog(level, trunkSetter, random, mutableBlockPos, tree, axisSetter);
 			}
 		}
 
 		for (int i = 0; i < height; i++) {
-			currentPos.move(Direction.UP);
+			mutableBlockPos.move(Direction.UP);
 
-			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree);
+			if (TreeFeature.isAirOrLeaves(level, mutableBlockPos)) {
+				placeLog(level, trunkSetter, random, mutableBlockPos, tree);
 			}
 		}
 
-		attachments.add(new FoliagePlacer.FoliageAttachment(currentPos.above(2), 0, false));
+		attachments.add(new FoliagePlacer.FoliageAttachment(mutableBlockPos.above(2), 0, false));
 	}
 
 	/**
 	 * @see	net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer
 	 */
-	private void generateDiagonalBranch(WorldGenLevel level, BiConsumer<BlockPos, BlockState> trunkSetter, RandomSource random, BlockPos startPos, Direction dir, TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
+	private void generateDiagonalBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
 		int steps = random.nextInt(2) + 2;
-		int offset = (dir.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
+		int offset = (direction.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
+		BlockPos.MutableBlockPos currentPos = pos.mutable();
 
-		BlockPos.MutableBlockPos currentPos = startPos.mutable();
-		currentPos.move(dir, offset);
+		currentPos.move(direction, offset);
 
 		for (int i = 0; i < steps; i++) {
-			currentPos.move(Direction.UP).move(dir);
+			currentPos.move(Direction.UP).move(direction);
 
 			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
 				placeLog(level, trunkSetter, random, currentPos, tree);

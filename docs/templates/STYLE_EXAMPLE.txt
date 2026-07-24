@@ -4,7 +4,7 @@ import this.import1
 import this.import2
 
 public class ClassName implements DifferentClass {
-    public static final int staticField; // Fields at top of class.
+    public static final int STATIC_FIELD; // Fields at top of class.
     public int publicField; // Ordered final ->
 
     public ClassName(int publicField) { // Constructors right beneath fields
@@ -33,7 +33,7 @@ public class ClassName implements DifferentClass {
     }
 
     private class innerClass {
-        public static final float VALUE_OF_PI = 3.14F; // Final numerical variables can have uppercase camel-case names
+        public static final float VALUE_OF_PI = 3.14F; // Final fields can have uppercase camel-case names
     }
 
     static {

@@ -26,7 +26,6 @@ public abstract class PolarBearMixin extends Animal {
 
         if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Salmon.class, true, true) {
-
                 @Override
                 public boolean canUse() {
                     return mob.isInWater() && super.canUse();
@@ -39,7 +38,6 @@ public abstract class PolarBearMixin extends Animal {
             });
 
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Cod.class, true, true) {
-
                 @Override
                 public boolean canUse() {
                     return mob.isInWater() && super.canUse();

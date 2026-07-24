@@ -8,7 +8,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 public class CameraShake {
     private static int totalDuration = 0;
@@ -42,6 +41,7 @@ public class CameraShake {
      */
     public static void setShake(int durationTicks, float magnitude) {
         durationTicks += 10;
+
         if (remainingDuration <= 0 || magnitude > intensity || durationTicks > remainingDuration) {
             totalDuration = durationTicks;
             remainingDuration = durationTicks;
@@ -57,6 +57,10 @@ public class CameraShake {
      * @param modifier The magnitude intensity.
      */
     public static void setShake(int durationTicks, float maxDistance, float distance, float modifier) {
+        if (maxDistance <= 0.0F) {
+            maxDistance = 1.0F;
+        }
+
         if (distance <= maxDistance) {
             setShake(durationTicks, ((maxDistance - distance) / maxDistance) * modifier);
         }
@@ -71,7 +75,7 @@ public class CameraShake {
      * @param soundEvent The sound event causing the camera shake.
      * @param source The source of the camera shake event.
      */
-    public static void shakeScreenFromSource(final SoundEvent soundEvent, final @NonNull Vec3 source, float modifier) {
+    public static void shakeScreenFromSource(final SoundEvent soundEvent, final Vec3 source, float modifier) {
         Entity player = minecraft.getCameraEntity();
 
         if (player != null && !player.isSpectator() && player.level().isClientSide()) {
@@ -84,20 +88,21 @@ public class CameraShake {
                 for (CameraShakeEvent event : registry) {
                     if (event.soundEvent().equals(soundEvent.location())) {
                         int duration = event.durationTicks();
-                        float maxDistance = event.range();
+                        int maxDistance = event.range();
 
                         if (modifier == 4.0F) {
                             modifier = event.intensity();
                         } else {
-                            maxDistance = (int) (16 * (modifier / 3));
+                            maxDistance = ((int) (16.0F * (modifier / 3.0F)));
                             duration = 15;
                         }
+
                         setShake(duration, maxDistance, distance, modifier);
                         break;
                     }
                 }
             } catch (Exception e) {
-                UtilSD.LOGGER.error("Failed to load shake event", e);
+                UtilSD.LOGGER.error("Failed to load shake event: {}", e.getMessage());
             }
         }
     }

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(EvokerFangs.class)
 public class EvokerFangsMixin {
     @Shadow private int lifeTicks;
-    private static long prevSoundTick = 0;
+    private static long ticksSinceLastSound = 0;
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void playFangNoises(CallbackInfo ci) {
@@ -22,9 +22,10 @@ public class EvokerFangsMixin {
             if (lifeTicks == 22) {
                 long currentTick = level.getGameTime();
 
-                if (currentTick - prevSoundTick > 10) {
+                if (currentTick - ticksSinceLastSound > 10) {
                     fangs.playSound(SoundEventsSD.EVOKER_FANGS_APPEAR);
-                    prevSoundTick = currentTick;
+
+                    ticksSinceLastSound = currentTick;
                 }
             }
         }

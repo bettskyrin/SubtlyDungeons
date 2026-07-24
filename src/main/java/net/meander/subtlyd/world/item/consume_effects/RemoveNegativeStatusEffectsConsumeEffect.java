@@ -29,6 +29,7 @@ public record RemoveNegativeStatusEffectsConsumeEffect() implements ConsumeEffec
                 user.removeEffect(effect);
             }
         }
+
         return true;
     }
 }

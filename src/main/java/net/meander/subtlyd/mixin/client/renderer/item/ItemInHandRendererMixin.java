@@ -35,10 +35,10 @@ public class ItemInHandRendererMixin {
 
     @Inject(method = "submitArmWithItem", at = @At("HEAD"), cancellable = true)
     private void hideItem(AbstractClientPlayer player, float frameInterp, float xRot, InteractionHand hand, float attack, ItemStack itemStack, float inverseArmHeight, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, CallbackInfo ci) {
-        if (!player.isScoping()) {
+        if (!OptionsSD.shieldAnimation().get()) {
             if (player.isUsingItem()) {
-                if (player.getUsedItemHand() == hand && itemStack.is(ItemTagsSD.SHIELDS)) {
-                    if (!OptionsSD.shieldAnimation().get()) {
+                if (!player.isScoping()) {
+                    if (player.getUsedItemHand() == hand && itemStack.is(ItemTagsSD.SHIELDS)) {
                         ci.cancel();
                     }
                 }

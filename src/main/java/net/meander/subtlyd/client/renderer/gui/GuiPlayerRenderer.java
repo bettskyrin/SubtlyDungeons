@@ -14,6 +14,9 @@ import net.minecraft.client.renderer.entity.state.AvatarRenderState;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.entity.player.PlayerSkin;
 
+/**
+ * @see AvatarRenderer
+ */
 public class GuiPlayerRenderer {
     public static void renderPlayer(GuiGraphicsExtractor guiGraphics, int x, int y, int scale, float mouseX, float mouseY) {
         Minecraft minecraft = Minecraft.getInstance();

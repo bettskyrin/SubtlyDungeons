@@ -5,6 +5,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.alchemy.Potion;
 
+/**
+ * @see net.minecraft.world.item.alchemy.PotionIds
+ */
 public class PotionIdsSD {
     public static final ResourceKey<Potion> DECAY = register("decay");
 

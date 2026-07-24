@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.common.world.entity.projectile.arrow;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.arrow.Arrow;
@@ -17,18 +18,15 @@ public class ArrowMixin {
     private Consumer<MobEffectInstance> scaleEffects(Consumer<MobEffectInstance> consumer, @Local(argsOnly = true, name = "mob") LivingEntity mob) {
         Arrow arrow = (Arrow) (Object) this;
 
-        return effect -> {
-            if (effect.getEffect().value().isInstantaneous()) {
-                effect.getEffect().value().applyInstantaneousEffect(
-                        (ServerLevel) arrow.level(),
-                        arrow,
-                        arrow.getOwner(),
-                        mob,
-                        effect.getAmplifier(),
-                        0.125D
-                );
+        return effectInstance -> {
+            MobEffect mobEffect = effectInstance.getEffect().value();
+
+            if (mobEffect.isInstantaneous()) {
+                ServerLevel level = (ServerLevel) arrow.level();
+
+                mobEffect.applyInstantaneousEffect(level, arrow, arrow.getOwner(), mob, effectInstance.getAmplifier(), 0.125);
             } else {
-                consumer.accept(effect);
+                consumer.accept(effectInstance);
             }
         };
     }

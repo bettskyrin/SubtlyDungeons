@@ -7,6 +7,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
+/**
+ * @see net.minecraft.world.entity.ai.attributes.Attributes
+ */
 public class AttributesSD {
     public static final Holder<Attribute> SHIELD_STRENGTH = register("shield_strength", new RangedAttribute("attribute.name.generic.shield_strength", 5.0, 0.0, 1024.0).setSyncable(true));
 

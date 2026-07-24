@@ -1,7 +1,6 @@
 package net.meander.subtlyd.world.level.block;
 
-import net.meander.subtlyd.world.block.state.BlockStateSD;
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
+import net.meander.subtlyd.world.level.block.state.BlockStateSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -23,29 +22,30 @@ import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 public interface SimpleSnowloggedBlock {
     default InteractionResult trySnowlog(BlockState state, LevelAccessor level, BlockPos pos, Player player, InteractionHand hand) {
         if (BlockStateSD.canBeSnowlogged(state)) {
-            final int MAX_LAYERS = BlockStatePropertiesSD.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
-            int layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+            final int MAX_LAYERS = BlockStateProperties.SNOWLOGGED_LAYERS.getPossibleValues().getLast();
+            int layers = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS);
             ItemStack heldItem = player.getItemInHand(hand);
-            BlockPos belowPos = pos.below();
-            BlockState belowState = level.getBlockState(belowPos);
 
             if (heldItem.is(Items.SNOW)) {
                 if (state.getBlock() instanceof DoublePlantBlock) {
                     if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER) {
-                        if (belowState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) && belowState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) < 8) {
+                        BlockPos belowPos = pos.below();
+                        BlockState belowState = level.getBlockState(belowPos);
+
+                        if (belowState.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS) && belowState.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) < 8) {
                             pos = belowPos;
                             state = belowState;
-                            layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+                            layers = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS);
                         }
                     } else if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.LOWER) {
                         if (layers == 8) {
                             BlockPos abovePos = pos.above();
                             BlockState aboveState = level.getBlockState(abovePos);
 
-                            if (aboveState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
+                            if (aboveState.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
                                 pos = abovePos;
                                 state = aboveState;
-                                layers = state.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS);
+                                layers = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS);
                             }
                         }
                     }
@@ -53,7 +53,7 @@ public interface SimpleSnowloggedBlock {
 
                 if (layers < MAX_LAYERS) {
                     if (level instanceof ServerLevel) {
-                        BlockState snowloggedState = state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, layers == 0 ? 1 : layers + 1);
+                        BlockState snowloggedState = state.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, layers == 0 ? 1 : layers + 1);
 
                         if (snowloggedState.hasProperty(BlockStateProperties.SNOWY)) {
                             snowloggedState = snowloggedState.setValue(BlockStateProperties.SNOWY, true);
@@ -67,9 +67,11 @@ public interface SimpleSnowloggedBlock {
                         }
                     }
                 }
+
                 return level.isClientSide() ? InteractionResult.SUCCESS : InteractionResult.CONSUME;
             }
         }
+
         return InteractionResult.PASS;
     }
 }

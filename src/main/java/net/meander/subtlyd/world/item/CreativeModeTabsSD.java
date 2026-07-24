@@ -19,26 +19,35 @@ import static net.minecraft.world.item.Items.*;
  * @see CreativeModeTabs
  */
 public class CreativeModeTabsSD {
-    public static void registration() {
-        List<DyeColor> gameplayColorOrder = List.of(
-                DyeColor.WHITE,
-                DyeColor.LIGHT_GRAY,
-                DyeColor.GRAY,
-                DyeColor.BLACK,
-                DyeColor.BROWN,
-                DyeColor.RED,
-                DyeColor.ORANGE,
-                DyeColor.YELLOW,
-                DyeColor.LIME,
-                DyeColor.GREEN,
-                DyeColor.CYAN,
-                DyeColor.LIGHT_BLUE,
-                DyeColor.BLUE,
-                DyeColor.PURPLE,
-                DyeColor.MAGENTA,
-                DyeColor.PINK
-        ).reversed();
+    private static final List<DyeColor> gameplayColorOrder = List.of(
+            DyeColor.WHITE,
+            DyeColor.LIGHT_GRAY,
+            DyeColor.GRAY,
+            DyeColor.BLACK,
+            DyeColor.BROWN,
+            DyeColor.RED,
+            DyeColor.ORANGE,
+            DyeColor.YELLOW,
+            DyeColor.LIME,
+            DyeColor.GREEN,
+            DyeColor.CYAN,
+            DyeColor.LIGHT_BLUE,
+            DyeColor.BLUE,
+            DyeColor.PURPLE,
+            DyeColor.MAGENTA,
+            DyeColor.PINK
+    ).reversed();
 
+    public static void registration() {
+        buildingBlocks();
+        naturalBlocks();
+        coloredBlocks();
+        functionalBlocks();
+        foodAndDrinks();
+        combat();
+    }
+
+    private static void buildingBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
             BlockTagsSD.getBlocks(BlockTagsSD.SNOW_BRICKS).forEach(block -> entries.insertBefore(SANDSTONE, block));
             entries.insertBefore(COAL_BLOCK, CHARCOAL_BLOCK);
@@ -96,7 +105,9 @@ public class CreativeModeTabsSD {
             entries.insertAfter(STRIPPED_WARPED_HYPHAE, STRIPPED_WARPED_HYPHAE_STAIRS);
             entries.insertAfter(STRIPPED_WARPED_HYPHAE_STAIRS, STRIPPED_WARPED_HYPHAE_SLAB);
         });
+    }
 
+    private static void naturalBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.NATURAL_BLOCKS).register(entries -> {
             entries.insertAfter(BUSH, REEDS);
             entries.insertAfter(WARPED_WART_BLOCK, WARPED_OVERHANG);
@@ -104,17 +115,23 @@ public class CreativeModeTabsSD {
             entries.insertAfter(JACK_O_LANTERN, SOUL_JACK_O_LANTERN);
             entries.insertBefore(WILDFLOWERS, PERSE_WILDFLOWERS);
         });
+    }
 
+    private static void coloredBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
             gameplayColorOrder.forEach(color -> entries.insertAfter(BED.pink(), TENT.pick(color)));
         });
+    }
 
+    private static void functionalBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> {
             TENT.forEach(tent -> entries.insertBefore(CANDLE, tent));
             entries.insertAfter(CAMPFIRE, UNLIT_CAMPFIRE);
             entries.insertAfter(SOUL_CAMPFIRE, UNLIT_SOUL_CAMPFIRE);
         });
+    }
 
+    private static void foodAndDrinks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FOOD_AND_DRINKS).register(entries -> {
             entries.insertAfter(PUMPKIN_PIE, APPLE_PIE);
             entries.insertBefore(COD, CALAMARI);
@@ -136,7 +153,9 @@ public class CreativeModeTabsSD {
             entries.insertBefore(POTION, COVEN_ELIXIR);
             entries.insertAfter(BEETROOT_SOUP, LIGHT_STEW);
         });
+    }
 
+    private static void combat() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COMBAT).register(entries -> {
             entries.insertAfter(END_CRYSTAL, BLAST_FUNGUS);
             entries.insertAfter(NETHERITE_AXE, WOODEN_DAGGER);
@@ -151,4 +170,5 @@ public class CreativeModeTabsSD {
             gameplayColorOrder.forEach(color -> entries.insertAfter(QUIVER, DYED_QUIVER.pick(color)));
         });
     }
+
 }

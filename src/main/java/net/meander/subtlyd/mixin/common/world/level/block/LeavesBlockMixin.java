@@ -1,8 +1,9 @@
 package net.meander.subtlyd.mixin.common.world.level.block;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
-import net.meander.subtlyd.world.level.biome.BiomeSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.animal.TemperatureVariants;
@@ -16,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.util.Optional;
+
 @Mixin(LeavesBlock.class)
 public class LeavesBlockMixin {
     @ModifyVariable(method = "<init>", at = @At("HEAD"), name = "ambientLeavesBlockSoundPlayer", argsOnly = true)
@@ -23,14 +26,17 @@ public class LeavesBlockMixin {
         if (ambientLeavesBlockSoundPlayer == AmbientLeavesBlockSoundPlayer.noAmbientSound()) {
             ambientLeavesBlockSoundPlayer = AmbientLeavesBlockSoundPlayer.of(SoundEventsSD.LEAVES_AMBIENT, BlockTags.LOGS);
         }
+
         return ambientLeavesBlockSoundPlayer;
     }
 
     @Redirect(method = "animateTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/sounds/AmbientLeavesBlockSoundPlayer;playAmbientLeavesSounds(Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/util/RandomSource;)V"))
     private void cancelSounds(AmbientLeavesBlockSoundPlayer instance, Level level, BlockPos pos, Block block, RandomSource random) {
-        if (instance.ambientSound().isPresent()) {
+        Optional<Holder<SoundEvent>> soundEvent = instance.ambientSound();
+
+        if (soundEvent.isPresent()) {
             if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
-                if (!instance.ambientSound().get().is(SoundEventsSD.LEAVES_AMBIENT.key()) || !BiomeSD.getBiomeAsTemperatureVariant(level, pos).equals(TemperatureVariants.COLD)) {
+                if (!soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) || !level.getClimateAsTemperatureVariant(pos).equals(TemperatureVariants.COLD)) {
                     instance.playAmbientLeavesSounds(level, pos, block, random);
                 }
             }

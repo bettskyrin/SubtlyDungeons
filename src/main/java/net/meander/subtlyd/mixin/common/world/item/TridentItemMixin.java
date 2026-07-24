@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,13 +26,14 @@ public class TridentItemMixin {
     @ModifyVariable(method = "releaseUsing", at = @At("STORE"), name = "trident")
     private ThrownTrident maintainCharge(ThrownTrident trident, ItemStack itemStack, Level level, LivingEntity entity, int remainingTime) {
         if (EnchantmentHelperSD.checkEnchantment(trident.getWeaponItem(), Enchantments.CHANNELING) && trident.level().canHaveWeather()) {
-            final int TICK_BUFFER = 50;
+            final int tickBuffer = 50;
             int ticksUsed = trident.getWeaponItem().getUseDuration(entity) - remainingTime;
 
-            if (ticksUsed >= TICK_BUFFER) {
+            if (ticksUsed >= tickBuffer) {
                 ((ChargedTridentState.Accessor) trident).setCharged(true);
             }
         }
+
         return trident;
     }
 

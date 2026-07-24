@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 
@@ -18,10 +19,17 @@ public class DamageTypeTagsProviderSD extends FabricTagsProvider<DamageType> {
         super(packOutput, Registries.DAMAGE_TYPE, completableFuture);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider registries) {
         tag(DamageTypeTagsSD.IS_OCCULT)
-                .add(DamageTypes.MAGIC, DamageTypes.INDIRECT_MAGIC, DamageTypes.SONIC_BOOM, DamageTypes.THORNS, DamageTypes.WITHER);
+                .add(DamageTypes.MAGIC)
+                .add(DamageTypes.INDIRECT_MAGIC)
+                .add(DamageTypes.SONIC_BOOM)
+                .add(DamageTypes.THORNS)
+                .add(DamageTypes.WITHER);
+        tag(DamageTypeTagsSD.CAUSES_FLOCK_PANIC)
+                .forceAddTag(DamageTypeTags.PANIC_CAUSES)
+                .removeTag(DamageTypeTags.PANIC_ENVIRONMENTAL_CAUSES)
+                .add(DamageTypes.LIGHTNING_BOLT);
     }
 }

@@ -12,9 +12,9 @@ import net.minecraft.world.level.levelgen.feature.Feature;
  * @see net.minecraft.data.worldgen.features.FeatureUtils
  */
 public class FeatureUtilsSD {
-    public static void bootstrap() {
-        FeatureTypesSD.bootstrap(BuiltInRegistries.FEATURE_TYPE);
-        TrunkPlacerTypeSD.initalize();
+    public static void registration() {
+        FeatureTypesSD.registration(BuiltInRegistries.FEATURE_TYPE);
+        TrunkPlacerTypeSD.registration();
     }
 
     public static ResourceKey<Feature> createKey(final String name) {

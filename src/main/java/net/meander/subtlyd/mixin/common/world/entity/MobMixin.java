@@ -6,6 +6,7 @@ import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShadeGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekShelterGoal;
 import net.meander.subtlyd.world.entity.ai.goal.SeekWarmthGoal;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -18,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Mob.class)
 public class MobMixin implements MobSD {
-    @Unique private long huntingCooldown = 0;
+    private long huntingCooldown = 0;
 
     @Override
     public long getHuntingCooldownTicks() {
@@ -38,9 +38,6 @@ public class MobMixin implements MobSD {
         huntingCooldown = time;
     }
 
-    /**
-     * Adds the goal of finding shelter from the rain and cold. Only warm and temperate animals seek warmth.
-     */
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addEnvironmentGoals(EntityType<?> type, Level level, CallbackInfo ci) {
         if (((Object) this) instanceof PathfinderMob mob) {
@@ -58,9 +55,6 @@ public class MobMixin implements MobSD {
         }
     }
 
-    /**
-     * Allows pets to sprint with their owner.
-     */
     @Inject(method = "tick", at = @At("TAIL"))
     private void allowPetSprinting(CallbackInfo ci) {
         if (((Object) this) instanceof TamableAnimal pet) {
@@ -108,7 +102,7 @@ public class MobMixin implements MobSD {
     }
 
     @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
-    private void setScansorialArthropodNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
+    private void setScansorialEntityNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
         if (OptionsSD.advancedEntityAnimations().get()) {
             Mob mob = (Mob) (Object) this;
 

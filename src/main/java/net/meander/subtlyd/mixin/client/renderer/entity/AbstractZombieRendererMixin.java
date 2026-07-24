@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
-import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
 import net.meander.subtlyd.network.syncher.EntityDataAccessors;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.model.HumanoidModel;
@@ -26,7 +26,7 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
     private void modifyLeaderTexture(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier location = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).isLeader()) {
+        if (((UndeadRenderStateSD) state).isLeader()) {
             @SuppressWarnings("unchecked")
             final AbstractZombieRenderer<T, S, M> renderer = (AbstractZombieRenderer<T, S, M>) (Object) this;
 
@@ -39,11 +39,10 @@ public class AbstractZombieRendererMixin <T extends Zombie, S extends ZombieRend
         cir.setReturnValue(location);
     }
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V",
-            at = @At("TAIL"))
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/Zombie;Lnet/minecraft/client/renderer/entity/state/ZombieRenderState;F)V", at = @At("TAIL"))
     private void extractLeaderRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
         boolean isLeader = entity.getEntityData().get(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER);
 
-        ((UndeadRenderStateAccessor) state).setLeader(isLeader);
+        ((UndeadRenderStateSD) state).setLeader(isLeader);
     }
 }

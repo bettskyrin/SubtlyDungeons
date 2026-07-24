@@ -35,6 +35,7 @@ public class AquaticPlacementsSD {
                                 BlockPredicate.matchesBlocks(Direction.UP.getUnitVec3i().above(), List.of(Blocks.AIR))
                         )),
                         BiomeFilter.biome()
-                )));
+                ))
+        );
     }
 }

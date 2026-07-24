@@ -10,6 +10,7 @@ import net.minecraft.world.damagesource.DamageType;
  */
 public class DamageTypeTagsSD {
     public static final TagKey<DamageType> IS_OCCULT = create("is_occult");
+    public static final TagKey<DamageType> CAUSES_FLOCK_PANIC = create("causes_flock_panic");
 
     private static TagKey<DamageType> create(String string) {
         return TagKey.create(Registries.DAMAGE_TYPE, UtilSD.identifier(string));

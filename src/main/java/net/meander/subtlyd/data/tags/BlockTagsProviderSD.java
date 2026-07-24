@@ -50,7 +50,8 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.SLABS)
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block()).add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
+                .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
+                .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
         tag(BlockTags.WOODEN_SLABS)
@@ -167,5 +168,8 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.IRON_GRATE.block());
         tag(BlockTagsSD.SILENT_FOLIAGE)
                 .add(BlockItemIds.PALE_OAK_LEAVES.block());
+        tag(BlockTagsSD.ARROW_FLAMMABLE)
+                .addAll(registries.lookupOrThrow(Registries.BLOCK).listElements().filter(b -> b.value().defaultBlockState().ignitedByLava()).map(Holder.Reference::key))
+                .forceAddTag(BlockTags.FLOWERS);
     }
 }

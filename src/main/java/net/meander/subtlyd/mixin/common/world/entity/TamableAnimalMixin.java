@@ -6,13 +6,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
+
 @Mixin(TamableAnimal.class)
-public class TamableAnimalMixin {
-    /**
-     * Increases pet follow radius to 20 blocks.
-     */
+public class TamableAnimalMixin implements TamableAnimalSD {
     @ModifyConstant(method = "shouldTryTeleportToOwner", constant = @Constant(doubleValue = 144.0))
     private double increaseFollowRange(double originalDistance) {
-        return TamableAnimalSD.MAX_FOLLOW_DISTANCE_SQR;
+        return MAX_FOLLOW_DISTANCE_SQR;
     }
 }

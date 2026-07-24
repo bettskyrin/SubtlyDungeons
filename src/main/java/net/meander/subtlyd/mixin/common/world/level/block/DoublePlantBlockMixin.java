@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.common.world.level.block;
 
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -12,6 +11,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,40 +26,39 @@ public class DoublePlantBlockMixin {
         if (state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER && directionToNeighbour == Direction.DOWN) {
             BlockState resultState = cir.getReturnValue();
             
-            if (resultState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
-                boolean isBottomSnowlogged = neighbourState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
+            if (resultState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED)) {
+                boolean isBottomSnowlogged = neighbourState.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0;
                 
-                cir.setReturnValue(resultState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, isBottomSnowlogged));
+                cir.setReturnValue(resultState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, isBottomSnowlogged));
             }
         }
     }
 
     @Inject(method = "setPlacedBy", at = @At("RETURN"))
     private void syncSnowloggedStateWhenPlaced(Level level, BlockPos pos, BlockState state, LivingEntity by, ItemStack itemStack, CallbackInfo ci) {
-        BlockPos upPos = pos.above();
-        BlockState upState = level.getBlockState(upPos);
-        BlockState downState = level.getBlockState(pos);
+        BlockPos upperPos = pos.above();
+        BlockState upperState = level.getBlockState(upperPos);
 
-        if (upState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED) && downState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
-            boolean isBottomSnowlogged = downState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
+        if (upperState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED) && state.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
+            boolean isBottomSnowlogged = state.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0;
 
             if (isBottomSnowlogged) {
-                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), 2);
+                level.setBlock(upperPos, upperState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, true), 2);
             }
         }
     }
 
     @Inject(method = "placeAt", at = @At("RETURN"))
     private static void syncSnowloggedStateOnGeneration(LevelAccessor level, BlockState state, BlockPos lowerPos, int updateType, CallbackInfo ci) {
-        BlockPos upPos = lowerPos.above();
-        BlockState upState = level.getBlockState(upPos);
-        BlockState downState = level.getBlockState(lowerPos);
+        BlockPos upperPos = lowerPos.above();
+        BlockState upperState = level.getBlockState(upperPos);
+        BlockState lowerState = level.getBlockState(lowerPos);
 
-        if (upState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED) && downState.hasProperty(BlockStatePropertiesSD.SNOWLOGGED_LAYERS)) {
-            boolean isBottomSnowlogged = downState.getValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS) > 0;
+        if (upperState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED) && lowerState.hasProperty(BlockStateProperties.SNOWLOGGED_LAYERS)) {
+            boolean isBottomSnowlogged = lowerState.getValue(BlockStateProperties.SNOWLOGGED_LAYERS) > 0;
 
             if (isBottomSnowlogged) {
-                level.setBlock(upPos, upState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), updateType);
+                level.setBlock(upperPos, upperState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, true), updateType);
             }
         }
     }

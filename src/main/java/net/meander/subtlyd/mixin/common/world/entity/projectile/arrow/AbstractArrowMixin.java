@@ -1,12 +1,14 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile.arrow;
 
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.level.Level;
@@ -41,6 +43,7 @@ public abstract class AbstractArrowMixin {
         if (arrow.level() instanceof ServerLevel && arrow.isOnFire()) {
             playFlameHitSound(arrow);
         }
+
         trySetFire(hitResult);
     }
 
@@ -53,31 +56,31 @@ public abstract class AbstractArrowMixin {
         }
     }
 
-    /**
-     * Plays the flaming arrow shoot sound.
-     */
     private void playFlameShootSound(AbstractArrow arrow) {
-        arrow.level().playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEventsSD.FLAME_ARROW_SHOOT, SoundSource.PLAYERS, 0.7F, (float) arrow.level().getRandom().nextIntBetweenInclusive(10, 13) / 10);
+        final Level level = arrow.level();
+
+        level.playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEventsSD.FLAME_ARROW_SHOOT, SoundSource.PLAYERS, 0.7F, (float) level.getRandom().nextIntBetweenInclusive(10, 13) / 10);
     }
 
-    /**
-     * Plays the flaming arrow hit sound.
-     */
     private void playFlameHitSound (AbstractArrow arrow) {
         arrow.level().playSound(null, arrow.getX(), arrow.getY(), arrow.getZ(), SoundEventsSD.FLAME_ARROW_HIT, SoundSource.PLAYERS, 0.3F, 1.0F);
     }
 
-    /**
-     * Attempt to set a fire if a flaming arrow has landed and if gamerules allow it to.
-     */
     private void trySetFire(final BlockHitResult hitResult) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
-        final Level level = arrow.level();
-        boolean bl = !arrow.isNoPhysics();
-        if (level.getServer() != null && level.getServer().getGameRules().get(GameRulesSD.ARROW_ARSON)) {
-            if (!(!level.getServer().getGameRules().get(GameRules.MOB_GRIEFING) && !((arrow.getOwner() instanceof Player) || arrow.getOwner() == null))) {
-                if ((arrow.isOnFire() && isInGround()) && bl) {
-                    setFire(hitResult);
+        final MinecraftServer server = arrow.level().getServer();
+        boolean hasPhysics = !arrow.isNoPhysics();
+
+        if (server != null) {
+            GameRules gameRules = server.getGameRules();
+
+            if (gameRules.get(GameRulesSD.ARROW_ARSON)) {
+                Entity owner = arrow.getOwner();
+
+                if (server.getGameRules().get(GameRules.MOB_GRIEFING) || owner instanceof Player || owner == null) {
+                    if (arrow.isOnFire() && isInGround() && hasPhysics) {
+                        setFire(hitResult);
+                    }
                 }
             }
         }
@@ -90,20 +93,16 @@ public abstract class AbstractArrowMixin {
     private void setFire(final BlockHitResult hitResult) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
         final Level level = arrow.level();
-        BlockPos arrowPos = hitResult.getBlockPos();
-        BlockPos arrowFwd = arrowPos.relative(hitResult.getDirection());
+        final BlockPos arrowPos = hitResult.getBlockPos();
+        final BlockPos arrowFwd = arrowPos.relative(hitResult.getDirection());
 
-        switch (findFlammableBlock(hitResult)) {
-            case 1:
-                level.setBlock(arrowPos, BaseFireBlock.getState(level, arrowPos), 0);
-                break;
-            case 2:
-                level.setBlock(arrowPos.above(), BaseFireBlock.getState(level, arrowPos.above()), 0);
-                break;
-            case 3:
-                level.setBlock(arrowFwd.above(), BaseFireBlock.getState(level, arrowFwd.above()), 0);
-                break;
-        }
+        BlockPos firePos = switch (findFlammableBlock(hitResult)) {
+            case 2 -> arrowPos.above();
+            case 3 -> arrowFwd.above();
+            default -> arrowPos;
+        };
+
+        level.setBlock(firePos, BaseFireBlock.getState(level, firePos), 0);
     }
 
     /**
@@ -114,24 +113,27 @@ public abstract class AbstractArrowMixin {
     private int findFlammableBlock(final BlockHitResult hitResult) {
         final AbstractArrow arrow = (AbstractArrow) (Object) (this);
         final Level level = arrow.level();
-        BlockPos onPos = hitResult.getBlockPos();
-        Direction targetFace = hitResult.getDirection();
+        final BlockPos onPos = hitResult.getBlockPos();
+        final Direction targetFace = hitResult.getDirection();
 
-        BlockState onBS = level.getBlockState(onPos);
-        BlockState upBS = level.getBlockState(onPos.above());
-        BlockState downBS = level.getBlockState(onPos.below());
-        BlockState fwdBS = level.getBlockState(onPos.relative(targetFace));
-        BlockState adjBS = level.getBlockState(onPos.relative(targetFace).above());
+        BlockState onState = level.getBlockState(onPos);
+        BlockState aboveState = level.getBlockState(onPos.above());
+        BlockState belowState = level.getBlockState(onPos.below());
+        BlockState forwardState = level.getBlockState(onPos.relative(targetFace));
+        BlockState adjacentState = level.getBlockState(onPos.relative(targetFace).above());
 
-        if ((onBS.ignitedByLava() || downBS.ignitedByLava()|| fwdBS.ignitedByLava() || onBS.is(BlockTags.FLOWERS)) && onBS.canBeReplaced()) {
-           return 1;
-        } else if ((onBS.ignitedByLava() && !onBS.canBeReplaced()) && upBS.canBeReplaced()) {
-            return 2;
-        } else if (fwdBS.ignitedByLava() && adjBS.canBeReplaced()) {
-            return 3;
-        } else if (upBS.ignitedByLava() && onBS.canBeReplaced()) {
+        if (onState.canBeReplaced() && (onState.is(BlockTagsSD.ARROW_FLAMMABLE) || belowState.is(BlockTagsSD.ARROW_FLAMMABLE) || forwardState.is(BlockTagsSD.ARROW_FLAMMABLE) || aboveState.is(BlockTagsSD.ARROW_FLAMMABLE))) {
             return 1;
         }
+
+        if (aboveState.canBeReplaced() && onState.is(BlockTagsSD.ARROW_FLAMMABLE)) {
+            return 2;
+        }
+
+        if (adjacentState.canBeReplaced() && forwardState.is(BlockTagsSD.ARROW_FLAMMABLE)) {
+            return 3;
+        }
+
         return 0;
     }
 }

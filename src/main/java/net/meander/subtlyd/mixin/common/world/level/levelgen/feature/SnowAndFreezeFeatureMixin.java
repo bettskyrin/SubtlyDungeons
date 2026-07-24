@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
-import net.meander.subtlyd.world.block.state.BlockStateSD;
-import net.meander.subtlyd.world.level.block.state.properties.BlockStatePropertiesSD;
+import net.meander.subtlyd.world.level.block.state.BlockStateSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -33,6 +32,7 @@ public class SnowAndFreezeFeatureMixin {
                 int z = origin.getZ() + dz;
 
                 int groundY = level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z);
+
                 pos.set(x, groundY, z);
                 belowPos.set(x, groundY - 1, z);
 
@@ -71,7 +71,7 @@ public class SnowAndFreezeFeatureMixin {
             if (BlockStateSD.canBeSnowlogged(state)) {
                 BlockState belowState = level.getBlockState(pos.below());
 
-                if (level.setBlock(pos, state.setValue(BlockStatePropertiesSD.SNOWLOGGED_LAYERS, 1), 2)) {
+                if (level.setBlock(pos, state.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, 1), 2)) {
                     if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
                         level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
                     }
@@ -81,13 +81,13 @@ public class SnowAndFreezeFeatureMixin {
                     BlockPos abovePos = pos.above();
                     BlockState aboveState = level.getBlockState(abovePos);
 
-                    if (aboveState.hasProperty(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED)) {
-                        level.setBlock(abovePos, aboveState.setValue(BlockStatePropertiesSD.BOTTOM_SNOWLOGGED, true), 2);
+                    if (aboveState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED)) {
+                        level.setBlock(abovePos, aboveState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, true), 2);
                     }
                 }
+
                 return true;
-            } else
-                if (state.isAir()) {
+            } else if (state.isAir()) {
                 BlockState belowState = level.getBlockState(pos.below());
 
                 level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
@@ -95,9 +95,11 @@ public class SnowAndFreezeFeatureMixin {
                 if (belowState.hasProperty(SnowyBlock.SNOWY)) {
                     level.setBlock(pos.below(), belowState.setValue(SnowyBlock.SNOWY, true), 2);
                 }
+
                 return true;
             }
         }
+
         return false;
     }
 }

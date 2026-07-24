@@ -4,6 +4,9 @@ import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
 
+/**
+ * @see net.minecraft.references.BlockItemIds
+ */
 public class BlockItemIdsSD {
     public static final BlockItemId UNLIT_CAMPFIRE = create("unlit_campfire");
     public static final BlockItemId UNLIT_SOUL_CAMPFIRE = create("unlit_soul_campfire");

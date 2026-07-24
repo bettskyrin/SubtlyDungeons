@@ -33,8 +33,8 @@ public class CommandMacrosScreen extends Screen {
         layout.addTitleHeader(title, font);
 
         list = layout.addToContents(new MacroList(minecraft));
-
         LinearLayout footerButtons = layout.addToFooter(LinearLayout.horizontal().spacing(8));
+
         footerButtons.addChild(Button.builder(CommonComponents.GUI_CANCEL, _ -> onCancel()).width(150).build());
         footerButtons.addChild(Button.builder(CommonComponents.GUI_DONE, _ -> onDone()).width(150).build());
 
@@ -47,6 +47,7 @@ public class CommandMacrosScreen extends Screen {
         if (list != null) {
             list.updateSize(width, layout);
         }
+
         layout.arrangeElements();
     }
 
@@ -54,6 +55,7 @@ public class CommandMacrosScreen extends Screen {
         for (int i = 0; i < 10; i++) {
             CommandMacroManager.macros.set(i, list.children().get(i).getValue());
         }
+
         CommandMacroManager.save();
         minecraft.setScreenAndShow(lastScreen);
     }
@@ -68,6 +70,7 @@ public class CommandMacrosScreen extends Screen {
             onCancel();
             return true;
         }
+
         return super.keyPressed(event);
     }
 

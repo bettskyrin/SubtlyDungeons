@@ -4,11 +4,11 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.meander.subtlyd.server.level.ServerLevelSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.world.block.BlocksSD;
-import net.meander.subtlyd.world.block.PotionCauldronBlock;
-import net.meander.subtlyd.world.block.StewCauldronBlock;
-import net.meander.subtlyd.world.block.entity.PotionCauldronBlockEntity;
-import net.meander.subtlyd.world.block.entity.StewCauldronBlockEntity;
+import net.meander.subtlyd.world.level.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.PotionCauldronBlock;
+import net.meander.subtlyd.world.level.block.StewCauldronBlock;
+import net.meander.subtlyd.world.level.block.entity.PotionCauldronBlockEntity;
+import net.meander.subtlyd.world.level.block.entity.StewCauldronBlockEntity;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -191,6 +191,7 @@ public class CauldronInteractionsSD {
 
                 if (potion != Potions.WATER && potion != Potions.AWKWARD && potion != Potions.MUNDANE && potion != Potions.THICK) {
                     level.setBlockAndUpdate(blockPos, BlocksSD.POTION_CAULDRON.defaultBlockState().setValue(PotionCauldronBlock.LEVEL, 2));
+
                     PotionCauldronBlockEntity blockEntity = (PotionCauldronBlockEntity) level.getBlockEntity(blockPos);
 
                     if (blockEntity != null) {
@@ -203,6 +204,7 @@ public class CauldronInteractionsSD {
                             if (particleColor.isPresent()) {
                                 serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
                             }
+
                             player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE)));
                             level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                             level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
@@ -260,6 +262,7 @@ public class CauldronInteractionsSD {
                                         if (particleColor.isPresent()) {
                                             serverLevel.sendParticles(ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, particleColor.getAsInt()), blockPos.getX() + 0.5, blockPos.getY() + 0.5, blockPos.getZ() + 0.5, 10, 0.2, 0.2, 0.2, 0.05);
                                         }
+
                                         player.setItemInHand(interactionHand, ItemUtils.createFilledResult(itemStack, player, new ItemStack(Items.GLASS_BOTTLE)));
                                         level.playSound(null, blockPos, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                                         level.gameEvent(null, GameEvent.FLUID_PLACE, blockPos);
@@ -349,6 +352,7 @@ public class CauldronInteractionsSD {
                         if (!inventory.add(tippedArrows)) {
                             player.drop(tippedArrows, false);
                         }
+
                         level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);
                         level.gameEvent(null, GameEvent.FLUID_PICKUP, blockPos);
                     }

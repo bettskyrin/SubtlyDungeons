@@ -60,10 +60,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
         TailoredWorldGenSettings.reset();
     }
 
-    @Inject(method = "init()V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;",
-                    shift = At.Shift.AFTER), cancellable = true)
+    @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;", shift = At.Shift.AFTER), cancellable = true)
     private void init(CallbackInfo ci) {
         if (canChangeUi) {
             final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
@@ -71,21 +68,18 @@ public abstract class CreateWorldScreenMixin extends Screen {
             final int BUTTON_MIDDLE_X = 100;
 
             GridLayout gridLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));
+
             gridLayout.defaultCellSetting().alignHorizontallyCenter();
+
             GridLayout.RowHelper rowHelper = gridLayout.createRowHelper(createWorldScreen.width);
+
             rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X - (ROW_SPACING * 3)), 0));
-            rowHelper.addChild(
-                    Button.builder(Component.translatable("selectWorld.create"), _ -> createWorldScreen.onCreate())
-                            .build()
-            );
-
+            rowHelper.addChild(Button.builder(Component.translatable("selectWorld.create"), _ -> createWorldScreen.onCreate()).build());
             rowHelper.addChild(new SpacerElement(createWorldScreen.width / 2 - (BUTTON_MIDDLE_X + (UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH / 2) + (7 * ROW_SPACING)), 0));
-
-            rowHelper.addChild(
-                    Button.builder(
-                                    CommonComponents.GUI_CANCEL, (_) -> createWorldScreen.popScreen())
-                            .width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH)
-                            .build());
+            rowHelper.addChild(Button.builder(CommonComponents.GUI_CANCEL, (_) -> createWorldScreen.popScreen())
+                    .width(UtilSD.GUI_COMMON.BACK_BUTTON_WIDTH)
+                    .build()
+            );
             layout.visitWidgets((button) -> {
                 button.setTabOrderGroup(1);
                 addRenderableWidget(button);
@@ -98,12 +92,8 @@ public abstract class CreateWorldScreenMixin extends Screen {
     }
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    @Inject(method = "createNewWorld",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
-    private void saveTailoredSettings(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings,
-                                      Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir,
-                                      @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
+    @Inject(method = "createNewWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
+    private void saveTailoredSettings(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
         if (newWorldAccess.isPresent() && TailoredWorldGenSettings.shouldAlterSettings) {
             Path worldRootPath = newWorldAccess.get().getLevelPath(LevelResource.ROOT);
 
@@ -146,21 +136,23 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 final int DIFFICULTY_BUTTON_TEXTURE_WIDTH = 200;
                 final int DIFFICULTY_BUTTON_TEXTURE_HEIGHT = 159;
                 final int WORLD_SETTINGS_WIDTH = (int) (helper.width / 2.5);
-                LinearLayout linearLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
-                LinearLayout topRow = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
-                LinearLayout gameModeSection = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
-                LinearLayout worldSettingsSection = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
-                LinearLayout difficultySection = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
-                SwitchGrid.Builder switchGridBuilder = SwitchGrid.builder(WORLD_SETTINGS_WIDTH);
+
+                LinearLayout screenLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
+                LinearLayout topRowLayout = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
+                LinearLayout gameModeLayout = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
+                LinearLayout worldSettingsLayout = new LinearLayout(0, 0, LinearLayout.Orientation.VERTICAL).spacing(SPACING);
+                LinearLayout difficultyLayout = new LinearLayout(0, 0, LinearLayout.Orientation.HORIZONTAL).spacing(SPACING);
+                SwitchGrid.Builder worldSettingsGridBuilder = SwitchGrid.builder(WORLD_SETTINGS_WIDTH);
+
                 WorldCreationUiState uiState = helper.getUiState();
 
-                linearLayout.defaultCellSetting().alignVerticallyMiddle();
-                topRow.defaultCellSetting().paddingHorizontal(SPACING);
-                difficultySection.defaultCellSetting().alignHorizontallyLeft();
-                worldSettingsSection.defaultCellSetting().alignHorizontallyCenter();
+                screenLayout.defaultCellSetting().alignVerticallyMiddle();
+                topRowLayout.defaultCellSetting().paddingHorizontal(SPACING);
+                difficultyLayout.defaultCellSetting().alignHorizontallyLeft();
+                worldSettingsLayout.defaultCellSetting().alignHorizontallyCenter();
 
                 /* Game Mode */
-                GameTabButton survivalButton = gameModeSection.addChild(
+                GameTabButton survivalButton = gameModeLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("selectWorld.gameMode.survival"),
                                 _ -> {
@@ -177,9 +169,9 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 survivalButton.setSize(GAME_MODE_BUTTON_WIDTH, GAME_MODE_BUTTON_HEIGHT);
                 survivalButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.SURVIVAL.getInfo()));
                 survivalButton.setSelected(() -> uiState.getGameMode() == WorldCreationUiState.SelectedGameMode.SURVIVAL);
-                survivalButton.active = uiState.getGameMode() != WorldCreationUiState.SelectedGameMode.HARDCORE;
 
-                GameTabButton creativeButton = gameModeSection.addChild(
+                survivalButton.active = uiState.getGameMode() != WorldCreationUiState.SelectedGameMode.HARDCORE;
+                GameTabButton creativeButton = gameModeLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("selectWorld.gameMode.creative"),
                                 _ -> {
@@ -192,18 +184,21 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                 GAME_MODE_BUTTON_TEXTURE_WIDTH, GAME_MODE_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
+
                 creativeButton.setSize(GAME_MODE_BUTTON_WIDTH, GAME_MODE_BUTTON_HEIGHT);
                 creativeButton.setTooltip(Tooltip.create(WorldCreationUiState.SelectedGameMode.CREATIVE.getInfo()));
                 creativeButton.setSelected(() -> uiState.getGameMode() == WorldCreationUiState.SelectedGameMode.CREATIVE);
 
                 nameEdit = new EditBox(helper.getFont(), WORLD_SETTINGS_WIDTH, 20, Component.translatable("selectWorld.enterName"));
+
                 nameEdit.setValue(uiState.getName());
                 nameEdit.setResponder(uiState::setName);
                 helper.setInitialFocus(nameEdit);
 
-                switchGridBuilder.addSwitch(HARDCORE, uiState::isHardcore, (isHardcore) -> {
+                worldSettingsGridBuilder.addSwitch(HARDCORE, uiState::isHardcore, (isHardcore) -> {
                     uiState.setGameMode(isHardcore ? WorldCreationUiState.SelectedGameMode.HARDCORE : WorldCreationUiState.SelectedGameMode.SURVIVAL);
                     uiState.setDifficulty(Difficulty.HARD);
+
                     if (isHardcore) {
                         Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FLINTANDSTEEL_USE, 1.0F, 1.0F));
                         Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.FIRECHARGE_USE, 0.8F, 0.5F));
@@ -211,18 +206,18 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     }
                 }).withInfo(HARDCORE_INFO);
 
-                switchGridBuilder.addSwitch(ALLOW_COMMANDS, uiState::isAllowCommands, uiState::setAllowCommands).withInfo(ALLOW_COMMANDS_INFO);
-                worldSettingsSection.addChild(
-                        CommonLayouts.labeledElement(helper.getFont(), nameEdit, NAME_LABEL),
-                        topRow.newCellSettings().alignHorizontallyCenter());
-                SwitchGrid switchGrid = switchGridBuilder.build();
-                worldSettingsSection.addChild(switchGrid.layout());
-                topRow.addChild(CommonLayouts.labeledElement(helper.getFont(), gameModeSection, GAME_MODE_LABEL));
-                topRow.addChild(worldSettingsSection);
-                layout.addChild(topRow, 0, 0, linearLayout.newCellSettings().alignHorizontallyLeft());
+                worldSettingsGridBuilder.addSwitch(ALLOW_COMMANDS, uiState::isAllowCommands, uiState::setAllowCommands).withInfo(ALLOW_COMMANDS_INFO);
+                worldSettingsLayout.addChild(CommonLayouts.labeledElement(helper.getFont(), nameEdit, NAME_LABEL), topRowLayout.newCellSettings().alignHorizontallyCenter());
+
+                SwitchGrid worldSettingsGrid = worldSettingsGridBuilder.build();
+
+                worldSettingsLayout.addChild(worldSettingsGrid.layout());
+                topRowLayout.addChild(CommonLayouts.labeledElement(helper.getFont(), gameModeLayout, GAME_MODE_LABEL));
+                topRowLayout.addChild(worldSettingsLayout);
+                layout.addChild(topRowLayout, 0, 0, screenLayout.newCellSettings().alignHorizontallyLeft());
 
                 /* Difficulty */
-                GameTabButton peacefulButton = difficultySection.addChild(
+                GameTabButton peacefulButton = difficultyLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.peaceful"),
                                 _ -> uiState.setDifficulty(Difficulty.PEACEFUL),
@@ -232,11 +227,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
+
                 peacefulButton.setSize(DIFFICULTY_BUTTON_WIDTH, DIFFICULTY_BUTTON_HEIGHT);
                 peacefulButton.setTooltip(Tooltip.create(Difficulty.PEACEFUL.getInfo()));
                 peacefulButton.setSelected(() -> uiState.getDifficulty() == Difficulty.PEACEFUL);
 
-                GameTabButton easyButton = difficultySection.addChild(
+                GameTabButton easyButton = difficultyLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.easy"),
                                 _ -> uiState.setDifficulty(Difficulty.EASY),
@@ -246,11 +242,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
+
                 easyButton.setSize(DIFFICULTY_BUTTON_WIDTH, DIFFICULTY_BUTTON_HEIGHT);
                 easyButton.setTooltip(Tooltip.create(Difficulty.EASY.getInfo()));
                 easyButton.setSelected(() -> uiState.getDifficulty() == Difficulty.EASY);
 
-                GameTabButton normalButton = difficultySection.addChild(
+                GameTabButton normalButton = difficultyLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.normal"),
                                 _ -> uiState.setDifficulty(Difficulty.NORMAL),
@@ -260,11 +257,12 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
+
                 normalButton.setSize(DIFFICULTY_BUTTON_WIDTH, DIFFICULTY_BUTTON_HEIGHT);
                 normalButton.setTooltip(Tooltip.create(Difficulty.NORMAL.getInfo()));
                 normalButton.setSelected(() -> uiState.getDifficulty() == Difficulty.NORMAL);
 
-                GameTabButton hardButton = difficultySection.addChild(
+                GameTabButton hardButton = difficultyLayout.addChild(
                         GameTabButton.builder(
                                 Component.translatable("options.difficulty.hard"),
                                 _ -> uiState.setDifficulty(Difficulty.HARD),
@@ -274,11 +272,15 @@ public abstract class CreateWorldScreenMixin extends Screen {
                                 DIFFICULTY_BUTTON_TEXTURE_WIDTH, DIFFICULTY_BUTTON_TEXTURE_HEIGHT
                         ).build()
                 );
+
                 hardButton.setSize(DIFFICULTY_BUTTON_WIDTH, DIFFICULTY_BUTTON_HEIGHT);
                 hardButton.setTooltip(Tooltip.create(Difficulty.HARD.getInfo()));
                 hardButton.setSelected(() -> uiState.getDifficulty() == Difficulty.HARD);
 
                 uiState.addListener(worldCreationUiState -> {
+                    int widgetIndex = 0;
+                    List<AbstractWidget> worldButtons = new ArrayList<>();
+
                     nameEdit.setTooltip(Tooltip.create(Component.translatable("selectWorld.targetFolder",
                             Component.literal(worldCreationUiState.getTargetFolder()).withStyle(ChatFormatting.ITALIC))));
                     survivalButton.setLocked(uiState.isHardcore());
@@ -287,49 +289,41 @@ public abstract class CreateWorldScreenMixin extends Screen {
                     easyButton.setActive(!uiState.isHardcore());
                     normalButton.setActive(!uiState.isHardcore());
                     hardButton.setLocked(uiState.isHardcore());
+                    worldSettingsGrid.layout().visitWidgets(worldButtons::add);
 
-                    List<AbstractWidget> worldButtons = new ArrayList<>();
-                    switchGrid.layout().visitWidgets(worldButtons::add);
-                    int i = 0;
                     for (AbstractWidget widget : worldButtons) {
                         if (widget instanceof CycleButton<?> button) {
-                            if (i == 1) {
+                            if (widgetIndex == 1) {
                                 ((CycleButton<Boolean>) button).setValue(uiState.isAllowCommands());
                                 break;
                             }
-                            i++;
+
+                            widgetIndex++;
                         }
                     }
                 });
-                LayoutElement bottomRow = CommonLayouts.labeledElement(helper.getFont(), difficultySection, DIFFICULTY_LABEL);
-                layout.addChild(bottomRow, 1, 0, linearLayout.newCellSettings().alignHorizontallyLeft().paddingHorizontal(SPACING));
+
+                LayoutElement bottomRow = CommonLayouts.labeledElement(helper.getFont(), difficultyLayout, DIFFICULTY_LABEL);
+
+                layout.addChild(bottomRow, 1, 0, screenLayout.newCellSettings().alignHorizontallyLeft().paddingHorizontal(SPACING));
             }
         }
 
-        /**
-         * Prevents the original widgets from drawing
-         */
-        @Redirect(
-                method = "<init>",
-                at = @At(
-                        value = "INVOKE",
-                        target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;Lnet/minecraft/client/gui/layouts/LayoutSettings;)Lnet/minecraft/client/gui/layouts/LayoutElement;"))
-        private LayoutElement overrideVanilla(GridLayout.RowHelper instance, LayoutElement widget, LayoutSettings layoutSettings) {
+        @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;Lnet/minecraft/client/gui/layouts/LayoutSettings;)Lnet/minecraft/client/gui/layouts/LayoutElement;"))
+        private LayoutElement cancelWidgets(GridLayout.RowHelper instance, LayoutElement widget, LayoutSettings layoutSettings) {
             if (canChangeUi) {
                 return widget;
             }
+
             return instance.addChild(widget, layoutSettings);
         }
 
-        @Redirect(method = "<init>",
-                at = @At(
-                        value = "INVOKE",
-                        target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;"),
-                require = 0)
-        private LayoutElement overrideVanilla(GridLayout.RowHelper instance, LayoutElement widget) {
+        @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;"), require = 0)
+        private LayoutElement cancelWidgets(GridLayout.RowHelper instance, LayoutElement widget) {
             if (canChangeUi) {
                 return widget;
             }
+
             return instance.addChild(widget);
         }
     }

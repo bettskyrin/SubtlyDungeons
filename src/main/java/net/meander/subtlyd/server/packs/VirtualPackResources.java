@@ -1,5 +1,6 @@
 package net.meander.subtlyd.server.packs;
 
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
@@ -17,7 +18,7 @@ import java.util.Set;
 class VirtualPackResources implements PackResources {
     private final PackLocationInfo LOCATION = new PackLocationInfo(
             "subtlyd_virtual_pack",
-            Component.literal("Subtly Dungeons Virtual Pack"),
+            Component.literal("Virtual Pack"),
             PackSource.BUILT_IN,
             Optional.empty()
     );
@@ -51,7 +52,7 @@ class VirtualPackResources implements PackResources {
 
     @Override
     public Set<String> getNamespaces(PackType type) {
-        return Set.of("subtlyd", "minecraft");
+        return Set.of(UtilSD.NAMESPACE, "minecraft");
     }
 
 

@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
-import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.entity.state.LivingEntityRenderStateSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
@@ -8,53 +8,38 @@ import org.spongepowered.asm.mixin.Mixin;
 
 @Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderState.class)
-public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAccessor {
+public class LivingEntityRenderStateMixin implements LivingEntityRenderStateSD {
     private float climbProgress;
-    private float climbRotation;
+    private float climbYaw;
     private boolean isJockey;
 
-    /**
-     * @return The progress of the climb animation.
-     */
-    @Override public float getClimbProgress() {
+    @Override
+    public float getClimbProgress() {
         return climbProgress;
     }
 
-    /**
-     * @return The desired rotation angle.
-     */
-    @Override public float getClimbRotation() {
-        return climbRotation;
+    @Override
+    public float getClimbYaw() {
+        return climbYaw;
     }
 
-    /**
-     * @return Whether the render state is for a isJockey or not.
-     */
-    @Override public boolean isJockey() {
+    @Override
+    public boolean isJockey() {
         return isJockey;
     }
 
-    /**
-     * Sets the climb animation progress value.
-     * @param progress The desired progress value.
-     */
-    @Override public void setClimbProgress(float progress) {
-        climbProgress = progress;
+    @Override
+    public void setClimbProgress(float climbProgress) {
+        this.climbProgress = climbProgress;
     }
 
-    /**
-     * Sets the climb rotation angle.
-     * @param rotation The desired rotation angle.
-     */
-    @Override public void setClimbRotation(float rotation) {
-        climbRotation = rotation;
+    @Override
+    public void setClimbYaw(float climbYaw) {
+        this.climbYaw = climbYaw;
     }
 
-    /**
-     * Sets the "isJockey" status of the render state.
-     * @param bl The isJockey status.
-     */
-    @Override public void setIsJockey(boolean bl) {
-        isJockey = bl;
+    @Override
+    public void setIsJockey(boolean isJockey) {
+        this.isJockey = isJockey;
     }
 }

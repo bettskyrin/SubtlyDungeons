@@ -22,6 +22,7 @@ public class BlockTagsSD {
     public static final TagKey<Block> TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS = create("triggers_ambient_grass_block_sounds");
     public static final TagKey<Block> TALL_PLANTS = create("tall_plants");
     public static final TagKey<Block> SILENT_FOLIAGE = create("silent_foliage");
+    public static final TagKey<Block> ARROW_FLAMMABLE = create("arrow_flammable");
 
     private static TagKey<Block> create(String string) {
         return TagKey.create(Registries.BLOCK, UtilSD.identifier(string));
@@ -39,6 +40,7 @@ public class BlockTagsSD {
         for  (Holder<Block> holder : holders) {
             blocks.add(holder.value());
         }
+
         return blocks;
     }
 }

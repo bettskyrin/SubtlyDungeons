@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.client.player;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.AttackRange;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.*;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,32 +20,35 @@ import org.spongepowered.asm.mixin.injection.At;
 public abstract class LocalPlayerMixin {
     @ModifyReturnValue(method = "raycastHitResult", at = @At("RETURN"))
     private HitResult swingThroughFoliage(HitResult hitResult, float a, Entity cameraEntity) {
-        if (hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHit && cameraEntity instanceof LocalPlayer player) {
+        if (hitResult instanceof BlockHitResult blockHit && cameraEntity instanceof LocalPlayer player) {
             ItemStack mainHand = player.getMainHandItem();
 
             if (mainHand.has(DataComponents.WEAPON)) {
-                double actualReach = player.entityInteractionRange();
+                double interactionRange = player.entityInteractionRange();
 
                 if (mainHand.has(DataComponents.ATTACK_RANGE)) {
                     AttackRange attackRange = mainHand.get(DataComponents.ATTACK_RANGE);
+
                     if (attackRange != null) {
-                        actualReach = attackRange.maxReach();
+                        interactionRange = attackRange.maxReach();
                     }
                 }
 
-                BlockState state = player.level().getBlockState(blockHit.getBlockPos());
+                BlockPos pos = blockHit.getBlockPos();
+                Level level = player.level();
+                BlockState state = level.getBlockState(pos);
 
-                if (state.getCollisionShape(player.level(), blockHit.getBlockPos()).isEmpty()) {
+                if (state.getCollisionShape(level, pos).isEmpty()) {
                     Vec3 eyePos = player.getEyePosition(a);
-                    Vec3 viewVec = player.getViewVector(1.0F);
+                    Vec3 scaledViewVec = player.getViewVector(1.0F).scale(interactionRange);
 
-                    Vec3 endPos = eyePos.add(viewVec.scale(actualReach));
-                    AABB searchBox = player.getBoundingBox().expandTowards(viewVec.scale(actualReach)).inflate(1.0D);
+                    Vec3 endPos = eyePos.add(scaledViewVec);
+                    AABB searchBox = player.getBoundingBox().expandTowards(scaledViewVec).inflate(1.0D);
 
                     ClipContext solidCheckContext = new ClipContext(eyePos, endPos, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player);
-                    BlockHitResult solidHit = player.level().clip(solidCheckContext);
+                    BlockHitResult solidHit = level.clip(solidCheckContext);
 
-                    double maxDistanceSquared = Mth.square(actualReach);
+                    double maxDistanceSquared = Mth.square(interactionRange);
 
                     if (solidHit.getType() != HitResult.Type.MISS) {
                         maxDistanceSquared = solidHit.getLocation().distanceToSqr(eyePos);

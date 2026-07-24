@@ -15,7 +15,7 @@ Some quick notes:
 [Fabric Develop Page](https://fabricmc.net/develop/) - A reference of resources for Fabric projects.
 [Fabric Wiki](https://wiki.fabricmc.net/) - The legacy wiki for the Fabric toolchain. Full of documentation for Fabric API and Mixin usage.
 [Fabric Developer Guides](https://docs.fabricmc.net/develop/) - The (mostly) updated Fabric Documentation.
-`docs\templates\STYLE_EXAMPLE.txt` - A style guide example for Java development
+[Style Example](templates/STYLE_EXAMPLE.txt) - A style guide example for Java development
 
 ## Bug Tracking
 Bugs are to be reported on [GitHub](https://github.com/Meander-Studios/SubtlyDungeons/issues). Our bug tracker can be found here: [Bug Tracker](https://github.com/orgs/Meander-Studios/projects/1)

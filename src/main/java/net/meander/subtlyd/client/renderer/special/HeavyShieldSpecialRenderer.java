@@ -5,7 +5,7 @@ import com.mojang.math.Transformation;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.meander.subtlyd.client.model.HeavyShieldModel;
+import net.meander.subtlyd.client.model.object.equipment.HeavyShieldModel;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.Sheets;

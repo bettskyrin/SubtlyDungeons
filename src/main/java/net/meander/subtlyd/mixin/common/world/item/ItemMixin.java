@@ -21,15 +21,15 @@ public class ItemMixin {
         if (itemStack.is(Items.TRIDENT)) {
             if (ItemHelperSD.canChargeChanneling(level, livingEntity, itemStack)) {
                 int ticksUsed = itemStack.getItem().getUseDuration(itemStack, livingEntity) - ticksRemaining;
-                BlockPos soundLocation = BlockPos.containing(livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ());
+                BlockPos pos = BlockPos.containing(livingEntity.getX(), livingEntity.getY() + 0.5F, livingEntity.getZ());
 
                 if (ticksUsed >= 10 && ticksUsed < ItemHelperSD.CHANNELING_CHARGE_TIME) {
                     if (level.getRandom().nextFloat() < 0.07F) {
-                        level.playSound(null, soundLocation, SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
+                        level.playSound(null, pos, SoundEventsSD.TRIDENT_CHARGING, SoundSource.PLAYERS);
                     }
                 } else if (ticksUsed >= ItemHelperSD.CHANNELING_CHARGE_TIME) {
                     if ((ticksUsed - ItemHelperSD.CHANNELING_CHARGE_TIME) % 43 == 0) { // Every 2.15 seconds
-                        level.playSound(null, soundLocation, SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
+                        level.playSound(null, pos, SoundEventsSD.TRIDENT_CHARGED, SoundSource.PLAYERS);
                     }
                 }
             }

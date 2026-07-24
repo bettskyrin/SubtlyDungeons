@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.Level;
@@ -63,6 +64,19 @@ public class SeekShadeGoal extends Goal {
             }
         }
         return null;
+    }
+
+    private boolean shouldSeekShade() {
+        Level level = mob.level();
+        BlockPos blockPos = mob.blockPosition();
+        Identifier climate = level.getClimateAsTemperatureVariant(blockPos);
+
+        return climate == TemperatureVariants.WARM
+                && !level.canHaveWeather()
+                && level.canSeeSky(blockPos)
+                && (mob instanceof TamableAnimal tamable && tamable.shouldNotFollowOwner())
+                && !mob.hasControllingPassenger()
+                && mob.getTarget() == null;
     }
 
 

@@ -13,14 +13,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AbstractWindCharge.class)
 public class AbstractWindChargeMixin {
-    @Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/hurtingprojectile/windcharge/AbstractWindCharge;discard()V", shift = At.Shift.BEFORE))
+    @Inject(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/hurtingprojectile/windcharge/AbstractWindCharge;discard()V"))
     private void disperseCloud(HitResult hitResult, CallbackInfo ci) {
         Entity windCharge = (Entity) (Object) this;
         ServerLevel level = (ServerLevel) windCharge.level();
         AABB searchArea = windCharge.getBoundingBox().inflate(0.8);
 
         for (Entity entity : level.getEntitiesOfClass(AreaEffectCloud.class, searchArea)) {
-            entity.kill(level);
+            entity.discard();
         }
     }
 }

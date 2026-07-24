@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
-import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.entity.HuskRenderer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
@@ -24,7 +24,7 @@ public class HuskRendererMixin {
     private void getTextureLocation(ZombieRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).isLeader()) {
+        if (((UndeadRenderStateSD) state).isLeader()) {
             leaderLocation = state.isBaby ? BABY_HUSK_LEADER_LOCATION : HUSK_LEADER_LOCATION;
         }
         cir.setReturnValue(leaderLocation);

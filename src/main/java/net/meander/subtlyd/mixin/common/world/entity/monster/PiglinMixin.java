@@ -23,6 +23,7 @@ public class PiglinMixin {
 
         if ((mainHand.is(Items.GOLDEN_SWORD) || mainHand.is(Items.GOLDEN_SPEAR)) && random.nextFloat() < 0.35F) {
             ItemStack dagger = new ItemStack(ItemsSD.GOLDEN_DAGGER);
+
             dagger.applyComponents(mainHand.getComponentsPatch());
             piglin.setItemSlot(EquipmentSlot.MAINHAND, dagger);
         }

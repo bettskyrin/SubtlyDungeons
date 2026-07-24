@@ -31,6 +31,7 @@ import java.util.*;
 public class ServerAdvancementManagerMixin {
     @Shadow @Final @Mutable private Map<Identifier, AdvancementHolder> advancements;
     @Shadow @Final @Mutable private AdvancementTree tree;
+
     private static final Identifier BALANCED_DIET = Identifier.withDefaultNamespace("husbandry/balanced_diet");
     private static final Identifier COUNTRY_LODE = Identifier.withDefaultNamespace("adventure/use_lodestone");
     private static final Identifier ADVENTURE_ROOT = Identifier.withDefaultNamespace("adventure/root");
@@ -85,6 +86,7 @@ public class ServerAdvancementManagerMixin {
                     TreeNodePosition.run(root);
                 }
             }
+
             tree = newTree;
         }
     }

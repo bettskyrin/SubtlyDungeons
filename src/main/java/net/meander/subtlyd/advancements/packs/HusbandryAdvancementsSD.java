@@ -2,7 +2,7 @@ package net.meander.subtlyd.advancements.packs;
 
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementHolder;

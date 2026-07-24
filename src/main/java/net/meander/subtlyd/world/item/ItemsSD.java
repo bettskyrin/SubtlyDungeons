@@ -3,7 +3,7 @@ package net.meander.subtlyd.world.item;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
@@ -140,29 +140,26 @@ public class ItemsSD {
     public static final Item STRIPPED_PALE_OAK_WOOD_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS);
     public static final Item STRIPPED_CRIMSON_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS);
     public static final Item STRIPPED_WARPED_HYPHAE_STAIRS = Items.registerBlock(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_STAIRS, BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS);
-    public static final Item HEAVY_SHIELD = Items.registerItem(
-            ItemIdsSD.HEAVY_SHIELD,
-            ShieldItem::new,
-            new Item.Properties()
-                    .durability(428)
-                    .rarity(Rarity.UNCOMMON)
-                    .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
-                    .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
-                    .equippableUnswappable(EquipmentSlot.OFFHAND)
-                    .delayedComponent(
-                            DataComponents.BLOCKS_ATTACKS,
-                            context -> new BlocksAttacks(
-                                    0.25F,
-                                    0.32F,
-                                    List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
-                                    new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
-                                    Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                                    Optional.of(SoundEvents.SHIELD_BLOCK),
-                                    Optional.of(SoundEvents.SHIELD_BREAK)))
-                    .attributes(ItemAttributeModifiers.builder()
-                            .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE),
-                            EquipmentSlotGroup.ANY).build())
-                    .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK));
+    public static final Item HEAVY_SHIELD = Items.registerItem(ItemIdsSD.HEAVY_SHIELD, ShieldItem::new, new Item.Properties()
+            .durability(428)
+            .rarity(Rarity.UNCOMMON)
+            .component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)
+            .repairable(ItemTags.WOODEN_TOOL_MATERIALS)
+            .equippableUnswappable(EquipmentSlot.OFFHAND)
+            .delayedComponent(
+                    DataComponents.BLOCKS_ATTACKS,
+                    context -> new BlocksAttacks(
+                            0.25F,
+                            0.32F,
+                            List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
+                            new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
+                            Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
+                            Optional.of(SoundEvents.SHIELD_BLOCK),
+                            Optional.of(SoundEvents.SHIELD_BREAK)))
+            .attributes(ItemAttributeModifiers.builder()
+                    .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE),
+                    EquipmentSlotGroup.ANY).build())
+            .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK));
 
     public static void registration() {
         CreativeModeTabsSD.registration();

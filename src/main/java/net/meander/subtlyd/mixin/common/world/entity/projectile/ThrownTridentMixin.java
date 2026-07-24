@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile;
 
-import net.meander.subtlyd.client.renderer.state.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -62,9 +62,7 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
     private void readAdditionalSaveData(ValueInput input, CallbackInfo ci) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        if (input.contains("IsCharged")) {
-            trident.getEntityData().set(DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("IsCharged", false));
-        }
+        trident.getEntityData().set(DATA_ID_CHARGED_TRIDENT, input.getBooleanOr("IsCharged", false));
     }
 
     @Inject(method = "onHitEntity", at = @At("TAIL"))
@@ -80,14 +78,14 @@ public abstract class ThrownTridentMixin implements ChargedTridentState.Accessor
     private void handleStrike(BlockPos hitPos) {
         ThrownTrident trident = (ThrownTrident) (Object) this;
 
-        if (isCharged() && !trident.level().isClientSide()) {
-            LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(trident.level(), EntitySpawnReason.TRIGGERED);
+        if (isCharged() && trident.level() instanceof ServerLevel level) {
+            LightningBolt bolt = EntityTypes.LIGHTNING_BOLT.create(level, EntitySpawnReason.TRIGGERED);
 
-            if (bolt != null && bolt.level().canHaveWeather()) {
+            if (bolt != null && level.canHaveWeather()) {
                 bolt.moveOrInterpolateTo(PositionPath.of(Vec3.atBottomCenterOf(hitPos)));
                 bolt.setCause(trident.getOwner() instanceof ServerPlayer player ? player : null);
-                trident.level().addFreshEntity(bolt);
-                trident.level().playSound(null, hitPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
+                level.addFreshEntity(bolt);
+                level.playSound(null, hitPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.PLAYERS);
             }
             setCharged(false);
         }

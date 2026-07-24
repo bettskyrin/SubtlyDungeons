@@ -21,6 +21,7 @@ public record IsWetCondition() implements LootItemCondition {
         if (target != null) {
             return target.isInWaterOrRain();
         }
+
         return false;
     }
 }

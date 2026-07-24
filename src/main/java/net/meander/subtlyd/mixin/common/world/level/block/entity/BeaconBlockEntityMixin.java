@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin(BeaconBlockEntity.class)
 public class BeaconBlockEntityMixin {
     @ModifyVariable(method = "applyEffects", at = @At(value = "STORE", ordinal = 0), name = "range")
-    private static double newBeaconRange(double value) {
-        return value * 4.0;
+    private static double newBeaconRange(double range) {
+        return range * 4.0;
     }
 }

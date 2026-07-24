@@ -25,12 +25,13 @@ import java.nio.file.Path;
 @Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean canChangeUi = OptionsSD.gui().get();
+    private static final boolean CAN_CHANGE_UI = OptionsSD.gui().get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
-        if (canChangeUi) {
+        if (CAN_CHANGE_UI) {
             final WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
+
             cir.setReturnValue(worldSelectionList.getScreen().width - 8);
         }
     }
@@ -39,33 +40,31 @@ public class WorldSelectionListMixin {
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         @Shadow @Final private LevelSummary summary;
-        private static final boolean canChangeUi = OptionsSD.gui().get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 
         @Inject(method = "recreateWorld", at = @At("HEAD"))
         private void loadRecreateSettings(CallbackInfo ci) {
-            Path oldWorldDir = Minecraft.getInstance().gameDirectory.toPath()
-                    .resolve("saves")
-                    .resolve(summary.getLevelId());
+            Path oldWorldDir = Minecraft.getInstance().gameDirectory.toPath().resolve("saves").resolve(summary.getLevelId());
 
             TailoredWorldGenSettings.loadSettingsFromFile(oldWorldDir);
         }
 
         @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))
         private void modifyWorldIconWidth(Args args) {
-            if (canChangeUi) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 args.set(6, ICON_WIDTH);
                 args.set(8, ICON_WIDTH);
             }
         }
 
         @ModifyArg(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;fill(IIIII)V"), index = 2)
-        private int modifyWorldIconFillWidth(int x0) {
-            if (canChangeUi) {
+        private int modifyWorldIconFillWidth(int x1) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 return getContentX() + ICON_WIDTH;
             }
-            return x0;
+
+            return x1;
         }
 
         /**
@@ -73,15 +72,16 @@ public class WorldSelectionListMixin {
          */
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsOverIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
-            if (canChangeUi) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 return isMouseWithin(mouseX, mouseY, getContentX() + ICON_WIDTH, getContentY() + size);
             }
+
             return instance.mouseOverIcon(relX, relY, size);
         }
 
         @Redirect(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blitSprite(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIII)V"))
         private void modifyPlayButtonIconSprite(GuiGraphicsExtractor instance, RenderPipeline renderPipeline, Identifier location, int x, int y, int width, int height) {
-            if (canChangeUi) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 int MID_ICON = getContentX() + ICON_WIDTH / 4;
 
                 instance.blitSprite(renderPipeline, location, MID_ICON, getContentY(), width, height);
@@ -90,7 +90,7 @@ public class WorldSelectionListMixin {
 
         @Inject(method = "getTextX", at = @At("RETURN"), cancellable = true)
         private void extendTextWidth(CallbackInfoReturnable<Integer> cir) {
-            if (canChangeUi) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 cir.setReturnValue(getContentX() + ICON_WIDTH + 3);
             }
         }
@@ -100,9 +100,10 @@ public class WorldSelectionListMixin {
          */
         @Redirect(method = "mouseClicked", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldSelectionList$WorldListEntry;mouseOverIcon(III)Z"))
         private boolean modifyIsClickedIcon(WorldSelectionList.WorldListEntry instance, int relX, int relY, int size, final MouseButtonEvent event, final boolean doubleClick) {
-            if (canChangeUi) {
+            if (WorldSelectionListMixin.CAN_CHANGE_UI) {
                 return isMouseWithin((int) event.x(), (int) event.y(), getContentX() + ICON_WIDTH, getContentY() + ICON_HEIGHT);
             }
+
             return instance.mouseOverIcon(relX, relY, size);
         }
 

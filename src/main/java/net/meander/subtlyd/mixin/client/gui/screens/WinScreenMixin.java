@@ -15,14 +15,10 @@ public abstract class WinScreenMixin {
     @Shadow protected abstract void wrapCreditsIO(Identifier file, WinScreen.CreditsReader creditsReader);
     @Unique private static final Identifier CREDITS = UtilSD.identifier("texts/credits.json");
 
-    @Inject(method = "init",
-            at = @At(target = "Lnet/minecraft/client/gui/screens/WinScreen;wrapCreditsIO(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/gui/screens/WinScreen$CreditsReader;)V",
-            value = "INVOKE",
-            shift = At.Shift.AFTER,
-            ordinal = 1))
+    @Inject(method = "init", at = @At(target = "Lnet/minecraft/client/gui/screens/WinScreen;wrapCreditsIO(Lnet/minecraft/resources/Identifier;Lnet/minecraft/client/gui/screens/WinScreen$CreditsReader;)V", value = "INVOKE", shift = At.Shift.AFTER, ordinal = 1))
     private void addMeanderStudios(CallbackInfo ci) {
         WinScreen screen = (WinScreen) (Object) this;
 
-        wrapCreditsIO(CREDITS, screen::addCreditsFile);
+        wrapCreditsIO(CREDITS, screen::addCreditsFile); // TODO Add Zeit
     }
 }

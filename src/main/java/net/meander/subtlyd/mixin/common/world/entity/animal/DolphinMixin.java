@@ -41,6 +41,7 @@ public abstract class DolphinMixin extends AgeableWaterCreature {
         if (tag == ItemTags.FISHES) {
             return stack.is(tag) || stack.is(ItemsSD.CALAMARI);
         }
+
         return stack.is(tag);
     }
 }

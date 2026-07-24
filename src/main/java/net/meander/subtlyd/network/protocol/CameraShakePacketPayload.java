@@ -9,7 +9,6 @@ import org.jspecify.annotations.NonNull;
 
 public record CameraShakePacketPayload(int durationTicks, float intensity) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<CameraShakePacketPayload> ID = new  CustomPacketPayload.Type<>(UtilSD.identifier("camera_shake"));
-
     public static final StreamCodec<FriendlyByteBuf, CameraShakePacketPayload> CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, CameraShakePacketPayload::durationTicks,
             ByteBufCodecs.FLOAT, CameraShakePacketPayload::intensity,

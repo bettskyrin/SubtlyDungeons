@@ -36,6 +36,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import org.jspecify.annotations.NonNull;
 
+/**
+ * @see net.minecraft.world.item.enchantment.Enchantments
+ */
 public class EnchantmentsSD {
     public static final ResourceKey<Enchantment> OCCULT_PROTECTION = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("occult_protection"));
     public static final ResourceKey<Enchantment> ABRADING_CURSE = ResourceKey.create(Registries.ENCHANTMENT, UtilSD.identifier("abrading_curse"));
@@ -170,7 +173,7 @@ public class EnchantmentsSD {
                     .build(currentEnchantment.identifier())
             );
         } catch (Exception e) {
-            UtilSD.LOGGER.error("Failed to register: {}: {}", currentEnchantment.identifier(), e.getMessage());
+            UtilSD.LOGGER.error("Failed to register {}: {}", currentEnchantment.identifier(), e.getMessage());
         }
     }
 }

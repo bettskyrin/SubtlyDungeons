@@ -34,10 +34,10 @@ public class WitherBossMixin {
         WitherBoss wither = (WitherBoss) (Object) this;
 
         if (wither.getInvulnerableTicks() <= 0) {
-            boolean shouldDoDiveBomb = wither.getEntityData().get(DATA_ID_WITHER_DIVE);
+            boolean shouldDiveBomb = wither.getEntityData().get(DATA_ID_WITHER_DIVE);
 
             if (wither.isPowered()) {
-                if (level.getDifficulty().getId() > 1 && shouldDoDiveBomb) {
+                if (level.getDifficulty().getId() > 1 && shouldDiveBomb) {
                     Vec3 movement = wither.getDeltaMovement();
 
                     wither.setDeltaMovement(new Vec3(movement.x(), -1.0, movement.z()));
@@ -49,10 +49,11 @@ public class WitherBossMixin {
                         for (int i = 0; i < 3; i++) {
                             EntityTypes.WITHER_SKELETON.spawn(level, wither.blockPosition(), EntitySpawnReason.MOB_SUMMONED);
                         }
+
                         wither.getEntityData().set(DATA_ID_WITHER_DIVE, false);
                     }
                 }
-            } else if (!shouldDoDiveBomb) {
+            } else if (!shouldDiveBomb) {
                 wither.getEntityData().set(DATA_ID_WITHER_DIVE, true);
             }
         }
@@ -75,6 +76,7 @@ public class WitherBossMixin {
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void addAdditionalSaveData(ValueOutput output, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
+
         output.putBoolean("ShouldDiveBomb", wither.getEntityData().get(DATA_ID_WITHER_DIVE));
     }
 
@@ -82,8 +84,6 @@ public class WitherBossMixin {
     private void readAddtionalSaveSada(ValueInput input, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
 
-        if (input.contains("ShouldDiveBomb")) {
-            wither.getEntityData().set(DATA_ID_WITHER_DIVE, input.getBooleanOr("ShouldDiveBomb", false));
-        }
+        wither.getEntityData().set(DATA_ID_WITHER_DIVE, input.getBooleanOr("ShouldDiveBomb", false));
     }
 }

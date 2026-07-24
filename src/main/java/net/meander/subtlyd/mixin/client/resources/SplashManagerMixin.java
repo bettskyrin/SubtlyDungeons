@@ -25,12 +25,7 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 @Mixin(SplashManager.class)
 public class SplashManagerMixin {
-    /**
-     * Fetches splash texts to append to the vanilla list of splashes.
-     */
-    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;",
-            at = @At("RETURN"),
-            cancellable = true)
+    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     private void appendCustomSplash(ResourceManager manager, ProfilerFiller profiler, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();
         List<Component> newSplashes = new ArrayList<>(originalSplashes);

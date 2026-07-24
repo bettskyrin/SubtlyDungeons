@@ -29,7 +29,7 @@ public class CommandMacroManager {
                     macros = loaded;
                 }
             } catch (Exception e) {
-                UtilSD.LOGGER.error("Error while loading command macros", e);
+                UtilSD.LOGGER.error("Error while loading command macros: {}", e.getMessage());
             }
         }
     }
@@ -42,7 +42,7 @@ public class CommandMacroManager {
                 UtilSD.LOGGER.info("Saved command macro: {}", command);
             }
         } catch (Exception e) {
-            UtilSD.LOGGER.error("Error while saving command macros", e);
+            UtilSD.LOGGER.error("Error while saving command macros: {}", e.getMessage());
         }
     }
 

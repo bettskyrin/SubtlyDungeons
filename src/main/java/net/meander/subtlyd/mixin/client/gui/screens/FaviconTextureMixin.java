@@ -22,7 +22,6 @@ public class FaviconTextureMixin {
     @Shadow @Final private TextureManager textureManager;
     @Shadow private void checkOpen() {}
     @Shadow public void clear() {}
-    private static final boolean canChangeUi = OptionsSD.gui().get();
 
     /**
      * Saves a thumbnail of size 455x256 pixels
@@ -30,7 +29,7 @@ public class FaviconTextureMixin {
      */
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
     private void upload(NativeImage image, CallbackInfo ci) {
-        if (canChangeUi) {
+        if (OptionsSD.gui().get()) {
             if (image.getWidth() == 455 && image.getHeight() == 256) {
                 try {
                     checkOpen();

@@ -17,7 +17,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import java.util.Optional;
 
 /**
- * Function for randomly enchanting non-humanoid armors.
+ * @see EnchantRandomlyFunction
  */
 public class EnchantNonHumanoidArmorFunction extends LootItemConditionalFunction {
     public static final MapCodec<EnchantNonHumanoidArmorFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, EnchantNonHumanoidArmorFunction::new));
@@ -40,10 +40,11 @@ public class EnchantNonHumanoidArmorFunction extends LootItemConditionalFunction
         if (itemStack.is(ItemTagsSD.NON_HUMANOID_ARMOR)) {
             return EnchantRandomlyFunction.randomApplicableEnchantment(enchantments).build().apply(itemStack, context);
         }
+
         return itemStack;
     }
 
-    public static LootItemConditionalFunction.Builder<?> builder() {
+    public static LootItemConditionalFunction.Builder<?> enchantNonHumanoidArmor() {
         return simpleBuilder(EnchantNonHumanoidArmorFunction::new);
     }
 }

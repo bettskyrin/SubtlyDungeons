@@ -30,6 +30,7 @@ public abstract class ClientBundleTooltipMixin {
     private void catchQuiverFlag(BundleContents contents, CallbackInfo ci) {
         if (QuiverItem.renderingQuiverTooltip) {
             isQuiver = true;
+
             QuiverItem.renderingQuiverTooltip = false;
         }
     }
@@ -50,6 +51,7 @@ public abstract class ClientBundleTooltipMixin {
     private static void scaleQuiverFill(Fraction weight, CallbackInfoReturnable<Integer> cir) {
         if (renderingQuiver) {
             Fraction normalizedWeight = weight.multiplyBy(Fraction.getFraction(1, 4));
+
             cir.setReturnValue(Mth.clamp(Mth.mulAndTruncate(normalizedWeight, 94), 0, 94));
         }
     }

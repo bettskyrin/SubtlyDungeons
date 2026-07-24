@@ -10,8 +10,11 @@ import net.minecraft.world.item.Items;
 import java.util.List;
 import java.util.Map;
 
-public class ItemStackSD {
-    public static Map<Item, Integer> enchantabilityMap = Map.ofEntries(
+/**
+ * @see ItemStack
+ */
+public interface ItemStackSD {
+    Map<Item, Integer> enchantabilityMap = Map.ofEntries(
             Map.entry(Items.ENCHANTED_BOOK, 1),
             Map.entry(Items.ELYTRA, 9),
             Map.entry(Items.WOLF_ARMOR, 9),
@@ -28,24 +31,30 @@ public class ItemStackSD {
             Map.entry(Items.GOLDEN_NAUTILUS_ARMOR, 25)
     );
 
-    public static int getEnchantabilityFromMap(Item item) {
+    default int getEnchantabilityFromMap() {
+        Item item = ((ItemStack) this).getItem();
+
         if (enchantabilityMap.containsKey(item)) {
             return enchantabilityMap.get(item);
         }
+
         return 1;
     }
 
     @SuppressWarnings("DataFlowIssue")
-    public static int getEnchantability(ItemStack itemStack) {
+    default int getEnchantability() {
+        ItemStack itemStack = (ItemStack) this;
+
         if (itemStack.getComponents().get(DataComponents.ENCHANTABLE) != null) {
             return itemStack.getComponents().get(DataComponents.ENCHANTABLE).value();
         } else if (enchantabilityMap.containsKey(itemStack.getItem())) {
-            return getEnchantabilityFromMap(itemStack.getItem());
+            return getEnchantabilityFromMap();
         }
+
         return 0;
     }
 
-    public static boolean hasWoodenWeapon(ItemStack attackerItem, ItemStack defenderItem) {
+    static boolean hasWoodenWeapon(ItemStack attackerItem, ItemStack defenderItem) {
         for (ItemStack weapon : List.of(attackerItem, defenderItem)) {
             for (Item material : ItemTagsSD.getItems(ItemTags.WOODEN_TOOL_MATERIALS)) {
                 if (weapon.isValidRepairItem(material.getDefaultInstance())) {
@@ -53,6 +62,7 @@ public class ItemStackSD {
                 }
             }
         }
+
         return false;
     }
 }

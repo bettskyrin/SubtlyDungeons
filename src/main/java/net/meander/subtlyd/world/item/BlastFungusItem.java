@@ -24,6 +24,7 @@ public class BlastFungusItem extends Item implements ProjectileItem {
     @Override
     public InteractionResult use(final Level level, final Player player, final InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
+
         level.playSound(
                 null,
                 player.getX(),
@@ -32,10 +33,11 @@ public class BlastFungusItem extends Item implements ProjectileItem {
                 SoundEventsSD.BLAST_FUNGUS_THROW,
                 SoundSource.NEUTRAL,
                 0.5F,
-                1
+                1.0F
         );
+
         if (level instanceof ServerLevel serverLevel) {
-            Projectile.spawnProjectileFromRotation(BlastFungus::new, serverLevel, itemStack, player, 0.0F, 1F, 1.0F);
+            Projectile.spawnProjectileFromRotation(BlastFungus::new, serverLevel, itemStack, player, 0.0F, 1.0F, 1.0F);
         }
 
         player.awardStat(Stats.ITEM_USED.get(this));

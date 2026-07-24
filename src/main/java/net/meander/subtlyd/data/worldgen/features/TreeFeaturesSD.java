@@ -31,7 +31,7 @@ public class TreeFeaturesSD {
         );
     }
 
-    public static void bootstrap(final BootstrapContext<Feature> context) {
+    public static void registration(final BootstrapContext<Feature> context) {
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
         BlockStateProvider belowTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
 

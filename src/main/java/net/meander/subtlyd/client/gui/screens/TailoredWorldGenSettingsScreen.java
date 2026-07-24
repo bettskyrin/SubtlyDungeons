@@ -28,6 +28,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TailoredWorldGenSettingsScreen extends Screen {
+    private static final int LONG_SLIDER_WIDTH = 310;
+    private static final int SLIDER_WIDTH = 150;
+    private static final int SLIDER_HEIGHT = 20;
+    private static final double MIN_VALUE = 0.1;
+    private static final double MAX_VALUE = 10.0;
     private final double initialMaster;
     private final double initialContinent;
     private final double initialBiome;
@@ -52,22 +57,16 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
     @Override
     protected void init() {
-        final int LONG_SLIDER_WIDTH = 310;
-        final int SLIDER_WIDTH = 150;
-        final int SLIDER_HEIGHT = 20;
-        final double MIN_VALUE = 0.1;
-        final double MAX_VALUE = 10.0;
-
         layout.addTitleHeader(title, font);
 
         list = layout.addToContents(new SliderList());
 
-        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.master_scale"), MIN_VALUE, MAX_VALUE,
-                TailoredWorldGenSettings.masterScale, (newValue) -> {
-            TailoredWorldGenSettings.applyMasterScale(newValue);
-            updateSliders();
-        }));
+        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT, Component.translatable("createWorld.tailored.master_scale"), MIN_VALUE, MAX_VALUE, TailoredWorldGenSettings.masterScale,
+                (newValue) -> {
+                    TailoredWorldGenSettings.applyMasterScale(newValue);
+                    updateSliders();
+                }
+        ));
 
         continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
                 Component.translatable("createWorld.tailored.continent_scale"), MIN_VALUE, MAX_VALUE,
@@ -94,7 +93,6 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         LinearLayout footerButtons = footer.addChild(LinearLayout.horizontal().spacing(8));
 
         footer.defaultCellSetting().alignHorizontallyCenter();
-
         footerButtons.addChild(Button.builder(CommonComponents.GUI_DONE, _ -> onDone()).width(BUTTON_WIDTH).build());
         footerButtons.addChild(Button.builder(CommonComponents.GUI_CANCEL, _ -> onCancel()).width(BUTTON_WIDTH).build());
     }
@@ -104,6 +102,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
         if (list != null) {
             list.updateSize(width, layout);
         }
+
         layout.arrangeElements();
     }
 
@@ -179,7 +178,8 @@ public class TailoredWorldGenSettingsScreen extends Screen {
                     TailoredWorldGenSettingsScreen.this.width,
                     TailoredWorldGenSettingsScreen.this.height - layout.getHeaderHeight() - layout.getFooterHeight(),
                     layout.getHeaderHeight(),
-                    24);
+                    24
+            );
         }
 
         public void addSingle(AbstractWidget widget) {

@@ -14,7 +14,6 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import java.util.Optional;
 
 public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTrigger.TriggerInstance> {
-
     @Override
     public Codec<TriggerInstance> codec() {
         return TriggerInstance.CODEC;

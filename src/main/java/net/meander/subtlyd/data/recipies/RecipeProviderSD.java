@@ -3,7 +3,7 @@ package net.meander.subtlyd.data.recipies;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.item.ItemsSD;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.core.HolderLookup;

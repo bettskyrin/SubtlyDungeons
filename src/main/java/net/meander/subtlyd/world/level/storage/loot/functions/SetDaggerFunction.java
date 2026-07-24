@@ -13,6 +13,9 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
+/**
+ * Replaces weapons with their dagger equivalents.
+ */
 public class SetDaggerFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetDaggerFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, SetDaggerFunction::new));
 

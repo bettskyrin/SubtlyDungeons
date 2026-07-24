@@ -43,7 +43,6 @@ public class FoodDataMixin {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/food/FoodData;addExhaustion(F)V", ordinal = 1))
     private void modifyHealing(FoodData foodData, float amount) {
-
         if (randomSource.nextFloat() < 0.5 && foodLevel > 7) {
             foodLevel -= 1;
         }

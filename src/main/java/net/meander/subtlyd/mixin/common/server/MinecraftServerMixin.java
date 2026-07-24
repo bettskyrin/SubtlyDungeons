@@ -31,28 +31,26 @@ public class MinecraftServerMixin {
     /**
      * Prevents common check for favicon size of 64x64 pixels (in favor of the new 455x256 16:9 ratio).
      */
-    private Optional<ServerStatus.Favicon> newLoadStatusIcon(Optional<Path> optional) {
-        return optional.flatMap(path -> {
+    private Optional<ServerStatus.Favicon> newLoadStatusIcon(Optional<Path> iconPath) {
+        return iconPath.flatMap(path -> {
             try {
-                byte[] bs = Files.readAllBytes(path);
-                PngInfo pngInfo = PngInfo.fromBytes(bs);
+                byte[] readBytes = Files.readAllBytes(path);
+                PngInfo pngInfo = PngInfo.fromBytes(readBytes);
+
                 if (pngInfo.width() == 455 && pngInfo.height() == 256) {
-                    return Optional.of(new ServerStatus.Favicon(bs));
+                    return Optional.of(new ServerStatus.Favicon(readBytes));
                 } else {
                     throw new IllegalArgumentException("Invalid world icon size [" + pngInfo.width() + ", " + pngInfo.height() + "], but expected [455, 256]");
                 }
             } catch (Exception e) {
-                UtilSD.LOGGER.error("Couldn't load common icon: ", e);
+                UtilSD.LOGGER.error("Couldn't load common icon: {}", e.getMessage());
                 return Optional.empty();
             }
         });
     }
 
-    /**
-     * Sets the path for the world thumbnail.
-     */
     @Inject(method = "saveEverything", at = @At("RETURN"))
-    private void saveWorldScreenshot(boolean silent, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
+    private void saveWorldThumbnail(boolean silent, boolean flush, boolean force, CallbackInfoReturnable<Boolean> cir) {
         storageSource.getIconFile().ifPresent(path -> {
             synchronized (WorldIconState.class) {
                 WorldIconState.pathHolder = path;

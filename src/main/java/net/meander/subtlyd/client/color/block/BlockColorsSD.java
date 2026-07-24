@@ -1,7 +1,7 @@
 package net.meander.subtlyd.client.color.block;
 
 import net.fabricmc.fabric.api.client.rendering.v1.BlockColorRegistry;
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.client.color.block.BlockTintSource;
 import net.minecraft.client.color.block.BlockTintSources;
 

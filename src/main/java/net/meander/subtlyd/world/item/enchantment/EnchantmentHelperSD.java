@@ -9,6 +9,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.List;
 
+/**
+ * @see net.minecraft.world.item.enchantment.EnchantmentHelper
+ */
 public class EnchantmentHelperSD {
     /**
      * @param input The first slot's item. This is the item being "repaired."
@@ -20,14 +23,15 @@ public class EnchantmentHelperSD {
         List<ItemStack> inputs = List.of(input, addition);
 
         for (ItemStack inputStack : inputs) {
-            for (Object2IntMap.Entry<Holder<Enchantment>> entry : inputStack.getEnchantments().entrySet()) {
-                if (entry.getKey().unwrapKey().isPresent()) {
-                    if (entry.getKey().unwrapKey().get() == enchantment) {
+            for (Object2IntMap.Entry<Holder<Enchantment>> enchantmentEntry : inputStack.getEnchantments().entrySet()) {
+                if (enchantmentEntry.getKey().unwrapKey().isPresent()) {
+                    if (enchantmentEntry.getKey().unwrapKey().get() == enchantment) {
                         return true;
                     }
                 }
             }
         }
+
         return false;
     }
 
@@ -36,14 +40,15 @@ public class EnchantmentHelperSD {
     }
 
     public static int getEnchantmentCost(ItemStack itemStack) {
-        int value = 0;
+        int cost = 0;
 
-        for (Object2IntMap.Entry<Holder<Enchantment>> entry : itemStack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, itemStack.getEnchantments()).entrySet()) {
-            if (entry.getKey().unwrapKey().isPresent()) {
-                Enchantment enchantment = entry.getKey().value();
-                value += enchantment.getAnvilCost();
+        for (Object2IntMap.Entry<Holder<Enchantment>> enchantmentEntry : itemStack.getOrDefault(DataComponents.STORED_ENCHANTMENTS, itemStack.getEnchantments()).entrySet()) {
+            if (enchantmentEntry.getKey().unwrapKey().isPresent()) {
+                Enchantment enchantment = enchantmentEntry.getKey().value();
+                cost += enchantment.getAnvilCost();
             }
         }
-        return value;
+
+        return cost;
     }
 }

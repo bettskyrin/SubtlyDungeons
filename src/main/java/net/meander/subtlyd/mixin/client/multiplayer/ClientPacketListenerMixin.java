@@ -10,9 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
-    /**
-     * Handles camera shake for explosions.
-     */
     @Inject(method = "handleExplosion", at = @At("TAIL"))
     private void handleExplosionShake(ClientboundExplodePacket packet, CallbackInfo ci) {
         CameraShake.shakeScreenFromSource(packet.explosionSound().value(), packet.center(), packet.radius());

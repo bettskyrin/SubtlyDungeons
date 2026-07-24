@@ -15,18 +15,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Enchantment.class)
 public abstract class EnchantmentMixin {
-
     @Shadow public abstract Component description();
+
     @Inject(method = { "isSupportedItem", "isPrimaryItem", "canEnchant" }, at = @At("HEAD"), cancellable = true)
-    private void modifySupport(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
+    private void modifySupportedItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
         if (stack.is(Items.MACE)) {
-            if (isTarget(description())) {
+            if (shouldMaceSupport(description())) {
                 cir.setReturnValue(true);
             }
         }
     }
 
-    private boolean isTarget(Component component) {
+    private boolean shouldMaceSupport(Component component) {
         if (component.getContents() instanceof TranslatableContents translatable) {
             String key = translatable.getKey();
             String registry = Registries.ENCHANTMENT.identifier().getPath();
@@ -37,7 +37,7 @@ public abstract class EnchantmentMixin {
         }
 
         for (Component sibling : component.getSiblings()) {
-            if (isTarget(sibling)) {
+            if (shouldMaceSupport(sibling)) {
                 return true;
             }
         }

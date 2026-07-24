@@ -85,13 +85,13 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     private static void modifyTrees(final Path root, RegistryOps<JsonElement> ops, CachedOutput cache, List<CompletableFuture<?>> futures) throws Exception {
-        final int BIRCH_BASE_HEIGHT = 7;
-        final int BIRCH_RAND_HEIGHT_A = 2;
-        final int BIRCH_RAND_HEIGHT_B = 1;
-        final int OAK_BASE_HEIGHT = 6;
-        final int OAK_RAND_HEIGHT_A = 2;
-        final int OAK_RAND_HEIGHT_B = 2;
-        final int SUPER_BIRCH_RAND_HEIGHT_B = 6;
+        final int birchBaseHeight = 7;
+        final int birchRandHeightA = 2;
+        final int birchRandHeightB = 1;
+        final int oakBaseHeight = 6;
+        final int oakRandHeightA = 2;
+        final int oakRandHeightB = 2;
+        final int superBirchRandHeightB = 6;
         final Path featurePath = Path.of(resolveRegistryPath(Registries.FEATURE));
 
         List<ResourceKey<Feature>> birchTrees = getBirchTrees();
@@ -106,17 +106,17 @@ public class WorldGeneratorSD implements DataProvider {
             int randHeightB = -1;
 
             if (treeType.equals(birchTrees)) {
-                baseHeight = BIRCH_BASE_HEIGHT;
-                randHeightA = BIRCH_RAND_HEIGHT_A;
-                randHeightB = BIRCH_RAND_HEIGHT_B;
+                baseHeight = birchBaseHeight;
+                randHeightA = birchRandHeightA;
+                randHeightB = birchRandHeightB;
             } else if (treeType.equals(oakTrees)) {
-                baseHeight = OAK_BASE_HEIGHT;
-                randHeightA = OAK_RAND_HEIGHT_A;
-                randHeightB = OAK_RAND_HEIGHT_B;
+                baseHeight = oakBaseHeight;
+                randHeightA = oakRandHeightA;
+                randHeightB = oakRandHeightB;
             } else if (treeType.equals(superBirchTrees)) {
-                baseHeight = BIRCH_BASE_HEIGHT;
-                randHeightA = BIRCH_RAND_HEIGHT_A;
-                randHeightB = SUPER_BIRCH_RAND_HEIGHT_B;
+                baseHeight = birchBaseHeight;
+                randHeightA = birchRandHeightA;
+                randHeightB = superBirchRandHeightB;
             }
 
             for (ResourceKey<Feature> feature : treeType) {
@@ -137,14 +137,14 @@ public class WorldGeneratorSD implements DataProvider {
             int maxLength = -1;
 
             if (fallenTreeType.equals(TreeFeatures.FALLEN_BIRCH_TREE)) {
-                minLength = BIRCH_BASE_HEIGHT;
-                maxLength = BIRCH_BASE_HEIGHT + BIRCH_RAND_HEIGHT_A + BIRCH_RAND_HEIGHT_B;
+                minLength = birchBaseHeight;
+                maxLength = birchBaseHeight + birchRandHeightA + birchRandHeightB;
             } else if (fallenTreeType.equals(TreeFeatures.FALLEN_OAK_TREE)) {
-                minLength = OAK_BASE_HEIGHT;
-                maxLength = OAK_BASE_HEIGHT + OAK_RAND_HEIGHT_A + OAK_RAND_HEIGHT_B;
+                minLength = oakBaseHeight;
+                maxLength = oakBaseHeight + oakRandHeightA + oakRandHeightB;
             } if (fallenTreeType.equals(TreeFeatures.FALLEN_SUPER_BIRCH_TREE)) {
-                minLength = BIRCH_BASE_HEIGHT;
-                maxLength = BIRCH_BASE_HEIGHT + BIRCH_RAND_HEIGHT_A + SUPER_BIRCH_RAND_HEIGHT_B;
+                minLength = birchBaseHeight;
+                maxLength = birchBaseHeight + birchRandHeightA + superBirchRandHeightB;
             }
 
             JsonObject storedModification = getModifiedFallenTreeFeature(ops, fallenTreeType.identifier(), maxLength, minLength);
@@ -207,6 +207,7 @@ public class WorldGeneratorSD implements DataProvider {
             );
         } else if (node instanceof DensityFunctions.Marker(DensityFunctions.Marker.Type type, DensityFunction wrapped)) {
             DensityFunction modifiedInner = scaleDensityNode(wrapped, scaler);
+
             return new DensityFunctions.Marker(type, modifiedInner);
         }
         return node;
@@ -369,7 +370,7 @@ public class WorldGeneratorSD implements DataProvider {
 
     @Override
     public String getName() {
-        return "Modified World Generation Data Generator";
+        return "World Generation";
     }
 
     public static class BiomeModifier {
@@ -378,53 +379,51 @@ public class WorldGeneratorSD implements DataProvider {
         private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
 
         public static void run() {
-            FeatureUtilsSD.bootstrap();
-            fog();
-            swamp();
-            forest();
-            plains();
-            savanna();
+            FeatureUtilsSD.registration();
+            modifyFog();
+            modifySwampLike();
+            modifyForestLike();
+            modifyPlainsLike();
+            modifySavannaLike();
         }
 
-        private static void swamp() {
+        private static void modifySwampLike() {
             final int SKY_COLOR = 0xD4E2FA;
-
-            Identifier MANGROVE_SWAMP_ATMOSPHERE = UtilSD.identifier("mangrove_swamp_atmosphere");
-            Identifier SWAMP_ATMOSPHERE = UtilSD.identifier("swamp_atmosphere");
-            Identifier SWAMP_FROG_WEIGHT = UtilSD.identifier("swamp_frog_weight");
+            final Identifier mangroveSwampAtmosphere = UtilSD.identifier("mangrove_swamp_atmosphere");
+            final Identifier swampAtmosphere = UtilSD.identifier("swamp_atmosphere");
+            final Identifier swampFrogWeight = UtilSD.identifier("swamp_frog_weight");
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, AquaticPlacementsSD.REEDS);
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SWAMP), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_SWAMP);
-            BiomeModifications.create(SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
+            BiomeModifications.create(swampAtmosphere).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
                     (_, biomeModificationContext) -> {
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR);
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, FOG_COLOR_SOGGY);
 
                     });
-            BiomeModifications.create(SWAMP_FROG_WEIGHT).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
+            BiomeModifications.create(swampFrogWeight).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.SWAMP),
                     (_, biomeModificationContext) -> {
                         biomeModificationContext.getMobSpawnSettings().removeSpawnsOfEntityType(EntityTypes.FROG);
                         biomeModificationContext.getMobSpawnSettings().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityTypes.FROG, new UniformInt(2, 5)), 14);
                     });
-            BiomeModifications.create(MANGROVE_SWAMP_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
-                    (_, biomeModificationContext) ->
-                            biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR));
+            BiomeModifications.create(mangroveSwampAtmosphere).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MANGROVE_SWAMP),
+                    (_, biomeModificationContext) -> biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR));
         }
 
-        private static void forest() {
-            Identifier PATCH_BIRCH_GRASS = UtilSD.identifier("patch_birch_grass");
-            Identifier DARK_FOREST_ATMOSPHERE = UtilSD.identifier("dark_forest_atmosphere");
+        private static void modifyForestLike() {
+            final Identifier patchBirchGrass = UtilSD.identifier("patch_birch_grass");
+            final Identifier darkForestAtmosphere = UtilSD.identifier("dark_forest_atmosphere");
 
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DAPPLED_FOREST), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PERSE_WILDFLOWERS_DAPPLED_FOREST);
-            BiomeModifications.create(PATCH_BIRCH_GRASS).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST),
-                    (_, biomeModificationContext) -> {
+            BiomeModifications.create(patchBirchGrass)
+                    .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.BIRCH_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST), (_, biomeModificationContext) -> {
                         biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.PATCH_GRASS_FOREST);
                         biomeModificationContext.getGenerationSettings().removeFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.WILDFLOWERS_BIRCH_FOREST);
                         biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.PATCH_GRASS_BIRCH_FOREST);
                         biomeModificationContext.getGenerationSettings().addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.WILDFLOWERS_BIRCH_FOREST);
                     });
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.DARK_FOREST, Biomes.FOREST), GenerationStep.Decoration.LOCAL_MODIFICATIONS, MiscOverworldPlacementsSD.FOREST_ROCK_SPARSE);
-            BiomeModifications.create(DARK_FOREST_ATMOSPHERE).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.DARK_FOREST),
+            BiomeModifications.create(darkForestAtmosphere).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.DARK_FOREST),
                     (_, biomeModificationContext) -> {
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.SKY_COLOR, SKY_COLOR_DARK);
                         biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_COLOR, FOG_COLOR_DARK);
@@ -432,8 +431,8 @@ public class WorldGeneratorSD implements DataProvider {
             BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.FOREST), MobCategory.CREATURE, EntityTypes.RABBIT, 6, 3, 4);
         }
 
-        private static void plains() {
-            Identifier wildflowersMeadow =  UtilSD.identifier("wildflowers_meadow");
+        private static void modifyPlainsLike() {
+            final Identifier wildflowersMeadow =  UtilSD.identifier("wildflowers_meadow");
 
             BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS), MobCategory.CREATURE, EntityTypes.RABBIT, 10, 4, 6);
             BiomeModifications.create(wildflowersMeadow).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.includeByKey(Biomes.MEADOW),
@@ -443,15 +442,14 @@ public class WorldGeneratorSD implements DataProvider {
                     });
         }
 
-        private static void savanna() {
+        private static void modifySavannaLike() {
             BiomeModifications.addFeature(BiomeSelectors.includeByKey(Biomes.SAVANNA, Biomes.SAVANNA_PLATEAU, Biomes.WINDSWEPT_SAVANNA), GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacementsSD.BAOBAB);
         }
 
-        private static void fog() {
-            final Identifier FOG_DISTANCE = UtilSD.identifier("fog_distance");
+        private static void modifyFog() {
+            final Identifier fogDistance = UtilSD.identifier("fog_distance");
 
-            BiomeModifications.create(FOG_DISTANCE)
-                    .add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_FOGGY),
+            BiomeModifications.create(fogDistance).add(ModificationPhase.REPLACEMENTS, BiomeSelectors.tag(BiomeTagsSD.IS_FOGGY),
                         ((_, biomeModificationContext) -> {
                             biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_START_DISTANCE, 16.0F);
                             biomeModificationContext.getAttributes().set(EnvironmentAttributes.FOG_END_DISTANCE, 64.0F);

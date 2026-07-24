@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.resources.model;
 
-import net.meander.subtlyd.client.data.model.SnowloggedBlockModelProvider;
+import net.meander.subtlyd.client.data.models.BlockModelGeneratorsSD;
 import net.meander.subtlyd.server.packs.VirtualResourceRegistry;
 import net.minecraft.client.resources.model.ModelManager;
 import net.minecraft.server.packs.resources.PreparableReloadListener;
@@ -15,9 +15,8 @@ import java.util.concurrent.Executor;
 @Mixin(ModelManager.class)
 public class ModelManagerMixin {
     @Inject(method = "reload", at = @At("HEAD"))
-    private void generateVirtualModelsBeforeBake(PreparableReloadListener.SharedState currentReload, Executor taskExecutor, PreparableReloadListener.PreparationBarrier preparationBarrier, Executor reloadExecutor,
-                                                 CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+    private void generateVirtualModelsBeforeBake(PreparableReloadListener.SharedState currentReload, Executor taskExecutor, PreparableReloadListener.PreparationBarrier preparationBarrier, Executor reloadExecutor, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
         VirtualResourceRegistry.clear();
-        SnowloggedBlockModelProvider.generateRuntimeBlockModels(currentReload.resourceManager());
+        BlockModelGeneratorsSD.generateRuntimeBlockModels(currentReload.resourceManager());
     }
 }

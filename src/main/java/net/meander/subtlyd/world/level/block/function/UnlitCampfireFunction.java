@@ -16,11 +16,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jspecify.annotations.NonNull;
 
 public class UnlitCampfireFunction implements UseBlockCallback {
     @Override
-    public InteractionResult interact(@NonNull Player player, @NonNull Level level, InteractionHand interactionHand, @NonNull BlockHitResult blockHitResult) {
+    public InteractionResult interact(Player player, Level level, InteractionHand interactionHand, BlockHitResult blockHitResult) {
         BlockPos blockPos = blockHitResult.getBlockPos();
         BlockState blockState = level.getBlockState(blockPos);
         ItemStack itemStack = player.getItemInHand(interactionHand);
@@ -40,8 +39,10 @@ public class UnlitCampfireFunction implements UseBlockCallback {
 
                 return InteractionResult.SUCCESS_SERVER;
             }
+
             return InteractionResult.SUCCESS;
         }
+
         return InteractionResult.PASS;
     }
 }

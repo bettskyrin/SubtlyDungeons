@@ -90,6 +90,7 @@ public class EntityTypeSD {
         if (tempVariantMap.containsKey(variant)) {
             return tempVariantMap.get(variant);
         }
+
         return null;
     }
 }

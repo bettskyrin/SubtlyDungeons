@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -36,7 +36,7 @@ public abstract class EndSpikeFeatureMixin {
         int centerZ = spike.getCenterZ();
 
         for (int y = topY; y >= level.getMinY(); y--) {
-            float progressDown = Mth.clamp((float) (topY - Math.max(y, 60)) / (float) (topY - 60), 0.0F, 1.0F);
+            float progressDown = Mth.clamp((topY - Math.max(y, 60.0F)) / (topY - 60.0F), 0.0F, 1.0F);
             float currentRadius = Mth.lerp(progressDown, 1.0F, baseRadius * 1.5F);
             int ceilRadius = Mth.ceil(currentRadius);
 
@@ -81,14 +81,13 @@ public abstract class EndSpikeFeatureMixin {
                             boolean xEdge = dx == -2 || dx == 2 || isFloorOrCeiling;
                             boolean zEdge = dz == -2 || dz == 2 || isFloorOrCeiling;
 
-                            BlockState state = Blocks.IRON_BARS
-                                    .defaultBlockState()
+                            BlockState state = Blocks.IRON_BARS.defaultBlockState()
                                     .setValue(IronBarsBlock.NORTH, xEdge && dz != -2)
                                     .setValue(IronBarsBlock.SOUTH, xEdge && dz != 2)
                                     .setValue(IronBarsBlock.WEST, zEdge && dx != -2)
                                     .setValue(IronBarsBlock.EAST, zEdge && dx != 2);
-                            level.setBlock(pos, state, 2);
 
+                            level.setBlock(pos, state, 2);
                         } else {
                             if (dy == 1 && (dx != 0 || dz != 0)) {
                                 level.setBlock(pos, BlocksSD.IRON_GRATE.defaultBlockState(), 2);
@@ -114,6 +113,7 @@ public abstract class EndSpikeFeatureMixin {
             level.setBlock(crystalPos.below(), Blocks.BEDROCK.defaultBlockState(), 2);
             level.setBlock(crystalPos, FireBlock.getState(level, crystalPos), 2);
         }
+
         ci.cancel();
     }
 }

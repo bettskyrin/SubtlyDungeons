@@ -1,8 +1,8 @@
 package net.meander.subtlyd.world.entity;
 
+import net.meander.subtlyd.client.particle.ParticleResourcesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.item.ItemsSD;
-import net.meander.subtlyd.world.level.LevelSD;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -65,8 +65,9 @@ public class BlastFungus extends ThrowableItemProjectile {
     @Override
     protected void onHit(final HitResult hitResult) {
         super.onHit(hitResult);
-        if (level() instanceof ServerLevel) {
-            level().broadcastEntityEvent(this, (byte)3);
+
+        if (level() instanceof ServerLevel level) {
+            level.broadcastEntityEvent(this, (byte) 3);
             explodeFungus();
             discard();
         }
@@ -99,7 +100,8 @@ public class BlastFungus extends ThrowableItemProjectile {
                 Level.ExplosionInteraction.NONE,
                 ParticleTypes.WARPED_SPORE,
                 ParticleTypes.CRIMSON_SPORE,
-                LevelSD.DEFAULT_EXPLOSION_SPORE_PARTICLES,
-                SoundEventsSD.BLAST_FUNGUS_EXPLODE);
+                ParticleResourcesSD.DEFAULT_EXPLOSION_SPORE_PARTICLES,
+                SoundEventsSD.BLAST_FUNGUS_EXPLODE
+        );
     }
 }

@@ -7,7 +7,7 @@ import net.meander.subtlyd.advancements.packs.HusbandryAdvancementsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -27,8 +27,15 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         super(packOutput, englishUS, registryLookup);
     }
 
-    @Override
-    public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+    private void addStat(TranslationBuilder translationBuilder, Identifier statId, String value) {
+        translationBuilder.add("stat." + statId.toString().replace(':', '.'), value);
+    }
+
+    private void addMusic(TranslationBuilder translationBuilder, String musicId, String value) {
+        translationBuilder.add("subtlyd.music." + musicId, value);
+    }
+
+    private void advancements(TranslationBuilder translationBuilder) {
         translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_TITLE.getString(), "Tentative Accommodations");
         translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_DESC.getString(), "Sleep in a Tent over 1km away from your respawn point");
         translationBuilder.add(AdventureAdvancementsSD.BANNER_MARKER_TITLE.getString(), "Marking Territory");
@@ -39,9 +46,18 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(HusbandryAdvancementsSD.MAKE_STEW_DESC.getString(), "Add ingredients to a Cauldron");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_TITLE.getString(), "I Am Bush");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_DESC.getString(), "Perform a sneak attack while hiding in foliage");
+    }
 
+    private void attributes(TranslationBuilder translationBuilder) {
         translationBuilder.add(AttributesSD.SHIELD_STRENGTH, "Shield Strength");
+    }
 
+    private void stats(TranslationBuilder translationBuilder) {
+        addStat(translationBuilder, StatsSD.SLEEP_IN_TENT, "Times Slept in a Tent");
+        addStat(translationBuilder, StatsSD.DAMAGE_BLOCKED_BY_WEAPON, "Damage Blocked by Weapon");
+    }
+
+    private void blocks(TranslationBuilder translationBuilder) {
         translationBuilder.add(Blocks.CAMPFIRE, "Lit Campfire");
         translationBuilder.add(Blocks.SOUL_CAMPFIRE, "Lit Soul Campfire");
         translationBuilder.add(BlocksSD.BASALT_SLAB, "Basalt Slab");
@@ -115,7 +131,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS, "Stripped Pale Oak Wood Stairs");
         translationBuilder.add(BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, "Stripped Crimson Hyphae Stairs");
         translationBuilder.add(BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS, "Stripped Warped Hyphae Stairs");
+    }
 
+    private void gui(TranslationBuilder translationBuilder) {
         translationBuilder.add("createWorld.tailored.biome_scale", "Biome Scale");
         translationBuilder.add("createWorld.tailored.continent_scale", "Continent Scale");
         translationBuilder.add("createWorld.tailored.erosion_scale", "Erosion Scale");
@@ -123,30 +141,68 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("createWorld.tailored.pack", "Tailored World Generation");
         translationBuilder.add("createWorld.tailored.title", "Tailored World Generation");
 
+        translationBuilder.add("selectWorld.select", "Play");
+
+        translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
+        translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
+        translationBuilder.add("options.accessibility.shield_animation", "Shield Animation");
+        translationBuilder.add("options.accessibility.shield_animation.tooltip", "Toggles the visibility of active shields in the First Person view.");
+        translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
+        translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
+        translationBuilder.add("options.advanced_entity_animations", "Advanced Entity Animations");
+        translationBuilder.add("options.advanced_entity_animations.tooltip", "Toggles advanced entity animations. Turning this off can cause entity hitboxes to line up incorrectly with their models.");
+        translationBuilder.add("options.experimental.gui", "Experimental GUI");
+        translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
+        translationBuilder.add("options.command_macros", "Command Macros..." );
+        translationBuilder.add("options.command_macros.title", "Command Macros" );
+        translationBuilder.add("options.command_macros.entry", "Command Macro %s");
+
+        translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
+        translationBuilder.add("key.command_macros.0", "Command Macro 0");
+        translationBuilder.add("key.command_macros.1", "Command Macro 1");
+        translationBuilder.add("key.command_macros.2", "Command Macro 2");
+        translationBuilder.add("key.command_macros.3", "Command Macro 3");
+        translationBuilder.add("key.command_macros.4", "Command Macro 4");
+        translationBuilder.add("key.command_macros.5", "Command Macro 5");
+        translationBuilder.add("key.command_macros.6", "Command Macro 6");
+        translationBuilder.add("key.command_macros.7", "Command Macro 7");
+        translationBuilder.add("key.command_macros.8", "Command Macro 8");
+        translationBuilder.add("key.command_macros.9", "Command Macro 9");
+
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
 
+        translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
+        translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
+        translationBuilder.add("gamerule.subtlyd.smart_mobs", "Allow advanced mob behaviors");
+
+        translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
+    }
+
+    private void commands(TranslationBuilder translationBuilder) {
         translationBuilder.add("commands.camerashake.success.add.multiple", "Applying camera shake to %s players");
         translationBuilder.add("commands.camerashake.success.add.single", "Applying camera shake to %s");
         translationBuilder.add("commands.camerashake.success.stop.multiple", "Stopping camera shake for %s players");
         translationBuilder.add("commands.camerashake.success.stop.single", "Stopping camera shake for %s");
+    }
 
+    private void enchantments(TranslationBuilder translationBuilder) {
         translationBuilder.addEnchantment(EnchantmentsSD.ABRADING_CURSE, "Curse of Abrading");
         translationBuilder.addEnchantment(EnchantmentsSD.ENERVATION, "Enervation");
         translationBuilder.addEnchantment(EnchantmentsSD.CLEAVING, "Cleaving");
         translationBuilder.addEnchantment(EnchantmentsSD.GLYPH_AFFINITY, "Glyph Affinity");
         translationBuilder.addEnchantment(EnchantmentsSD.ILLAGERS_BANE, "Illager's Bane");
         translationBuilder.addEnchantment(EnchantmentsSD.OCCULT_PROTECTION, "Occult Protection");
+    }
 
+    private void entities(TranslationBuilder translationBuilder) {
         translationBuilder.add(EntityTypesSD.TENT, "Tent");
         translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".occupied", "This tent is occupied");
         translationBuilder.add(EntityTypesSD.TENT.getDescriptionId() + ".too_far_away", "You may not rest now; the tent is too far away");
         translationBuilder.add(EntityTypesSD.BLAST_FUNGUS, "Blast Fungus");
+    }
 
-        translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
-        translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
-        translationBuilder.add("gamerule.subtlyd.smart_mobs", "Allow advanced mob behaviors");
-
+    private void items(TranslationBuilder translationBuilder) {
         translationBuilder.add(Items.LINGERING_POTION.getDescriptionId() + ".effect.decay", "Lingering Potion of Decay");
         translationBuilder.add(Items.POTION.getDescriptionId() + ".effect.decay", "Potion of Decay");
         translationBuilder.add(Items.SPLASH_POTION.getDescriptionId() + ".effect.decay", "Splash Potion of Decay");
@@ -219,40 +275,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemsSD.DYED_QUIVER.red(), "Red Quiver");
         translationBuilder.add(ItemsSD.DYED_QUIVER.white(), "White Quiver");
         translationBuilder.add(ItemsSD.DYED_QUIVER.yellow(), "Yellow Quiver");
+    }
 
-        translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
-
-        translationBuilder.add("options.accessibility.camera_shake", "Camera Shake");
-        translationBuilder.add("options.accessibility.camera_shake.tooltip", "Toggles the camera shake effect.");
-        translationBuilder.add("options.accessibility.shield_animation", "Shield Animation");
-        translationBuilder.add("options.accessibility.shield_animation.tooltip", "Toggles the visibility of active shields in the First Person view.");
-        translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
-        translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
-        translationBuilder.add("options.advanced_entity_animations", "Advanced Entity Animations");
-        translationBuilder.add("options.advanced_entity_animations.tooltip", "Toggles advanced entity animations. Turning this off can cause entity hitboxes to line up incorrectly with their models.");
-        translationBuilder.add("options.experimental.gui", "Experimental GUI");
-        translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
-        translationBuilder.add("options.command_macros", "Command Macros..." );
-        translationBuilder.add("options.command_macros.title", "Command Macros" );
-        translationBuilder.add("options.command_macros.entry", "Command Macro %s");
-
-        translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
-        translationBuilder.add("key.command_macros.0", "Command Macro 0");
-        translationBuilder.add("key.command_macros.1", "Command Macro 1");
-        translationBuilder.add("key.command_macros.2", "Command Macro 2");
-        translationBuilder.add("key.command_macros.3", "Command Macro 3");
-        translationBuilder.add("key.command_macros.4", "Command Macro 4");
-        translationBuilder.add("key.command_macros.5", "Command Macro 5");
-        translationBuilder.add("key.command_macros.6", "Command Macro 6");
-        translationBuilder.add("key.command_macros.7", "Command Macro 7");
-        translationBuilder.add("key.command_macros.8", "Command Macro 8");
-        translationBuilder.add("key.command_macros.9", "Command Macro 9");
-
-        translationBuilder.add("selectWorld.select", "Play");
-
-        addStat(translationBuilder, StatsSD.SLEEP_IN_TENT, "Times Slept in a Tent");
-        addStat(translationBuilder, StatsSD.DAMAGE_BLOCKED_BY_WEAPON, "Damage Blocked by Weapon");
-
+    private void sounds(TranslationBuilder translationBuilder) {
         translationBuilder.add(SoundEventsSD.WIND, "Wind howls");
         translationBuilder.add(SoundEventsSD.BUSH_IDLE, "Windy sounds");
         translationBuilder.add(SoundEventsSD.STEW_SERVED, "Stew is served");
@@ -273,48 +298,52 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(SoundEventsSD.BLADE_WOOD_CLASH, "Blades clack");
         translationBuilder.add(SoundEventsSD.LEAVES_AMBIENT.value(), "Leaves stir");
         translationBuilder.add(SoundEventsSD.GRASS_AMBIENT, "Crickets chirp");
+    }
 
-        translationBuilder.add("subtlyd.music.alone_with_the_sky", "Crispin Hands - Alone With the Sky");
-        translationBuilder.add("subtlyd.music.ashes", "Peter Hont - Ashes");
-        translationBuilder.add("subtlyd.music.basalt_deltas", "Peter Hont - Basalt Deltas");
-        translationBuilder.add("subtlyd.music.cacti_canyon", "Johan Johnson - Cacti Canyon");
-        translationBuilder.add("subtlyd.music.cellar", "Johan Johnson, Peter Hont - Cellar");
-        translationBuilder.add("subtlyd.music.cliffs_and_canyons", "Crispin Hands - Cliffs and Canyons");
-        translationBuilder.add("subtlyd.music.coral_rise", "Peter Hont - Coral Rise");
-        translationBuilder.add("subtlyd.music.creeper_pit", "Peter Hont - Creeper Pit");
-        translationBuilder.add("subtlyd.music.crimson_forest", "Eugnosis - Crimson Forest");
-        translationBuilder.add("subtlyd.music.dalarna", "Peter Hont - Dalarna");
-        translationBuilder.add("subtlyd.music.desert_temple", "Johan Johnson - Desert Temple");
-        translationBuilder.add("subtlyd.music.droopy_likes_ricochet", "C418 - Droopy Likes Ricochet");
-        translationBuilder.add("subtlyd.music.droopy_likes_your_face", "C418 - Droopy Likes Your Face");
-        translationBuilder.add("subtlyd.music.excuse", "C418 - Excuse");
-        translationBuilder.add("subtlyd.music.finnbacka", "Peter Hont - Finnbacka");
-        translationBuilder.add("subtlyd.music.fizz", "Johan Johnson - Fizz");
-        translationBuilder.add("subtlyd.music.guldrum", "Peter Hont - Guldrum");
-        translationBuilder.add("subtlyd.music.halland", "Johan Johnson - Halland");
-        translationBuilder.add("subtlyd.music.haven", "Johan Johnson - Haven");
-        translationBuilder.add("subtlyd.music.hydrothermal_vent", "Peter Hont - Hydrothermal Vent");
-        translationBuilder.add("subtlyd.music.intertile", "Peter Hont - Intertile");
-        translationBuilder.add("subtlyd.music.molten_monument", "Grant Kirkhope - Molten Monument");
-        translationBuilder.add("subtlyd.music.primal_oil_sect", "Peter Hont - Primal Oil Sect");
-        translationBuilder.add("subtlyd.music.pumpkin_pastures", "Johan Johnson - Pumpkin Pastures");
-        translationBuilder.add("subtlyd.music.radiant_ravine", "Grant Kirkhope - Radiant Ravine");
-        translationBuilder.add("subtlyd.music.rest_in_reefs", "Peter Hont - Rest in Reefs");
-        translationBuilder.add("subtlyd.music.secrets_in_the_forest", "Crispin Hands - Secrets in the Forest");
-        translationBuilder.add("subtlyd.music.skogsstuga", "Peter Hont - Skogsstuga");
-        translationBuilder.add("subtlyd.music.soggier_cave", "Johan Johnson - Soggier Cave");
-        translationBuilder.add("subtlyd.music.soulsand_valley", "Rostislav Trifonov - Soulsand Valley");
-        translationBuilder.add("subtlyd.music.squid_coast", "Johan Johnson - Squid Coast");
-        translationBuilder.add("subtlyd.music.the_abyssal_monument", "Grant Kirkhope - The Abyssal Monument");
-        translationBuilder.add("subtlyd.music.the_bilge", "Peter Hont - The Bilge");
-        translationBuilder.add("subtlyd.music.the_green_expanse", "Crispin Hands - The Green Expanse");
-        translationBuilder.add("subtlyd.music.top", "Peter Hont - Top");
-        translationBuilder.add("subtlyd.music.tropical_slime_scramble", "Peter Hont - Tropical Slime Scramble");
-        translationBuilder.add("subtlyd.music.twilight_cavern", "Peter Hont - Twilight Cavern");
-        translationBuilder.add("subtlyd.music.wanderlust", "Peter Hont - Wanderlust");
-        translationBuilder.add("subtlyd.music.warped_forest", "Eugnosis - Warped Forest");
-        translationBuilder.add("subtlyd.music.windswept_peaks", "Peter Hont - Windswept Peaks");
+    private void music(TranslationBuilder translationBuilder) {
+        addMusic(translationBuilder, "alone_with_the_sky", "Crispin Hands - Alone With the Sky");
+        addMusic(translationBuilder, "ashes", "Peter Hont - Ashes");
+        addMusic(translationBuilder, "basalt_deltas", "Peter Hont - Basalt Deltas");
+        addMusic(translationBuilder, "cacti_canyon", "Johan Johnson - Cacti Canyon");
+        addMusic(translationBuilder, "cellar", "Johan Johnson, Peter Hont - Cellar");
+        addMusic(translationBuilder, "cliffs_and_canyons", "Crispin Hands - Cliffs and Canyons");
+        addMusic(translationBuilder, "coral_rise", "Peter Hont - Coral Rise");
+        addMusic(translationBuilder, "creeper_pit", "Peter Hont - Creeper Pit");
+        addMusic(translationBuilder, "crimson_forest", "Eugnosis - Crimson Forest");
+        addMusic(translationBuilder, "dalarna", "Peter Hont - Dalarna");
+        addMusic(translationBuilder, "desert_temple", "Johan Johnson - Desert Temple");
+        addMusic(translationBuilder, "droopy_likes_ricochet", "C418 - Droopy Likes Ricochet");
+        addMusic(translationBuilder, "droopy_likes_your_face", "C418 - Droopy Likes Your Face");
+        addMusic(translationBuilder, "excuse", "C418 - Excuse");
+        addMusic(translationBuilder, "finnbacka", "Peter Hont - Finnbacka");
+        addMusic(translationBuilder, "fizz", "Johan Johnson - Fizz");
+        addMusic(translationBuilder, "guldrum", "Peter Hont - Guldrum");
+        addMusic(translationBuilder, "halland", "Johan Johnson - Halland");
+        addMusic(translationBuilder, "haven", "Johan Johnson - Haven");
+        addMusic(translationBuilder, "hydrothermal_vent", "Peter Hont - Hydrothermal Vent");
+        addMusic(translationBuilder, "intertile", "Peter Hont - Intertile");
+        addMusic(translationBuilder, "molten_monument", "Grant Kirkhope - Molten Monument");
+        addMusic(translationBuilder, "primal_oil_sect", "Peter Hont - Primal Oil Sect");
+        addMusic(translationBuilder, "pumpkin_pastures", "Johan Johnson - Pumpkin Pastures");
+        addMusic(translationBuilder, "radiant_ravine", "Grant Kirkhope - Radiant Ravine");
+        addMusic(translationBuilder, "rest_in_reefs", "Peter Hont - Rest in Reefs");
+        addMusic(translationBuilder, "secrets_in_the_forest", "Crispin Hands - Secrets in the Forest");
+        addMusic(translationBuilder, "skogsstuga", "Peter Hont - Skogsstuga");
+        addMusic(translationBuilder, "soggier_cave", "Johan Johnson - Soggier Cave");
+        addMusic(translationBuilder, "soulsand_valley", "Rostislav Trifonov - Soulsand Valley");
+        addMusic(translationBuilder, "squid_coast", "Johan Johnson - Squid Coast");
+        addMusic(translationBuilder, "the_abyssal_monument", "Grant Kirkhope - The Abyssal Monument");
+        addMusic(translationBuilder, "the_bilge", "Peter Hont - The Bilge");
+        addMusic(translationBuilder, "the_green_expanse", "Crispin Hands - The Green Expanse");
+        addMusic(translationBuilder, "top", "Peter Hont - Top");
+        addMusic(translationBuilder, "tropical_slime_scramble", "Peter Hont - Tropical Slime Scramble");
+        addMusic(translationBuilder, "twilight_cavern", "Peter Hont - Twilight Cavern");
+        addMusic(translationBuilder, "wanderlust", "Peter Hont - Wanderlust");
+        addMusic(translationBuilder, "warped_forest", "Eugnosis - Warped Forest");
+        addMusic(translationBuilder, "windswept_peaks", "Peter Hont - Windswept Peaks");
+    }
 
+    private void tags(TranslationBuilder translationBuilder) {
         translationBuilder.add(ItemTagsSD.CAN_PARRY_DAGGERS, "Can Parry Daggers");
         translationBuilder.add(ItemTagsSD.CAN_PARRY_SWORDS, "Can Parry Swords");
         translationBuilder.add(ItemTagsSD.DAGGERS, "Daggers");
@@ -328,7 +357,19 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(ItemTagsSD.SHIELDS, "Shields");
     }
 
-    private void addStat(TranslationBuilder translationBuilder, Identifier statId, String value) {
-        translationBuilder.add("stat." + statId.toString().replace(':', '.'), value);
+    @Override
+    public void generateTranslations(HolderLookup.Provider registryLookup, TranslationBuilder translationBuilder) {
+        advancements(translationBuilder);
+        attributes(translationBuilder);
+        stats(translationBuilder);
+        blocks(translationBuilder);
+        gui(translationBuilder);
+        commands(translationBuilder);
+        enchantments(translationBuilder);
+        entities(translationBuilder);
+        items(translationBuilder);
+        sounds(translationBuilder);
+        music(translationBuilder);
+        tags(translationBuilder);
     }
 }

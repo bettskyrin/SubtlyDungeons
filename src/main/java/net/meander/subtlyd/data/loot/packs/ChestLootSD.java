@@ -68,11 +68,11 @@ public class ChestLootSD {
     }
 
     private static void ancientCity(LootTable table) {
-        applyFunction(table, EnchantNonHumanoidArmorFunction.builder());
+        applyFunction(table, EnchantNonHumanoidArmorFunction.enchantNonHumanoidArmor());
     }
 
     private static void netherBridge(LootTable table) {
-        applyFunction(table, EnchantNonHumanoidArmorFunction.builder(), SetDaggerFunction.setDagger());
+        applyFunction(table, EnchantNonHumanoidArmorFunction.enchantNonHumanoidArmor(), SetDaggerFunction.setDagger());
     }
 
     private static void ruinedPortal(LootTable table) {
@@ -80,11 +80,11 @@ public class ChestLootSD {
     }
 
     private static void strongholdCorridor(LootTable table) {
-        applyFunction(table, EnchantNonHumanoidArmorFunction.builder(), SetDaggerFunction.setDagger());
+        applyFunction(table, EnchantNonHumanoidArmorFunction.enchantNonHumanoidArmor(), SetDaggerFunction.setDagger());
     }
 
     private static void endCityTreasure(LootTable table) {
-        applyFunction(table, EnchantNonHumanoidArmorFunction.builder(), SetDaggerFunction.setDagger());
+        applyFunction(table, EnchantNonHumanoidArmorFunction.enchantNonHumanoidArmor(), SetDaggerFunction.setDagger());
     }
 
     private static void bastionBridge(LootTable table) {

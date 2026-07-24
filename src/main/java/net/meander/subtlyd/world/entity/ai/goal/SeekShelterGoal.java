@@ -1,8 +1,8 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
-import net.meander.subtlyd.world.entity.TamableAnimalSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.phys.Vec3;
@@ -55,6 +55,15 @@ public class SeekShelterGoal extends Goal {
             }
         }
         return null;
+    }
+
+    private boolean shouldFindShelter() {
+        Level level = mob.level();
+
+        return level.isRainingAt(mob.blockPosition())
+                && (mob instanceof TamableAnimal tamable && tamable.shouldNotFollowOwner())
+                && !mob.hasControllingPassenger()
+                && mob.getTarget() == null;
     }
 
     @Override

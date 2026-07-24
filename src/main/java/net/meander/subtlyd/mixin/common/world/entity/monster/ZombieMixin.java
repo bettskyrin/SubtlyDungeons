@@ -35,8 +35,6 @@ public abstract class ZombieMixin {
     private void loadLeaderData(ValueInput input, CallbackInfo ci) {
         Zombie zombie = (Zombie) (Object) this;
 
-        if (input.contains("IsLeader")) {
-            zombie.getEntityData().set(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("IsLeader", false));
-        }
+        zombie.getEntityData().set(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER, input.getBooleanOr("IsLeader", false));
     }
 }

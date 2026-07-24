@@ -1,6 +1,9 @@
 package net.meander.subtlyd.world.entity;
 
 public interface MobSD {
-    long getHuntingCooldownTicks();
-    void setHuntingCooldownTicks(long time);
+    default long getHuntingCooldownTicks() {
+        return 20;
+    }
+
+    default void setHuntingCooldownTicks(long time) {}
 }

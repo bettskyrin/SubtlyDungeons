@@ -30,7 +30,7 @@ public class VegetationPlacementsSD {
     public static final ResourceKey<PlacedFeature> DARK_FOREST_VEGETATION = PlacementUtilsSD.createKey("dark_forest_vegetation");
     public static final ResourceKey<PlacedFeature> BAOBAB = PlacementUtilsSD.createKey("baobab");
 
-    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
+    public static void registration(BootstrapContext<PlacedFeature> context) {
         HolderGetter<Feature> configuredFeatures = context.lookup(Registries.FEATURE);
         PlacementModifier treeThreshold = SurfaceWaterDepthFilter.forMaxDepth(0);
 

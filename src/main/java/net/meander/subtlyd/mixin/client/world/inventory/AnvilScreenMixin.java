@@ -49,12 +49,14 @@ public abstract class AnvilScreenMixin extends ItemCombinerScreen<AnvilMenu> {
             if (magicLevel > magicLimit) {
                 if (isEnchanting) {
                     textColor = -40864;
+
                     return Component.translatable("container.repair.unenchantable");
                 }
             }
 
             if (repairCost >= repairLimit) {
                 textColor = -40864;
+
                 return Component.translatable("container.repair.unfixable");
             }
 

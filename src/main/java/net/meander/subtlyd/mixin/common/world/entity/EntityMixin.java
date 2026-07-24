@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Entity.class)
 public class EntityMixin {
     public boolean isClimbing(Entity entity) {
-        return EntitySD.getNearestWall(entity) != null;
+        return EntitySD.getNearestWallDirection(entity) != null;
     }
 
     @Inject(method = "positionRider(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/world/entity/Entity$MoveFunction;)V", at = @At("HEAD"), cancellable = true)
@@ -36,9 +36,9 @@ public class EntityMixin {
      */
     private void positionClimbingJockey(Entity vehicle, Entity passenger, Entity.MoveFunction moveFunction, CallbackInfo ci) {
         if (isClimbing(vehicle)) {
-            Direction wallDir = EntitySD.getNearestWall(vehicle);
-            float yaw = Mth.DEG_TO_RAD * (wallDir != null ? wallDir.toYRot() : vehicle.getYRot());
-            double distanceFromMount = 1.0;
+            final double distanceFromMount = 1.0;
+            Direction wallDirection = EntitySD.getNearestWallDirection(vehicle);
+            float yaw = Mth.DEG_TO_RAD * (wallDirection != null ? wallDirection.toYRot() : vehicle.getYRot());
 
             double offsetX = Mth.sin(yaw) * distanceFromMount;
             double offsetZ = -Mth.cos(yaw) * distanceFromMount;
@@ -53,11 +53,8 @@ public class EntityMixin {
         }
     }
 
-    /**
-     * Prevents players from having fire rendered on them in third person.
-     */
     @Inject(method = "displayFireAnimation", at = @At("RETURN"), cancellable = true)
-    private void displayFireAnimation(CallbackInfoReturnable<Boolean> cir) {
+    private void hideFireAnimationThirdPerson(CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) {
             if ((Object) this instanceof LivingEntity livingEntity) {
                 if (livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)) {
@@ -68,10 +65,10 @@ public class EntityMixin {
     }
 
     /**
-     * Prevents mobs from having fire rendered on them.
+     * @param value - Whether an entity should be on fire visually
      */
     @Inject(method = "setSharedFlagOnFire", at = @At("RETURN"))
-    private void setSharedFlagOnFire(boolean value, CallbackInfo ci) {
+    private void hideFireAnimationFirstPerson(boolean value, CallbackInfo ci) {
         if (value) {
             if ((Object) this instanceof LivingEntity livingEntity) {
                 if (livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE)) {

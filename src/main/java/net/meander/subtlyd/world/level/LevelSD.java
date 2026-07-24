@@ -14,12 +14,22 @@ import net.minecraft.world.entity.LivingEntity;
 /**
  * @see net.minecraft.world.level.Level
  */
-public class LevelSD {
-    public static final WeightedList<ExplosionParticleInfo> DEFAULT_EXPLOSION_SPORE_PARTICLES = WeightedList.<ExplosionParticleInfo>builder()
-            .add(new ExplosionParticleInfo(ParticleTypes.WARPED_SPORE, 1.0F, 0.05F))
-            .add(new ExplosionParticleInfo(ParticleTypes.CRIMSON_SPORE, 1.0F, 0.05F))
-            .add(new ExplosionParticleInfo(ParticleTypesSD.SPORE_CLOUD, 0.6F, 0.1F))
-            .build();
+public interface LevelSD {
+    default Identifier getClimateAsTemperatureVariant(BlockPos blockPos) {
+        Level level = (Level) this;
+
+        if (level.precipitationAt(blockPos) == Biome.Precipitation.SNOW || level.getBiome(blockPos).value().coldEnoughToSnow(blockPos, level.getSeaLevel())) {
+            return TemperatureVariants.COLD;
+        } else if (level.getBiome(blockPos).value().getBaseTemperature() >= 2.0) {
+            if (level.isDarkOutside() || level.isWaterAt(blockPos) || level.isRainingAt(blockPos)) {
+                return TemperatureVariants.TEMPERATE;
+            }
+
+            return TemperatureVariants.WARM;
+        } else {
+            return TemperatureVariants.TEMPERATE;
+        }
+    }
 
     private static void registerClientTickEvents() {
         ClientTickEvents.START_LEVEL_TICK.register(_ -> {
@@ -34,14 +44,15 @@ public class LevelSD {
             }
             return EventResult.PASS;
         });
+
         EntitySleepEvents.ALLOW_RESETTING_TIME.register(LivingEntity::isSleeping);
     }
 
-    public static void registerEvents() {
+    static void registerEvents() {
         registerSleepEvents();
     }
 
-    public static void registerClientEvents() {
+    static void registerClientEvents() {
         registerClientTickEvents();
     }
 }

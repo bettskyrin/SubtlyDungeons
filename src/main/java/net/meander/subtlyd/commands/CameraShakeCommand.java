@@ -28,22 +28,26 @@ public class CameraShakeCommand {
                                                         EntityArgument.getPlayers(context, "targets"),
                                                         FloatArgumentType.getFloat(context, "intensity"),
                                                         IntegerArgumentType.getInteger(context, "seconds")
-                                                ))))))
+                                                ))
+                                        )
+                                )
+                        )
+                )
         );
     }
 
     /**
      * @param source The command source stack
-     * @param targets All targets that will experience the screen shake
-     * @param intensity The intensity of the screen shake.
-     * @param seconds The length of time (in seconds) that the screen shake should last
+     * @param targets All targets that will experience the camera shake
+     * @param intensity The intensity of the camera shake.
+     * @param seconds The length of time (in seconds) that the camera shake should last
      * @return The amount of targets affected.
      */
     private static int addCameraShake(CommandSourceStack source, Collection<ServerPlayer> targets, float intensity, int seconds) {
         int durationTicks = seconds * 20;
 
         for (ServerPlayer player : targets) {
-            PacketNetworking.setScreenShakePackets(player, durationTicks, intensity);
+            PacketNetworking.sendCameraShakePackets(player, durationTicks, intensity);
         }
 
         if (targets.size() == 1) {
@@ -51,6 +55,7 @@ public class CameraShakeCommand {
         } else {
             source.sendSuccess(() -> Component.translatable("commands.camerashake.success.add.multiple", targets.size()), true);
         }
+
         return targets.size();
     }
 
@@ -61,7 +66,7 @@ public class CameraShakeCommand {
      */
     private static int stopCameraShake(CommandSourceStack source, Collection<ServerPlayer> targets) {
         for (ServerPlayer player : targets) {
-            PacketNetworking.setScreenShakePackets(player, 0, 0);
+            PacketNetworking.sendCameraShakePackets(player, 0, 0);
         }
 
         if (targets.size() == 1) {
@@ -69,6 +74,7 @@ public class CameraShakeCommand {
         } else {
             source.sendSuccess(() -> Component.translatable("commands.camerashake.success.stop.multiple", targets.size()), true);
         }
+
         return targets.size();
     }
 }

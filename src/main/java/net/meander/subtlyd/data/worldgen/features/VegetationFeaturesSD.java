@@ -1,6 +1,6 @@
 package net.meander.subtlyd.data.worldgen.features;
 
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
@@ -36,7 +36,7 @@ public class VegetationFeaturesSD {
     public static final ResourceKey<Feature> DARK_FOREST_VEGETATION = FeatureUtilsSD.createKey("dark_forest_vegetation");
 
     @SuppressWarnings("deprecation")
-    public static void bootstrap(BootstrapContext<Feature> context) {
+    public static void registration(BootstrapContext<Feature> context) {
         HolderGetter<Feature> configuredFeatures = context.lookup(Registries.FEATURE);
         HolderGetter<PlacedFeature> placedFeatures = context.lookup(Registries.PLACED_FEATURE);
 

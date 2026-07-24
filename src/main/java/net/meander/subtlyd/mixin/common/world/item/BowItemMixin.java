@@ -14,8 +14,9 @@ public class BowItemMixin {
         float uncertainty = 0.25F;
 
         if (timeHeld >= 60) {
-            return (float) (uncertainty + Mth.clamp(0.5 + (double) (10 * (timeHeld - 60)) / 140, 0.5, 10.5));
+            return uncertainty + Mth.clamp(0.5F + (10 * (timeHeld - 60)) / 140.0F, 0.5F, 10.5F);
         }
+
         return uncertainty;
     }
 
@@ -24,6 +25,7 @@ public class BowItemMixin {
         if (timeHeld >= 60) {
             return false;
         }
+
         return isCrit;
     }
 }

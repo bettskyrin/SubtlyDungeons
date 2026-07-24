@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
-import net.meander.subtlyd.world.block.BlocksSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
@@ -19,9 +19,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class HugeFungusFeatureMixin {
     @Shadow @Final private BlockState hatState;
 
-    /**
-     * Alters the cap of a huge warped fungus after generation.
-     */
     @Inject(method = "place", at = @At("RETURN"))
     private void alterWarpedFungusHat(WorldGenLevel level, ChunkGenerator chunkGenerator, RandomSource random, BlockPos origin, CallbackInfoReturnable<Boolean> cir) {
         if (cir.getReturnValue()) {

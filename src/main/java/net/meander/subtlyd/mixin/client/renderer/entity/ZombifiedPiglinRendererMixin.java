@@ -1,6 +1,6 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
-import net.meander.subtlyd.client.renderer.state.UndeadRenderStateAccessor;
+import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
 import net.meander.subtlyd.network.syncher.EntityDataAccessors;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.entity.ZombifiedPiglinRenderer;
@@ -18,25 +18,21 @@ public class ZombifiedPiglinRendererMixin {
     private final Identifier ZOMBIFIED_PIGLIN_LEADER_LOCATION = UtilSD.identifier("textures/entity/piglin/zombified_piglin_leader.png");
     private final Identifier BABY_ZOMBIFIED_PIGLIN_LEADER_LOCATION = UtilSD.identifier("textures/entity/piglin/baby_zombified_piglin_leader.png");
 
-    /**
-     * Changes the zombified piglin leader texture to their unique design.
-     */
-    @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/ZombifiedPiglinRenderState;)Lnet/minecraft/resources/Identifier;",
-            at = @At("RETURN"),
-            cancellable = true)
+    @Inject(method = "getTextureLocation(Lnet/minecraft/client/renderer/entity/state/ZombifiedPiglinRenderState;)Lnet/minecraft/resources/Identifier;", at = @At("RETURN"), cancellable = true)
     private void getTextureLocation(ZombifiedPiglinRenderState state, CallbackInfoReturnable<Identifier> cir) {
         Identifier leaderLocation = cir.getReturnValue();
 
-        if (((UndeadRenderStateAccessor) state).isLeader()) {
+        if (((UndeadRenderStateSD) state).isLeader()) {
                 leaderLocation = state.isBaby ? BABY_ZOMBIFIED_PIGLIN_LEADER_LOCATION : ZOMBIFIED_PIGLIN_LEADER_LOCATION;
         }
+
         cir.setReturnValue(leaderLocation);
     }
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/ZombifiedPiglin;Lnet/minecraft/client/renderer/entity/state/ZombifiedPiglinRenderState;F)V",
-            at = @At("TAIL"))
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/monster/zombie/ZombifiedPiglin;Lnet/minecraft/client/renderer/entity/state/ZombifiedPiglinRenderState;F)V", at = @At("TAIL"))
     private void setLeaderRenderState(ZombifiedPiglin entity, ZombifiedPiglinRenderState state, float partialTicks, CallbackInfo ci) {
         boolean isLeader = entity.getEntityData().get(EntityDataAccessors.DATA_ID_ZOMBIE_LEADER);
-        ((UndeadRenderStateAccessor) state).setLeader(isLeader);
+
+        ((UndeadRenderStateSD) state).setLeader(isLeader);
     }
 }

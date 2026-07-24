@@ -40,27 +40,30 @@ public class QuiverItem extends BundleItem {
     }
 
     private static int insertArrow(ItemStack quiver, ItemStack arrowStack) {
+        final int maxQuiverArrows = 256;
         BundleContents contents = quiver.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        List<ItemStack> items = new ArrayList<>();
-        contents.items().forEach(template -> items.add(template.create()));
+        List<ItemStack> quiverOfArrows = new ArrayList<>();
 
-        final int MAX_QUIVER_ARROWS = 256;
-        int currentTotal = items.stream().mapToInt(ItemStack::getCount).sum();
-        int spaceLeft = MAX_QUIVER_ARROWS - currentTotal;
+        contents.items().forEach(template -> quiverOfArrows.add(template.create()));
+
+        int currentTotal = quiverOfArrows.stream().mapToInt(ItemStack::getCount).sum();
+        int spaceLeft = maxQuiverArrows - currentTotal;
+        int selectedIndex = Math.max(0, getSelectedItemIndex(quiver));
 
         if (spaceLeft > 0) {
             int amountToInsert = Math.min(arrowStack.getCount(), spaceLeft);
             int remainingToInsert = amountToInsert;
+
             ItemStack stackToInsert = arrowStack.copyWithCount(amountToInsert);
             List<ItemStackTemplate> newTemplates = new ArrayList<>();
 
-            for (ItemStack quiverArrows : items) {
-                if (ItemStack.isSameItemSameComponents(quiverArrows, stackToInsert)) {
-                    int stackSpace = quiverArrows.getMaxStackSize() - quiverArrows.getCount();
+            for (ItemStack arrows : quiverOfArrows) {
+                if (ItemStack.isSameItemSameComponents(arrows, stackToInsert)) {
+                    int stackSpace = arrows.getMaxStackSize() - arrows.getCount();
                     int transferAmount = Math.min(remainingToInsert, stackSpace);
 
                     if (transferAmount > 0) {
-                        quiverArrows.grow(transferAmount);
+                        arrows.grow(transferAmount);
                         remainingToInsert -= transferAmount;
                     }
 
@@ -73,25 +76,23 @@ public class QuiverItem extends BundleItem {
             while (remainingToInsert > 0) {
                 int toCreate = Math.min(remainingToInsert, arrowStack.getMaxStackSize());
 
-                items.addFirst(arrowStack.copyWithCount(toCreate));
+                quiverOfArrows.addFirst(arrowStack.copyWithCount(toCreate));
                 remainingToInsert -= toCreate;
             }
 
             arrowStack.shrink(amountToInsert);
 
-            for (ItemStack item : items) {
-                if (!item.isEmpty()) {
-                    newTemplates.add(ItemStackTemplate.fromNonEmptyStack(item));
+            for (ItemStack arrow : quiverOfArrows) {
+                if (!arrow.isEmpty()) {
+                    newTemplates.add(ItemStackTemplate.fromNonEmptyStack(arrow));
                 }
             }
 
-            int selectedIndex = Math.max(0, getSelectedItemIndex(quiver));
-
             quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(newTemplates));
             toggleSelectedItem(quiver, selectedIndex);
-
             return amountToInsert;
         }
+
         return 0;
     }
 
@@ -117,8 +118,10 @@ public class QuiverItem extends BundleItem {
                 quiver.set(DataComponents.BUNDLE_CONTENTS, new BundleContents(templates));
                 toggleSelectedItem(quiver, newIndex);
             }
+
             return removedStack;
         }
+
         return ItemStack.EMPTY;
     }
 
@@ -158,6 +161,7 @@ public class QuiverItem extends BundleItem {
                 return firedProjectile;
             }
         }
+
         return ItemStack.EMPTY;
     }
 
@@ -193,8 +197,10 @@ public class QuiverItem extends BundleItem {
                     player.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
                 }
             }
+
             return true;
         }
+
         return false;
     }
 
@@ -210,13 +216,16 @@ public class QuiverItem extends BundleItem {
             if (action == ClickAction.PRIMARY && !cursor.isEmpty()) {
                 if (cursor.is(ItemTags.ARROWS)) {
                     int inserted = insertArrow(quiver, cursor);
+
                     if (inserted > 0) {
                         player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
                     }
+
                     return true;
                 }
             } else if (action == ClickAction.SECONDARY && cursor.isEmpty()) {
                 ItemStack removedArrow = removeOneArrowType(quiver);
+
                 if (!removedArrow.isEmpty()) {
                     player.playSound(SoundEvents.BUNDLE_REMOVE_ONE, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
                     access.set(removedArrow);
@@ -226,14 +235,17 @@ public class QuiverItem extends BundleItem {
                 if (cursor.is(ItemTags.ARROWS)) {
                     ItemStack singleArrow = cursor.copyWithCount(1);
                     int inserted = insertArrow(quiver, singleArrow);
+
                     if (inserted > 0) {
                         cursor.shrink(1);
                         player.playSound(SoundEvents.BUNDLE_INSERT, 0.8F, 0.8F + player.level().getRandom().nextFloat() * 0.4F);
                     }
+
                     return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -249,6 +261,7 @@ public class QuiverItem extends BundleItem {
                 return swapResult;
             }
         }
+
         return InteractionResult.PASS;
     }
 

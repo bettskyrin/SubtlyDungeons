@@ -19,17 +19,17 @@ public class BladeClashParticle extends CritParticle {
     }
 
     public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final SpriteSet sprites;
+        private final SpriteSet sprite;
 
         public Provider(SpriteSet sprite) {
-            sprites = sprite;
+            this.sprite = sprite;
         }
 
         @Override
         public Particle createParticle(SimpleParticleType options, ClientLevel level, double x, double y, double z, double xAux, double yAux, double zAux, RandomSource random) {
-            BladeClashParticle particle = new BladeClashParticle(level, x, y, z, xAux, yAux, zAux, sprites.get(level.getRandom()));
+            BladeClashParticle particle = new BladeClashParticle(level, x, y, z, xAux, yAux, zAux, sprite.get(level.getRandom()));
 
-            particle.setSpriteFromAge(sprites);
+            particle.setSpriteFromAge(sprite);
             return particle;
         }
     }

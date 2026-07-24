@@ -42,7 +42,7 @@ public class SleptInTentTrigger extends SimpleCriterionTrigger<SleptInTentTrigge
                     return !player.blockPosition().closerThan(pos, minDistanceFromBed.get());
                 }
             }
-            return true;
+            return false;
         }
 
         public static Criterion<TriggerInstance> campedFarAway(int minimumDistance) {
