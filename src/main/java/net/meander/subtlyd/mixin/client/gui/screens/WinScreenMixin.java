@@ -19,6 +19,6 @@ public abstract class WinScreenMixin {
     private void addMeanderStudios(CallbackInfo ci) {
         WinScreen screen = (WinScreen) (Object) this;
 
-        wrapCreditsIO(CREDITS, screen::addCreditsFile); // TODO Add Zeit
+        wrapCreditsIO(CREDITS, screen::addCreditsFile);
     }
 }
