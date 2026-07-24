@@ -1,4 +1,9 @@
 ## [5.0 Snapshot 4] - UNRELEASED
+Didn't you hear? Mojang just [increased the System Requirements for Java Editon](https://www.minecraft.net/en-us/article/minecraft-java-edition-system-requirements)! Time for us to write sloppier code... just kidding! This update actually brings some performance upgrades, bug fixes, new Game Rules and other backend/Data Pack-related changes.
+
+We also snuck in a few gameplay tweaks, like a new tree type, Wither Boss fight tweaks, and improved ambient sounds.
+
+Developer Note: Did you know this mod has over 200 Java files! I sure didn't until this update!
 
 ### New Features
 #### World Generation
@@ -8,8 +13,8 @@
   - Can be grown from a 2x2 of Acacia saplings
 
 #### Game Rules
-- Added Smart Mobs game rule
-  - Toggles advanced mob behavior (like flock panicking)
+- Added Advanced Mobs game rule
+  - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
   - Does not include wall climbing hitbox adjustments
 
 ### Changes

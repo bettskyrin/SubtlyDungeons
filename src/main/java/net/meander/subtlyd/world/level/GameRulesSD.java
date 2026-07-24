@@ -11,7 +11,7 @@ import net.minecraft.world.level.gamerules.GameRules;
  */
 public class GameRulesSD {
     public static final GameRule<Boolean> ARROW_ARSON = registerBoolean("arrow_arson", GameRuleCategory.UPDATES, true);
-    public static final GameRule<Boolean> SMART_MOBS = registerBoolean("smart_mobs", GameRuleCategory.MOBS, true);
+    public static final GameRule<Boolean> ADVANCED_MOBS = registerBoolean("advanced_mobs", GameRuleCategory.MOBS, true);
 
     public static void registration() {}
 

@@ -7,6 +7,7 @@ import net.meander.subtlyd.advancements.packs.HusbandryAdvancementsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.stats.StatsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
+import net.meander.subtlyd.world.level.GameRulesSD;
 import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.entity.EntityTypesSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
@@ -17,6 +18,7 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gamerules.GameRule;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -33,6 +35,10 @@ public class LanguageProviderSD extends FabricLanguageProvider {
 
     private void addMusic(TranslationBuilder translationBuilder, String musicId, String value) {
         translationBuilder.add("subtlyd.music." + musicId, value);
+    }
+
+    private void addGameRule(TranslationBuilder translationBuilder, GameRule<?> gameRule, String value) {
+        translationBuilder.add("gamerule." + gameRule.id().replace(':', '.'), value);
     }
 
     private void advancements(TranslationBuilder translationBuilder) {
@@ -172,9 +178,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("container.repair.unenchantable", "Magic Capacity Met!");
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
 
-        translationBuilder.add("gamerule.subtlyd.arrow_arson", "Allow flaming arrow griefing");
+        addGameRule(translationBuilder, GameRulesSD.ARROW_ARSON, "Allow flaming arrow griefing");
         translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
-        translationBuilder.add("gamerule.subtlyd.smart_mobs", "Allow advanced mob behaviors");
+        addGameRule(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Allow advanced mob behaviors");
 
         translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
     }
