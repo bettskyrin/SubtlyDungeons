@@ -51,6 +51,9 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 - Added `silent_foliage` block tag
 - Added `arrow_flammable` block tag
 - Added `causes_flock_panic` damage type tag
+- Changed `can_be_full` to be named `predator`
+- Changed `can_seek_shade` to `seeks_shade`
+- Changed `can_seek_warmth` to `seeks_warmth`
 - Removed `can_break_tents` damage type tag
 - Removed `always_kills_tent` damage type tag
 - Removed `ignites_tents` damage type tag
