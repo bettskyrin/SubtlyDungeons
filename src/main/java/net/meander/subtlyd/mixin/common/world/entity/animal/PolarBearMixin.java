@@ -24,7 +24,7 @@ public abstract class PolarBearMixin extends Animal {
     private void addHuntingGoal(CallbackInfo ci) {
         ServerLevel level = (ServerLevel) level();
 
-        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Salmon.class, true, true) {
                 @Override
                 public boolean canUse() {

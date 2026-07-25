@@ -59,7 +59,7 @@ public class EntityTypeTagsProviderSD extends FabricTagsProvider.EntityTypeTagsP
                 .add(EntityTypeIds.POLAR_BEAR)
                 .add(EntityTypeIds.SNIFFER)
                 .add(EntityTypeIds.STRIDER);
-        tag(EntityTypeTagsSD.CAN_SEEK_WARMTH)
+        tag(EntityTypeTagsSD.SEEKS_WARMTH)
                 .add(EntityTypeIds.COW)
                 .add(EntityTypeIds.MOOSHROOM)
                 .add(EntityTypeIds.PIG)
@@ -76,7 +76,7 @@ public class EntityTypeTagsProviderSD extends FabricTagsProvider.EntityTypeTagsP
                 .add(EntityTypeIds.TURTLE)
                 .add(EntityTypeIds.SNIFFER)
                 .add(EntityTypeIds.STRIDER);
-        tag(EntityTypeTagsSD.CAN_SEEK_SHADE)
+        tag(EntityTypeTagsSD.SEEKS_SHADE)
                 .add(EntityTypeIds.COW)
                 .add(EntityTypeIds.PIG)
                 .add(EntityTypeIds.SHEEP)
@@ -91,7 +91,7 @@ public class EntityTypeTagsProviderSD extends FabricTagsProvider.EntityTypeTagsP
                 .add(EntityTypeIds.POLAR_BEAR)
                 .add(EntityTypeIds.AXOLOTL)
                 .add(EntityTypeIds.SNIFFER);
-        tag(EntityTypeTagsSD.CAN_BE_FULL)
+        tag(EntityTypeTagsSD.PREDATOR)
                 .add(EntityTypeIds.WOLF)
                 .add(EntityTypeIds.CAT)
                 .add(EntityTypeIds.OCELOT)

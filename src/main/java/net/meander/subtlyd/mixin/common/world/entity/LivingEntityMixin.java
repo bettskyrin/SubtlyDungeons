@@ -109,7 +109,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "hurtServer", at = @At("RETURN"))
     private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
             LivingEntity livingEntity = (LivingEntity) (Object) this;
 
             if (cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
@@ -137,8 +137,8 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "die", at = @At("HEAD"))
     private void addHunterCooldown(DamageSource source, CallbackInfo ci) {
         if (level() instanceof ServerLevel level) {
-            if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
-                if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+            if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
+                if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.PREDATOR)) {
                     long cooldownTicks = predator.is(EntityTypeTagsSD.FEAST_OR_FAMINE_HUNTER) ? 72000 : 12000;
 
                     predator.setHuntingCooldownTicks(level.getGameTime() + cooldownTicks);
@@ -149,8 +149,8 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "dropAllDeathLoot", at = @At("TAIL"))
     private void consumePreyDrops(ServerLevel level, DamageSource source, CallbackInfo ci) {
-        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
-            if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.CAN_BE_FULL)) {
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
+            if (source.getEntity() instanceof Mob predator && predator.is(EntityTypeTagsSD.PREDATOR)) {
                 if ((predator instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) || !(predator instanceof TamableAnimal)) {
                     LivingEntity livingEntity = (LivingEntity) (Object) this;
                     List<ItemEntity> drops = level.getEntitiesOfClass(ItemEntity.class, livingEntity.getBoundingBox().inflate(1.0F));

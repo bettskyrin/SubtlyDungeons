@@ -30,7 +30,7 @@ public abstract class DolphinMixin extends AgeableWaterCreature {
     private void addHuntingGoal(CallbackInfo ci) {
         ServerLevel level = (ServerLevel) level();
 
-        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Squid.class, false));
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Cod.class, false));
         }

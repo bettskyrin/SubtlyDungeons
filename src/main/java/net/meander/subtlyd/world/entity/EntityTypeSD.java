@@ -69,28 +69,24 @@ public class EntityTypeSD {
      * @return What temperature variant a mob is.
      */
     public static Identifier getTemperatureVariantType(Mob mob) {
-        Object variant;
+        Object temperatureVariant;
 
         switch (mob) {
-            case Pig pig -> variant = pig.getVariant();
-            case Cow cow -> variant = cow.getVariant();
-            case Chicken chicken -> variant = chicken.getVariant();
-            case Frog frog -> variant = frog.getVariant();
-            case Rabbit rabbit -> variant = rabbit.getVariant();
+            case Pig pig -> temperatureVariant = pig.getVariant();
+            case Cow cow -> temperatureVariant = cow.getVariant();
+            case Chicken chicken -> temperatureVariant = chicken.getVariant();
+            case Frog frog -> temperatureVariant = frog.getVariant();
+            case Rabbit rabbit -> temperatureVariant = rabbit.getVariant();
             case Wolf wolf -> {
                 Holder<WolfVariant> holder = wolf.get(DataComponents.WOLF_VARIANT);
-                variant = holder != null ? holder.unwrapKey().orElse(null) : null;
+                temperatureVariant = holder != null ? holder.unwrapKey().orElse(null) : null;
             }
-            case Fox fox -> variant = fox.getVariant();
+            case Fox fox -> temperatureVariant = fox.getVariant();
             case null, default -> {
                 return null;
             }
         }
 
-        if (tempVariantMap.containsKey(variant)) {
-            return tempVariantMap.get(variant);
-        }
-
-        return null;
+        return tempVariantMap.get(temperatureVariant);
     }
 }

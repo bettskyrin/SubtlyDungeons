@@ -41,6 +41,10 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("gamerule." + gameRule.id().replace(':', '.'), value);
     }
 
+    private void addGameRuleDesc(TranslationBuilder translationBuilder, GameRule<?> gameRule, String value) {
+        translationBuilder.add("gamerule." + gameRule.id().replace(':', '.') + ".description", value);
+    }
+
     private void advancements(TranslationBuilder translationBuilder) {
         translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_TITLE.getString(), "Tentative Accommodations");
         translationBuilder.add(AdventureAdvancementsSD.CAMP_FAR_AWAY_DESC.getString(), "Sleep in a Tent over 1km away from your respawn point");
@@ -179,8 +183,9 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("container.repair.unfixable", "Unrepairable!");
 
         addGameRule(translationBuilder, GameRulesSD.ARROW_ARSON, "Allow flaming arrow griefing");
-        translationBuilder.add("gamerule.subtlyd.arrow_arson.description", "If enabled, flaming arrows can set fire to their environment");
-        addGameRule(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Allow advanced mob behaviors");
+        addGameRuleDesc(translationBuilder, GameRulesSD.ARROW_ARSON, "If enabled, flaming arrows can set fire to their environment");
+        addGameRule(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Advanced mob behavior");
+        addGameRuleDesc(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Allows advanced mob behaviors (including nocturnal hunting, flock panicking, etc.)");
 
         translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
     }

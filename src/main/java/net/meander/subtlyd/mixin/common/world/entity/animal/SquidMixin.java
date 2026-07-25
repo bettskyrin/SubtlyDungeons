@@ -23,7 +23,7 @@ public abstract class SquidMixin extends AgeableWaterCreature {
     private void addPredatorGoal(CallbackInfo ci) {
         ServerLevel level = (ServerLevel) level();
 
-        if (level.getGameRules().get(GameRulesSD.SMART_MOBS)) {
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
             goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Dolphin.class, 8.0F, 1.0, 1.0));
         }
     }

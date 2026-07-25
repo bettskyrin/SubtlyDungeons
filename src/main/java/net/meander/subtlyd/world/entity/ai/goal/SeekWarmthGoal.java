@@ -1,7 +1,6 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
-import net.meander.subtlyd.world.entity.EntityTypeSD;
-import net.meander.subtlyd.world.level.biome.BiomeSD;
+import net.meander.subtlyd.world.entity.ai.util.GoalUtilsSD;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
@@ -9,41 +8,36 @@ import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.animal.TemperatureVariants;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.biome.Biome;
 
 public class SeekWarmthGoal extends MoveToBlockGoal {
-    private final PathfinderMob mob;
+    protected final PathfinderMob mob;
 
-    public SeekWarmthGoal(PathfinderMob mob, double speedModifier, int searchRange) {
-        super(mob, speedModifier, searchRange, searchRange / 4);
+    public SeekWarmthGoal(PathfinderMob mob, double speedModifier) {
+        super(mob, speedModifier, 32, 16);
+
         this.mob = mob;
+    }
+
+    private boolean shouldSeekWarmth() {
+        Identifier climate = mob.level().getClimateAsTemperatureVariant(mob.blockPosition());
+
+        return GoalUtilsSD.needsWarmth(mob) && climate == TemperatureVariants.COLD;
     }
 
     @Override
     public boolean canUse() {
-        Identifier variant = EntityTypeSD.getTemperatureVariantType(mob);
-
-        if (!isValidTarget(mob.level(), mob.blockPosition()) && variant != TemperatureVariants.COLD && BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
-            if (variant != TemperatureVariants.TEMPERATE || mob.level().precipitationAt(mob.blockPosition()) == Biome.Precipitation.SNOW) { // Warm, No Variant, or snowing
-                return super.canUse();
-            }
-
-        }
-        return false;
+        return shouldSeekWarmth() & super.canUse();
     }
 
     @Override
     public boolean canContinueToUse() {
-        if (isValidTarget(mob.level(), mob.blockPosition()) && BiomeSD.getBiomeAsTemperatureVariant(mob.level(), mob.blockPosition()) == TemperatureVariants.COLD) {
-            return false;
+        if (mob.canStroll() && !isValidTarget(mob.level(), mob.blockPosition())) {
+            return super.canContinueToUse();
         }
-        return super.canContinueToUse();
+
+        return false;
     }
 
-    /**
-     * Determines if a target location is "warm" (has a brightness of 10 or higher).
-     * @return Whether a valid target location has been found.
-     */
     @Override
     protected boolean isValidTarget(LevelReader level, BlockPos pos) {
         return level.getBrightness(LightLayer.BLOCK, pos) >= 10;

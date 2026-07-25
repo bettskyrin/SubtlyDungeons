@@ -38,7 +38,7 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 
 ### Technical Changes
 #### Mobs
-- Improved mob environment detection AI
+- Changed advanced mob AI
 
 #### Camera Shake Events
 - Changed `range` field to accept an integer value

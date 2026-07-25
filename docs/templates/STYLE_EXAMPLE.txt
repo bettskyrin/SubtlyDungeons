@@ -32,6 +32,14 @@ public class ClassName implements DifferentClass {
         double floatDouble = 0.2; // No cast necessary for doubles
     }
 
+    private boolean fighters() {
+        // This is part of another example
+    }
+
+    public boolean foo() { // Private methods usually go at the end, but this public method references a private one. Put those above.
+        return fighters();
+    }
+
     private class innerClass {
         public static final float VALUE_OF_PI = 3.14F; // Final fields can have uppercase camel-case names
     }

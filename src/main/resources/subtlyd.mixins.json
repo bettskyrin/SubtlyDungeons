@@ -18,6 +18,7 @@
     "common.world.entity.ServerPlayerMixin",
     "common.world.entity.TamableAnimalMixin",
     "common.world.entity.ai.goal.NearestAttackableTargetGoalMixin",
+    "common.world.entity.ai.goal.RandomStrollGoalMixin",
     "common.world.entity.animal.DolphinMixin",
     "common.world.entity.animal.PolarBearMixin",
     "common.world.entity.animal.SquidMixin",
