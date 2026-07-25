@@ -36,7 +36,7 @@ public class LeavesBlockMixin {
 
         if (soundEvent.isPresent()) {
             if (!block.defaultBlockState().is(Blocks.PALE_OAK_LEAVES)) {
-                if (!soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) || !level.getClimateAsTemperatureVariant(pos).equals(TemperatureVariants.COLD)) {
+                if (!(soundEvent.get().is(SoundEventsSD.LEAVES_AMBIENT.key()) || level.getClimateAsTemperatureVariant(pos) == (TemperatureVariants.COLD))) {
                     instance.playAmbientLeavesSounds(level, pos, block, random);
                 }
             }
