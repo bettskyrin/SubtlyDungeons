@@ -5,6 +5,7 @@ import net.meander.subtlyd.util.UtilSD;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.StringWidget;
@@ -41,8 +42,9 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Nullable private Button recreateButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
-    private final int ROW_SPACING = 4;
     private static final boolean canChangeUi = OptionsSD.gui().get();
+    private final int ROW_SPACING = 4;
+    private final Minecraft minecraft = Minecraft.getInstance();
 
     private SelectWorldScreenMixin(HeaderAndFooterLayout layout, Component title, Screen lastScreen) {
         super(title);

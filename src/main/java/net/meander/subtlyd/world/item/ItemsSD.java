@@ -3,12 +3,11 @@ package net.meander.subtlyd.world.item;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
-import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
+import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.references.BlockItemId;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -21,7 +20,6 @@ import net.minecraft.world.item.component.BlocksAttacks;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.ItemContainerContents;
 import net.minecraft.world.item.equipment.Equippable;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.ColorCollection;
@@ -30,8 +28,6 @@ import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
-import java.util.function.UnaryOperator;
 
 /**
  * @see Items
@@ -45,13 +41,16 @@ public class ItemsSD {
     public static final Item COOKED_CALAMARI = Items.registerItem(ItemIdsSD.COOKED_CALAMARI, Item::new, new Item.Properties()
             .food(FoodsSD.COOKED_CALAMARI));
     public static final Item POTTAGE = Items.registerItem(ItemIdsSD.POTTAGE, Item::new, new Item.Properties()
-            .food(FoodsSD.POTTAGE)
-            .stacksTo(1));
-    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, TentItem::new, new Item.Properties().component(DataComponentsSD.TENT_COLOR, color).stacksTo(1).cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
-    public static final Item UNLIT_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (p -> p
+            .stacksTo(1)
+            .food(FoodsSD.POTTAGE));
+    public static final ColorCollection<Item> TENT = ColorCollection.registerItems(ItemIdsSD.TENT, (id, color) -> Items.registerItem(id, TentItem::new, new Item.Properties()
+            .stacksTo(1)
+            .component(DataComponentsSD.TENT_COLOR, color)
+            .cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)));
+    public static final Item UNLIT_CAMPFIRE = Items.registerBlock(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE, (p -> p
             .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
-    public static final Item UNLIT_SOUL_CAMPFIRE = registerBlockSD(BlockItemIdsSD.UNLIT_SOUL_CAMPFIRE, Blocks.SOUL_CAMPFIRE, (p -> p
+    public static final Item UNLIT_SOUL_CAMPFIRE = Items.registerBlock(BlockItemIdsSD.UNLIT_SOUL_CAMPFIRE, Blocks.SOUL_CAMPFIRE, (p -> p
             .component(DataComponents.CONTAINER, ItemContainerContents.EMPTY)
             .component(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CampfireBlock.LIT, false))));
     public static final Item SNOW_BRICKS = Items.registerBlock(BlockItemIdsSD.SNOW_BRICKS, BlocksSD.SNOW_BRICKS);
@@ -81,17 +80,34 @@ public class ItemsSD {
             .component(DataComponents.CONSUMABLE, ConsumablesSD.COVEN_ELIXIR)
             .usingConvertsTo(Items.GLASS_BOTTLE));
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
-    public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS, (new Item.Properties()).compostable(NumberProviders.COMPOSTABLE_LOW));
-    public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties().food(FoodsSD.LIGHT_STEW).stacksTo(1));
-    public static final Item WOODEN_DAGGER = Items.registerItem(ItemIdsSD.WOODEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.WOOD, 1.0F, -2.3F, 4.0F));
-    public static final Item STONE_DAGGER = Items.registerItem(ItemIdsSD.STONE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.STONE, 1.0F, -2.3F, 4.0F));
-    public static final Item COPPER_DAGGER = Items.registerItem(ItemIdsSD.COPPER_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.COPPER, 1.0F, -2.3F, 4.0F));
-    public static final Item IRON_DAGGER = Items.registerItem(ItemIdsSD.IRON_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.IRON, 1.0F, -2.3F, 4.0F));
-    public static final Item GOLDEN_DAGGER = Items.registerItem(ItemIdsSD.GOLDEN_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.GOLD, 1.0F, -2.3F, 4.0F));
-    public static final Item DIAMOND_DAGGER = Items.registerItem(ItemIdsSD.DIAMOND_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.DIAMOND, 1.0F, -2.3F, 4.0F));
-    public static final Item NETHERITE_DAGGER = Items.registerItem(ItemIdsSD.NETHERITE_DAGGER, Item::new, new ItemSD.PropertiesSD().dagger(ToolMaterial.NETHERITE, 1.0F, -2.3F, 4.0F).rarity(Rarity.UNCOMMON));
-    public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItem::new, new Item.Properties().stacksTo(1).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()));
-    public static final ColorCollection<Item> DYED_QUIVER = ColorCollection.registerItems(ItemIdsSD.DYED_QUIVER, (id, _) -> Items.registerItem(id, QuiverItem::new, new Item.Properties().stacksTo(1).component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS).setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build())));
+    public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS, new Item.Properties()
+            .compostable(NumberProviders.COMPOSTABLE_LOW));
+    public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties()
+            .stacksTo(1)
+            .food(FoodsSD.LIGHT_STEW));
+    public static final Item WOODEN_DAGGER = Items.registerItem(ItemIdsSD.WOODEN_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.WOOD, 1.0F, -2.3F, 4.0F));
+    public static final Item STONE_DAGGER = Items.registerItem(ItemIdsSD.STONE_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.STONE, 1.0F, -2.3F, 4.0F));
+    public static final Item COPPER_DAGGER = Items.registerItem(ItemIdsSD.COPPER_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.COPPER, 1.0F, -2.3F, 4.0F));
+    public static final Item IRON_DAGGER = Items.registerItem(ItemIdsSD.IRON_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.IRON, 1.0F, -2.3F, 4.0F));
+    public static final Item GOLDEN_DAGGER = Items.registerItem(ItemIdsSD.GOLDEN_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.GOLD, 1.0F, -2.3F, 4.0F));
+    public static final Item DIAMOND_DAGGER = Items.registerItem(ItemIdsSD.DIAMOND_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.DIAMOND, 1.0F, -2.3F, 4.0F));
+    public static final Item NETHERITE_DAGGER = Items.registerItem(ItemIdsSD.NETHERITE_DAGGER, Item::new, new ItemSD.PropertiesSD()
+            .dagger(ToolMaterial.NETHERITE, 1.0F, -2.3F, 4.0F)
+            .rarity(Rarity.UNCOMMON));
+    public static final Item QUIVER = Items.registerItem(ItemIdsSD.QUIVER, QuiverItem::new, new Item.Properties()
+            .stacksTo(1)
+            .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS)
+                    .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build()));
+    public static final ColorCollection<Item> DYED_QUIVER = ColorCollection.registerItems(ItemIdsSD.DYED_QUIVER, (id, _) -> Items.registerItem(id, QuiverItem::new, new Item.Properties()
+            .stacksTo(1)
+            .component(DataComponents.EQUIPPABLE, Equippable.builder(EquipmentSlot.LEGS)
+                    .setEquipSound(SoundEvents.ARMOR_EQUIP_LEATHER).build())));
     public static final Item OAK_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.OAK_WOOD_SLAB, BlocksSD.OAK_WOOD_SLAB);
     public static final Item SPRUCE_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.SPRUCE_WOOD_SLAB, BlocksSD.SPRUCE_WOOD_SLAB);
     public static final Item BIRCH_WOOD_SLAB = Items.registerBlock(BlockItemIdsSD.BIRCH_WOOD_SLAB, BlocksSD.BIRCH_WOOD_SLAB);
@@ -157,24 +173,12 @@ public class ItemsSD {
                             Optional.of(SoundEvents.SHIELD_BLOCK),
                             Optional.of(SoundEvents.SHIELD_BREAK)))
             .attributes(ItemAttributeModifiers.builder()
-                    .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE),
-                    EquipmentSlotGroup.ANY).build())
+                    .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.ANY)
+                    .build())
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK));
 
     public static void registration() {
         CreativeModeTabsSD.registration();
         ItemSD.modifyComponents();
-    }
-
-    private static Item registerBlockSD(final BlockItemId id, final Block block, final UnaryOperator<Item.Properties> propertiesFunction) {
-        return registerBlockSD(id, block, (b, p) -> new BlockItem(b, propertiesFunction.apply(p)));
-    }
-
-    private static Item registerBlockSD(final BlockItemId id, final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory) {
-        return registerBlockSD(id, block, itemFactory, new Item.Properties());
-    }
-
-    private static Item registerBlockSD(final BlockItemId id, final Block block, final BiFunction<Block, Item.Properties, Item> itemFactory, final Item.Properties properties) {
-        return Items.registerItem(id.item(), p -> itemFactory.apply(block, p), properties.useBlockDescriptionPrefix().requiredFeatures(block.requiredFeatures()));
     }
 }

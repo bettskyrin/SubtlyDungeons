@@ -83,12 +83,14 @@ public class TitleScreenMixin extends Screen {
      * Renders the player in the bottom right corner of the screen after the fade animation is complete, as player shaders do not support transparency.
      */
     @Inject(method = "extractRenderState", at = @At("TAIL"))
-    private void renderPlayer(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
+    private void extractPlayerRenderState(GuiGraphicsExtractor graphics, int mouseX, int mouseY, float a, CallbackInfo ci) {
         if (CAN_CHANGE_UI) {
             final int avatarScale = 40;
 
             if (!fading) {
-                GuiPlayerRenderer.renderPlayer(graphics, width / 2 + 170, height / 4 + 132, avatarScale, mouseX, mouseY);
+                GuiPlayerRenderer playerRenderer = new GuiPlayerRenderer();
+
+                playerRenderer.extractRenderState(graphics, width / 2 + 170, height / 4 + 132, avatarScale, mouseX, mouseY);
             }
         }
     }

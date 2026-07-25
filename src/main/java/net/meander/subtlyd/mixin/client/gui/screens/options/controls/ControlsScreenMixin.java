@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.screens.CommandMacrosScreen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.Button;
@@ -35,7 +36,7 @@ public class ControlsScreenMixin {
         ControlsScreen screen = (ControlsScreen) (Object) this;
 
         if (screen.list != null) {
-            screen.list.addSmall(Collections.singletonList(Button.builder(Component.translatable("options.command_macros"), _ -> screen.minecraft.setScreenAndShow(new CommandMacrosScreen(screen))).build()));
+            screen.list.addSmall(Collections.singletonList(Button.builder(Component.translatable("options.command_macros"), _ -> Minecraft.getInstance().setScreenAndShow(new CommandMacrosScreen(screen))).build()));
         }
     }
 }

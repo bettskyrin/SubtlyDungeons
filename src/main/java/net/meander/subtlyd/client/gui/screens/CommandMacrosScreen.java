@@ -21,6 +21,7 @@ import java.util.List;
 public class CommandMacrosScreen extends Screen {
     private final Screen lastScreen;
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
+    private final Minecraft minecraft = Minecraft.getInstance();
     private MacroList list;
 
     public CommandMacrosScreen(Screen lastScreen) {

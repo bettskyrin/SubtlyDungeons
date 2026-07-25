@@ -13,7 +13,6 @@ public class CameraShake {
     private static int totalDuration = 0;
     private static int remainingDuration = 0;
     private static float intensity = 0.0F;
-    private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static void tick() {
         if (remainingDuration > 0.0F) {
@@ -76,7 +75,7 @@ public class CameraShake {
      * @param source The source of the camera shake event.
      */
     public static void shakeScreenFromSource(final SoundEvent soundEvent, final Vec3 source, float modifier) {
-        Entity player = minecraft.getCameraEntity();
+        Entity player = Minecraft.getInstance().getCameraEntity();
 
         if (player != null && !player.isSpectator() && player.level().isClientSide()) {
             Vec3 sourcePos = new Vec3(source.x, source.y, source.z);

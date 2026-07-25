@@ -61,7 +61,7 @@ public abstract class LivingEntitySD extends LivingEntity {
      * @return The speed multiplier for that animal type when it panics.
      */
     public static double getPanicSpeed(PathfinderMob mob) {
-        for (WrappedGoal wrappedGoal : mob.goalSelector.getAvailableGoals()) {
+        for (WrappedGoal wrappedGoal : mob.getGoalSelector().getAvailableGoals()) {
             if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
                 return panicGoal.speedModifier;
             }

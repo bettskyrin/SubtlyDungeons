@@ -4,6 +4,7 @@ import com.mojang.datafixers.util.Pair;
 import net.meander.subtlyd.client.gui.components.RatioSliderButton;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.util.UtilSD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -38,6 +39,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private final double initialBiome;
     private final double initialErosion;
     private final Screen lastScreen;
+    private final Minecraft minecraft = Minecraft.getInstance();
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
     private SliderList list;
     private AbstractSliderButton continentSlider;
