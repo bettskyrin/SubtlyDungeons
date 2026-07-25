@@ -56,6 +56,8 @@ transitive-accessible method net/minecraft/world/entity/Entity playStepSound (Ln
 transitive-accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/EntityType$Builder;)Lnet/minecraft/world/entity/EntityType;
 transitive-accessible field net/minecraft/world/entity/player/Player sleepCounter I
 transitive-accessible field net/minecraft/world/entity/ai/goal/RandomStrollGoal checkNoActionTime Z
+transitive-accessible field net/minecraft/world/entity/ai/goal/MoveToBlockGoal verticalSearchRange I
+transitive-accessible field net/minecraft/world/entity/ai/goal/MoveToBlockGoal searchRange I
 
 ## Server
 transitive-accessible class net/minecraft/server/level/ChunkMap$TrackedEntity

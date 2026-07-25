@@ -11,7 +11,7 @@ public interface MobSD {
 
     default void setHuntingCooldownTicks(long time) {}
 
-     default boolean canStroll() {
+     default boolean canStroll() { // TODO
         return (Mob) this instanceof PathfinderMob mob
                 && ((mob instanceof TamableAnimal tamable && tamable.shouldNotFollowOwner()) || !(mob instanceof TamableAnimal))
                 && !mob.hasControllingPassenger()

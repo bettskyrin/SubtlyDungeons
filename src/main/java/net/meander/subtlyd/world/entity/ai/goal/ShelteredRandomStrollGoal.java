@@ -14,11 +14,7 @@ public class ShelteredRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
 
     @Override
     protected @Nullable Vec3 getPosition() {
-        return mob.getRandom().nextFloat() >= probability ? ShelteredRandomPos.getNearPos(mob, 10, 7, GoalUtilsSD::isSheltered) : super.getPosition();
-    }
-
-    public boolean canUseAnyTime() {
-        return mob.canStroll() && GoalUtilsSD.isSheltered(mob, mob.blockPosition());
+        return mob.getRandom().nextFloat() >= probability ? ShelteredRandomPos.getNearPos(mob, 8, 2, GoalUtilsSD::isMobSheltering) : super.getPosition();
     }
 
     @Override
@@ -32,7 +28,7 @@ public class ShelteredRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
                 wantedZ = pos.z();
                 forceTrigger = false;
 
-                return canUseAnyTime();
+                return GoalUtilsSD.isMobSheltering(mob, mob.blockPosition());
             }
         }
 

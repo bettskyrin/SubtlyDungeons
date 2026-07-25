@@ -1,15 +1,10 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.ai.util.GoalUtilsSD;
-import net.meander.subtlyd.world.entity.ai.util.ShelteredRandomPos;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.entity.animal.TemperatureVariants;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.phys.Vec3;
 
 public class SeekShadeGoal extends MoveToBlockGoal {
     protected final PathfinderMob mob;
@@ -20,43 +15,37 @@ public class SeekShadeGoal extends MoveToBlockGoal {
         this.mob = mob;
     }
 
-    private boolean shouldSeekShade() {
-        Identifier climate = mob.level().getClimateAsTemperatureVariant(mob.blockPosition());
-
-        return GoalUtilsSD.needsShade(mob) && climate == TemperatureVariants.WARM;
-    }
-
     @Override
     public boolean canUse() {
-        return shouldSeekShade() & super.canUse();
-    }
-
-    @Override
-    public boolean canContinueToUse() {
-        if (mob.canStroll()) {
-            return super.canContinueToUse();
-        }
-
-        return false;
+        return GoalUtilsSD.needsShade(mob) && !GoalUtilsSD.isShadedPos(mob.level(), mob.blockPosition()) && super.canUse();
     }
 
     @Override
     protected boolean isValidTarget(LevelReader levelReader, BlockPos pos) {
-        Level level = mob.level();
-
-        return !level.canSeeSky(pos) && !level.isRaining();
+        return GoalUtilsSD.isShadedPos(mob.level(), mob.blockPosition());
     }
 
     @Override
     protected boolean findNearestBlock() {
-        Vec3 pos = ShelteredRandomPos.getNearPos(mob, 16, 4, GoalUtilsSD::isSheltered);
+        BlockPos mobPos = mob.blockPosition();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-        if (pos != null) {
-            blockPos = BlockPos.containing(pos);
+        for (int y = verticalSearchStart; y <= verticalSearchRange; y = y > 0 ? -y : 1 - y) {
+            for (int r = 0; r < searchRange; r++) {
+                for (int x = 0; x <= r; x = x > 0 ? -x : 1 - x) {
+                    for (int z = x < r && x > -r ? r : 0; z <= r; z = z > 0 ? -z : 1 - z) {
+                        pos.setWithOffset(mobPos, x, y - 1, z);
 
-            return true;
+                        if (mob.isWithinHome(pos) && isValidTarget(mob.level(), pos)) {
+                            blockPos = pos;
+
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
-        return false;
+        return true;
     }
 }

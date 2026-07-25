@@ -1,13 +1,10 @@
 package net.meander.subtlyd.world.entity.ai.goal;
 
 import net.meander.subtlyd.world.entity.ai.util.GoalUtilsSD;
-import net.meander.subtlyd.world.entity.ai.util.ShelteredRandomPos;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.phys.Vec3;
 
 public class SeekShelterGoal extends MoveToBlockGoal {
     protected final PathfinderMob mob;
@@ -18,39 +15,38 @@ public class SeekShelterGoal extends MoveToBlockGoal {
         this.mob = mob;
     }
 
-    private boolean shouldFindShelter() {
-        return mob.level().isRainingAt(mob.blockPosition()) && GoalUtilsSD.needsShelterFromRain(mob);
-    }
-
     @Override
     public boolean canUse() {
-        return shouldFindShelter() && super.canUse();
+        return GoalUtilsSD.needsRainShelter(mob) && !GoalUtilsSD.isRainShelteredPos(mob.level(), mob.blockPosition()) && super.canUse();
     }
 
-    @Override
-    public boolean canContinueToUse() {
-        if (mob.canStroll()) {
-            return super.canContinueToUse();
-        }
 
-        return false;
+    @Override
+    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
+        return GoalUtilsSD.isRainShelteredPos(mob.level(), pos);
     }
 
     @Override
     protected boolean findNearestBlock() {
-        Vec3 pos = ShelteredRandomPos.getNearPos(mob, 16, 4, GoalUtilsSD::isSheltered);
+        BlockPos mobPos = mob.blockPosition();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
-        if (pos != null) {
-            blockPos = BlockPos.containing(pos);
+        for (int y = verticalSearchStart; y <= verticalSearchRange; y = y > 0 ? -y : 1 - y) {
+            for (int r = 0; r < searchRange; r++) {
+                for (int x = 0; x <= r; x = x > 0 ? -x : 1 - x) {
+                    for (int z = x < r && x > -r ? r : 0; z <= r; z = z > 0 ? -z : 1 - z) {
+                        pos.setWithOffset(mobPos, x, y - 1, z);
 
-            return true;
+                        if (mob.isWithinHome(pos) && isValidTarget(mob.level(), pos)) {
+                            blockPos = pos;
+
+                            return true;
+                        }
+                    }
+                }
+            }
         }
 
-        return false;
-    }
-
-    @Override
-    protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-        return !((Level) level).isRainingAt(pos) && level.getBlockState(pos).isSolidRender();
+        return true;
     }
 }

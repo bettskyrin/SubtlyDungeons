@@ -17,10 +17,11 @@ import net.minecraft.world.entity.LivingEntity;
 public interface LevelSD {
     default Identifier getClimateAsTemperatureVariant(BlockPos pos) {
         Level level = (Level) this;
+        Biome biome = level.getBiome(pos).value();
 
-        if (level.precipitationAt(pos) == Biome.Precipitation.SNOW || level.getBiome(pos).value().coldEnoughToSnow(pos, level.getSeaLevel())) {
+        if (biome.coldEnoughToSnow(pos, level.getSeaLevel())) {
             return TemperatureVariants.COLD;
-        } else if (level.getBiome(pos).value().getBaseTemperature() >= 2.0F) {
+        } else if (biome.getBaseTemperature() >= 2.0F) {
             if (level.isDarkOutside() || level.isWaterAt(pos) || level.isRainingAt(pos)) {
                 return TemperatureVariants.TEMPERATE;
             }
