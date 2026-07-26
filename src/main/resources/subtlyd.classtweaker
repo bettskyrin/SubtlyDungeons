@@ -48,7 +48,6 @@ transitive-accessible field net/minecraft/world/entity/ai/goal/target/TargetGoal
 transitive-accessible method net/minecraft/world/entity/Entity playStepSound (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 transitive-accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/EntityType$Builder;)Lnet/minecraft/world/entity/EntityType;
 transitive-accessible field net/minecraft/world/entity/player/Player sleepCounter I # FIXME Tent Bug
-transitive-accessible field net/minecraft/world/entity/ai/goal/RandomStrollGoal checkNoActionTime Z
 
 ## Level Generation
 transitive-accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
@@ -76,8 +75,15 @@ transitive-accessible method net/minecraft/core/component/DataComponents registe
 transitive-accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
 
 # Interface Injection
-transitive-inject-interface net/minecraft/world/entity/Mob  net/meander/subtlyd/world/entity/MobSD
-transitive-inject-interface net/minecraft/world/level/Level  net/meander/subtlyd/world/level/LevelSD
+## Entities
+transitive-inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD
+transitive-inject-interface net/minecraft/world/entity/LivingEntity net/meander/subtlyd/world/entity/LivingEntitySD # TODO
 transitive-inject-interface net/minecraft/world/entity/TamableAnimal  net/meander/subtlyd/world/entity/TamableAnimalSD
-transitive-inject-interface net/minecraft/world/level/block/state/properties/BlockStateProperties  net/meander/subtlyd/world/level/block/state/properties/BlockStatePropertiesSD
-transitive-inject-interface net/minecraft/world/item/ItemStack  net/meander/subtlyd/world/item/ItemStackSD
+transitive-inject-interface net/minecraft/world/entity/player/Player net/meander/subtlyd/world/entity/player/PlayerSD
+transitive-inject-interface net/minecraft/server/level/ServerPlayer net/meander/subtlyd/server/level/ServerPlayerSD
+transitive-inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD
+
+## World
+transitive-inject-interface net/minecraft/world/level/Level net/meander/subtlyd/world/level/LevelSD
+transitive-inject-interface net/minecraft/world/level/block/state/properties/BlockStateProperties net/meander/subtlyd/world/level/block/state/properties/BlockStatePropertiesSD
+transitive-inject-interface net/minecraft/world/item/ItemStack net/meander/subtlyd/world/item/ItemStackSD

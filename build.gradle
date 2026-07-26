@@ -76,8 +76,8 @@ tasks.withType(AbstractCopyTask).configureEach {
 
 tasks.named('runDatagen') {
     doFirst {
-        def generatedDir = file('src/main/generated')
-
-        delete generatedDir
+        delete file('build/resources/main/data/subtlyd')
+        delete file('build/resources/main/assets/subtlyd')
+        delete file('src/main/generated')
     }
 }

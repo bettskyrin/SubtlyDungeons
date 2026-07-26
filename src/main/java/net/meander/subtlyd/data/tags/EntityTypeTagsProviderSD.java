@@ -18,7 +18,7 @@ public class EntityTypeTagsProviderSD extends FabricTagsProvider.EntityTypeTagsP
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        tag(EntityTypeTagsSD.CAN_BE_SCARED)
+        tag(EntityTypeTagsSD.PANICS_WITH_FLOCK)
                 .add(EntityTypeIds.COW)
                 .add(EntityTypeIds.MOOSHROOM)
                 .add(EntityTypeIds.PIG)

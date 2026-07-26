@@ -1,8 +1,8 @@
 package net.meander.subtlyd.world.entity;
 
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.ai.goal.PanicGoal;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
 
 public interface MobSD {
     default long getHuntingCooldownTicks() {
@@ -11,10 +11,15 @@ public interface MobSD {
 
     default void setHuntingCooldownTicks(long time) {}
 
-     default boolean canStroll() { // TODO
-        return (Mob) this instanceof PathfinderMob mob
-                && ((mob instanceof TamableAnimal tamable && tamable.shouldNotFollowOwner()) || !(mob instanceof TamableAnimal))
-                && !mob.hasControllingPassenger()
-                && mob.getTarget() == null;
+    default double getPanicSpeed() {
+        if (this instanceof Mob mob) {
+            for (WrappedGoal wrappedGoal : mob.getGoalSelector().getAvailableGoals()) {
+                if (wrappedGoal.getGoal() instanceof PanicGoal panicGoal) {
+                    return panicGoal.speedModifier;
+                }
+            }
+        }
+
+        return 1.25;
     }
 }

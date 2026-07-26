@@ -12,6 +12,7 @@ import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
+import net.meander.subtlyd.world.entity.ai.goal.PanicWithFlockGoal;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
@@ -35,8 +36,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.util.DefaultRandomPos;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.spider.Spider;
@@ -60,7 +59,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity {
+public abstract class LivingEntityMixin extends Entity implements LivingEntitySD {
     private boolean wasAttackBlocked = false;
     private boolean wasOnWall = false;
 
@@ -76,45 +75,24 @@ public abstract class LivingEntityMixin extends Entity {
         return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(level, victim) < 1;
     }
 
-    /**
-     * Broadcasts that an animal was attacked, and that any nearby animals should flee.
-     * @param victim The animal being attacked.
-     * @param attacker The attacking entity.
-     */
-    private void shareFlockPanic(LivingEntity victim, LivingEntity attacker) {
-        final double radius = 16.0F;
-        AABB flockRange = victim.getBoundingBox().inflate(radius);
-        List<? extends LivingEntity> flock = victim.level().getEntitiesOfClass(Animal.class, flockRange);
-
-        for (LivingEntity animal : flock) {
-            if (animal.is(EntityTypeTagsSD.CAN_BE_SCARED) && animal != victim && !animal.isAlliedTo(attacker)) {
-                if (animal instanceof PathfinderMob mob) {
-                    Vec3 attackerPos = attacker.position();
-                    Vec3 pos = DefaultRandomPos.getPosAway(mob, 16, 4, attackerPos);
-                    int tries = 0;
-
-                    while (tries < 10 && (pos == null || (pos.x() == mob.getX() && pos.z() == mob.getZ()))) {
-                        pos = DefaultRandomPos.getPosAway(mob, 16, 4, attackerPos);
-
-                        tries++;
-                    }
-
-                    if (pos != null) {
-                        mob.getNavigation().moveTo(pos.x(), pos.y(), pos.z(), LivingEntitySD.getPanicSpeed(mob));
-                    }
-                }
-            }
-        }
-    }
-
     @Inject(method = "hurtServer", at = @At("RETURN"))
-    private void panicFromDamage(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
-        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
-            LivingEntity livingEntity = (LivingEntity) (Object) this;
+    private void broadcastFlockPanic(ServerLevel level, DamageSource source, float damage, CallbackInfoReturnable<Boolean> cir) {
+        if (cir.getReturnValue() && level.getGameRules().get(GameRulesSD.ADVANCED_MOBS) && source.is(DamageTypeTagsSD.CAUSES_FLOCK_PANIC)) {
+            if (((Object) this) instanceof PathfinderMob hurtMob) {
+                AABB searchArea = hurtMob.getBoundingBox().inflate(16.0);
+                List<PathfinderMob> flock = level.getEntitiesOfClass(PathfinderMob.class, searchArea);
+                Entity danger = source.getEntity();
 
-            if (cir.getReturnValue() && livingEntity.is(EntityTypeTagsSD.CAN_BE_SCARED)) {
-                if (source.is(DamageTypeTagsSD.CAUSES_FLOCK_PANIC) && source.getEntity() instanceof LivingEntity attacker) {
-                    shareFlockPanic(livingEntity, attacker);
+                if (danger != null)  {
+                    for (PathfinderMob flockMob : flock) {
+                        if (!flockMob.isAlliedTo(danger)) {
+                            flockMob.getGoalSelector().getAvailableGoals().forEach(wrappedGoal -> {
+                                if (wrappedGoal.getGoal() instanceof PanicWithFlockGoal panicGoal) {
+                                    panicGoal.triggerFlockPanic(danger);
+                                }
+                            });
+                        }
+                    }
                 }
             }
         }
@@ -130,6 +108,7 @@ public abstract class LivingEntityMixin extends Entity {
                 return new DamageSource(damageType, cloud, source.getEntity());
             }
         }
+
         return source;
     }
 
@@ -340,6 +319,7 @@ public abstract class LivingEntityMixin extends Entity {
                 }
             }
         }
+
         return damage;
     }
 
@@ -375,6 +355,7 @@ public abstract class LivingEntityMixin extends Entity {
 
             power *= 1.0 - reduction;
         }
+
         return power;
     }
 
@@ -462,6 +443,7 @@ public abstract class LivingEntityMixin extends Entity {
             if (stunSeconds == 0.0F) {
                 stunSeconds = 1.6F;
             }
+
             stunSeconds += (cleavingLevel * 0.5F);
         }
 

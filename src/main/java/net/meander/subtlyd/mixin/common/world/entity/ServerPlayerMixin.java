@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
+import net.meander.subtlyd.server.level.ServerPlayerSD;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.state.BlockState;

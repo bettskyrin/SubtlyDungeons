@@ -19,19 +19,6 @@ public class ShelteredRandomStrollGoal extends WaterAvoidingRandomStrollGoal {
 
     @Override
     public boolean canUse() {
-        if (forceTrigger || (!checkNoActionTime || mob.getNoActionTime() < 100) && mob.getRandom().nextInt(reducedTickDelay(interval)) == 0) {
-            Vec3 pos = getPosition();
-
-            if (pos != null) {
-                wantedX = pos.x();
-                wantedY = pos.y();
-                wantedZ = pos.z();
-                forceTrigger = false;
-
-                return GoalUtilsSD.isMobSheltering(mob, mob.blockPosition());
-            }
-        }
-
-        return false;
+        return GoalUtilsSD.isMobSheltering(mob, mob.blockPosition()) && super.canUse();
     }
 }

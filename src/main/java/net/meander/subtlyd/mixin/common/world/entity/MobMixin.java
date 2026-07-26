@@ -8,10 +8,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
-import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
-import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
 import net.minecraft.world.entity.animal.Animal;
@@ -45,13 +42,13 @@ public abstract class MobMixin implements MobSD {
         huntingCooldown = time;
     }
 
-    private int getGoalPriority(PathfinderMob mob) {
+    private int getGoalPriority(PathfinderMob mob, Class<? extends Goal> goalClass) {
         Optional<Integer> priority = Optional.empty();
 
         for (WrappedGoal wrappedGoal : mob.getGoalSelector().getAvailableGoals()) {
             Goal goal = wrappedGoal.getGoal();
 
-            if (goal instanceof RandomStrollGoal) {
+            if (goal.getClass() == goalClass) {
                 priority = Optional.of(Mth.clamp(priority.orElse(64) - 1, 0, wrappedGoal.getPriority()));
             }
         }
@@ -62,25 +59,26 @@ public abstract class MobMixin implements MobSD {
     @Inject(method = "<init>", at = @At("TAIL"))
     private void addEnvironmentGoals(EntityType<?> type, Level level, CallbackInfo ci) {
         if (((Object) this) instanceof PathfinderMob mob) {
-            if (mob.is(EntityTypeTagsSD.SEEKS_WARMTH)) {
-                int priority = getGoalPriority(mob);
+            int panicPrio = getGoalPriority(mob, PanicGoal.class);
+            int strollPrio = getGoalPriority(mob, RandomStrollGoal.class);
 
-                getGoalSelector().addGoal(Math.max(priority - 1, 0), new SeekWarmthGoal(mob, 1.0));
-                getGoalSelector().addGoal(getGoalPriority(mob), new ShelteredRandomStrollGoal(mob, 1.0));
+            if (mob.is(EntityTypeTagsSD.PANICS_WITH_FLOCK)) {
+                getGoalSelector().addGoal(Math.max(panicPrio, 0), new PanicWithFlockGoal(mob, mob.getPanicSpeed()));
+            }
+
+            if (mob.is(EntityTypeTagsSD.SEEKS_WARMTH)) {
+                getGoalSelector().addGoal(Math.max(strollPrio - 1, 0), new MoveToWarmthGoal(mob, 1.0));
+                getGoalSelector().addGoal(strollPrio, new ShelteredRandomStrollGoal(mob, 1.0));
             }
 
             if (mob.is(EntityTypeTagsSD.SEEKS_SHELTER)) {
-                int priority = getGoalPriority(mob);
-
-                getGoalSelector().addGoal(Math.max(priority - 1, 0) , new SeekShelterGoal(mob, 1.0));
-                getGoalSelector().addGoal(getGoalPriority(mob), new ShelteredRandomStrollGoal(mob, 1.0));
+                getGoalSelector().addGoal(Math.max(strollPrio - 1, 0) , new MoveToShelterGoal(mob, 1.0));
+                getGoalSelector().addGoal(strollPrio, new ShelteredRandomStrollGoal(mob, 1.0));
             }
 
             if (mob.is(EntityTypeTagsSD.SEEKS_SHADE)) {
-                int priority = getGoalPriority(mob);
-
-                getGoalSelector().addGoal(Math.max(priority - 1, 0), new SeekShadeGoal(mob, 1.0));
-                getGoalSelector().addGoal(getGoalPriority(mob), new ShelteredRandomStrollGoal(mob, 1.0));
+                getGoalSelector().addGoal(Math.max(strollPrio - 1, 0), new MoveToShadeGoal(mob, 1.0));
+                getGoalSelector().addGoal(strollPrio, new ShelteredRandomStrollGoal(mob, 1.0));
             }
         }
     }

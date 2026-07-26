@@ -9,7 +9,7 @@ import net.minecraft.world.entity.EntityType;
  * @see net.minecraft.tags.EntityTypeTags
  */
 public class EntityTypeTagsSD {
-    public static final TagKey<EntityType<?>> CAN_BE_SCARED = create("can_be_scared");
+    public static final TagKey<EntityType<?>> PANICS_WITH_FLOCK = create("panics_with_flock");
     public static final TagKey<EntityType<?>> SEEKS_SHELTER = create("seeks_shelter");
     public static final TagKey<EntityType<?>> SEEKS_WARMTH = create("seek_warmth");
     public static final TagKey<EntityType<?>> SEEKS_SHADE = create("seek_shade");
