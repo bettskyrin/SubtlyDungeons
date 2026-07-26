@@ -30,6 +30,43 @@ import java.util.Optional;
 @SuppressWarnings("DataFlowIssue")
 @Mixin(Raider.class)
 public class RaiderMixin {
+    /**
+     * Gives pillager captains a 3-minute resistance boost based on raid difficulty level.
+     */
+    private void setBoost(final DifficultyInstance difficulty) {
+        final Raider raider = (Raider) (Object) this;
+
+        if (raider.isCaptain() && getRaidDifficulty(difficulty) >= 4) {
+            raider.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 3600, getCaptainBonus(difficulty)));
+        }
+    }
+
+    /**
+     * Determines the pillager captain resistance boost level.
+     * @return The level of resistance to grant
+     */
+    private int getCaptainBonus(final DifficultyInstance difficulty) {
+        if (getRaidDifficulty(difficulty) >= 7) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    /**
+     * Calculates the raid difficulty level with the formula: Level difficulty + Raid Omen Level + Raid wave
+     * @return The raid difficulty level
+     */
+    private int getRaidDifficulty(final DifficultyInstance difficulty) {
+        final Raider raider = (Raider) (Object) this;
+
+        if (raider.hasActiveRaid()) {
+            return difficulty.getDifficulty().getId() + raider.getCurrentRaid().getRaidOmenLevel() + raider.getWave();
+        }
+
+        return 0;
+    }
+
     @Inject(method = "finalizeSpawn", at = @At("RETURN"))
     private void finalizeSpawn(final ServerLevelAccessor level, final DifficultyInstance difficulty, final EntitySpawnReason spawnReason, final @Nullable SpawnGroupData groupData, CallbackInfoReturnable<Object> cir) {
         spawnArsonistRaiders(level, difficulty);
@@ -69,42 +106,5 @@ public class RaiderMixin {
     @Inject(method = "pickUpItem", at = @At("RETURN"))
     private void pickUpItem(ServerLevel level, ItemEntity entity, CallbackInfo ci) {
         setBoost(level.getCurrentDifficultyAt(entity.blockPosition()));
-    }
-
-    /**
-     * Gives pillager captains a 3-minute resistance boost based on raid difficulty level.
-     */
-    private void setBoost(final DifficultyInstance difficulty) {
-        final Raider raider = (Raider) (Object) this;
-
-        if (raider.isCaptain() && getRaidDifficulty(difficulty) >= 4) {
-            raider.addEffect(new MobEffectInstance(MobEffects.RESISTANCE, 3600, getCaptainBonus(difficulty)));
-        }
-    }
-
-    /**
-     * Determines the pillager captain resistance boost level.
-     * @return The level of resistance to grant
-     */
-    private int getCaptainBonus(final DifficultyInstance difficulty) {
-        if (getRaidDifficulty(difficulty) >= 7) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    /**
-     * Calculates the raid difficulty level with the formula: Level difficulty + Raid Omen Level + Raid wave
-     * @return The raid difficulty level
-     */
-    private int getRaidDifficulty(final DifficultyInstance difficulty) {
-        final Raider raider = (Raider) (Object) this;
-
-        if (raider.hasActiveRaid()) {
-            return difficulty.getDifficulty().getId() + raider.getCurrentRaid().getRaidOmenLevel() + raider.getWave();
-        }
-
-        return 0;
     }
 }
