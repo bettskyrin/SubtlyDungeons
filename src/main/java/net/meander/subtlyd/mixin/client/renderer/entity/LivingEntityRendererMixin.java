@@ -119,16 +119,16 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             float zOffset;
 
             if (!stateSD.isJockey()) {
-                yOffset = 0.6F * progress;
+                yOffset = boundingBoxHeight * 0.5F * progress;
                 zOffset = ((-1.06F * boundingBoxHeight + 0.2F) * 0.25F) * progress; // Linear function to prevent cave spiders from clipping into walls.
             } else {
-                yOffset = 0;
+                yOffset = progress;
                 zOffset = -1.25F * progress;
             }
 
             poseStack.translate(0, yOffset, zOffset);
             poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
-            poseStack.mulPose(Axis.YP.rotationDegrees(stateSD.getClimbYaw() * progress)); // TODO Smooth & Downward crawling
+            poseStack.mulPose(Axis.YP.rotationDegrees(stateSD.getClimbYaw() * progress));
         }
     }
 }

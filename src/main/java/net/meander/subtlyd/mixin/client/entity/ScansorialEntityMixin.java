@@ -24,43 +24,12 @@ public class ScansorialEntityMixin implements ScansorialEntity {
     private float progNew;
     private float rotOld;
     private float rotNew;
-    private double yOld;
-
-    @Inject(method = "tick", at = @At("TAIL"))
-    private void tickClimbingAnimation(CallbackInfo ci) {
-        if (OptionsSD.advancedEntityAnimations().get()) {
-            LivingEntity livingEntity = (LivingEntity) (Object) this;
-
-            Direction nearestWall = EntitySD.getNearestWallDirection(livingEntity);
-            boolean isTouchingWall = nearestWall != null;
-            float targetRoll = isTouchingWall ? nearestWall.toYRot() : livingEntity.getYRot();
-
-            progOld = progNew;
-
-            if (isChangingHeight(livingEntity)) {
-                progNew = Math.min(1.0F, progNew + ANIM_RATE);
-
-                if (isChangingHeight(livingEntity)) {
-                    float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
-                    float animationSpeed = ySpeed * SPEED_MULTIPLIER;
-
-                    livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
-                    playClimbSound(livingEntity);
-                }
-
-            } else {
-                progNew = Math.max(0.0F, progNew - ANIM_RATE);
-            }
-            yOld = livingEntity.getY();
-            tickAndLerpRoll(targetRoll);
-        }
-    }
 
     private void playClimbSound(LivingEntity livingEntity) {
         if (livingEntity.tickCount % 8 == 0) {
             Vec3 vel = livingEntity.getDeltaMovement();
 
-            if (isChangingHeight(livingEntity) || (!(livingEntity instanceof Spider) && (livingEntity.onGround() && vel.length() > 0))) {
+            if (isClimbingUpward() || (!(livingEntity instanceof Spider) && (livingEntity.onGround() && vel.length() > 0))) {
                 BlockPos pos = livingEntity.blockPosition();
 
                 livingEntity.playStepSound(pos, livingEntity.level().getBlockState(pos.offset(livingEntity.getDirection().getUnitVec3i())));
@@ -68,8 +37,38 @@ public class ScansorialEntityMixin implements ScansorialEntity {
         }
     }
 
-    public boolean isChangingHeight(LivingEntity livingEntity) {
-        return livingEntity.getY() != yOld;
+    public boolean isClimbingUpward() {
+        LivingEntity livingEntity = (LivingEntity) (Object) this;
+
+        return livingEntity.getDeltaMovement().y() > 0;
+    }
+
+    private void tickClimbingAnimation() {
+        if (OptionsSD.advancedEntityAnimations().get()) {
+            LivingEntity livingEntity = (LivingEntity) (Object) this;
+
+            Direction nearestWall = EntitySD.getNearestWallDirection(livingEntity);
+            float targetRoll = nearestWall != null ? nearestWall.toYRot() : livingEntity.getYRot();
+            progOld = progNew;
+
+            if (isClimbingUpward() && nearestWall != null) {
+                float ySpeed = Mth.abs((float) livingEntity.getDeltaMovement().y());
+                float animationSpeed = ySpeed * SPEED_MULTIPLIER;
+                progNew = Math.min(1.0F, progNew + ANIM_RATE);
+
+                livingEntity.walkAnimation.update(animationSpeed, 0.4F, 1.0F);
+                playClimbSound(livingEntity);
+            } else {
+                progNew = Math.max(0.0F, progNew - ANIM_RATE);
+            }
+
+            tickAndLerpRoll(targetRoll);
+        }
+    }
+
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void tick(CallbackInfo ci) {
+        tickClimbingAnimation();
     }
 
     @Override
