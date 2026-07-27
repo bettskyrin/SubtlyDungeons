@@ -17,16 +17,18 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.PlayerModelPart;
 import net.minecraft.world.entity.player.PlayerSkin;
 
-
-public class GuiPlayerRenderer {
+/**
+ * @see AvatarRenderer
+ */
+public class GuiAvatarRenderer {
     public final PlayerSkin skin;
     private final Options options = Minecraft.getInstance().options;
 
-    public GuiPlayerRenderer() {
+    public GuiAvatarRenderer() {
         this(Minecraft.getInstance().getGameProfile());
     }
 
-    public GuiPlayerRenderer(GameProfile profile) {
+    public GuiAvatarRenderer(GameProfile profile) {
         skin = Minecraft.getInstance().getSkinManager().createLookup(profile, false).get();
     }
 

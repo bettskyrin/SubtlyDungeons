@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
 import net.meander.subtlyd.client.OptionsSD;
-import net.meander.subtlyd.client.renderer.gui.GuiPlayerRenderer;
+import net.meander.subtlyd.client.renderer.gui.GuiAvatarRenderer;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
@@ -88,7 +88,7 @@ public class TitleScreenMixin extends Screen {
             final int avatarScale = 40;
 
             if (!fading) {
-                GuiPlayerRenderer playerRenderer = new GuiPlayerRenderer();
+                GuiAvatarRenderer playerRenderer = new GuiAvatarRenderer();
 
                 playerRenderer.extractRenderState(graphics, width / 2 + 170, height / 4 + 132, avatarScale, mouseX, mouseY);
             }
