@@ -1,25 +1,17 @@
-package net.meander.subtlyd.client.entity.player;
+package net.meander.subtlyd.world.entity.player;
 
-import com.mojang.authlib.GameProfile;
 import com.mojang.datafixers.util.Either;
-import net.meander.subtlyd.world.entity.LivingEntitySD;
-import net.meander.subtlyd.world.entity.Tent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
-import net.minecraft.world.attribute.BedRule;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AbstractBedBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * @see Player
  */
 public interface PlayerSD {
-    default Either<TentSleepingProblem, Unit> startSleepInTent(BlockPos pos) { // FIXME
+    default Either<TentSleepingProblem, Unit> startSleepInTent(final BlockPos pos) {
         if (this instanceof Player player) {
             player.startSleeping(pos);
 

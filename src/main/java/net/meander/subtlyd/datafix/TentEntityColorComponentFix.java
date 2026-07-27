@@ -19,7 +19,7 @@ public class TentEntityColorComponentFix extends DataFix {
         Type<?> inputType = getInputSchema().getType(References.ENTITY);
         Type<?> outputType = getOutputSchema().getType(References.ENTITY);
 
-        return this.writeFixAndRead("TentEntityColorComponentFix", inputType, outputType, dynamic -> {
+        return writeFixAndRead("TentEntityColorComponentFix", inputType, outputType, dynamic -> {
             Optional<String> idOpt = dynamic.get("id").asString().result();
 
             if (idOpt.isPresent()) {

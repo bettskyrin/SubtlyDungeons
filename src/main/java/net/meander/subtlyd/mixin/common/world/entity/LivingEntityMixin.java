@@ -10,14 +10,15 @@ import net.meander.subtlyd.tags.DamageTypeTagsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.EntitySD;
-import net.meander.subtlyd.world.entity.LivingEntitySD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.entity.ai.goal.PanicWithFlockGoal;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.meander.subtlyd.world.item.ItemStackSD;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -47,6 +48,7 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -59,7 +61,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements LivingEntitySD {
+public abstract class LivingEntityMixin extends Entity {
     private boolean wasAttackBlocked = false;
     private boolean wasOnWall = false;
 
@@ -73,6 +75,29 @@ public abstract class LivingEntityMixin extends Entity implements LivingEntitySD
 
     public boolean canStealthAttack(ServerLevel level, final LivingEntity attacker, final LivingEntity victim) {
         return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(level, victim) < 1;
+    }
+
+    @Inject(method = "setPosToBed(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V", at = @At("HEAD"), cancellable = true)
+    private void setPosToTent(BlockState state, BlockPos bedPosition, CallbackInfo ci) {
+        if (((Object) this) instanceof Player player) {
+            Tent tent = Tent.getTent(player, true);
+
+            if (tent != null) {
+                player.setPos(tent.getX(), tent.getY() + 0.125, tent.getZ());
+                ci.cancel();
+            }
+        }
+    }
+
+    @Inject(method = "getBedOrientation", at = @At("HEAD"), cancellable = true)
+    private void getTentOrientation(CallbackInfoReturnable<Direction> cir) {
+        if (((Object) this) instanceof Player player) {
+            Tent tent = Tent.getTent(player, true);
+
+            if (tent != null) {
+                cir.setReturnValue(tent.getDirection());
+            }
+        }
     }
 
     @Inject(method = "hurtServer", at = @At("RETURN"))

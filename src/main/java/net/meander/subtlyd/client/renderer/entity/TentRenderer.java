@@ -3,10 +3,10 @@ package net.meander.subtlyd.client.renderer.entity;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.meander.subtlyd.client.model.TentModel;
-import net.meander.subtlyd.client.renderer.state.TentRenderState;
+import net.meander.subtlyd.client.model.object.tent.TentModel;
+import net.meander.subtlyd.client.renderer.entity.state.TentRenderState;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.entity.Tent;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -34,6 +34,7 @@ public class TentRenderer extends EntityRenderer<Tent, TentRenderState> implemen
 
     public TentRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context);
+
         model = new TentModel(context.bakeLayer(modelLayerLocation));
         shadowRadius = 1.8F;
     }
@@ -53,6 +54,7 @@ public class TentRenderer extends EntityRenderer<Tent, TentRenderState> implemen
     @Override
     public void extractRenderState(Tent tent, TentRenderState state, float partialTicks) {
         super.extractRenderState(tent, state, partialTicks);
+
         state.scale = 1.0F;
         state.yRot = Mth.rotLerp(partialTicks, tent.yRotO, tent.getYRot());
         state.xRot = state.getXRot(partialTicks);

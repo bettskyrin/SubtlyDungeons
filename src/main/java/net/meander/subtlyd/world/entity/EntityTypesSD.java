@@ -1,6 +1,7 @@
 package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.references.EntityTypeIdsSD;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;

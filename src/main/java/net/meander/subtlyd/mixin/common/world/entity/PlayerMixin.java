@@ -4,7 +4,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
-import net.meander.subtlyd.world.entity.Tent;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
 import net.minecraft.core.component.DataComponents;
@@ -37,29 +37,14 @@ import java.util.function.Predicate;
 public class PlayerMixin {
     private boolean wasCrouching = false;
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo ci) {
-        tickTentSleep();
-        activateShieldFromCrouch();
-    }
-
-    /**
-     * @param itemStack The item being enchanted.
-     * @param enchantmentCost The experience cost.
-     */
-    @Inject(method = "onEnchantmentPerformed", at = @At("TAIL"))
-    private void onEnchantmentPerformed(ItemStack itemStack, int enchantmentCost, CallbackInfo ci) {
-        int magicLevel = itemStack.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + Mth.ceil(enchantmentCost * 1.5);
-
-        itemStack.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
-    }
-
     private void tickTentSleep() {
         final Player player = (Player) (Object) this;
 
-        if (player.level() instanceof ServerLevel && player.level().isBrightOutside()) {
-            if (Tent.getTent(player, true) != null) {
-                player.stopSleepInBed(false, true);
+        if (player.isSleeping()) {
+            if (player.level() instanceof ServerLevel level && level.isBrightOutside()) {
+                if (Tent.getTent(player, true) != null) {
+                    player.stopSleepInBed(false, true);
+                }
             }
         }
     }
@@ -77,9 +62,27 @@ public class PlayerMixin {
                         player.stopUsingItem();
                     }
                 }
+
                 wasCrouching = isCrouching;
             }
         }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void tick(CallbackInfo ci) {
+        tickTentSleep();
+        activateShieldFromCrouch();
+    }
+
+    /**
+     * @param itemStack The item being enchanted.
+     * @param enchantmentCost The experience cost.
+     */
+    @Inject(method = "onEnchantmentPerformed", at = @At("TAIL"))
+    private void setMagicLevel(ItemStack itemStack, int enchantmentCost, CallbackInfo ci) {
+        int magicLevel = itemStack.getOrDefault(DataComponentsSD.MAGIC_LEVEL, 0) + Mth.ceil(enchantmentCost * 1.5);
+
+        itemStack.set(DataComponentsSD.MAGIC_LEVEL, magicLevel);
     }
 
     @Inject(method = "hurtServer", at = @At("HEAD"))
@@ -89,6 +92,7 @@ public class PlayerMixin {
         if (player.isUsingItem()) {
             if (source.getEntity() instanceof LivingEntity) {
                 ItemStack activeItem = player.getUseItem();
+
                 if (activeItem.has(DataComponents.FOOD) || activeItem.has(DataComponents.CONSUMABLE)) {
                     player.stopUsingItem();
                 }
@@ -131,9 +135,9 @@ public class PlayerMixin {
                 ItemStack activeArrow = contents.items().getFirst().create();
 
                 if (heldWeapon.getItem() instanceof ProjectileWeaponItem projectileWeapon) {
-                    Predicate<ItemStack> predicate = projectileWeapon.getSupportedHeldProjectiles();
+                    Predicate<ItemStack> isSupportedProjectile = projectileWeapon.getSupportedHeldProjectiles();
 
-                    if (predicate.test(activeArrow)) {
+                    if (isSupportedProjectile.test(activeArrow)) {
                         cir.setReturnValue(activeArrow);
                     }
                 }

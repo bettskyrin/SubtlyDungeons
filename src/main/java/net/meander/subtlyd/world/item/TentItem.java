@@ -1,7 +1,7 @@
 package net.meander.subtlyd.world.item;
 
 import net.meander.subtlyd.world.entity.EntityTypesSD;
-import net.meander.subtlyd.world.entity.Tent;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -31,30 +31,31 @@ public class TentItem extends Item {
         Level level = useOnContext.getLevel();
         Player player = useOnContext.getPlayer();
         ItemStack itemStack = useOnContext.getItemInHand();
-        BlockPlaceContext blockPlaceContext = new BlockPlaceContext(useOnContext);
-        BlockPos blockPos = blockPlaceContext.getClickedPos();
-        Direction direction = useOnContext.getClickedFace();
-        Vec3 vec3 = Vec3.atBottomCenterOf(blockPos);
-        AABB aABB = EntityTypesSD.TENT.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
+        BlockPos pos = new BlockPlaceContext(useOnContext).getClickedPos();
+        Vec3 vec3 = Vec3.atBottomCenterOf(pos);
+        AABB boundingBox = EntityTypesSD.TENT.getDimensions().makeBoundingBox(vec3.x(), vec3.y(), vec3.z());
 
-        if (direction == Direction.DOWN) {
+        if (useOnContext.getClickedFace() == Direction.DOWN) {
             return InteractionResult.FAIL;
         } else {
-            if (level.noCollision(null, aABB) && level.getEntities(null, aABB).isEmpty()) {
+            if (level.noCollision(null, boundingBox) && level.getEntities(null, boundingBox).isEmpty()) {
                 if (level instanceof ServerLevel serverLevel) {
                     PostSpawnProcessor<Tent> consumer = EntityType.createDefaultStackConfig(serverLevel, itemStack, player);
-                    Tent tent = EntityTypesSD.TENT.create(serverLevel, consumer, blockPos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
+                    Tent tent = EntityTypesSD.TENT.create(serverLevel, consumer, pos, EntitySpawnReason.SPAWN_ITEM_USE, true, true);
 
                     if (tent == null) {
                         return InteractionResult.FAIL;
                     }
-                    if (player != null){
-                        tent.setYRot(player.getYRot() + 180F);
+
+                    if (player != null) {
+                        tent.setYRot(player.getYRot() + 180.0F);
                     }
+
                     serverLevel.addFreshEntityWithPassengers(tent);
                     level.playSound(null, tent.getX(), tent.getY(), tent.getZ(), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
                     tent.gameEvent(GameEvent.ENTITY_PLACE, player);
                 }
+
                 itemStack.consume(1, player);
                 return InteractionResult.SUCCESS;
             } else {

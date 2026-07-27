@@ -1,9 +1,11 @@
-package net.meander.subtlyd.world.entity;
+package net.meander.subtlyd.world.entity.decoration;
 
 import com.mojang.serialization.Codec;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentGetter;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -32,18 +34,18 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
-import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
 public class Tent extends Entity {
-    public long lastHit;
     public boolean isOccupied;
-    private static final DyeColor DEFAULT_COLOR;
-    private static final EntityDataAccessor<DyeColor> DATA_COLOR;
+    public long lastHit;
+    private int ticksSinceLastCheck;
+    private static final DyeColor DEFAULT_COLOR = DyeColor.WHITE;
+    private static final EntityDataAccessor<DyeColor> DATA_COLOR = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.DYE_COLOR);
     private static final EntityDataAccessor<Integer> DATA_ID_HURT = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> DATA_ID_HURTDIR = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> DATA_ID_DAMAGE = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.FLOAT);
@@ -54,10 +56,6 @@ public class Tent extends Entity {
         isOccupied = false;
     }
 
-    public boolean isOccupied() {
-        return isOccupied;
-    }
-
     public DyeColor getColor() {
         return entityData.get(DATA_COLOR);
     }
@@ -66,14 +64,14 @@ public class Tent extends Entity {
         entityData.set(DATA_COLOR, color);
     }
 
-    public void dropItem(final ServerLevel level, final @Nullable Entity causedBy) {
+    public void dropItem(final ServerLevel level, final Entity causedBy) {
         playBrokenSound();
         showBreakingParticles();
 
         if (level.getGameRules().get(GameRules.ENTITY_DROPS)) {
             if (causedBy instanceof Player player) {
                 if (player.hasInfiniteMaterials()) {
-                    kill(level);
+                    discard();
                     return;
                 }
             }
@@ -85,7 +83,7 @@ public class Tent extends Entity {
             }
         }
 
-        kill(level);
+        discard();
     }
 
     @Override
@@ -94,6 +92,92 @@ public class Tent extends Entity {
         builder.define(DATA_ID_HURTDIR, 1);
         builder.define(DATA_ID_DAMAGE, 0.0F);
         builder.define(DATA_COLOR, DEFAULT_COLOR);
+    }
+
+    @Override
+    protected void readAdditionalSaveData(ValueInput input) {
+        setColor(input.read("color", DyeColor.CODEC).orElse(DEFAULT_COLOR));
+    }
+
+    @Override
+    protected void addAdditionalSaveData(ValueOutput output) {
+        output.store("color", DyeColor.CODEC, getColor());
+        output.store("DataVersionSD", Codec.INT, UtilSD.DATA_VERSION);
+    }
+
+    @Override
+    public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float f) {
+        if (isRemoved()) {
+            return false;
+        } else if (!serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && damageSource.getEntity() instanceof Mob) {
+            return false;
+        } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
+            dropItem(serverLevel, damageSource.getEntity());
+            return false;
+        } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
+            dropItem(serverLevel, damageSource.getEntity());
+            return false;
+        } else if (damageSource.is(DamageTypeTags.IS_FIRE)) {
+            if (isOnFire()) {
+                setDamage(0.15F);
+            } else {
+                igniteForSeconds(5.0F);
+            }
+            return false;
+        } else {
+            boolean sourceCanBreakTent = damageSource.is(DamageTypeTags.IS_PLAYER_ATTACK) || damageSource.is(DamageTypeTags.IS_EXPLOSION);
+            boolean sourceIsProjectile = damageSource.is(DamageTypeTags.IS_PROJECTILE);
+
+            if (!(sourceCanBreakTent || sourceIsProjectile)) {
+                return false;
+            } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
+                return false;
+            } else if (damageSource.isCreativePlayer()) {
+                dropItem(serverLevel, damageSource.getEntity());
+                return true;
+            } else {
+                long gameTime = serverLevel.getGameTime();
+
+                if (gameTime - lastHit > 5L && !sourceIsProjectile) {
+                    if (damageSource.getEntity() != null) {
+                        setHurtDir(1);
+                    }
+
+                    setHurtTime(10);
+                    setDamage(10);
+                    markHurt();
+                    serverLevel.broadcastEntityEvent(this, (byte) 32);
+                    gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
+
+                    lastHit = gameTime;
+
+                    showBreakingParticles();
+                } else {
+                    dropItem(serverLevel, damageSource.getEntity());
+                }
+
+                return true;
+            }
+        }
+    }
+
+    public boolean canSurvive() {
+        AABB boundingBox = getBoundingBox();
+        double[] cornersX = new double[]{boundingBox.maxX, boundingBox.minX};
+        double[] cornersZ = new double[]{boundingBox.maxZ, boundingBox.minZ};
+        Level level = level();
+
+        for (double cornerX : cornersX) {
+            for (double cornerZ : cornersZ) {
+                BlockPos cornerPos = BlockPos.containing(cornerX, boundingBox.minY, cornerZ).below();
+
+                if (!level.getBlockState(cornerPos).isFaceSturdy(level, cornerPos, Direction.UP)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     @Override
@@ -109,6 +193,19 @@ public class Tent extends Entity {
         if (!isRemoved()) {
             pushEntities();
         }
+
+        if (ticksSinceLastCheck++ >= 100) {
+            ticksSinceLastCheck = 0;
+
+            if (!isRemoved() && !canSurvive()) {
+                discard();
+
+                if (level() instanceof ServerLevel serverLevel) {
+                    dropItem(serverLevel, null);
+                }
+            }
+        }
+
         super.tick();
     }
 
@@ -143,142 +240,59 @@ public class Tent extends Entity {
         return entityData.get(DATA_ID_HURT);
     }
 
-    @Override
-    public boolean hurtServer(@NotNull ServerLevel serverLevel, @NotNull DamageSource damageSource, float f) {
-        if (isRemoved()) {
-            return false;
-        } else if (!serverLevel.getGameRules().get(GameRules.MOB_GRIEFING) && damageSource.getEntity() instanceof Mob) {
-            return false;
-        } else if (damageSource.is(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
-            dropItem(serverLevel, damageSource.getEntity());
-            return false;
-        } else if (damageSource.is(DamageTypeTags.IS_EXPLOSION)) {
-            dropItem(serverLevel, damageSource.getEntity());
-            return false;
-        } else if (damageSource.is(DamageTypeTags.IS_FIRE)) {
-            if (isOnFire()) {
-                setDamage(0.15F);
-            } else {
-                igniteForSeconds(5.0F);
-            }
-            return false;
-        } else {
-            boolean sourceCanBreakTent = damageSource.is(DamageTypeTags.IS_PLAYER_ATTACK) || damageSource.is(DamageTypeTags.IS_EXPLOSION);
-            boolean sourceIsProjectile = damageSource.is(DamageTypeTags.IS_PROJECTILE);
-
-            if (!(sourceCanBreakTent || sourceIsProjectile)) {
-                return false;
-            } else if (damageSource.getEntity() instanceof Player player && !player.getAbilities().mayBuild) {
-                return false;
-            } else if (damageSource.isCreativePlayer()) {
-                dropItem(serverLevel, damageSource.getEntity());
-                return true;
-            } else {
-                long time = serverLevel.getGameTime();
-
-                if (time - lastHit > 5L && !sourceIsProjectile) {
-                    if (damageSource.getEntity() != null) {
-                        setHurtDir(1);
-                    }
-                    setHurtTime(10);
-                    setDamage(10);
-                    markHurt();
-
-                    serverLevel.broadcastEntityEvent(this, (byte) 32);
-                    gameEvent(GameEvent.ENTITY_DAMAGE, damageSource.getEntity());
-                    lastHit = time;
-                    showBreakingParticles();
-                } else {
-                    dropItem(serverLevel, damageSource.getEntity());
-                }
-                return true;
-            }
-        }
-    }
-
-    public boolean canSurvive() {
-        AABB boundingBox = getBoundingBox();
-        double[] cornersX = new double[]{boundingBox.maxX, boundingBox.minX};
-        double[] cornersZ = new double[]{boundingBox.maxZ, boundingBox.minZ};
-
-        for (double cornerX : cornersX) {
-            for (double cornerZ : cornersZ) {
-                BlockPos cornerPos = BlockPos.containing(cornerX, boundingBox.minY, cornerZ).below();
-
-                if (!level().getBlockState(cornerPos).isFaceSturdy(level(), cornerPos, Direction.UP)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    @Override
-    protected void readAdditionalSaveData(ValueInput input) {
-        setColor(input.read("color", DyeColor.CODEC).orElse(DEFAULT_COLOR));
-    }
-
-    @Override
-    protected void addAdditionalSaveData(@NotNull ValueOutput output) {
-        output.store("color", DyeColor.CODEC, getColor());
-        output.store("DataVersionSD", Codec.INT, UtilSD.DATA_VERSION);
-    }
-
     protected void pushEntities() {
-        List<Entity> list = level().getPushableEntities(this, getBoundingBox());
+        List<Entity> pushableEntities = level().getPushableEntities(this, getBoundingBox());
 
-        if (!list.isEmpty()) {
-            if (level() instanceof ServerLevel serverLevel) {
-                int maxCramming = serverLevel.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
+        if (!pushableEntities.isEmpty()) {
+            if (level() instanceof ServerLevel level) {
+                int maxCramming = level.getGameRules().get(GameRules.MAX_ENTITY_CRAMMING);
 
-                if (maxCramming > 0 && list.size() > maxCramming - 1 && random.nextInt(4) == 0) {
+                if (maxCramming > 0 && pushableEntities.size() > maxCramming - 1 && random.nextInt(4) == 0) {
                     int count = 0;
 
-                    for (Entity entity : list) {
+                    for (Entity entity : pushableEntities) {
                         if (!entity.isPassenger()) {
                             count++;
                         }
                     }
 
                     if (count > maxCramming - 1) {
-                        hurtServer(serverLevel, damageSources().cramming(), 6.0F);
+                        hurtServer(level, damageSources().cramming(), 6.0F);
                     }
                 }
             }
 
-            for (Entity entity2 : list) {
-                doPush(entity2);
+            for (Entity entity : pushableEntities) {
+                entity.push(this);
             }
         }
     }
 
-    protected void doPush(Entity entity) {
-        entity.push(this);
-    }
-
     private void showBreakingParticles() {
-        if (level() instanceof ServerLevel) {
-            ((ServerLevel)level())
-                    .sendParticles(
-                            new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SPRUCE_FENCE.defaultBlockState()),
-                            getX(),
-                            getY(0.6666666666666666),
-                            getZ(),
-                            10,
-                            getBbWidth() / 4.0F,
-                            getBbHeight() / 4.0F,
-                            getBbWidth() / 4.0F,
-                            0.05
-                    );
+        if (level() instanceof ServerLevel level) {
+            level.sendParticles(
+                    new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SPRUCE_FENCE.defaultBlockState()),
+                    getX(),
+                    getY(2.0 / 3.0),
+                    getZ(),
+                    10,
+                    getBbWidth() / 4.0,
+                    getBbHeight() / 4.0,
+                    getBbWidth() / 4.0,
+                    0.05
+            );
         }
     }
 
     @Override
-    public void handleEntityEvent(byte id) {
+    public void handleEntityEvent(final @EntityEvent.Value byte id) {
         if (id == 32) {
-            if (level().isClientSide()) {
-                level().playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL_BREAK, getSoundSource(), 0.3F, 1.0F, false);
-                lastHit = level().getGameTime();
+            Level level = level();
+
+            if (level.isClientSide()) {
+                level.playLocalSound(getX(), getY(), getZ(), SoundEvents.WOOL_BREAK, getSoundSource(), 0.3F, 1.0F, false);
+
+                lastHit = level.getGameTime();
             }
         } else {
             super.handleEntityEvent(id);
@@ -291,31 +305,39 @@ public class Tent extends Entity {
      * @return Server success
      */
     @Override
-    public @NotNull InteractionResult interact(final Player player, final @NonNull InteractionHand hand, final @NonNull Vec3 location) {
-        if (!player.level().isClientSide()) {
-            ServerPlayerSD.startSleepInTent(this, (ServerPlayer) player, BedRule.CAN_SLEEP_WHEN_DARK).ifLeft(tentSleepingProblem -> {
+    public InteractionResult interact(final Player player, final InteractionHand hand, final Vec3 location) {
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.startSleepInTent(this, BedRule.CAN_SLEEP_WHEN_DARK).ifLeft(tentSleepingProblem -> {
                 if (tentSleepingProblem.message() != null) {
                     player.sendOverlayMessage(tentSleepingProblem.message());
                 }
             });
         }
+
         return InteractionResult.SUCCESS_SERVER;
     }
-
 
     /**
      * Used for testing for or getting the tent an entity (player) is using.
      * @param livingEntity The entity to check.
+     * @param isSleeping Whether the entity should be sleeping to return the tent.
      * @return The tent the entity is actively using.
      */
     public static Tent getTent(LivingEntity livingEntity, boolean isSleeping) {
-        int bB = isSleeping ? -1 : 2;
-        Tent tent = livingEntity.level().getEntitiesOfClass(Tent.class, livingEntity.getBoundingBox().inflate(bB)).stream().findFirst().orElse(null);
+        if (!isSleeping || livingEntity.isSleeping()) {
+            AABB boundingBox = livingEntity.getBoundingBox();
+            boundingBox = isSleeping ? boundingBox.deflate(0.2) : boundingBox.inflate(2);
 
-        if (isSleeping && !livingEntity.isSleeping()) {
-            return null;
+            return livingEntity.level().getEntitiesOfClass(Tent.class, boundingBox).stream().findFirst().orElse(null);
         }
-        return tent;
+        return null;
+    }
+
+    private ItemStack getTentItemStackWithData() {
+        ItemStack itemStack = new ItemStack(ItemsSD.TENT.pick(getColor()));
+
+        itemStack.set(DataComponents.CUSTOM_NAME, getCustomName());
+        return itemStack;
     }
 
     /**
@@ -326,10 +348,13 @@ public class Tent extends Entity {
     @Override
     public boolean shouldRenderAtSqrDistance(double distance) {
         double size = getBoundingBox().getSize();
-        if (Double.isNaN(size) || size == 0.0) {
+
+        if (Double.isNaN(size)) {
             size = 4.0;
         }
+
         size *= 64.0 * getViewScale();
+
         return distance < size * size;
     }
 
@@ -359,12 +384,12 @@ public class Tent extends Entity {
 
     @Override
     public <T> @Nullable T get(final DataComponentType<? extends T> type) {
-        return type == DataComponentsSD.TENT_COLOR ? castComponentValue(type, getColor()) : get(type);
+        return type == DataComponentsSD.TENT_COLOR ? castComponentValue(type, getColor()) : super.get(type);
     }
 
     @Override
     protected void applyImplicitComponents(final DataComponentGetter components) {
-        this.applyImplicitComponentIfPresent(components, DataComponentsSD.TENT_COLOR);
+        applyImplicitComponentIfPresent(components, DataComponentsSD.TENT_COLOR);
         super.applyImplicitComponents(components);
     }
 
@@ -376,17 +401,5 @@ public class Tent extends Entity {
         } else {
             return super.applyImplicitComponent(type, value);
         }
-    }
-
-    private ItemStack getTentItemStackWithData() {
-        ItemStack itemStack = new ItemStack(ItemsSD.TENT.pick(getColor()));
-
-        itemStack.set(DataComponents.CUSTOM_NAME, getCustomName());
-        return itemStack;
-    }
-
-    static {
-        DEFAULT_COLOR = DyeColor.WHITE;
-        DATA_COLOR = SynchedEntityData.defineId(Tent.class, EntityDataSerializers.DYE_COLOR);
     }
 }

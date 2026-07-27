@@ -13,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Unit;
 import net.minecraft.world.attribute.BedRule;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
@@ -26,10 +25,9 @@ public interface ServerPlayerSD {
     /**
      * Server handling for player tent sleep
      * @param tent Tent the player is attempting to sleep in
-     * @param player Player trying to sleep
      * @return Either a TentSleepingProblem or Unit if successful
      */
-    default Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(final Tent tent, final BedRule rule) { // FIXME
+    default Either<PlayerSD.TentSleepingProblem, Unit> startSleepInTent(final Tent tent, final BedRule rule) {
         if (this instanceof ServerPlayer player) {
             if (!player.isSleeping() && player.isAlive()) {
                 BlockPos pos = tent.blockPosition();
@@ -61,7 +59,7 @@ public interface ServerPlayerSD {
                     }
                 }
 
-                Either<PlayerSD.TentSleepingProblem, Unit> result = ((Player) this).startSleepInTent(tent.blockPosition()).ifRight(_ -> {
+                Either<PlayerSD.TentSleepingProblem, Unit> result = player.startSleepInTent(tent.blockPosition()).ifRight(_ -> {
                     player.awardStat(StatsSD.SLEEP_IN_TENT);
                     CriteriaTriggersSD.SLEPT_IN_TENT.trigger(player);
                 });

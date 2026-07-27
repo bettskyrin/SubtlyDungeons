@@ -47,7 +47,7 @@ transitive-accessible field net/minecraft/world/entity/ai/goal/PanicGoal speedMo
 transitive-accessible field net/minecraft/world/entity/ai/goal/target/TargetGoal mob Lnet/minecraft/world/entity/Mob;
 transitive-accessible method net/minecraft/world/entity/Entity playStepSound (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
 transitive-accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/EntityType$Builder;)Lnet/minecraft/world/entity/EntityType;
-transitive-accessible field net/minecraft/world/entity/player/Player sleepCounter I # FIXME Tent Bug
+transitive-accessible field net/minecraft/world/entity/player/Player sleepCounter I
 
 ## Level Generation
 transitive-accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
@@ -77,7 +77,6 @@ transitive-accessible method net/minecraft/core/cauldron/CauldronInteraction$Dis
 # Interface Injection
 ## Entities
 transitive-inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD
-transitive-inject-interface net/minecraft/world/entity/LivingEntity net/meander/subtlyd/world/entity/LivingEntitySD # TODO
 transitive-inject-interface net/minecraft/world/entity/TamableAnimal  net/meander/subtlyd/world/entity/TamableAnimalSD
 transitive-inject-interface net/minecraft/world/entity/player/Player net/meander/subtlyd/world/entity/player/PlayerSD
 transitive-inject-interface net/minecraft/server/level/ServerPlayer net/meander/subtlyd/server/level/ServerPlayerSD
