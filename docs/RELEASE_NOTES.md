@@ -68,3 +68,4 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 - Fixed bug causing command macro buttons to activate their primary key press action
 - Fixed bug causing sleeping in Tents to cause Minecraft to freeze
 - Fixed bug causing Tentative Accomodations to be granted to those who have yet to sleep in beds
+- Fixed bug preventing snowlogged blocks from having their snow melted
