@@ -40,6 +40,9 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		int y = origin.getY();
 		int z = origin.getZ();
 
+		List<Direction> directionsToGenerateBranches = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
+		BlockPos highBranchPos = new BlockPos(x, y + treeHeight - 1, z);
+
 		for (int dx = -1; dx <= 2; dx++) {
 			for (int dz = -1; dz <= 2; dz++) {
 				BlockPos.MutableBlockPos basePos = below.offset(dx, 0, dz).mutable();
@@ -57,44 +60,40 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		}
 
 		for (int dy = 0; dy < treeHeight; dy++) {
-			boolean isTop = (dy == treeHeight - 1);
+			boolean isTopOfTrunk = (dy == (treeHeight - 1));
 
 			for (int dx = -1; dx <= 2; dx++) {
 				for (int dz = -1; dz <= 2; dz++) {
-					if (isTop && (dx == -1 || dx == 2) && (dz == -1 || dz == 2)) { // Skip corners
-						continue;
-					}
+                    if (!isTopOfTrunk || (dx != -1 && dx != 2) || (dz != -1 && dz != 2)) { // Skip corners
+                        BlockPos pos = new BlockPos(x + dx, y + dy, z + dz);
 
-					BlockPos pos = new BlockPos(x + dx, y + dy, z + dz);
-
-					placeLog(level, trunkSetter, random, pos, tree);
-				}
+                        placeLog(level, trunkSetter, random, pos, tree);
+                    }
+                }
 			}
 		}
 
-		int topBranchY = y + treeHeight - 1;
-		List<Direction> remainingDirections = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
-		int horizontalBranch = 2;
+		while (!directionsToGenerateBranches.isEmpty()) {
+			int index = random.nextInt(directionsToGenerateBranches.size());
+			Direction direction = directionsToGenerateBranches.remove(index);
 
-		for (int i = 0; i < horizontalBranch && !remainingDirections.isEmpty(); i++) {
-			int index = random.nextInt(remainingDirections.size());
-			Direction direction = remainingDirections.remove(index);
-
-			generateHorizontalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), direction, tree, attachments);
+			if (random.nextBoolean()) {
+				generateDiagonalBranch(level, trunkSetter, random, highBranchPos, direction, tree, attachments);
+			} else {
+				generateHorizontalBranch(level, trunkSetter, random, highBranchPos, direction, tree, attachments);
+			}
 		}
 
-		while (!remainingDirections.isEmpty()) {
-			int index = random.nextInt(remainingDirections.size());
-			Direction direction = remainingDirections.remove(index);
-
-			generateDiagonalBranch(level, trunkSetter, random, new BlockPos(x, topBranchY, z), direction, tree, attachments);
-		}
-
-		if (random.nextFloat() < 0.1F) {
+		if (random.nextFloat() < 0.2F) {
 			int lowBranchY = y + 4;
 			Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
+			BlockPos lowBranchPos = new BlockPos(x, lowBranchY, z);
 
-			generateHorizontalBranch(level, trunkSetter, random, new BlockPos(x, lowBranchY, z), direction, tree, attachments);
+			if (random.nextFloat() < 0.3F) {
+				generateDiagonalBranch(level, trunkSetter, random, lowBranchPos, direction, tree, attachments);
+			} else {
+				generateHorizontalBranch(level, trunkSetter, random, lowBranchPos, direction, tree, attachments);
+			}
 		}
 
 		return attachments;
