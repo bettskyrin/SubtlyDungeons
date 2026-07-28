@@ -17,6 +17,10 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
   - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
   - Does not include wall climbing hitbox adjustments
 
+#### Splash Text
+- Added "Read the books!" splash text
+- Added "More music by C418!" splash text
+
 ### Changes
 #### Tents
 - Tents now continuously check to see if there are sturdy blocks below it
