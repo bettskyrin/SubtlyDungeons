@@ -1,7 +1,5 @@
 package net.meander.subtlyd.mixin.client.resources;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.SplashManager;
@@ -22,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Environment(EnvType.CLIENT)
 @Mixin(SplashManager.class)
 public class SplashManagerMixin {
     @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)

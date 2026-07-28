@@ -1,7 +1,5 @@
 package net.meander.subtlyd.mixin.client.gui.screens.options.controls;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.screens.CommandMacrosScreen;
 import net.minecraft.client.Minecraft;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 @Mixin(ControlsScreen.class)
 public class ControlsScreenMixin {
     @Inject(method = "options", at = @At("RETURN"), cancellable = true)

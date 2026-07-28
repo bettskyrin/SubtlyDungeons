@@ -1,7 +1,5 @@
 package net.meander.subtlyd.world.level.block.sounds;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.meander.subtlyd.tags.BlockTagsSD;
@@ -19,7 +17,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 /**
  * @see AmbientDesertBlockSoundsPlayer
  */
-@Environment(EnvType.CLIENT)
 public class AmbientAirBlockSoundsPlayer {
     private static final int IDLE_SOUND_CHANCE = 4200;
     private static final int SURROUNDING_BLOCKS_PLAY_SOUND_THRESHOLD = 3;

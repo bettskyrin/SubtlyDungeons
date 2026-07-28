@@ -1,7 +1,5 @@
 package net.meander.subtlyd.client.model.object.equipment;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -15,7 +13,6 @@ import net.minecraft.util.Unit;
 /**
  * @see net.minecraft.client.model.object.equipment.ShieldModel
  */
-@Environment(EnvType.CLIENT)
 public class HeavyShieldModel extends Model<Unit> {
 	private final ModelPart plate;
 	private final ModelPart handle;

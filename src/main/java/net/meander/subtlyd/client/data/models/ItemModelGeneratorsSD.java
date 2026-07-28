@@ -1,7 +1,5 @@
 package net.meander.subtlyd.client.data.models;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.renderer.special.HeavyShieldSpecialRenderer;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemsSD;
@@ -18,7 +16,6 @@ import net.minecraft.world.item.Item;
 /**
  * @see net.minecraft.client.data.models.ModelProvider
  */
-@Environment(EnvType.CLIENT)
 public class ItemModelGeneratorsSD  {
     private void generatePotionArchetypes(ItemModelGenerators itemModelGenerators) {
         Identifier conicalBottle = UtilSD.identifier("item/potion/conical_overlay");

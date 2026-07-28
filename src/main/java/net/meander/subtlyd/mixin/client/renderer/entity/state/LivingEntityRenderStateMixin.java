@@ -1,12 +1,9 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
 import net.meander.subtlyd.client.renderer.entity.state.LivingEntityRenderStateSD;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderState.class)
 public class LivingEntityRenderStateMixin implements LivingEntityRenderStateSD {
     private float climbProgress;

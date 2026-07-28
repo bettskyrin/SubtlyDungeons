@@ -1,8 +1,6 @@
 package net.meander.subtlyd.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
@@ -14,7 +12,6 @@ import java.util.Arrays;
 /**
  * @see net.minecraft.client.Options
  */
-@Environment(EnvType.CLIENT)
 public class OptionsSD {
     public static final Component ACCESSIBILITY_TOOLTIP_CAMERA_SHAKE = Component.translatable("options.accessibility.camera_shake.tooltip");
     public static final Component VIDEO_TOOLTIP_EXPERIMENTAL_GUI = CommonComponents.joinLines(Component.translatable("options.needsRestart"), CommonComponents.EMPTY, Component.translatable("options.experimental.gui.tooltip"));

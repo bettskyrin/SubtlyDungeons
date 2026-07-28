@@ -2,8 +2,6 @@ package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.util.UtilSD;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
@@ -31,7 +29,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.Consumer;
 
-@Environment(EnvType.CLIENT)
 @Mixin(SelectWorldScreen.class)
 public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable protected final Screen lastScreen;

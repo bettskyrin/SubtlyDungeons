@@ -1,10 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.layers;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
 import net.meander.subtlyd.util.UtilSD;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.entity.layers.DrownedOuterLayer;
 import net.minecraft.client.renderer.entity.state.ZombieRenderState;
@@ -15,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(DrownedOuterLayer.class)
 public class DrownedOuterLayerMixin {
     private static final Identifier DROWNED_OUTER_LAYER_LOCATION = Identifier.withDefaultNamespace("textures/entity/zombie/drowned_outer_layer.png");

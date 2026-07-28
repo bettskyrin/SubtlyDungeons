@@ -2,8 +2,6 @@ package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.entity.ScansorialEntity;
 import net.meander.subtlyd.client.renderer.entity.state.LivingEntityRenderStateSD;
@@ -19,7 +17,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderer.class)
 public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingEntityRenderState> {
     private static final float climbProgressThreshold = 0.0F; // Minimum amount of progress that must occur before the animation may begin

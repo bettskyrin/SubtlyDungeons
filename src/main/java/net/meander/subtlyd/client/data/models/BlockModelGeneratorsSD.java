@@ -22,7 +22,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 /**
  * @see BlockModelGenerators
  */
-@Environment(EnvType.CLIENT)
 public class BlockModelGeneratorsSD {
     /**
      * Builds a slab model from a vanilla pillar block texture.

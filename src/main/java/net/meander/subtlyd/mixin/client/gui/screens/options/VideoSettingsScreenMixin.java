@@ -1,7 +1,5 @@
 package net.meander.subtlyd.mixin.client.gui.screens.options;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
@@ -14,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 @Mixin(VideoSettingsScreen.class)
 public class VideoSettingsScreenMixin { @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
     private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {

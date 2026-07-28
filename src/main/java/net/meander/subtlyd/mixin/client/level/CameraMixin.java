@@ -1,7 +1,5 @@
 package net.meander.subtlyd.mixin.client.level;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.minecraft.client.Camera;
@@ -16,7 +14,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Environment(EnvType.CLIENT)
 @Mixin(Camera.class)
 public abstract class CameraMixin {
     @Shadow protected abstract void setRotation(float yRot, float xRot);

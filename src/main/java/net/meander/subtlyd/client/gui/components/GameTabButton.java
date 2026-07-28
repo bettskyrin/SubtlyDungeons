@@ -18,7 +18,6 @@ import org.jspecify.annotations.NonNull;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-@Environment(EnvType.CLIENT)
 public abstract class GameTabButton extends AbstractButton {
     protected static final GameTabButton.CreateNarration DEFAULT_NARRATION = Supplier::get;
     protected final GameTabButton.OnPress onPress;
@@ -85,7 +84,6 @@ public abstract class GameTabButton extends AbstractButton {
         onPress.onPress(this);
     }
 
-    @Environment(EnvType.CLIENT)
     public static class Builder {
         private final Component message;
         private final GameTabButton.OnPress onPress;
@@ -132,18 +130,15 @@ public abstract class GameTabButton extends AbstractButton {
         }
     }
 
-    @Environment(EnvType.CLIENT)
     @SuppressWarnings("unused")
     public interface CreateNarration {
         MutableComponent createNarrationMessage(Supplier<MutableComponent> supplier);
     }
 
-    @Environment(EnvType.CLIENT)
     public interface OnPress {
         void onPress(GameTabButton button);
     }
 
-    @Environment(EnvType.CLIENT)
     public static class Plain extends GameTabButton {
         private final Font font = Minecraft.getInstance().font;
 

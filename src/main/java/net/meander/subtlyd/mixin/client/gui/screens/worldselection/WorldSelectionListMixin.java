@@ -1,8 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.minecraft.client.Minecraft;
@@ -22,7 +20,6 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.nio.file.Path;
 
-@Environment(EnvType.CLIENT)
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
     private static final boolean CAN_CHANGE_UI = OptionsSD.gui().get();
@@ -30,13 +27,12 @@ public class WorldSelectionListMixin {
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
         if (CAN_CHANGE_UI) {
-            final WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
+            WorldSelectionList worldSelectionList = (WorldSelectionList) (Object) this;
 
-            cir.setReturnValue(worldSelectionList.getScreen().width - 8);
+            cir.setReturnValue((worldSelectionList).getScreen().width - 8);
         }
     }
 
-    @Environment(EnvType.CLIENT)
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         @Shadow @Final private LevelSummary summary;

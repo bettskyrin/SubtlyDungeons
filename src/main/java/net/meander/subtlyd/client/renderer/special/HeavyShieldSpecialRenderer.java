@@ -31,7 +31,6 @@ import java.util.function.Consumer;
 /**
  * @see net.minecraft.client.renderer.special.ShieldSpecialRenderer
  */
-@Environment(EnvType.CLIENT)
 public class HeavyShieldSpecialRenderer implements SpecialModelRenderer<DataComponentMap> {
     public static final Transformation DEFAULT_TRANSFORMATION = new Transformation(null, null, new Vector3f(1.0F, -1.0F, -1.0F), null);
     public static final SpriteId HEAVY_SHIELD_BASE = new SpriteId(Sheets.SHIELD_SHEET, UtilSD.identifier("entity/shield/heavy_shield_base"));
@@ -88,7 +87,6 @@ public class HeavyShieldSpecialRenderer implements SpecialModelRenderer<DataComp
         model.root().getExtentsForGui(poseStack, output);
     }
 
-    @Environment(EnvType.CLIENT)
     public record Unbaked() implements SpecialModelRenderer.Unbaked<DataComponentMap> {
         public static final HeavyShieldSpecialRenderer.Unbaked INSTANCE = new HeavyShieldSpecialRenderer.Unbaked();
         public static final MapCodec<HeavyShieldSpecialRenderer.Unbaked> MAP_CODEC = MapCodec.unit(INSTANCE);
