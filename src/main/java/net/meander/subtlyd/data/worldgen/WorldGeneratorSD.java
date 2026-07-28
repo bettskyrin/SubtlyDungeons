@@ -1,6 +1,9 @@
 package net.meander.subtlyd.data.worldgen;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -48,8 +51,6 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.ShelfMushroomDe
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -72,19 +73,15 @@ public class WorldGeneratorSD implements DataProvider {
         return datapackRoot.resolve("data").resolve(identifier.getNamespace()).resolve(registryKey.identifier().getPath()).resolve(identifier.getPath() + ".json");
     }
 
-    private static String resolveResourcePath(ResourceKey<? extends Registry<?>> registryKey, Identifier identifier) {
-        return "/data" + "/" + identifier.getNamespace() + "/" +  registryKey.identifier().getPath() + "/" + identifier.getPath() + ".json";
-    }
-
     private static String resolveRegistryPath(ResourceKey<? extends Registry<?>> registryKey) {
         return "/data" + "/" + registryKey.identifier().getNamespace() + "/" + registryKey.identifier().getPath();
     }
 
-    private static void modifyTrees(final Path root, RegistryOps<JsonElement> ops) throws Exception {
-        modifyTrees(root, ops, null, null);
+    private static void modifyTrees(final HolderLookup.Provider provider, final Path root, RegistryOps<JsonElement> ops) throws Exception {
+        modifyTrees(provider, root, ops, null, null);
     }
 
-    private static void modifyTrees(final Path root, RegistryOps<JsonElement> ops, CachedOutput cache, List<CompletableFuture<?>> futures) throws Exception {
+    private static void modifyTrees(final HolderLookup.Provider provider, final Path root, final RegistryOps<JsonElement> ops, final CachedOutput cache, List<CompletableFuture<?>> futures) throws Exception {
         final int birchBaseHeight = 7;
         final int birchRandHeightA = 2;
         final int birchRandHeightB = 1;
@@ -101,9 +98,9 @@ public class WorldGeneratorSD implements DataProvider {
         List<ResourceKey<Feature>> fallenTreeTypes = List.of(TreeFeatures.FALLEN_BIRCH_TREE, TreeFeatures.FALLEN_OAK_TREE, TreeFeatures.FALLEN_SUPER_BIRCH_TREE);
 
         for (List<ResourceKey<Feature>> treeType : treeTypes) {
-            int baseHeight = -1;
-            int randHeightA = -1;
-            int randHeightB = -1;
+            int baseHeight;
+            int randHeightA;
+            int randHeightB;
 
             if (treeType.equals(birchTrees)) {
                 baseHeight = birchBaseHeight;
@@ -117,10 +114,12 @@ public class WorldGeneratorSD implements DataProvider {
                 baseHeight = birchBaseHeight;
                 randHeightA = birchRandHeightA;
                 randHeightB = superBirchRandHeightB;
+            } else {
+                continue;
             }
 
             for (ResourceKey<Feature> feature : treeType) {
-                JsonObject storedModification = getModifiedStraightTrunkTreeFeature(ops, feature, baseHeight, randHeightA, randHeightB);
+                JsonObject storedModification = getModifiedStraightTrunkTreeFeature(provider, ops, feature, baseHeight, randHeightA, randHeightB);
                 Path outputPath = resolveResourcePath(root, Registries.FEATURE, feature.identifier());
 
                 if (cache != null && futures != null) {
@@ -133,8 +132,8 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         for (ResourceKey<Feature> fallenTreeType : fallenTreeTypes) {
-            int minLength = -1;
-            int maxLength = -1;
+            int minLength;
+            int maxLength;
 
             if (fallenTreeType.equals(TreeFeatures.FALLEN_BIRCH_TREE)) {
                 minLength = birchBaseHeight;
@@ -142,12 +141,14 @@ public class WorldGeneratorSD implements DataProvider {
             } else if (fallenTreeType.equals(TreeFeatures.FALLEN_OAK_TREE)) {
                 minLength = oakBaseHeight;
                 maxLength = oakBaseHeight + oakRandHeightA + oakRandHeightB;
-            } if (fallenTreeType.equals(TreeFeatures.FALLEN_SUPER_BIRCH_TREE)) {
+            } else if (fallenTreeType.equals(TreeFeatures.FALLEN_SUPER_BIRCH_TREE)) {
                 minLength = birchBaseHeight;
                 maxLength = birchBaseHeight + birchRandHeightA + superBirchRandHeightB;
+            } else {
+                continue;
             }
 
-            JsonObject storedModification = getModifiedFallenTreeFeature(ops, fallenTreeType.identifier(), maxLength, minLength);
+            JsonObject storedModification = getModifiedFallenTreeFeature(provider, ops, fallenTreeType, maxLength, minLength);
             Path outputPath = resolveResourcePath(root, Registries.FEATURE, fallenTreeType.identifier());
 
             if (cache != null && futures != null) {
@@ -186,52 +187,45 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     private static JsonObject buildPackMeta() {
-        int packFormat = SharedConstants.getCurrentVersion().packVersion(PackType.SERVER_DATA).major();
+        final int packFormat = SharedConstants.getCurrentVersion().packVersion(PackType.SERVER_DATA).major();
         PackMetadataSection metadata = new PackMetadataSection(Component.translatable("createWorld.tailored.pack"), new InclusiveRange<>(PackFormat.of(packFormat)));
-        JsonElement encodedMeta = PackMetadataSection.SERVER_TYPE.codec().encodeStart(JsonOps.INSTANCE, metadata).getOrThrow(IllegalStateException::new);
+
+        JsonElement encodedMetadata = PackMetadataSection.SERVER_TYPE.codec().encodeStart(JsonOps.INSTANCE, metadata).getOrThrow(IllegalStateException::new);
         JsonObject root = new JsonObject();
 
-        root.add("pack", encodedMeta);
+        root.add("pack", encodedMetadata);
         return root;
     }
 
-    private static DensityFunction scaleDensityNode(DensityFunction node, double scaler) {
+    private static DensityFunction scaleDensityNode(final DensityFunction node, final double scale) {
         if (node instanceof DensityFunctions.ShiftedNoise shiftedNoise) {
-            double newScale = MthSD.roundToTenThousandths(shiftedNoise.xzScale() / scaler);
+            double roundedScale = MthSD.roundToTenThousandths(shiftedNoise.xzScale() / scale);
 
-            return DensityFunctions.shiftedNoise2d(
-                    shiftedNoise.shiftX(),
-                    shiftedNoise.shiftZ(),
-                    newScale,
-                    shiftedNoise.noise().noiseData()
-            );
+            return DensityFunctions.shiftedNoise2d(shiftedNoise.shiftX(), shiftedNoise.shiftZ(), roundedScale, shiftedNoise.noise().noiseData());
         } else if (node instanceof DensityFunctions.Marker(DensityFunctions.Marker.Type type, DensityFunction wrapped)) {
-            DensityFunction modifiedInner = scaleDensityNode(wrapped, scaler);
+            DensityFunction scaledDensityNode = scaleDensityNode(wrapped, scale);
 
-            return new DensityFunctions.Marker(type, modifiedInner);
+            return new DensityFunctions.Marker(type, scaledDensityNode);
         }
+
         return node;
     }
 
-    private static JsonObject getModifiedSimpleDensityFunction(RegistryOps<JsonElement> ops, ResourceKey<DensityFunction> densityFunctionKey, double customScaler) throws Exception {
-        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream(resolveResourcePath(Registries.DENSITY_FUNCTION, densityFunctionKey.identifier()))) {
-            if (fileStream != null) {
-                JsonElement rootElement = JsonParser.parseReader(new InputStreamReader(fileStream));
-                DensityFunction original = DensityFunction.CODEC.parse(ops, rootElement).getOrThrow(IllegalStateException::new);
-                DensityFunction modified = scaleDensityNode(original, customScaler);
-                JsonElement newDensityFunction = DensityFunction.CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
+    private static JsonObject getModifiedSimpleDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> ops, final ResourceKey<DensityFunction> key, final double scale) {
+        HolderLookup.RegistryLookup<DensityFunction> registry = provider.lookupOrThrow(Registries.DENSITY_FUNCTION);
 
-                return newDensityFunction.getAsJsonObject();
-            } else {
-                throw new IllegalStateException("Could not resolve file: " + densityFunctionKey.identifier());
-            }
-        }
+        DensityFunction densityFunction = registry.getOrThrow(key).value();
+        DensityFunction scaledDensityFunction = scaleDensityNode(densityFunction, scale);
+
+        JsonElement densityFunctionElement = DensityFunction.CODEC.encodeStart(ops, scaledDensityFunction).getOrThrow(IllegalStateException::new);
+
+        return densityFunctionElement.getAsJsonObject();
     }
 
-    private static List<TreeDecorator> getModifiedTrunkDecorator(ResourceKey<Feature> featureKey, List<TreeDecorator> decorators) {
+    private static List<TreeDecorator> getModifiedTrunkDecorator(final ResourceKey<Feature> key, final List<TreeDecorator> decorators) {
         List<TreeDecorator> modifiedDecorators = new ArrayList<>(decorators);
 
-        if (getSuperBirchTrees().contains(featureKey)) {
+        if (getSuperBirchTrees().contains(key)) {
             modifiedDecorators.add(new ShelfMushroomDecorator(0.8F));
         }
 
@@ -255,55 +249,43 @@ public class WorldGeneratorSD implements DataProvider {
         return builder;
     }
 
-    private static JsonObject getModifiedStraightTrunkTreeFeature(RegistryOps<JsonElement> ops, ResourceKey<Feature> featureKey, final int baseHeight, final int randHeightA, final int randHeightB) throws Exception {
-        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream(resolveResourcePath(Registries.FEATURE, featureKey.identifier()))) {
-            if (fileStream != null) {
-                JsonElement rootElement = JsonParser.parseReader(new InputStreamReader(fileStream));
-                Feature parsedFeature = Feature.DIRECT_CODEC.parse(ops, rootElement).getOrThrow(IllegalStateException::new);
+    private static JsonObject getModifiedStraightTrunkTreeFeature(final HolderLookup.Provider provider, final RegistryOps<JsonElement> ops, final ResourceKey<Feature> featureKey, final int baseHeight, final int randHeightA, final int randHeightB) {
+        HolderLookup.RegistryLookup<Feature> featureRegistry = provider.lookupOrThrow(Registries.FEATURE);
+        Feature parsedFeature = featureRegistry.getOrThrow(featureKey).value();
 
-                if (parsedFeature instanceof TreeFeature original) {
-                    StraightTrunkPlacer modifiedTrunkPlacer = new StraightTrunkPlacer(baseHeight, randHeightA, randHeightB);
-                    List<TreeDecorator> modifiedDecorators = getModifiedTrunkDecorator(featureKey, original.decorators());
-                    TreeFeature.Builder builder = getTreeFeatureBuilder(original, modifiedTrunkPlacer);
+        if (parsedFeature instanceof TreeFeature original) {
+            StraightTrunkPlacer modifiedTrunkPlacer = new StraightTrunkPlacer(baseHeight, randHeightA, randHeightB);
+            List<TreeDecorator> modifiedDecorators = getModifiedTrunkDecorator(featureKey, original.decorators());
+            TreeFeature.Builder builder = getTreeFeatureBuilder(original, modifiedTrunkPlacer);
 
-                    builder.decorators(modifiedDecorators);
+            builder.decorators(modifiedDecorators);
 
-                    Feature modified = builder.build();
-                    JsonElement newFeature = Feature.DIRECT_CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
+            Feature modified = builder.build();
+            JsonElement newFeature = Feature.DIRECT_CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
 
-                    return newFeature.getAsJsonObject();
-                } else {
-                    throw new IllegalStateException("Parsed feature is not a TreeFeature: " + featureKey.identifier());
-                }
-            } else {
-                throw new IllegalStateException("Unable to resolve " + featureKey.identifier());
-            }
+            return newFeature.getAsJsonObject();
+        } else {
+            throw new IllegalStateException("Feature: " + featureKey.identifier() + " is not of type TreeFeature");
         }
     }
 
-    private static JsonObject getModifiedFallenTreeFeature(RegistryOps<JsonElement> ops, Identifier featureId, final int maxInclusive, final int minInclusive) throws Exception {
-        try (InputStream fileStream = WorldGeneratorSD.class.getResourceAsStream(resolveResourcePath(Registries.FEATURE, featureId))) {
-            if (fileStream != null) {
-                JsonElement rootElement = JsonParser.parseReader(new InputStreamReader(fileStream));
-                Feature parsedFeature = Feature.DIRECT_CODEC.parse(ops, rootElement).getOrThrow(IllegalStateException::new);
+    private static JsonObject getModifiedFallenTreeFeature(HolderLookup.Provider provider, RegistryOps<JsonElement> ops, ResourceKey<Feature> featureKey, final int maxInclusive, final int minInclusive) {
+        HolderLookup.RegistryLookup<Feature> featureRegistry = provider.lookupOrThrow(Registries.FEATURE);
+        Feature parsedFeature = featureRegistry.getOrThrow(featureKey).value();
 
-                if (parsedFeature instanceof FallenTreeFeature original) {
-                    FallenTreeFeature modified = new FallenTreeFeature(
-                            original.trunkProvider(),
-                            UniformInt.of(minInclusive, maxInclusive),
-                            original.stumpDecorators(),
-                            original.logDecorators()
-                    );
+        if (parsedFeature instanceof FallenTreeFeature original) {
+            FallenTreeFeature modified = new FallenTreeFeature(
+                    original.trunkProvider(),
+                    UniformInt.of(minInclusive, maxInclusive),
+                    original.stumpDecorators(),
+                    original.logDecorators()
+            );
 
-                    JsonElement newFallenTreeFeatureElement = Feature.DIRECT_CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
+            JsonElement newFallenTreeFeatureElement = Feature.DIRECT_CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
 
-                    return newFallenTreeFeatureElement.getAsJsonObject();
-                } else {
-                    throw new IllegalStateException("Parsed feature is not a FallenTreeFeature: " + featureId);
-                }
-            } else {
-                throw new IllegalStateException("Unable to resolve " + featureId);
-            }
+            return newFallenTreeFeatureElement.getAsJsonObject();
+        } else {
+            throw new IllegalStateException("Feature: " + featureKey.identifier() + " is not of type FallenTreeFeature.");
         }
     }
 
@@ -326,12 +308,12 @@ public class WorldGeneratorSD implements DataProvider {
             Files.createDirectories(vegetationPath.getParent());
 
             Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(packMeta));
-            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
-            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), TailoredWorldGenSettings.erosionScale * EROSION_SCALER)));
-            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER)));
-            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER)));
+            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  TailoredWorldGenSettings.continentScale * BIOME_SCALER)));
+            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), TailoredWorldGenSettings.erosionScale * EROSION_SCALER)));
+            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER)));
+            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER)));
 
-            modifyTrees(packRoot, ops);
+            modifyTrees(provider, packRoot, ops);
         } catch (Exception e) {
             UtilSD.LOGGER.error("Failed to generate dynamic datapack at runtime: {}", e.getMessage());
         }
@@ -347,10 +329,10 @@ public class WorldGeneratorSD implements DataProvider {
             HolderLookup.Provider provider = completableFuture.join();
             RegistryOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
 
-            JsonObject continents = getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), TailoredWorldGenSettings.continentScale * BIOME_SCALER);
-            JsonObject erosion = getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), TailoredWorldGenSettings.erosionScale * EROSION_SCALER);
-            JsonObject temperature = getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER);
-            JsonObject vegetation = getModifiedSimpleDensityFunction(ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER);
+            JsonObject continents = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), TailoredWorldGenSettings.continentScale * BIOME_SCALER);
+            JsonObject erosion = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), TailoredWorldGenSettings.erosionScale * EROSION_SCALER);
+            JsonObject temperature = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER);
+            JsonObject vegetation = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), TailoredWorldGenSettings.biomeScale * BIOME_SCALER);
 
             Path continentsPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
             Path erosionPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion().identifier());
@@ -361,7 +343,7 @@ public class WorldGeneratorSD implements DataProvider {
             futures.add(DataProvider.saveStable(cache, erosion, erosionPath));
             futures.add(DataProvider.saveStable(cache, temperature, temperaturePath));
             futures.add(DataProvider.saveStable(cache, vegetation, vegetationPath));
-            modifyTrees(outputFolder, ops, cache, futures);
+            modifyTrees(provider, outputFolder, ops, cache, futures);
         } catch (Exception e) {
             UtilSD.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }

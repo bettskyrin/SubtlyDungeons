@@ -73,11 +73,3 @@ publishing {
 tasks.withType(AbstractCopyTask).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
-
-tasks.named('runDatagen') {
-    doFirst {
-        delete file('build/resources/main/data/subtlyd')
-        delete file('build/resources/main/assets/subtlyd')
-        delete file('src/main/generated')
-    }
-}

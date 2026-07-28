@@ -72,3 +72,4 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 - Fixed bug causing sleeping in Tents to cause Minecraft to freeze
 - Fixed bug causing Tentative Accomodations to be granted to those who have yet to sleep in beds
 - Fixed bug preventing snowlogged blocks from having their snow melted
+- Fixed bug preventing Super Fallen Birch trees from having the proper size
