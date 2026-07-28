@@ -25,6 +25,9 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 #### Wither
 - Wither Skull explosions can now only convert `dirt` block tag blocks to Soul Soil 
 
+#### Textures
+- Changed spherical potion texture
+
 #### Sounds
 - Removed ambient Tall Grass block sounds from Pale Gardens
 - Removed ambient Pale Oak Leaves block sounds
