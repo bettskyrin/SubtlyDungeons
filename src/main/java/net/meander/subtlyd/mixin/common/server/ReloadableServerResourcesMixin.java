@@ -7,7 +7,9 @@ import net.meander.subtlyd.data.loot.packs.GiftLootSD;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.LayeredRegistryAccess;
+import net.minecraft.core.Registry;
 import net.minecraft.core.WritableRegistry;
+import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.ReloadableServerResources;
@@ -24,7 +26,7 @@ import java.util.List;
 @Mixin(ReloadableServerResources.class)
 public class ReloadableServerResourcesMixin {
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onResourceConstruct(ReloadableServerRegistries.LoadResult loadingContext, FeatureFlagSet enabledFeatures, Commands.CommandSelection commandSelection, List postponedTags, PermissionSet functionCompilationPermissions, List newComponents, CallbackInfo ci  /* other params */) {
+    private void onResourceConstruct(ReloadableServerRegistries.LoadResult loadingContext, FeatureFlagSet enabledFeatures, Commands.CommandSelection commandSelection, List<Registry.PendingTags<?>> postponedTags, PermissionSet functionCompilationPermissions, List<DataComponentInitializers.PendingComponents<?>> newComponents, CallbackInfo ci  /* other params */) {
         LayeredRegistryAccess<?> layers = loadingContext.layers();
         WritableRegistry<LootTable> lootRegistry = (WritableRegistry<LootTable>) layers.compositeAccess().lookupOrThrow(Registries.LOOT_TABLE);
         HolderLookup.Provider lookupProvider = loadingContext.lookupWithUpdatedTags();
