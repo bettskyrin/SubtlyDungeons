@@ -3,6 +3,7 @@ package net.meander.subtlyd.world.item;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
+import net.meander.subtlyd.sounds.SoundEventsSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
@@ -170,7 +171,7 @@ public class ItemsSD {
                             List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
                             new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
                             Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                            Optional.of(SoundEvents.SHIELD_BLOCK),
+                            Optional.of(SoundEventsSD.HEAVY_SHIELD_BLOCK),
                             Optional.of(SoundEvents.SHIELD_BREAK)))
             .attributes(ItemAttributeModifiers.builder()
                     .add(AttributesSD.SHIELD_STRENGTH, new AttributeModifier(ItemSD.SHIELD_STRENGTH, 10.0, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.ANY)

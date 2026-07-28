@@ -216,6 +216,16 @@
       "minecraft:random/anvil_land"
     ]
   },
+  "item.heavy_shield.block": {
+    "subtitle": "subtitles.item.shield.block",
+    "sounds": [
+      "subtlyd:item/heavy_shield/block1",
+      "subtlyd:item/heavy_shield/block2",
+      "subtlyd:item/heavy_shield/block3",
+      "subtlyd:item/heavy_shield/block4",
+      "subtlyd:item/heavy_shield/block5"
+    ]
+  },
   "item.trident.charged": {
     "subtitle": "subtitles.subtlyd.item.trident.charged",
     "sounds": [

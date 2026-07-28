@@ -32,6 +32,7 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 - Removed ambient Tall Grass block sounds from Pale Gardens
 - Removed ambient Pale Oak Leaves block sounds
 - Removed ambient Leaves block sounds from cold biomes
+- Added Heavy Shield sounds
 
 #### Settings
 - Added a warning for disabling advanced entity animations
