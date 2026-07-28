@@ -1,29 +1,35 @@
 package net.meander.subtlyd.data.loot.packs;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.meander.subtlyd.world.level.block.BlocksSD;
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.data.loot.LootTableProvider;
+import net.minecraft.data.loot.LootTableSubProvider;
+import net.minecraft.data.worldgen.BootstrapContext;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @see net.minecraft.data.loot.packs.VanillaBlockLoot
  */
-public class BlockLootSD extends FabricBlockLootSubProvider {
-    protected final HolderGetter.Provider registries;
-
-    public BlockLootSD(FabricPackOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        super(dataOutput, registryLookup);
-        registries = registryLookup.join();
+public class BlockLootSD extends BlockLootSubProvider {
+    public BlockLootSD(LootTableSubProvider.Context context) {
+        super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags(), context);
     }
 
-    @Override public void generate() {
-        HolderGetter<Block> blockLookup = registries.lookupOrThrow(Registries.BLOCK);
+    public static void registration(BootstrapContext<LootTable> context) {
+        List<LootTableProvider.SubProviderEntry> subProviders = List.of(
+                new LootTableProvider.SubProviderEntry(BlockLootSD::new, LootContextParamSets.BLOCK)
+        );
 
+        new LootTableProvider(Collections.emptySet(), subProviders).run(context);
+    }
+
+    @Override
+    public void generate() {
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);
@@ -44,7 +50,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
 //        add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
         dropSelf(BlocksSD.WARPED_OVERHANG);
         dropSelf(BlocksSD.REEDS);
-
         dropSelf(BlocksSD.BASALT_SLAB);
         dropSelf(BlocksSD.SOUL_JACK_O_LANTERN);
 //        add(Blocks.CAMPFIRE, LootTable.lootTable() // TODO

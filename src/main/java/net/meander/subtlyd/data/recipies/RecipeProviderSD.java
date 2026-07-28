@@ -108,17 +108,23 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 nineBlockStorageRecipes(RecipeCategory.MISC, Items.CHARCOAL, RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHARCOAL_BLOCK);
                 twoByTwoPacker(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICKS, Items.SNOW_BLOCK);
 
-                stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS)).unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), has(ItemsSD.SNOW_BRICKS)).save(output);
+                stairBuilder(ItemsSD.SNOW_BRICK_STAIRS, Ingredient.of(ItemsSD.SNOW_BRICKS))
+                    .unlockedBy(getHasName(ItemsSD.SNOW_BRICKS), has(ItemsSD.SNOW_BRICKS))
+                    .save(output);
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_SLAB, ItemsSD.SNOW_BRICKS);
                 wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SNOW_BRICK_WALL, ItemsSD.SNOW_BRICKS);
 
                 chiseled(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHISELED_POLISHED_DRIPSTONE, ItemsSD.POLISHED_DRIPSTONE_SLAB);
                 polished(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE, Items.DRIPSTONE_BLOCK);
-                stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE)).unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), has(ItemsSD.POLISHED_DRIPSTONE)).save(output);
+                stairBuilder(ItemsSD.POLISHED_DRIPSTONE_STAIRS, Ingredient.of(ItemsSD.POLISHED_DRIPSTONE))
+                    .unlockedBy(getHasName(ItemsSD.POLISHED_DRIPSTONE), has(ItemsSD.POLISHED_DRIPSTONE))
+                    .save(output);
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_SLAB, ItemsSD.POLISHED_DRIPSTONE);
                 wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POLISHED_DRIPSTONE_WALL, ItemsSD.POLISHED_DRIPSTONE);
 
-                stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES)).unlockedBy(getHasName(ItemsSD.STONE_TILES), has(ItemsSD.STONE_TILES)).save(output);
+                stairBuilder(ItemsSD.STONE_TILE_STAIRS, Ingredient.of(ItemsSD.STONE_TILES))
+                    .unlockedBy(getHasName(ItemsSD.STONE_TILES), has(ItemsSD.STONE_TILES))
+                    .save(output);
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_SLAB, ItemsSD.STONE_TILES);
                 wall(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STONE_TILE_WALL, ItemsSD.STONE_TILES);
 
@@ -128,77 +134,173 @@ public class RecipeProviderSD extends FabricRecipeProvider {
 
                 slab(RecipeCategory.BUILDING_BLOCKS, ItemsSD.BASALT_SLAB, Items.BASALT);
 
-                stairBuilder(ItemsSD.OAK_WOOD_STAIRS, Ingredient.of(Items.OAK_WOOD)).unlockedBy(getHasName(Items.OAK_WOOD), has(Items.OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.OAK_WOOD_SLAB, Ingredient.of(Items.OAK_WOOD)).unlockedBy(getHasName(Items.OAK_WOOD), has(Items.OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.OAK_WOOD_STAIRS, Ingredient.of(Items.OAK_WOOD))
+                    .unlockedBy(getHasName(Items.OAK_WOOD), has(Items.OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.OAK_WOOD_SLAB, Ingredient.of(Items.OAK_WOOD))
+                    .unlockedBy(getHasName(Items.OAK_WOOD), has(Items.OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.SPRUCE_WOOD_STAIRS, Ingredient.of(Items.SPRUCE_WOOD)).unlockedBy(getHasName(Items.SPRUCE_WOOD), has(Items.SPRUCE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SPRUCE_WOOD_SLAB, Ingredient.of(Items.SPRUCE_WOOD)).unlockedBy(getHasName(Items.SPRUCE_WOOD), has(Items.SPRUCE_WOOD)).save(output);
+                stairBuilder(ItemsSD.SPRUCE_WOOD_STAIRS, Ingredient.of(Items.SPRUCE_WOOD))
+                    .unlockedBy(getHasName(Items.SPRUCE_WOOD), has(Items.SPRUCE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.SPRUCE_WOOD_SLAB, Ingredient.of(Items.SPRUCE_WOOD))
+                    .unlockedBy(getHasName(Items.SPRUCE_WOOD), has(Items.SPRUCE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.BIRCH_WOOD_STAIRS, Ingredient.of(Items.BIRCH_WOOD)).unlockedBy(getHasName(Items.BIRCH_WOOD), has(Items.BIRCH_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.BIRCH_WOOD_SLAB, Ingredient.of(Items.BIRCH_WOOD)).unlockedBy(getHasName(Items.BIRCH_WOOD), has(Items.BIRCH_WOOD)).save(output);
+                stairBuilder(ItemsSD.BIRCH_WOOD_STAIRS, Ingredient.of(Items.BIRCH_WOOD))
+                    .unlockedBy(getHasName(Items.BIRCH_WOOD), has(Items.BIRCH_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.BIRCH_WOOD_SLAB, Ingredient.of(Items.BIRCH_WOOD))
+                    .unlockedBy(getHasName(Items.BIRCH_WOOD), has(Items.BIRCH_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.JUNGLE_WOOD_STAIRS, Ingredient.of(Items.JUNGLE_WOOD)).unlockedBy(getHasName(Items.JUNGLE_WOOD), has(Items.JUNGLE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.JUNGLE_WOOD_SLAB, Ingredient.of(Items.JUNGLE_WOOD)).unlockedBy(getHasName(Items.JUNGLE_WOOD), has(Items.JUNGLE_WOOD)).save(output);
+                stairBuilder(ItemsSD.JUNGLE_WOOD_STAIRS, Ingredient.of(Items.JUNGLE_WOOD))
+                    .unlockedBy(getHasName(Items.JUNGLE_WOOD), has(Items.JUNGLE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.JUNGLE_WOOD_SLAB, Ingredient.of(Items.JUNGLE_WOOD))
+                    .unlockedBy(getHasName(Items.JUNGLE_WOOD), has(Items.JUNGLE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.ACACIA_WOOD_STAIRS, Ingredient.of(Items.ACACIA_WOOD)).unlockedBy(getHasName(Items.ACACIA_WOOD), has(Items.ACACIA_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.ACACIA_WOOD_SLAB, Ingredient.of(Items.ACACIA_WOOD)).unlockedBy(getHasName(Items.ACACIA_WOOD), has(Items.ACACIA_WOOD)).save(output);
+                stairBuilder(ItemsSD.ACACIA_WOOD_STAIRS, Ingredient.of(Items.ACACIA_WOOD))
+                    .unlockedBy(getHasName(Items.ACACIA_WOOD), has(Items.ACACIA_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.ACACIA_WOOD_SLAB, Ingredient.of(Items.ACACIA_WOOD))
+                    .unlockedBy(getHasName(Items.ACACIA_WOOD), has(Items.ACACIA_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.DARK_OAK_WOOD_STAIRS, Ingredient.of(Items.DARK_OAK_WOOD)).unlockedBy(getHasName(Items.DARK_OAK_WOOD), has(Items.DARK_OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.DARK_OAK_WOOD_SLAB, Ingredient.of(Items.DARK_OAK_WOOD)).unlockedBy(getHasName(Items.DARK_OAK_WOOD), has(Items.DARK_OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.DARK_OAK_WOOD_STAIRS, Ingredient.of(Items.DARK_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.DARK_OAK_WOOD), has(Items.DARK_OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.DARK_OAK_WOOD_SLAB, Ingredient.of(Items.DARK_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.DARK_OAK_WOOD), has(Items.DARK_OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.MANGROVE_WOOD_STAIRS, Ingredient.of(Items.MANGROVE_WOOD)).unlockedBy(getHasName(Items.MANGROVE_WOOD), has(Items.MANGROVE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.MANGROVE_WOOD_SLAB, Ingredient.of(Items.MANGROVE_WOOD)).unlockedBy(getHasName(Items.MANGROVE_WOOD), has(Items.MANGROVE_WOOD)).save(output);
+                stairBuilder(ItemsSD.MANGROVE_WOOD_STAIRS, Ingredient.of(Items.MANGROVE_WOOD))
+                    .unlockedBy(getHasName(Items.MANGROVE_WOOD), has(Items.MANGROVE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.MANGROVE_WOOD_SLAB, Ingredient.of(Items.MANGROVE_WOOD))
+                    .unlockedBy(getHasName(Items.MANGROVE_WOOD), has(Items.MANGROVE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.CHERRY_WOOD_STAIRS, Ingredient.of(Items.CHERRY_WOOD)).unlockedBy(getHasName(Items.CHERRY_WOOD), has(Items.CHERRY_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHERRY_WOOD_SLAB, Ingredient.of(Items.CHERRY_WOOD)).unlockedBy(getHasName(Items.CHERRY_WOOD), has(Items.CHERRY_WOOD)).save(output);
+                stairBuilder(ItemsSD.CHERRY_WOOD_STAIRS, Ingredient.of(Items.CHERRY_WOOD))
+                    .unlockedBy(getHasName(Items.CHERRY_WOOD), has(Items.CHERRY_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CHERRY_WOOD_SLAB, Ingredient.of(Items.CHERRY_WOOD))
+                    .unlockedBy(getHasName(Items.CHERRY_WOOD), has(Items.CHERRY_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.PALE_OAK_WOOD_STAIRS, Ingredient.of(Items.PALE_OAK_WOOD)).unlockedBy(getHasName(Items.PALE_OAK_WOOD), has(Items.PALE_OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.PALE_OAK_WOOD_SLAB, Ingredient.of(Items.PALE_OAK_WOOD)).unlockedBy(getHasName(Items.PALE_OAK_WOOD), has(Items.PALE_OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.PALE_OAK_WOOD_STAIRS, Ingredient.of(Items.PALE_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.PALE_OAK_WOOD), has(Items.PALE_OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.PALE_OAK_WOOD_SLAB, Ingredient.of(Items.PALE_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.PALE_OAK_WOOD), has(Items.PALE_OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.CRIMSON_HYPHAE_STAIRS, Ingredient.of(Items.CRIMSON_HYPHAE)).unlockedBy(getHasName(Items.CRIMSON_HYPHAE), has(Items.CRIMSON_HYPHAE)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CRIMSON_HYPHAE_SLAB, Ingredient.of(Items.CRIMSON_HYPHAE)).unlockedBy(getHasName(Items.CRIMSON_HYPHAE), has(Items.CRIMSON_HYPHAE)).save(output);
+                stairBuilder(ItemsSD.CRIMSON_HYPHAE_STAIRS, Ingredient.of(Items.CRIMSON_HYPHAE))
+                    .unlockedBy(getHasName(Items.CRIMSON_HYPHAE), has(Items.CRIMSON_HYPHAE))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.CRIMSON_HYPHAE_SLAB, Ingredient.of(Items.CRIMSON_HYPHAE))
+                    .unlockedBy(getHasName(Items.CRIMSON_HYPHAE), has(Items.CRIMSON_HYPHAE))
+                    .save(output);
 
-                stairBuilder(ItemsSD.WARPED_HYPHAE_STAIRS, Ingredient.of(Items.WARPED_HYPHAE)).unlockedBy(getHasName(Items.WARPED_HYPHAE), has(Items.WARPED_HYPHAE)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.WARPED_HYPHAE_SLAB, Ingredient.of(Items.WARPED_HYPHAE)).unlockedBy(getHasName(Items.WARPED_HYPHAE), has(Items.WARPED_HYPHAE)).save(output);
+                stairBuilder(ItemsSD.WARPED_HYPHAE_STAIRS, Ingredient.of(Items.WARPED_HYPHAE))
+                    .unlockedBy(getHasName(Items.WARPED_HYPHAE), has(Items.WARPED_HYPHAE))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.WARPED_HYPHAE_SLAB, Ingredient.of(Items.WARPED_HYPHAE))
+                    .unlockedBy(getHasName(Items.WARPED_HYPHAE), has(Items.WARPED_HYPHAE))
+                    .save(output);
 
-                stairBuilder(ItemsSD.POPLAR_WOOD_STAIRS, Ingredient.of(Items.POPLAR_WOOD)).unlockedBy(getHasName(Items.POPLAR_WOOD), has(Items.POPLAR_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POPLAR_WOOD_SLAB, Ingredient.of(Items.POPLAR_WOOD)).unlockedBy(getHasName(Items.POPLAR_WOOD), has(Items.POPLAR_WOOD)).save(output);
+                stairBuilder(ItemsSD.POPLAR_WOOD_STAIRS, Ingredient.of(Items.POPLAR_WOOD))
+                    .unlockedBy(getHasName(Items.POPLAR_WOOD), has(Items.POPLAR_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.POPLAR_WOOD_SLAB, Ingredient.of(Items.POPLAR_WOOD))
+                    .unlockedBy(getHasName(Items.POPLAR_WOOD), has(Items.POPLAR_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_OAK_WOOD), has(Items.STRIPPED_OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_OAK_WOOD), has(Items.STRIPPED_OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_OAK_WOOD), has(Items.STRIPPED_OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_OAK_WOOD), has(Items.STRIPPED_OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_SPRUCE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_SPRUCE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_SPRUCE_WOOD), has(Items.STRIPPED_SPRUCE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_SPRUCE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_SPRUCE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_SPRUCE_WOOD), has(Items.STRIPPED_SPRUCE_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_SPRUCE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_SPRUCE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_SPRUCE_WOOD), has(Items.STRIPPED_SPRUCE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_SPRUCE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_SPRUCE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_SPRUCE_WOOD), has(Items.STRIPPED_SPRUCE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_BIRCH_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_BIRCH_WOOD)).unlockedBy(getHasName(Items.STRIPPED_BIRCH_WOOD), has(Items.STRIPPED_BIRCH_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_BIRCH_WOOD_SLAB, Ingredient.of(Items.STRIPPED_BIRCH_WOOD)).unlockedBy(getHasName(Items.STRIPPED_BIRCH_WOOD), has(Items.STRIPPED_BIRCH_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_BIRCH_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_BIRCH_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_BIRCH_WOOD), has(Items.STRIPPED_BIRCH_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_BIRCH_WOOD_SLAB, Ingredient.of(Items.STRIPPED_BIRCH_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_BIRCH_WOOD), has(Items.STRIPPED_BIRCH_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_JUNGLE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_JUNGLE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_JUNGLE_WOOD), has(Items.STRIPPED_JUNGLE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_JUNGLE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_JUNGLE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_JUNGLE_WOOD), has(Items.STRIPPED_JUNGLE_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_JUNGLE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_JUNGLE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_JUNGLE_WOOD), has(Items.STRIPPED_JUNGLE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_JUNGLE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_JUNGLE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_JUNGLE_WOOD), has(Items.STRIPPED_JUNGLE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_ACACIA_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_ACACIA_WOOD)).unlockedBy(getHasName(Items.STRIPPED_ACACIA_WOOD), has(Items.STRIPPED_ACACIA_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_ACACIA_WOOD_SLAB, Ingredient.of(Items.STRIPPED_ACACIA_WOOD)).unlockedBy(getHasName(Items.STRIPPED_ACACIA_WOOD), has(Items.STRIPPED_ACACIA_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_ACACIA_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_ACACIA_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_ACACIA_WOOD), has(Items.STRIPPED_ACACIA_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_ACACIA_WOOD_SLAB, Ingredient.of(Items.STRIPPED_ACACIA_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_ACACIA_WOOD), has(Items.STRIPPED_ACACIA_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_DARK_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_DARK_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_DARK_OAK_WOOD), has(Items.STRIPPED_DARK_OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_DARK_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_DARK_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_DARK_OAK_WOOD), has(Items.STRIPPED_DARK_OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_DARK_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_DARK_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_DARK_OAK_WOOD), has(Items.STRIPPED_DARK_OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_DARK_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_DARK_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_DARK_OAK_WOOD), has(Items.STRIPPED_DARK_OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_MANGROVE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_MANGROVE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_MANGROVE_WOOD), has(Items.STRIPPED_MANGROVE_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_MANGROVE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_MANGROVE_WOOD)).unlockedBy(getHasName(Items.STRIPPED_MANGROVE_WOOD), has(Items.STRIPPED_MANGROVE_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_MANGROVE_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_MANGROVE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_MANGROVE_WOOD), has(Items.STRIPPED_MANGROVE_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_MANGROVE_WOOD_SLAB, Ingredient.of(Items.STRIPPED_MANGROVE_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_MANGROVE_WOOD), has(Items.STRIPPED_MANGROVE_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_CHERRY_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_CHERRY_WOOD)).unlockedBy(getHasName(Items.STRIPPED_CHERRY_WOOD), has(Items.STRIPPED_CHERRY_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_CHERRY_WOOD_SLAB, Ingredient.of(Items.STRIPPED_CHERRY_WOOD)).unlockedBy(getHasName(Items.STRIPPED_CHERRY_WOOD), has(Items.STRIPPED_CHERRY_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_CHERRY_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_CHERRY_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_CHERRY_WOOD), has(Items.STRIPPED_CHERRY_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_CHERRY_WOOD_SLAB, Ingredient.of(Items.STRIPPED_CHERRY_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_CHERRY_WOOD), has(Items.STRIPPED_CHERRY_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_PALE_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_PALE_OAK_WOOD), has(Items.STRIPPED_PALE_OAK_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_PALE_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_PALE_OAK_WOOD)).unlockedBy(getHasName(Items.STRIPPED_PALE_OAK_WOOD), has(Items.STRIPPED_PALE_OAK_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_PALE_OAK_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_PALE_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_PALE_OAK_WOOD), has(Items.STRIPPED_PALE_OAK_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_PALE_OAK_WOOD_SLAB, Ingredient.of(Items.STRIPPED_PALE_OAK_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_PALE_OAK_WOOD), has(Items.STRIPPED_PALE_OAK_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_POPLAR_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_POPLAR_WOOD)).unlockedBy(getHasName(Items.STRIPPED_POPLAR_WOOD), has(Items.STRIPPED_POPLAR_WOOD)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_POPLAR_WOOD_SLAB, Ingredient.of(Items.STRIPPED_POPLAR_WOOD)).unlockedBy(getHasName(Items.STRIPPED_POPLAR_WOOD), has(Items.STRIPPED_POPLAR_WOOD)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_POPLAR_WOOD_STAIRS, Ingredient.of(Items.STRIPPED_POPLAR_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_POPLAR_WOOD), has(Items.STRIPPED_POPLAR_WOOD))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_POPLAR_WOOD_SLAB, Ingredient.of(Items.STRIPPED_POPLAR_WOOD))
+                    .unlockedBy(getHasName(Items.STRIPPED_POPLAR_WOOD), has(Items.STRIPPED_POPLAR_WOOD))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, Ingredient.of(Items.STRIPPED_CRIMSON_HYPHAE)).unlockedBy(getHasName(Items.STRIPPED_CRIMSON_HYPHAE), has(Items.STRIPPED_CRIMSON_HYPHAE)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, Ingredient.of(Items.STRIPPED_CRIMSON_HYPHAE)).unlockedBy(getHasName(Items.STRIPPED_CRIMSON_HYPHAE), has(Items.STRIPPED_CRIMSON_HYPHAE)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, Ingredient.of(Items.STRIPPED_CRIMSON_HYPHAE))
+                    .unlockedBy(getHasName(Items.STRIPPED_CRIMSON_HYPHAE), has(Items.STRIPPED_CRIMSON_HYPHAE))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, Ingredient.of(Items.STRIPPED_CRIMSON_HYPHAE))
+                    .unlockedBy(getHasName(Items.STRIPPED_CRIMSON_HYPHAE), has(Items.STRIPPED_CRIMSON_HYPHAE))
+                    .save(output);
 
-                stairBuilder(ItemsSD.STRIPPED_WARPED_HYPHAE_STAIRS, Ingredient.of(Items.STRIPPED_WARPED_HYPHAE)).unlockedBy(getHasName(Items.STRIPPED_WARPED_HYPHAE), has(Items.STRIPPED_WARPED_HYPHAE)).save(output);
-                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_WARPED_HYPHAE_SLAB, Ingredient.of(Items.STRIPPED_WARPED_HYPHAE)).unlockedBy(getHasName(Items.STRIPPED_WARPED_HYPHAE), has(Items.STRIPPED_WARPED_HYPHAE)).save(output);
+                stairBuilder(ItemsSD.STRIPPED_WARPED_HYPHAE_STAIRS, Ingredient.of(Items.STRIPPED_WARPED_HYPHAE))
+                    .unlockedBy(getHasName(Items.STRIPPED_WARPED_HYPHAE), has(Items.STRIPPED_WARPED_HYPHAE))
+                    .save(output);
+                slabBuilder(RecipeCategory.BUILDING_BLOCKS, ItemsSD.STRIPPED_WARPED_HYPHAE_SLAB, Ingredient.of(Items.STRIPPED_WARPED_HYPHAE))
+                    .unlockedBy(getHasName(Items.STRIPPED_WARPED_HYPHAE), has(Items.STRIPPED_WARPED_HYPHAE))
+                    .save(output);
 
                 stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICKS, Blocks.SNOW_BLOCK);
                 stonecutterResultFromBase(RecipeCategory.BUILDING_BLOCKS, BlocksSD.SNOW_BRICK_STAIRS, Blocks.SNOW_BLOCK);
