@@ -79,7 +79,7 @@ public class Tent extends Entity {
             ItemEntity itemEntity = spawnAtLocation(level, getTentItemStackWithData());
 
             if (itemEntity != null && causedBy instanceof LightningBolt) {
-                itemEntity.setInvulnerableFor(20);
+                itemEntity.setInvulnerableTime(20);
             }
         }
 

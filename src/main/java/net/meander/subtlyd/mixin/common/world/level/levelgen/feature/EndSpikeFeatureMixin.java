@@ -104,7 +104,7 @@ public abstract class EndSpikeFeatureMixin {
 
         if (endCrystal != null) {
             endCrystal.setBeamTarget(crystalBeamTarget.orElse(null));
-            endCrystal.setInvulnerable(crystalInvulnerable);
+            endCrystal.setPermanentlyInvulnerable(crystalInvulnerable);
             endCrystal.snapTo(centerX + 0.5, topY + 2, centerZ + 0.5, random.nextFloat() * 360.0F, 0.0F);
             level.addFreshEntity(endCrystal);
 

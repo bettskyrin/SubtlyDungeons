@@ -14,7 +14,7 @@ import java.util.List;
 
 @Mixin(VideoSettingsScreen.class)
 public class VideoSettingsScreenMixin { @Inject(method = "displayOptions", at = @At("RETURN"), cancellable = true)
-    private static void displayOptions(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
+    private static void displayOptions(Options options, boolean supportsExclusiveFullscreen, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
 
         optionInstanceList.add(8, OptionsSD.gui());

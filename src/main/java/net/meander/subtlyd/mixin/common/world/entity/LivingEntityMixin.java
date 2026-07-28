@@ -18,7 +18,6 @@ import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -48,7 +47,6 @@ import net.minecraft.world.item.ShieldItem;
 import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -75,18 +73,6 @@ public abstract class LivingEntityMixin extends Entity {
 
     public boolean canStealthAttack(ServerLevel level, final LivingEntity attacker, final LivingEntity victim) {
         return !hasRecentlyAttacked(attacker) && attacker.getVisibilityPercent(level, victim) < 1;
-    }
-
-    @Inject(method = "setPosToBed(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/BlockPos;)V", at = @At("HEAD"), cancellable = true)
-    private void setPosToTent(BlockState state, BlockPos bedPosition, CallbackInfo ci) {
-        if (((Object) this) instanceof Player player) {
-            Tent tent = Tent.getTent(player, true);
-
-            if (tent != null) {
-                player.setPos(tent.getX(), tent.getY() + 0.125, tent.getZ());
-                ci.cancel();
-            }
-        }
     }
 
     @Inject(method = "getBedOrientation", at = @At("HEAD"), cancellable = true)
@@ -438,7 +424,7 @@ public abstract class LivingEntityMixin extends Entity {
         if (cir.getReturnValue()) {
             if (source.getDirectEntity() instanceof AbstractArrow arrow) {
                 if (arrow.getWeaponItem() != null) {
-                    invulnerableTime = 0;
+                    setInvulnerableTime(0);
 
                     return;
                 }
@@ -450,7 +436,7 @@ public abstract class LivingEntityMixin extends Entity {
                     int cooldownTicks = (int) (20.0 / attackSpeed);
 
                     if (cooldownTicks < 10) {
-                        invulnerableTime = 10 + cooldownTicks;
+                        setInvulnerableTime(10 + cooldownTicks);
                     }
                 }
             }
