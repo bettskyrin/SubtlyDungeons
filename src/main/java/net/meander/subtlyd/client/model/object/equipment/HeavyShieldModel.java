@@ -19,6 +19,7 @@ public class HeavyShieldModel extends Model<Unit> {
 
 	public HeavyShieldModel(final ModelPart root) {
 		super(root, RenderTypes::entitySolid);
+
 		plate = root.getChild("plate");
 		handle = root.getChild("handle");
 	}
