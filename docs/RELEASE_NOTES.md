@@ -58,6 +58,10 @@ Modded shear and silk touch related block loot is currently disabled.
 #### Advancements
 - Changed Adventure root advancement to use the Filled Map texture
 
+#### Credits
+- Added Zeit
+  - We'd like to thank Zeit for modeling the quiver and assisting with the texture
+
 ### Technical Changes
 #### Mobs
 - Changed advanced mob AI

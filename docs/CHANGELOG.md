@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
-## [5.0] - UNRELEASED
+## [5.0 Battles & Biomes] - UNRELEASED
 ### New Features
 #### Player-Tailored World Generation
 - Added the Tailored World Generation system
@@ -90,10 +90,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added ambient Tall Grass block sounds
 - Added ambient Red Shrub sounds
 
+#### Music
+- Added Door by C418
+  - Plays on the main menu
+- Added Equinoxe by C418
+  - Plays on the main menu and in Creative Mode
+- Added Chris by C418
+  - Plays in Creative Mode
 
 #### Settings
 - Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
 - Added Accessibility Settings option for toggling a blocking shield's visibility
+
+#### Game Rules
+- Added Advanced Mobs game rule
+  - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
+  - Does not include wall climbing hitbox adjustments
 
 #### Advancements
 - Added Marking Territory advancement
@@ -195,6 +207,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 ##### Taiga
 - Changed vegetation to be more common
 
+##### Savanna
+- Added Baobab trees
+  - Similarly to Pine trees, these trees do not have a unique wood type, but are a special type of Acacia tree
+  - Can be grown from a 2x2 of Acacia saplings
+
 ##### Plains
 - Changed mushroom generation rate
 
@@ -219,6 +236,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Shelf Mushroom to be edible
 - Changed Powder Snow to decrease mining speed
 - Changed Iron Grates to have the `dragon_immune` block tag
+
+#### Tents
+- Tents now continuously check to see if there are sturdy blocks below it
+  - The check for this includes the 4 corners of the hitbox.
+
+#### Wither
+- Wither Skull explosions can now only convert `dirt` block tag blocks to Soul Soil
+
+#### Textures
+- Changed spherical potion texture
 
 #### Crafting
 - Changed map crafting recipe
@@ -248,13 +275,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
 #### Advancements
 - Changed "Traveler" advancement name to "Tentative Accommodations"
+- Changed Adventure root advancement to use the Filled Map texture
 
 #### Splash Text
 - Added "Bigger! Better!" splash text
 - Added "Perse!" splash text
 - Added "Any shape and size!" splash text
+- Added "Read the books!" splash text
+- Added "More music by C418!" splash text
+
+#### Credits
+- Added Zeit
+  - We'd like to thank Zeit for modeling the quiver and assisting with the texture
 
 ### Technical Changes
+#### Mobs
+- Refactored advanced mob AI
+
+#### Camera Shake Events
+- Changed `range` field to accept an integer value
+
 #### Particles
 - Added `blade_clash` particle
 
@@ -264,6 +304,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 #### Attributes
 - Added `shield_strength` attribute
 
+#### Data Components
+- Added `tent/color` data component
+
 #### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag
@@ -272,6 +315,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added `huge_glowshroom_can_place_on` block tag
 - Added `stew_ingredient` block tag
 - Added `tall_plants` block tag
+- Added `silent_foliage` block tag
+- Added `arrow_flammable` block tag
 - Added `triggers_ambient_grass_block_sounds` block tag
 - Added `daggers` item tag
 - Added `can_parry_swords` item tag
@@ -279,6 +324,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added `sweeping_weapon` item tag
 - Added `quivers` item tag
 - Added `shields` item tag
+- Added `scansorial` entity type tag
+- Added `causes_flock_panic` damage type tag
+- Changed `can_be_full` to be named `predator`
+- Changed `can_be_scared` to `panics_with_flock`
+- Changed `can_seek_shade` to `seeks_shade`
+- Changed `can_seek_warmth` to `seeks_warmth`
+- Removed `can_break_tents` damage type tag
+- Removed `always_kills_tent` damage type tag
+- Removed `ignites_tents` damage type tag
+- Removed `burns_tents` damage type tag
 - Removed `has_ambient_block_sounds` block tag
 - Removed `skull_block` block tag
 
@@ -288,6 +343,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
 - Fixed bug preventing Redstone comparisions to work with Potion Cauldrons
 - Fixed bug that caused Water Bottles to completely fill Cauldrons
+- Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
+- Fixed [BUG #76] Tents Z-Fight with their pegs
+- Fixed missing Blast Fungus entity translation
+- Fixed bug causing Tentative Accomodations to be granted to those who have yet to sleep in beds
 
 ## [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
