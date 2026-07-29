@@ -71,6 +71,14 @@
       {
         "name": "subtlyd:music/dalarna",
         "stream": true
+      },
+      {
+        "name": "subtlyd:music/door",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/equinoxe",
+        "stream": true
       }
     ]
   },
@@ -100,6 +108,14 @@
       },
       {
         "name": "subtlyd:music/droopy_likes_your_face",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/equinoxe",
+        "stream": true
+      },
+      {
+        "name": "subtlyd:music/chris",
         "stream": true
       }
     ]

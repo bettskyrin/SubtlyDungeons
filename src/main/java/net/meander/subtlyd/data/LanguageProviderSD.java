@@ -317,14 +317,17 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         addMusic(translationBuilder, "basalt_deltas", "Peter Hont - Basalt Deltas");
         addMusic(translationBuilder, "cacti_canyon", "Johan Johnson - Cacti Canyon");
         addMusic(translationBuilder, "cellar", "Johan Johnson, Peter Hont - Cellar");
+        addMusic(translationBuilder, "chris", "C418 - Chris");
         addMusic(translationBuilder, "cliffs_and_canyons", "Crispin Hands - Cliffs and Canyons");
         addMusic(translationBuilder, "coral_rise", "Peter Hont - Coral Rise");
         addMusic(translationBuilder, "creeper_pit", "Peter Hont - Creeper Pit");
         addMusic(translationBuilder, "crimson_forest", "Eugnosis - Crimson Forest");
         addMusic(translationBuilder, "dalarna", "Peter Hont - Dalarna");
         addMusic(translationBuilder, "desert_temple", "Johan Johnson - Desert Temple");
+        addMusic(translationBuilder, "door", "C418 - Door");
         addMusic(translationBuilder, "droopy_likes_ricochet", "C418 - Droopy Likes Ricochet");
         addMusic(translationBuilder, "droopy_likes_your_face", "C418 - Droopy Likes Your Face");
+        addMusic(translationBuilder, "equinoxe", "C418 - Équinoxe");
         addMusic(translationBuilder, "excuse", "C418 - Excuse");
         addMusic(translationBuilder, "finnbacka", "Peter Hont - Finnbacka");
         addMusic(translationBuilder, "fizz", "Johan Johnson - Fizz");

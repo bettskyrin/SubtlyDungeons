@@ -5,6 +5,9 @@ We also snuck in a few gameplay tweaks, like a new tree type, Wither Boss fight 
 
 Developer Note: Did you know this mod has over 200 Java files! I sure didn't until this update!
 
+### Known Issues
+Modded shear and silk touch related block loot is currently disabled.
+
 ### New Features
 #### World Generation
 ##### Savanna
@@ -20,6 +23,14 @@ Developer Note: Did you know this mod has over 200 Java files! I sure didn't unt
 #### Splash Text
 - Added "Read the books!" splash text
 - Added "More music by C418!" splash text
+
+#### Music
+- Added Door by C418
+  - Plays on the main menu
+- Added Equinoxe by C418
+  - Plays on the main menu and in Creative Mode
+- Added Chris by C418
+  - Plays in Creative Mode
 
 ### Changes
 #### Tents
