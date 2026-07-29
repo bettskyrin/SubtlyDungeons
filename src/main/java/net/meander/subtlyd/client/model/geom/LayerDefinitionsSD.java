@@ -3,6 +3,7 @@ package net.meander.subtlyd.client.model.geom;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.meander.subtlyd.client.model.object.equipment.HeavyShieldModel;
+import net.meander.subtlyd.client.model.object.equipment.QuiverModel;
 import net.meander.subtlyd.client.model.object.tent.TentModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
@@ -23,7 +24,7 @@ public class LayerDefinitionsSD {
     public static void registration() {
         register(ModelLayersSD.TENT, TentModel::createBodyLayer);
         register(ModelLayersSD.HEAVY_SHIELD, HeavyShieldModel::createLayer);
-
+        register(ModelLayersSD.QUIVER, QuiverModel::createBodyLayer);
         DEFINITIONS.forEach(ModelLayerRegistry::registerModelLayer);
     }
 }

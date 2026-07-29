@@ -33,6 +33,9 @@ Modded shear and silk touch related block loot is currently disabled.
   - Plays in Creative Mode
 
 ### Changes
+#### Quivers
+- Quivers will now render on the player
+
 #### Tents
 - Tents now continuously check to see if there are sturdy blocks below it
   - The check for this includes the 4 corners of the hitbox.

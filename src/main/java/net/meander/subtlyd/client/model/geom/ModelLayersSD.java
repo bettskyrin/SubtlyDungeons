@@ -15,6 +15,7 @@ public class ModelLayersSD {
 
     public static final ModelLayerLocation TENT = register("tent");
     public static final ModelLayerLocation HEAVY_SHIELD = register("heavy_shield");
+    public static final ModelLayerLocation QUIVER = register("quiver");
 
     private static ModelLayerLocation register(String path) {
         return register(path, "main");
@@ -25,6 +26,7 @@ public class ModelLayersSD {
         if (!ALL_MODELS.add(location)) {
             throw new IllegalStateException("Duplicate model layer registration for " + location);
         }
+
         return location;
     }
 }
