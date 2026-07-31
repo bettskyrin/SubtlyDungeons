@@ -186,6 +186,8 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         addGameRuleDesc(translationBuilder, GameRulesSD.ARROW_ARSON, "If enabled, flaming arrows can set fire to their environment");
         addGameRule(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Advanced mob behavior");
         addGameRuleDesc(translationBuilder, GameRulesSD.ADVANCED_MOBS, "Allows advanced mob behaviors (including nocturnal hunting, flock panicking, etc.)");
+        addGameRule(translationBuilder, GameRulesSD.BLADE_CLASH_WINDOW, "Blade clash window");
+        addGameRuleDesc(translationBuilder, GameRulesSD.BLADE_CLASH_WINDOW, "The window of time (in ticks) that two entities must attack each other within, to trigger a blade clash. A value of 0 disables this feature.");
 
         translationBuilder.add("multiplayer.stopSleeping", "Stop Sleeping");
     }

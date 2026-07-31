@@ -393,7 +393,7 @@ public abstract class LivingEntityMixin extends Entity {
             boolean canDaggerParry = (attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) || attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS)) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
 
             if (isFacingAttacker && (isDuel || canDaggerParry)) {
-                if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= 10) {
+                if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= level.getGameRules().get(GameRulesSD.BLADE_CLASH_WINDOW)) {
                     boolean hasWoodenWeapon = ItemStackSD.hasWoodenWeapon(attackerItem, defenderItem);
                     float pitch = 0.7F;
                     SoundEvent soundEffect = SoundEventsSD.BLADE_WOOD_CLASH;

@@ -19,6 +19,9 @@ Modded shear and silk touch related block loot is currently disabled.
 - Added Advanced Mobs game rule
   - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
   - Does not include wall climbing hitbox adjustments
+- Added Blade Clash Window game rule
+  - Sets the window of time (in ticks) that two entities must attack each other within, to trigger a blade clash
+  - A value of 0 disables this feature
 
 #### Splash Text
 - Added "Read the books!" splash text

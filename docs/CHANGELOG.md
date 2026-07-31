@@ -106,6 +106,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Advanced Mobs game rule
   - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
   - Does not include wall climbing hitbox adjustments
+- Added Blade Clash Window game rule
+  - Sets the window of time (in ticks) that two entities must attack each other within, to trigger a blade clash
+  - A value of 0 disables this feature
 
 #### Advancements
 - Added Marking Territory advancement
