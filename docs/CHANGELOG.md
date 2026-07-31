@@ -349,7 +349,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed bug causing spider jockeys to suffocate if their spider reaches a ceiling
 - Fixed [BUG #76] Tents Z-Fight with their pegs
 - Fixed missing Blast Fungus entity translation
-- Fixed bug causing Tentative Accomodations to be granted to those who have yet to sleep in beds
+- Fixed bug causing Tentative Accommodations to be granted to those who have yet to sleep in beds
 
 ## [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
