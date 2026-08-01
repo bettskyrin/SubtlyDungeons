@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.ColorCollection;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -37,10 +38,12 @@ public class RecipeProviderSD extends FabricRecipeProvider {
     @Override
     protected RecipeProvider createRecipeProvider(HolderLookup.Provider registries, BootstrapContext<Recipe<?>> recipes, BootstrapContext<Advancement> advancements) {
         return new RecipeProvider(recipes, advancements) {
-            @Override public void buildRecipes() {
+            @Override
+            public void buildRecipes() {
                 buildingBlocks();
                 decorations();
                 food();
+                blasting();
                 misc();
                 combat();
                 new BrewingProviderSD(output).buildRecipes();
@@ -50,6 +53,12 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 simpleCookingRecipe("smelting", SmeltingRecipe::new, 200, ingredient, result, experience);
                 simpleCookingRecipe("smoking", SmokingRecipe::new, 100, ingredient, result, experience);
                 simpleCookingRecipe("campfire_cooking", CampfireCookingRecipe::new, 600, ingredient, result, experience);
+            }
+
+            private void blasting() {
+                oreBlasting(List.of(Items.RAW_IRON_BLOCK), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, Items.IRON_BLOCK, 6.3F, 100, "iron_block");
+                oreBlasting(List.of(Items.RAW_COPPER_BLOCK), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, Items.COPPER_BLOCK.weathering().unaffected(), 6.3F, 100, "copper_block");
+                oreBlasting(List.of(Items.RAW_GOLD_BLOCK), RecipeCategory.BUILDING_BLOCKS, CookingBookCategory.BLOCKS, Items.GOLD_BLOCK, 9.0F, 100, "gold_block");
             }
 
             private void tentRecipe(ItemLike tentOutput, ItemLike wool) {
