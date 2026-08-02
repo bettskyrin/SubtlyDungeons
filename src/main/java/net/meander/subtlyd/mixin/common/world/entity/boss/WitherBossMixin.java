@@ -81,7 +81,7 @@ public class WitherBossMixin {
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
-    private void readAddtionalSaveSada(ValueInput input, CallbackInfo ci) {
+    private void readAddtionalSaveData(ValueInput input, CallbackInfo ci) {
         WitherBoss wither = (WitherBoss) (Object) this;
 
         wither.getEntityData().set(DATA_ID_WITHER_DIVE, input.getBooleanOr("ShouldDiveBomb", false));
