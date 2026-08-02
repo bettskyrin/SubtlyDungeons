@@ -4,9 +4,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.Options;
-import net.minecraft.client.gui.components.Tooltip;
-import net.minecraft.client.renderer.extract.LevelExtractor;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 
@@ -21,24 +18,11 @@ public class OptionsSD {
     public static final Component SHIELD_CROUCH_TOOLTIP = Component.translatable("options.accessibility.shield_crouch.tooltip");
     public static final Component ADVANCED_ENTITY_ANIMATIONS_TOOLTIP = Component.translatable("options.advanced_entity_animations.tooltip");
     public static final Component SHIELD_ANIMATION_TOOLTIP = Component.translatable("options.accessibility.shield_animation.tooltip");
-    public static final Component FRUSTUM_CULLING_TOOLTIP = Component.translatable("options.entityCulling.frustum.tooltip");
-    public static final Component OCCULSION_CULLING_TOOLTIP = Component.translatable("options.entityCulling.occlusion.tooltip");
     private static final OptionInstance<Boolean> CAMERA_SHAKE = OptionInstance.createBoolean("options.accessibility.camera_shake", OptionInstance.cachedConstantTooltip(CAMERA_SHAKE_TOOLTIP), true);
     private static final OptionInstance<Boolean> EXPERIMENTAL_GUI = OptionInstance.createBoolean("options.experimental.gui", OptionInstance.cachedConstantTooltip(EXPERIMENTAL_GUI_TOOLTIP), true);
     private static final OptionInstance<Boolean> SHIELD_CROUCH = OptionInstance.createBoolean("options.accessibility.shield_crouch", OptionInstance.cachedConstantTooltip(SHIELD_CROUCH_TOOLTIP), true);
     private static final OptionInstance<Boolean> ADVANCED_ENTITY_ANIMATIONS = OptionInstance.createBoolean("options.advanced_entity_animations", OptionInstance.cachedConstantTooltip(ADVANCED_ENTITY_ANIMATIONS_TOOLTIP), true);
     private static final OptionInstance<Boolean> SHIELD_ANIMATION = OptionInstance.createBoolean("options.accessibility.shield_animation", OptionInstance.cachedConstantTooltip(SHIELD_ANIMATION_TOOLTIP), true);
-    private static final OptionInstance<EntityCullingMethod> ENTITY_CULLING_METHOD = new OptionInstance<>(
-            "options.entityCulling",
-            method -> switch (method) {
-                case FRUSTUM -> Tooltip.create(FRUSTUM_CULLING_TOOLTIP);
-                case FRUSTUM_AND_OCCLUSION -> Tooltip.create(OCCULSION_CULLING_TOOLTIP);
-            },
-            (_, method) -> method.caption(),
-            new OptionInstance.Enum<>(Arrays.asList(EntityCullingMethod.values()), EntityCullingMethod.LEGACY_CODEC),
-            EntityCullingMethod.FRUSTUM_AND_OCCLUSION,
-            _ -> Options.operateOnLevelExtractor(LevelExtractor::resetSampler)
-    );
     public static final KeyMapping[] MACRO_KEYS = new KeyMapping[10];
 
     public static OptionInstance<Boolean> cameraShake() {
@@ -59,10 +43,6 @@ public class OptionsSD {
 
     public static OptionInstance<Boolean> shieldAnimation() {
         return SHIELD_ANIMATION;
-    }
-
-    public static OptionInstance<EntityCullingMethod> entityCullingMethod() {
-        return ENTITY_CULLING_METHOD;
     }
 
     private static void commandMacroBindings() {
