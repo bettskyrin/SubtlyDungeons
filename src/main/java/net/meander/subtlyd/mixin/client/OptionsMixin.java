@@ -14,6 +14,8 @@ public class OptionsMixin {
         access.process("camera_shake", OptionsSD.cameraShake());
         access.process("experimental_gui", OptionsSD.gui());
         access.process("shield_crouch", OptionsSD.shieldCrouch());
+        access.process("advanced_entity_animations", OptionsSD.advancedEntityAnimations());
         access.process("shield_animation", OptionsSD.shieldAnimation());
+        access.process("entity_culling_method", OptionsSD.entityCullingMethod());
     }
 }
