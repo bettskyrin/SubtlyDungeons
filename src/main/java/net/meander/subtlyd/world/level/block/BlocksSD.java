@@ -25,7 +25,8 @@ public class BlocksSD {
     public static final Block CHARCOAL_BLOCK = Blocks.register(BlockItemIdsSD.CHARCOAL_BLOCK, BlockBehaviour.Properties.ofFullCopy(Blocks.COAL_BLOCK));
     public static final Block IRON_GRATE = Blocks.register(BlockItemIdsSD.IRON_GRATE, IronGrateBlock::new, BlockBehaviour.Properties.of()
             .mapColor(MapColor.METAL)
-            .requiresCorrectToolForDrops().strength(5.0F, 6.0F)
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 6.0F)
             .sound(SoundType.IRON)
             .noOcclusion()
             .isValidSpawn(Blocks::never)
