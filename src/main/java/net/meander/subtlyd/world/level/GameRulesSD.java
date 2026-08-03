@@ -15,7 +15,8 @@ public class GameRulesSD {
     public static final GameRule<Boolean> ADVANCED_MOBS = registerBoolean("advanced_mobs", GameRuleCategory.MOBS, true);
     public static final GameRule<Integer> BLADE_CLASH_WINDOW = registerInteger("blade_clash_window", GameRuleCategory.PLAYER, 10, 0);
 
-    public static void registration() {}
+    public static void registration() {
+        UtilSD.LOGGER.debug("Registering game rules...");}
 
     private static GameRule<Boolean> registerBoolean(final String id, final GameRuleCategory category, final boolean defaultValue) {
         return GameRules.registerBoolean(UtilSD.identifier(id).toString(), category, defaultValue);

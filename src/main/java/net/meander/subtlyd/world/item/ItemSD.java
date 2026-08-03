@@ -118,6 +118,7 @@ public abstract class ItemSD extends Item {
     }
 
     public static void modifyComponents() {
+        UtilSD.LOGGER.debug("Modifying item components...");
         modifyRarity();
         modifyConsumable();
         modifyStackSize();

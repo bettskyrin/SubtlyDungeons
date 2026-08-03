@@ -36,7 +36,8 @@ public class SoundEventsSD {
     public static final Holder.Reference<SoundEvent> BLAST_FUNGUS_EXPLODE = registerForHolder("entity.blast_fungus.explode");
     public static final Holder.Reference<SoundEvent> LEAVES_AMBIENT = registerForHolder("block.oak_leaves.ambient");
 
-    public static void registration() {}
+    public static void registration() {
+        UtilSD.LOGGER.debug("Registering sound events...");}
 
     private static SoundEvent register(String string) {
         return SoundEvents.register(UtilSD.identifier(string));

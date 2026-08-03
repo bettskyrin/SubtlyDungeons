@@ -35,8 +35,8 @@ public class ClientInitializerSD implements ClientModInitializer {
     }
 
     private void core() {
-        PacketNetworking.registerClient();
-        OptionsSD.registration();
-        CommandsSD.initClient();
+        PacketNetworking.registerPayloadHandlers();
+        OptionsSD.bindOptions();
+        CommandsSD.load();
     }
 }

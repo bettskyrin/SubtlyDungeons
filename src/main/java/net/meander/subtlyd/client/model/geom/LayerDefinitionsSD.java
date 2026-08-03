@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.rendering.v1.ModelLayerRegistry;
 import net.meander.subtlyd.client.model.object.equipment.HeavyShieldModel;
 import net.meander.subtlyd.client.model.object.equipment.QuiverModel;
 import net.meander.subtlyd.client.model.object.tent.TentModel;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ public class LayerDefinitionsSD {
     }
 
     public static void registration() {
+        UtilSD.LOGGER.debug("Registering model layers...");
         register(ModelLayersSD.TENT, TentModel::createBodyLayer);
         register(ModelLayersSD.HEAVY_SHIELD, HeavyShieldModel::createLayer);
         register(ModelLayersSD.QUIVER, QuiverModel::createBodyLayer);

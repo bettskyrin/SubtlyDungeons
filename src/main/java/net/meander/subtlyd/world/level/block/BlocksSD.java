@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.level.block;
 
 import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.level.block.sounds.SoundTypeSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.world.level.block.*;
@@ -126,6 +127,7 @@ public class BlocksSD {
     public static final Block STRIPPED_WARPED_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_SLAB, Blocks.STRIPPED_WARPED_HYPHAE);
 
     public static void registration() {
+        UtilSD.LOGGER.debug("Registering blocks...");
         BlockSD.registerEvents();
     }
 

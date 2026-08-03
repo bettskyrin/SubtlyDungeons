@@ -361,6 +361,7 @@ public class WorldGeneratorSD implements DataProvider {
         private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
 
         public static void run() {
+            UtilSD.LOGGER.debug("Modifying world generation...");
             FeatureUtilsSD.registration();
             modifyFog();
             modifySwampLike();

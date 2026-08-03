@@ -27,6 +27,7 @@ public class CameraShakeEvents {
     }
 
     public static void registration() {
+        UtilSD.LOGGER.debug("Registering camera shake events...");
         DynamicRegistries.registerSynced(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEvent.CODEC);
     }
 }

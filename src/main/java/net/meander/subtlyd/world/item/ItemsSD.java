@@ -4,6 +4,7 @@ import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.references.BlockItemIdsSD;
 import net.meander.subtlyd.references.ItemIdsSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.entity.ai.attributes.AttributesSD;
 import net.meander.subtlyd.world.food.FoodsSD;
 import net.meander.subtlyd.world.item.component.ConsumablesSD;
@@ -179,6 +180,7 @@ public class ItemsSD {
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK));
 
     public static void registration() {
+        UtilSD.LOGGER.debug("Registering items...");
         CreativeModeTabsSD.registration();
         ItemSD.modifyComponents();
     }

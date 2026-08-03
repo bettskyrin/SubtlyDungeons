@@ -2,6 +2,7 @@ package net.meander.subtlyd.client;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.CommonComponents;
@@ -51,10 +52,12 @@ public class OptionsSD {
             int defaultKey = (i == 9) ? InputConstants.KEY_0 : InputConstants.KEY_1 + i;
             MACRO_KEYS[i] = new KeyMapping("key.command_macros." + displayNum, defaultKey, KeyMappingSD.Category.COMMAND_MACROS);
         }
+
         Arrays.stream(MACRO_KEYS).toList().forEach(KeyMappingHelper::registerKeyMapping);
     }
 
-    public static void registration() {
+    public static void bindOptions() {
+        UtilSD.LOGGER.debug("Binding options...");
         commandMacroBindings();
     }
 }

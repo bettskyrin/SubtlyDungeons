@@ -2,6 +2,7 @@ package net.meander.subtlyd.client.particle;
 
 import net.fabricmc.fabric.api.client.particle.v1.ParticleProviderRegistry;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ColorParticleOption;
@@ -24,6 +25,7 @@ public class ParticleResourcesSD {
             .build();
 
     public static void registerProviders() {
+        UtilSD.LOGGER.debug("Registering particle types...");
         ParticleProviderRegistry.getInstance().register(ParticleTypesSD.SPORE_CLOUD, SporeCloudParticle.Provider::new);
         ParticleProviderRegistry.getInstance().register(ParticleTypesSD.BLADE_CLASH, BladeClashParticle.Provider::new);
     }

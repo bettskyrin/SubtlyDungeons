@@ -5,15 +5,18 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
 import net.meander.subtlyd.network.protocol.CameraShakePacketPayload;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 
 public class PacketNetworking {
-    public static void registerCommon() {
+    public static void registerPayloadTypes() {
+        UtilSD.LOGGER.debug("Registering payload types...");
         PayloadTypeRegistry.clientboundPlay().register(CameraShakePacketPayload.ID, CameraShakePacketPayload.CODEC);
     }
 
-    public static void registerClient() {
+    public static void registerPayloadHandlers() {
+        UtilSD.LOGGER.debug("Registering payload handlers...");
         ClientPlayNetworking.registerGlobalReceiver(CameraShakePacketPayload.ID, ((payload, context) -> context.client().execute(
             () -> {
                 if (payload.durationTicks() <= 0) {

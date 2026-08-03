@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.entity.event.v1.EntitySleepEvents;
 import net.fabricmc.fabric.api.util.EventResult;
 import net.meander.subtlyd.client.camera.shake.CameraShake;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.Identifier;
@@ -51,10 +52,12 @@ public interface LevelSD {
     }
 
     static void registerEvents() {
+        UtilSD.LOGGER.debug("Registering level events...");
         registerSleepEvents();
     }
 
     static void registerClientEvents() {
+        UtilSD.LOGGER.debug("Registering client events...");
         registerClientTickEvents();
     }
 }

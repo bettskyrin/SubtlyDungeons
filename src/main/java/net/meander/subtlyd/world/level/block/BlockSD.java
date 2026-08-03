@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.meander.subtlyd.core.cauldron.CauldronInteractionsSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.level.block.function.*;
 import net.minecraft.world.level.block.Block;
 
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.Block;
  */
 public class BlockSD {
     public static void registerEvents() {
+        UtilSD.LOGGER.debug("Registering block events...");
         useBlock();
         breakBlock();
     }

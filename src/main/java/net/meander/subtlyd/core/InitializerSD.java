@@ -20,7 +20,7 @@ import net.meander.subtlyd.world.level.block.entity.BlockEntityTypesSD;
 @SuppressWarnings("unused")
 public class InitializerSD implements ModInitializer {
     private void server() {
-        PacketNetworking.registerCommon();
+        PacketNetworking.registerPayloadTypes();
         ParticleTypesSD.registerServer();
         EntityDataAccessors.definitions();
     }

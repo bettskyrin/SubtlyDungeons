@@ -1,5 +1,6 @@
 package net.meander.subtlyd.world.effect;
 
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -14,6 +15,7 @@ public class MobEffectsSD {
     }
 
     private static void modifyAttributes() {
+        UtilSD.LOGGER.debug("Modifying mob effects...");
         MobEffects.JUMP_BOOST.value().addAttributeModifier(
                 Attributes.JUMP_STRENGTH,
                 Identifier.withDefaultNamespace("effect.jump_boost"),

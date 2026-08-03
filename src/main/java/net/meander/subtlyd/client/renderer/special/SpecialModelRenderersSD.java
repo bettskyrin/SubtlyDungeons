@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.special.SpecialModelRenderers;
  */
 public class SpecialModelRenderersSD {
     public static void bootstrap() {
+        UtilSD.LOGGER.debug("Mapping special model renderers...");
         SpecialModelRenderers.ID_MAPPER.put(UtilSD.identifier("heavy_shield"), HeavyShieldSpecialRenderer.Unbaked.MAP_CODEC);
     }
 }

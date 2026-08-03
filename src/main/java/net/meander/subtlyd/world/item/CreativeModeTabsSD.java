@@ -2,6 +2,7 @@ package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.meander.subtlyd.tags.BlockTagsSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.CreativeModeTab;
@@ -39,6 +40,7 @@ public class CreativeModeTabsSD {
     ).reversed();
 
     public static void registration() {
+        UtilSD.LOGGER.debug("Setting creative mode tab entries...");
         buildingBlocks();
         naturalBlocks();
         coloredBlocks();
