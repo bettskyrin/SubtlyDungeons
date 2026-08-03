@@ -16,8 +16,14 @@ import net.minecraft.world.item.Item;
 /**
  * @see net.minecraft.client.data.models.ModelProvider
  */
-public class ItemModelGeneratorsSD  {
-    private void generatePotionArchetypes(ItemModelGenerators itemModelGenerators) {
+public class ItemModelGeneratorsSD {
+    private final ItemModelGenerators itemModelGenerators;
+
+    public ItemModelGeneratorsSD(ItemModelGenerators itemModelGenerators) {
+        this.itemModelGenerators = itemModelGenerators;
+    }
+
+    private void generatePotionArchetypes() {
         Identifier conicalBottle = UtilSD.identifier("item/potion/conical_overlay");
         Identifier sphericalBottle = UtilSD.identifier("item/potion/spherical_overlay");
         Identifier vialBottle = UtilSD.identifier("item/potion/vial_overlay");
@@ -27,14 +33,14 @@ public class ItemModelGeneratorsSD  {
         ModelTemplates.FLAT_ITEM.create(vialBottle, TextureMapping.layer0(new Material(vialBottle)), itemModelGenerators.modelOutput);
     }
 
-    private void generateShield(ItemModelGenerators itemModelGenerators, final Item item) {
+    private void generateShield(final Item item) {
         ItemModel.Unbaked normal = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item), new HeavyShieldSpecialRenderer.Unbaked());
         ItemModel.Unbaked blocking = ItemModelUtils.specialModel(ModelLocationUtils.getModelLocation(item, "_blocking"), new HeavyShieldSpecialRenderer.Unbaked());
 
         itemModelGenerators.itemModelOutput.accept(item, ItemModelUtils.conditional(HeavyShieldSpecialRenderer.DEFAULT_TRANSFORMATION, ItemModelUtils.isUsingItem(), blocking, normal));
     }
 
-    public void generateItemModels(ItemModelGenerators itemModelGenerators) {
+    public void generateItemModels() {
         ItemsSD.TENT.forEach(item -> itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM));
         itemModelGenerators.generateFlatItem(ItemsSD.APPLE_PIE, ModelTemplates.FLAT_ITEM);
         itemModelGenerators.generateFlatItem(ItemsSD.CALAMARI, ModelTemplates.FLAT_ITEM);
@@ -56,7 +62,7 @@ public class ItemModelGeneratorsSD  {
         itemModelGenerators.generateFlatItem(ItemsSD.NETHERITE_DAGGER, ModelTemplates.FLAT_HANDHELD_ITEM);
         itemModelGenerators.generateFlatItem(ItemsSD.QUIVER, ModelTemplates.FLAT_ITEM);
         ItemsSD.DYED_QUIVER.forEach(item -> itemModelGenerators.generateFlatItem(item, ModelTemplates.FLAT_ITEM));
-        generatePotionArchetypes(itemModelGenerators);
-        generateShield(itemModelGenerators, ItemsSD.HEAVY_SHIELD);
+        generatePotionArchetypes();
+        generateShield(ItemsSD.HEAVY_SHIELD);
     }
 }

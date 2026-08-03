@@ -12,15 +12,15 @@ public class ModelGeneratorSD extends FabricModelProvider {
 
     @Override
     public void generateBlockStateModels(BlockModelGenerators blockModelGenerators) {
-        BlockModelGeneratorsSD blockModelGeneratorsSD = new BlockModelGeneratorsSD();
+        BlockModelGeneratorsSD blockModelGeneratorsSD = new BlockModelGeneratorsSD(blockModelGenerators);
 
-        blockModelGeneratorsSD.generateBlockModels(blockModelGenerators);
+        blockModelGeneratorsSD.generateBlockModels();
     }
 
     @Override
     public void generateItemModels(ItemModelGenerators itemModelGenerators) {
-        ItemModelGeneratorsSD itemModelGeneratorsSD = new ItemModelGeneratorsSD();
+        ItemModelGeneratorsSD itemModelGeneratorsSD = new ItemModelGeneratorsSD(itemModelGenerators);
 
-        itemModelGeneratorsSD.generateItemModels(itemModelGenerators);
+        itemModelGeneratorsSD.generateItemModels();
     }
 }

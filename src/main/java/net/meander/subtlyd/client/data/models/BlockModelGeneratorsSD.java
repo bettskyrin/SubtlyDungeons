@@ -1,8 +1,7 @@
 package net.meander.subtlyd.client.data.models;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.meander.subtlyd.client.data.models.model.ModelTemplatesSD;
+import net.meander.subtlyd.data.BlockFamiliesSD;
 import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.level.block.PotionCauldronBlock;
 import net.meander.subtlyd.world.level.block.StewCauldronBlock;
@@ -13,22 +12,31 @@ import net.minecraft.client.data.models.blockstates.PropertyDispatch;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.resources.model.sprite.Material;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.BlockFamilies;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
+import java.util.Map;
+
 /**
  * @see BlockModelGenerators
  */
 public class BlockModelGeneratorsSD {
+    private final BlockModelGenerators blockModelGenerators;
+
+    public BlockModelGeneratorsSD(BlockModelGenerators blockModelGenerators) {
+        this.blockModelGenerators = blockModelGenerators;
+    }
+
     /**
      * Builds a slab model from a vanilla pillar block texture.
      * @param baseBlock The original block to obtain a texture from.
      * @param newBlock The custom block that the texture will be mapped to.
      */
-    private static void generatePillarSlabFromVanilla(BlockModelGenerators blockModelGenerators, Block baseBlock, Block newBlock) {
+    private void generatePillarSlabFromVanilla(Block baseBlock, Block newBlock) {
         MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(baseBlock));
         Identifier top = TextureMapping.getBlockTexture(baseBlock, "_top").sprite();
         Identifier side = TextureMapping.getBlockTexture(baseBlock, "_side").sprite();
@@ -40,21 +48,21 @@ public class BlockModelGeneratorsSD {
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
     }
 
-    private static void generateWoodSlabFromVanilla(BlockModelGenerators blockModelGenerators, Block logBlock, Block doubleSlabBlock, Block newBlock) {
-        Identifier barkTexture = TextureMapping.getBlockTexture(logBlock).sprite();
+    private void generateSlabFromVanilla(Block baseBlock, Block newBlock) {
+        Identifier faceTexture = TextureMapping.getBlockTexture(baseBlock).sprite();
         
-        TextureMapping slabTextures = new TextureMapping().put(TextureSlot.BOTTOM, new Material(barkTexture)).put(TextureSlot.TOP, new Material(barkTexture)).put(TextureSlot.SIDE, new Material(barkTexture));
+        TextureMapping slabTextures = new TextureMapping().put(TextureSlot.BOTTOM, new Material(faceTexture)).put(TextureSlot.TOP, new Material(faceTexture)).put(TextureSlot.SIDE, new Material(faceTexture));
         MultiVariant blockBottom = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_BOTTOM.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
         MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
-        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(doubleSlabBlock));
+        MultiVariant fullBlockModel = BlockModelGenerators.plainVariant(ModelLocationUtils.getModelLocation(baseBlock));
 
         blockModelGenerators.blockStateOutput.accept(BlockModelGenerators.createSlab(newBlock, blockBottom, blockTop, fullBlockModel));
     }
 
-    private static void generateWoodStairsFromVanilla(BlockModelGenerators blockModelGenerators, Block logBlock, Block newBlock) {
-        Identifier barkTexture = TextureMapping.getBlockTexture(logBlock).sprite();
+    private void generateStairsFromVanilla(Block baseBlock, Block newBlock) {
+        Identifier faceTexture = TextureMapping.getBlockTexture(baseBlock).sprite();
 
-        TextureMapping stairTextures = new TextureMapping().put(TextureSlot.BOTTOM, new Material(barkTexture)).put(TextureSlot.TOP, new Material(barkTexture)).put(TextureSlot.SIDE, new Material(barkTexture));
+        TextureMapping stairTextures = new TextureMapping().put(TextureSlot.BOTTOM, new Material(faceTexture)).put(TextureSlot.TOP, new Material(faceTexture)).put(TextureSlot.SIDE, new Material(faceTexture));
         MultiVariant blockStraight = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_STRAIGHT.create(newBlock, stairTextures, blockModelGenerators.modelOutput));
         MultiVariant blockInner = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_INNER.create(newBlock, stairTextures, blockModelGenerators.modelOutput));
         MultiVariant blockOuter = BlockModelGenerators.plainVariant(ModelTemplates.STAIRS_OUTER.create(newBlock, stairTextures, blockModelGenerators.modelOutput));
@@ -66,7 +74,7 @@ public class BlockModelGeneratorsSD {
      * Creates an overhang block.
      * @param overhangBlock The block to map to.
      */
-    private static void generateOverhangBlock(BlockModelGenerators blockModelGenerators, Block overhangBlock) {
+    private void generateOverhangBlock(Block overhangBlock) {
         Identifier north = TextureMapping.getBlockTexture(overhangBlock, "_north").sprite();
         Identifier east = TextureMapping.getBlockTexture(overhangBlock, "_east").sprite();
         Identifier south = TextureMapping.getBlockTexture(overhangBlock, "_south").sprite();
@@ -85,7 +93,7 @@ public class BlockModelGeneratorsSD {
     }
 
     @SuppressWarnings("DataFlowIssue")
-    private static Identifier[] generateCauldronContentsModel(BlockModelGenerators blockModelGenerators, Identifier baseId, String nameSuffix, Identifier liquidTexture) {
+    private Identifier[] generateCauldronContentsModel(Identifier baseId, String nameSuffix, Identifier liquidTexture) {
         TextureMapping mapping = new TextureMapping()
                 .put(TextureSlot.CONTENT, new Material(liquidTexture))
                 .put(TextureSlot.TOP, new Material(Identifier.tryParse("minecraft:block/cauldron_top")))
@@ -105,9 +113,9 @@ public class BlockModelGeneratorsSD {
         };
     }
 
-    private static void generatePotionCauldron(BlockModelGenerators blockModelGenerators) {
+    private void generatePotionCauldron() {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(BlocksSD.POTION_CAULDRON);
-        Identifier[] waterModels = generateCauldronContentsModel(blockModelGenerators, blockId, "", Identifier.tryParse("minecraft:block/water_still"));
+        Identifier[] waterModels = generateCauldronContentsModel(blockId, "", Identifier.tryParse("minecraft:block/water_still"));
 
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlocksSD.POTION_CAULDRON)
                 .with(PropertyDispatch.initial(PotionCauldronBlock.LEVEL)
@@ -121,14 +129,14 @@ public class BlockModelGeneratorsSD {
         );
     }
 
-    private static void generateStewCauldron(BlockModelGenerators blockModelGenerators) {
+    private void generateStewCauldron() {
         Identifier blockId = BuiltInRegistries.BLOCK.getKey(BlocksSD.STEW_CAULDRON);
 
         Identifier lightTexture = Identifier.tryParse(blockId.getNamespace() + ":block/light_stew_still");
-        Identifier[] lightModels = generateCauldronContentsModel(blockModelGenerators, blockId, "_light", lightTexture);
+        Identifier[] lightModels = generateCauldronContentsModel(blockId, "_light", lightTexture);
 
         Identifier finishedTexture = Identifier.tryParse(blockId.getNamespace() + ":block/heavy_stew_still");
-        Identifier[] finishedModels = generateCauldronContentsModel(blockModelGenerators, blockId, "_heavy", finishedTexture);
+        Identifier[] finishedModels = generateCauldronContentsModel(blockId, "_heavy", finishedTexture);
 
         blockModelGenerators.blockStateOutput.accept(MultiVariantGenerator.dispatch(BlocksSD.STEW_CAULDRON)
                 .with(PropertyDispatch.initial(StewCauldronBlock.LEVEL, StewCauldronBlock.IS_HEAVY_STEW)
@@ -161,89 +169,60 @@ public class BlockModelGeneratorsSD {
         }
     }
 
-    private void generateWoodFamily(BlockModelGenerators blockModelGenerators) {
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.OAK_LOG, Blocks.OAK_WOOD, BlocksSD.OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.OAK_LOG, BlocksSD.OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.SPRUCE_LOG, Blocks.SPRUCE_WOOD, BlocksSD.SPRUCE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.SPRUCE_LOG, BlocksSD.SPRUCE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.BIRCH_LOG, Blocks.BIRCH_WOOD, BlocksSD.BIRCH_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.BIRCH_LOG, BlocksSD.BIRCH_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.JUNGLE_LOG, Blocks.JUNGLE_WOOD, BlocksSD.JUNGLE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.JUNGLE_LOG, BlocksSD.JUNGLE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.ACACIA_LOG, Blocks.ACACIA_WOOD, BlocksSD.ACACIA_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.ACACIA_LOG, BlocksSD.ACACIA_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.DARK_OAK_LOG, Blocks.DARK_OAK_WOOD, BlocksSD.DARK_OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.DARK_OAK_LOG, BlocksSD.DARK_OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.MANGROVE_LOG, Blocks.MANGROVE_WOOD, BlocksSD.MANGROVE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.MANGROVE_LOG, BlocksSD.MANGROVE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.CHERRY_LOG, Blocks.CHERRY_WOOD, BlocksSD.CHERRY_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.CHERRY_LOG, BlocksSD.CHERRY_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.PALE_OAK_LOG, Blocks.PALE_OAK_WOOD, BlocksSD.PALE_OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.PALE_OAK_LOG, BlocksSD.PALE_OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.POPLAR_LOG, Blocks.POPLAR_WOOD, BlocksSD.POPLAR_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.POPLAR_LOG, BlocksSD.POPLAR_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.CRIMSON_STEM, Blocks.CRIMSON_HYPHAE, BlocksSD.CRIMSON_HYPHAE_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.CRIMSON_STEM, BlocksSD.CRIMSON_HYPHAE_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.WARPED_STEM, Blocks.WARPED_HYPHAE, BlocksSD.WARPED_HYPHAE_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.WARPED_STEM, BlocksSD.WARPED_HYPHAE_STAIRS);
+    public void woodFamily(BlockFamily blockFamily, BlockFamily baseBlockFamily, BlockFamily.Variant variantType) {
+        Map<BlockFamily.Variant, Block> variants = blockFamily.getVariants();
+        Map<BlockFamily.Variant, Block> baseVariants = baseBlockFamily.getVariants();
+        Block baseBlock = baseVariants.get(variantType);
+
+        for (BlockFamily.Variant variant : variants.keySet()) {
+            switch (variant) {
+                case STAIRS -> generateStairsFromVanilla(baseBlock, variants.get(variant)); // Oak Wood Stairs
+                case SLAB -> generateSlabFromVanilla(baseBlock, variants.get(variant));
+            }
+        }
     }
 
-    private void generateStrippedWoodFamily(BlockModelGenerators blockModelGenerators) {
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_OAK_LOG, Blocks.STRIPPED_OAK_WOOD, BlocksSD.STRIPPED_OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_OAK_LOG, BlocksSD.STRIPPED_OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_SPRUCE_LOG, Blocks.STRIPPED_SPRUCE_WOOD, BlocksSD.STRIPPED_SPRUCE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_SPRUCE_LOG, BlocksSD.STRIPPED_SPRUCE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_BIRCH_LOG, Blocks.STRIPPED_BIRCH_WOOD, BlocksSD.STRIPPED_BIRCH_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_BIRCH_LOG, BlocksSD.STRIPPED_BIRCH_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_JUNGLE_LOG, Blocks.STRIPPED_JUNGLE_WOOD, BlocksSD.STRIPPED_JUNGLE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_JUNGLE_LOG, BlocksSD.STRIPPED_JUNGLE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_ACACIA_LOG, Blocks.STRIPPED_ACACIA_WOOD, BlocksSD.STRIPPED_ACACIA_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_ACACIA_LOG, BlocksSD.STRIPPED_ACACIA_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_DARK_OAK_LOG, Blocks.STRIPPED_DARK_OAK_WOOD, BlocksSD.STRIPPED_DARK_OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_DARK_OAK_LOG, BlocksSD.STRIPPED_DARK_OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_MANGROVE_LOG, Blocks.STRIPPED_MANGROVE_WOOD, BlocksSD.STRIPPED_MANGROVE_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_MANGROVE_LOG, BlocksSD.STRIPPED_MANGROVE_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_CHERRY_LOG, Blocks.STRIPPED_CHERRY_WOOD, BlocksSD.STRIPPED_CHERRY_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_CHERRY_LOG, BlocksSD.STRIPPED_CHERRY_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_PALE_OAK_LOG, Blocks.STRIPPED_PALE_OAK_WOOD, BlocksSD.STRIPPED_PALE_OAK_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_PALE_OAK_LOG, BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_POPLAR_LOG, Blocks.STRIPPED_POPLAR_WOOD, BlocksSD.STRIPPED_POPLAR_WOOD_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_POPLAR_LOG, BlocksSD.STRIPPED_POPLAR_WOOD_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_WARPED_STEM, Blocks.STRIPPED_CRIMSON_HYPHAE, BlocksSD.STRIPPED_CRIMSON_HYPHAE_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_WARPED_STEM, BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS);
-        generateWoodSlabFromVanilla(blockModelGenerators, Blocks.STRIPPED_WARPED_STEM, Blocks.STRIPPED_WARPED_HYPHAE, BlocksSD.STRIPPED_WARPED_HYPHAE_SLAB);
-        generateWoodStairsFromVanilla(blockModelGenerators, Blocks.STRIPPED_WARPED_STEM, BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS);
+    private void generateWoodFamily() {
+        woodFamily(BlockFamiliesSD.OAK_WOOD, BlockFamilies.OAK_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_OAK_WOOD, BlockFamilies.OAK_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.BIRCH_WOOD, BlockFamilies.BIRCH_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_BIRCH_WOOD, BlockFamilies.BIRCH_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.SPRUCE_WOOD, BlockFamilies.SPRUCE_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_SPRUCE_WOOD, BlockFamilies.SPRUCE_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.JUNGLE_WOOD, BlockFamilies.JUNGLE_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_JUNGLE_WOOD, BlockFamilies.JUNGLE_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.ACACIA_WOOD, BlockFamilies.ACACIA_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_ACACIA_WOOD, BlockFamilies.ACACIA_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.DARK_OAK_WOOD, BlockFamilies.DARK_OAK_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_DARK_OAK_WOOD, BlockFamilies.DARK_OAK_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.MANGROVE_WOOD, BlockFamilies.MANGROVE_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_MANGROVE_WOOD, BlockFamilies.MANGROVE_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.CHERRY_WOOD, BlockFamilies.CHERRY_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_CHERRY_WOOD, BlockFamilies.CHERRY_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.PALE_OAK_WOOD, BlockFamilies.PALE_OAK_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_PALE_OAK_WOOD, BlockFamilies.PALE_OAK_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.POPLAR_WOOD, BlockFamilies.POPLAR_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_POPLAR_WOOD, BlockFamilies.POPLAR_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.CRIMSON_HYPHAE, BlockFamilies.CRIMSON_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_CRIMSON_HYPHAE, BlockFamilies.CRIMSON_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
+        woodFamily(BlockFamiliesSD.WARPED_HYPHAE, BlockFamilies.WARPED_PLANKS, BlockFamily.Variant.LOG);
+        woodFamily(BlockFamiliesSD.STRIPPED_WARPED_HYPHAE, BlockFamilies.WARPED_PLANKS, BlockFamily.Variant.STRIPPED_LOG);
     }
 
-    public void generateBlockModels(BlockModelGenerators blockModelGenerators) {
-        blockModelGenerators.family(BlocksSD.SNOW_BRICKS).generateFor(new BlockFamily.Builder(BlocksSD.SNOW_BRICKS)
-                .stairs(BlocksSD.SNOW_BRICK_STAIRS)
-                .slab(BlocksSD.SNOW_BRICK_SLAB)
-                .wall(BlocksSD.SNOW_BRICK_WALL)
-                .getFamily());
-        blockModelGenerators.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(new BlockFamily.Builder(BlocksSD.POLISHED_DRIPSTONE)
-                .stairs(BlocksSD.POLISHED_DRIPSTONE_STAIRS)
-                .slab(BlocksSD.POLISHED_DRIPSTONE_SLAB)
-                .wall(BlocksSD.POLISHED_DRIPSTONE_WALL)
-                .getFamily());
-        blockModelGenerators.family(BlocksSD.STONE_TILES).generateFor(new BlockFamily.Builder(BlocksSD.STONE_TILES)
-                .stairs(BlocksSD.STONE_TILE_STAIRS)
-                .slab(BlocksSD.STONE_TILE_SLAB)
-                .wall(BlocksSD.STONE_TILE_WALL)
-                .getFamily());
+    public void generateBlockModels() {
+        blockModelGenerators.family(BlocksSD.SNOW_BRICKS).generateFor(BlockFamiliesSD.SNOW_BRICKS);
+        blockModelGenerators.family(BlocksSD.POLISHED_DRIPSTONE).generateFor(BlockFamiliesSD.POLISHED_DRIPSTONE);
+        blockModelGenerators.family(BlocksSD.STONE_TILES).generateFor(BlockFamiliesSD.STONE_TILES);
         blockModelGenerators.createTrivialCube(BlocksSD.CHARCOAL_BLOCK);
-        blockModelGenerators.createTrivialCube(BlocksSD.CHISELED_POLISHED_DRIPSTONE);
         blockModelGenerators.createAxisAlignedPillarBlock(BlocksSD.STONE_PILLAR, TexturedModel.COLUMN);
         blockModelGenerators.createTrivialCube(BlocksSD.IRON_GRATE);
         blockModelGenerators.createPumpkinVariant(BlocksSD.SOUL_JACK_O_LANTERN, TextureMapping.column(Blocks.PUMPKIN));
         blockModelGenerators.createDoublePlant(BlocksSD.REEDS, BlockModelGenerators.PlantType.NOT_TINTED);
         blockModelGenerators.createFlowerBed(BlocksSD.PERSE_WILDFLOWERS);
-        generateOverhangBlock(blockModelGenerators, BlocksSD.WARPED_OVERHANG);
-        generatePillarSlabFromVanilla(blockModelGenerators, Blocks.BASALT, BlocksSD.BASALT_SLAB);
-        generatePotionCauldron(blockModelGenerators);
-        generateStewCauldron(blockModelGenerators);
-        generateWoodFamily(blockModelGenerators);
-        generateStrippedWoodFamily(blockModelGenerators);
-        
+        generateOverhangBlock(BlocksSD.WARPED_OVERHANG);
+        generatePillarSlabFromVanilla(Blocks.BASALT, BlocksSD.BASALT_SLAB);
+        generatePotionCauldron();
+        generateStewCauldron();
+        generateWoodFamily();
     }
 }
