@@ -24,9 +24,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class LanguageProviderSD extends FabricLanguageProvider {
     public LanguageProviderSD(FabricPackOutput packOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
-        final String englishUS = "en_us";
-
-        super(packOutput, englishUS, registryLookup);
+        super(packOutput, registryLookup);
     }
 
     private void addStat(TranslationBuilder translationBuilder, Identifier statId, String value) {
