@@ -1,7 +1,6 @@
 package net.meander.subtlyd.world.item;
 
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
-import net.meander.subtlyd.tags.BlockTagsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.alchemy.PotionsSD;
 import net.minecraft.core.component.DataComponents;
@@ -51,11 +50,21 @@ public class CreativeModeTabsSD {
 
     private static void buildingBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
-            BlockTagsSD.getBlocks(BlockTagsSD.SNOW_BRICKS).forEach(block -> entries.insertBefore(SANDSTONE, block));
+            entries.insertBefore(SANDSTONE, SNOW_BRICKS);
+            entries.insertAfter(SNOW_BRICKS, SNOW_BRICK_STAIRS);
+            entries.insertAfter(SNOW_BRICK_STAIRS, SNOW_BRICK_SLAB);
+            entries.insertAfter(SNOW_BRICK_SLAB, SNOW_BRICK_WALL);
             entries.insertBefore(COAL_BLOCK, CHARCOAL_BLOCK);
             entries.insertAfter(IRON_BLOCK, IRON_GRATE);
-            BlockTagsSD.getBlocks(BlockTagsSD.STONE_TILES).forEach(block -> entries.insertBefore(GRANITE, block));
-            BlockTagsSD.getBlocks(BlockTagsSD.DRIPSTONE).forEach(block -> entries.insertBefore(GRANITE, block));
+            entries.insertBefore(GRANITE, STONE_TILES);
+            entries.insertAfter(STONE_TILES, STONE_TILE_STAIRS);
+            entries.insertAfter(STONE_TILE_STAIRS, STONE_TILE_SLAB);
+            entries.insertAfter(STONE_TILE_SLAB, STONE_TILE_WALL);
+            entries.insertBefore(GRANITE, POLISHED_DRIPSTONE);
+            entries.insertAfter(POLISHED_DRIPSTONE, POLISHED_DRIPSTONE_STAIRS);
+            entries.insertAfter(POLISHED_DRIPSTONE_STAIRS, POLISHED_DRIPSTONE_SLAB);
+            entries.insertAfter(POLISHED_DRIPSTONE_SLAB, POLISHED_DRIPSTONE_WALL);
+            entries.insertAfter(POLISHED_DRIPSTONE_WALL, CHISELED_POLISHED_DRIPSTONE);
             entries.insertAfter(STONE_SLAB, STONE_PILLAR);
             entries.insertAfter(BASALT, BASALT_SLAB);
             entries.insertAfter(OAK_WOOD, OAK_WOOD_STAIRS);

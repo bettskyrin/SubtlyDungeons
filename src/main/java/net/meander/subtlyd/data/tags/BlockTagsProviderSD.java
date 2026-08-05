@@ -22,7 +22,8 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         super(output, registriesFuture);
     }
 
-    @Override protected void addTags(HolderLookup.Provider registries) {
+    @Override
+    protected void addTags(HolderLookup.Provider registries) {
         tag(BlockTagsSD.SNOW_BRICKS)
                 .add(BlockItemIdsSD.SNOW_BRICKS.block())
                 .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
