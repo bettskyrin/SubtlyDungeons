@@ -44,6 +44,8 @@ import net.minecraft.world.level.levelgen.DensityFunction;
 import net.minecraft.world.level.levelgen.DensityFunctions;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
+import net.minecraft.world.level.levelgen.densityfunction.generator.ShiftedNoiseFunction;
+import net.minecraft.world.level.levelgen.densityfunction.op.MarkerFunction;
 import net.minecraft.world.level.levelgen.feature.FallenTreeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -197,29 +199,29 @@ public class WorldGeneratorSD implements DataProvider {
         return root;
     }
 
-    private static DensityFunction scaleDensityNode(final DensityFunction node, final double scale) {
-        if (node instanceof DensityFunctions.ShiftedNoise shiftedNoise) {
+    private static DensityFunction scaleDensityNode(final DensityFunction densityNode, final double scale) {
+        if (densityNode instanceof ShiftedNoiseFunction shiftedNoise) {
             double roundedScale = MthSD.roundToTenThousandths(shiftedNoise.xzScale() / scale);
 
             return DensityFunctions.shiftedNoise2d(shiftedNoise.shiftX(), shiftedNoise.shiftZ(), roundedScale, shiftedNoise.noise().noiseData());
-        } else if (node instanceof DensityFunctions.Marker(DensityFunctions.Marker.Type type, DensityFunction wrapped)) {
+        } else if (densityNode instanceof MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped)) {
             DensityFunction scaledDensityNode = scaleDensityNode(wrapped, scale);
 
-            return new DensityFunctions.Marker(type, scaledDensityNode);
+            return new MarkerFunction(type, scaledDensityNode);
         }
 
-        return node;
+        return densityNode;
     }
 
-    private static JsonObject getModifiedSimpleDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> ops, final ResourceKey<DensityFunction> key, final double scale) {
+    private static JsonObject getModifiedSimpleDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps, final ResourceKey<DensityFunction> key, final double scale) {
         HolderLookup.RegistryLookup<DensityFunction> registry = provider.lookupOrThrow(Registries.DENSITY_FUNCTION);
 
-        DensityFunction densityFunction = registry.getOrThrow(key).value();
-        DensityFunction scaledDensityFunction = scaleDensityNode(densityFunction, scale);
+        DensityFunction densityNode = registry.getOrThrow(key).value();
+        DensityFunction scaledDensityNode = scaleDensityNode(densityNode, scale);
 
-        JsonElement densityFunctionElement = DensityFunction.CODEC.encodeStart(ops, scaledDensityFunction).getOrThrow(IllegalStateException::new);
+        JsonElement densityNodeElement = DensityFunction.CODEC.encodeStart(regOps, scaledDensityNode).getOrThrow(IllegalStateException::new);
 
-        return densityFunctionElement.getAsJsonObject();
+        return densityNodeElement.getAsJsonObject();
     }
 
     private static List<TreeDecorator> getModifiedTrunkDecorator(final ResourceKey<Feature> key, final List<TreeDecorator> decorators) {
@@ -249,7 +251,7 @@ public class WorldGeneratorSD implements DataProvider {
         return builder;
     }
 
-    private static JsonObject getModifiedStraightTrunkTreeFeature(final HolderLookup.Provider provider, final RegistryOps<JsonElement> ops, final ResourceKey<Feature> featureKey, final int baseHeight, final int randHeightA, final int randHeightB) {
+    private static JsonObject getModifiedStraightTrunkTreeFeature(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps, final ResourceKey<Feature> featureKey, final int baseHeight, final int randHeightA, final int randHeightB) {
         HolderLookup.RegistryLookup<Feature> featureRegistry = provider.lookupOrThrow(Registries.FEATURE);
         Feature parsedFeature = featureRegistry.getOrThrow(featureKey).value();
 
@@ -261,7 +263,7 @@ public class WorldGeneratorSD implements DataProvider {
             builder.decorators(modifiedDecorators);
 
             Feature modified = builder.build();
-            JsonElement newFeature = Feature.DIRECT_CODEC.encodeStart(ops, modified).getOrThrow(IllegalStateException::new);
+            JsonElement newFeature = Feature.DIRECT_CODEC.encodeStart(regOps, modified).getOrThrow(IllegalStateException::new);
 
             return newFeature.getAsJsonObject();
         } else {

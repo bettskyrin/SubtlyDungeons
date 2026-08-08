@@ -393,7 +393,9 @@ public abstract class LivingEntityMixin extends Entity {
             boolean canDaggerParry = (attackerItem.is(ItemTagsSD.CAN_PARRY_DAGGERS) || attackerItem.is(ItemTagsSD.CAN_PARRY_SWORDS)) && defenderItem.is(ItemTagsSD.CAN_PARRY_DAGGERS);
 
             if (isFacingAttacker && (isDuel || canDaggerParry)) {
-                if (defender.swinging && defender.swingTime > 0 && defender.swingTime <= level.getGameRules().get(GameRulesSD.BLADE_CLASH_WINDOW)) {
+                LivingEntity.SwingDescription swing = defender.getCurrentSwing();
+
+                if (swing != null && swing.durationTicks() > 0 && swing.durationTicks() <= level.getGameRules().get(GameRulesSD.BLADE_CLASH_WINDOW)) {
                     boolean hasWoodenWeapon = ItemStackSD.hasWoodenWeapon(attackerItem, defenderItem);
                     float pitch = 0.7F;
                     SoundEvent soundEffect = SoundEventsSD.BLADE_WOOD_CLASH;
@@ -445,10 +447,10 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "getSecondsToDisableBlocking", at = @At("RETURN"), cancellable = true)
     private void modifySecondsToDisableBlocking(CallbackInfoReturnable<Float> cir) {
+        float stunSeconds = cir.getReturnValue();
         LivingEntity attacker = (LivingEntity) (Object) this;
         ItemStack weapon = attacker.getWeaponItem();
         int cleavingLevel = EnchantmentHelper.getItemEnchantmentLevel(attacker.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(EnchantmentsSD.CLEAVING), weapon);
-        float stunSeconds = cir.getReturnValue();
         
         if (cleavingLevel > 0) {
             if (stunSeconds == 0.0F) {

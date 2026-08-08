@@ -24,6 +24,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Inventory;
@@ -350,7 +351,7 @@ public class CauldronInteractionsSD {
                         }
 
                         if (!inventory.add(tippedArrows)) {
-                            player.drop(tippedArrows, false);
+                            player.drop(tippedArrows, false, Prediction.SERVER_ONLY);
                         }
 
                         level.playSound(null, blockPos, SoundEvents.GENERIC_SPLASH, SoundSource.BLOCKS, 1.0F, 1.0F);

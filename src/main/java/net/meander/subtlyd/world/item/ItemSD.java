@@ -133,7 +133,7 @@ public abstract class ItemSD extends Item {
                     .repairable(material.repairItems())
                     .enchantable(material.enchantmentValue())
                     .component(DataComponents.ATTACK_RANGE, new AttackRange(0.0F, 2.5F, 0.0F, 3.0F, 0.1F, 0.2F))
-                    .component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, (int) (20.0F / (4.0F + attackSpeedBaseline))))
+                    .component(DataComponents.ATTACK_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, (int) (20.0F / (4.0F + attackSpeedBaseline))))
                     .attributes(ItemAttributeModifiers.builder()
                             .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(Item.BASE_ATTACK_DAMAGE_ID, attackDamageBaseline + material.attackDamageBonus(), AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)
                             .add(Attributes.ATTACK_SPEED, new AttributeModifier(Item.BASE_ATTACK_SPEED_ID, attackSpeedBaseline, AttributeModifier.Operation.ADD_VALUE), EquipmentSlotGroup.MAINHAND)

@@ -53,6 +53,6 @@ public class TridentItemMixin {
         float finalAttackSpeed = (float) (Attributes.ATTACK_SPEED.value().getDefaultValue() + (float) attackSpeedModifier);
         int animationDuration = (int) (20.0F / finalAttackSpeed);
 
-        return properties.component(DataComponents.SWING_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, animationDuration));
+        return properties.component(DataComponents.ATTACK_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, animationDuration));
     }
 }

@@ -32,14 +32,15 @@ public class ServerAdvancementManagerMixin {
     @Shadow @Final @Mutable private Map<Identifier, AdvancementHolder> advancements;
     @Shadow @Final @Mutable private AdvancementTree tree;
 
+    private static final Identifier ADVENTURE_ROOT = Identifier.withDefaultNamespace("adventure/root");
     private static final Identifier BALANCED_DIET = Identifier.withDefaultNamespace("husbandry/balanced_diet");
     private static final Identifier COUNTRY_LODE = Identifier.withDefaultNamespace("adventure/use_lodestone");
-    private static final Identifier ADVENTURE_ROOT = Identifier.withDefaultNamespace("adventure/root");
+    private static final Identifier SUBSPACE_BUBBLE = Identifier.withDefaultNamespace("nether/fast_travel");
 
     private static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET, COUNTRY_LODE, ADVENTURE_ROOT);
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void onAdvancementsLoaded(HolderLookup.Provider registries, CallbackInfo ci) {
+    private void modifyAdvancements(HolderLookup.Provider registries, CallbackInfo ci) {
         Map<Identifier, AdvancementHolder> modifiedMap = new HashMap<>(advancements);
         boolean isModified = false;
 
@@ -54,10 +55,12 @@ public class ServerAdvancementManagerMixin {
                 List<List<String>> mutableRequirements = new ArrayList<>(oldAdvancement.requirements().requirements());
                 boolean sendsTelemetryEvent = oldAdvancement.sendsTelemetryEvent();
 
-                if (advancementId.equals(BALANCED_DIET)) {
+                if (advancementId == BALANCED_DIET) {
                     modifyBalancedDiet(criteria, mutableRequirements, registries);
-                } else if (advancementId.equals(ADVENTURE_ROOT)) {
-                    displayInfo = modifyAdventureRootDisplay(displayInfo, registries);
+                } else if (advancementId == ADVENTURE_ROOT) {
+                    displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
+                } else if (advancementId == SUBSPACE_BUBBLE) {
+                    displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
                 }
 
                 Advancement newAdvancement = new Advancement(
@@ -116,14 +119,14 @@ public class ServerAdvancementManagerMixin {
     }
 
     @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "deprecation"})
-    private Optional<DisplayInfo> modifyAdventureRootDisplay(Optional<DisplayInfo> displayInfo, HolderLookup.Provider registries) {
+    private Optional<DisplayInfo> modifyDisplay(final Optional<DisplayInfo> displayInfo, final HolderLookup.Provider registries, final Item item) {
         return displayInfo.map(info -> {
             HolderGetter<Item> itemGetter = registries.lookupOrThrow(Registries.ITEM);
-            Holder.Reference<Item> mapHolder = itemGetter.getOrThrow(Items.FILLED_MAP.builtInRegistryHolder().key());
-            ItemStackTemplate mapTemplate = new ItemStackTemplate(mapHolder, 1, DataComponentPatch.EMPTY);
+            Holder.Reference<Item> mapHolder = itemGetter.getOrThrow(item.builtInRegistryHolder().key());
+            ItemStackTemplate displayItem = new ItemStackTemplate(mapHolder, 1, DataComponentPatch.EMPTY);
 
             return new DisplayInfo(
-                    mapTemplate,
+                    displayItem,
                     info.getTitle(),
                     info.getDescription(),
                     info.getBackground(),

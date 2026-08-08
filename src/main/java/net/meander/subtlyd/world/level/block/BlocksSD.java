@@ -19,7 +19,8 @@ public class BlocksSD {
             .mapColor(MapColor.SNOW)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .strength(1.0F, 0.5F)
-            .sound(SoundTypeSD.SNOW_BRICKS));
+            .sound(SoundTypeSD.SNOW_BRICKS)
+    );
     public static final Block SNOW_BRICK_STAIRS = registerStair(BlockItemIdsSD.SNOW_BRICK_STAIRS, SNOW_BRICKS);
     public static final Block SNOW_BRICK_SLAB = registerSlab(BlockItemIdsSD.SNOW_BRICK_SLAB, SNOW_BRICKS);
     public static final Block SNOW_BRICK_WALL = registerWall(BlockItemIdsSD.SNOW_BRICK_WALL, SNOW_BRICKS);
@@ -33,7 +34,7 @@ public class BlocksSD {
             .isValidSpawn(Blocks::never)
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never));
+    );
     public static final Block STONE_PILLAR = Blocks.register(BlockItemIdsSD.STONE_PILLAR, RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final Block STONE_TILES = Blocks.register(BlockItemIdsSD.STONE_TILES, BlockBehaviour.Properties.ofFullCopy(Blocks.COBBLESTONE));
     public static final Block STONE_TILE_STAIRS = registerStair(BlockItemIdsSD.STONE_TILE_STAIRS, STONE_TILES);
@@ -51,7 +52,8 @@ public class BlocksSD {
             .instabreak()
             .sound(SoundType.WET_GRASS)
             .offsetType(BlockBehaviour.OffsetType.XZ)
-            .pushReaction(PushReaction.POPPED));
+            .pushReaction(PushReaction.POPPED)
+    );
     public static final Block WARPED_OVERHANG = Blocks.register(BlockItemIdsSD.WARPED_OVERHANG, WarpedOverhangBlock::new , BlockBehaviour.Properties.ofFullCopy(Blocks.WARPED_WART_BLOCK)
             .noCollision()
             .noOcclusion()
@@ -61,7 +63,7 @@ public class BlocksSD {
             .isValidSpawn(Blocks::never)
             .isRedstoneConductor(Blocks::never)
             .isSuffocating(Blocks::never)
-            .isViewBlocking(Blocks::never));
+    );
     public static final Block BASALT_SLAB = registerSlab(BlockItemIdsSD.BASALT_SLAB, Blocks.BASALT);
     public static final Block SOUL_JACK_O_LANTERN = Blocks.register(BlockItemIdsSD.SOUL_JACK_O_LANTERN, CarvedPumpkinBlock::new,
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE)
@@ -69,13 +71,15 @@ public class BlocksSD {
                     .sound(SoundType.WOOD)
                     .lightLevel(_ -> 10)
                     .isValidSpawn(Blocks::always)
-                    .pushReaction(PushReaction.POPPED));
+                    .pushReaction(PushReaction.POPPED)
+    );
     public static final Block POTION_CAULDRON = Blocks.register(BlockItemIdsSD.POTION_CAULDRON, p -> new PotionCauldronBlock(p, CauldronInteractionsSD.POTION), BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
     public static final Block PERSE_WILDFLOWERS = Blocks.register(BlockItemIdsSD.PERSE_WILDFLOWERS, p -> new FlowerBedBlock(p, 3), BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollision()
             .sound(SoundType.PINK_PETALS)
-            .pushReaction(PushReaction.POPPED));
+            .pushReaction(PushReaction.POPPED)
+    );
     public static final Block STEW_CAULDRON = Blocks.register(BlockItemIdsSD.STEW_CAULDRON, StewCauldronBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.CAULDRON));
     public static final Block OAK_WOOD_STAIRS = registerStair(BlockItemIdsSD.OAK_WOOD_STAIRS, Blocks.OAK_WOOD);
     public static final Block SPRUCE_WOOD_STAIRS = registerStair(BlockItemIdsSD.SPRUCE_WOOD_STAIRS, Blocks.SPRUCE_WOOD);

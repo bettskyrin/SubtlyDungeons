@@ -57,8 +57,6 @@ transitive-accessible method net/minecraft/world/level/levelgen/structure/Struct
 transitive-accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen applyNewPackConfig (Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/world/level/WorldDataConfiguration;Ljava/util/function/Consumer;)V
 transitive-accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getDataPackSelectionSettings (Lnet/minecraft/world/level/WorldDataConfiguration;)Lcom/mojang/datafixers/util/Pair;
 transitive-accessible method net/minecraft/data/worldgen/features/VegetationFeatures flowerBedPatchBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/util/random/WeightedList$Builder;
-transitive-accessible class net/minecraft/world/level/levelgen/DensityFunctions$ShiftedNoise
-transitive-accessible class net/minecraft/world/level/levelgen/DensityFunctions$Marker
 transitive-accessible method net/minecraft/world/level/levelgen/feature/treedecorators/ShelfMushroomDecorator isWithinDecoratableHeight (Lnet/minecraft/core/BlockPos;I)Z
 transitive-accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType register (Ljava/lang/String;Lcom/mojang/serialization/MapCodec;)Lnet/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType;
 
