@@ -138,6 +138,7 @@ public class ServerAdvancementManagerMixin {
         if (advancementId.equals(COUNTRY_LODE)) {
             return Optional.of(UtilSD.identifier("adventure/banner_marker"));
         }
+
         return advancement.parent();
     }
 }

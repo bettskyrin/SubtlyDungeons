@@ -10,6 +10,10 @@ Modded shear and silk touch related block loot is currently disabled.
 - Adding Block of Raw Iron Blasting recipe
 - Adding Block of Raw Gold Blasting recipe
 
+### Changes
+#### Textures
+- Changed map design to match the base game
+
 ### Technical Changes
 #### Bug Fixes
 - Fixed bug preventing some settings from being saved
