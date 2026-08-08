@@ -14,6 +14,9 @@ Modded shear and silk touch related block loot is currently disabled.
 #### Textures
 - Changed map design to match the base game
 
+#### Advancements
+- Changed Subspace Bubble advancement to use the Filled Map texture
+
 ### Technical Changes
 #### Bug Fixes
 - Fixed bug preventing some settings from being saved

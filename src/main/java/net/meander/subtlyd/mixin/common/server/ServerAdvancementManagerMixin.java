@@ -37,7 +37,17 @@ public class ServerAdvancementManagerMixin {
     private static final Identifier COUNTRY_LODE = Identifier.withDefaultNamespace("adventure/use_lodestone");
     private static final Identifier SUBSPACE_BUBBLE = Identifier.withDefaultNamespace("nether/fast_travel");
 
-    private static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET, COUNTRY_LODE, ADVENTURE_ROOT);
+    private static final Item[] FOODS = new Item[]{
+            ItemsSD.APPLE_PIE,
+            ItemsSD.CALAMARI,
+            ItemsSD.COOKED_CALAMARI,
+            ItemsSD.POTTAGE,
+            Items.BROWN_MUSHROOM,
+            Items.RED_MUSHROOM,
+            Items.SHELF_MUSHROOM,
+            ItemsSD.LIGHT_STEW
+    };
+    private static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET, COUNTRY_LODE, ADVENTURE_ROOT, SUBSPACE_BUBBLE);
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void modifyAdvancements(HolderLookup.Provider registries, CallbackInfo ci) {
@@ -56,7 +66,7 @@ public class ServerAdvancementManagerMixin {
                 boolean sendsTelemetryEvent = oldAdvancement.sendsTelemetryEvent();
 
                 if (advancementId == BALANCED_DIET) {
-                    modifyBalancedDiet(criteria, mutableRequirements, registries);
+                    modifyCriteriaItems(criteria, mutableRequirements, registries, FOODS);
                 } else if (advancementId == ADVENTURE_ROOT) {
                     displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
                 } else if (advancementId == SUBSPACE_BUBBLE) {
@@ -94,23 +104,13 @@ public class ServerAdvancementManagerMixin {
         }
     }
 
-    private void modifyBalancedDiet(Map<String, Criterion<?>> criteria, List<List<String>> requirements, HolderLookup.Provider registries) {
-        Item[] foods = new Item[]{
-                ItemsSD.APPLE_PIE,
-                ItemsSD.CALAMARI,
-                ItemsSD.COOKED_CALAMARI,
-                ItemsSD.POTTAGE,
-                Items.BROWN_MUSHROOM,
-                Items.RED_MUSHROOM,
-                Items.SHELF_MUSHROOM,
-                ItemsSD.LIGHT_STEW
-        };
+    private void modifyCriteriaItems(Map<String, Criterion<?>> criteria, List<List<String>> requirements, HolderLookup.Provider registries, Item[] itemList) {
         HolderGetter<Item> itemGetter = registries.lookupOrThrow(Registries.ITEM);
 
-        for (Item food : foods) {
-            Identifier foodID = BuiltInRegistries.ITEM.getKey(food);
-            String criteriaName = foodID.getPath();
-            ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item().of(itemGetter, food);
+        for (Item item : itemList) {
+            Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
+            String criteriaName = itemId.getPath();
+            ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item().of(itemGetter, item);
             Criterion<?> newCriterion = ConsumeItemTrigger.TriggerInstance.usedItem(itemPredicate);
 
             criteria.put(criteriaName, newCriterion);
