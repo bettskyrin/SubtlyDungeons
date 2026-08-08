@@ -20,3 +20,4 @@ Modded shear and silk touch related block loot is currently disabled.
 ### Technical Changes
 #### Bug Fixes
 - Fixed bug preventing some settings from being saved
+- Fixed bug preventing quivers from displaying on armor stands

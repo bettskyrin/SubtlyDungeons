@@ -4,9 +4,9 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.client.renderer.entity.state.AvatarRenderState;
+import net.minecraft.client.renderer.entity.state.HumanoidRenderState;
 
-public class QuiverModel extends EntityModel<AvatarRenderState> {
+public class QuiverModel extends EntityModel<HumanoidRenderState> {
     public final ModelPart bag;
     public final ModelPart arrow1;
     public final ModelPart arrow2;
@@ -49,5 +49,5 @@ public class QuiverModel extends EntityModel<AvatarRenderState> {
     }
 
     @Override
-    public void setupAnim(AvatarRenderState state) {}
+    public void setupAnim(HumanoidRenderState state) {}
 }

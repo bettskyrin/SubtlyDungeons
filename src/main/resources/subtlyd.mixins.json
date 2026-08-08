@@ -109,8 +109,6 @@
     "client.renderer.entity.ZombifiedPiglinRendererMixin",
     "client.renderer.entity.layers.DrownedOuterLayerMixin",
     "client.renderer.entity.layers.HumanoidArmorLayerMixin",
-    "client.renderer.entity.player.AvatarRendererMixin",
-    "client.renderer.entity.state.AvatarRenderStateMixin",
     "client.renderer.entity.state.EntityRenderStateMixin",
     "client.renderer.entity.state.LivingEntityRenderStateMixin",
     "client.renderer.entity.state.ThrownTridentRenderStateMixin",
