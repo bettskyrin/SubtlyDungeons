@@ -113,6 +113,7 @@
     "client.renderer.entity.state.LivingEntityRenderStateMixin",
     "client.renderer.entity.state.ThrownTridentRenderStateMixin",
     "client.renderer.entity.state.UndeadRenderStateMixin",
+    "client.renderer.extract.LevelExtractorMixin",
     "client.renderer.feature.FlameFeatureRendererMixin",
     "client.renderer.feature.FlameFeatureRendererMixin$SubmitMixin",
     "client.renderer.item.ItemInHandRendererMixin",
