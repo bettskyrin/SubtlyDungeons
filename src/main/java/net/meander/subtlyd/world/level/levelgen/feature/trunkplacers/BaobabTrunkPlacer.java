@@ -14,7 +14,6 @@ import net.minecraft.world.level.levelgen.feature.foliageplacers.FoliagePlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacer;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.TrunkPlacerType;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -40,18 +39,17 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		int y = origin.getY();
 		int z = origin.getZ();
 
-		List<Direction> directionsToGenerateBranches = new ArrayList<>(Direction.Plane.HORIZONTAL.stream().toList());
-		BlockPos highBranchPos = new BlockPos(x, y + treeHeight - 1, z);
+		List<Direction> branchDirections = Lists.newArrayList(Direction.Plane.HORIZONTAL);
+		List<Direction> lowBranchDirections = Lists.newArrayList(branchDirections);
 
+		BlockPos.MutableBlockPos mutablePos = new BlockPos.MutableBlockPos();
 		for (int dx = -1; dx <= 2; dx++) {
 			for (int dz = -1; dz <= 2; dz++) {
-				BlockPos.MutableBlockPos basePos = below.offset(dx, 0, dz).mutable();
+				mutablePos.setWithOffset(below, dx, 0, dz);
 
 				for (int drop = 0; drop < 5; drop++) {
-					boolean wasPlaced = placeLog(level, trunkSetter, random, basePos, tree);
-
-					if (wasPlaced) {
-						basePos.move(Direction.DOWN);
+					if (placeLog(level, trunkSetter, random, mutablePos, tree)) {
+						mutablePos.move(Direction.DOWN);
 					} else {
 						break;
 					}
@@ -59,53 +57,92 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 			}
 		}
 
-		for (int dy = 0; dy < treeHeight; dy++) {
-			boolean isTopOfTrunk = (dy == (treeHeight - 1));
+		for (int dx = -2; dx <= 3; dx++) {
+			for (int dz = -2; dz <= 3; dz++) {
+				if (dx == -2 || dx == 3 || dz == -2 || dz == 3) {
+					if (random.nextFloat() < 0.25F) {
+						int rootHeight = random.nextInt(1) + 1;
 
+						for (int ry = rootHeight; ry >= -3; ry--) {
+							mutablePos.set(x + dx, y + ry, z + dz);
+
+							boolean wasPlaced = placeLog(level, trunkSetter, random, mutablePos, tree);
+
+							if (ry < 0 && !wasPlaced) {
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		for (int dy = 0; dy < treeHeight; dy++) {
 			for (int dx = -1; dx <= 2; dx++) {
 				for (int dz = -1; dz <= 2; dz++) {
-                    if (!isTopOfTrunk || (dx != -1 && dx != 2) || (dz != -1 && dz != 2)) { // Skip corners
-                        BlockPos pos = new BlockPos(x + dx, y + dy, z + dz);
-
-                        placeLog(level, trunkSetter, random, pos, tree);
-                    }
-                }
+					mutablePos.set(x + dx, y + dy, z + dz);
+					placeLog(level, trunkSetter, random, mutablePos, tree);
+				}
 			}
 		}
 
-		while (!directionsToGenerateBranches.isEmpty()) {
-			int index = random.nextInt(directionsToGenerateBranches.size());
-			Direction direction = directionsToGenerateBranches.remove(index);
+		for (Direction direction : branchDirections) {
+			int offset = direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 2 : -1;
+			Direction.Axis branchAxis = direction.getAxis();
 
-			if (random.nextBoolean()) {
-				generateDiagonalBranch(level, trunkSetter, random, highBranchPos, direction, tree, attachments);
-			} else {
-				generateHorizontalBranch(level, trunkSetter, random, highBranchPos, direction, tree, attachments);
+			int highBranchX = branchAxis == Direction.Axis.X ? x + offset : getBranchXZOffset(random, x);
+			int highBranchY = y + treeHeight - 1;
+			int highBranchZ = branchAxis == Direction.Axis.Z ? z + offset : getBranchXZOffset(random, z);
+
+			for (int branches = 1; random.nextFloat() < 0.4F && branches < 2; branches++) {
+				int bonusBranchX = branchAxis == Direction.Axis.X ? x + offset : getBranchXZOffset(random, x);
+				int bonusBranchZ = branchAxis == Direction.Axis.Z ? z + offset : getBranchXZOffset(random, z);
+
+				if (bonusBranchX != highBranchX && bonusBranchZ != highBranchZ) {
+					generateBranch(level, trunkSetter, random, new BlockPos(bonusBranchX, highBranchY, bonusBranchZ), direction, tree, attachments);
+				} else {
+					branches--;
+				}
 			}
+
+			generateBranch(level, trunkSetter, random, new BlockPos(highBranchX, highBranchY, highBranchZ), direction, tree, attachments);
 		}
 
-		if (random.nextFloat() < 0.2F) {
-			int lowBranchY = y + 4;
-			Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(random);
-			BlockPos lowBranchPos = new BlockPos(x, lowBranchY, z);
+		while (!lowBranchDirections.isEmpty()) {
+			Direction direction = lowBranchDirections.removeFirst();
 
-			if (random.nextFloat() < 0.3F) {
-				generateDiagonalBranch(level, trunkSetter, random, lowBranchPos, direction, tree, attachments);
-			} else {
-				generateHorizontalBranch(level, trunkSetter, random, lowBranchPos, direction, tree, attachments);
+			if (random.nextFloat() < 0.4F) {
+				int offset = direction.getAxisDirection() == Direction.AxisDirection.POSITIVE ? 2 : -1;
+				int lowBranchY = y + random.nextInt(3) + 3;
+				int lowBranchX = direction.getAxis() == Direction.Axis.X ? x + offset : getBranchXZOffset(random, x);
+				int lowBranchZ = direction.getAxis() == Direction.Axis.Z ? z + offset : getBranchXZOffset(random, z);
+
+				generateBranch(level, trunkSetter, random, new BlockPos(lowBranchX, lowBranchY, lowBranchZ), direction, tree, attachments, random.nextInt(4) + 2);
 			}
 		}
 
 		return attachments;
 	}
 
-	private void generateHorizontalBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
-		int length = random.nextInt(3) + 4;
+	private int getBranchXZOffset(final RandomSource random, final int origin) {
+		int branchCoordinate;
+
+		if (random.nextBoolean()) {
+			branchCoordinate = origin + random.nextInt(2);
+		} else {
+			branchCoordinate = origin - random.nextInt(2);
+		}
+
+		return branchCoordinate;
+	}
+
+	private void generateBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
+		generateBranch(level, trunkSetter, random, pos, direction, tree, attachments, random.nextInt(3) + 4);
+	}
+
+	private void generateBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments, final int length) {
 		int height = random.nextInt(2) + 1;
 		BlockPos.MutableBlockPos mutableBlockPos = pos.mutable();
-		int offset = (direction.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
-
-		mutableBlockPos.move(direction, offset);
 
 		Function<BlockState, BlockState> axisSetter = state -> state.hasProperty(BlockStateProperties.AXIS) ? state.setValue(BlockStateProperties.AXIS, direction.getAxis()) : state;
 
@@ -126,26 +163,5 @@ public class BaobabTrunkPlacer extends TrunkPlacer {
 		}
 
 		attachments.add(new FoliagePlacer.FoliageAttachment(mutableBlockPos.above(2), 0, false));
-	}
-
-	/**
-	 * @see	net.minecraft.world.level.levelgen.feature.trunkplacers.ForkingTrunkPlacer
-	 */
-	private void generateDiagonalBranch(final WorldGenLevel level, final BiConsumer<BlockPos, BlockState> trunkSetter, final RandomSource random, final BlockPos pos, final Direction direction, final TreeFeature tree, List<FoliagePlacer.FoliageAttachment> attachments) {
-		int steps = random.nextInt(2) + 2;
-		int offset = (direction.getAxisDirection() == Direction.AxisDirection.POSITIVE) ? 2 : 1;
-		BlockPos.MutableBlockPos currentPos = pos.mutable();
-
-		currentPos.move(direction, offset);
-
-		for (int i = 0; i < steps; i++) {
-			currentPos.move(Direction.UP).move(direction);
-
-			if (TreeFeature.isAirOrLeaves(level, currentPos)) {
-				placeLog(level, trunkSetter, random, currentPos, tree);
-			}
-		}
-
-		attachments.add(new FoliagePlacer.FoliageAttachment(currentPos.above(2), 0, false));
 	}
 }

@@ -11,6 +11,9 @@ Modded shear and silk touch related block loot is currently disabled.
 - Adding Block of Raw Gold Blasting recipe
 
 ### Changes
+#### World Generation
+- Updated Baobab generation style to more closely match the version shown by Mojang
+
 #### Textures
 - Changed map design to match the base game
 
