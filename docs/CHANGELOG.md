@@ -1,12 +1,6 @@
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
-
-## [5.0 Battles & Biomes] - UNRELEASED
-### New Features
-#### Player-Tailored World Generation
+# [5.0 Battles & Biomes] - UNRELEASED
+## New Features
+### Player-Tailored World Generation
 - Added the Tailored World Generation system
 - During world creation, a "Default" world type can now be customized
 - Choosing the "Customize" option allows the player to modify sliders corresponding to world generation factors
@@ -22,14 +16,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     2) Leaks suggest Mojang intends to update the ocean relatively soon
     3) What fun is a deep ocean with nothing new in it yet :)
 
-#### Cauldron Stews
+### Cauldron Stews
 - Stews can now be made in cauldrons using their crafting ingredients
 - Once an ingredient is added, the cauldron's stew becomes a Light Stew
   - These can also be eaten, though have half the nutrition as a full crafted stew
 - One cauldron can hold 3 bowls of stew
 - Light Stews made with flowers that would be used to make a suspicious stew, do not grant status effects
 
-#### Items
+### Items
 - Added Light Stew
 - Added Daggers
   - Deals 4 attack damage by default
@@ -46,7 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Has a blocking delay of 5 ticks
   - Can become disabled for 1.6 seconds, instead of 5 seconds
 
-#### Combat
+### Combat
 - Added Blade Clash
   - When two attackers attack each other simultaneously (within 10 ticks), their weapons may clash, and do no damage to either of them
   - This currently only applies to swords and daggers
@@ -56,14 +50,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - By default, Shields have a Shield Strength of 5
 - Changed Shields to no longer have a blocking delay
 
-#### Enchantments
+### Enchantments
 - Added Enervation enchantment
   - Can be applied to daggers
   - Applies up to 4 seconds of Weakness to victims at Level III
 - Added Cleaving enchantment
   - This is to match the Combat Test Snapshots
 
-#### Blocks
+### Blocks
 - Added Perse Wildflowers
   - Can be crafted into Purple Dye
   - Can be found in Birch Forests, Meadows, Swamps, and the Dappled Forest
@@ -85,12 +79,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Some snowlogged blocks have snowy texture variants
 - Changed Powder Snow to decrease mining speed on Hard difficulty
 
-#### Sounds
+### Sounds
 - Added ambient Leaves block sounds
 - Added ambient Tall Grass block sounds
 - Added ambient Red Shrub sounds
 
-#### Music
+### Music
 - Added Door by C418
   - Plays on the main menu
 - Added Equinoxe by C418
@@ -98,11 +92,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Chris by C418
   - Plays in Creative Mode
 
-#### Settings
+### Settings
 - Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
 - Added Accessibility Settings option for toggling a blocking shield's visibility
 
-#### Game Rules
+### Game Rules
 - Added Advanced Mobs game rule
   - Toggles advanced mob behavior (e.g. flock panicking, shelter seeking)
   - Does not include wall climbing hitbox adjustments
@@ -110,7 +104,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Sets the window of time (in ticks) that two entities must attack each other within, to trigger a blade clash
   - A value of 0 disables this feature
 
-#### Advancements
+### Advancements
 - Added Marking Territory advancement
   - Is granted by using a map on a banner, to create a banner marker
 - Added Gather 'Round advancement
@@ -118,8 +112,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Soup-er! advancement
   - Is granted by adding stew ingredients to a cauldron
 
-### Changes
-#### Combat
+## Changes
+### Combat
 - Changed natural regeneration to be twice as fast
 - Changed starvation to be twice as fast
 - Changed natural regeneration to continue to 7 food points
@@ -140,20 +134,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Axes to no longer take increased durability damage when attacking
 - Changed attacking with weapons to prioritize entities over blocks, such as grass
 
-#### Discrete Actions
+### Discrete Actions
 - Discrete actions, like sneaking, crawling, being invisible, or hiding in foliage, now conceal a player's location better
   - Being discrete now allows you to get close behind creatures without them detecting you, so long as you are not within their line of sight
 - Having the glowing effect negates discrete actions
 - Attacking a creature triggers a 5-second cooldown, in which you are no longer considered discrete
 - Crawling now also affects the Locator Bar waypoint transmit range, like crouching
 
-#### Command Macros
+### Command Macros
 - Added Command Macros
 - Can be accessed from the Key Binds options screen
 - Up to 10 commands can be saved (with a maximum of 1024 characters each) and activated by pressing Left Alt + A Number Key from 0-9
 - The secondary key can be re-bound
 
-#### World Generation
+### World Generation
 - Changed all biomes to be larger
 - Changed all continents to be larger
 - Changed Oak Tree height
@@ -163,7 +157,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Snow to generate under trees in snowy biomes
 - Changed Super Birch Trees to have Shelf Mushrooms generate on their trunks
 
-##### Forest
+#### Forest
 - Changed understory to have sparse rocks
 - Changed understory to have more grass
 - Changed mob spawning to include rabbits
@@ -172,10 +166,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
   Developer's Note: I didn't even know that mushroom patches could spawn
 
-##### Birch Forest
+#### Birch Forest
 - Changed fallen logs to potentially have moss carpet generate on top
 
-##### Dark Forest
+#### Dark Forest
 - Changed understory to have sparse rocks
 - Changed canopys to be larger
 - Changed dark oak trees to be taller
@@ -186,76 +180,76 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed mushroom generation rate
 - Changed ambient fog distance in Dark Forest biomes
 
-##### Pale Garden
+#### Pale Garden
 - Changed ambient fog distance in Pale Garden biomes
 
-##### Dappled Forest
+#### Dappled Forest
 - Changed understory to have Perse Wildflowers
 
-##### Bamboo Forest
+#### Bamboo Forest
 - Changed ambient fog distance in Bamboo Jungle biomes
 
-##### Jungle
+#### Jungle
 - Changed ambient fog distance in Jungle biomes
 
-##### Swamp
+#### Swamp
 - Added Perse Wildflowers
 - Changed frog spawn rates in Swamp biomes to be higher
 - Changed mushroom generation rate
 - Changed ambient fog distance in Swamp biomes
 
-##### Mangrove Swamp
+#### Mangrove Swamp
 - Changed ambient fog distance in Mangrove Swamp biomes
 
-##### Taiga
+#### Taiga
 - Changed vegetation to be more common
 
-##### Savanna
+#### Savanna
 - Added Baobab trees
   - Similarly to Pine trees, these trees do not have a unique wood type, but are a special type of Acacia tree
   - Can be grown from a 2x2 of Acacia saplings
 
-##### Plains
+#### Plains
 - Changed mushroom generation rate
 
-##### The End
+#### The End
 - Changed Chorus Flowers to have an 85% chance of being alive
 - Increased Chorus Flower growth and death volume
 
-#### Structures
-##### End Spikes
+### Structures
+#### End Spikes
 - Changed End Spikes to be more triangular
 
-#### Mobs
+### Mobs
 - Added wall climbing to Silverfish AI
 - Added wall climbing to Endermite AI
 
-#### Items
+### Items
 - Changed Pottage to accept any type of edible mushroom
 
-#### Blocks
+### Blocks
 - Changed doors to be water loggable
 - Changed Brown Mushroom Blocks to have a light level of 1, to match the small brown mushroom
 - Changed Shelf Mushroom to be edible
 - Changed Powder Snow to decrease mining speed
 - Changed Iron Grates to have the `dragon_immune` block tag
 
-#### Tents
+### Tents
 - Tents now continuously check to see if there are sturdy blocks below it
   - The check for this includes the 4 corners of the hitbox.
 
-#### Wither
+### Wither
 - Wither Skull explosions can now only convert `dirt` block tag blocks to Soul Soil
 
-#### Textures
+### Textures
 - Changed spherical potion texture
 
-#### Crafting
+### Crafting
 - Changed map crafting recipe
   - Changed map crafting recipe to be a 9x9 of paper
     - This matches Bedrock Edition
 
-#### Loot
+### Loot
 - Changed Swamp Hut cauldron potions to be a data-driven loot table
 - Changed Tannery Chests to possibly generate Quivers
 - Changed Pillager Outpost Chests to possibly generate Heavy Shields and Quivers
@@ -263,11 +257,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Woodland Mansion Chests to possibly generate Heavy Shields
 - Changed Leatherworkers to gift Bundles and Quivers
 
-#### Textures
+### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
 - Changed Illusioner texture to match Minecraft Dungeons
 
-#### Sounds
+### Sounds
 - Changed Bush ambient sound to be louder
 - Changed Sand ambient sound to be louder
 - Changed dry vegetation ambient sound to be louder
@@ -276,41 +270,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 - Changed ambient cold wind sounds to be less common
 
-#### Advancements
+### Advancements
 - Changed "Traveler" advancement name to "Tentative Accommodations"
 - Changed Adventure root advancement to use the Filled Map texture
 
-#### Splash Text
+### Splash Text
 - Added "Bigger! Better!" splash text
 - Added "Perse!" splash text
 - Added "Any shape and size!" splash text
 - Added "Read the books!" splash text
 - Added "More music by C418!" splash text
 
-#### Credits
+### Credits
 - Added Zeit
   - We'd like to thank Zeit for modeling the quiver and assisting with the texture
 
-### Technical Changes
-#### Mobs
+## Technical Changes
+### Mobs
 - Refactored advanced mob AI
 
-#### Camera Shake Events
+### Camera Shake Events
 - Changed `range` field to accept an integer value
 
-#### Particles
+### Particles
 - Added `blade_clash` particle
 
-#### Statistics
+### Statistics
 - Added `damage_blocked_by_weapon` statistic
 
-#### Attributes
+### Attributes
 - Added `shield_strength` attribute
 
-#### Data Components
+### Data Components
 - Added `tent/color` data component
 
-#### Data Tags
+### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag
 - Added `has_cespitose` biome tag
@@ -340,7 +334,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Removed `has_ambient_block_sounds` block tag
 - Removed `skull_block` block tag
 
-#### Bug Fixes
+### Bug Fixes
 - Fixed bug causing a client/server de-sync when lighting a campfire with sticks
 - Fixed bug where unknown_server.png (commonly known as pack.png) was stretched when there's an issue with a world thumbnail
 - Fixed bug causing Tents to display the wrong error when trying to sleep during the day
@@ -351,16 +345,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Fixed missing Blast Fungus entity translation
 - Fixed bug causing Tentative Accommodations to be granted to those who have yet to sleep in beds
 
-## [4.2 Hotfix] - 7/15/26
+# [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
 
-## [4.1 Hotfix] - 6/21/26
+# [4.1 Hotfix] - 6/21/26
 - Fixed bug allowing Blast Fungi to damage blocks
 - Fixed bug preventing Anvil enchanting
 
-## [4.0 Magical Madness Update] - 6/16/26
-### New Features
-#### Enchantments
+# [4.0 Magical Madness Update] - 6/16/26
+## New Features
+### Enchantments
 - Added Occult Protection enchantment
   - A protection enchantment that protects the wearer from magical forms of harm
 - Added Glyph Affinity enchantment
@@ -375,27 +369,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Wolf armor may now be enchanted
   - Nautilus armor may now be enchanted
 
-#### Curses
+### Curses
 - Added Curse of Abrading
   - Affected equipment loses durability thrice as fast
 
-#### Charged Tridents
+### Charged Tridents
 - Tridents enchanted with Channeling can now be charged for 4 seconds to create a Charged Trident
 - Charged Tridents can summon a lightning bolt regardless of the current weather
 - Charged Tridents have a visual effect similar to that of Charged Creepers
 - Tridents may only be charged if the user's dimension is capable of having weather
 
-#### The Nether
+### The Nether
 - Huge Warped Fungus
   - Now have Warped Overhang
   - There is a 10% chance for Warped Roots to grow on top of the fungus cap
   - This design is inspired by Minecraft Dungeons!
 
-#### Blast Fungus
+### Blast Fungus
 - Blast Fungi can be crafted shapelessly with a Crimson Fungus and Warped Fungus
   - Once thrown, a blast fungus explodes on impact, doing no damage to surrounding blocks
 
-#### Potions
+### Potions
 - Added Potion of Decay
   - Can be brewed by adding a Wither Skeleton Skull to an Awkward Potion
 - Added Elixir of the Coven
@@ -404,13 +398,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - If killed in a Swamp biome, Witches have a 5% chance of dropping 1 bottle
     - If killed in a Witch Hut, Witches have a 50% chance of dropping 1 bottle
 
-#### Potion Effects
+### Potion Effects
 - Changed entities with Fire Resistance to no longer be visually set on fire
 - High enchantability (level 15 or higher) armors will turn invisible with the wearer
 - Changed Jump Boost effect to be increased by half a meter
   - The common Potion of Leaping will now allow the player to leap 2 meters high by default
 
-#### Cauldron Potions
+### Cauldron Potions
 - Added Potion Cauldron block entity
 - Behavior mimics Bedrock Edition
   - Cauldrons will now hold potions inside of them
@@ -418,7 +412,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Have a maximum of 6 levels
     - However, there are still only 3 visual levels
 
-#### Blocks
+### Blocks
 - Added Basalt Slab
 - Added Soul Jack o'Lantern
   - Can be crafted with a carved pumpkin and soul torch
@@ -429,7 +423,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added Unlit Soul Campfire
   - Is given when the player picks up an unlit Soul Campfire block with Silk Touch
 
-#### Music
+### Music
 - Added 7 new background music tracks:
   - Guldrum by Peter Hont
     - Plays in Nether Wastes
@@ -451,16 +445,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Removed Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Developer Note: This music track seems to try to create a specific feeling for the listener. One of the things that we think makes Minecraft music so great, is how neutral it is. A song may make you feel alone, inspired, alien, etc. This song didn't allow for this very much.
 
-#### Advancements
+### Advancements
 - Added new "Traveler" adventure challenge
   - Awarded for sleeping in a tent at least 1 km away from spawn or in a different dimension
 
-#### Loot
+### Loot
 - Added Enchanted Horse Armor loot pool to Ancient Cities, End Cities, Nether Fortresses, and Stronghold Corridors
   - This replaces the unenchanted Horse Armor loot pool
 - Changed cows, mooshrooms, horses, llamas, mules, donkeys, and trader llamas to drop between 1 and 4 leather
 
-#### Sounds
+### Sounds
 - Added sound effects for Frosted Ice (ice created by the Frost Walker enchantment)
 - Added new flaming arrow sound effect
 - Added new Ghast fireball shooting sound  effect
@@ -470,15 +464,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - Added sound effects for Dragon's Breath Area Effect Clouds
 - The Hardcore activate sound has been slightly altered
 
-#### Settings
+### Settings
 - Added Video Settings option for toggling the experimental UI changes
 
-#### Splash Text
+### Splash Text
 - Added "Music by Rostislav Trifonov!"
 - Added "Music by Eugnosis!"
 
-### Changes
-#### Enchanting
+## Changes
+### Enchanting
 - Changed Enchanting tables to accept carpets, potted plants, candles, chains, cauldrons, brewing stands, and chiseled bookshelves within the enchanting area
 - Changed Anvil Enchanting
   - The "Too Expensive!" message has been replaced with "Unrepairable!"
@@ -492,11 +486,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - Repair Cost (also known as the Prior Work Penalty): Functions the same as it did before, but now, enchanting does not increase the Repair Cost
     - Magic Level: Is a separate number that increases each time an item is enchanted. An item can be enchanted until you reach the magic limit, as mentioned above.
 
-#### Enchantments
+### Enchantments
 - Changed Piercing to reduce the effectiveness of armor by 10% with each level
 - Changed Impaling to affect all mobs that are in contact with water for parity with Bedrock Edition
 
-#### Potions
+### Potions
 - Changed liquid consumables to be consumed faster!
   - The time has been reduced to 20 ticks, to match the Combat Tests
 - Changed consumable potions to be stackable up to 16 items
@@ -506,7 +500,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - Example: A Potion of Swiftness that provides Speed II is now called a "Strong Potion of Swiftness"
   - This is based on their internal code names
 
-#### The Wither
+### The Wither
 - Changed launched Wither Skulls to be on fire
   - This was originally intended by Mojang, but caused crashes
   - The skull flames are blue, to match Soul Fire
@@ -521,7 +515,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 
   Note:  The Bedrock Edition's Wither "Dash" behavior was purposefully ignored.
 
-#### Beacons
+### Beacons
 - Changed Beacon effect range to be 4 times as high
   - Level 1 Beacon Range:
     - 20 meters -> 80 meters
@@ -533,17 +527,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
     - 50 meters -> 200 meters
   - This helps balance a more difficult Wither boss battle
 
-#### Structures
+### Structures
 - Changed Swamp Hut cauldrons to now have a random potion effect inside of them, to match Bedrock Edition
 
-#### Agricultural XP
+### Agricultural XP
 - Changed fully grown crops to drop 0-2 XP when reaped
 
-#### Blocks
+### Blocks
 - Changed overworld mushrooms to always be placeable on logs
 - Changed Unlit Campfires to drop when broken with a Silk Touch tool
 
-#### Textures
+### Textures
 - Changed Dragon Fireball texture to match Bedrock Edition
 - Changed Fire Charge/Fireball texture
 - Changed texture for entities on fire that are Wither Skulls, in Soul Fire, on Soul Sand, on Soul Soil, or in Soul Sand Valleys
@@ -557,8 +551,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
   - This design is to match Minecraft Dungeons
 - Reverted the Uncraftable Potion texture to its pre-1.21 color (Magenta)
 
-### Technical Changes
-#### Camera Shake Events
+## Technical Changes
+### Camera Shake Events
 Camera Shake events are now data-driven, similar to sound events. Camera shake event files are to be put in a `data/[datapack namespace]/subtlyd/camera_shake_event/` folder.
 - Added `sound_event` field: a Sound Event ID, specifies what sound event should trigger the Camera Shake Event
 - Added `range` field: a float, specifies the maximum distance that the camera shake can be experienced from
@@ -566,7 +560,7 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
 - Added `intensity` field: an optional float, specifies the intensity modifier value
   - Default: `4`
 
-#### Data Tags
+### Data Tags
 - Added `liquid_consumables` item tag
   - This is a list of consumables that can be considered liquids (e.g. stews, potions, etc.)
 - Added `is_occult` damage type tag
@@ -586,7 +580,7 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
 - Added `vial` potion tag
   - By default, this includes potions of Swiftness, Slowness, Leaping, and Weaving
 
-#### Enchantiblity
+### Enchantiblity
 - The enchantability difference of two items in an anvil will scale the enchantment cost cap.
   - Enchantability difference is calculated as `|enchantability of item 1 - enchantability of item 2|`
   - The enchantment level cap is calculated by this formula: `(enchantability difference * 2) + 40`
@@ -596,14 +590,14 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
     - The maximum enchantment level cap is now 100 (which can be achieved by combining two pieces of golden armor)
 - Elytras now have an enchantability level of 9
 
-- #### Entity Data
+- ### Entity Data
 - Custom Entity Data has been changed to use pascal case, rather than snake case
   - e.g. The command for summoning a leader zombie is now `/summon zombie ~ ~ ~ {IsLeader:1b}`
 
-#### Stats
+### Stats
 - Added `Times Slept in a Tent` statistic
 
-#### Sounds
+### Sounds
 - Added new sound event for the Wither:
   - `entity.wither_skeleton.summon`
 - Added new sound event for Evoker Fangs:
@@ -613,17 +607,17 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
 - Added new sound event for Dragon's Breath Area Effect Clouds:
   - `entity.ender_dragon.breath`
 
-#### Textures
+### Textures
 - Added Hardcore HUD hearts for the Poison effect
 - Added Hardcore HUD hearts for the Wither effect
 
-#### Particles
+### Particles
 - Added `spore_cloud` particle
 
-#### Credits
+### Credits
 - Added ourselves (and the talented artists that make the mod's music) to the game's end credits!
 
-#### Bug Fixes
+### Bug Fixes
 - **MC-84595** - Fixed bug where deaths by dragon's breath were referred to as "magic"
   - It now properly states that "[Player] was roasted in dragon's breath"
 - Fixed some memory leaks
@@ -638,11 +632,11 @@ Camera Shake events are now data-driven, similar to sound events. Camera shake e
 - Fixed bug allowing animal herds to panic even if the danger is environmental and unable to hurt them
 - Fixed a bug causing the game to crash on launch for some players
 
-## [3.0 Wild Instincts Update] - 3/24/26
+# [3.0 Wild Instincts Update] - 3/24/26
 Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This update brings a bit more life to the creatures of your world! Spot spiders climbing eerily up walls, see your farm animals look for a shelter when they're caught in the rain, and run wild with your pets like never before! Just be sure to check out the rest of the new features below. Happy exploring!
 
-### New Features
-#### The Food Chain
+## New Features
+### The Food Chain
 - Predators now have a cooldown for hunting
   - Mobs that have a "feast or famine" hunting style will wait 3 in-game days before hunting again.
 - Nocturnal predators will now only hunt at night
@@ -651,41 +645,41 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Predators now heal when consuming meat
 - Herbivores now heal when grazing
 
-#### Creepy Crawlies
+### Creepy Crawlies
 - Spiders now climb up walls and ceilings like in the trailers (and Minecraft Dungeons)!
 
-#### Fleeing Fauna
+### Fleeing Fauna
 - Some animals now run from attackers targeting their flock!
   - These flocks have a radius of 16 meters
   - When attacked, an animal within a flock will run away from the attack to a random location within 16 meters of its current location
 
-#### Cozy Creatures
+### Cozy Creatures
 - Animals will now seek out more comfortable environments!
   - Animals caught out in the rain will look for shelter
   - Non-cold acclimated animals (or their variants) will now seek out warmer spots to hang around
   - Non-heat acclimated animals (or their variants) will now seek out cooler spots in hot environments
 
-#### New Predators
+### New Predators
 - Dolphins now occasionally hunt for squid and cod!
   - Dolphins can also now be fed calamari
 - Polar Bears will now hunt for salmon and cod!
 
-#### Closer Pets
+### Closer Pets
 - Pets will now follow their owners for 20 meters before attempting to teleport!
   - This was increased from the default 12 meters
 - Pets now sprint with their owners!
 
-#### Consumable Mushrooms
+### Consumable Mushrooms
 - Overworld mushrooms are now once again (yes, they used to be in vanilla Minecraft) edible!
   - Brown mushrooms make a great snack, but red mushrooms will give you poison for 3 seconds
 
-#### Zombie Leaders
+### Zombie Leaders
 - Added a unique Zombified Piglin leader texture (from Minecraft Dungeons)
 - Updated Zombie leader texture to use a modified version of the "Lobber Zombie" texture (from Minecraft Earth)
 - Updated Husk leader texture
 - Added baby zombie, husk, zombie piglin, and drowned leader textures
 
-### Music
+## Music
 - New Underwater Music!
   - Rest in Reefs by Peter Hont
   - Coral Rise by Peter Hont
@@ -698,7 +692,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - Tropical Slime Scramble by Peter Hont
   - Primal Oil Sect by Peter Hont
 
-### Visuals
+## Visuals
 - Added Mace Smash Air, Mace Smash Ground, Mace Smash Ground Heavy, and End Flash screen shake event
 - Removed the Ender Dragon Growls screen shake event
   - This is due to this event being triggered server side (i.e. independent of what the player's actually hearing)
@@ -707,7 +701,7 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Updated the Iron Grate texture
 - Updated the Reeds texture
 
-### UI
+## UI
 - Redesigned the world creation screen! Some features from Bedrock edition have been brought over, with a Java spin on things
 - Redesigned HUD textures
   - New heart textures
@@ -719,18 +713,18 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
   - New hotbar textures
   - New crosshair texture
 
-### Advancements
+## Advancements
 - The advancement "Balanced Diet" now includes the new consumables
 
-### Splash Text
+## Splash Text
 - Added "We <3 spiders!" splash text
 - Added "Music by Grant Kirkhope!" splash text
 - Added "Also try Hytale!"
 - Added "Also try Minecraft Legends!"
 - Added "Wild!"
 
-### Technical Changes
-#### Data Tags
+## Technical Changes
+### Data Tags
 - The `dripstone` block tag is now `polished_dripstone`
 - The `tent` item tag is now `tents`
 - Added `can_be_scared` entity type tag
@@ -748,27 +742,27 @@ Coming in hot alongside the Tiny Takeover is the Wild Instincts Update! This upd
 - Added `feast_or_famine_hunter` entity type tag
   - This tag determines whether an animal species will have a 3-day-long hunting cooldown
 
-#### Loot
+### Loot
 - Removed Calamari from Polar Bear loot table
 
-#### Translations
+### Translations
 - Added translations for `Dripstone`, `Stone Tiles`, `Skulls`, and `Triggers Ambient Wind Block Sounds` block tags
 - Changed `options.difficulty.peaceful.info`, `options.difficulty.easy.info`, `options.difficulty.normal.info`, and `options.difficulty.hard.info` references of "mobs" to "creatures."
 - Changed `multiplayer.stopSleeping` translation from "Leave Bed" to "Stop Sleeping"
 
-#### Commands
+### Commands
 - Added `/camerashake` command
   - Usages are `/camerashake add <targets> <intensity> <seconds>` or `/camerashake stop <targets>`
 
-### Bug Fixes
+## Bug Fixes
 - Fixed a bug causing players that "spam" slept in beds to skip to day
 - Improved server performance for using tents
 - Sleeping in tents will no longer negate fall damage
 - Squids once again drop calamari
 - Fixed bug preventing camera shake from re-applying to shake events of the same intensity
 
-## [2.0] - 12/29/2025
-#### Developer Notes:
+# [2.0] - 12/29/2025
+### Developer Notes:
 Oh boy. Mojang changed the Minecraft version system... which made me reconsider our current versioning system (SemVar). Semantic Versioning is specifically for APIs (A.K.A. not a mod), so I think it would make sense to change up the versioning system for the mod as well. `MAJOR.MINOR.PATCH` isn't bad, though part of what this mod aims to do, is to re-capture the spirit of old Mojang (which includes having more "random" updates, that don't necessarily add groundbreaking changes (i.e. I would never want to bump the `MAJOR` number).
 
 Because of this, I think it's most fitting that going forward we will adopt a `UPDATE.HOTFIX-BUILD` system. The Minecraft version suffix will also be dropped, for a few reasons:
@@ -779,81 +773,81 @@ Because of this, I think it's most fitting that going forward we will adopt a `U
 
 An example using this current update is: `2.0`. If a snapshot or beta is openly released, you can expect a suffix (e.g. `2.0-snapshot` or `2.0-beta`) 
 
-### New Features
-#### UI
+## New Features
+### UI
 - Added a render of the player on the Title Screen
 
-#### Visuals
+### Visuals
 - Added a breaking animation for tents
 
-### Changes
-#### Visuals
+## Changes
+### Visuals
 - The method for rendering zombie leaders has changed to increase vanilla and mod compatibility
 - Changed the camera angle for sleeping in a tent to look straight up
 
-#### Mechanics
+### Mechanics
 - The custom zombie leader health boost mechanics have been removed in favor of the vanilla implementation
 - Changed the hitbox of tent entities to be more precise
 
-#### Data
+### Data
 - Changed Screen Shake translation keys
   - `options.screen_shake` is now `options.accessibility.screen_shake`
   - `options.screen_shake`.tooltip is now `options.accessibility.screen_shake.tooltip`
 - Added tent entity translations
 
-### Bug Fixes
+## Bug Fixes
 - Fixed a bug where Stone Pillar blocks could not be broken by a pickaxe
 - Fixed a bug where tent entities lacked display names
 
-## [1.1.1] - 12/11/2025
-### Fixed
-#### Textures
+# [1.1.1] - 12/11/2025
+## Fixed
+### Textures
 - Fixed item texture bug
 
-## [1.1.0 Winds and Wetlands Update] - 12/9/2025
-### Changed
-#### Textures
+# [1.1.0 Winds and Wetlands Update] - 12/9/2025
+## Changed
+### Textures
 - Updated reeds texture
 
-## [1.1.0-alpha.5] - UNRELEASED
-### Added
-#### Data
+# [1.1.0-alpha.5] - UNRELEASED
+## Added
+### Data
 - Added "burns_tents" damage tag
 - Added "ignites_tents" damage tag
 
-### Changed
+## Changed
 - Changed tent entity rendering code
 - Updated tent sleep timing method to sync with the vanilla game properly
 
-### Fixed
+## Fixed
 - Fixed bug where custom splashes were colored white
 - Fixed bug where repeatedly stopping and starting tent sleep would skip to daytime
 
-### Deprecated
+## Deprecated
 - Removed unused "is_windy" biome tag translation
 
-## [1.1.0-alpha.4] - 12/3/2025
-### Developer Notes & Technical Stuff
+# [1.1.0-alpha.4] - 12/3/2025
+## Developer Notes & Technical Stuff
 I plan to phase out using SemVer for various reasons. Semantic Versioning is for public APIs (which this is not), and I would like for my mod to follow a system like Mojang's, so that its versioning is familiar.
 This will take effect in 2026. A new system will be announced on my Twitter or Reddit page, so keep an eye out.
 
 I also want to say that a lot of code has been getting cleaned up to be more efficient and compatible with other mods, so a lot of the content has slowed down.
 
-### Added
-#### Visuals
+## Added
+### Visuals
 - Added dragon fireball explode screen shake effect
 
-### Changed
-#### Blocks
+## Changed
+### Blocks
 - Reeds now generate more often
 
-#### Textures
+### Textures
 - Changed reeds texture to no longer be tinted by the average biome vegetation color
 - New tooltip frame and background design
 - New experience bar texture
 - New ping textures
 
-#### Menus
+### Menus
 - Changed the Title Screen layout
     - Accessibility and language buttons are now in the bottom left, replacing the game version (which can be checked via the Debug Menu)
 - Changed the World Selection Screen button layout
@@ -861,7 +855,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
 - World icons are now 16:9 (455px x 256px) thumbnails
     - They also update every time the game saves, similar to Bedrock Edition
 
-#### Mechanics
+### Mechanics
 - Changed Netherite Tools and Armor to have "Uncommon" rarity level
   - This is because Netherite Upgrade Templates are Uncommon
 - Changed Lingering Potions to have "Uncommon" rarity level
@@ -873,27 +867,27 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
 - Changed Wither Rose to have "Rare" rarity level
   - This is because Wither Skeleton Skulls are Rare
 
-### Fixed
-#### Blocks
+## Fixed
+### Blocks
 - Reeds can now be properly bone mealed
 
-## [1.1.0-alpha.3] - 11/23/2025
-### Added
-#### Blocks
+# [1.1.0-alpha.3] - 11/23/2025
+## Added
+### Blocks
 - Added Reeds
   - Reeds are a common plant that can be found in shallow swamp biome waters
 
-#### Tags
+### Tags
 - Added "triggers_ambient_wind_block_sounds" block tag
 - Added "tents" item tag
 
-### Changed
-#### Audio
+## Changed
+### Audio
 - Lowered the volume of Wanderlust, Windswept Peaks, Cliffs and Canyons, Cellar, Finnbacka, Top, and Halland
 - Slightly lowered the weight of Soggy Swamp playing in swamp biomes
 - Altered how often cold wind ambient noises play
 
-#### Events
+### Events
 - Raid difficulty logic has changed
   - "Raid difficulty" is a new value that is calculated as follows: `Raid Omen Level + Difficulty Level ID (0-3) + Raid Wave = Raid Difficulty`
     - For example, if you trigger a Level III Raid on Easy Mode, your Raid Difficulty on the second wave is `3 + 0 + 2 = 5`
@@ -902,18 +896,18 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Raid difficulty must reach level 7 for raid captains to spawn with Resistance II
     - Captains may still spawn in with Resistance I if the raid difficulty is at least level 4
 
-#### Data
+### Data
 - `options.doCameraShake` has been renamed to `options.screen_shake`
   - Camera Shake has been renamed "Screen Shake" to match Minecraft Dungeons
 - `options.doCameraShake.tooltip` has been renamed to `options.camera_shake.tooltip`
     - Its value has been changed to "Toggles the screen shake effect." to match Minecraft Dungeons
 
-#### Tags
+### Tags
 - Removed "tents" block tag
 
-## [1.1.0-alpha.2] - 11/1/2025
-### Added
-#### Blocks
+# [1.1.0-alpha.2] - 11/1/2025
+## Added
+### Blocks
 - Added Block of Charcoal
   - Works the same as a coal block
 - Added Iron Grate
@@ -928,7 +922,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Added stair, slab, and wall variants
 - Added snow brick wall and snow brick family stonecutting recipes
 
-#### Sounds
+### Sounds
 - Added sound for lighting a campfire with sticks
 - Added new music
   - Secrets in the Forest by Crispin Hands (Menu, Meadow, and Flower Forest)
@@ -945,7 +939,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Soggy Swamp by Johan Johnson (Swamp, Jungle, Sparse Jungle)
   - Squid Coast by Johan Johnson (Jagged Peaks, Stony Peaks, Dripstone Caves)
 
-#### UI
+### UI
 - Added new splash texts
   - Added "Pretty tents!"
   - Added "R.I.P. trout.png"
@@ -958,28 +952,28 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
     - Referencing the Mojang developer Dinnerbone's return to development, following a mental health leave
   - Added "Windy!"
 
-### Changed
-#### Items
+## Changed
+### Items
 - Tents can now be used as furnace fuel
   - Can cook up to 3 items per tent
 
-#### Textures
+### Textures
 - Changed all tent entity textures
 - Changed all tent item textures
 - Changed default filled map texture
 
-#### Sounds
+### Sounds
 - Howling winds are slightly less common
 - Cliffs and Canyons by Crispin Hands now plays in the menu
 - Wanderlust by Peter Hont now plays in the menu
 - Adjusted biome specific track weights so that they play more often
 
-#### Gamerules
+### Gamerules
 - Changed "doArrowArson" to "arrow_arson"
 
-## [1.1.0-alpha.1] - 10/26/2025
-### Added
-#### Blocks
+# [1.1.0-alpha.1] - 10/26/2025
+## Added
+### Blocks
 - Added Snow Brick block family
   - Snow Bricks
     - Crafted from 4 snow blocks
@@ -989,7 +983,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Snow Brick Slab
       - Crafted from 3 snow bricks block
 
-#### Sounds
+### Sounds
 - Added new music
     - The Green Expanse by Crispin Hands (Game and Menus)
     - Top by Peter Hont (Snowy Slopes and Frozen Peaks)
@@ -1000,11 +994,11 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
     - Finnbacka by Peter Hont (Stony Peaks)
 - Added unique sounds for Snow Brick type blocks
 
-#### Gamerules
+### Gamerules
 - Added doArrowArson
   - Can prevent flaming arrows from setting fires
     
-#### Tags
+### Tags
 - Added new tags
   - Added "Tents" item tag
   - Added "snow_bricks" item tag
@@ -1012,35 +1006,35 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Added "skull_block" block tag
   - Added skull blocks to "mineable/axe" tag
 
-#### Accessibility
+### Accessibility
 - Added new accessibility setting option for turning off the camera shake effect
 
-### Changed
-#### Sounds
+## Changed
+### Sounds
 - Changed bush ambient wind noise to play less often
 - Ice can now trigger ambient wind noises
 - Increased volume of ambient bush and cold wind noises
 - Changed "Wind blows" to "Wind howls"
 - Changed "Wind blows gently" to "Wind blows"
 
-#### Textures
+### Textures
 - Changed orange, yellow, brown, lime, cyan, light blue, and magenta tent entity colors
 
-### Fixed
+## Fixed
 - Fixed fishing so that now fishing for fish ACTUALLY doesn't work in the end
 
-## [1.0.0 Simply Survival Update] - 10/17/25
-### Added
-#### Sounds
+# [1.0.0 Simply Survival Update] - 10/17/25
+## Added
+### Sounds
 - Added bush wind ambiance
 - Added cold wind ambiance to more cold biomes
 
-### Removed
+## Removed
 - The music track "Alone with the Sky" no longer plays in forest-type biomes
 
-## [1.0.0-alpha.4] - 10/17/25
-### Added
-#### Sounds
+# [1.0.0-alpha.4] - 10/17/25
+## Added
+### Sounds
 - Added 3 new songs
   - Droopy Likes Your Face by C418 (Plays in Creative Mode)
   - Droopy Likes Ricochet by C418 (Plays in Creative Mode)
@@ -1051,14 +1045,14 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
         - Excludes the End Dimension
 - Added new Ravager roar and bite sounds
 
-## [1.0.0-alpha.3] - 10/15/25
-### Added
-#### Food
+# [1.0.0-alpha.3] - 10/15/25
+## Added
+### Food
 - Added Pottage
   - Crafted from a wheat sheaf, carrot, brown mushroom, and bowl
   - Restores 6 hunger points and 7.2 saturation points
 
-#### Mechanics
+### Mechanics
 - Unlit Campfire
 - Named "Campfire". The original "Campfire" has been renamed to "Lit Campfire"
     - Can be crafted from sticks and logs
@@ -1072,17 +1066,17 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
     - Squid can be found in rivers and oceans
   - You can not fish in The End dimension anymore
 
-### Changed
+## Changed
 - Doubled "Warden emerge" camera shake distance
 
-## [1.0.0-alpha.2] - 10/11/2025
-### Fixed
+# [1.0.0-alpha.2] - 10/11/2025
+## Fixed
 - Fixed ordering of tent item variants in the creative inventory
 - Fixed apple pies not crafting with blue and brown eggs
 
-## [1.0.0-alpha.1] - 10/11/2025
-### Added
-#### Mechanics
+# [1.0.0-alpha.1] - 10/11/2025
+## Added
+### Mechanics
 - Zombie hoard leaders now have increased health
   - This fixes a long-running bug
   - The zombie leader's health scales based on local difficulty (i.e. they get stronger the more you play), ranging from 10 Hearts (20HP) to 50 Hearts (100HP)
@@ -1108,7 +1102,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
   - Does not reset your spawn point
   - Has 16 color variants
 
-#### Food
+### Food
 - Apple Pie
   - Can be crafted with an apple, sugar, and egg
   - Restores 8 hunger points
@@ -1134,7 +1128,7 @@ I also want to say that a lot of code has been getting cleaned up to be more eff
     - There's a chance to find it in fisher cottages
     - Heroes of the Village have a chance to be thrown one by fisherman villagers
 
-#### Visuals
+### Visuals
 - Added camera shake events
   - Loud events can now shake the camera
   - This applies to: Ravager roars, Ender Dragon roars and growls, the Warden roar, emergence, and sonic shriek, end gateway creation, lightning strikes, and explosions
