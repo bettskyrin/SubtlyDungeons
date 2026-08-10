@@ -2,6 +2,7 @@ package net.meander.subtlyd.mixin.client.renderer.debug;
 
 import net.meander.subtlyd.client.gui.components.debug.DebugScreenEntriesSD;
 import net.meander.subtlyd.client.renderer.debug.EntityOcclusionDebugRenderer;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.debug.DebugRenderer;
 import org.spongepowered.asm.mixin.Final;
@@ -22,7 +23,7 @@ public class DebugRendererMixin {
         Minecraft minecraft = Minecraft.getInstance();
 
         if (minecraft.debugEntries.isCurrentlyEnabled(DebugScreenEntriesSD.VISUALIZE_ENTITY_OCCLUSION)) {
-            renderers.add(new EntityOcclusionDebugRenderer(minecraft));
+            renderers.add(new EntityOcclusionDebugRenderer(minecraft, UtilSD.occlusionManager));
         }
     }
 }

@@ -17,7 +17,6 @@ import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 
 public class OcclusionManager {
-    public static final double BB_SCALE = 0.6; // TODO Test
     public static final double STEP_SIZE = 0.75;
     private static final OcclusionManager INSTANCE = new OcclusionManager();
     private final ExecutorService executor;
@@ -30,7 +29,6 @@ public class OcclusionManager {
 
         executor = Executors.newFixedThreadPool(threads, runnable -> {
             Thread thread = new Thread(runnable);
-
             thread.setDaemon(true);
             thread.setName("Occlusion-Culling-SD");
             return thread;
@@ -101,7 +99,7 @@ public class OcclusionManager {
         }
     }
 
-    public static void traversePerspectiveGrid(AABB expandedBox, Vec3 cameraPos, double stepSize, Predicate<Vec3> pointAction) {
+    public static void traverseBoxFaces(AABB expandedBox, Vec3 cameraPos, double stepSize, Predicate<Vec3> pointAction) {
         int xTotalSteps = Math.max(1, Mth.ceil((expandedBox.maxX - expandedBox.minX) / stepSize));
         int yTotalSteps = Math.max(1, Mth.ceil((expandedBox.maxY - expandedBox.minY) / stepSize));
         int zTotalSteps = Math.max(1, Mth.ceil((expandedBox.maxZ - expandedBox.minZ) / stepSize));
@@ -138,39 +136,15 @@ public class OcclusionManager {
         }
     }
 
-    public static AABB getPerspectiveBox(Vec3 cameraPos, AABB box) {
-        double minX = cameraPos.x() < box.minX ? box.minX - BB_SCALE : box.minX + 0.05;
-        double maxX = cameraPos.x() > box.maxX ? box.maxX + BB_SCALE : box.maxX - 0.05;
-        double minY = cameraPos.y() < box.minY ? box.minY - BB_SCALE : box.minY + 0.05;
-        double maxY = cameraPos.y() > box.maxY ? box.maxY + BB_SCALE : box.maxY - 0.05;
-        double minZ = cameraPos.z() < box.minZ ? box.minZ - BB_SCALE : box.minZ + 0.05;
-        double maxZ = cameraPos.z() > box.maxZ ? box.maxZ + BB_SCALE : box.maxZ - 0.05;
-
-        Vec3 center = box.getCenter();
-
-        if (minX > maxX) {
-            minX = center.x();
-            maxX = center.x();
-        }
-
-        if (minY > maxY) {
-            minY = center.y();
-            maxY = center.y();
-        }
-
-        if (minZ > maxZ) {
-            minZ = center.z();
-            maxZ = center.z();
-        }
-
-        return new AABB(minX, minY, minZ, maxX, maxY, maxZ);
+    public AABB getOcclusionBox(AABB entityBox) {
+        return entityBox.inflate(Math.max(1, 0.3 * Mth.square(entityBox.getSize())));
     }
 
     private boolean checkLineOfSight(Vec3 cameraPos, AABB box, BlockGetter level) {
         final boolean[] isVisible = {false};
-        AABB perspectiveBox = getPerspectiveBox(cameraPos, box);
+        AABB expandedBox = getOcclusionBox(box);
 
-        traversePerspectiveGrid(perspectiveBox, cameraPos, STEP_SIZE, target -> {
+        traverseBoxFaces(expandedBox, cameraPos, STEP_SIZE, target -> {
             ClipContext context = new ClipContext(
                     cameraPos,
                     target,
