@@ -71,6 +71,8 @@ public class ServerAdvancementManagerMixin {
                     displayInfo = modifyDisplay(displayInfo, registries, Items.BURIED_TREASURE_MAP);
                 } else if (advancementId == SUBSPACE_BUBBLE) {
                     displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
+                } else if (advancementId == VOLUNTARY_EXILE) {
+                    displayInfo = modifyDisplay(displayInfo, registries, Items.OMINOUS_BOTTLE);
                 }
 
                 Advancement newAdvancement = new Advancement(
