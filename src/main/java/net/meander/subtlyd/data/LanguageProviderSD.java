@@ -54,6 +54,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(HusbandryAdvancementsSD.MAKE_STEW_DESC.getString(), "Add ingredients to a Cauldron");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_TITLE.getString(), "I Am Bush");
         translationBuilder.add(AdventureAdvancementsSD.STEALTH_ATTACK_DESC.getString(), "Perform a sneak attack while hiding in foliage");
+        translationBuilder.add("advancements.adventure.voluntary_exile.description", "Drink from an Ominous Bottle.\nMaybe consider staying away from villages for the time being...");
     }
 
     private void attributes(TranslationBuilder translationBuilder) {

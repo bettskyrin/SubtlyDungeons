@@ -1,5 +1,5 @@
 # [5.0 Snapshot 5] - UNRELEASED
-It's mod snapshot day (or night... depends on where you're from)! 
+It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside other small tweaks!
 
 ## Known Issues
 Modded shear and silk touch related block loot is currently disabled.
@@ -37,6 +37,7 @@ Modded shear and silk touch related block loot is currently disabled.
 - Changed Subspace Bubble advancement to use the Filled Map texture
 - Changed the Adventure root advancement to use the Buried Treasure Map texture
 - Changed the Voluntary Exile advancement to use the Ominous Bottle texture
+- Changed the Voluntary Exile advancement description, criteria, and parent
 
 ## Technical Changes
 ### Bug Fixes

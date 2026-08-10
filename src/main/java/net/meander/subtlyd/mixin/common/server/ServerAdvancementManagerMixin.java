@@ -59,7 +59,7 @@ public class ServerAdvancementManagerMixin {
             if (modifiedMap.containsKey(advancementId)) {
                 Advancement oldAdvancement = modifiedMap.get(advancementId).value();
 
-                Optional<Identifier> parent = getParent(advancementId, oldAdvancement);
+                Optional<Identifier> parent = oldAdvancement.parent();
                 Optional<DisplayInfo> displayInfo = oldAdvancement.display();
                 AdvancementRewards rewards = oldAdvancement.rewards();
                 Map<String, Criterion<?>> criteria = new HashMap<>(oldAdvancement.criteria());
@@ -73,7 +73,14 @@ public class ServerAdvancementManagerMixin {
                 } else if (advancementId == SUBSPACE_BUBBLE) {
                     displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
                 } else if (advancementId == VOLUNTARY_EXILE) {
+                    parent = Optional.of(Identifier.withDefaultNamespace("adventure/kill_a_mob"));
                     displayInfo = modifyDisplay(displayInfo, registries, Items.OMINOUS_BOTTLE);
+
+                    criteria.clear();
+                    mutableRequirements.clear();
+                    addConsumeItemCriterion(criteria, mutableRequirements, registries, Items.OMINOUS_BOTTLE);
+                } else if (advancementId == COUNTRY_LODE) {
+                    parent = Optional.of(UtilSD.identifier("adventure/banner_marker"));
                 }
 
                 Advancement newAdvancement = new Advancement(
@@ -107,17 +114,21 @@ public class ServerAdvancementManagerMixin {
         }
     }
 
-    private void modifyCriteriaItems(Map<String, Criterion<?>> criteria, List<List<String>> requirements, HolderLookup.Provider registries, Item[] itemList) {
+    private void addConsumeItemCriterion(Map<String, Criterion<?>> criteria, List<List<String>> requirements, HolderLookup.Provider registries, Item item) {
         HolderGetter<Item> itemGetter = registries.lookupOrThrow(Registries.ITEM);
 
-        for (Item item : itemList) {
-            Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
-            String criteriaName = itemId.getPath();
-            ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item().of(itemGetter, item);
-            Criterion<?> newCriterion = ConsumeItemTrigger.TriggerInstance.usedItem(itemPredicate);
+        Identifier itemId = BuiltInRegistries.ITEM.getKey(item);
+        String criterionName = itemId.getPath();
+        ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item().of(itemGetter, item);
+        Criterion<?> criterion = ConsumeItemTrigger.TriggerInstance.usedItem(itemPredicate);
 
-            criteria.put(criteriaName, newCriterion);
-            requirements.add(List.of(criteriaName));
+        criteria.put(criterionName, criterion);
+        requirements.add(List.of(criterionName));
+    }
+
+    private void modifyCriteriaItems(Map<String, Criterion<?>> criteria, List<List<String>> requirements, HolderLookup.Provider registries, Item[] itemList) {
+        for (Item item : itemList) {
+            addConsumeItemCriterion(criteria, requirements, registries, item);
         }
     }
 
@@ -138,13 +149,5 @@ public class ServerAdvancementManagerMixin {
                     info.shouldAnnounceChat(),
                     info.isHidden());
         });
-    }
-
-    private Optional<Identifier> getParent(Identifier advancementId, Advancement advancement) {
-        if (advancementId.equals(COUNTRY_LODE)) {
-            return Optional.of(UtilSD.identifier("adventure/banner_marker"));
-        }
-
-        return advancement.parent();
     }
 }
