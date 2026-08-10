@@ -73,6 +73,7 @@
     "common.world.level.storage.loot.predicates.LootItemConditionTypesMixin"
   ],
   "client": [
+    "client.GraphicsPresetMixin",
     "client.KeyboardHandlerMixin",
     "client.OptionsMixin",
     "client.entity.EntityMixin",
@@ -100,6 +101,7 @@
     "client.renderer.LevelEventHandlerMixin",
     "client.renderer.ScreenEffectRendererMixin",
     "client.renderer.SubmitNodeCollectionMixin",
+    "client.renderer.debug.DebugRendererMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.EntityRendererMixin",
     "client.renderer.entity.HuskRendererMixin",

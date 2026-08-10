@@ -2,7 +2,6 @@ package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.entity.ScansorialEntity;
 import net.meander.subtlyd.client.model.geom.ModelLayersSD;
 import net.meander.subtlyd.client.model.object.equipment.QuiverModel;
@@ -13,6 +12,7 @@ import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.entity.EntitySD;
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -52,7 +52,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;F)V", at = @At("TAIL"))
     private void determineRenderState(T entity, S state, float partialTicks, CallbackInfo ci) {
-        if (OptionsSD.advancedEntityAnimations().get()) {
+        if (Minecraft.getInstance().options.fancyEntities().get()) {
             if (state instanceof LivingEntityRenderStateSD stateSD) {
                 if (entity instanceof ScansorialEntity scansorialEntity) {
                     extractScansorialEntityRenderState(entity, scansorialEntity, state, stateSD, partialTicks);
@@ -74,7 +74,7 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
      */
     @Inject(method = "setupRotations", at = @At("TAIL"))
     private  void determineRotations(S state, PoseStack poseStack, float bodyRot, float entityScale, CallbackInfo ci) {
-        if (OptionsSD.advancedEntityAnimations().get()) {
+        if (Minecraft.getInstance().options.fancyEntities().get()) {
             if (state instanceof LivingEntityRenderStateSD stateSD) {
                 setupScansorialEntityRotations(stateSD, poseStack, state.boundingBoxHeight);
             }

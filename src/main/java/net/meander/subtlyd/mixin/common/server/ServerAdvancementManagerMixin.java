@@ -36,6 +36,7 @@ public class ServerAdvancementManagerMixin {
     private static final Identifier BALANCED_DIET = Identifier.withDefaultNamespace("husbandry/balanced_diet");
     private static final Identifier COUNTRY_LODE = Identifier.withDefaultNamespace("adventure/use_lodestone");
     private static final Identifier SUBSPACE_BUBBLE = Identifier.withDefaultNamespace("nether/fast_travel");
+    private static final Identifier VOLUNTARY_EXILE = Identifier.withDefaultNamespace("adventure/voluntary_exile");
 
     private static final Item[] FOODS = new Item[]{
             ItemsSD.APPLE_PIE,
@@ -47,7 +48,7 @@ public class ServerAdvancementManagerMixin {
             Items.SHELF_MUSHROOM,
             ItemsSD.LIGHT_STEW
     };
-    private static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET, COUNTRY_LODE, ADVENTURE_ROOT, SUBSPACE_BUBBLE);
+    private static final List<Identifier> ADVANCEMENTS = List.of(BALANCED_DIET, COUNTRY_LODE, ADVENTURE_ROOT, SUBSPACE_BUBBLE, VOLUNTARY_EXILE);
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void modifyAdvancements(HolderLookup.Provider registries, CallbackInfo ci) {

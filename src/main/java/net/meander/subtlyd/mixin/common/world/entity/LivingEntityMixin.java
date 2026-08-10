@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
 import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
 import net.meander.subtlyd.sounds.SoundEventsSD;
@@ -18,6 +17,7 @@ import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.component.StealthWeapon;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
 import net.meander.subtlyd.world.level.GameRulesSD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -467,7 +467,7 @@ public abstract class LivingEntityMixin extends Entity {
 
     @Inject(method = "releaseUsingItem", at = @At("HEAD"), cancellable = true)
     private void allowShieldCrouching(CallbackInfo ci) {
-        if (OptionsSD.shieldCrouch().get()) {
+        if (Minecraft.getInstance().options.shieldCrouch().get()) {
             LivingEntity entity = (LivingEntity) (Object) this;
 
             if (entity instanceof Player player) {

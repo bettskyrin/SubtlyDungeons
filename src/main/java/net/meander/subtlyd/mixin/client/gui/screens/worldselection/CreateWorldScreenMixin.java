@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.components.GameTabButton;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettingsScreen;
@@ -49,7 +48,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
     @Shadow private MenuTabBar tabNavigationBar;
-    private static final boolean canChangeUi = OptionsSD.gui().get();
+    private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
 
     protected CreateWorldScreenMixin(Component title) {
         super(title);
@@ -62,7 +61,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
     @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;", shift = At.Shift.AFTER), cancellable = true)
     private void init(CallbackInfo ci) {
-        if (canChangeUi) {
+        if (CAN_CHANGE_UI) {
             final CreateWorldScreen createWorldScreen = (CreateWorldScreen) (Object) this;
             final int ROW_SPACING = 4;
             final int BUTTON_MIDDLE_X = 100;
@@ -115,17 +114,18 @@ public abstract class CreateWorldScreenMixin extends Screen {
         private static final Component ALLOW_COMMANDS_INFO = Component.translatable("selectWorld.allowCommands.info");
         private static final Component HARDCORE = Component.translatable("selectWorld.gameMode.hardcore");
         private static final Component HARDCORE_INFO = Component.translatable("selectWorld.gameMode.hardcore.info");
-        private static final boolean canChangeUi = OptionsSD.gui().get();
+        private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
 
         public GameTabMixin(EditBox nameEdit) {
             super(TITLE);
+
             this.nameEdit = nameEdit;
         }
 
         @SuppressWarnings("unchecked")
         @Inject(method = "<init>", at = @At("RETURN"))
         private void init(CreateWorldScreen helper, CallbackInfo ci) {
-            if (canChangeUi) {
+            if (CAN_CHANGE_UI) {
                 final int SPACING = 4;
                 final int GAME_MODE_BUTTON_WIDTH = 117;
                 final int GAME_MODE_BUTTON_HEIGHT = 86;
@@ -311,7 +311,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
         @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;Lnet/minecraft/client/gui/layouts/LayoutSettings;)Lnet/minecraft/client/gui/layouts/LayoutElement;"))
         private LayoutElement cancelWidgets(GridLayout.RowHelper instance, LayoutElement widget, LayoutSettings layoutSettings) {
-            if (canChangeUi) {
+            if (CAN_CHANGE_UI) {
                 return widget;
             }
 
@@ -320,7 +320,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
         @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/layouts/GridLayout$RowHelper;addChild(Lnet/minecraft/client/gui/layouts/LayoutElement;)Lnet/minecraft/client/gui/layouts/LayoutElement;"), require = 0)
         private LayoutElement cancelWidgets(GridLayout.RowHelper instance, LayoutElement widget) {
-            if (canChangeUi) {
+            if (CAN_CHANGE_UI) {
                 return widget;
             }
 

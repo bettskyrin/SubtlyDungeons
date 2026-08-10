@@ -157,13 +157,18 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.accessibility.shield_animation.tooltip", "Toggles the visibility of active shields in the First Person view.");
         translationBuilder.add("options.accessibility.shield_crouch", "Shield on Crouch");
         translationBuilder.add("options.accessibility.shield_crouch.tooltip", "Toggles activating shields by crouching.");
-        translationBuilder.add("options.advanced_entity_animations", "Advanced Entity Animations");
-        translationBuilder.add("options.advanced_entity_animations.tooltip", "Toggles advanced entity animations. Turning this off can cause entity hitboxes to line up incorrectly with their models.");
+        translationBuilder.add("options.fancy_entities", "Fancy Entities");
+        translationBuilder.add("options.fancy_entities.tooltip", "Toggles fancy entity animations. Turning this off may cause entity hitboxes to line up incorrectly with their models.");
         translationBuilder.add("options.experimental.gui", "Experimental GUI");
         translationBuilder.add("options.experimental.gui.tooltip", "Toggles the experimental GUI changes from Subtly Dungeons.");
         translationBuilder.add("options.command_macros", "Command Macros..." );
         translationBuilder.add("options.command_macros.title", "Command Macros" );
         translationBuilder.add("options.command_macros.entry", "Command Macro %s");
+        translationBuilder.add("options.entity_culling", "Entity Culling");
+        translationBuilder.add("options.entity_culling.frustum", "Frustrum");
+        translationBuilder.add("options.entity_culling.frustum.tooltip", "Culling method that hides entities that are outside the player's FOV.");
+        translationBuilder.add("options.entity_culling.occlusion", "Occlusion");
+        translationBuilder.add("options.entity_culling.occlusion.tooltip", "Culling method that hides entities that are hidden behind blocks. Is performed after frustrum culling.");
 
         translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
         translationBuilder.add("key.command_macros.0", "Command Macro 0");

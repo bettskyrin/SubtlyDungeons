@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
@@ -39,7 +38,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
     @Shadow @Nullable private Button recreateButton;
     @Shadow protected EditBox searchBox;
     @Shadow private WorldSelectionList list;
-    private static final boolean canChangeUi = OptionsSD.gui().get();
+    private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
     private final int ROW_SPACING = 4;
     private final Minecraft minecraft = Minecraft.getInstance();
 
@@ -59,7 +58,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
      */
     @Inject(method = "init", at = @At("HEAD"), cancellable = true)
     private void init(CallbackInfo ci) {
-        if (canChangeUi) {
+        if (CAN_CHANGE_UI) {
             final SelectWorldScreen selectWorldScreen = (SelectWorldScreen) (Object) this;
             final int LARGE_BUTTON_WIDTH = 64;
             final int BUTTON_WIDTH = 48;
@@ -122,7 +121,7 @@ public abstract class SelectWorldScreenMixin extends Screen {
 
     @Inject(method = "createFooterButtons", at = @At("HEAD"), cancellable = true)
     private void createFooterButtons(Consumer<WorldSelectionList.WorldListEntry> joinWorld, WorldSelectionList list, CallbackInfo ci) {
-        if (canChangeUi) {
+        if (CAN_CHANGE_UI) {
             int BUTTON_MIDDLE_X = 100;
 
             GridLayout footerLayout = layout.addToFooter(new GridLayout().columnSpacing(8).rowSpacing(ROW_SPACING));

@@ -1,7 +1,6 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -22,7 +21,7 @@ import java.nio.file.Path;
 
 @Mixin(WorldSelectionList.class)
 public class WorldSelectionListMixin {
-    private static final boolean CAN_CHANGE_UI = OptionsSD.gui().get();
+    private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
 
     @Inject(method = "getRowWidth", at = @At("RETURN"), cancellable = true)
     public void getRowWidth(CallbackInfoReturnable<Integer> cir) {
@@ -36,7 +35,7 @@ public class WorldSelectionListMixin {
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.WorldSelectionList$WorldListEntry")
     private abstract static class WorldListEntryMixin extends WorldSelectionList.Entry implements SelectableEntry {
         @Shadow @Final private LevelSummary summary;
-        private static final boolean CAN_CHANGE_UI = OptionsSD.gui().get();
+        private static final boolean CAN_CHANGE_UI = Minecraft.getInstance().options.experimentalGui().get();
         private static final int ICON_WIDTH = 57;
         private static final int ICON_HEIGHT = 32;
 

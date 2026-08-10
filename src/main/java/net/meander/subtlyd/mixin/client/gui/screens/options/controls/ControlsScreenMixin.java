@@ -1,6 +1,5 @@
 package net.meander.subtlyd.mixin.client.gui.screens.options.controls;
 
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.gui.screens.CommandMacrosScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
@@ -24,7 +23,7 @@ public class ControlsScreenMixin {
     private static void options(Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         List<OptionInstance<?>> optionInstanceList = new ArrayList<>(List.of(cir.getReturnValue().clone()));
 
-        optionInstanceList.add(3, OptionsSD.shieldCrouch());
+        optionInstanceList.add(3, options.shieldCrouch());
         cir.setReturnValue(optionInstanceList.toArray(new OptionInstance[0]));
     }
 

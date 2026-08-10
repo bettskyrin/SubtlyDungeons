@@ -1,12 +1,12 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.tags.ItemTagsSD;
 import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.meander.subtlyd.world.item.QuiverItem;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.TagKey;
@@ -50,7 +50,7 @@ public class PlayerMixin {
     }
 
     private void activateShieldFromCrouch() {
-        if (OptionsSD.shieldCrouch().get()) {
+        if (Minecraft.getInstance().options.shieldCrouch().get()) {
             Player player = (Player) (Object) this;
             boolean isCrouching = player.isCrouching();
 

@@ -1,9 +1,9 @@
 package net.meander.subtlyd.mixin.common.world.entity;
 
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.tags.EntityTypeTagsSD;
 import net.meander.subtlyd.world.entity.MobSD;
 import net.meander.subtlyd.world.entity.ai.goal.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
@@ -131,7 +131,7 @@ public abstract class MobMixin implements MobSD {
 
     @Inject(method = "createNavigation", at = @At("HEAD"), cancellable = true)
     private void setScansorialEntityNavigation(Level level, CallbackInfoReturnable<PathNavigation> cir) {
-        if (OptionsSD.advancedEntityAnimations().get()) {
+        if (Minecraft.getInstance().options.fancyEntities().get()) {
             Mob mob = (Mob) (Object) this;
 
             if (mob instanceof Silverfish || mob instanceof Endermite) {

@@ -1,8 +1,9 @@
 package net.meander.subtlyd.mixin.client.gui.screens;
 
 import com.mojang.blaze3d.platform.NativeImage;
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.util.UtilSD;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.FaviconTexture;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
@@ -29,7 +30,9 @@ public class FaviconTextureMixin {
      */
     @Inject(method = "upload", at = @At("HEAD"), cancellable = true)
     private void upload(NativeImage image, CallbackInfo ci) {
-        if (OptionsSD.gui().get()) {
+        Options options = Minecraft.getInstance().options;
+
+        if (options.experimentalGui().get()) {
             if (image.getWidth() == 455 && image.getHeight() == 256) {
                 try {
                     checkOpen();

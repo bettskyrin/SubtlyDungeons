@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.entity;
 
-import net.meander.subtlyd.client.OptionsSD;
 import net.meander.subtlyd.client.entity.ScansorialEntity;
 import net.meander.subtlyd.world.entity.EntitySD;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
@@ -44,7 +44,7 @@ public class ScansorialEntityMixin implements ScansorialEntity {
     }
 
     private void tickClimbingAnimation() {
-        if (OptionsSD.advancedEntityAnimations().get()) {
+        if (Minecraft.getInstance().options.fancyEntities().get()) {
             LivingEntity livingEntity = (LivingEntity) (Object) this;
 
             Direction nearestWall = EntitySD.getNearestWallDirection(livingEntity);

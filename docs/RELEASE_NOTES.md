@@ -1,5 +1,5 @@
 # [5.0 Snapshot 5] - UNRELEASED
-
+It's mod snapshot day (or night... depends on where you're from)! 
 
 ## Known Issues
 Modded shear and silk touch related block loot is currently disabled.
@@ -9,6 +9,18 @@ Modded shear and silk touch related block loot is currently disabled.
 - Adding Block of Raw Copper Blasting recipe
 - Adding Block of Raw Iron Blasting recipe
 - Adding Block of Raw Gold Blasting recipe
+- 
+### Options
+- Added Entity Culling option
+    - Determines the entity culling method
+    - Frustrum
+      - The default culling method. Hides entities that are outside the player's FOV
+    - Occlusion
+      - Hides entities that are behind blocks
+      - Performs after frustrum culling
+
+### Debug Screen
+- Added `visualize_entity_occlusion` debug renderer
 
 ## Changes
 ### World Generation
@@ -18,11 +30,13 @@ Modded shear and silk touch related block loot is currently disabled.
 - Changed map design to match the base game
 
 ### Options
-
+- Changed "Advanced Entity Animations" to "Fancy Entities"
+- Changed custom options ordering
 
 ### Advancements
 - Changed Subspace Bubble advancement to use the Filled Map texture
 - Changed the Adventure root advancement to use the Buried Treasure Map texture
+- Changed the Voluntary Exile advancement to use the Ominous Bottle texture
 
 ## Technical Changes
 ### Bug Fixes
