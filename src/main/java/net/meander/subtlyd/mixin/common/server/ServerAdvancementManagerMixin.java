@@ -68,7 +68,7 @@ public class ServerAdvancementManagerMixin {
                 if (advancementId == BALANCED_DIET) {
                     modifyCriteriaItems(criteria, mutableRequirements, registries, FOODS);
                 } else if (advancementId == ADVENTURE_ROOT) {
-                    displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
+                    displayInfo = modifyDisplay(displayInfo, registries, Items.BURIED_TREASURE_MAP);
                 } else if (advancementId == SUBSPACE_BUBBLE) {
                     displayInfo = modifyDisplay(displayInfo, registries, Items.FILLED_MAP);
                 }

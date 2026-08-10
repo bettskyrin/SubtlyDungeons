@@ -22,6 +22,7 @@ Modded shear and silk touch related block loot is currently disabled.
 
 ### Advancements
 - Changed Subspace Bubble advancement to use the Filled Map texture
+- Changed the Adventure root advancement to use the Buried Treasure Map texture
 
 ## Technical Changes
 ### Bug Fixes
