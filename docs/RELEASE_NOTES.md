@@ -28,3 +28,4 @@ Modded shear and silk touch related block loot is currently disabled.
 ### Bug Fixes
 - Fixed bug preventing some settings from being saved
 - Fixed bug preventing quivers from displaying on armor stands
+- Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"

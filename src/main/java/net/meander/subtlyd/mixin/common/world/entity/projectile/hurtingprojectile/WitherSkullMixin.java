@@ -1,6 +1,8 @@
 package net.meander.subtlyd.mixin.common.world.entity.projectile.hurtingprojectile;
 
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.level.gamerules.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,8 +16,17 @@ public class WitherSkullMixin {
         cir.setReturnValue(true);
     }
 
-    @ModifyArg(method = {"onHit"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;)V"), index = 5)
+    @ModifyArg(method = "onHit", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/Level;explode(Lnet/minecraft/world/entity/Entity;DDDFZLnet/minecraft/world/level/Level$ExplosionInteraction;)V"), index = 5)
     private boolean setFire(boolean shouldSetFire) {
-        return true;
+        WitherSkull skull = (WitherSkull) (Object) this;
+        MinecraftServer server = skull.level().getServer();
+
+        if (server != null) {
+            if (server.getGameRules().get(GameRules.MOB_GRIEFING)) {
+                return true;
+            }
+        }
+
+        return shouldSetFire;
     }
 }
