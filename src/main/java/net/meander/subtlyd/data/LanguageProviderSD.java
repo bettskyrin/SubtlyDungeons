@@ -169,7 +169,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.gray(), "Gray Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.green(), "Green Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lightBlue(), "Light Blue Terracotta Stairs");
-        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lightGray(), "Light Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lightGray(), "Light Gray Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lime(), "Lime Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.magenta(), "Magenta Terracotta Stairs");
         translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.orange(), "Orange Terracotta Stairs");
