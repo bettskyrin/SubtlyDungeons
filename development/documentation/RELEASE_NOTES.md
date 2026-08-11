@@ -1,5 +1,5 @@
 # [5.0 Snapshot 5] - UNRELEASED
-It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside other small tweaks!
+It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside new blocks and other small tweaks!
 
 ## New Features
 ### Blocks
@@ -8,12 +8,12 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 - Added Dyed Terracotta Stairs
 - Added Dyed Terracotta Slabs
 
-### Blasting
+### Recipes
 - Adding Block of Raw Copper Blasting recipe
 - Adding Block of Raw Iron Blasting recipe
 - Adding Block of Raw Gold Blasting recipe
 
-### Options
+### Settings
 - Added Entity Culling option
     - Determines the entity culling method
     - Frustrum
@@ -22,7 +22,8 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
       - Hides entities that are behind blocks or fog
       - Performs after frustrum culling
 
-### Debug Screen
+### UI
+#### Debug Screen
 - Added `entity_culling_method` debug screen entry
 - Added `visualize_entity_occlusion` debug renderer
 
@@ -34,7 +35,7 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 - Changed Map texture to match the base game
 - Changed the Adventure Mode texture to use the Buried Treasure Map texture
 
-### Options
+### Settings
 - Changed "Advanced Entity Animations" to "Fancy Entities"
 - Changed custom options ordering
 

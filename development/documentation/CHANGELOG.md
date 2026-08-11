@@ -65,7 +65,14 @@
     Developer Notes:
     - These are inspired by Forget-Me-Not flowers
     - "Perse" is an archaic term for "blue-ish"
-- Added Wood and Stripped Wood stair and slab variants
+- Added Wood Stairs
+- Added Wood Slabs
+- Added Stripped Wood Stairs
+- Added Stripped Wood Slabs
+- Added Terracotta Stairs
+- Added Terracotta Slabs
+- Added Dyed Terracotta Stairs
+- Added Dyed Terracotta Slabs
 - Added snowlogging, like on Bedrock Edition
   - Only some blocks are now snow loggable:
     - Plants
@@ -78,6 +85,11 @@
   - Blocks may become snowlogged during snowfall
   - Some snowlogged blocks have snowy texture variants
 - Changed Powder Snow to decrease mining speed on Hard difficulty
+
+### Recipes
+- Adding Block of Raw Copper Blasting recipe
+- Adding Block of Raw Iron Blasting recipe
+- Adding Block of Raw Gold Blasting recipe
 
 ### Sounds
 - Added ambient Leaves block sounds
@@ -93,8 +105,17 @@
   - Plays in Creative Mode
 
 ### Settings
-- Added Video Settings option for toggling advanced entity animations (e.g. Arthropods moving horizontally up walls)
-- Added Accessibility Settings option for toggling a blocking shield's visibility
+- Added Fancy Entities Video Settings option
+  - Toggles advanced entity animations (e.g. Arthropods moving horizontally up walls)
+- Added Shield Animation Accessibility Settings option
+  - Toggles a blocking shield's visibility
+- Added Entity Culling option
+  - Determines the entity culling method
+  - Frustrum
+    - The default culling method. Hides entities that are outside the player's FOV
+  - Occlusion
+    - Hides entities that are behind blocks or fog
+    - Performs after frustrum culling
 
 ### Game Rules
 - Added Advanced Mobs game rule
@@ -214,7 +235,8 @@
 
 #### The End
 - Changed Chorus Flowers to have an 85% chance of being alive
-- Increased Chorus Flower growth and death volume
+- Increased Chorus Flower growth sound effect volume
+- Increased Chorus Flower death sound effect volume
 
 ### Structures
 #### End Spikes
@@ -244,10 +266,14 @@
 ### Textures
 - Changed spherical potion texture
 
-### Crafting
+### Recipes
 - Changed map crafting recipe
   - Changed map crafting recipe to be a 9x9 of paper
     - This matches Bedrock Edition
+
+### Settings
+- Changed "Advanced Entity Animations" to "Fancy Entities"
+- Changed custom options ordering
 
 ### Loot
 - Changed Swamp Hut cauldron potions to be a data-driven loot table
@@ -260,6 +286,8 @@
 ### Textures
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
 - Changed Illusioner texture to match Minecraft Dungeons
+- Changed Map texture to match the base game
+- Changed the Adventure Mode texture to use the Buried Treasure Map texture
 
 ### Sounds
 - Changed Bush ambient sound to be louder
@@ -272,7 +300,10 @@
 
 ### Advancements
 - Changed "Traveler" advancement name to "Tentative Accommodations"
-- Changed Adventure root advancement to use the Filled Map texture
+- Changed the Adventure root advancement to use the Buried Treasure Map texture
+- Changed Subspace Bubble advancement to use the Filled Map texture
+- Changed the Voluntary Exile advancement to use the Ominous Bottle texture
+- Changed the Voluntary Exile advancement description, criteria, and parent
 
 ### Splash Text
 - Added "Bigger! Better!" splash text
@@ -344,6 +375,8 @@
 - Fixed [BUG #76] Tents Z-Fight with their pegs
 - Fixed missing Blast Fungus entity translation
 - Fixed bug causing Tentative Accommodations to be granted to those who have yet to sleep in beds
+- Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
+- Fixed bug preventing some settings from being saved
 
 # [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
