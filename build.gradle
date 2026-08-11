@@ -13,6 +13,17 @@ base {
 fabricApi {
     configureDataGeneration {
         client = true
+        outputDirectory = project.file("src/main/generated")
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
     }
 }
 
