@@ -140,6 +140,44 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add(BlocksSD.STRIPPED_PALE_OAK_WOOD_STAIRS, "Stripped Pale Oak Wood Stairs");
         translationBuilder.add(BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS, "Stripped Crimson Hyphae Stairs");
         translationBuilder.add(BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS, "Stripped Warped Hyphae Stairs");
+
+        translationBuilder.add(BlocksSD.TERRACOTTA_STAIRS, "Terracotta Stairs");
+
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.black(), "Black Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.blue(), "Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.brown(), "Brown Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.cyan(), "Cyan Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.gray(), "Gray Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.green(), "Green Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.lightBlue(), "Light Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.lightGray(), "Light Gray Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.lime(), "Lime Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.magenta(), "Magenta Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.orange(), "Orange Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.pink(), "Pink Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.purple(), "Purple Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.red(), "Red Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.white(), "White Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_STAIRS.yellow(), "Yellow Terracotta Stairs");
+
+        translationBuilder.add(BlocksSD.TERRACOTTA_SLAB, "Terracotta Slab");
+
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.black(), "Black Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.blue(), "Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.brown(), "Brown Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.cyan(), "Cyan Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.gray(), "Gray Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.green(), "Green Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lightBlue(), "Light Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lightGray(), "Light Blue Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.lime(), "Lime Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.magenta(), "Magenta Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.orange(), "Orange Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.pink(), "Pink Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.purple(), "Purple Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.red(), "Red Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.white(), "White Terracotta Stairs");
+        translationBuilder.add(BlocksSD.DYED_TERRACOTTA_SLAB.yellow(), "Yellow Terracotta Stairs");
     }
 
     private void gui(TranslationBuilder translationBuilder) {

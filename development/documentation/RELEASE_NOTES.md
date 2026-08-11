@@ -2,6 +2,12 @@
 It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside other small tweaks!
 
 ## New Features
+### Blocks
+- Added Terracotta Stairs
+- Added Terracotta Slabs
+- Added Dyed Terracotta Stairs
+- Added Dyed Terracotta Slabs
+
 ### Blasting
 - Adding Block of Raw Copper Blasting recipe
 - Adding Block of Raw Iron Blasting recipe

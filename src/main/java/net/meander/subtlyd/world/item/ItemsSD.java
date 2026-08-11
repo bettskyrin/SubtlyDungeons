@@ -215,6 +215,15 @@ public class ItemsSD {
             )
             .component(DataComponents.BREAK_SOUND, SoundEvents.SHIELD_BREAK)
     );
+    public static final ColorCollection<Item> DYED_TERRACOTTA_STAIRS = ColorCollection.registerBlockItems(
+            BlockItemIdsSD.DYED_TERRACOTTA_STAIRS, BlocksSD.DYED_TERRACOTTA_STAIRS, (id, block, _) -> Items.registerBlock(id, block)
+    );
+    public static final ColorCollection<Item> DYED_TERRACOTTA_SLAB = ColorCollection.registerBlockItems(
+            BlockItemIdsSD.DYED_TERRACOTTA_SLAB, BlocksSD.DYED_TERRACOTTA_SLAB, (id, block, _) -> Items.registerBlock(id, block)
+    );
+    public static final Item TERRACOTTA_STAIRS = Items.registerBlock(BlockItemIdsSD.TERRACOTTA_STAIRS, BlocksSD.TERRACOTTA_STAIRS);
+    public static final Item TERRACOTTA_SLAB = Items.registerBlock(BlockItemIdsSD.TERRACOTTA_SLAB, BlocksSD.TERRACOTTA_SLAB);
+
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering items...");

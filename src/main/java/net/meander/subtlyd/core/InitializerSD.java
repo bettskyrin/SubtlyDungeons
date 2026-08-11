@@ -5,6 +5,7 @@ import net.meander.subtlyd.advancements.triggers.CriteriaTriggersSD;
 import net.meander.subtlyd.commands.CommandsSD;
 import net.meander.subtlyd.core.component.DataComponentsSD;
 import net.meander.subtlyd.core.particles.ParticleTypesSD;
+import net.meander.subtlyd.data.BlockFamiliesSD;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
 import net.meander.subtlyd.network.PacketNetworking;
 import net.meander.subtlyd.network.syncher.EntityDataAccessors;
@@ -40,6 +41,7 @@ public class InitializerSD implements ModInitializer {
         BlocksSD.registration();
         BlockEntityTypesSD.registration();
         ItemsSD.registration();
+        BlockFamiliesSD.init();
     }
 
     @Override

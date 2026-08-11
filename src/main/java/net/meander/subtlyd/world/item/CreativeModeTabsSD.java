@@ -131,6 +131,10 @@ public class CreativeModeTabsSD {
     private static void coloredBlocks() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.COLORED_BLOCKS).register(entries -> {
             gameplayColorOrder.forEach(color -> entries.insertAfter(BED.pink(), TENT.pick(color)));
+            gameplayColorOrder.forEach(color -> entries.insertAfter(DYED_TERRACOTTA.pick(color), DYED_TERRACOTTA_STAIRS.pick(color)));
+            gameplayColorOrder.forEach(color -> entries.insertAfter(DYED_TERRACOTTA_STAIRS.pick(color), DYED_TERRACOTTA_SLAB.pick(color)));
+            entries.insertAfter(TERRACOTTA, TERRACOTTA_STAIRS);
+            entries.insertAfter(TERRACOTTA, TERRACOTTA_SLAB);
         });
     }
 

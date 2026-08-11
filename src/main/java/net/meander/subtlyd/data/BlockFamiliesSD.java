@@ -3,6 +3,7 @@ package net.meander.subtlyd.data;
 import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ColorCollection;
 
 import static net.minecraft.data.BlockFamilies.familyBuilder;
 
@@ -41,6 +42,7 @@ public class BlockFamiliesSD {
     public static final BlockFamily BASALT = familyBuilder(Blocks.BASALT)
             .slab(BlocksSD.BASALT_SLAB)
             .dontGenerateModel()
+            .generateStonecutterRecipe()
             .getFamily();
     public static final BlockFamily OAK_WOOD = familyBuilder(Blocks.OAK_WOOD)
             .stairs(BlocksSD.OAK_WOOD_STAIRS)
@@ -138,4 +140,22 @@ public class BlockFamiliesSD {
             .stairs(BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS)
             .slab(BlocksSD.STRIPPED_WARPED_HYPHAE_SLAB)
             .getFamily();
+    public static final ColorCollection<BlockFamily> DYED_TERRACOTTA = ColorCollection.VALUES
+            .map(
+                    color -> familyBuilder(Blocks.DYED_TERRACOTTA.pick(color))
+                            .stairs(BlocksSD.DYED_TERRACOTTA_STAIRS.pick(color))
+                            .slab(BlocksSD.DYED_TERRACOTTA_SLAB.pick(color))
+                            .recipeGroupPrefix("terracotta")
+                            .generateStonecutterRecipe()
+                            .getFamily()
+            );
+    public static final BlockFamily TERRACOTTA = familyBuilder(Blocks.TERRACOTTA)
+            .stairs(BlocksSD.TERRACOTTA_STAIRS)
+            .slab(BlocksSD.TERRACOTTA_SLAB)
+            .generateStonecutterRecipe()
+            .getFamily();
+
+    public static void init() {
+        DYED_TERRACOTTA.forEach(_ -> {});
+    }
 }

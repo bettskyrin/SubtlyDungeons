@@ -7,6 +7,7 @@ import net.meander.subtlyd.tags.BlockTagsSD;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.tags.VanillaBlockTagsProvider;
 import net.minecraft.references.BlockIds;
 import net.minecraft.references.BlockItemIds;
 import net.minecraft.tags.BlockTags;
@@ -47,14 +48,18 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
         tag(BlockTags.STAIRS)
                 .add(BlockItemIdsSD.SNOW_BRICK_STAIRS.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_STAIRS.block())
-                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block());
+                .add(BlockItemIdsSD.STONE_TILE_STAIRS.block())
+                .add(BlockItemIdsSD.TERRACOTTA_STAIRS.block())
+                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIdsSD.DYED_TERRACOTTA_STAIRS).asList());
         tag(BlockTags.SLABS)
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
                 .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
                 .add(BlockItemIdsSD.SNOW_BRICK_SLAB.block())
                 .add(BlockItemIdsSD.POLISHED_DRIPSTONE_SLAB.block())
-                .add(BlockItemIdsSD.STONE_TILE_SLAB.block());
+                .add(BlockItemIdsSD.STONE_TILE_SLAB.block())
+                .add(BlockItemIdsSD.TERRACOTTA_SLAB.block())
+                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIdsSD.DYED_TERRACOTTA_SLAB).asList());
         tag(BlockTags.WOODEN_SLABS)
                 .add(BlockItemIdsSD.OAK_WOOD_SLAB.block())
                 .add(BlockItemIdsSD.SPRUCE_WOOD_SLAB.block())
@@ -158,7 +163,9 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIdsSD.STONE_PILLAR.block())
                 .add(BlockItemIdsSD.CHARCOAL_BLOCK.block())
                 .add(BlockItemIdsSD.IRON_GRATE.block())
-                .add(BlockItemIdsSD.BASALT_SLAB.block());
+                .add(BlockItemIdsSD.BASALT_SLAB.block())
+                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIds.CONCRETE_STAIRS).asList())
+                .addAll(VanillaBlockTagsProvider.toIds(BlockItemIds.CONCRETE_SLAB).asList());
         tag(BlockTags.MINEABLE_WITH_AXE)
                 .forceAddTag(BlockTags.SKULLS);
         tag(BlockTags.SHEARS_EXTREME_BREAKING_SPEED)

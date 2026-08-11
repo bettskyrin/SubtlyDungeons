@@ -3,6 +3,7 @@ package net.meander.subtlyd.references;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.references.BlockItemId;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.ColorCollection;
 
 /**
  * @see net.minecraft.references.BlockItemIds
@@ -81,10 +82,18 @@ public class BlockItemIdsSD {
     public static final BlockItemId STRIPPED_PALE_OAK_WOOD_STAIRS = create("stripped_pale_oak_wood_stairs");
     public static final BlockItemId STRIPPED_CRIMSON_HYPHAE_STAIRS = create("stripped_crimson_hyphae_stairs");
     public static final BlockItemId STRIPPED_WARPED_HYPHAE_STAIRS = create("stripped_warped_hyphae_stairs");
+    public static final BlockItemId TERRACOTTA_STAIRS = create("terracotta_stairs");
+    public static final BlockItemId TERRACOTTA_SLAB = create("terracotta_slab");
+    public static final ColorCollection<BlockItemId> DYED_TERRACOTTA_STAIRS = createSimpleColored("terracotta_stairs");
+    public static final ColorCollection<BlockItemId> DYED_TERRACOTTA_SLAB = createSimpleColored("terracotta_slab");
 
     private static BlockItemId create(final String name) {
         Identifier id = UtilSD.identifier(name);
 
         return BlockItemId.create(id, id);
+    }
+
+    private static ColorCollection<BlockItemId> createSimpleColored(final String baseName) {
+        return ColorCollection.prefixWithColor(ColorCollection.create(baseName)).map(BlockItemIdsSD::create);
     }
 }

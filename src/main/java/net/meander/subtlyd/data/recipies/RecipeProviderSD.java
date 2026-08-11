@@ -120,8 +120,6 @@ public class RecipeProviderSD extends FabricRecipeProvider {
                 grate(BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK);
                 stonecutterResultFromBase(category, BlocksSD.IRON_GRATE, Blocks.IRON_BLOCK, 4);
 
-                slab(category, ItemsSD.BASALT_SLAB, Items.BASALT);
-                stonecutterResultFromBase(category, BlocksSD.BASALT_SLAB, Blocks.BASALT, 2);
                 shaped(category, BlocksSD.STONE_PILLAR, 2)
                         .define('#', Blocks.STONE)
                         .pattern("#")

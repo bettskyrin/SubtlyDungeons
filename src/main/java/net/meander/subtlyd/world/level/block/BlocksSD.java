@@ -129,6 +129,14 @@ public class BlocksSD {
     public static final Block STRIPPED_PALE_OAK_WOOD_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_PALE_OAK_WOOD_SLAB, Blocks.STRIPPED_PALE_OAK_WOOD);
     public static final Block STRIPPED_CRIMSON_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_CRIMSON_HYPHAE_SLAB, Blocks.STRIPPED_CRIMSON_HYPHAE);
     public static final Block STRIPPED_WARPED_HYPHAE_SLAB = registerSlab(BlockItemIdsSD.STRIPPED_WARPED_HYPHAE_SLAB, Blocks.STRIPPED_WARPED_HYPHAE);
+    public static final Block TERRACOTTA_STAIRS = registerStair(BlockItemIdsSD.TERRACOTTA_STAIRS, Blocks.TERRACOTTA);
+    public static final Block TERRACOTTA_SLAB = registerSlab(BlockItemIdsSD.TERRACOTTA_SLAB, Blocks.TERRACOTTA);
+    public static final ColorCollection<Block> DYED_TERRACOTTA_STAIRS = ColorCollection.zipMap(
+            ColorCollection.VALUES, BlockItemIdsSD.DYED_TERRACOTTA_STAIRS, (color, id) -> registerStair(id, Blocks.DYED_TERRACOTTA.pick(color))
+    );
+    public static final ColorCollection<Block> DYED_TERRACOTTA_SLAB = ColorCollection.zipMap(
+            ColorCollection.VALUES, BlockItemIdsSD.DYED_TERRACOTTA_SLAB, (color, id) -> registerSlab(id, Blocks.DYED_TERRACOTTA.pick(color))
+    );
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering blocks...");

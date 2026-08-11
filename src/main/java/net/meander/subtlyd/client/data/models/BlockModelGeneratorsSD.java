@@ -50,7 +50,7 @@ public class BlockModelGeneratorsSD {
 
     private void generateSlabFromVanilla(Block baseBlock, Block newBlock) {
         Identifier faceTexture = TextureMapping.getBlockTexture(baseBlock).sprite();
-        
+
         TextureMapping slabTextures = new TextureMapping().put(TextureSlot.BOTTOM, new Material(faceTexture)).put(TextureSlot.TOP, new Material(faceTexture)).put(TextureSlot.SIDE, new Material(faceTexture));
         MultiVariant blockBottom = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_BOTTOM.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
         MultiVariant blockTop = BlockModelGenerators.plainVariant(ModelTemplates.SLAB_TOP.create(newBlock, slabTextures, blockModelGenerators.modelOutput));
@@ -224,5 +224,7 @@ public class BlockModelGeneratorsSD {
         generatePotionCauldron();
         generateStewCauldron();
         generateWoodFamily();
+        blockModelGenerators.family(Blocks.TERRACOTTA).generateFor(BlockFamiliesSD.TERRACOTTA);
+        BlockFamiliesSD.DYED_TERRACOTTA.forEach(family -> blockModelGenerators.family(family.getBaseBlock()).generateFor(family));
     }
 }

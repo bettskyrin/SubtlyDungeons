@@ -111,5 +111,9 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         dropSelf(BlocksSD.STRIPPED_POPLAR_WOOD_STAIRS);
         dropSelf(BlocksSD.STRIPPED_CRIMSON_HYPHAE_STAIRS);
         dropSelf(BlocksSD.STRIPPED_WARPED_HYPHAE_STAIRS);
+        dropSelf(BlocksSD.TERRACOTTA_STAIRS);
+        add(BlocksSD.TERRACOTTA_SLAB, this::createSlabItemTable);
+        BlocksSD.DYED_TERRACOTTA_STAIRS.forEach(this::dropSelf);
+        BlocksSD.DYED_TERRACOTTA_SLAB.forEach(block -> add(block, this::createSlabItemTable));
     }
 }
