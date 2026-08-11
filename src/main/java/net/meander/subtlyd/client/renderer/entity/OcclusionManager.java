@@ -22,6 +22,7 @@ public class OcclusionManager {
     private final ExecutorService executor;
     private final Map<Integer, OcclusionState> visibilityCache = new ConcurrentHashMap<>();
     private final Map<Integer, Boolean> isCalculating = new ConcurrentHashMap<>();
+    private float currentFogEndSqr = Float.MAX_VALUE;
 
     public OcclusionManager() {
         int availableProcessors = Runtime.getRuntime().availableProcessors();
@@ -57,6 +58,14 @@ public class OcclusionManager {
 
         queueVisibilityCheck(entity, cameraPos, level);
         return false;
+    }
+
+    public void setCurrentFogEndSqr(float fogEnd) {
+        currentFogEndSqr = Mth.square(fogEnd);
+    }
+
+    public float getCurrentFogEndSqr() {
+        return currentFogEndSqr;
     }
 
     public void invalidateSection(SectionPos sectionPos) {

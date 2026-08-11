@@ -19,7 +19,7 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
     - Frustrum
       - The default culling method. Hides entities that are outside the player's FOV
     - Occlusion
-      - Hides entities that are behind blocks
+      - Hides entities that are behind blocks or fog
       - Performs after frustrum culling
 
 ### Debug Screen

@@ -207,7 +207,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.entity_culling.frustum", "Frustum");
         translationBuilder.add("options.entity_culling.frustum.tooltip", "Culling method that hides entities that are outside the player's FOV.");
         translationBuilder.add("options.entity_culling.occlusion", "Occlusion");
-        translationBuilder.add("options.entity_culling.occlusion.tooltip", "Culling method that hides entities that are hidden behind blocks. This method is combined with frustum culling.");
+        translationBuilder.add("options.entity_culling.occlusion.tooltip", "Culling method that hides entities that are hidden behind blocks or fog. This method is combined with frustum culling.");
 
         translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
         translationBuilder.add("key.command_macros.0", "Command Macro 0");
