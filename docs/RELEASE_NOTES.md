@@ -20,6 +20,7 @@ Modded shear and silk touch related block loot is currently disabled.
       - Performs after frustrum culling
 
 ### Debug Screen
+- Added `entity_culling_method` debug screen entry
 - Added `visualize_entity_occlusion` debug renderer
 
 ## Changes

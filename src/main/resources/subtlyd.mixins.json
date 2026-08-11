@@ -102,6 +102,7 @@
     "client.renderer.ScreenEffectRendererMixin",
     "client.renderer.SubmitNodeCollectionMixin",
     "client.renderer.debug.DebugRendererMixin",
+    "client.renderer.debug.DebugScreenEntriesMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.EntityRendererMixin",
     "client.renderer.entity.HuskRendererMixin",

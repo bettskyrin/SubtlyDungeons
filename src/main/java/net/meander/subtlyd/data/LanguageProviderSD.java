@@ -166,10 +166,10 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("options.command_macros.title", "Command Macros" );
         translationBuilder.add("options.command_macros.entry", "Command Macro %s");
         translationBuilder.add("options.entity_culling", "Entity Culling");
-        translationBuilder.add("options.entity_culling.frustum", "Frustrum");
+        translationBuilder.add("options.entity_culling.frustum", "Frustum");
         translationBuilder.add("options.entity_culling.frustum.tooltip", "Culling method that hides entities that are outside the player's FOV.");
         translationBuilder.add("options.entity_culling.occlusion", "Occlusion");
-        translationBuilder.add("options.entity_culling.occlusion.tooltip", "Culling method that hides entities that are hidden behind blocks. Is performed after frustrum culling.");
+        translationBuilder.add("options.entity_culling.occlusion.tooltip", "Culling method that hides entities that are hidden behind blocks. This method is combined with frustum culling.");
 
         translationBuilder.add("key.category.subtlyd.command_macros", "Command Macros");
         translationBuilder.add("key.command_macros.0", "Command Macro 0");

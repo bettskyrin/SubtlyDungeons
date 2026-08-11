@@ -10,6 +10,7 @@ import net.minecraft.resources.Identifier;
  * @see net.minecraft.client.gui.components.debug.DebugScreenEntries
  */
 public class DebugScreenEntriesSD {
+    public static final Identifier ENTITY_CULLING_METHOD = register("entity_culling_method", new DebugEntryEntityCullingMethod());
     public static final Identifier VISUALIZE_ENTITY_OCCLUSION = register("vizualize_entity_occlusion", new DebugEntryNoop());
 
     private static Identifier register(final String id, final DebugScreenEntry entry) {
