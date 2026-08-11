@@ -24,10 +24,12 @@ import org.jspecify.annotations.Nullable;
 public class ReedsBlock extends DoublePlantBlock implements BonemealableBlock, BonemealableAquaticPlant, LiquidBlockContainer {
     public static final EnumProperty<DoubleBlockHalf> HALF = DoublePlantBlock.HALF;
 
-    protected ReedsBlock(Properties properties) { super(properties); }
+    protected ReedsBlock(Properties properties) {
+        super(properties);
+    }
 
     @Override
-    protected boolean mayPlaceOn(final BlockState state, final BlockGetter level, final BlockPos pos) {
+    public boolean mayPlaceOn(final BlockState state, final BlockGetter level, final BlockPos pos) {
         return state.isFaceSturdy(level, pos, Direction.UP) && !state.is(Blocks.MAGMA_BLOCK);
     }
 

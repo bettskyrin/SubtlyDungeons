@@ -2,10 +2,12 @@ package net.meander.subtlyd.mixin.common.world.level.levelgen.feature;
 
 import net.meander.subtlyd.world.level.block.state.BlockStateSD;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.MushroomBlock;
 import net.minecraft.world.level.block.SnowyBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -67,29 +69,32 @@ public class SnowAndFreezeFeatureMixin {
 
         if (biome.shouldSnow(level, pos)) {
             BlockState state = level.getBlockState(pos);
+            BlockState belowState = level.getBlockState(pos.below());
 
             if (BlockStateSD.canBeSnowlogged(state)) {
-                BlockState belowState = level.getBlockState(pos.below());
-
                 if (level.setBlock(pos, state.setValue(BlockStateProperties.SNOWLOGGED_LAYERS, 1), 2)) {
-                    if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
-                        level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
+                    if (state.getBlock() instanceof MushroomBlock) {
+                        if (!belowState.is(BlockTags.OVERRIDES_MUSHROOM_LIGHT_REQUIREMENT)) {
+                            level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
+                        }
+                    }
+
+                    if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
+                        BlockPos abovePos = pos.above();
+                        BlockState aboveState = level.getBlockState(abovePos);
+
+                        if (aboveState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED)) {
+                            level.setBlock(abovePos, aboveState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, true), 2);
+                        }
                     }
                 }
 
-                if (state.hasProperty(BlockStateProperties.DOUBLE_BLOCK_HALF) && state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.LOWER) {
-                    BlockPos abovePos = pos.above();
-                    BlockState aboveState = level.getBlockState(abovePos);
-
-                    if (aboveState.hasProperty(BlockStateProperties.BOTTOM_SNOWLOGGED)) {
-                        level.setBlock(abovePos, aboveState.setValue(BlockStateProperties.BOTTOM_SNOWLOGGED, true), 2);
-                    }
+                if (belowState.hasProperty(BlockStateProperties.SNOWY)) {
+                    level.setBlock(pos.below(), belowState.setValue(BlockStateProperties.SNOWY, true), 2);
                 }
 
                 return true;
-            } else if (state.isAir()) {
-                BlockState belowState = level.getBlockState(pos.below());
-
+            } else if (state.isAir() || !state.canSurvive(level, pos)) {
                 level.setBlock(pos, Blocks.SNOW.defaultBlockState(), 2);
 
                 if (belowState.hasProperty(SnowyBlock.SNOWY)) {

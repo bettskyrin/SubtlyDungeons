@@ -47,6 +47,7 @@ public class ServerLevelMixin {
                 } else if (aboveState.isAir() && currentTarget.isFaceSturdy(level, pos, Direction.UP)) {
                     return level.setBlockAndUpdate(abovePos, state);
                 }
+
                 return false;
             }
         }
@@ -60,9 +61,11 @@ public class ServerLevelMixin {
                 if (belowState.isFaceSturdy(level, belowPos, Direction.UP)) {
                     return level.setBlockAndUpdate(pos, state);
                 }
+
                 return false;
             }
         }
+
         return level.setBlockAndUpdate(pos, state);
     }
 }
