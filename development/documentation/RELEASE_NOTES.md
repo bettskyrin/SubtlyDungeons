@@ -44,3 +44,4 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 - Fixed bug preventing quivers from displaying on armor stands
 - Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
 - Fixed Silk Touch and Shear block drops
+- Fixed bug causing missing block family recipes

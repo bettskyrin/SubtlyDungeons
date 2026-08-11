@@ -36,6 +36,9 @@ accessible method net/minecraft/world/level/block/entity/BlockEntityTypes regist
 
 accessible method net/minecraft/world/item/alchemy/Potions register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/core/Holder;
 
+## Tags
+accessible method net/minecraft/data/tags/VanillaBlockTagsProvider toIds (Lnet/minecraft/world/level/block/ColorCollection;)Lnet/minecraft/world/level/block/ColorCollection;
+
 ## Data Components
 accessible method net/minecraft/world/food/Foods stew (I)Lnet/minecraft/world/food/FoodProperties$Builder;
 
