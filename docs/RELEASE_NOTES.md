@@ -1,9 +1,6 @@
 # [5.0 Snapshot 5] - UNRELEASED
 It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside other small tweaks!
 
-## Known Issues
-Modded shear and silk touch related block loot is currently disabled.
-
 ## New Features
 ### Blasting
 - Adding Block of Raw Copper Blasting recipe
@@ -46,3 +43,4 @@ Modded shear and silk touch related block loot is currently disabled.
 - Fixed bug preventing some settings from being saved
 - Fixed bug preventing quivers from displaying on armor stands
 - Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
+- Fixed Silk Touch and Shear block drops

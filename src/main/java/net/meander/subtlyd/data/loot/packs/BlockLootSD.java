@@ -35,8 +35,6 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         dropSelf(BlocksSD.STONE_PILLAR);
 //        add(BlocksSD.WARPED_OVERHANG, this::createShearsOrSilkTouchOnlyDrop); // TODO
 //        add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
-        dropSelf(BlocksSD.WARPED_OVERHANG);
-        dropSelf(BlocksSD.REEDS);
         dropSelf(BlocksSD.BASALT_SLAB);
         dropSelf(BlocksSD.SOUL_JACK_O_LANTERN);
 //        add(Blocks.CAMPFIRE, LootTable.lootTable() // TODO
