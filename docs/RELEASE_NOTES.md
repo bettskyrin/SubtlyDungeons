@@ -9,7 +9,7 @@ Modded shear and silk touch related block loot is currently disabled.
 - Adding Block of Raw Copper Blasting recipe
 - Adding Block of Raw Iron Blasting recipe
 - Adding Block of Raw Gold Blasting recipe
-- 
+
 ### Options
 - Added Entity Culling option
     - Determines the entity culling method
@@ -28,7 +28,8 @@ Modded shear and silk touch related block loot is currently disabled.
 - Updated Baobab generation style to more closely match the version shown by Mojang
 
 ### Textures
-- Changed map design to match the base game
+- Changed Map texture to match the base game
+- Changed the Adventure Mode texture to use the Buried Treasure Map texture
 
 ### Options
 - Changed "Advanced Entity Animations" to "Fancy Entities"
