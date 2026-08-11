@@ -53,3 +53,4 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 - Fixed Silk Touch and Shear block drops
 - Fixed bug causing missing block family recipes
 - Fixed bug causing snow layers to sometimes not generate
+- Fixed bug preventing Illusioners from using their new texture
