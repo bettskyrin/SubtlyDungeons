@@ -10,6 +10,7 @@ import static net.minecraft.data.BlockFamilies.familyBuilder;
 /**
  * @see net.minecraft.data.BlockFamilies
  */
+@SuppressWarnings("unused")
 public class BlockFamiliesSD {
     public static final BlockFamily SNOW = familyBuilder(Blocks.SNOW_BLOCK)
             .bricks(BlocksSD.SNOW_BRICKS)
