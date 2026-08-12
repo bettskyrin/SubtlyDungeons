@@ -17,19 +17,26 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(EntityType.class)
 public class EntityTypeMixin {
     @Inject(method = "loadEntityRecursive(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/EntitySpawnRequest;Lnet/minecraft/world/entity/EntityProcessor;)Lnet/minecraft/world/entity/Entity;", at = @At("HEAD"))
     private static void applyDataFixer(CompoundTag tag, Level level, EntitySpawnRequest request, EntityProcessor postLoad, CallbackInfoReturnable<Entity> cir) {
         int savedVersion = tag.getIntOr("DataVersionSD", 0);
         int currentVersion = UtilSD.DATA_VERSION;
+        Optional<String> id = tag.getString("id");
 
-        if (savedVersion < currentVersion) {
-            Dynamic<Tag> dynamic = DataFixerSD.getFixer().update(References.ENTITY, new Dynamic<>(NbtOps.INSTANCE, tag), savedVersion, currentVersion);
+        if (id.isPresent()) {
+            if (id.get().startsWith(UtilSD.NAMESPACE)) {
+                if (savedVersion < currentVersion) {
+                    Dynamic<Tag> dynamic = DataFixerSD.getFixer().update(References.ENTITY, new Dynamic<>(NbtOps.INSTANCE, tag), savedVersion, currentVersion);
 
-            if (dynamic.getValue() instanceof CompoundTag compound) {
-                tag.merge(compound);
-                tag.putInt("DataVersionSD", currentVersion);
+                    if (dynamic.getValue() instanceof CompoundTag compound) {
+                        tag.merge(compound);
+                        tag.putInt("DataVersionSD", currentVersion);
+                    }
+                }
             }
         }
     }
