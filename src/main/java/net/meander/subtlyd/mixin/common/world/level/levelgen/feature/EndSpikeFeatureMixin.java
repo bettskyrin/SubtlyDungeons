@@ -24,7 +24,6 @@ import java.util.Optional;
 
 @Mixin(EndSpikeFeature.class)
 public abstract class EndSpikeFeatureMixin {
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Shadow @Final private Optional<BlockPos> crystalBeamTarget;
     @Shadow @Final private boolean crystalInvulnerable;
 

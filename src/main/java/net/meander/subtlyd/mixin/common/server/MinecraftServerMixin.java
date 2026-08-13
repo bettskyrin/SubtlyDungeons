@@ -19,7 +19,6 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 @Mixin(MinecraftServer.class)
-@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class MinecraftServerMixin {
     @Shadow @Final protected LevelStorageSource.LevelStorageAccess storageSource;
 

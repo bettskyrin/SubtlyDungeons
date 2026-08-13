@@ -132,7 +132,7 @@ public class ServerAdvancementManagerMixin {
         }
     }
 
-    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "deprecation"})
+    @SuppressWarnings("deprecation")
     private Optional<DisplayInfo> modifyDisplay(final Optional<DisplayInfo> displayInfo, final HolderLookup.Provider registries, final Item item) {
         return displayInfo.map(info -> {
             HolderGetter<Item> itemGetter = registries.lookupOrThrow(Registries.ITEM);

@@ -19,7 +19,6 @@ import java.util.Optional;
 public class SetDaggerFunction extends LootItemConditionalFunction {
     public static final MapCodec<SetDaggerFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, SetDaggerFunction::new));
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public SetDaggerFunction(Optional<Holder<LootItemCondition>> condition) {
         super(condition);
     }

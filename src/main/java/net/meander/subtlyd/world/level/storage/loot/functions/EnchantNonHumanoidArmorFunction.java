@@ -22,7 +22,6 @@ import java.util.Optional;
 public class EnchantNonHumanoidArmorFunction extends LootItemConditionalFunction {
     public static final MapCodec<EnchantNonHumanoidArmorFunction> MAP_CODEC = RecordCodecBuilder.mapCodec(instance -> commonFields(instance).apply(instance, EnchantNonHumanoidArmorFunction::new));
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     protected EnchantNonHumanoidArmorFunction(Optional<Holder<LootItemCondition>> condition) {
         super(condition);
     }
