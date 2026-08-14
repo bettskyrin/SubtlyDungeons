@@ -121,7 +121,7 @@
     "client.renderer.feature.FlameFeatureRendererMixin",
     "client.renderer.feature.FlameFeatureRendererMixin$SubmitMixin",
     "client.renderer.fog.FogRendererMixin",
-    "client.renderer.item.ItemInHandRendererMixin",
+    "client.renderer.item.FirstPersonHandsAndItemsRendererMixin",
     "client.renderer.item.ItemModelResolverMixin",
     "client.renderer.item.ItemStackRenderStateMixin",
     "client.renderer.item.TridentSpecialRendererMixin",

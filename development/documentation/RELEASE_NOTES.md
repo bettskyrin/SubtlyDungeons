@@ -1,5 +1,5 @@
-# [5.0 Snapshot 5] - UNRELEASED
-It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades, new blocks, and other small tweaks!
+# [5.0 Snapshot 5] - 8/14/26
+It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades, new blocks, bug fixes, and other small tweaks!
 
 ## New Features
 ### Blocks
