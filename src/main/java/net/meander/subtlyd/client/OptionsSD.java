@@ -20,7 +20,7 @@ import java.util.Arrays;
  */
 public interface OptionsSD {
     Component CAMERA_SHAKE_TOOLTIP = Component.translatable("options.accessibility.camera_shake.tooltip");
-    Component EXPERIMENTAL_GUI_TOOLTIP = CommonComponents.joinLines(Component.translatable("options.needsRestart"), CommonComponents.EMPTY, Component.translatable("options.experimental.gui.tooltip"));
+    Component EXPERIMENTAL_GUI_TOOLTIP = CommonComponents.joinLines(Options.TOOLTIP_NEEDS_RESTART, CommonComponents.EMPTY, Component.translatable("options.experimental.gui.tooltip"));
     Component SHIELD_CROUCH_TOOLTIP = Component.translatable("options.accessibility.shield_crouch.tooltip");
     Component FANCY_ENTITIES_TOOLTIP = Component.translatable("options.fancy_entities.tooltip");
     Component SHIELD_ANIMATION_TOOLTIP = Component.translatable("options.accessibility.shield_animation.tooltip");

@@ -22,6 +22,7 @@ accessible field net/minecraft/client/gui/screens/options/OptionsSubScreen list 
 accessible method net/minecraft/client/Options setGraphicsPresetToCustom ()V
 accessible method net/minecraft/client/GraphicsPreset set (Lnet/minecraft/client/gui/screens/options/OptionsSubScreen;Lnet/minecraft/client/OptionInstance;Ljava/lang/Object;)V
 accessible class net/minecraft/client/gui/screens/debug/GameModeSwitcherScreen$GameModeIcon
+accessible field net/minecraft/client/Options TOOLTIP_NEEDS_RESTART Lnet/minecraft/network/chat/Component;
 
 # World
 ## Items
