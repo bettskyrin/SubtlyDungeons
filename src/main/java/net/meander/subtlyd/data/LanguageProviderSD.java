@@ -184,6 +184,7 @@ public class LanguageProviderSD extends FabricLanguageProvider {
         translationBuilder.add("createWorld.custom.biome_scale", "Biome Scale");
         translationBuilder.add("createWorld.custom.continent_scale", "Continent Scale");
         translationBuilder.add("createWorld.custom.erosion_scale", "Erosion Scale");
+        translationBuilder.add("createWorld.custom.ocean_depth_scale", "Ocean Depth Scale");
         translationBuilder.add("createWorld.custom.master_scale", "Master World Generation Scale");
         translationBuilder.add("createWorld.custom.pack", "Custom Terrain");
         translationBuilder.add("createWorld.custom.title", "Custom Terrain");

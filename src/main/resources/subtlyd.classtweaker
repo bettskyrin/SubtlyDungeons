@@ -69,6 +69,8 @@ accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScr
 accessible method net/minecraft/data/worldgen/features/VegetationFeatures flowerBedPatchBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/util/random/WeightedList$Builder;
 accessible method net/minecraft/world/level/levelgen/feature/treedecorators/ShelfMushroomDecorator isWithinDecoratableHeight (Lnet/minecraft/core/BlockPos;I)Z
 accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType register (Ljava/lang/String;Lcom/mojang/serialization/MapCodec;)Lnet/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType;
+accessible field net/minecraft/data/worldgen/TerrainProvider BEACH_CONTINENTALNESS F
+accessible field net/minecraft/data/worldgen/TerrainProvider DEEP_OCEAN_CONTINENTALNESS F
 
 # Sounds
 accessible method net/minecraft/sounds/SoundEvents register (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/sounds/SoundEvent;

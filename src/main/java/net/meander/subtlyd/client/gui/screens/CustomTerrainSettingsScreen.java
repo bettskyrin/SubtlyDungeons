@@ -32,8 +32,6 @@ public class CustomTerrainSettingsScreen extends Screen {
     private static final int LONG_SLIDER_WIDTH = 310;
     private static final int SLIDER_WIDTH = 150;
     private static final int SLIDER_HEIGHT = 20;
-    private static final double MIN_VALUE = 0.1;
-    private static final double MAX_VALUE = 10.0;
     private final Screen lastScreen;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
@@ -41,11 +39,14 @@ public class CustomTerrainSettingsScreen extends Screen {
     private AbstractSliderButton continentSlider;
     private AbstractSliderButton biomeSlider;
     private AbstractSliderButton erosionSlider;
+    private AbstractSliderButton oceanSlider;
+    public static final double MIN_VALUE = 0.1;
+    public static final double MAX_VALUE = 10.0;
     public final double initialMaster;
     public final double initialContinent;
     public final double initialBiome;
     public final double initialErosion;
-
+    public final double initialOceanDepth;
 
     public CustomTerrainSettingsScreen(Screen lastScreen) {
         this.lastScreen = lastScreen;
@@ -53,6 +54,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         initialContinent = CustomTerrainSettings.continentScale;
         initialBiome = CustomTerrainSettings.biomeScale;
         initialErosion = CustomTerrainSettings.erosionScale;
+        initialOceanDepth = CustomTerrainSettings.oceanDepthScale;
 
         super(Component.translatable("createWorld.custom.title"));
     }
@@ -85,8 +87,13 @@ public class CustomTerrainSettingsScreen extends Screen {
                 CustomTerrainSettings.erosionScale, v -> CustomTerrainSettings.erosionScale = v
         );
 
+        oceanSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
+                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.oceanDepthScale, v -> CustomTerrainSettings.oceanDepthScale = v
+        );
+
         list.addDouble(continentSlider, biomeSlider);
-        list.addDouble(erosionSlider, null);
+        list.addDouble(erosionSlider, oceanSlider);
         createFooterButtons();
         layout.visitWidgets(this::addRenderableWidget);
         repositionElements();
@@ -122,6 +129,10 @@ public class CustomTerrainSettingsScreen extends Screen {
 
         if (erosionSlider instanceof RatioSliderButton button) {
             button.setRatioValue(CustomTerrainSettings.erosionScale);
+        }
+
+        if (oceanSlider instanceof RatioSliderButton button) {
+            button.setRatioValue(CustomTerrainSettings.oceanDepthScale);
         }
     }
 
@@ -167,6 +178,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         CustomTerrainSettings.continentScale = initialContinent;
         CustomTerrainSettings.biomeScale = initialBiome;
         CustomTerrainSettings.erosionScale = initialErosion;
+        CustomTerrainSettings.oceanDepthScale = initialOceanDepth;
 
         minecraft.gui.setScreen(lastScreen);
     }
