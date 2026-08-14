@@ -2,8 +2,8 @@ package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import net.meander.subtlyd.client.gui.components.GameTabButton;
-import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
-import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettingsScreen;
+import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
+import net.meander.subtlyd.client.gui.screens.CustomTerrainSettingsScreen;
 import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -56,7 +56,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
     @Inject(method = "init()V", at = @At("HEAD"))
     private void initWorldGeneration(CallbackInfo ci) {
-        TailoredWorldGenSettings.reset();
+        CustomTerrainSettings.reset();
     }
 
     @Inject(method = "init()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/CreateWorldScreen;addRenderableWidget(Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;", shift = At.Shift.AFTER), cancellable = true)
@@ -92,11 +92,11 @@ public abstract class CreateWorldScreenMixin extends Screen {
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     @Inject(method = "createNewWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
-    private void saveTailoredSettings(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
-        if (newWorldAccess.isPresent() && TailoredWorldGenSettings.shouldAlterSettings) {
+    private void saveCustomTerrainData(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
+        if (newWorldAccess.isPresent()) {
             Path worldRootPath = newWorldAccess.get().getLevelPath(LevelResource.ROOT);
 
-            TailoredWorldGenSettings.saveSettingsToFile(worldRootPath);
+            CustomTerrainSettings.saveSettingsToFile(worldRootPath);
         }
     }
 
@@ -356,7 +356,7 @@ public abstract class CreateWorldScreenMixin extends Screen {
                 Holder<WorldPreset> worldPreset = parentScreen.getUiState().getWorldType().preset();
 
                 if (worldPreset != null && worldPreset.is(WorldPresets.NORMAL)) {
-                    Minecraft.getInstance().setScreenAndShow(new TailoredWorldGenSettingsScreen(parentScreen));
+                    Minecraft.getInstance().setScreenAndShow(new CustomTerrainSettingsScreen(parentScreen));
                     ci.cancel();
                 }
             }

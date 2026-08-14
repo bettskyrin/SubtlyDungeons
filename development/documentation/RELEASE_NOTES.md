@@ -1,5 +1,5 @@
 # [5.0 Snapshot 5] - UNRELEASED
-It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades alongside new blocks and other small tweaks!
+It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades, new blocks, and other small tweaks!
 
 ## New Features
 ### Blocks
@@ -54,3 +54,4 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 - Fixed bug causing missing block family recipes
 - Fixed bug causing snow layers to sometimes not generate
 - Fixed bug preventing Illusioners from using their new texture
+- Fixed bug preventing tailored world generation settings from being copied when recreating worlds

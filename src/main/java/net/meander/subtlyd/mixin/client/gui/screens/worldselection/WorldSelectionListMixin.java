@@ -1,7 +1,7 @@
 package net.meander.subtlyd.mixin.client.gui.screens.worldselection;
 
 import com.mojang.renderpearl.api.pipeline.RenderPipeline;
-import net.meander.subtlyd.client.gui.screens.TailoredWorldGenSettings;
+import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.SelectableEntry;
@@ -43,7 +43,7 @@ public class WorldSelectionListMixin {
         private void loadRecreateSettings(CallbackInfo ci) {
             Path oldWorldDir = Minecraft.getInstance().gameDirectory.toPath().resolve("saves").resolve(summary.getLevelId());
 
-            TailoredWorldGenSettings.loadSettingsFromFile(oldWorldDir);
+            CustomTerrainSettings.loadSettingsFromFile(oldWorldDir);
         }
 
         @ModifyArgs(method = "extractContent", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIII)V"))

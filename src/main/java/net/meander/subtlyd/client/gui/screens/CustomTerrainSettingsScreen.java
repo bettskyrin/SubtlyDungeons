@@ -28,16 +28,12 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TailoredWorldGenSettingsScreen extends Screen {
+public class CustomTerrainSettingsScreen extends Screen {
     private static final int LONG_SLIDER_WIDTH = 310;
     private static final int SLIDER_WIDTH = 150;
     private static final int SLIDER_HEIGHT = 20;
     private static final double MIN_VALUE = 0.1;
     private static final double MAX_VALUE = 10.0;
-    private final double initialMaster;
-    private final double initialContinent;
-    private final double initialBiome;
-    private final double initialErosion;
     private final Screen lastScreen;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 33, 33);
@@ -45,16 +41,20 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     private AbstractSliderButton continentSlider;
     private AbstractSliderButton biomeSlider;
     private AbstractSliderButton erosionSlider;
+    public final double initialMaster;
+    public final double initialContinent;
+    public final double initialBiome;
+    public final double initialErosion;
 
 
-    public TailoredWorldGenSettingsScreen(Screen lastScreen) {
+    public CustomTerrainSettingsScreen(Screen lastScreen) {
         this.lastScreen = lastScreen;
-        initialMaster = TailoredWorldGenSettings.masterScale;
-        initialContinent = TailoredWorldGenSettings.continentScale;
-        initialBiome = TailoredWorldGenSettings.biomeScale;
-        initialErosion = TailoredWorldGenSettings.erosionScale;
+        initialMaster = CustomTerrainSettings.masterScale;
+        initialContinent = CustomTerrainSettings.continentScale;
+        initialBiome = CustomTerrainSettings.biomeScale;
+        initialErosion = CustomTerrainSettings.erosionScale;
 
-        super(Component.translatable("createWorld.tailored.title"));
+        super(Component.translatable("createWorld.custom.title"));
     }
 
     @Override
@@ -63,24 +63,27 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
         list = layout.addToContents(new SliderList());
 
-        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT, Component.translatable("createWorld.tailored.master_scale"), MIN_VALUE, MAX_VALUE, TailoredWorldGenSettings.masterScale,
+        list.addSingle(new RatioSliderButton(0, 0, LONG_SLIDER_WIDTH, SLIDER_HEIGHT, Component.translatable("createWorld.custom.master_scale"), MIN_VALUE, MAX_VALUE, CustomTerrainSettings.masterScale,
                 (newValue) -> {
-                    TailoredWorldGenSettings.applyMasterScale(newValue);
+                    CustomTerrainSettings.applyMasterScale(newValue);
                     updateSliders();
                 }
         ));
 
         continentSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.continent_scale"), MIN_VALUE, MAX_VALUE,
-                TailoredWorldGenSettings.continentScale, v -> TailoredWorldGenSettings.continentScale = v);
+                Component.translatable("createWorld.custom.continent_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.continentScale, v -> CustomTerrainSettings.continentScale = v
+        );
 
         biomeSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.biome_scale"), MIN_VALUE, MAX_VALUE,
-                TailoredWorldGenSettings.biomeScale, v -> TailoredWorldGenSettings.biomeScale = v);
+                Component.translatable("createWorld.custom.biome_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.biomeScale, v -> CustomTerrainSettings.biomeScale = v
+        );
 
         erosionSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.tailored.erosion_scale"), MIN_VALUE, MAX_VALUE,
-                TailoredWorldGenSettings.erosionScale, v -> TailoredWorldGenSettings.erosionScale = v);
+                Component.translatable("createWorld.custom.erosion_scale"), MIN_VALUE, MAX_VALUE,
+                CustomTerrainSettings.erosionScale, v -> CustomTerrainSettings.erosionScale = v
+        );
 
         list.addDouble(continentSlider, biomeSlider);
         list.addDouble(erosionSlider, null);
@@ -110,15 +113,15 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
     private void updateSliders() {
         if (continentSlider instanceof RatioSliderButton button) {
-            button.setRatioValue(TailoredWorldGenSettings.continentScale);
+            button.setRatioValue(CustomTerrainSettings.continentScale);
         }
 
         if (biomeSlider instanceof RatioSliderButton button) {
-            button.setRatioValue(TailoredWorldGenSettings.biomeScale);
+            button.setRatioValue(CustomTerrainSettings.biomeScale);
         }
 
         if (erosionSlider instanceof RatioSliderButton button) {
-            button.setRatioValue(TailoredWorldGenSettings.erosionScale);
+            button.setRatioValue(CustomTerrainSettings.erosionScale);
         }
     }
 
@@ -146,7 +149,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     }
 
     private static WorldDataConfiguration getWorldDataConfiguration(WorldDataConfiguration currentConfig) {
-        String packId = "file/tailored_worldgen";
+        String packId = "file/custom_terrain";
         List<String> enabledPacks = new ArrayList<>(currentConfig.dataPacks().getEnabled());
 
         if (!enabledPacks.contains(packId)) {
@@ -160,10 +163,10 @@ public class TailoredWorldGenSettingsScreen extends Screen {
     }
 
     private void onCancel() {
-        TailoredWorldGenSettings.masterScale = initialMaster;
-        TailoredWorldGenSettings.continentScale = initialContinent;
-        TailoredWorldGenSettings.biomeScale = initialBiome;
-        TailoredWorldGenSettings.erosionScale = initialErosion;
+        CustomTerrainSettings.masterScale = initialMaster;
+        CustomTerrainSettings.continentScale = initialContinent;
+        CustomTerrainSettings.biomeScale = initialBiome;
+        CustomTerrainSettings.erosionScale = initialErosion;
 
         minecraft.gui.setScreen(lastScreen);
     }
@@ -176,9 +179,9 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
     private class SliderList extends ContainerObjectSelectionList<SliderList.Entry> {
         public SliderList() {
-            super(TailoredWorldGenSettingsScreen.this.minecraft,
-                    TailoredWorldGenSettingsScreen.this.width,
-                    TailoredWorldGenSettingsScreen.this.height - layout.getHeaderHeight() - layout.getFooterHeight(),
+            super(CustomTerrainSettingsScreen.this.minecraft,
+                    CustomTerrainSettingsScreen.this.width,
+                    CustomTerrainSettingsScreen.this.height - layout.getHeaderHeight() - layout.getFooterHeight(),
                     layout.getHeaderHeight(),
                     24
             );
@@ -213,7 +216,7 @@ public class TailoredWorldGenSettingsScreen extends Screen {
 
             @Override
             public void extractContent(final GuiGraphicsExtractor graphics, final int mouseX, final int mouseY, final boolean hovered, final float a) {
-                int centerX = TailoredWorldGenSettingsScreen.this.width / 2;
+                int centerX = CustomTerrainSettingsScreen.this.width / 2;
 
                 if (leftWidget != null) {
                     leftWidget.setY(getContentY());
