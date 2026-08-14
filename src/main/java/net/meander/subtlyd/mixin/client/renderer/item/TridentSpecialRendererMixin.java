@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -24,12 +24,10 @@ public class TridentSpecialRendererMixin {
     private void renderElectricity(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, int overlayCoords, boolean hasFoil, int outlineColor, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
 
-        if (ChargedTridentState.CHANNELING_CHARGE.get() && minecraft.player != null) {
+        if (minecraft.player != null && ChargedTridentState.CHANNELING_CHARGE.get()) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
-            RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
-                    scrollTime * 0.01F,
-                    scrollTime * 0.01F
-            );
+            float uVOffset = scrollTime * 0.01F;
+            RenderType auraRenderType = RenderTypes.energySwirl(UtilSD.identifier("textures/item/electric_charge.png"), uVOffset, uVOffset);
 
             poseStack.pushPose();
             submitNodeCollector.submitCustomGeometry(poseStack, auraRenderType, (pose, vertexConsumer) -> {

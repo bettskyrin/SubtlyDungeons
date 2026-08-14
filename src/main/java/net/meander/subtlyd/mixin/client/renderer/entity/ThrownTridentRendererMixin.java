@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.object.projectile.TridentModel;
 import net.minecraft.client.renderer.SubmitNodeCollector;
@@ -24,27 +24,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ThrownTridentRendererMixin  {
     @Shadow @Final private TridentModel model;
 
-    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/projectile/arrow/ThrownTrident;Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;F)V",
-            at = @At("TAIL"))
+    @Inject(method = "extractRenderState(Lnet/minecraft/world/entity/projectile/arrow/ThrownTrident;Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;F)V", at = @At("TAIL"))
     private void extractAuraState(ThrownTrident entity, ThrownTridentRenderState state, float partialTicks, CallbackInfo ci) {
-        boolean isCharged = ((ChargedTridentState.Accessor) entity).subtlyd$isCharged();
+        boolean isCharged = ((ChargedTridentState.Accessor) entity).isCharged();
 
-        ((ChargedTridentState.Accessor) state).subtlyd$setCharged(isCharged);
+        ((ChargedTridentState.Accessor) state).setCharged(isCharged);
     }
 
     @Inject(method = "submit(Lnet/minecraft/client/renderer/entity/state/ThrownTridentRenderState;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;Lnet/minecraft/client/renderer/state/level/CameraRenderState;)V",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/renderer/OrderedSubmitNodeCollector;submitModel(Lnet/minecraft/client/model/Model;Ljava/lang/Object;Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/resources/Identifier;IIILnet/minecraft/client/renderer/feature/ModelFeatureRenderer$CrumblingOverlay;)V",
-                    shift = At.Shift.AFTER))
+            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;mulPose(Lorg/joml/Quaternionfc;)V", ordinal = 1, shift = At.Shift.AFTER)
+    )
     private void renderAura(ThrownTridentRenderState state, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, CameraRenderState camera, CallbackInfo ci) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (((ChargedTridentState.Accessor) state).subtlyd$isCharged() && minecraft.player != null) {
 
+        if (((ChargedTridentState.Accessor) state).isCharged() && minecraft.player != null) {
             float scrollTime = (float) minecraft.player.tickCount + minecraft.getDeltaTracker().getGameTimeDeltaTicks();
-            RenderType auraRenderType = RenderTypes.energySwirl(Util.identifier("textures/item/electric_charge.png"),
-                    scrollTime * 0.01F,
-                    scrollTime * 0.01F
-            );
+            float uVOffset = scrollTime * 0.01F;
+            RenderType auraRenderType = RenderTypes.energySwirl(UtilSD.identifier("textures/item/electric_charge.png"), uVOffset, uVOffset);
 
             poseStack.pushPose();
             submitNodeCollector.submitCustomGeometry(poseStack, auraRenderType, (pose, vertexConsumer) -> {

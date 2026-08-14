@@ -17,16 +17,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(SimpleEquipmentLayer.class)
 public abstract class SimpleEquipmentLayerMixin <S extends LivingEntityRenderState> {
     /**
-     * Enables invisible armor for high enchantibility armors.
+     * Enables invisible armor for high enchantability armors.
      */
     @Inject(method = "submit(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/SubmitNodeCollector;ILnet/minecraft/client/renderer/entity/state/LivingEntityRenderState;FF)V", at = @At("HEAD"), cancellable  = true)
     private void invisibilityCompatibility(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int lightCoords, S state, float yRot, float xRot, CallbackInfo ci) {
         if (state.isInvisible) {
             if (state instanceof HorseRenderState || state instanceof NautilusRenderState) {
                 ItemStack armor = getArmorPiece(state);
-                Enchantable enchantable = armor.get(DataComponents.ENCHANTABLE);
+                Enchantable enchantability = armor.get(DataComponents.ENCHANTABLE);
 
-                if (enchantable != null && enchantable.value() >= 15) {
+                if (enchantability != null && enchantability.value() >= 15) {
                     ci.cancel();
                 }
             }

@@ -1,0 +1,61 @@
+package this.package.location
+
+import this.import1
+import this.import2
+
+public class ClassName implements DifferentClass {
+    public static final int STATIC_FIELD; // Fields at top of class.
+    public int publicField; // Ordered final ->
+
+    public ClassName(int publicField) { // Constructors right beneath fields
+        this.publicField = publicField;
+    }
+
+    public int getPublicField() { // Accessors and then mutators beneath the constructor
+        return publicField; // Omit "this" keyword when possible
+    }
+
+    public void setPublicField(int publicField) { // "get" or "set" before the name of the value being accessed or mutated
+        this.publicField = publicField;
+    }
+
+    /**
+    * Explanation of method if necessary
+    * @param parameter
+    * @see ClassThatIsRelevantOrUsedAsATemplate
+    * @author Author of comment if necessary
+    */
+    public returnType publicMethod() {  // Public types go above private types
+        int integerValue = 1; // Most primiative data type at the top
+        int secondInt;
+        float floatingPoint = 0.1F; // Capital letters for explicitly casting floating point values
+        double floatDouble = 0.2; // No cast necessary for doubles
+    }
+
+    private boolean fighters() {
+        // This is part of another example
+    }
+
+    public boolean foo() { // Private methods usually go at the end, but this public method references a private one. Put those above.
+        return fighters();
+    }
+
+    private class innerClass {
+        public static final float VALUE_OF_PI = 3.14F; // Final fields can have uppercase camel-case names
+    }
+
+    static {
+            // Static block space if needed
+    }
+
+    @Override // Annotate overridden methods. Overridden methods go beneath other code
+    private returnType privateMethod(int paramForThing, BlockPos pos, Optional<Value> value) { // Parameter names should be descriptive and not single characters (unless the parameter clearly represents a vector component (e.g. x, y, z))
+        int number = 0;
+
+        if (number > 1) { // Single spacing separating variables from method calls, if statement blocks, etc.
+            int secondNumber = 1;
+
+            setpublicField(secondNumber);
+        }
+    }
+}

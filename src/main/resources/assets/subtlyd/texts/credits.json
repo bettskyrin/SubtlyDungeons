@@ -18,7 +18,7 @@
             ]
           },
           {
-            "title": "Social Media Managers",
+            "title": "Social Media Lead",
             "names": [
               "Kyrin Betts"
             ]
@@ -40,17 +40,9 @@
         "discipline": "Programming",
         "titles": [
           {
-            "title": "Lead Software Developer",
+            "title": "Lead Software Engineer",
             "names": [
               "Kyrin Betts"
-            ]
-          },
-          {
-            "title": "Software Developers",
-            "names": [
-              "Andrew Titich",
-              "Kyrin Betts",
-              "Riley Reynolds"
             ]
           }
         ]
@@ -59,7 +51,7 @@
         "discipline": "Visual Arts",
         "titles": [
           {
-            "title": "Lead Artist",
+            "title": "Art Lead",
             "names": [
               "Aldin Besic"
             ]
@@ -67,9 +59,14 @@
           {
             "title": "Artists",
             "names": [
-              "Aldin Besic",
               "Cameron Fisher",
               "Kyrin Betts"
+            ]
+          },
+          {
+            "title": "Additional Artists",
+            "names": [
+              "Zeit"
             ]
           }
         ]
@@ -91,23 +88,7 @@
               "John Johnson",
               "Grant Kirkhope",
               "Rostislav Trifonov",
-              "Eugnosis"
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "section": "Development Partner - TriioStudio",
-    "disciplines": [
-      {
-        "discipline": "",
-        "titles": [
-          {
-            "title": "Software Developers",
-            "names": [
-              "ZeioDust"
+              "Eugene Nesci"
             ]
           }
         ]

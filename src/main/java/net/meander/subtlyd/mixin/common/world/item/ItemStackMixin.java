@@ -8,7 +8,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -18,15 +17,12 @@ import java.util.Optional;
 
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
-    @Unique private static final List<Potion> RARE_EFFECTS = List.of(
+    private static final List<Potion> RARE_EFFECTS = List.of(
             PotionsSD.DECAY.value()
     );
 
-    /**
-     * Modifies the rarity level of items
-     */
     @Inject(method = "getRarity", at = @At("HEAD"))
-    private void getRarity(CallbackInfoReturnable<Rarity> cir) {
+    private void modifyRarity(CallbackInfoReturnable<Rarity> cir) {
         ItemStack itemStack = (ItemStack) (Object) this;
 
         if (isRarePotion(itemStack)) {
@@ -42,6 +38,7 @@ public class ItemStackMixin {
                 return RARE_EFFECTS.contains(potion.get().value());
             }
         }
+
         return false;
     }
 }

@@ -1,39 +1,110 @@
-classTweaker v1 official
+classTweaker v2 official
 
-
-# Menus
+# GUI
 accessible class net/minecraft/client/gui/screens/worldselection/SwitchGrid
 accessible method net/minecraft/client/gui/screens/worldselection/SwitchGrid <init> (Ljava/util/List;Lnet/minecraft/client/gui/layouts/Layout;)V
 accessible class net/minecraft/client/gui/components/AbstractSelectionList$Entry
-accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
-accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
-accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
-accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;
 accessible class net/minecraft/client/gui/screens/WinScreen$CreditsReader
 accessible method net/minecraft/client/gui/screens/WinScreen addCreditsFile (Ljava/io/Reader;)V
+accessible method net/minecraft/client/gui/screens/Screen addRenderableWidget (Lnet/minecraft/client/gui/components/events/GuiEventListener;)Lnet/minecraft/client/gui/components/events/GuiEventListener;
 
 ## World Selection
 accessible method net/minecraft/client/gui/screens/Screen setInitialFocus (Lnet/minecraft/client/gui/components/events/GuiEventListener;)V
 accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen onCreate ()V
+accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getOrCreateTempDataPackDir ()Ljava/nio/file/Path;
 
-# Options
+## Options
 accessible class net/minecraft/client/Options$FieldAccess
+accessible class net/minecraft/client/Options$OptionAccess
+accessible method net/minecraft/world/level/gamerules/GameRules registerBoolean (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;Z)Lnet/minecraft/world/level/gamerules/GameRule;
+accessible method net/minecraft/world/level/gamerules/GameRules registerInteger (Ljava/lang/String;Lnet/minecraft/world/level/gamerules/GameRuleCategory;IIILnet/minecraft/world/flag/FeatureFlagSet;)Lnet/minecraft/world/level/gamerules/GameRule;
+accessible field net/minecraft/client/gui/screens/options/OptionsSubScreen list Lnet/minecraft/client/gui/components/OptionsList;
+accessible method net/minecraft/client/Options setGraphicsPresetToCustom ()V
+accessible method net/minecraft/client/GraphicsPreset set (Lnet/minecraft/client/gui/screens/options/OptionsSubScreen;Lnet/minecraft/client/OptionInstance;Ljava/lang/Object;)V
+accessible class net/minecraft/client/gui/screens/debug/GameModeSwitcherScreen$GameModeIcon
+accessible field net/minecraft/client/Options TOOLTIP_NEEDS_RESTART Lnet/minecraft/network/chat/Component;
 
-# AI
-accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
+# World
+## Items
+accessible method net/minecraft/world/item/Items registerItem (Lnet/minecraft/resources/ResourceKey;Ljava/util/function/Function;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;Ljava/util/function/UnaryOperator;)Lnet/minecraft/world/item/Item;
+accessible method net/minecraft/world/item/Items registerBlock (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/Block;Lnet/minecraft/world/item/Item$Properties;)Lnet/minecraft/world/item/Item;
+
+### Potions
+accessible method net/minecraft/world/item/alchemy/Potions register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/item/alchemy/Potion;)Lnet/minecraft/core/Holder;
+
+## Blocks
+accessible method net/minecraft/world/level/block/Blocks register (Lnet/minecraft/references/BlockItemId;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;
+accessible method net/minecraft/world/level/block/Blocks register (Lnet/minecraft/references/BlockItemId;Ljava/util/function/Function;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)Lnet/minecraft/world/level/block/Block;
+accessible method net/minecraft/world/level/block/entity/BlockEntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/level/block/entity/BlockEntityType$BlockEntitySupplier;[Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/entity/BlockEntityType;
+
+## Tags
+accessible method net/minecraft/data/tags/VanillaBlockTagsProvider toIds (Lnet/minecraft/world/level/block/ColorCollection;)Lnet/minecraft/world/level/block/ColorCollection;
+
+## Data Components
+accessible method net/minecraft/world/food/Foods stew (I)Lnet/minecraft/world/food/FoodProperties$Builder;
+
+## Loot
+accessible field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/List;
+mutable field net/minecraft/world/level/storage/loot/LootTable pools Ljava/util/List;
+mutable field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
+accessible field net/minecraft/world/level/storage/loot/LootTable modifier Ljava/util/Optional;
+accessible method net/minecraft/world/level/storage/loot/BuiltInLootTables register (Lnet/minecraft/resources/ResourceKey;)Lnet/minecraft/resources/ResourceKey;
+
+## Entities
 accessible field net/minecraft/world/entity/Mob targetSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/ai/goal/PanicGoal speedModifier D
-accessible field net/minecraft/world/entity/animal/fox/Fox STALKABLE_PREY Ljava/util/function/Predicate;
+accessible field net/minecraft/world/entity/ai/goal/target/TargetGoal mob Lnet/minecraft/world/entity/Mob;
+accessible method net/minecraft/world/entity/Entity playStepSound (Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)V
+accessible method net/minecraft/world/entity/EntityTypes register (Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/world/entity/EntityType$Builder;)Lnet/minecraft/world/entity/EntityType;
+accessible field net/minecraft/world/entity/player/Player sleepCounter I
 
-# Server
-accessible class net/minecraft/server/level/ChunkMap$TrackedEntity
-accessible field net/minecraft/server/level/ChunkMap entityMap Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
-accessible method net/minecraft/world/level/pathfinder/Path setDebug ([Lnet/minecraft/world/level/pathfinder/Node;[Lnet/minecraft/world/level/pathfinder/Node;Ljava/util/Set;)V
-
-# Potions
-accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
-
-# World Generation
+## Level Generation
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldX (II)I
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldY (I)I
 accessible method net/minecraft/world/level/levelgen/structure/StructurePiece getWorldZ (II)I
+accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen applyNewPackConfig (Lnet/minecraft/server/packs/repository/PackRepository;Lnet/minecraft/world/level/WorldDataConfiguration;Ljava/util/function/Consumer;)V
+accessible method net/minecraft/client/gui/screens/worldselection/CreateWorldScreen getDataPackSelectionSettings (Lnet/minecraft/world/level/WorldDataConfiguration;)Lcom/mojang/datafixers/util/Pair;
+accessible method net/minecraft/data/worldgen/features/VegetationFeatures flowerBedPatchBuilder (Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/util/random/WeightedList$Builder;
+accessible method net/minecraft/world/level/levelgen/feature/treedecorators/ShelfMushroomDecorator isWithinDecoratableHeight (Lnet/minecraft/core/BlockPos;I)Z
+accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType register (Ljava/lang/String;Lcom/mojang/serialization/MapCodec;)Lnet/minecraft/world/level/levelgen/feature/trunkplacers/TrunkPlacerType;
+
+# Sounds
+accessible method net/minecraft/sounds/SoundEvents register (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/sounds/SoundEvent;
+accessible method net/minecraft/sounds/SoundEvents registerForHolder (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/core/Holder$Reference;
+
+# Rendering
+accessible method net/minecraft/client/particle/CritParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V
+accessible field net/minecraft/client/renderer/entity/EntityRenderDispatcher playerRenderers Ljava/util/Map;
+accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer isUpsideDownName (Ljava/lang/String;)Z
+accessible method net/minecraft/client/renderer/entity/LivingEntityRenderer addLayer (Lnet/minecraft/client/renderer/entity/layers/RenderLayer;)Z
+accessible method net/minecraft/client/Options operateOnLevelExtractor (Ljava/util/function/Consumer;)V
+
+# Core
+accessible method net/minecraft/core/component/DataComponents register (Ljava/lang/String;Ljava/util/function/UnaryOperator;)Lnet/minecraft/core/component/DataComponentType;
+accessible method net/minecraft/core/cauldron/CauldronInteraction$Dispatcher put (Lnet/minecraft/world/item/Item;Lnet/minecraft/core/cauldron/CauldronInteraction;)V
+
+# Interface Injection
+## Options
+inject-interface net/minecraft/client/Options net/meander/subtlyd/client/OptionsSD
+
+## Entities
+inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD
+inject-interface net/minecraft/world/entity/TamableAnimal  net/meander/subtlyd/world/entity/TamableAnimalSD
+inject-interface net/minecraft/world/entity/player/Player net/meander/subtlyd/world/entity/player/PlayerSD
+inject-interface net/minecraft/server/level/ServerPlayer net/meander/subtlyd/server/level/ServerPlayerSD
+inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD
+
+## World
+### Level
+inject-interface net/minecraft/world/level/Level net/meander/subtlyd/world/level/LevelSD
+
+### Blocks
+inject-interface net/minecraft/world/level/block/state/properties/BlockStateProperties net/meander/subtlyd/world/level/block/state/properties/BlockStatePropertiesSD
+
+### Items
+inject-interface net/minecraft/world/item/ItemStack net/meander/subtlyd/world/item/ItemStackSD
+
+### Entities
+inject-interface net/minecraft/world/entity/Mob net/meander/subtlyd/world/entity/MobSD

@@ -24,14 +24,14 @@ public abstract class HumanoidArmorLayerMixin <S extends HumanoidRenderState, M 
     }
 
     /**
-     * Enables invisible armor for high enchantibility armors.
+     * Enables invisible armor for high enchantability armors.
      */
     @Inject(method = "renderArmorPiece", at = @At("HEAD"), cancellable = true)
     private void invisibilityCompatibility(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, ItemStack itemStack, EquipmentSlot slot, int lightCoords, S state, CallbackInfo ci) {
         if (state.isInvisible && itemStack.is(ItemTags.ARMOR_ENCHANTABLE)) {
-            Enchantable enchantable = itemStack.get(DataComponents.ENCHANTABLE);
+            Enchantable enchantablity = itemStack.get(DataComponents.ENCHANTABLE);
 
-            if (enchantable != null && enchantable.value() >= 15) {
+            if (enchantablity != null && enchantablity.value() >= 15) {
                 ci.cancel();
             }
         }

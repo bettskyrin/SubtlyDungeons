@@ -1,5 +1,7 @@
 package net.meander.subtlyd.mixin.common.world.entity.animal;
 
+import net.meander.subtlyd.world.level.GameRulesSD;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.AgeableWaterCreature;
@@ -19,6 +21,10 @@ public abstract class SquidMixin extends AgeableWaterCreature {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void addPredatorGoal(CallbackInfo ci) {
-        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, Dolphin.class, 8.0F, 1.0, 1.0));
+        ServerLevel level = (ServerLevel) level();
+
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
+            getGoalSelector().addGoal(1, new AvoidEntityGoal<>(this, Dolphin.class, 8.0F, 1.0, 1.0));
+        }
     }
 }

@@ -1,9 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer;
 
-import net.meander.subtlyd.world.level.storage.WorldIconState;
 import com.mojang.blaze3d.platform.NativeImage;
 import com.mojang.logging.LogUtils;
-import net.minecraft.client.DeltaTracker;
+import net.meander.subtlyd.world.level.storage.WorldIconState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
 import net.minecraft.client.renderer.GameRenderer;
@@ -31,8 +30,8 @@ public class GameRendererMixin {
     /**
      * Replaces the logic to crop and/or set the ratio for  world thumbnails to 16:9.
      */
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel(Lnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.AFTER))
-    private void captureScreenshot(final DeltaTracker deltaTracker, final boolean advanceGameTime, CallbackInfo ci) {
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;renderLevel()V", shift = At.Shift.AFTER))
+    private void captureScreenshot(CallbackInfo ci) {
         if (WorldIconState.pathHolder != null) {
             Path path = WorldIconState.pathHolder;
             WorldIconState.pathHolder = null;

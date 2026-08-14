@@ -1,30 +1,99 @@
 package net.meander.subtlyd.references;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.references.BlockItemId;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.level.block.ColorCollection;
 
+/**
+ * @see net.minecraft.references.BlockItemIds
+ */
 public class BlockItemIdsSD {
-    public static final BlockItemId UNLIT_CAMPFIRE = BlockItemId.create(Util.identifier("unlit_campfire"), Util.identifier("unlit_campfire"));
-    public static final BlockItemId UNLIT_SOUL_CAMPFIRE = BlockItemId.create(Util.identifier("unlit_soul_campfire"), Util.identifier("unlit_soul_campfire"));
-    public static final BlockItemId SNOW_BRICKS = BlockItemId.create(Util.identifier("snow_bricks"), Util.identifier("snow_bricks"));
-    public static final BlockItemId SNOW_BRICK_STAIRS = BlockItemId.create(Util.identifier("snow_brick_stairs"), Util.identifier("snow_brick_stairs"));
-    public static final BlockItemId SNOW_BRICK_SLAB = BlockItemId.create(Util.identifier("snow_brick_slab"), Util.identifier("snow_brick_slab"));
-    public static final BlockItemId SNOW_BRICK_WALL = BlockItemId.create(Util.identifier("snow_brick_wall"), Util.identifier("snow_brick_wall"));
-    public static final BlockItemId CHARCOAL_BLOCK = BlockItemId.create(Util.identifier("charcoal_block"), Util.identifier("charcoal_block"));
-    public static final BlockItemId IRON_GRATE = BlockItemId.create(Util.identifier("iron_grate"), Util.identifier("iron_grate"));
-    public static final BlockItemId STONE_PILLAR = BlockItemId.create(Util.identifier("stone_pillar"), Util.identifier("stone_pillar"));
-    public static final BlockItemId STONE_TILES = BlockItemId.create(Util.identifier("stone_tiles"), Util.identifier("stone_tiles"));
-    public static final BlockItemId STONE_TILE_STAIRS = BlockItemId.create(Util.identifier("stone_tile_stairs"), Util.identifier("stone_tile_stairs"));
-    public static final BlockItemId STONE_TILE_SLAB = BlockItemId.create(Util.identifier("stone_tile_slab"), Util.identifier("stone_tile_slab"));
-    public static final BlockItemId STONE_TILE_WALL = BlockItemId.create(Util.identifier("stone_tile_wall"), Util.identifier("stone_tile_wall"));
-    public static final BlockItemId POLISHED_DRIPSTONE = BlockItemId.create(Util.identifier("polished_dripstone"), Util.identifier("polished_dripstone"));
-    public static final BlockItemId POLISHED_DRIPSTONE_STAIRS = BlockItemId.create(Util.identifier("polished_dripstone_stairs"), Util.identifier("polished_dripstone_stairs"));
-    public static final BlockItemId POLISHED_DRIPSTONE_SLAB = BlockItemId.create(Util.identifier("polished_dripstone_slab"), Util.identifier("polished_dripstone_slab"));
-    public static final BlockItemId POLISHED_DRIPSTONE_WALL = BlockItemId.create(Util.identifier("polished_dripstone_wall"), Util.identifier("polished_dripstone_wall"));
-    public static final BlockItemId CHISELED_POLISHED_DRIPSTONE = BlockItemId.create(Util.identifier("chiseled_polished_dripstone"), Util.identifier("chiseled_polished_dripstone"));
-    public static final BlockItemId REEDS = BlockItemId.create(Util.identifier("reeds"), Util.identifier("reeds"));
-    public static final BlockItemId WARPED_OVERHANG = BlockItemId.create(Util.identifier("warped_overhang"), Util.identifier("warped_overhang"));
-    public static final BlockItemId BASALT_SLAB = BlockItemId.create(Util.identifier("basalt_slab"), Util.identifier("basalt_slab"));
-    public static final BlockItemId SOUL_JACK_O_LANTERN = BlockItemId.create(Util.identifier("soul_jack_o_lantern"), Util.identifier("soul_jack_o_lantern"));
-    public static final BlockItemId POTION_CAULDRON = BlockItemId.create(Util.identifier("potion_cauldron"), Util.identifier("potion_cauldron"));
+    public static final BlockItemId UNLIT_CAMPFIRE = create("unlit_campfire");
+    public static final BlockItemId UNLIT_SOUL_CAMPFIRE = create("unlit_soul_campfire");
+    public static final BlockItemId SNOW_BRICKS = create("snow_bricks");
+    public static final BlockItemId SNOW_BRICK_STAIRS = create("snow_brick_stairs");
+    public static final BlockItemId SNOW_BRICK_SLAB = create("snow_brick_slab");
+    public static final BlockItemId SNOW_BRICK_WALL = create("snow_brick_wall");
+    public static final BlockItemId CHARCOAL_BLOCK = create("charcoal_block");
+    public static final BlockItemId IRON_GRATE = create("iron_grate");
+    public static final BlockItemId STONE_PILLAR = create("stone_pillar");
+    public static final BlockItemId STONE_TILES = create("stone_tiles");
+    public static final BlockItemId STONE_TILE_STAIRS = create("stone_tile_stairs");
+    public static final BlockItemId STONE_TILE_SLAB = create("stone_tile_slab");
+    public static final BlockItemId STONE_TILE_WALL = create("stone_tile_wall");
+    public static final BlockItemId POLISHED_DRIPSTONE = create("polished_dripstone");
+    public static final BlockItemId POLISHED_DRIPSTONE_STAIRS = create("polished_dripstone_stairs");
+    public static final BlockItemId POLISHED_DRIPSTONE_SLAB = create("polished_dripstone_slab");
+    public static final BlockItemId POLISHED_DRIPSTONE_WALL = create("polished_dripstone_wall");
+    public static final BlockItemId CHISELED_POLISHED_DRIPSTONE = create("chiseled_polished_dripstone");
+    public static final BlockItemId REEDS = create("reeds");
+    public static final BlockItemId WARPED_OVERHANG = create("warped_overhang");
+    public static final BlockItemId BASALT_SLAB = create("basalt_slab");
+    public static final BlockItemId SOUL_JACK_O_LANTERN = create("soul_jack_o_lantern");
+    public static final BlockItemId POTION_CAULDRON = create("potion_cauldron");
+    public static final BlockItemId PERSE_WILDFLOWERS = create("perse_wildflowers");
+    public static final BlockItemId STEW_CAULDRON = create("stew_cauldron");
+    public static final BlockItemId OAK_WOOD_SLAB = create("oak_wood_slab");
+    public static final BlockItemId SPRUCE_WOOD_SLAB = create("spruce_wood_slab");
+    public static final BlockItemId BIRCH_WOOD_SLAB = create("birch_wood_slab");
+    public static final BlockItemId JUNGLE_WOOD_SLAB = create("jungle_wood_slab");
+    public static final BlockItemId ACACIA_WOOD_SLAB = create("acacia_wood_slab");
+    public static final BlockItemId DARK_OAK_WOOD_SLAB = create("dark_oak_wood_slab");
+    public static final BlockItemId MANGROVE_WOOD_SLAB = create("mangrove_wood_slab");
+    public static final BlockItemId POPLAR_WOOD_SLAB = create("poplar_wood_slab");
+    public static final BlockItemId CHERRY_WOOD_SLAB = create("cherry_wood_slab");
+    public static final BlockItemId PALE_OAK_WOOD_SLAB = create("pale_oak_wood_slab");
+    public static final BlockItemId CRIMSON_HYPHAE_SLAB = create("crimson_hyphae_slab");
+    public static final BlockItemId WARPED_HYPHAE_SLAB = create("warped_hyphae_slab");
+    public static final BlockItemId OAK_WOOD_STAIRS = create("oak_wood_stairs");
+    public static final BlockItemId SPRUCE_WOOD_STAIRS = create("spruce_wood_stairs");
+    public static final BlockItemId BIRCH_WOOD_STAIRS = create("birch_wood_stairs");
+    public static final BlockItemId JUNGLE_WOOD_STAIRS = create("jungle_wood_stairs");
+    public static final BlockItemId ACACIA_WOOD_STAIRS = create("acacia_wood_stairs");
+    public static final BlockItemId DARK_OAK_WOOD_STAIRS = create("dark_oak_wood_stairs");
+    public static final BlockItemId MANGROVE_WOOD_STAIRS = create("mangrove_wood_stairs");
+    public static final BlockItemId POPLAR_WOOD_STAIRS = create("poplar_wood_stairs");
+    public static final BlockItemId CHERRY_WOOD_STAIRS = create("cherry_wood_stairs");
+    public static final BlockItemId PALE_OAK_WOOD_STAIRS = create("pale_oak_wood_stairs");
+    public static final BlockItemId CRIMSON_HYPHAE_STAIRS = create("crimson_hyphae_stairs");
+    public static final BlockItemId WARPED_HYPHAE_STAIRS = create("warped_hyphae_stairs");
+    public static final BlockItemId STRIPPED_OAK_WOOD_SLAB = create("stripped_oak_wood_slab");
+    public static final BlockItemId STRIPPED_SPRUCE_WOOD_SLAB = create("stripped_spruce_wood_slab");
+    public static final BlockItemId STRIPPED_BIRCH_WOOD_SLAB = create("stripped_birch_wood_slab");
+    public static final BlockItemId STRIPPED_JUNGLE_WOOD_SLAB = create("stripped_jungle_wood_slab");
+    public static final BlockItemId STRIPPED_ACACIA_WOOD_SLAB = create("stripped_acacia_wood_slab");
+    public static final BlockItemId STRIPPED_DARK_OAK_WOOD_SLAB = create("stripped_dark_oak_wood_slab");
+    public static final BlockItemId STRIPPED_MANGROVE_WOOD_SLAB = create("stripped_mangrove_wood_slab");
+    public static final BlockItemId STRIPPED_POPLAR_WOOD_SLAB = create("stripped_poplar_wood_slab");
+    public static final BlockItemId STRIPPED_CHERRY_WOOD_SLAB = create("stripped_cherry_wood_slab");
+    public static final BlockItemId STRIPPED_PALE_OAK_WOOD_SLAB = create("stripped_pale_oak_wood_slab");
+    public static final BlockItemId STRIPPED_CRIMSON_HYPHAE_SLAB = create("stripped_crimson_hyphae_slab");
+    public static final BlockItemId STRIPPED_WARPED_HYPHAE_SLAB = create("stripped_warped_hyphae_slab");
+    public static final BlockItemId STRIPPED_OAK_WOOD_STAIRS = create("stripped_oak_wood_stairs");
+    public static final BlockItemId STRIPPED_SPRUCE_WOOD_STAIRS = create("stripped_spruce_wood_stairs");
+    public static final BlockItemId STRIPPED_BIRCH_WOOD_STAIRS = create("stripped_birch_wood_stairs");
+    public static final BlockItemId STRIPPED_JUNGLE_WOOD_STAIRS = create("stripped_jungle_wood_stairs");
+    public static final BlockItemId STRIPPED_ACACIA_WOOD_STAIRS = create("stripped_acacia_wood_stairs");
+    public static final BlockItemId STRIPPED_DARK_OAK_WOOD_STAIRS = create("stripped_dark_oak_wood_stairs");
+    public static final BlockItemId STRIPPED_MANGROVE_WOOD_STAIRS = create("stripped_mangrove_wood_stairs");
+    public static final BlockItemId STRIPPED_POPLAR_WOOD_STAIRS = create("stripped_poplar_wood_stairs");
+    public static final BlockItemId STRIPPED_CHERRY_WOOD_STAIRS = create("stripped_cherry_wood_stairs");
+    public static final BlockItemId STRIPPED_PALE_OAK_WOOD_STAIRS = create("stripped_pale_oak_wood_stairs");
+    public static final BlockItemId STRIPPED_CRIMSON_HYPHAE_STAIRS = create("stripped_crimson_hyphae_stairs");
+    public static final BlockItemId STRIPPED_WARPED_HYPHAE_STAIRS = create("stripped_warped_hyphae_stairs");
+    public static final BlockItemId TERRACOTTA_STAIRS = create("terracotta_stairs");
+    public static final BlockItemId TERRACOTTA_SLAB = create("terracotta_slab");
+    public static final ColorCollection<BlockItemId> DYED_TERRACOTTA_STAIRS = createSimpleColored("terracotta_stairs");
+    public static final ColorCollection<BlockItemId> DYED_TERRACOTTA_SLAB = createSimpleColored("terracotta_slab");
+
+    private static BlockItemId create(final String name) {
+        Identifier id = UtilSD.identifier(name);
+
+        return BlockItemId.create(id, id);
+    }
+
+    private static ColorCollection<BlockItemId> createSimpleColored(final String baseName) {
+        return ColorCollection.prefixWithColor(ColorCollection.create(baseName)).map(BlockItemIdsSD::create);
+    }
 }

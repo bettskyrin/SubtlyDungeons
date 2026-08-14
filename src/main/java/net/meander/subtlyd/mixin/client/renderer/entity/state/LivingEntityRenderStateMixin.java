@@ -1,60 +1,67 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
-import net.meander.subtlyd.client.renderer.state.LivingEntityRenderStateAccessor;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.renderer.entity.state.LivingEntityRenderStateSD;
+import net.meander.subtlyd.client.renderer.state.QuiverRenderState;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
+import net.minecraft.resources.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Environment(EnvType.CLIENT)
 @Mixin(LivingEntityRenderState.class)
-public class LivingEntityRenderStateMixin implements LivingEntityRenderStateAccessor {
-    private float climbProgress;
-    private float climbRotation;
+public class LivingEntityRenderStateMixin implements LivingEntityRenderStateSD, QuiverRenderState {
     private boolean isJockey;
+    private boolean hasQuiver;
+    private float climbProgress;
+    private float climbYaw;
+    private Identifier quiverTexture = UtilSD.identifier("textures/entity/equipment/quiver.png");
 
-    /**
-     * @return The progress of the climb animation.
-     */
-    @Override public float subtlyd$getClimbProgress() {
-        return this.climbProgress;
+    @Override
+    public float getClimbProgress() {
+        return climbProgress;
     }
 
-    /**
-     * @return The desired rotation angle.
-     */
-    @Override public float subtlyd$getClimbRotation() {
-        return this.climbRotation;
+    @Override
+    public float getClimbYaw() {
+        return climbYaw;
     }
 
-    /**
-     * @return Whether the render state is for a isJockey or not.
-     */
-    @Override public boolean subtlyd$isJockey() {
+    @Override
+    public boolean isJockey() {
         return isJockey;
     }
 
-    /**
-     * Sets the climb animation progress value.
-     * @param progress The desired progress value.
-     */
-    @Override public void subtlyd$setClimbProgress(float progress) {
-        this.climbProgress = progress;
+    @Override
+    public boolean hasQuiver() {
+        return hasQuiver;
     }
 
-    /**
-     * Sets the climb rotation angle.
-     * @param rotation The desired rotation angle.
-     */
-    @Override public void subtlyd$setClimbRotation(float rotation) {
-        this.climbRotation = rotation;
+    @Override
+    public Identifier getQuiverTexture() {
+        return quiverTexture;
     }
 
-    /**
-     * Sets the "isJockey" status of the render state.
-     * @param bl The isJockey status.
-     */
-    @Override public void subtlyd$setJockey(boolean bl) {
-        this.isJockey = bl;
+    @Override
+    public void setClimbProgress(float climbProgress) {
+        this.climbProgress = climbProgress;
+    }
+
+    @Override
+    public void setClimbYaw(float climbYaw) {
+        this.climbYaw = climbYaw;
+    }
+
+    @Override
+    public void setIsJockey(boolean isJockey) {
+        this.isJockey = isJockey;
+    }
+
+    @Override
+    public void setHasQuiver(boolean hasQuiver) {
+        this.hasQuiver = hasQuiver;
+    }
+
+    @Override
+    public void setQuiverTexture(Identifier texture) {
+        this.quiverTexture = texture;
     }
 }

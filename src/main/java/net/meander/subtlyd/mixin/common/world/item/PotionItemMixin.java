@@ -1,5 +1,6 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
@@ -12,16 +13,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PotionItem.class)
 public class PotionItemMixin {
-    /**
-     * Alters the name of potions.
-     * @param itemStack The potion.
-     */
     @Inject(method = "getName", at = @At("RETURN"), cancellable = true)
-    private void getName(ItemStack itemStack, CallbackInfoReturnable<Component> cir) {
+    private void modifyPotionName(ItemStack itemStack, CallbackInfoReturnable<Component> cir) {
         PotionContents contents = itemStack.get(DataComponents.POTION_CONTENTS);
 
-        if (contents != null && contents.potion().isPresent()) {
-            contents.potion().get().unwrapKey().ifPresent(potionKey -> {
+        if (contents != null) {
+            contents.potion().flatMap(Holder::unwrapKey).ifPresent(potionKey -> {
                 String path = potionKey.identifier().getPath();
 
                 if (path.startsWith("long_")) {

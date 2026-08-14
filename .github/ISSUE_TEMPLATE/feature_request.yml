@@ -1,0 +1,29 @@
+name: Feature Request
+description: Suggest an idea or enhancement for Subtly Dungeons
+title: '[Feature]: '
+assignees:
+  - bettskyrin
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Idea
+      description: Describe what you want added or changed in the mod.
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Why do you want this?
+      description: Briefly explain how this improves the game or what issue it resolves for you.
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other thoughts, screenshots, or examples.
+    validations:
+      required: false

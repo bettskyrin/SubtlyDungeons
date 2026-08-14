@@ -16,10 +16,11 @@
         },
         "requirements": {
           "condition": "minecraft:any_of",
+          "type": "minecraft:entity_properties",
+          "entity": "this",
           "terms": [
             {
               "condition": "minecraft:entity_properties",
-              "entity": "this",
               "predicate": {
                 "minecraft:entity_type": "#minecraft:sensitive_to_impaling"
               }

@@ -1,8 +1,6 @@
 package net.meander.subtlyd.mixin.client.resources;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.SplashManager;
 import net.minecraft.network.chat.Component;
@@ -22,19 +20,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Environment(EnvType.CLIENT)
 @Mixin(SplashManager.class)
 public class SplashManagerMixin {
-    /**
-     * Fetches splash texts to append to the vanilla list of splashes.
-     */
-    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;",
-            at = @At("RETURN"),
-            cancellable = true)
+    @Inject(method = "prepare(Lnet/minecraft/server/packs/resources/ResourceManager;Lnet/minecraft/util/profiling/ProfilerFiller;)Ljava/util/List;", at = @At("RETURN"), cancellable = true)
     private void appendCustomSplash(ResourceManager manager, ProfilerFiller profiler, CallbackInfoReturnable<List<Component>> cir) {
         List<Component> originalSplashes = cir.getReturnValue();
         List<Component> newSplashes = new ArrayList<>(originalSplashes);
-        Identifier splashLocation = Util.identifier("texts/splashes.txt");
+        Identifier splashLocation = UtilSD.identifier("texts/splashes.txt");
 
         try {
             Optional<Resource> resource = manager.getResource(splashLocation);
@@ -51,10 +43,9 @@ public class SplashManagerMixin {
                         }
                     }
                 }
-                Util.LOGGER.info("Successfully loaded custom splash text");
             }
         } catch (Exception e) {
-            Util.LOGGER.error("Failed to load custom splash text: {}", e.getMessage());
+            UtilSD.LOGGER.error("Failed to load custom splash text: {}", e.getMessage());
         }
         cir.setReturnValue(newSplashes);
     }

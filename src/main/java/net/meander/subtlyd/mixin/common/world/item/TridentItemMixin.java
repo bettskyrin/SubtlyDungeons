@@ -1,11 +1,17 @@
 package net.meander.subtlyd.mixin.common.world.item;
 
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentHelperSD;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.arrow.ThrownTrident;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwingAnimationType;
 import net.minecraft.world.item.TridentItem;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.component.SwingAnimation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,13 +26,33 @@ public class TridentItemMixin {
     @ModifyVariable(method = "releaseUsing", at = @At("STORE"), name = "trident")
     private ThrownTrident maintainCharge(ThrownTrident trident, ItemStack itemStack, Level level, LivingEntity entity, int remainingTime) {
         if (EnchantmentHelperSD.checkEnchantment(trident.getWeaponItem(), Enchantments.CHANNELING) && trident.level().canHaveWeather()) {
-            final int TICK_BUFFER = 50;
+            final int tickBuffer = 50;
             int ticksUsed = trident.getWeaponItem().getUseDuration(entity) - remainingTime;
 
-            if (ticksUsed >= TICK_BUFFER) {
-                ((ChargedTridentState.Accessor) trident).subtlyd$setCharged(true);
+            if (ticksUsed >= tickBuffer) {
+                ((ChargedTridentState.Accessor) trident).setCharged(true);
             }
         }
+
         return trident;
+    }
+
+    @ModifyVariable(method = "<init>", at = @At("HEAD"), argsOnly = true, name = "properties")
+    private static Item.Properties modifyUseAnimation(Item.Properties properties) {
+        ItemAttributeModifiers modifiers = TridentItem.createAttributes();
+        double attackSpeedModifier = 0.0;
+
+        for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+            if (entry.attribute().equals(Attributes.ATTACK_SPEED)) {
+                attackSpeedModifier = entry.modifier().amount();
+
+                break;
+            }
+        }
+
+        float finalAttackSpeed = (float) (Attributes.ATTACK_SPEED.value().getDefaultValue() + (float) attackSpeedModifier);
+        int animationDuration = (int) (20.0F / finalAttackSpeed);
+
+        return properties.component(DataComponents.ATTACK_ANIMATION, new SwingAnimation(SwingAnimationType.STAB, animationDuration));
     }
 }

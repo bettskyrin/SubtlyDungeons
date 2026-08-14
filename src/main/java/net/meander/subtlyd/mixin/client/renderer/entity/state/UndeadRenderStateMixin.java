@@ -1,28 +1,18 @@
 package net.meander.subtlyd.mixin.client.renderer.entity.state;
 
-import net.meander.subtlyd.client.renderer.UndeadRenderStateAccessor;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import net.meander.subtlyd.client.renderer.entity.state.UndeadRenderStateSD;
 import net.minecraft.client.renderer.entity.state.UndeadRenderState;
 import org.spongepowered.asm.mixin.Mixin;
 
-@Environment(EnvType.CLIENT)
 @Mixin(UndeadRenderState.class)
-public class UndeadRenderStateMixin implements UndeadRenderStateAccessor {
+public class UndeadRenderStateMixin implements UndeadRenderStateSD {
     private boolean isLeader;
 
-    /**
-     * @return Whether an undead entity is a leader zombie or not.
-     */
-    @Override public boolean subtlyd$isLeader() {
+    @Override public boolean isLeader() {
         return isLeader;
     }
 
-    /**
-     * Sets an undead entity's leader status.
-     * @param bl The leader status.
-     */
-    @Override public void subtlyd$setLeader(boolean bl) {
-        isLeader = bl;
+    @Override public void setLeader(boolean isLeader) {
+        this.isLeader = isLeader;
     }
 }

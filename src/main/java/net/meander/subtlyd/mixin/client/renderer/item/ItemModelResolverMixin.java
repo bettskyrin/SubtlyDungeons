@@ -1,8 +1,8 @@
 package net.meander.subtlyd.mixin.client.renderer.item;
 
-import net.meander.subtlyd.client.renderer.ChargedTridentState;
-import net.meander.subtlyd.data.tags.PotionTagsSD;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.client.renderer.entity.state.ChargedTridentState;
+import net.meander.subtlyd.tags.PotionTagsSD;
+import net.meander.subtlyd.util.UtilSD;
 import net.meander.subtlyd.world.item.ItemHelperSD;
 import net.minecraft.client.renderer.item.ItemModelResolver;
 import net.minecraft.client.renderer.item.ItemStackRenderState;
@@ -30,11 +30,12 @@ public class ItemModelResolverMixin {
         if (item.is(Items.TRIDENT)) {
             if (owner instanceof LivingEntity livingEntity) {
                 if (livingEntity.getTicksUsingItem() >= ItemHelperSD.CHANNELING_CHARGE_TIME && ItemHelperSD.canChargeChanneling(level, livingEntity, item)) {
-                    ((ChargedTridentState.Accessor) output).subtlyd$setCharged(true);
+                    ((ChargedTridentState.Accessor) output).setCharged(true);
                     return;
                 }
             }
-            ((ChargedTridentState.Accessor) output).subtlyd$setCharged(false);
+
+            ((ChargedTridentState.Accessor) output).setCharged(false);
         }
     }
 
@@ -43,30 +44,34 @@ public class ItemModelResolverMixin {
         if (item.is(Items.POTION) || item.is(Items.SPLASH_POTION) || item.is(Items.LINGERING_POTION)) {
             PotionContents contents = item.get(DataComponents.POTION_CONTENTS);
 
-            if (contents != null && contents.potion().isPresent()) {
-                Holder<Potion> potion = contents.potion().get();
-                Identifier modelId = null;
-                String prefix = "";
+            if (item.has(DataComponents.ITEM_MODEL)) {
+                if (contents != null && contents.potion().isPresent()) {
+                    Holder<Potion> potion = contents.potion().get();
+                    Identifier modelId = null;
+                    String prefix = "";
 
-                if (item.is(Items.SPLASH_POTION)) {
-                    prefix = "splash_";
-                } else if (item.is(Items.LINGERING_POTION)) {
-                    prefix = "lingering_";
-                }
+                    if (item.is(Items.SPLASH_POTION)) {
+                        prefix = "splash_";
+                    } else if (item.is(Items.LINGERING_POTION)) {
+                        prefix = "lingering_";
+                    }
 
-                if (potion.is(PotionTagsSD.CONICAL)) {
-                    modelId = Util.identifier(prefix + "conical_bottle");
-                } else if (potion.is(PotionTagsSD.SPHERICAL)) {
-                    modelId = Util.identifier(prefix + "spherical_bottle");
-                } else if (potion.is(PotionTagsSD.VIAL)) {
-                    modelId = Util.identifier(prefix + "vial_bottle");
-                }
+                    if (potion.is(PotionTagsSD.CONICAL)) {
+                        modelId = UtilSD.identifier(prefix + "conical_bottle");
+                    } else if (potion.is(PotionTagsSD.SPHERICAL)) {
+                        modelId = UtilSD.identifier(prefix + "spherical_bottle");
+                    } else if (potion.is(PotionTagsSD.VIAL)) {
+                        modelId = UtilSD.identifier(prefix + "vial_bottle");
+                    }
 
-                if (modelId != null && !modelId.equals(item.get(DataComponents.ITEM_MODEL))) {
-                    ItemStack potionStack = item.copy();
+                    if (modelId != null) {
+                        if (item.get(DataComponents.ITEM_MODEL) != modelId) {
+                            ItemStack potionStack = item.copy();
 
-                    potionStack.set(DataComponents.ITEM_MODEL, modelId);
-                    return potionStack;
+                            potionStack.set(DataComponents.ITEM_MODEL, modelId);
+                            return potionStack;
+                        }
+                    }
                 }
             }
         }

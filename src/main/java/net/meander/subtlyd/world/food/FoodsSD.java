@@ -1,16 +1,18 @@
 package net.meander.subtlyd.world.food;
 
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.food.Foods;
 
+/**
+ * @see net.minecraft.world.food.Foods
+ */
 public class FoodsSD {
     public static final FoodProperties APPLE_PIE = new FoodProperties.Builder().nutrition(8).saturationModifier(0.3F).build();
     public static final FoodProperties CALAMARI = new FoodProperties.Builder().nutrition(3).saturationModifier(0.1F).build();
     public static final FoodProperties COOKED_CALAMARI = new FoodProperties.Builder().nutrition(5).saturationModifier(0.6F).build();
-    public static final FoodProperties POTTAGE = stew(6).build();
+    public static final FoodProperties POTTAGE = Foods.stew(6).build();
     public static final FoodProperties BROWN_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
     public static final FoodProperties RED_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
-
-    private static FoodProperties.Builder stew(int i) {
-        return new FoodProperties.Builder().nutrition(i).saturationModifier(0.6F);
-    }
+    public static final FoodProperties SHELF_MUSHROOM = new FoodProperties.Builder().nutrition(2).saturationModifier(0.8F).build();
+    public static final FoodProperties LIGHT_STEW = Foods.stew(3).build();
 }

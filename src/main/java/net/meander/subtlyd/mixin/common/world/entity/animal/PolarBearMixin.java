@@ -1,5 +1,7 @@
 package net.meander.subtlyd.mixin.common.world.entity.animal;
 
+import net.meander.subtlyd.world.level.GameRulesSD;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
@@ -20,30 +22,32 @@ public abstract class PolarBearMixin extends Animal {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void addHuntingGoal(CallbackInfo ci) {
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Salmon.class, true, true) {
+        ServerLevel level = (ServerLevel) level();
 
-            @Override
-            public boolean canUse() {
-                return this.mob.isInWater() && super.canUse();
-            }
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
+            targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Salmon.class, true, true) {
+                @Override
+                public boolean canUse() {
+                    return mob.isInWater() && super.canUse();
+                }
 
-            @Override
-            public boolean canContinueToUse() {
-                return this.mob.isInWater() && super.canContinueToUse();
-            }
-        });
+                @Override
+                public boolean canContinueToUse() {
+                    return mob.isInWater() && super.canContinueToUse();
+                }
+            });
 
-        this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Cod.class, true, true) {
+            targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Cod.class, true, true) {
+                @Override
+                public boolean canUse() {
+                    return mob.isInWater() && super.canUse();
+                }
 
-            @Override
-            public boolean canUse() {
-                return this.mob.isInWater() && super.canUse();
-            }
-
-            @Override
-            public boolean canContinueToUse() {
-                return this.mob.isInWater() && super.canContinueToUse();
-            }
-        });
+                @Override
+                public boolean canContinueToUse() {
+                    return mob.isInWater() && super.canContinueToUse();
+                }
+            });
+        }
     }
 }

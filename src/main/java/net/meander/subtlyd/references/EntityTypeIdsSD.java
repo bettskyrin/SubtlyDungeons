@@ -1,15 +1,18 @@
 package net.meander.subtlyd.references;
 
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.util.UtilSD;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.block.ColorCollection;
 
+/**
+ * @see net.minecraft.world.entity.EntityTypeIds
+ */
 public class EntityTypeIdsSD {
-    public static final ColorCollection<ResourceKey<EntityType<?>>> TENT = ColorCollection.prefixWithColor(ColorCollection.create("tent_entity")).map(EntityTypeIdsSD::create);
+    public static final ResourceKey<EntityType<?>> TENT = create("tent");
+    public static final ResourceKey<EntityType<?>> BLAST_FUNGUS = create("blast_fungus");
 
-    public static ResourceKey<EntityType<?>> create(final String name) {
-        return ResourceKey.create(Registries.ENTITY_TYPE, Util.identifier(name));
+    private static ResourceKey<EntityType<?>> create(final String name) {
+        return ResourceKey.create(Registries.ENTITY_TYPE, UtilSD.identifier(name));
     }
 }

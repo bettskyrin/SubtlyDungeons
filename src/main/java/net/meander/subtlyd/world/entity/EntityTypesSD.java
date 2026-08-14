@@ -1,29 +1,15 @@
 package net.meander.subtlyd.world.entity;
 
 import net.meander.subtlyd.references.EntityTypeIdsSD;
-import net.meander.subtlyd.world.item.ItemsSD;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.meander.subtlyd.world.entity.decoration.Tent;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.level.block.ColorCollection;
 
+/**
+ * @see net.minecraft.world.entity.EntityTypes
+ */
 public class EntityTypesSD {
-    public static final ColorCollection<EntityType<TentEntity>> TENT = ColorCollection.zipMap(ColorCollection.VALUES,
-            EntityTypeIdsSD.TENT,
-            (color, key) -> Registry.register(
-                    BuiltInRegistries.ENTITY_TYPE,
-                    key,
-                    EntityType.Builder.of(EntityTypeSD.tentFactory(() -> ItemsSD.TENT.pick(color)), MobCategory.MISC)
-                            .sized(3.5F, 1.8F)
-                            .noLootTable()
-                            .clientTrackingRange(10)
-                            .build(key))
-    );
-    public static final EntityType<BlastFungusEntity> BLAST_FUNGUS = EntityTypeSD.register(ItemsSD.BLAST_FUNGUS,
-            EntityType.Builder.<BlastFungusEntity>of(BlastFungusEntity::new, MobCategory.MISC)
-                    .noLootTable().sized(0.25F, 0.25F)
-                    .clientTrackingRange(4).
-                    updateInterval(10)
-    );
+    public static final EntityType<Tent> TENT = EntityTypes.register(EntityTypeIdsSD.TENT, EntityType.Builder.of(Tent::new, MobCategory.MISC).noLootTable().sized(3.5F, 1.8F).clientTrackingRange(10).updateInterval(Integer.MAX_VALUE).dontTrackDeltas());
+    public static final EntityType<BlastFungus> BLAST_FUNGUS = EntityTypes.register(EntityTypeIdsSD.BLAST_FUNGUS, EntityType.Builder.<BlastFungus>of(BlastFungus::new, MobCategory.MISC).noLootTable().sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10));
 }

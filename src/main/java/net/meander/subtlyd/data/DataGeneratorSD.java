@@ -2,60 +2,81 @@ package net.meander.subtlyd.data;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.meander.subtlyd.client.camera.shake.CameraShakeEventData;
+import net.meander.subtlyd.client.data.models.ModelGeneratorSD;
+import net.meander.subtlyd.client.data.models.PotionModelsProviderSD;
 import net.meander.subtlyd.core.registries.RegistriesSD;
-import net.meander.subtlyd.data.loot_table.BlockLootSD;
+import net.meander.subtlyd.data.advancements.AdvancementProviderSD;
+import net.meander.subtlyd.data.loot.packs.BlockLootSD;
+import net.meander.subtlyd.data.loot.packs.GameplayLootSD;
+import net.meander.subtlyd.data.recipies.RecipeProviderSD;
+import net.meander.subtlyd.data.registries.DynamicRegistriesSD;
 import net.meander.subtlyd.data.tags.*;
-import net.meander.subtlyd.util.Util;
+import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
+import net.meander.subtlyd.data.worldgen.features.AquaticFeaturesSD;
+import net.meander.subtlyd.data.worldgen.features.FeatureProvider;
+import net.meander.subtlyd.data.worldgen.features.TreeFeaturesSD;
+import net.meander.subtlyd.data.worldgen.features.VegetationFeaturesSD;
+import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
+import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
+import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.world.item.enchantment.EnchantmentsSD;
-import net.meander.subtlyd.world.level.levelgen.BiomeProviderSD;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.PackOutput;
 
 public class DataGeneratorSD implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
         FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
-        pack.addProvider(ModelProviderSD::new);
-        pack.addProvider((PackOutput output) -> new PotionProviderSD(output));
-        pack.addProvider(BiomeTagsSD::new);
-        pack.addProvider(ItemTagsSD::new);
-        pack.addProvider(PotionTagsSD::new);
-        pack.addProvider(EnchantmentTagsSD::new);
-        pack.addProvider(BlockTagsSD::new);
-        pack.addProvider(EntityTypeTagsSD::new);
-        pack.addProvider(RecipeProviderSD::new);
-        pack.addProvider(BlockLootSD::new);
-        pack.addProvider(DamageTypeTagsSD::new);
-        pack.addProvider(BiomeProviderSD::new);
-        pack.addProvider(AdvancementProviderSD::new);
+        tags(pack);
+        level(pack);
+        advancements(pack);
+        items(pack);
+        assets(pack);
+    }
+
+    private void assets(FabricDataGenerator.Pack pack) {
+        pack.addProvider(PotionModelsProviderSD::new);
+        pack.addProvider(ModelGeneratorSD::new);
         pack.addProvider(LanguageProviderSD::new);
+    }
 
-        pack.addProvider((output, registriesFuture) -> new FabricDynamicRegistryProvider(output, registriesFuture) {
-            @Override
-            protected void configure(HolderLookup.Provider registries, Entries entries) {
-                try {
-                    entries.addAll(registries.lookupOrThrow(Registries.ENCHANTMENT));
-                    entries.addAll(registries.lookupOrThrow(RegistriesSD.CAMERA_SHAKE_EVENT));
-                } catch (Exception e) {
-                    Util.LOGGER.error("Failed to configure dynamic registries: {}", e.getMessage());
-                }
-            }
+    private void level(FabricDataGenerator.Pack pack) {
+        pack.addProvider(BiomeTagsProviderSD::new);
+        pack.addProvider(WorldGeneratorSD::new);
+        pack.addProvider(FeatureProvider::new);
+        pack.addProvider(DynamicRegistriesSD::new);
+    }
 
-            @Override
-            public String getName() {
-                return "Subtly Dungeons Dynamic Registries";
-            }
-        });
-	}
+    private void tags(FabricDataGenerator.Pack pack) {
+        pack.addProvider(ItemTagsProviderSD::new);
+        pack.addProvider(PotionTagsProviderSD::new);
+        pack.addProvider(EnchantmentTagsProviderSD::new);
+        pack.addProvider(BlockTagsProviderSD::new);
+        pack.addProvider(EntityTypeTagsProviderSD::new);
+        pack.addProvider(DamageTypeTagsProviderSD::new);
+    }
+
+    private void advancements(FabricDataGenerator.Pack pack) {
+        pack.addProvider(RecipeProviderSD::new);
+        pack.addProvider(AdvancementProviderSD::new);
+    }
+
+    private void items(FabricDataGenerator.Pack pack) {
+        pack.addProvider(GameplayLootSD::new);
+        pack.addProvider(BlockLootSD::new);
+    }
 
     @Override
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
         registryBuilder.add(Registries.ENCHANTMENT, EnchantmentsSD::bootstrap);
         registryBuilder.add(RegistriesSD.CAMERA_SHAKE_EVENT, CameraShakeEventData::bootstrap);
+        registryBuilder.add(Registries.FEATURE, TreeFeaturesSD::registration);
+        registryBuilder.add(Registries.FEATURE, AquaticFeaturesSD::bootstrap);
+        registryBuilder.add(Registries.FEATURE, VegetationFeaturesSD::registration);
+        registryBuilder.add(Registries.PLACED_FEATURE, AquaticPlacementsSD::bootstrap);
+        registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::registration);
+        registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::registration);
     }
 }

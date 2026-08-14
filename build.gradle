@@ -13,6 +13,17 @@ base {
 fabricApi {
     configureDataGeneration {
         client = true
+        outputDirectory = project.file("src/main/generated")
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
     }
 }
 
@@ -72,14 +83,4 @@ publishing {
 
 tasks.withType(AbstractCopyTask).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs += [
-                    'src/main/generated'
-            ]
-        }
-    }
 }

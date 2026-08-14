@@ -1,6 +1,8 @@
 package net.meander.subtlyd.mixin.common.world.entity.animal;
 
 import net.meander.subtlyd.world.item.ItemsSD;
+import net.meander.subtlyd.world.level.GameRulesSD;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -26,8 +28,12 @@ public abstract class DolphinMixin extends AgeableWaterCreature {
 
     @Inject(method = "registerGoals", at = @At("TAIL"))
     private void addHuntingGoal(CallbackInfo ci) {
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Squid.class, false));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Cod.class, false));
+        ServerLevel level = (ServerLevel) level();
+
+        if (level.getGameRules().get(GameRulesSD.ADVANCED_MOBS)) {
+            targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Squid.class, false));
+            targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Cod.class, false));
+        }
     }
 
     @Redirect(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;is(Lnet/minecraft/tags/TagKey;)Z"))
@@ -35,6 +41,7 @@ public abstract class DolphinMixin extends AgeableWaterCreature {
         if (tag == ItemTags.FISHES) {
             return stack.is(tag) || stack.is(ItemsSD.CALAMARI);
         }
+
         return stack.is(tag);
     }
 }
