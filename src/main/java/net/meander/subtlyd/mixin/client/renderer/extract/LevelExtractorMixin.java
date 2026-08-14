@@ -23,7 +23,7 @@ public class LevelExtractorMixin {
     private final Minecraft minecraft = Minecraft.getInstance();
 
     @Inject(method = "isEntityVisible", at = @At("RETURN"), cancellable = true)
-    private void cullOccludedEntity(final Entity entity, final Frustum frustum, final double camX, final double camY, final double camZ, CallbackInfoReturnable<Boolean> cir) {
+    private void cullOccludedEntity(final Entity entity, final Frustum frustum, final double camX, final double camY, final double camZ, final float partialTicks, final long chunkFadeDuration, CallbackInfoReturnable<Boolean> cir) {
         Options options = minecraft.options;
 
         if (options.entityCulling().get() == EntityCullingMethod.OCCLUSION) {

@@ -181,12 +181,12 @@ public class LanguageProviderSD extends FabricLanguageProvider {
     }
 
     private void gui(TranslationBuilder translationBuilder) {
-        translationBuilder.add("createWorld.tailored.biome_scale", "Biome Scale");
-        translationBuilder.add("createWorld.tailored.continent_scale", "Continent Scale");
-        translationBuilder.add("createWorld.tailored.erosion_scale", "Erosion Scale");
-        translationBuilder.add("createWorld.tailored.master_scale", "Master World Generation Scale");
-        translationBuilder.add("createWorld.tailored.pack", "Tailored World Generation");
-        translationBuilder.add("createWorld.tailored.title", "Tailored World Generation");
+        translationBuilder.add("createWorld.custom.biome_scale", "Biome Scale");
+        translationBuilder.add("createWorld.custom.continent_scale", "Continent Scale");
+        translationBuilder.add("createWorld.custom.erosion_scale", "Erosion Scale");
+        translationBuilder.add("createWorld.custom.master_scale", "Master World Generation Scale");
+        translationBuilder.add("createWorld.custom.pack", "Custom Terrain");
+        translationBuilder.add("createWorld.custom.title", "Custom Terrain");
 
         translationBuilder.add("selectWorld.select", "Play");
 
