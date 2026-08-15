@@ -15,20 +15,20 @@ import java.nio.file.Path;
 
 public class CustomTerrainSettings {
     public static boolean isWorldCopy = false;
-    public static double masterScale = 1.0;
-    public static double continentScale = 1.0;
-    public static double biomeScale = 1.0;
-    public static double erosionScale = 1.0;
-    public static double oceanDepthScale = 1.0;
+    public static double masterScale = CustomTerrainSettingsScreen.initialMaster;
+    public static double continentScale = CustomTerrainSettingsScreen.initialContinent;
+    public static double biomeScale = CustomTerrainSettingsScreen.initialBiome;
+    public static double erosionScale = CustomTerrainSettingsScreen.initialErosion;
+    public static double oceanDepthScale = CustomTerrainSettingsScreen.initialOceanDepth;
     private static final String dataFile = "custom_terrain_settings.json";
 
     public record TerrainData(double masterScale, double continentScale, double biomeScale, double erosionScale, double oceanDepthScale) {
         public static final Codec<TerrainData> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-                Codec.DOUBLE.optionalFieldOf("master_scale", 1.0).forGetter(TerrainData::masterScale),
-                Codec.DOUBLE.optionalFieldOf("continent_scale", 1.0).forGetter(TerrainData::continentScale),
-                Codec.DOUBLE.optionalFieldOf("biome_scale", 1.0).forGetter(TerrainData::biomeScale),
-                Codec.DOUBLE.optionalFieldOf("erosion_scale", 1.0).forGetter(TerrainData::erosionScale),
-                Codec.DOUBLE.optionalFieldOf("ocean_depth_scale", 1.0).forGetter(TerrainData::oceanDepthScale)
+                Codec.DOUBLE.optionalFieldOf("master_scale", CustomTerrainSettingsScreen.initialMaster).forGetter(TerrainData::masterScale),
+                Codec.DOUBLE.optionalFieldOf("continent_scale", CustomTerrainSettingsScreen.initialContinent).forGetter(TerrainData::continentScale),
+                Codec.DOUBLE.optionalFieldOf("biome_scale", CustomTerrainSettingsScreen.initialBiome).forGetter(TerrainData::biomeScale),
+                Codec.DOUBLE.optionalFieldOf("erosion_scale", CustomTerrainSettingsScreen.initialErosion).forGetter(TerrainData::erosionScale),
+                Codec.DOUBLE.optionalFieldOf("ocean_depth_scale", CustomTerrainSettingsScreen.initialOceanDepth).forGetter(TerrainData::oceanDepthScale)
         ).apply(instance, TerrainData::new));
     }
 
@@ -38,18 +38,15 @@ public class CustomTerrainSettings {
             continentScale = 1.0;
             biomeScale = 1.0;
             erosionScale = 1.0;
-            oceanDepthScale = CustomTerrainSettingsScreen.MAX_VALUE;
+            oceanDepthScale = 1.5;
         } else {
             isWorldCopy = false;
 
-            if (getSettingsScreen() instanceof CustomTerrainSettingsScreen settingsScreen) {
-                masterScale = settingsScreen.initialMaster;
-                continentScale = settingsScreen.initialContinent;
-                biomeScale = settingsScreen.initialBiome;
-                erosionScale = settingsScreen.initialErosion;
-            } else {
-                reset();
-            }
+            masterScale = CustomTerrainSettingsScreen.initialMaster;
+            continentScale = CustomTerrainSettingsScreen.initialContinent;
+            biomeScale = CustomTerrainSettingsScreen.initialBiome;
+            erosionScale = CustomTerrainSettingsScreen.initialErosion;
+            oceanDepthScale = CustomTerrainSettingsScreen.initialOceanDepth;
         }
     }
 
@@ -59,12 +56,18 @@ public class CustomTerrainSettings {
         return currentScreen instanceof CustomTerrainSettingsScreen screen ? screen : null;
     }
 
+    private static double getSoftScale(double initialScale, double newScale) {
+        return initialScale + (newScale - 1) * WorldGeneratorSD.SOFT_SCALAR;
+    }
+
     public static void applyMasterScale(double newMasterScale) {
-        masterScale = newMasterScale;
-        continentScale = newMasterScale;
-        biomeScale = newMasterScale;
-        erosionScale = 1.0 + ((newMasterScale - 1.0) * WorldGeneratorSD.SOFT_SCALER);
-        oceanDepthScale = 1.0 + ((newMasterScale - 1.0) * WorldGeneratorSD.SOFT_SCALER);
+        if (getSettingsScreen() != null) {
+            masterScale = newMasterScale;
+            continentScale = newMasterScale;
+            biomeScale = newMasterScale;
+            erosionScale = getSoftScale(CustomTerrainSettingsScreen.initialErosion, newMasterScale);
+            oceanDepthScale = getSoftScale(CustomTerrainSettingsScreen.initialOceanDepth, newMasterScale);
+        }
     }
 
     public static void saveSettingsToFile(Path worldRoot) {

@@ -99,9 +99,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
         }
     }
 
-    /**
-     * Changes the Game Tab Layout
-     */
     @Mixin(targets = "net.minecraft.client.gui.screens.worldselection.CreateWorldScreen$GameTab")
     public static class GameTabMixin extends GridLayoutTab {
         @Shadow @Final private static Component TITLE;

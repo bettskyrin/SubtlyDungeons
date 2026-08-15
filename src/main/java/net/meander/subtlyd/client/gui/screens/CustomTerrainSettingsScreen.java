@@ -42,11 +42,11 @@ public class CustomTerrainSettingsScreen extends Screen {
     private AbstractSliderButton oceanSlider;
     public static final double MIN_VALUE = 0.1;
     public static final double MAX_VALUE = 10.0;
-    public final double initialMaster;
-    public final double initialContinent;
-    public final double initialBiome;
-    public final double initialErosion;
-    public final double initialOceanDepth;
+    public static double initialMaster = 1.0;
+    public static double initialContinent = 1.0;
+    public static double initialBiome = 1.0;
+    public static double initialErosion = 1.0;
+    public static double initialOceanDepth = 1.5;
 
     public CustomTerrainSettingsScreen(Screen lastScreen) {
         this.lastScreen = lastScreen;
@@ -88,7 +88,7 @@ public class CustomTerrainSettingsScreen extends Screen {
         );
 
         oceanSlider = new RatioSliderButton(0, 0, SLIDER_WIDTH, SLIDER_HEIGHT,
-                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, MAX_VALUE,
+                Component.translatable("createWorld.custom.ocean_depth_scale"), MIN_VALUE, 1.75,
                 CustomTerrainSettings.oceanDepthScale, v -> CustomTerrainSettings.oceanDepthScale = v
         );
 

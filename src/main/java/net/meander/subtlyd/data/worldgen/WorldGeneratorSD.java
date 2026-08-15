@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.fabricmc.fabric.api.biome.v1.ModificationPhase;
 import net.meander.subtlyd.client.gui.screens.CustomTerrainSettings;
+import net.meander.subtlyd.client.gui.screens.CustomTerrainSettingsScreen;
 import net.meander.subtlyd.data.worldgen.features.FeatureUtilsSD;
 import net.meander.subtlyd.data.worldgen.placement.AquaticPlacementsSD;
 import net.meander.subtlyd.data.worldgen.placement.MiscOverworldPlacementsSD;
@@ -16,7 +17,6 @@ import net.meander.subtlyd.data.worldgen.placement.VegetationPlacementsSD;
 import net.meander.subtlyd.tags.BiomeTagsSD;
 import net.meander.subtlyd.util.MthSD;
 import net.meander.subtlyd.util.UtilSD;
-import net.meander.subtlyd.world.level.levelgen.densityfunction.OceanDepthFunction;
 import net.minecraft.SharedConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.Registry;
@@ -61,8 +61,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class WorldGeneratorSD implements DataProvider {
-    private static final double BIOME_SCALER = 1.5;
-    public static final double SOFT_SCALER = 0.15;
+    public static final double SOFT_SCALAR = 0.15;
+    private static final double BIOME_SCALAR = 1.5;
+    private static final double EROSION_SCALAR = CustomTerrainSettingsScreen.initialErosion + ((CustomTerrainSettings.biomeScale - 1.0) * SOFT_SCALAR);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final ResourceKey<DensityFunction> offsetKey = ResourceKey.create(Registries.DENSITY_FUNCTION, Identifier.withDefaultNamespace("overworld/offset"));
     private final PackOutput packOutput;
@@ -192,7 +193,7 @@ public class WorldGeneratorSD implements DataProvider {
 
     private static JsonObject buildPackMeta() {
         final int packFormat = SharedConstants.getCurrentVersion().packVersion(PackType.SERVER_DATA).major();
-        PackMetadataSection metadata = new PackMetadataSection(Component.translatable("createWorld.tailored.pack"), new InclusiveRange<>(PackFormat.of(packFormat)));
+        PackMetadataSection metadata = new PackMetadataSection(Component.translatable("createWorld.custom.pack"), new InclusiveRange<>(PackFormat.of(packFormat)));
 
         JsonElement encodedMetadata = PackMetadataSection.SERVER_TYPE.codec().encodeStart(JsonOps.INSTANCE, metadata).getOrThrow(IllegalStateException::new);
         JsonObject root = new JsonObject();
@@ -228,13 +229,19 @@ public class WorldGeneratorSD implements DataProvider {
 
     private static JsonObject getModifiedOffsetDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps) {
         ResourceKey<DensityFunction> offsetKey = NoiseRouterData.OVERWORLD_FUNCTIONS.offset();
-        ResourceKey<DensityFunction> continentsKey = NoiseRouterData.OVERWORLD_FUNCTIONS.continents();
         HolderLookup.RegistryLookup<DensityFunction> registry = provider.lookupOrThrow(Registries.DENSITY_FUNCTION);
 
+        float scale = (float) CustomTerrainSettings.oceanDepthScale - 1.0F;
         DensityFunction originalOffset = registry.getOrThrow(offsetKey).value();
-        DensityFunction originalContinents = registry.getOrThrow(continentsKey).value();
 
-        DensityFunction modifiedOffset = new OceanDepthFunction(originalOffset, originalContinents);
+        DensityFunction invGlobalOffset = DensityFunctions.constant(-NoiseRouterData.GLOBAL_OFFSET);
+        DensityFunction depthBasis = DensityFunctions.add(originalOffset, invGlobalOffset);
+        DensityFunction modifiedDepth = DensityFunctions.mul(
+                DensityFunctions.min(DensityFunctions.constant(0.0F), depthBasis),
+                DensityFunctions.constant(scale)
+        );
+
+        DensityFunction modifiedOffset = DensityFunctions.add(originalOffset, modifiedDepth);
 
         JsonElement offsetElement = DensityFunction.CODEC.encodeStart(regOps, modifiedOffset).getOrThrow(IllegalStateException::new);
 
@@ -311,7 +318,6 @@ public class WorldGeneratorSD implements DataProvider {
     public static void customizeWorldGeneration(Path tempPackDir, HolderLookup.Provider provider) {
         try {
             RegistryOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
-            double EROSION_SCALER = 1.0 + ((CustomTerrainSettings.biomeScale - 1.0) * SOFT_SCALER);
             final Path packRoot = tempPackDir.resolve("custom_terrain");
             final Path continentsPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
             final Path erosionPath = resolveResourcePath(packRoot, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion().identifier());
@@ -329,10 +335,10 @@ public class WorldGeneratorSD implements DataProvider {
             Files.createDirectories(offsetPath.getParent());
 
             Files.writeString(packRoot.resolve(PackResources.PACK_META), GSON.toJson(packMeta));
-            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  CustomTerrainSettings.continentScale * BIOME_SCALER)));
-            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALER)));
-            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALER)));
-            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALER)));
+            Files.writeString(continentsPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(),  CustomTerrainSettings.continentScale * BIOME_SCALAR)));
+            Files.writeString(erosionPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALAR)));
+            Files.writeString(temperaturePath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALAR)));
+            Files.writeString(vegetationPath, GSON.toJson(getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALAR)));
             Files.writeString(offsetPath, GSON.toJson(getModifiedOffsetDensityFunction(provider, ops)));
 
             modifyTrees(provider, packRoot, ops);
@@ -343,7 +349,6 @@ public class WorldGeneratorSD implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cache) {
-        double EROSION_SCALER = 1.0 + ((CustomTerrainSettings.biomeScale - 1.0) * SOFT_SCALER);
         Path outputFolder = packOutput.getOutputFolder();
         List<CompletableFuture<?>> futures = new ArrayList<>();
 
@@ -351,10 +356,10 @@ public class WorldGeneratorSD implements DataProvider {
             HolderLookup.Provider provider = completableFuture.join();
             RegistryOps<JsonElement> ops = provider.createSerializationContext(JsonOps.INSTANCE);
 
-            JsonObject continents = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), CustomTerrainSettings.continentScale * BIOME_SCALER);
-            JsonObject erosion = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALER);
-            JsonObject temperature = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALER);
-            JsonObject vegetation = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALER);
+            JsonObject continents = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.continents(), CustomTerrainSettings.continentScale * BIOME_SCALAR);
+            JsonObject erosion = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.erosion(), CustomTerrainSettings.erosionScale * EROSION_SCALAR);
+            JsonObject temperature = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.temperature(), CustomTerrainSettings.biomeScale * BIOME_SCALAR);
+            JsonObject vegetation = getModifiedSimpleDensityFunction(provider, ops, NoiseRouterData.OVERWORLD_FUNCTIONS.vegetation(), CustomTerrainSettings.biomeScale * BIOME_SCALAR);
             JsonObject offset = getModifiedOffsetDensityFunction(provider, ops);
 
             Path continentsPath = resolveResourcePath(outputFolder, Registries.DENSITY_FUNCTION, NoiseRouterData.OVERWORLD_FUNCTIONS.continents().identifier());
@@ -372,6 +377,7 @@ public class WorldGeneratorSD implements DataProvider {
         } catch (Exception e) {
             UtilSD.LOGGER.error("Failed to execute datagen tasks: {}", e.getMessage());
         }
+
         return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 

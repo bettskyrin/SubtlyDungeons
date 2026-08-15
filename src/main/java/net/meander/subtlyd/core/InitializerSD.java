@@ -17,7 +17,6 @@ import net.meander.subtlyd.world.level.GameRulesSD;
 import net.meander.subtlyd.world.level.LevelSD;
 import net.meander.subtlyd.world.level.block.BlocksSD;
 import net.meander.subtlyd.world.level.block.entity.BlockEntityTypesSD;
-import net.meander.subtlyd.world.level.levelgen.densityfunction.DensityFunctionsSD;
 
 @SuppressWarnings("unused")
 public class InitializerSD implements ModInitializer {
@@ -36,7 +35,6 @@ public class InitializerSD implements ModInitializer {
     }
 
     private void level() {
-        DensityFunctionsSD.registration();
         WorldGeneratorSD.BiomeModifier.run();
         DataComponentsSD.registration();
         MobEffectsSD.init();

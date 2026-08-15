@@ -68,6 +68,7 @@
     "common.world.level.levelgen.feature.HugeRedMushroomFeatureMixin",
     "common.world.level.levelgen.feature.SnowAndFreezeFeatureMixin",
     "common.world.level.levelgen.feature.treedecorators.ShelfMushroomDecoratorMixin",
+    "common.world.level.levelgen.structure.structures.OceanMonumentStructureMixin",
     "common.world.level.levelgen.structure.structures.SwampHutPieceMixin",
     "common.world.level.storage.loot.functions.LootItemFunctionsMixin",
     "common.world.level.storage.loot.predicates.LootItemConditionTypesMixin"
