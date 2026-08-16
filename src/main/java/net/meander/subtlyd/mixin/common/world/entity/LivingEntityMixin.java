@@ -32,12 +32,15 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.ElderGuardian;
+import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
@@ -442,6 +445,26 @@ public abstract class LivingEntityMixin extends Entity {
                     }
                 }
             }
+        }
+    }
+
+    @Inject(method = "playSecondaryHurtSound", at = @At("HEAD"), cancellable = true)
+    private void playGuardianSpikeSound(DamageSource source, CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+
+        if (source.getEntity() instanceof Guardian && source.is(DamageTypes.THORNS)) {
+            entity.level().playSound(
+                    null,
+                    entity.getX(),
+                    entity.getY(),
+                    entity.getZ(),
+                    entity instanceof ElderGuardian ? SoundEventsSD.ELDER_GUARDIAN_SPIKES : SoundEventsSD.GUARDIAN_SPIKES,
+                    SoundSource.HOSTILE,
+                    1.0F,
+                    1.0F
+            );
+
+            ci.cancel();
         }
     }
 

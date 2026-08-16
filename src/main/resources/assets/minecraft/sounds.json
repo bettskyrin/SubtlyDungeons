@@ -21,6 +21,14 @@
       "subtlyd:entity/fireball/large_fireball3"
     ]
   },
+  "entity.guardian.attack": {
+    "replace": true,
+    "sounds": [
+      "subtlyd:entity/guardian/charge1",
+      "subtlyd:entity/guardian/charge2",
+      "subtlyd:entity/guardian/charge3"
+    ]
+  },
   "entity.ghast.shoot": {
     "replace": false,
     "sounds": [

@@ -25,6 +25,11 @@ public class SoundEventsSD {
     public static final SoundEvent ENDER_DRAGON_BREATH = register("entity.ender_dragon.breath");
     public static final SoundEvent EVOKER_FANGS_APPEAR = register("entity.evoker_fangs.appear");
     public static final SoundEvent WITHER_SKELETONS_SUMMONED = register("entity.wither_skeleton.summon");
+    public static final SoundEvent GUARDIAN_BEAM = register("entity.guardian.beam");
+    public static final SoundEvent GUARDIAN_SPIKES = register("entity.guardian.spikes");
+    public static final SoundEvent ELDER_GUARDIAN_ATTACK = register("entity.elder_guardian.attack");
+    public static final SoundEvent ELDER_GUARDIAN_BEAM = register("entity.elder_guardian.beam");
+    public static final SoundEvent ELDER_GUARDIAN_SPIKES = register("entity.elder_guardian.spikes");
     public static final SoundEvent BLAST_FUNGUS_THROW = register("item.blast_fungus.throw");
     public static final SoundEvent BLADE_CLASH = register("random.blade.clash");
     public static final SoundEvent BLADE_WOOD_CLASH = register("random.blade_wood.clash");

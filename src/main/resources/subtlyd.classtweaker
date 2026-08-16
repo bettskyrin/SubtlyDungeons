@@ -79,6 +79,7 @@ accessible field net/minecraft/world/level/levelgen/structure/structures/OceanMo
 # Sounds
 accessible method net/minecraft/sounds/SoundEvents register (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/sounds/SoundEvent;
 accessible method net/minecraft/sounds/SoundEvents registerForHolder (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/core/Holder$Reference;
+accessible field net/minecraft/client/resources/sounds/AbstractSoundInstance attenuation Lnet/minecraft/client/resources/sounds/SoundInstance$Attenuation;
 
 # Rendering
 accessible method net/minecraft/client/particle/CritParticle <init> (Lnet/minecraft/client/multiplayer/ClientLevel;DDDDDDLnet/minecraft/client/renderer/texture/TextureAtlasSprite;)V

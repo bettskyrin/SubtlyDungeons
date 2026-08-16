@@ -23,6 +23,7 @@
     "common.world.entity.animal.PolarBearMixin",
     "common.world.entity.animal.SquidMixin",
     "common.world.entity.boss.WitherBossMixin",
+    "common.world.entity.monster.GuardianMixin$GuardianAttackGoalMixin",
     "common.world.entity.monster.PiglinMixin",
     "common.world.entity.monster.RaiderMixin",
     "common.world.entity.monster.ZombieMixin",
@@ -108,6 +109,7 @@
     "client.renderer.debug.DebugScreenEntriesMixin",
     "client.renderer.entity.AbstractZombieRendererMixin",
     "client.renderer.entity.EntityRendererMixin",
+    "client.renderer.entity.GuardianRendererMixin",
     "client.renderer.entity.HuskRendererMixin",
     "client.renderer.entity.LivingEntityRendererMixin",
     "client.renderer.entity.SimpleEquipmentLayerMixin",
@@ -129,6 +131,7 @@
     "client.renderer.item.TridentSpecialRendererMixin",
     "client.resources.SplashManagerMixin",
     "client.resources.model.ModelManagerMixin",
+    "client.resources.sounds.GuardianAttackSoundInstanceMixin",
     "client.world.inventory.AnvilScreenMixin"
   ],
   "injectors": {

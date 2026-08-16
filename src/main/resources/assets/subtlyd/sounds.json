@@ -157,6 +157,30 @@
       "subtlyd:item/blast_fungus/blast_fungus_explode3"
     ]
   },
+  "entity.elder_guardian.attack": {
+    "subtitle": "subtitles.entity.guardian.attack",
+    "sounds": [
+      "subtlyd:entity/elder_guardian/charge1",
+      "subtlyd:entity/elder_guardian/charge2",
+      "subtlyd:entity/elder_guardian/charge3"
+    ]
+  },
+  "entity.elder_guardian.beam": {
+    "subtitle": "subtitles.entity.guardian.attack",
+    "sounds": [
+      "subtlyd:entity/elder_guardian/beam1",
+      "subtlyd:entity/elder_guardian/beam2",
+      "subtlyd:entity/elder_guardian/beam3"
+    ]
+  },
+  "entity.elder_guardian.spikes": {
+    "subtitle": "subtitles.enchant.thorns.hit",
+    "sounds": [
+      "subtlyd:entity/elder_guardian/spikes1",
+      "subtlyd:entity/elder_guardian/spikes2",
+      "subtlyd:entity/elder_guardian/spikes3"
+    ]
+  },
   "entity.ender_dragon.breath": {
     "subtitle": "subtitles.subtlyd.entity.ender_dragon.breath",
     "sounds": [
@@ -171,6 +195,22 @@
       "subtlyd:entity/evoker_fangs/fangs_appear1",
       "subtlyd:entity/evoker_fangs/fangs_appear2",
       "subtlyd:entity/evoker_fangs/fangs_appear3"
+    ]
+  },
+  "entity.guardian.beam": {
+    "subtitle": "subtitles.entity.guardian.attack",
+    "sounds": [
+      "subtlyd:entity/guardian/beam1",
+      "subtlyd:entity/guardian/beam2",
+      "subtlyd:entity/guardian/beam3"
+    ]
+  },
+  "entity.guardian.spikes": {
+    "subtitle": "subtitles.enchant.thorns.hit",
+    "sounds": [
+      "subtlyd:entity/guardian/spikes1",
+      "subtlyd:entity/guardian/spikes2",
+      "subtlyd:entity/guardian/spikes3"
     ]
   },
   "entity.wither_skeleton.summon": {
