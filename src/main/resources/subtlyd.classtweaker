@@ -72,6 +72,9 @@ accessible method net/minecraft/world/level/levelgen/feature/trunkplacers/TrunkP
 accessible field net/minecraft/data/worldgen/TerrainProvider BEACH_CONTINENTALNESS F
 accessible field net/minecraft/data/worldgen/TerrainProvider DEEP_OCEAN_CONTINENTALNESS F
 accessible class net/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$OceanMonumentPiece
+accessible field net/minecraft/world/level/levelgen/structure/pieces/StructurePiecesBuilder pieces Ljava/util/List;
+accessible field net/minecraft/world/level/levelgen/structure/StructurePiece boundingBox Lnet/minecraft/world/level/levelgen/structure/BoundingBox;
+accessible field net/minecraft/world/level/levelgen/structure/structures/OceanMonumentPieces$MonumentBuilding childPieces Ljava/util/List;
 
 # Sounds
 accessible method net/minecraft/sounds/SoundEvents register (Lnet/minecraft/resources/Identifier;)Lnet/minecraft/sounds/SoundEvent;
