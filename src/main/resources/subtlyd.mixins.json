@@ -101,6 +101,7 @@
     "client.player.LocalPlayerMixin",
     "client.renderer.GameRendererMixin",
     "client.renderer.LevelEventHandlerMixin",
+    "client.renderer.LightmapRenderStateExtractorMixin",
     "client.renderer.ScreenEffectRendererMixin",
     "client.renderer.SubmitNodeCollectionMixin",
     "client.renderer.debug.DebugRendererMixin",

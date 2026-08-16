@@ -10,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.level.material.FogType;
 import org.joml.Vector4f;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,11 +32,11 @@ public class FogRendererMixin {
 
     @Inject(method = "computeFogColor", at = @At("RETURN"))
     private void adjustWaterFogColor(final Camera camera, final float partialTicks, final ClientLevel level, final int renderDistance, final float darkenWorldAmount, final Vector4f dest, CallbackInfo ci) {
-        if (camera.getFluidInCamera() == FogType.WATER && doesNotHaveNightVision(camera)) {
+        if (camera.getFluidInCamera() == FogType.WATER && shouldSeeDarkOcean(camera)) {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {
-                float darknessLerp = Mth.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F); // TODO instead of darker fog, just actually lower the skylight levels...
+                float darknessLerp = Mth.clamp((depth - 15.0F) / 30.0F, 0.0F, 1.0F);
                 float multiplier = Mth.lerp(darknessLerp, 1.0F, 0.3F);
 
                 dest.set(dest.x() * multiplier, dest.y() * multiplier, dest.z() * multiplier, dest.w());
@@ -49,14 +50,20 @@ public class FogRendererMixin {
         OcclusionManager.getInstance().setCurrentFogEndSqr(fogEnd);
     }
 
-    private boolean doesNotHaveNightVision(Camera camera) {
+    private boolean shouldSeeDarkOcean(Camera camera) {
         Entity entity = camera.entity();
 
-        return !(entity instanceof LivingEntity livingEntity) || !livingEntity.hasEffect(MobEffects.NIGHT_VISION);
+        if (entity instanceof LivingEntity livingEntity) {
+            if (livingEntity.level().getBrightness(LightLayer.BLOCK, livingEntity.blockPosition()) <= 0) {
+                return !livingEntity.hasEffect(MobEffects.NIGHT_VISION) || !livingEntity.hasEffect(MobEffects.CONDUIT_POWER);
+            }
+        }
+
+        return true;
     }
 
     private void adjustWaterFogDistance(final Camera camera, FogData fogData, final ClientLevel level) {
-        if (camera.getFluidInCamera() == FogType.WATER && doesNotHaveNightVision(camera)) {
+        if (camera.getFluidInCamera() == FogType.WATER && shouldSeeDarkOcean(camera)) {
             float depth = level.getSeaLevel() - (float) camera.position().y();
 
             if (depth > 15.0F) {
