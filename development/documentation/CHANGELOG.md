@@ -10,12 +10,6 @@
     - Erosion Scale
     - Master World Generation Scale
 
-    Developer's Note: Ocean Depth is planned, but for a future update. We tried it, and ultimately decided to wait because
-
-    1) It significantly harmed performance for various reasons
-    2) Leaks suggest Mojang intends to update the ocean relatively soon
-    3) What fun is a deep ocean with nothing new in it yet :)
-
 ### Cauldron Stews
 - Stews can now be made in cauldrons using their crafting ingredients
 - Once an ingredient is added, the cauldron's stew becomes a Light Stew
