@@ -56,6 +56,7 @@
     "common.world.level.block.SnowyBlockMixin",
     "common.world.level.block.WaterLoggableBlocksMixin",
     "common.world.level.block.entity.BeaconBlockEntityMixin",
+    "common.world.level.block.entity.ConduitBlockEntityMixin",
     "common.world.level.block.grower.TreeGrowerMixin",
     "common.world.level.block.sounds.AmbientDesertBlockSoundsPlayerMixin",
     "common.world.level.block.sounds.AmbientLeavesBlockSoundPlayerMixin",

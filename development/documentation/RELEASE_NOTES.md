@@ -5,6 +5,12 @@ It's mod snapshot day (or night... depends on where you're from)! We have more p
 ### Guardians
 - Added Guardian Beam attack sounds
 
+### Advancements
+- Added Maelstrom Advancement
+  - Granted by activating a Conduit
+- Added Moskstraumen
+  - Granted by bringing a Conduit to full power
+
 ## Changes
 ### Oceans
 - Changed oceans to be potentially up to 50% deeper

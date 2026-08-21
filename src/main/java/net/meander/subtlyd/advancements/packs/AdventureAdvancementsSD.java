@@ -1,5 +1,6 @@
 package net.meander.subtlyd.advancements.packs;
 
+import net.meander.subtlyd.advancements.triggers.ConstructConduitTrigger;
 import net.meander.subtlyd.advancements.triggers.SleptInTentTrigger;
 import net.meander.subtlyd.advancements.triggers.StealthAttackTrigger;
 import net.meander.subtlyd.tags.BlockTagsSD;
@@ -11,6 +12,7 @@ import net.minecraft.advancements.AdvancementType;
 import net.minecraft.advancements.predicates.BlockPredicate;
 import net.minecraft.advancements.predicates.ItemPredicate;
 import net.minecraft.advancements.predicates.LocationPredicate;
+import net.minecraft.advancements.predicates.MinMaxBounds;
 import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.ItemUsedOnLocationTrigger;
 import net.minecraft.core.HolderLookup;
@@ -34,15 +36,20 @@ public class AdventureAdvancementsSD {
     public static final Component BANNER_MARKER_DESC = Component.translatable("advancements.subtlyd.banner_marker.description");
     public static final Component STEALTH_ATTACK_TITLE = Component.translatable("advancements.subtlyd.stealth_attack.title");
     public static final Component STEALTH_ATTACK_DESC = Component.translatable("advancements.subtlyd.stealth_attack.description");
+    public static final Component CREATE_CONDUIT_TITLE = Component.translatable("advancements.subtlyd.create_conduit.title");
+    public static final Component CREATE_CONDUIT_DESC = Component.translatable("advancements.subtlyd.create_conduit.description");
+    public static final Component CREATE_FULL_CONDUIT_TITLE = Component.translatable("advancements.subtlyd.create_full_conduit.title");
+    public static final Component CREATE_FULL_CONDUIT_DESC = Component.translatable("advancements.subtlyd.create_full_conduit.description");
 
     public static void register(HolderLookup.Provider registryLookup, Consumer<AdvancementHolder> consumer) {
+        AdvancementHolder root = createPlaceholder(Identifier.withDefaultNamespace("adventure/root"));
+
         Advancement.Builder.advancement()
                 .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/sleep_in_bed")))
                 .display(
                         ItemsSD.TENT.red(),
                         CAMP_FAR_AWAY_TITLE,
                         CAMP_FAR_AWAY_DESC,
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
@@ -52,12 +59,11 @@ public class AdventureAdvancementsSD {
                 .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
                 .save(consumer, UtilSD.identifier("adventure/camp_far_away"));
         Advancement.Builder.advancement()
-                .parent(createPlaceholder(Identifier.withDefaultNamespace("adventure/root")))
+                .parent(root)
                 .display(
                         Items.FILLED_MAP,
                         BANNER_MARKER_TITLE,
                         BANNER_MARKER_DESC,
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -73,7 +79,6 @@ public class AdventureAdvancementsSD {
                         ItemsSD.IRON_DAGGER,
                         STEALTH_ATTACK_TITLE,
                         STEALTH_ATTACK_DESC,
-                        null,
                         AdvancementType.GOAL,
                         true,
                         true,
@@ -82,5 +87,31 @@ public class AdventureAdvancementsSD {
                 .addCriterion("do_stealth_attack", StealthAttackTrigger.TriggerInstance.stealthAttack(
                         EntityPredicate.Builder.entity().located(LocationPredicate.Builder.location().setBlock(BlockPredicate.Builder.block().of(registryLookup.lookupOrThrow(Registries.BLOCK), BlockTagsSD.TALL_PLANTS)))))
                 .save(consumer, UtilSD.identifier("adventure/stealth_attack"));
+        AdvancementHolder createConduit = Advancement.Builder.advancement()
+                .parent(root)
+                .display(
+                        Items.HEART_OF_THE_SEA,
+                        CREATE_CONDUIT_TITLE,
+                        CREATE_CONDUIT_DESC,
+                        AdvancementType.TASK,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("conduit", ConstructConduitTrigger.TriggerInstance.constructedConduit())
+                .save(consumer, UtilSD.identifier("adventure/create_conduit"));
+        Advancement.Builder.advancement()
+                .parent(createConduit)
+                .display(
+                        Items.HEART_OF_THE_SEA,
+                        CREATE_FULL_CONDUIT_TITLE,
+                        CREATE_FULL_CONDUIT_DESC,
+                        AdvancementType.GOAL,
+                        true,
+                        true,
+                        false
+                )
+                .addCriterion("conduit", ConstructConduitTrigger.TriggerInstance.constructedConduit(MinMaxBounds.Ints.exactly(6)))
+                .save(consumer, UtilSD.identifier("adventure/create_full_conduit"));
     }
 }
