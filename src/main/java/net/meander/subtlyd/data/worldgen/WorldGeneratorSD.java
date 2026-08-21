@@ -76,7 +76,7 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     private static String resolveRegistryPath(ResourceKey<? extends Registry<?>> registryKey) {
-        return "/data" + "/" + registryKey.identifier().getNamespace() + "/" + registryKey.identifier().getPath();
+        return "/data/" + registryKey.identifier().getNamespace() + "/" + registryKey.identifier().getPath();
     }
 
     private static void modifyTrees(final HolderLookup.Provider provider, final Path root, RegistryOps<JsonElement> ops) throws Exception {
