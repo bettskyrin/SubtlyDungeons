@@ -35,5 +35,6 @@ public class GuardianAttackSoundInstanceMixin {
     private void modifyAttenuation(CallbackInfo ci) {
         GuardianAttackSoundInstance soundInstance = (GuardianAttackSoundInstance) (Object) this;
         soundInstance.attenuation = SoundInstance.Attenuation.LINEAR;
+        soundInstance.volume *= 3;
     }
 }
