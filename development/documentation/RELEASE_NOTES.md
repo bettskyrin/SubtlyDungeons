@@ -1,4 +1,4 @@
-# [5.0 Snapshot 6] - 8/14/26
+# [5.0 Snapshot 6] - UNRELEASED
 
 ## Changes
 ### World Generation
