@@ -141,13 +141,13 @@ public class ServerAdvancementManagerMixin {
 
             return new DisplayInfo(
                     displayItem,
-                    info.getTitle(),
-                    info.getDescription(),
-                    info.getBackground(),
-                    info.getType(),
-                    info.shouldShowToast(),
-                    info.shouldAnnounceChat(),
-                    info.isHidden());
+                    info.title(),
+                    info.description(),
+                    info.background(),
+                    info.type(),
+                    info.showToast(),
+                    info.announceToChat(),
+                    info.hidden());
         });
     }
 }

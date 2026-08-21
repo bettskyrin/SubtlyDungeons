@@ -42,12 +42,10 @@ public class AdventureAdvancementsSD {
                         ItemsSD.TENT.red(),
                         CAMP_FAR_AWAY_TITLE,
                         CAMP_FAR_AWAY_DESC,
-                        null,
                         AdvancementType.CHALLENGE,
                         true,
                         true,
                         false
-
                 )
                 .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
                 .save(consumer, UtilSD.identifier("adventure/camp_far_away"));
@@ -57,7 +55,6 @@ public class AdventureAdvancementsSD {
                         Items.FILLED_MAP,
                         BANNER_MARKER_TITLE,
                         BANNER_MARKER_DESC,
-                        null,
                         AdvancementType.TASK,
                         true,
                         true,
@@ -73,7 +70,6 @@ public class AdventureAdvancementsSD {
                         ItemsSD.IRON_DAGGER,
                         STEALTH_ATTACK_TITLE,
                         STEALTH_ATTACK_DESC,
-                        null,
                         AdvancementType.GOAL,
                         true,
                         true,
