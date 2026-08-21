@@ -338,6 +338,7 @@
 ### Data Tags
 - Added `is_foggy` biome tag
 - Added `is_very_foggy` biome tag
+- Added `is_slightly_foggy` biome tag
 - Added `has_cespitose` biome tag
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Added `huge_glowshroom_can_place_on` block tag

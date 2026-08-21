@@ -1,57 +1,13 @@
-# [5.0 Snapshot 5] - 8/14/26
-It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades, new blocks, bug fixes, and other small tweaks!
-
-## New Features
-### Blocks
-- Added Terracotta Stairs
-- Added Terracotta Slabs
-- Added Dyed Terracotta Stairs
-- Added Dyed Terracotta Slabs
-
-### Recipes
-- Adding Block of Raw Copper Blasting recipe
-- Adding Block of Raw Iron Blasting recipe
-- Adding Block of Raw Gold Blasting recipe
-
-### Settings
-- Added Entity Culling option
-    - Determines the entity culling method
-    - Frustrum
-      - The default culling method. Hides entities that are outside the player's FOV
-    - Occlusion
-      - Hides entities that are behind blocks or fog
-      - Performs after frustrum culling
-
-### UI
-#### Debug Screen
-- Added `entity_culling_method` debug screen entry
-- Added `visualize_entity_occlusion` debug renderer
+# [5.0 Snapshot 6] - 8/14/26
 
 ## Changes
 ### World Generation
-- Updated Baobab generation style to more closely match the version shown by Mojang
+#### Bamboo Forest
+- Changed ambient fog distance in Bamboo Jungle biomes
 
-### Textures
-- Changed Map texture to match the base game
-- Changed the Adventure Mode texture to use the Buried Treasure Map texture
-
-### Settings
-- Changed "Advanced Entity Animations" to "Fancy Entities"
-- Changed custom options ordering
-
-### Advancements
-- Changed Subspace Bubble advancement to use the Filled Map texture
-- Changed the Adventure root advancement to use the Buried Treasure Map texture
-- Changed the Voluntary Exile advancement to use the Ominous Bottle texture
-- Changed the Voluntary Exile advancement description, criteria, and parent
+#### Jungle
+- Changed ambient fog distance in Jungle biomes
 
 ## Technical Changes
-### Bug Fixes
-- Fixed bug preventing some settings from being saved
-- Fixed bug preventing quivers from displaying on armor stands
-- Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
-- Fixed Silk Touch and Shear block drops
-- Fixed bug causing missing block family recipes
-- Fixed bug causing snow layers to sometimes not generate
-- Fixed bug preventing Illusioners from using their new texture
-- Fixed bug preventing tailored world generation settings from being copied when recreating worlds
+### Data Tags
+- Added `is_slightly_foggy` biome tag
