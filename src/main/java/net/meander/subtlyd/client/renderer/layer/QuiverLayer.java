@@ -42,7 +42,7 @@ public class QuiverLayer<S extends LivingEntityRenderState, M extends EntityMode
                 parentModel.root().translateAndRotate(poseStack);
                 quiverSide.attachedLeg().translateAndRotate(poseStack);
                 poseStack.translate(quiverSide.xOffset(), Y_OFFSET, Z_OFFSET);
-                poseStack.mulPose(Axis.XP.rotationDegrees(X_ROT));
+                poseStack.rotateDegrees(Axis.XP, X_ROT);
                 submitNodeCollector.order(1).submitModel(
                         quiverModel,
                         (HumanoidRenderState) state,

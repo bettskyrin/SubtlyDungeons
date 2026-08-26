@@ -70,10 +70,10 @@ public class TentRenderer extends EntityRenderer<Tent, TentRenderState> implemen
         float scale = state.scale;
 
         poseStack.pushPose();
-        poseStack.mulPose(Axis.YP.rotationDegrees(270.0F - state.yRot));
+        poseStack.rotateDegrees(Axis.YP, 270.0F - state.yRot);
 
         if (state.hurtTime > 0) {
-            poseStack.mulPose(Axis.XP.rotationDegrees(((Mth.sin(state.hurtTime) * state.hurtTime * Math.max(0F, state.damage)) / 10F) * (float) state.hurtDir));
+            poseStack.rotateDegrees(Axis.XP, ((Mth.sin(state.hurtTime) * state.hurtTime * Math.max(0.0F, state.damage)) / 10.0F) * (float) state.hurtDir);
         }
 
         poseStack.scale(scale, scale, scale);

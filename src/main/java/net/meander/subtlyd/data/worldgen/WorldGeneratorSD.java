@@ -33,6 +33,7 @@ import net.minecraft.server.packs.PackResources;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.metadata.pack.PackFormat;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
+import net.minecraft.util.ARGB;
 import net.minecraft.util.InclusiveRange;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.attribute.EnvironmentAttributes;
@@ -44,14 +45,14 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.NoiseRouterData;
 import net.minecraft.world.level.levelgen.densityfunction.DensityFunction;
 import net.minecraft.world.level.levelgen.densityfunction.DensityFunctions;
-import net.minecraft.world.level.levelgen.densityfunction.generator.ShiftedNoiseFunction;
-import net.minecraft.world.level.levelgen.densityfunction.op.MarkerFunction;
+import net.minecraft.world.level.levelgen.densityfunction.generator.NoiseFunction;
 import net.minecraft.world.level.levelgen.feature.FallenTreeFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
 import net.minecraft.world.level.levelgen.feature.treedecorators.ShelfMushroomDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.trunkplacers.StraightTrunkPlacer;
+import org.joml.Vector3f;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -199,18 +200,18 @@ public class WorldGeneratorSD implements DataProvider {
         return root;
     }
 
+    /**
+     * @apiNote xzScale is deprecated, though is required for such precise control over biome scale.
+     */
+    @SuppressWarnings("deprecation")
     private static DensityFunction scaleDensityNode(final DensityFunction densityNode, final double scale) {
-        if (densityNode instanceof ShiftedNoiseFunction shiftedNoise) {
-            double roundedScale = MthSD.roundToTenThousandths(shiftedNoise.xzScale() / scale);
+        if (densityNode instanceof NoiseFunction noiseFunction) {
+            double roundedScale = MthSD.roundToTenThousandths(noiseFunction.xzScale() / scale);
 
-            return DensityFunctions.shiftedNoise2d(shiftedNoise.shiftX(), shiftedNoise.shiftZ(), roundedScale, shiftedNoise.noise().noiseData());
-        } else if (densityNode instanceof MarkerFunction(MarkerFunction.Type type, DensityFunction wrapped)) {
-            DensityFunction scaledDensityNode = scaleDensityNode(wrapped, scale);
-
-            return new MarkerFunction(type, scaledDensityNode);
+            return DensityFunctions.shiftedNoise2d(noiseFunction.shiftX(), noiseFunction.shiftZ(), roundedScale, noiseFunction.noise());
         }
 
-        return densityNode;
+        return densityNode.rewriteChildren(child -> scaleDensityNode(child, scale));
     }
 
     private static JsonObject getModifiedSimpleDensityFunction(final HolderLookup.Provider provider, final RegistryOps<JsonElement> regOps, final ResourceKey<DensityFunction> key, final double scale) {
@@ -358,9 +359,9 @@ public class WorldGeneratorSD implements DataProvider {
     }
 
     public static class BiomeModifier {
-        private static final int SKY_COLOR_DARK = 0x677AA1;
-        private static final int FOG_COLOR_DARK = 0x8495B8;
-        private static final int FOG_COLOR_SOGGY = 0xCAE8E6;
+        private static final Vector3f SKY_COLOR_DARK = ARGB.vector3fFromRGB24(0x677AA1);
+        private static final Vector3f FOG_COLOR_DARK = ARGB.vector3fFromRGB24(0x8495B8);
+        private static final Vector3f FOG_COLOR_SOGGY = ARGB.vector3fFromRGB24(0xCAE8E6);
 
         public static void run() {
             UtilSD.LOGGER.debug("Modifying world generation...");
@@ -373,7 +374,7 @@ public class WorldGeneratorSD implements DataProvider {
         }
 
         private static void modifySwampLike() {
-            final int SKY_COLOR = 0xD4E2FA;
+            final Vector3f SKY_COLOR = ARGB.vector3fFromRGB24(0xD4E2FA);
             final Identifier mangroveSwampAtmosphere = UtilSD.identifier("mangrove_swamp_atmosphere");
             final Identifier swampAtmosphere = UtilSD.identifier("swamp_atmosphere");
             final Identifier swampFrogWeight = UtilSD.identifier("swamp_frog_weight");
