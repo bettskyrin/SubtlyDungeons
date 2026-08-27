@@ -19,10 +19,10 @@ public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTr
         return TriggerInstance.CODEC;
     }
 
-    public void trigger(ServerPlayer player, Entity victim) {
+    public void trigger(final ServerPlayer player, final Entity victim) {
         LootContext victimContext = EntityPredicate.createContext(player, victim);
 
-        trigger(player, instance -> instance.matches(victimContext));
+        trigger(player, t -> t.matches(victimContext));
     }
 
     public record TriggerInstance(Optional<Holder<LootItemCondition>> player, Optional<Holder<LootItemCondition>> victim) implements SimpleCriterionTrigger.SimpleInstance {
@@ -31,13 +31,13 @@ public class StealthAttackTrigger extends SimpleCriterionTrigger<StealthAttackTr
                 LootItemCondition.CODEC.optionalFieldOf("victim").forGetter(TriggerInstance::victim)
         ).apply(instance, TriggerInstance::new));
 
-        public static Criterion<TriggerInstance> stealthAttack(EntityPredicate.Builder playerPredicate) {
+        public static Criterion<TriggerInstance> stealthAttack(final EntityPredicate.Builder playerPredicate) {
             return CriteriaTriggersSD.STEALTH_ATTACK.createCriterion(
                     new TriggerInstance(Optional.of(EntityPredicate.wrap(playerPredicate)), Optional.empty())
             );
         }
 
-        public boolean matches(LootContext victimContext) {
+        public boolean matches(final LootContext victimContext) {
             return victim.isEmpty() || victim.get().value().test(victimContext);
         }
     }

@@ -84,7 +84,6 @@
     "client.gui.screens.FaviconTextureMixin",
     "client.gui.screens.TitleScreenMixin",
     "client.gui.screens.WinScreenMixin",
-    "client.gui.screens.debug.GameModeIconMixin",
     "client.gui.screens.inventory.tooltip.ClientBundleTooltipMixin",
     "client.gui.screens.options.AccessibilityOptionsScreenMixin",
     "client.gui.screens.options.VideoSettingsScreenMixin",

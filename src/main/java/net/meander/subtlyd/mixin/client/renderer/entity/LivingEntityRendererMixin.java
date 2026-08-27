@@ -170,8 +170,8 @@ public class LivingEntityRendererMixin<T extends LivingEntity, S extends LivingE
             }
 
             poseStack.translate(0, yOffset, zOffset);
-            poseStack.mulPose(Axis.XP.rotationDegrees(90.0F * progress));
-            poseStack.mulPose(Axis.YP.rotationDegrees(stateSD.getClimbYaw() * progress));
+            poseStack.rotateDegrees(Axis.XP, 90.0F * progress);
+            poseStack.rotateDegrees(Axis.YP, stateSD.getClimbYaw() * progress);
         }
     }
 }

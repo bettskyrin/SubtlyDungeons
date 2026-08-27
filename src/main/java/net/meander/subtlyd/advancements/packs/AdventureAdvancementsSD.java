@@ -54,7 +54,6 @@ public class AdventureAdvancementsSD {
                         true,
                         true,
                         false
-
                 )
                 .addCriterion("camped_far_away", SleptInTentTrigger.TriggerInstance.campedFarAway(1000))
                 .save(consumer, UtilSD.identifier("adventure/camp_far_away"));
