@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_25",
   "mixins": [
     "client.entity.ScansorialEntityMixin",
+    "common.data.OverworldMaterialRulesMixin",
     "common.server.MinecraftServerMixin",
     "common.server.ReloadableServerResourcesMixin",
     "common.server.ServerAdvancementManagerMixin",
@@ -48,6 +49,7 @@
     "common.world.item.enchantment.EnchantmentMixin",
     "common.world.level.ServerExplosionMixin",
     "common.world.level.biome.BiomeMixin",
+    "common.world.level.biome.OverworldBiomeBuilderMixin",
     "common.world.level.block.BlockMixin",
     "common.world.level.block.DoublePlantBlockMixin",
     "common.world.level.block.FrostedIceBlockMixin",

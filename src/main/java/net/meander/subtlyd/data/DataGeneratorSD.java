@@ -13,6 +13,7 @@ import net.meander.subtlyd.data.recipies.RecipeProviderSD;
 import net.meander.subtlyd.data.registries.DynamicRegistriesSD;
 import net.meander.subtlyd.data.tags.*;
 import net.meander.subtlyd.data.worldgen.WorldGeneratorSD;
+import net.meander.subtlyd.data.worldgen.biome.BiomeDataSD;
 import net.meander.subtlyd.data.worldgen.features.AquaticFeaturesSD;
 import net.meander.subtlyd.data.worldgen.features.FeatureProvider;
 import net.meander.subtlyd.data.worldgen.features.TreeFeaturesSD;
@@ -78,5 +79,6 @@ public class DataGeneratorSD implements DataGeneratorEntrypoint {
         registryBuilder.add(Registries.PLACED_FEATURE, AquaticPlacementsSD::bootstrap);
         registryBuilder.add(Registries.PLACED_FEATURE, MiscOverworldPlacementsSD::registration);
         registryBuilder.add(Registries.PLACED_FEATURE, VegetationPlacementsSD::registration);
+        registryBuilder.add(Registries.BIOME, BiomeDataSD::bootstrap);
     }
 }
