@@ -1,6 +1,4 @@
-# [6.0 Snapshot 1] - UNRELEASED
-It's mod snapshot day (or night... depends on where you're from)! We have more performance upgrades, new blocks, bug fixes, and other small tweaks!
-
+# [5.0 Snapshot 6] - UNRELEASED
 ## New Features
 ### Guardians
 - Added Guardian Beam attack sounds
