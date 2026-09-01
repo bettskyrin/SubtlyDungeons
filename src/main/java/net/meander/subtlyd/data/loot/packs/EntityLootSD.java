@@ -26,8 +26,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +71,7 @@ public class EntityLootSD {
                 .add(LootItem.lootTableItem(ItemsSD.CALAMARI)
                         .apply(SmeltItemFunction.smelted()
                                 .when(LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, onFirePredicate))))
-                .setRolls(ConstantValue.exactly(1.0F))
+                .setRolls(ContextIntProviders.exactly(1))
                 .build());
 
         table.pools = newPools;
@@ -83,7 +82,7 @@ public class EntityLootSD {
 
         newPools.add(LootPool.lootPool()
                 .add(LootItem.lootTableItem(Items.LEATHER)
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2))))
                 .build());
 
         table.pools = newPools;
@@ -105,7 +104,7 @@ public class EntityLootSD {
                         .setWeight(1))
                 .add(EmptyLootItem.emptyItem()
                         .setWeight(19))
-                .setRolls(ConstantValue.exactly(1.0F))
+                .setRolls(ContextIntProviders.exactly(1))
                 .build());
 
         table.pools = newPools;

@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class GiftLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .setRolls(ConstantValue.exactly(1.0F))
+                .setRolls(ContextIntProviders.exactly(1))
                 .add(LootItem.lootTableItem(ItemsSD.APPLE_PIE))
                 .build());
 

@@ -26,7 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CampfireBlock;
 import net.minecraft.world.level.block.ColorCollection;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +37,7 @@ import java.util.Optional;
 public class ItemsSD {
     public static final Item APPLE_PIE = Items.registerItem(ItemIdsSD.APPLE_PIE, Item::new, new Item.Properties()
             .food(FoodsSD.APPLE_PIE)
-            .compostable(NumberProviders.COMPOSTABLE_ALWAYS_ADD_ONE)
+            .compostable(ContextIntProviders.COMPOSTABLE_ALWAYS_ADD_ONE)
     );
     public static final Item CALAMARI = Items.registerItem(ItemIdsSD.CALAMARI, Item::new, new Item.Properties()
             .food(FoodsSD.CALAMARI)
@@ -53,7 +53,7 @@ public class ItemsSD {
             (id, color) -> Items.registerItem(id, TentItem::new, new Item.Properties()
                     .stacksTo(1)
                     .component(DataComponentsSD.TENT_COLOR, color)
-                    .cookingFuel(NumberProviders.COOKING_TIME_WOOD_BLOCKS)
+                    .cookingFuel(ContextIntProviders.COOKING_TIME_WOOD_BLOCKS)
             )
     );
     public static final Item UNLIT_CAMPFIRE = Items.registerBlock(BlockItemIdsSD.UNLIT_CAMPFIRE, Blocks.CAMPFIRE,
@@ -73,7 +73,7 @@ public class ItemsSD {
     public static final Item SNOW_BRICK_SLAB = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_SLAB, BlocksSD.SNOW_BRICK_SLAB);
     public static final Item SNOW_BRICK_WALL = Items.registerBlock(BlockItemIdsSD.SNOW_BRICK_WALL, BlocksSD.SNOW_BRICK_WALL);
     public static final Item CHARCOAL_BLOCK = Items.registerBlock(BlockItemIdsSD.CHARCOAL_BLOCK, BlocksSD.CHARCOAL_BLOCK, new Item.Properties()
-            .cookingFuel(NumberProviders.COOKING_TIME_COAL_BLOCK)
+            .cookingFuel(ContextIntProviders.COOKING_TIME_COAL_BLOCK)
     );
     public static final Item IRON_GRATE = Items.registerBlock(BlockItemIdsSD.IRON_GRATE, BlocksSD.IRON_GRATE);
     public static final Item CHISELED_POLISHED_DRIPSTONE = Items.registerBlock(BlockItemIdsSD.CHISELED_POLISHED_DRIPSTONE, BlocksSD.CHISELED_POLISHED_DRIPSTONE);
@@ -100,7 +100,7 @@ public class ItemsSD {
     );
     public static final Item SOUL_JACK_O_LANTERN = Items.registerBlock(BlockItemIdsSD.SOUL_JACK_O_LANTERN, BlocksSD.SOUL_JACK_O_LANTERN);
     public static final Item PERSE_WILDFLOWERS = Items.registerBlock(BlockItemIdsSD.PERSE_WILDFLOWERS, BlocksSD.PERSE_WILDFLOWERS, new Item.Properties()
-            .compostable(NumberProviders.COMPOSTABLE_LOW)
+            .compostable(ContextIntProviders.COMPOSTABLE_LOW)
     );
     public static final Item LIGHT_STEW = Items.registerItem(ItemIdsSD.LIGHT_STEW, Item::new, new Item.Properties()
             .stacksTo(1)

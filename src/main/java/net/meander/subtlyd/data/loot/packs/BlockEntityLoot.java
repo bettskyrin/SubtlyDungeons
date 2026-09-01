@@ -8,7 +8,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.function.BiConsumer;
 
@@ -16,7 +16,7 @@ public class BlockEntityLoot {
     public static void register(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> writer) {
         LootTable.Builder cauldronLoot = LootTable.lootTable()
                 .withPool(LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
+                        .setRolls(ContextIntProviders.exactly(1))
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(25).apply(SetPotionFunction.setPotion(Potions.HEALING)))
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(25).apply(SetPotionFunction.setPotion(Potions.POISON)))
                         .add(LootItem.lootTableItem(Items.POTION).setWeight(15).apply(SetPotionFunction.setPotion(Potions.SWIFTNESS)))

@@ -15,8 +15,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.SequenceFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,9 +106,9 @@ public class ChestLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(2).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(2).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(2).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
                 .build());
 
         table.pools = newPools;
@@ -121,7 +120,7 @@ public class ChestLootSD {
         newPools.add(LootPool.lootPool()
                 .add(LootItem.lootTableItem(ItemsSD.APPLE_PIE).setWeight(97))
                 .add(EmptyLootItem.emptyItem().setWeight(903))
-                .setRolls(ConstantValue.exactly(1))
+                .setRolls(ContextIntProviders.exactly(1))
                 .build());
 
         table.pools = newPools;
@@ -131,7 +130,8 @@ public class ChestLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .add(LootItem.lootTableItem(ItemsSD.CALAMARI).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
+                .add(LootItem.lootTableItem(ItemsSD.CALAMARI).setWeight(2)
+                        .apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 3))))
                 .build());
 
         table.pools = newPools;
@@ -141,9 +141,9 @@ public class ChestLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.IRON_DAGGER).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.COPPER_DAGGER).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
                 .build());
 
         table.pools = newPools;
@@ -153,8 +153,8 @@ public class ChestLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
+                .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
                 .build());
 
         table.pools = newPools;
@@ -164,7 +164,7 @@ public class ChestLootSD {
         List<LootPool> newPools = new ArrayList<>(table.pools);
 
         newPools.add(LootPool.lootPool()
-                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
+                .add(LootItem.lootTableItem(ItemsSD.QUIVER).setWeight(1).apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1))))
                 .build());
 
         table.pools = newPools;
@@ -176,7 +176,7 @@ public class ChestLootSD {
         newPools.add(LootPool.lootPool()
                 .add(LootItem.lootTableItem(ItemsSD.HEAVY_SHIELD).setWeight(1))
                 .add(EmptyLootItem.emptyItem().setWeight(9))
-                .setRolls(ConstantValue.exactly(1))
+                .setRolls(ContextIntProviders.exactly(1))
                 .build());
 
         table.pools = newPools;
