@@ -1,7 +1,5 @@
 package net.meander.subtlyd.client.gui.components;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -18,10 +16,10 @@ import org.jspecify.annotations.NonNull;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-public abstract class GameTabButton extends AbstractButton {
-    protected static final GameTabButton.CreateNarration DEFAULT_NARRATION = Supplier::get;
-    protected final GameTabButton.OnPress onPress;
-    protected final GameTabButton.CreateNarration createNarration;
+public abstract class ThumbnailButton extends AbstractButton {
+    protected static final ThumbnailButton.CreateNarration DEFAULT_NARRATION = Supplier::get;
+    protected final ThumbnailButton.OnPress onPress;
+    protected final ThumbnailButton.CreateNarration createNarration;
     protected final Identifier texture;
     protected final Identifier hoverTexture;
     protected final Identifier lockedTexture;
@@ -30,11 +28,11 @@ public abstract class GameTabButton extends AbstractButton {
     protected BooleanSupplier isSelected = () -> false;
     protected boolean isLocked = false;
 
-    public static GameTabButton.Builder builder(Component component, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
-        return new GameTabButton.Builder(component, onPress, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
+    public static ThumbnailButton.Builder builder(Component component, ThumbnailButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
+        return new ThumbnailButton.Builder(component, onPress, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
     }
 
-    public GameTabButton(int x, int y, int width, int height, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier lockedTexture, int textureWidth, int textureHeight) {
+    public ThumbnailButton(int x, int y, int width, int height, Component component, ThumbnailButton.OnPress onPress, ThumbnailButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier lockedTexture, int textureWidth, int textureHeight) {
         super(x, y, width, height, component);
         this.onPress = onPress;
         this.createNarration = createNarration;
@@ -86,19 +84,19 @@ public abstract class GameTabButton extends AbstractButton {
 
     public static class Builder {
         private final Component message;
-        private final GameTabButton.OnPress onPress;
+        private final ThumbnailButton.OnPress onPress;
         private int x;
         private int y;
         private int width;
         private int height;
-        private final GameTabButton.CreateNarration createNarration = GameTabButton.DEFAULT_NARRATION;
+        private final ThumbnailButton.CreateNarration createNarration = ThumbnailButton.DEFAULT_NARRATION;
         private final Identifier texture;
         private final Identifier hoverTexture;
         private final Identifier lockedTexture;
         private int textureWidth = 0;
         private int textureHeight = 0;
 
-        public Builder(Component message, GameTabButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier lockedTexture, int width, int height) {
+        public Builder(Component message, ThumbnailButton.OnPress onPress, Identifier texture, Identifier hoverTexture, Identifier lockedTexture, int width, int height) {
             this.message = message;
             this.onPress = onPress;
             this.texture = texture;
@@ -108,21 +106,21 @@ public abstract class GameTabButton extends AbstractButton {
             this.height = height;
         }
 
-        public GameTabButton.Builder pos(int x, int y) {
+        public ThumbnailButton.Builder pos(int x, int y) {
             this.x = x;
             this.y = y;
 
             return this;
         }
 
-        public GameTabButton.Builder size(int width, int height) {
+        public ThumbnailButton.Builder size(int width, int height) {
             this.width = width;
             this.height = height;
 
             return this;
         }
 
-        public GameTabButton build() {
+        public ThumbnailButton build() {
             textureWidth = (textureWidth == 0) ? width : textureWidth;
             textureHeight = (textureHeight == 0) ? height : textureHeight;
 
@@ -136,13 +134,13 @@ public abstract class GameTabButton extends AbstractButton {
     }
 
     public interface OnPress {
-        void onPress(GameTabButton button);
+        void onPress(ThumbnailButton button);
     }
 
-    public static class Plain extends GameTabButton {
+    public static class Plain extends ThumbnailButton {
         private final Font font = Minecraft.getInstance().font;
 
-        protected Plain(int i, int j, int k, int l, Component component, GameTabButton.OnPress onPress, GameTabButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
+        protected Plain(int i, int j, int k, int l, Component component, ThumbnailButton.OnPress onPress, ThumbnailButton.CreateNarration createNarration, Identifier texture, Identifier hoverTexture, Identifier disabledTexture, int textureWidth, int textureHeight) {
             super(i, j, k, l, component, onPress, createNarration, texture, hoverTexture, disabledTexture, textureWidth, textureHeight);
         }
 
