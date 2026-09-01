@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Mixin(CreateWorldScreen.class)
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public abstract class CreateWorldScreenMixin extends Screen {
     @Shadow @Final @Mutable private final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
     @Shadow @Final private WorldCreationUiState uiState;
@@ -89,7 +90,6 @@ public abstract class CreateWorldScreenMixin extends Screen {
             ci.cancel();
         }
     }
-
     @Inject(method = "createNewWorld", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/worldselection/WorldOpenFlows;createLevelFromExistingSettings(Lnet/minecraft/world/level/storage/LevelStorageSource$LevelStorageAccess;Lnet/minecraft/server/ReloadableServerResources;Lnet/minecraft/core/LayeredRegistryAccess;Lnet/minecraft/world/level/storage/LevelDataAndDimensions$WorldDataAndGenSettings;Ljava/util/Optional;)V"))
     private void saveCustomTerrainData(LayeredRegistryAccess<?> finalLayers, LevelDataAndDimensions.WorldDataAndGenSettings worldDataAndGenSettings, Optional<GameRules> gameRules, CallbackInfoReturnable<Boolean> cir, @Local(name = "newWorldAccess") Optional<LevelStorageSource.LevelStorageAccess> newWorldAccess) {
         if (newWorldAccess.isPresent()) {
