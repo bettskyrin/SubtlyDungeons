@@ -1,4 +1,4 @@
-# [5.0 Snapshot 6] - UNRELEASED
+# [5.0 Snapshot 6] - 9/1/26
 ## New Features
 ### Gravel Beach
 - Added Gravel Beach biome
