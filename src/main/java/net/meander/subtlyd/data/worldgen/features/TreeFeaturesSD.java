@@ -1,12 +1,13 @@
 package net.meander.subtlyd.data.worldgen.features;
 
 import net.meander.subtlyd.world.level.levelgen.feature.trunkplacers.BaobabTrunkPlacer;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.worldgen.BlockStateProviders;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.valueproviders.ConstantInt;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.TreeFeature;
@@ -20,11 +21,11 @@ import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvi
 public class TreeFeaturesSD {
     public static final ResourceKey<Feature> BAOBAB = FeatureUtilsSD.createKey("baobab");
 
-    private static TreeFeature.Builder createBaobab(final BlockStateProvider belowTrunkProvider) {
+    private static TreeFeature.Builder createBaobab(final Holder<BlockStateProvider> belowTrunkProvider) {
         return new TreeFeature.Builder(
-                BlockStateProvider.simple(Blocks.ACACIA_LOG),
+                BlockStateProvider.of(Blocks.ACACIA_LOG),
                 new BaobabTrunkPlacer(9, 2, 1),
-                BlockStateProvider.simple(Blocks.ACACIA_LEAVES),
+                BlockStateProvider.of(Blocks.ACACIA_LEAVES),
                 new AcaciaFoliagePlacer(ConstantInt.of(2), ConstantInt.of(0)),
                 new TwoLayersFeatureSize(1, 0, 2),
                 belowTrunkProvider
@@ -32,8 +33,8 @@ public class TreeFeaturesSD {
     }
 
     public static void registration(final BootstrapContext<Feature> context) {
-        HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
-        BlockStateProvider belowTrunkProvider = TreeFeature.defaultPlaceBelowTreeTrunkProvider(biomes);
+        HolderGetter<BlockStateProvider> blockStateProviders = context.lookup(Registries.BLOCK_STATE_PROVIDER);
+        Holder<BlockStateProvider> belowTrunkProvider = blockStateProviders.getOrThrow(BlockStateProviders.SOIL_BENEATH_TREE);
 
         context.register(BAOBAB, createBaobab(belowTrunkProvider).ignoreVines().build());
     }
