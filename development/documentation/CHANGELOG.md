@@ -80,6 +80,9 @@
   - Some snowlogged blocks have snowy texture variants
 - Changed Powder Snow to decrease mining speed on Hard difficulty
 
+### Biomes
+- Added Gravel Beach biome
+
 ### Recipes
 - Adding Block of Raw Copper Blasting recipe
 - Adding Block of Raw Iron Blasting recipe
@@ -89,6 +92,7 @@
 - Added ambient Leaves block sounds
 - Added ambient Tall Grass block sounds
 - Added ambient Red Shrub sounds
+- Added Guardian Beam attack sounds
 
 ### Music
 - Added Door by C418
@@ -126,6 +130,10 @@
   - Is granted by to light a campfire with a stick
 - Added Soup-er! advancement
   - Is granted by adding stew ingredients to a cauldron
+- Added Maelstrom Advancement
+  - Granted by activating a Conduit
+- Added Moskstraumen
+  - Granted by bringing a Conduit to full power
 
 ## Changes
 ### Combat
@@ -171,6 +179,10 @@
 - Changed Bush placement chance
 - Changed Snow to generate under trees in snowy biomes
 - Changed Super Birch Trees to have Shelf Mushrooms generate on their trunks
+
+#### Oceans
+- Changed oceans to be potentially up to 50% deeper
+- Changed oceans to become darker depending on depth
 
 #### Forest
 - Changed understory to have sparse rocks
@@ -257,9 +269,6 @@
 ### Wither
 - Wither Skull explosions can now only convert `dirt` block tag blocks to Soul Soil
 
-### Textures
-- Changed spherical potion texture
-
 ### Recipes
 - Changed map crafting recipe
   - Changed map crafting recipe to be a 9x9 of paper
@@ -278,10 +287,15 @@
 - Changed Leatherworkers to gift Bundles and Quivers
 
 ### Textures
+- Changed spherical potion texture
 - Changed the Leaf Litter texture to have fewer leaves and (hopefully) appear more natural
 - Changed Illusioner texture to match Minecraft Dungeons
 - Changed Map texture to match the base game
 - Changed the Adventure Mode texture to use the Buried Treasure Map texture
+
+### Particles
+- Changed Guardian Beams to be emissive
+- Changed Conduit particles to match Bedrock Edition
 
 ### Sounds
 - Changed Bush ambient sound to be louder
@@ -291,6 +305,8 @@
 - Changed Dead Bush ambient sound to be louder
 - Changed Bush ambient sound subtitle to match the vanilla dry grass subtitle
 - Changed ambient cold wind sounds to be less common
+- Changed Guardian Beam charge sounds
+- Changed Guardian Beam spike sounds
 
 ### Advancements
 - Changed "Traveler" advancement name to "Tentative Accommodations"
@@ -331,8 +347,8 @@
 
 ### Data Tags
 - Added `is_foggy` biome tag
-- Added `is_very_foggy` biome tag
 - Added `is_slightly_foggy` biome tag
+- Added `is_very_foggy` biome tag
 - Added `has_cespitose` biome tag
 - Added `triggers_ambient_bush_block_sounds` block tag
 - Added `huge_glowshroom_can_place_on` block tag
@@ -372,6 +388,7 @@
 - Fixed bug causing Tentative Accommodations to be granted to those who have yet to sleep in beds
 - Fixed bug allowing Withers to set fire when Destructive Mob Actions is set to "Off"
 - Fixed bug preventing some settings from being saved
+- Fixed [MC-57057](https://bugs.mojang.com/browse/MC/issues/MC-57057) - Guardian laser attack sound ignores distance
 
 # [4.2 Hotfix] - 7/15/26
 - Fixed a crash causing servers to crash when using a Blast Fungus
