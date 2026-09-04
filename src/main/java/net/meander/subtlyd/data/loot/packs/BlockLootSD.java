@@ -2,8 +2,23 @@ package net.meander.subtlyd.data.loot.packs;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
+import net.meander.subtlyd.world.item.ItemsSD;
 import net.meander.subtlyd.world.level.block.BlocksSD;
+import net.minecraft.advancements.predicates.StatePropertiesPredicate;
+import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.CampfireBlock;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,6 +32,8 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
 
     @Override
     public void generate() {
+        HolderGetter<Block> blockHolderGetter = BuiltInRegistries.BLOCK;
+
         dropSelf(BlocksSD.SNOW_BRICKS);
         dropSelf(BlocksSD.SNOW_BRICK_STAIRS);
         dropSelf(BlocksSD.SNOW_BRICK_SLAB);
@@ -33,35 +50,36 @@ public class BlockLootSD extends FabricBlockLootSubProvider {
         dropSelf(BlocksSD.STONE_TILE_SLAB);
         dropSelf(BlocksSD.STONE_TILE_WALL);
         dropSelf(BlocksSD.STONE_PILLAR);
-//        add(BlocksSD.WARPED_OVERHANG, this::createShearsOrSilkTouchOnlyDrop); // TODO
-//        add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
+        add(BlocksSD.WARPED_OVERHANG, this::createShearsOrSilkTouchOnlyDrop);
+        add(BlocksSD.REEDS, this::createShearsOrSilkTouchOnlyDrop);
         dropSelf(BlocksSD.BASALT_SLAB);
         dropSelf(BlocksSD.SOUL_JACK_O_LANTERN);
-//        add(Blocks.CAMPFIRE, LootTable.lootTable() // TODO
-//                .withPool(LootPool.lootPool()
-//                        .setRolls(ConstantValue.exactly(1.0F))
-//                        .add(AlternativesEntry.alternatives(
-//                                LootItem.lootTableItem(Items.CAMPFIRE)
-//                                        .when(hasSilkTouch())
-//                                        .when(MatchBlock.blockMatches(blockLookup, Blocks.CAMPFIRE, StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
-//                                LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE)
-//                                        .when(hasSilkTouch()),
-//                                LootItem.lootTableItem(Items.CHARCOAL)
-//                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F)))
-//                        ))
-//                ));
-//        add(Blocks.SOUL_CAMPFIRE, LootTable.lootTable()
-//                .withPool(LootPool.lootPool()
-//                        .setRolls(ConstantValue.exactly(1.0F))
-//                        .add(AlternativesEntry.alternatives(
-//                                LootItem.lootTableItem(Items.SOUL_CAMPFIRE)
-//                                        .when(MatchBlock.blockMatches(blockLookup, Blocks.SOUL_CAMPFIRE, StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
-//                                LootItem.lootTableItem(ItemsSD.UNLIT_SOUL_CAMPFIRE)
-//                                        .when(hasSilkTouch()),
-//                                LootItem.lootTableItem(Items.SOUL_SOIL)
-//                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-//                        ))
-//                ));
+        add(Blocks.CAMPFIRE, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(Items.CAMPFIRE)
+                                        .when(hasSilkTouch())
+                                        .when(MatchBlock.blockMatches(blockHolderGetter, Blocks.CAMPFIRE, StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
+                                LootItem.lootTableItem(ItemsSD.UNLIT_CAMPFIRE)
+                                        .when(hasSilkTouch()),
+                                LootItem.lootTableItem(Items.CHARCOAL)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(2)))
+                        ))
+                ));
+        add(Blocks.SOUL_CAMPFIRE, LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ContextIntProviders.exactly(1))
+                        .add(AlternativesEntry.alternatives(
+                                LootItem.lootTableItem(Items.SOUL_CAMPFIRE)
+                                        .when(hasSilkTouch())
+                                        .when(MatchBlock.blockMatches(blockHolderGetter, Blocks.SOUL_CAMPFIRE, StatePropertiesPredicate.Builder.properties().hasProperty(CampfireBlock.LIT, true))),
+                                LootItem.lootTableItem(ItemsSD.UNLIT_SOUL_CAMPFIRE)
+                                        .when(hasSilkTouch()),
+                                LootItem.lootTableItem(Items.SOUL_SOIL)
+                                        .apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(1)))
+                        ))
+                ));
         dropSelf(BlocksSD.PERSE_WILDFLOWERS);
         dropSelf(BlocksSD.OAK_WOOD_SLAB);
         dropSelf(BlocksSD.SPRUCE_WOOD_SLAB);

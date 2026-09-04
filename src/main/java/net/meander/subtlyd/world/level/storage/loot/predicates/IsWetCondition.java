@@ -16,7 +16,7 @@ public record IsWetCondition() implements LootItemCondition {
 
     @Override
     public boolean test(LootContext lootContext) {
-        Entity target = lootContext.getOptionalParameter(LootContextParams.THIS_ENTITY);
+        Entity target = lootContext.getOptional(LootContextParams.THIS_ENTITY);
 
         if (target != null) {
             return target.isInWaterOrRain();
