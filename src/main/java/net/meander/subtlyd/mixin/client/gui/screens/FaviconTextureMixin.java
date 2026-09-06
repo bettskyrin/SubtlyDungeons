@@ -39,7 +39,16 @@ public class FaviconTextureMixin {
 
                     if (texture == null) {
                         texture = new DynamicTexture(() -> "Favicon " + textureLocation, image);
+                        texture.upload();
+                        textureManager.register(textureLocation, texture);
+
                     } else {
+                        NativeImage pixels = texture.getPixels();
+
+                        if (pixels != image) {
+                            pixels.close();
+                        }
+
                         texture.setPixels(image);
                         texture.upload();
                     }
@@ -54,6 +63,7 @@ public class FaviconTextureMixin {
                 image.close();
                 UtilSD.LOGGER.error(new IllegalArgumentException("Icon must be 455x256, but was " + image.getWidth() + "x" + image.getHeight()).getMessage());
             }
+
             ci.cancel();
         }
     }

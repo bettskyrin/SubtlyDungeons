@@ -37,4 +37,4 @@
 - Added `is_slightly_foggy` biome tag
 
 ### Bug Fixes
-- Fixed [MC-57057](https://bugs.mojang.com/browse/MC/issues/MC-57057) - Guardian laser attack sound ignores distance
+- Fixed a memory leak relating to the Select World screen
