@@ -125,7 +125,8 @@ public class BlockTagsProviderSD extends FabricTagsProvider.BlockTagsProvider {
                 .add(BlockItemIds.CALCITE.block());
         tag(BlockTagsSD.TRIGGERS_AMBIENT_BUSH_BLOCK_SOUNDS)
                 .add(BlockItemIds.BUSH.block())
-                .add(BlockItemIds.RED_SHRUB.block());
+                .add(BlockItemIds.RED_SHRUB.block())
+                .add(BlockItemIds.LARGE_FERN.block());
         tag(BlockTagsSD.TRIGGERS_AMBIENT_GRASS_BLOCK_SOUNDS)
                 .add(BlockItemIds.TALL_GRASS.block())
                 .add(BlockItemIds.LARGE_FERN.block());
