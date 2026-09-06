@@ -19,34 +19,38 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(OverworldMaterialRules.class)
 public class OverworldMaterialRulesMixin {
     @Inject(method = "registerSurface", at = @At("RETURN"), cancellable = true)
-    private static void registerGravelBeachSurface(BootstrapContext<MaterialRule> context, MaterialRule sulfurCaveBands, CallbackInfoReturnable<MaterialRule> cir) {
+    private static void registerSurface(BootstrapContext<MaterialRule> context, MaterialRule sulfurCaveBands, CallbackInfoReturnable<MaterialRule> cir) {
         HolderGetter<MaterialCondition> conditions = context.lookup(Registries.MATERIAL_CONDITION);
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
 
         MaterialCondition onCeiling = MaterialRules.getCondition(conditions, VanillaMaterialConditions.ON_CEILING);
         MaterialCondition onFloor = MaterialRules.getCondition(conditions, VanillaMaterialConditions.ON_FLOOR);
+        MaterialCondition underFloor = MaterialRules.getCondition(conditions, VanillaMaterialConditions.UNDER_FLOOR);
         MaterialCondition deepUnderFloor = MaterialRules.getCondition(conditions, VanillaMaterialConditions.DEEP_UNDER_FLOOR);
         MaterialCondition notUnderDeepWater = MaterialRules.getCondition(conditions, VanillaMaterialConditions.NOT_UNDER_DEEP_WATER);
 
         MaterialRule stone = MaterialRules.state(Blocks.STONE.defaultBlockState());
         MaterialRule gravel = MaterialRules.state(Blocks.GRAVEL.defaultBlockState());
-        
         MaterialRule gravelOrStoneIfCeiling = MaterialRules.sequence(
             MaterialRules.ifTrue(onCeiling, stone), 
             gravel
         );
 
-        MaterialRule gravelBeachRule = MaterialRules.ifTrue(
-            MaterialRules.isBiome(biomes, BiomesSD.GRAVEL_BEACH),
-            MaterialRules.sequence(
+        MaterialRule riverOrBeachSurface = MaterialRules.sequence(
                 MaterialRules.ifTrue(onFloor, gravelOrStoneIfCeiling),
                 MaterialRules.ifTrue(
-                    notUnderDeepWater, 
-                    MaterialRules.ifTrue(deepUnderFloor, stone)
+                        notUnderDeepWater,
+                        MaterialRules.sequence(
+                                MaterialRules.ifTrue(underFloor, gravelOrStoneIfCeiling),
+                                MaterialRules.ifTrue(deepUnderFloor, stone)
+                        )
                 )
-            )
+        );
+        MaterialRule biomeRules = MaterialRules.ifTrue(
+                MaterialRules.isBiome(biomes, BiomesSD.GRAVEL_BEACH, BiomesSD.WARM_RIVER),
+                riverOrBeachSurface
         );
 
-        cir.setReturnValue(MaterialRules.sequence(gravelBeachRule, cir.getReturnValue()));
+        cir.setReturnValue(MaterialRules.sequence(biomeRules, cir.getReturnValue()));
     }
 }

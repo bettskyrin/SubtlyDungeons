@@ -10,6 +10,7 @@ import net.minecraft.world.level.biome.Biome;
  */
 public class BiomesSD {
     public static final ResourceKey<Biome> GRAVEL_BEACH = register("gravel_beach");
+    public static final ResourceKey<Biome> WARM_RIVER = register("warm_river");
 
     public static void registration() {
         UtilSD.LOGGER.debug("Registering biomes...");

@@ -55,7 +55,8 @@ public class ServerAdvancementManagerMixin {
             ItemsSD.LIGHT_STEW
     );
     private static final List<ResourceKey<Biome>> BIOMES = List.of(
-            BiomesSD.GRAVEL_BEACH
+            BiomesSD.GRAVEL_BEACH,
+            BiomesSD.WARM_RIVER
     );
     private static final List<Identifier> ADVANCEMENTS = List.of(
             BALANCED_DIET,

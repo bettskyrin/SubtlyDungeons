@@ -10,5 +10,6 @@ import net.minecraft.world.level.biome.Biome;
 public class BiomeDataSD {
     public static void bootstrap(BootstrapContext<Biome> context) {
         context.register(BiomesSD.GRAVEL_BEACH, OverworldBiomesSD.gravelBeach(context));
+        context.register(BiomesSD.WARM_RIVER, OverworldBiomesSD.warmRiver(context));
     }
 }

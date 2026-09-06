@@ -3,8 +3,10 @@ package net.meander.subtlyd.data.tags;
 import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagsProvider;
 import net.meander.subtlyd.tags.BiomeTagsSD;
+import net.meander.subtlyd.world.level.biome.BiomesSD;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
@@ -42,5 +44,13 @@ public class BiomeTagsProviderSD extends FabricTagsProvider<Biome> {
                 .add(Biomes.BAMBOO_JUNGLE);
         tag(BiomeTagsSD.HAS_CESPITOSE)
                 .add(Biomes.DARK_FOREST);
+        tag(BiomeTags.IS_BEACH)
+                .add(BiomesSD.GRAVEL_BEACH);
+        tag(BiomeTags.IS_RIVER)
+                .add(BiomesSD.WARM_RIVER);
+        tag(BiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
+                .add(BiomesSD.WARM_RIVER);
+        tag(BiomeTags.SPAWNS_WARM_VARIANT_FROGS)
+                .add(BiomesSD.WARM_RIVER);
     }
 }
